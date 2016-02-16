@@ -34,6 +34,7 @@ module.exports.add = function(args) {
     dateModified: timeStamp,
     url: HOST + fileName,
     fileName: fileName,
+    canonical: fileName,
     logo: HOST + 'img/logo.png',
     logoWidth: '362',
     logoHeight: '60',

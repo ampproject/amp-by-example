@@ -57,6 +57,7 @@ module.exports = function(templateRoot, template) {
       const document = DocumentParser.parse(contents);
       const stream = this;
       const title = FileName.toString(file);
+
       const args = {
         head: document.head,
         title: title,
@@ -66,9 +67,10 @@ module.exports = function(templateRoot, template) {
       };
       Metadata.add(args);
       // hack to avoid duplicate canonical refs as some examples define a canonical link
-      if (document.head.indexOf('canonical') > -1) {
-        args.fileName = '';
+      if (document.head.indexOf('rel="canonical"') > -1) {
+        args.canonical = '';
       }
+      gutil.log('File ' + args.fileName);
       const generatedContents = mu.compileAndRender(templateName, args);
       let html = '';
       generatedContents.on('data', function(chunk) {
