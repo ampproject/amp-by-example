@@ -28,6 +28,7 @@ const eslint = require('gulp-eslint');
 const gutil = require('gulp-util');
 const gulpIf = require('gulp-if');
 const favicons = require("gulp-favicons")
+const runSequence = require('run-sequence');
 
 const index = require('./tasks/compile-index');
 const compileExample = require('./tasks/compile-example');
@@ -44,7 +45,14 @@ gulp.task('serve', 'starts a local webserver', function() {
   });
 });
 
-gulp.task('deploy', 'deploy to app engine', ['clean', 'build'], shell.task([
+gulp.task('deploy', function(callback) {
+  runSequence('clean',
+              'build',
+              'deploy-to-app-engine',
+              callback);
+});
+
+gulp.task('deploy-to-app-engine', 'deploy to app engine', shell.task([
   'goapp deploy'
 ]));
 
