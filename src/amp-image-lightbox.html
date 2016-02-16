@@ -1,0 +1,65 @@
+<!--
+  #### Introduction
+
+  The amp-image-lightbox component allows the user to expand an image to fill the viewport.
+-->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <!-- #### Setup -->
+  <!-- Import the amp-image-lightbox component in the header -->
+  <script async custom-element="amp-image-lightbox" src="https://cdn.ampproject.org/v0/amp-image-lightbox-0.1.js"></script>
+  <style>body {opacity: 0}</style><noscript><style>body {opacity: 1}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+</head>
+<body>
+  <!-- #### Basic Usage -->
+  <!--
+    The amp-image-lightbox is activated using the `on` action on an `amp-img` element referencing
+    the lightbox element's ID.
+  -->
+  <amp-img on="tap:lightbox1"
+                role="button"
+                tabindex="0"
+                layout="responsive"
+                src="img/Border_Collie.jpg" width="300" height="246"></amp-img>
+  <!-- This is the lightbox. The image shown in the lightbox does not need to be defined. -->
+  <amp-image-lightbox id="lightbox1" layout="nodisplay"></amp-image-lightbox>
+
+  <!--
+    It is even possible to show different images in the same `amp-image-ligtbox`. Here is another
+    image using the same lightbox. -->
+  <amp-img on="tap:lightbox1"
+      role="button"
+      tabindex="0"
+      layout="responsive"
+      src="img/Hovawart.jpg" width="600" height="400"></amp-img>
+
+  <!-- #### Captions -->
+   <!-- The amp-image-lightbox also can optionally display a caption for the image at the bottom
+     of the viewport. This can either be the contents of the `<figcaption>` element when the image
+     is in the figure tag...  -->
+  <figure>
+    <amp-img on="tap:lightbox1"
+    role="button"
+    tabindex="0"
+    src="img/Border_Collie.jpg" width="300" height="246"></amp-img>
+    <figcaption>Border Collie.</figcaption>
+  </figure>
+
+  <!--
+    ... or the contents of the element whose ID is specified by the image's
+    <code>aria-describedby</code> attribute.
+  -->
+  <amp-img on="tap:lightbox1"
+    role="button"
+    tabindex="0"
+    aria-describedby="imageDescription"
+    src="img/Border_Collie.jpg" width="300" height="246"></amp-img>
+  <div id="imageDescription">
+    This is a border collie.
+  </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!--
+  #### Introduction
+
+  Use amp-user-notification to display a dismissable notification to the user.
+  Use this to implement a dialog to notify EU users about cookies.
+-->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <!-- #### Setup -->
+  <!-- Import the amp-user-notification component in the header. -->
+  <script async custom-element="amp-user-notification" src="https://cdn.ampproject.org/v0/amp-user-notification-0.1.js"></script>
+  <!--
+    Specify any additional css, default css class will put the amp-user-notification element
+    in the left bottom corner.
+  -->
+  <style amp-custom>
+    footer {
+      margin-bottom: 50px;
+    }
+    amp-user-notification {
+      padding: 8px;
+      background-color: beige;
+    }
+  </style>
+  <style>body {opacity: 0}</style><noscript><style>body {opacity: 1}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+</head>
+<body>
+
+  <!-- #### Using Local Storage -->
+  <!--
+    When using the local storage solution, the parameters data-show-if-href and
+    data-dismiss-if-href are optional. When the user agrees to the cookies policy,
+    a new item is added to the local storage.
+  -->
+  <amp-user-notification layout=nodisplay id="amp-user-notification1">
+    This is an amp-user-notification. It uses local storage to store the dissmissed state.
+    <a on="tap:amp-user-notification1.dismiss" class="dismiss">Dismiss</a>
+  </amp-user-notification>
+
+</body>
+</html>

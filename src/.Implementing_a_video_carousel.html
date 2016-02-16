@@ -1,0 +1,52 @@
+<!--
+  #### Introduction
+
+  This sample demonstrates how to build a video carousel with AMP HTML.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <!-- #### Setup -->
+  <!--
+    The carousel will show videos from Brightcove, YouTube and Vimeo. The Vimeo video will be embedded
+    via an iframe.
+  -->
+  <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+  <script async custom-element="amp-brightcove" src="https://cdn.ampproject.org/v0/amp-brightcove-0.1.js"></script>
+  <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+  <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style>body {opacity: 0}</style><noscript><style>body {opacity: 1}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+</head>
+<body>
+
+  <!-- #### The Video carousel --> 
+  <!-- 
+    An `amp-carousel` can contain arbitrary content including other AMP components. 
+  -->
+  <amp-carousel layout=responsive height=480 width=854 type=slides>
+    <amp-iframe width=854 height=480
+                layout=responsive
+                sandbox="allow-scripts allow-same-origin allow-popups allowfullscreen"
+                frameborder=0
+                src=https://player.vimeo.com/video/140261016>
+    </amp-iframe>
+    <amp-brightcove
+                width=854 height=480
+                layout=responsive 
+                data-account=906043040001
+                data-video-id=1401169490001
+                data-player-id=180a5658-8be8-4f33-8eba-d562ab41b40c>
+    </amp-brightcove>
+    <amp-youtube width=854 height=480
+                layout=responsive
+                data-videoid=20BySC_6HyY>
+    </amp-youtube>
+  </amp-carousel>
+
+</body>
+</html>

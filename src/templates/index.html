@@ -1,0 +1,36 @@
+<!doctype html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style amp-custom>
+      {{> css/styles.css}}
+      {{> css/material.css}}}
+      {{{styles}}}
+      main {
+        margin: 0 auto;
+        max-width: 450px;
+        padding: 0 16px;
+      }
+    </style>
+    {{> metadata.html}}
+    {{> head.html}}
+    <style>body {opacity: 0}</style><noscript><style>body {opacity: 1}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+  </head>
+  <body>
+    <div class="body">
+      {{> header.html}}
+      <main>
+      <p>A collection of <a href="https://www.ampproject.org">Accelerated Mobile Pages</a>.</p>
+        <ul>
+          {{#examples}}
+          <li><a href="{{file}}.html">{{title}}</a></li>
+          {{/examples}}
+        </ul>
+      </main>
+      {{> footer.html}}
+    </div>
+    {{> analytics.html}}
+  </body>
+</html>

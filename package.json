@@ -1,0 +1,47 @@
+{
+  "name": "amp-by-example",
+  "version": "0.1.0",
+  "description": "AMP by example",
+  "main": "index.js",
+  "engines": {
+    "node": "^4.0.0"
+  },
+  "author": "The AMP HTML Authors",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ampproject/amp-by-example.git"
+  },
+  "scripts": {
+    "test": "gulp test",
+    "lint": "gulp lint",
+    "build": "gulp build"
+  },
+  "dependencies": {
+    "connect": "^3.4.0",
+    "gcloud": "^0.27.0"
+  },
+  "devDependencies": {
+    "del": "^2.2.0",
+    "eslint": "^2.0.0",
+    "eslint-plugin-google-camelcase": "0.0.2",
+    "gulp": "^3.9.0",
+    "gulp-cached": "^1.1.0",
+    "gulp-clean": "^0.3.1",
+    "gulp-eslint": "^1.1.1",
+    "gulp-favicons": "^2.2.6",
+    "gulp-file": "^0.2.0",
+    "gulp-help": "^1.6.1",
+    "gulp-if": "^2.0.0",
+    "gulp-jasmine": "^2.2.1",
+    "gulp-live-server": "0.0.29",
+    "gulp-rename": "^1.2.2",
+    "gulp-shell": "^0.5.2",
+    "gulp-util": "^3.0.7",
+    "highlight.js": "^9.1.0",
+    "js-beautify": "^1.6.1",
+    "marked": "^0.3.5",
+    "mu2": "^0.5.20",
+    "string": "^3.3.1"
+  }
+}

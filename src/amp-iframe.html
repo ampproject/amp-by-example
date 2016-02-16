@@ -1,0 +1,72 @@
+<!--
+  #### Introduction
+
+  Embed iframes into AMP files.
+-->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <!--  Import the amp-iframe component in the header. -->
+  <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+  <style>body {opacity: 0}</style><noscript><style>body {opacity: 1}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+</head>
+<body>
+
+  <!--
+    Iframes must be either 600px away from the top or not within the first 75% of the viewport when
+    scrolled to the top – whichever is smaller. This example might not work depending on your screen
+    width. In this case it will  only show an loading indicator.
+  -->
+  <amp-iframe width="500" height="281"
+                          layout="responsive"
+                          sandbox="allow-scripts allow-same-origin"
+                          frameborder="0"
+                          src="https://player.vimeo.com/video/140261016">
+  </amp-iframe>
+
+  <!-- #### Using Placeholders -->
+  <!-- The 600px away from the top constraint can be avoided by adding a placeholder image. -->
+  <amp-iframe width="500" height="281"
+                          layout="responsive"
+                          sandbox="allow-scripts allow-same-origin allow-popups allowfullscreen"
+                          frameborder="0"
+                          src="https://player.vimeo.com/video/140261016">
+    <amp-img layout="fill" src="https://i.vimeocdn.com/video/536538454_640.webp" placeholder></amp-img>
+  </amp-iframe>
+
+  <!-- #### Vimeo -->
+  <!-- -->
+  <!-- If the video is 600px below the top, no placeholder image is required. -->
+  <amp-iframe width="500" height="281"
+                          layout="responsive"
+                          sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+                          frameborder="0"
+                          src="https://player.vimeo.com/video/140261016">
+  </amp-iframe>
+
+  <!-- #### Giphy -->
+  <!-- -->
+  <amp-iframe width="600" height="400"
+                          layout="responsive"
+                          sandbox="allow-scripts allow-same-origin allow-popups"
+                          frameborder="0"
+                          src="https://giphy.com/embed/DKG1OhBUmxL4Q">
+  </amp-iframe>
+
+  <!-- #### Google Maps -->
+  <!--
+    [Google Maps Embed API](https://developers.google.com/maps/documentation/embed/guide) and requires
+    an [API Key](https://developers.google.com/maps/documentation/embed/guide#api_key).
+  -->
+  <amp-iframe width="600" height="400"
+                          layout="responsive"
+                          sandbox="allow-scripts allow-same-origin allow-popups"
+                          frameborder="0"
+                          src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ2eUgeAK6j4ARbn5u_wAGqWA&key=AIzaSyCNCZ0Twm_HFRaZ5i-FuPDYs3rLwm4_848">
+  </amp-iframe>
+
+</body>
+</html>

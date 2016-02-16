@@ -1,0 +1,17 @@
+<header>
+  <div class="heading">
+    <h1>
+      <a href="index.html">AMP by Example</a>
+    </h1>
+    {{#subHeading}}
+    <h3>
+      {{subHeading}}
+      {{#fileName}}
+      <a href="https://github.com/ampproject/amp-by-example/tree/master/src/{{fileName}}">
+        <amp-img height=24 width="22" src="img/gist.png" alt="View on Github"></amp-img>
+      </a>
+      {{/fileName}}
+    </h3>
+    {{/subHeading}}
+  </div>
+</header>

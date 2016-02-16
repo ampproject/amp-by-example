@@ -1,0 +1,40 @@
+<!--
+  #### Introduction
+
+  The amp-facebook component allows embedding both posts and videos into AMP files.
+-->
+<!doctype html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <!-- #### Setup -->
+    <!-- Import the amp-facebook component -->
+    <script async custom-element="amp-facebook" src="https://cdn.ampproject.org/v0/amp-facebook-0.1.js"></script>
+    <style>body {opacity: 0}</style><noscript><style>body {opacity: 1}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+  </head>
+  <body>
+
+    <!-- #### Basic Usage -->
+    <!-- The `amp-facebook` component only requires the URL of the facebook post... -->
+    <amp-facebook width="552" height="303"
+                    layout="responsive"
+                    data-href="https://www.facebook.com/zuck/posts/10102593740125791">
+    </amp-facebook>
+
+    <!-- ... or video -->
+    <amp-facebook width="552" height="310"
+                    layout="responsive"
+                    data-href="https://www.facebook.com/zuck/videos/10102509264909801/">
+    </amp-facebook>
+
+    <!-- Setting data-embed-as="video" will embed the video without the accompanying card. -->
+    <amp-facebook width="552" height="310"
+                    layout="responsive"
+                    data-embed-as="video"
+                    data-href="https://www.facebook.com/zuck/videos/10102509264909801/">
+    </amp-facebook>
+
+  </body>
+</html>

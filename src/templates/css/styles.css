@@ -1,0 +1,179 @@
+/* reset */
+figure {
+  margin: 0;
+}
+/* layout */
+.body {
+  background: #fff;
+}
+.box {
+  min-height: -webkit-min-content;
+  min-height: -moz-min-content;
+  min-height: min-content;
+  display: flex;
+}
+.column {
+  flex: 1;
+  width: 0;
+}
+
+/* doc column */
+.doc code {
+  padding: 1px 5px;
+}
+.doc {
+  background-color: #fff;
+  margin-left: 32px;
+  margin-right: 16px;
+}
+.anchor-trigger {
+  float: left;
+}
+.anchor-trigger:hover + .anchor {
+  display: block;
+}
+.anchor {
+  position: relative;
+  left: -28px;
+  display: none;
+  vertical-align: middle;
+}
+.anchor:hover {
+  display: block;
+}
+.anchor-img {
+  background-image: url(https://www.gstatic.com/images/icons/material/system/1x/link_black_24dp.png);
+  width: 24px;
+  height: 24px;
+}
+
+/* code column */
+.code {
+  background-color: #f5f5f5;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-bottom: 8px;
+}
+
+pre {
+  white-space: pre-wrap;
+  margin: 0;
+  width: auto;
+  line-height: 20px;
+}
+code {
+  font-size: 12px;
+  font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
+  background-color: #f5f5f5;
+}
+
+/* preview column */
+.preview {
+  background-color: #e0e0e0;
+  margin-right: 32px;
+}
+
+/* header */
+header {
+  margin: 0 auto;
+  padding: 16px;
+}
+.heading {
+  text-align: center;
+}
+.heading h1 a {
+  text-decoration: none;
+  font-weight: 300;
+  color: #000;
+  padding: 0;
+}
+.heading h3 {
+  font-weight: 300;
+  padding: 0;
+}
+
+/* footer */
+footer {
+  margin: 16px;
+  text-align: center;
+}
+
+footer ul {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  flex-flow: row wrap;
+  justify-content: center;
+  line-height: 12px;
+}
+
+footer li:first-child {
+  border-left: none;
+}
+
+footer li {
+  display: block;
+  padding: 0 1em;
+  border-left: 1px solid #000;
+}
+
+.show-on-mobile {
+  display: none;
+}
+.hide-on-mobile {
+  display: block;
+}
+
+@media (max-width: 800px) {
+  .body {
+    min-width: 0;
+    overflow-x: hidden;
+  }
+  .heading h1 {
+    margin: 0;
+  }
+  .heading h1 a {
+    font-size: 36px;
+    font-weight: 300;
+    padding-bottom: 16px;
+  }
+  .heading h3 {
+    font-size: 24px;
+    font-weight: 300;
+    margin: 0;
+  }
+  .hide-on-mobile {
+    display: none;
+  }
+  .show-on-mobile {
+    display: block;
+  }
+  .column {
+    flex: none;
+    width: auto;
+  }
+  .box {
+    display: block;
+    margin: 0;
+  }
+  .doc {
+    padding: 16px;
+    margin: 0;
+    float: none;
+  }
+  .preview {
+    margin: 0;
+  }
+  header {
+    padding: 16px;
+  }
+  footer {
+    padding: 16px;
+  }
+  .anchor-trigger {
+    float: none;
+  }
+  .anchor-trigger:hover + .anchor {
+    display: none;
+  }
+}

@@ -1,0 +1,35 @@
+<!--
+  #### Introduction
+
+  The `amp-brightcove` component allows embedding a Brightcove
+  [Video Cloud](https://www.brightcove.com/en/online-video-platform) or
+  [Perform](https://www.brightcove.com/en/perform) player.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <!-- #### Setup -->
+  <!-- Import the Brightcove component in the header. -->
+  <script async custom-element="amp-brightcove" src="https://cdn.ampproject.org/v0/amp-brightcove-0.1.js"></script>
+  <style>body {opacity: 0}</style><noscript><style>body {opacity: 1}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+</head>
+<body>
+
+  <!-- #### Basic Usage -->
+  <!--
+    A responsive brightcove video. The required data is `data-account` and `data-video-id`. Other
+    supported parameters are `data-player-id`, `data-embed` and `data-playlist-id`.
+  -->
+  <amp-brightcove
+                  data-account="906043040001"
+                  data-video-id="1401169490001"
+                  data-player-id="180a5658-8be8-4f33-8eba-d562ab41b40c"
+                  layout="responsive" width="480" height="270">
+  </amp-brightcove>
+
+</body>
+</html>

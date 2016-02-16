@@ -1,0 +1,54 @@
+<!--
+  #### Introduction
+
+  AMP HTML is entirely built on existing web technologies. It achieves reliable
+  performance by restricting some parts of HTML, CSS and JavaScript.
+
+  To make up for those limitations AMP HTML defines a set of custom elements
+  for rich content beyond basic HTML.
+
+  To set everything up, AMP HTML requires a some boilerplate:
+-->
+<!-- -->
+<!doctype html>
+<!-- This tells everyone that this is an AMP file. `<html amp>` works too. -->
+<html ⚡>
+<!-- #### Head -->
+<!-- -->
+<head>
+  <!-- The charset definition must be the first child of the head tag. -->
+  <meta charset="utf-8">
+
+  <!--
+    AMP HTML files require a canonical link pointing to the regular HTML. If no HTML version
+    exists, it should point to itself.
+  -->
+  <link rel="canonical" href="Hello_World.html" />
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style>body {opacity: 0}</style><noscript><style>body {opacity: 1}</style></noscript>
+  <!-- The AMP runtime must be loaded from the last element in the head. -->
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+</head>
+<!-- #### Body -->
+<!-- -->
+<body>
+  <!--
+    Most HTML tags can be used directly in AMP HTML.
+  -->
+  <h1>Hello World!</h1>
+  <!--
+    Certain tags, such as the `<img>` tag, are replaced
+    with equivalent or slightly enhanced custom AMP HTML tags (see
+    [HTML Tags in the specification](https://github.com/ampproject/amphtml/blob/master/spec/amp-html-format.md)).
+
+    You can use the [ AMP Validator ](https://www.ampproject.org/docs/guides/validate.html) to check
+    if your AMP HTML file is valid AMP HTML. Simply
+    add `#development=1` to an AMP URL. Validation errors will be printed in the Javascript console.
+    You can try it with this website which is build with AMP.
+
+    Check out the [other examples](/) to learn more about AMP.
+  -->
+  <amp-img src="img/amp.jpg" width="1080" height="610" layout="responsive"></amp-img>
+
+</body>
+</html>

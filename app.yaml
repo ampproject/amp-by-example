@@ -1,0 +1,31 @@
+application: amp-by-example
+version: 1
+runtime: go
+api_version: go1
+
+handlers:
+- url: /(.*\.html)
+  mime_type: text/html
+  static_files: dist/\1
+  upload: dist/(.*\.html)
+
+# license file
+- url: /(.*\.txt)
+  mime_type: text/plain
+  static_files: dist/\1
+  upload: dist/(.*\.txt)
+
+# image files
+- url: /(.*\.(bmp|gif|ico|jpeg|jpg|png))
+  static_files: dist/\1
+  upload: dist/img/(.*\.(bmp|gif|ico|jpeg|jpg|png))
+
+- url: /.*
+  script: _go_app
+
+skip_files:
+- node_modules
+- spec
+- lib
+- src
+- tasks
