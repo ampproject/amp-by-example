@@ -70,7 +70,6 @@ module.exports = function(templateRoot, template) {
       if (document.head.indexOf('rel="canonical"') > -1) {
         args.canonical = '';
       }
-      gutil.log('File ' + args.fileName);
       const generatedContents = mu.compileAndRender(templateName, args);
       let html = '';
       generatedContents.on('data', function(chunk) {

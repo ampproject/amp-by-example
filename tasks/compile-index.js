@@ -106,9 +106,10 @@ module.exports = function(file, templateRoot, template) {
     const args = {
       examples: fileNames,
       title: 'AMP by Example',
-      fileName: targetFile
+      canonical: targetFile
     };
     Metadata.add(args);
+    args.fileName = '';
     const htmlStream = mu.compileAndRender(templateName, args);
     let html = '';
 

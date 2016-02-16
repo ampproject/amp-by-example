@@ -34,7 +34,7 @@ figure {
 }
 .anchor {
   position: relative;
-  left: -28px;
+  left: -20px;
   display: none;
   vertical-align: middle;
 }
@@ -42,9 +42,9 @@ figure {
   display: block;
 }
 .anchor-img {
-  background-image: url(https://www.gstatic.com/images/icons/material/system/1x/link_black_24dp.png);
-  width: 24px;
-  height: 24px;
+  background-image: url(img/ic_link_black_1x_web_18dp.png);
+  width: 18px;
+  height: 18px;
 }
 
 /* code column */
@@ -99,7 +99,6 @@ header h3 {
   right: 32px;
 }
 
-
 /* footer */
 footer {
   margin: 16px;
@@ -132,6 +131,17 @@ footer li {
   display: block;
 }
 
+@media (max-width: 1280px) {
+  .doc {
+    margin-left: 20px;
+  }
+  .preview {
+    margin-right: 20px;
+  }
+  .toolbar {
+    right: 20px;
+  }
+}
 @media (max-width: 800px) {
   .body {
     min-width: 0;

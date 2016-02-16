@@ -17,10 +17,11 @@
       <div class="box">
         <div class="column doc {{^inBody}}hide-on-mobile{{/inBody}}">
           {{#markedDoc}}
+          <a id="example{{id}}"></a>
           <div class="anchor-trigger">
             {{{markedDoc}}}
           </div>
-          <a id="example{{id}}"></a><a href="#example{{id}}" class="anchor">
+          <a href="#example{{id}}" class="anchor">
             <div class="anchor-img"></div>
           </a>
           {{/markedDoc}}
