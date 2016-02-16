@@ -78,19 +78,27 @@ header {
   margin: 0 auto;
   padding: 16px;
 }
-.heading {
+header {
   text-align: center;
 }
-.heading h1 a {
+header h1 a {
   text-decoration: none;
   font-weight: 300;
   color: #000;
   padding: 0;
 }
-.heading h3 {
+header h3 {
   font-weight: 300;
   padding: 0;
 }
+
+/* toolbar */
+.toolbar {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+}
+
 
 /* footer */
 footer {
@@ -129,15 +137,15 @@ footer li {
     min-width: 0;
     overflow-x: hidden;
   }
-  .heading h1 {
+  header h1 {
     margin: 0;
   }
-  .heading h1 a {
+  header h1 a {
     font-size: 36px;
     font-weight: 300;
     padding-bottom: 16px;
   }
-  .heading h3 {
+  header h3 {
     font-size: 24px;
     font-weight: 300;
     margin: 0;
@@ -166,6 +174,10 @@ footer li {
   }
   header {
     padding: 16px;
+  }
+  .toolbar {
+    top: 16px;
+    right: 16px;
   }
   footer {
     padding: 16px;
