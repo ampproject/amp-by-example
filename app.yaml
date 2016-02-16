@@ -4,10 +4,21 @@ runtime: go
 api_version: go1
 
 handlers:
+
+- url: /
+  mime_type: text/html
+  static_files: dist/index.html
+  upload: noop
+
 - url: /(.*\.html)
   mime_type: text/html
   static_files: dist/\1
   upload: dist/(.*\.html)
+
+# favicons file
+- url: /favicons/(.*\.(bmp|gif|ico|jpeg|jpg|png|xml|json|webapp))
+  static_files: dist/favicons/\1
+  upload: dist/favicons/(.*\.(bmp|gif|ico|jpeg|jpg|png|xml|json|webapp))
 
 # license file
 - url: /(.*\.txt)
