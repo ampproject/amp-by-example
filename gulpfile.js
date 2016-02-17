@@ -93,7 +93,7 @@ gulp.task("favicons", function () {
         version: 1.0,
         logging: false,
         online: false,
-        html: "../../src/templates/favicons.html",
+        html: "favicons.html",
         pipeHTML: true,
         replace: true
       }))
