@@ -35,6 +35,7 @@ figure {
 .anchor {
   position: relative;
   left: -20px;
+  top: 12px;
   display: none;
   vertical-align: middle;
 }
