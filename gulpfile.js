@@ -39,7 +39,7 @@ const FileName = require('./tasks/lib/FileName');
 gulp.task('serve', 'starts a local webserver', function() {
   const server = gls.static('dist', 8000);
   server.start();
-  gulp.watch(['dist/*.html', 'dist/img/*.{png,jpg,gif}'], function(file) {
+  gulp.watch(['dist/*.html', 'dist/img/*.{png,jpg,gif}', 'dist/video/*.{mp4,webm}'], function(file) {
     /* eslint-disable */
     server.notify.apply(server, [file]);
     /* eslint-enable */
@@ -61,6 +61,12 @@ gulp.task('copyImages', 'copy example images', function() {
   return gulp.src('src/img/*.{png,jpg,gif}')
     .pipe(cache('img'))
     .pipe(gulp.dest('dist/img'));
+});
+
+gulp.task('copyVideos', 'copy example videos', function() {
+  return gulp.src('src/video/*.{mp4,webm}')
+    .pipe(cache('video'))
+    .pipe(gulp.dest('dist/video'));
 });
 
 gulp.task('copyLicense', 'copy license', function() {
@@ -174,7 +180,7 @@ gulp.task('validate',
 
 gulp.task('build',
           'build all resources',
-          ['copyImages', 'compileHtml', 'generateIndex', 'copyLicense', 'copyStaticFiles', 'favicons']);
+          ['copyImages', 'copyVideos', 'compileHtml', 'generateIndex', 'copyLicense', 'copyStaticFiles', 'favicons']);
 
 function isFixed(file) {
   return file.eslint.fixed;
