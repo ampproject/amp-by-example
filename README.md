@@ -31,6 +31,12 @@ $ gulp create --name 'Hello World'
 $ vim src/Hello_World.html
 ```
 
+Run validate to test your AMP html meets the spec:
+
+```none
+$ gulp validate
+```
+
 Run build to generate all examples:
 
 ```none

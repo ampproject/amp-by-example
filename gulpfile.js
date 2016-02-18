@@ -31,6 +31,7 @@ const favicons = require("gulp-favicons")
 const runSequence = require('run-sequence');
 
 const index = require('./tasks/compile-index');
+const validateExample = require('./tasks/validate-example');
 const compileExample = require('./tasks/compile-example');
 const createExample = require('./tasks/create-example');
 const FileName = require('./tasks/lib/FileName');
@@ -107,6 +108,12 @@ gulp.task('compileHtml', 'compile example html files', function() {
     .pipe(gulp.dest('dist'));
 });
 
+gulp.task('validateHtml', 'validate example html files', function() {
+  return gulp.src('src/*.html')
+    .pipe(compileExample('./src/templates/', 'example.html'))
+    .pipe(validateExample('./src/templates/', 'example.html'));
+});
+
 gulp.task('generateIndex', 'generate index.html', function() {
   return gulp.src('src/*.html')
     .pipe(index('index.html', './src/templates/', 'index.html'))
@@ -160,6 +167,10 @@ gulp.task('lint', function() {
 gulp.task('default',
           'Run a webserver and watch for changes',
           ['build', 'watch', 'serve']);
+
+gulp.task('validate',
+          'Validate examples using the amp \'validate\' program',
+          ['validateHtml']);
 
 gulp.task('build',
           'build all resources',
