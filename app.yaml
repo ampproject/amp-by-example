@@ -9,30 +9,42 @@ handlers:
   mime_type: text/html
   static_files: dist/index.html
   upload: noop
+  secure: always
 
 - url: /(.*\.html)
   mime_type: text/html
   static_files: dist/\1
   upload: dist/(.*\.html)
+  secure: always
 
 # favicons file
 - url: /favicons/(.*\.(bmp|gif|ico|jpeg|jpg|png|xml|json|webapp))
   static_files: dist/favicons/\1
   upload: dist/favicons/(.*\.(bmp|gif|ico|jpeg|jpg|png|xml|json|webapp))
+  secure: always
 
 # license file
 - url: /(.*\.txt)
   mime_type: text/plain
   static_files: dist/\1
   upload: dist/(.*\.txt)
+  secure: always
 
 # image files
-- url: /(.*\.(bmp|gif|ico|jpeg|jpg|png))
+- url: /(.*\.(bmp|gif|ico|jpeg|jpg|png|webm|mp4))
   static_files: dist/\1
-  upload: dist/img/(.*\.(bmp|gif|ico|jpeg|jpg|png))
+  upload: dist/img/(.*\.(bmp|gif|ico|jpeg|jpg|png|webm|mp4))
+  secure: always
+
+# video files
+- url: /(.*\.(webm|mp4))
+  static_files: dist/\1
+  upload: dist/video/(.*\.(webm|mp4))
+  secure: always
 
 - url: /.*
   script: _go_app
+  secure: always
 
 skip_files:
 - node_modules
