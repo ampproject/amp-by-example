@@ -46,15 +46,26 @@ gulp.task('serve', 'starts a local webserver', function() {
   });
 });
 
-gulp.task('deploy', function(callback) {
+gulp.task('deploy-to-prod', 'deploy to production server', function(callback) {
   runSequence('clean',
               'build',
-              'deploy-to-app-engine',
+              'deploy-to-app-engine-prod',
               callback);
 });
 
-gulp.task('deploy-to-app-engine', 'deploy to app engine', shell.task([
+gulp.task('deploy-to-staging', 'deploy to staging server', function(callback) {
+  runSequence('clean',
+              'build',
+              'deploy-to-app-engine-staging',
+              callback);
+});
+
+gulp.task('deploy-to-app-engine-prod', 'deploy to production app engine', shell.task([
   'goapp deploy'
+]));
+
+gulp.task('deploy-to-app-engine-staging', 'deploy to staging app engine', shell.task([
+  'goapp deploy -application  amp-by-example-staging'
 ]));
 
 gulp.task('copyImages', 'copy example images', function() {
