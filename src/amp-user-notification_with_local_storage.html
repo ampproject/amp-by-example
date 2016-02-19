@@ -1,8 +1,8 @@
 <!--
   #### Introduction
 
-  Use amp-user-notification to display a dismissable notification to the user.
-  Use this to implement a dialog to notify EU users about cookies.
+  Use `amp-user-notification` to display a dismissable notification to the user.
+  Use this to implement a dialog to notify users about cookies.
 -->
 <!doctype html>
 <html ⚡>
@@ -22,8 +22,9 @@
     }
     amp-user-notification {
       padding: 8px;
-      background-color: beige;
+      background: beige;
     }
+
   </style>
   <style>body {opacity: 0}</style><noscript><style>body {opacity: 1}</style></noscript>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
@@ -32,13 +33,11 @@
 
   <!-- #### Using Local Storage -->
   <!--
-    When using the local storage solution, the parameters data-show-if-href and
-    data-dismiss-if-href are optional. When the user agrees to the cookies policy,
-    a new item is added to the local storage.
+    When the user agrees to the cookies policy, the status is saved in the local storage. 
   -->
   <amp-user-notification layout=nodisplay id="amp-user-notification1">
     This is an amp-user-notification. It uses local storage to store the dissmissed state.
-    <a on="tap:amp-user-notification1.dismiss" class="dismiss">Dismiss</a>
+    <button on="tap:amp-user-notification1.dismiss">I accept</button>
   </amp-user-notification>
 
 </body>
