@@ -65,7 +65,7 @@ module.exports = class CodeSection {
       this.cachedMarkedDoc = marked(this.doc);
       // temporary workaround to fix anchor links breaking
       // links in the text
-      if(this.cachedMarkedDoc.trim().startsWith('<h')) {
+      if (this.cachedMarkedDoc.trim().startsWith('<h')) {
         this.cachedMarkedDoc = '<div class="anchor-trigger">' +
           this.cachedMarkedDoc +
           '</div>';
