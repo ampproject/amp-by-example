@@ -20,25 +20,31 @@ const gutil = require('gulp-util');
 const path = require('path');
 
 /**
- * Replaces all whitespace with underscores. Might
- * become more sophisticated later
+ * Encodes a string into file system compatible representation.
  */
 module.exports.fromString = function(string) {
-  return string.replace(/\s+/g, '_');
+  let fileName = string.replace(/\s+/g, '_');
+  fileName = encodeURIComponent(fileName);
+  fileName = fileName.replace(/'/g,"%27");
+  fileName += '.html';
+  return fileName;
 };
 
 /**
- * Replaces all underscores with ' '.
+ * Decodes a string from a file name.
  */
 module.exports.toString = function(file) {
-  let fileName;
+  let string;
   if (typeof file === 'string') {
-    fileName = file;
+    string = file;
   } else if (typeof file.path === 'string') {
-    fileName = path.basename(file.path);
+    string = path.basename(file.path);
   } else {
     return '';
   }
-  fileName = gutil.replaceExtension(path.basename(fileName), '');
-  return fileName.replace(/_/g, ' ');
+  string = gutil.replaceExtension(path.basename(string), '');
+  string = string.replace(/_/g, ' ');
+  string = decodeURIComponent(string);
+  string = string.replace(/%27/g,"'");
+  return string;
 };
