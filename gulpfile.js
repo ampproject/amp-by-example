@@ -139,7 +139,7 @@ gulp.task('generateIndex', 'generate index.html', function() {
 
 gulp.task('create', 'create a new AMP example', function() {
   const title = process.argv[4];
-  return file(FileName.fromString(title) + '.html', '', {src: true})
+  return file(FileName.fromString(title), '', {src: true})
     .pipe(createExample('./src/templates/', 'new-example.html'))
     .pipe(gulp.dest('src'));
 });
