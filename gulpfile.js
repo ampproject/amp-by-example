@@ -39,28 +39,45 @@ const FileName = require('./tasks/lib/FileName');
 gulp.task('serve', 'starts a local webserver', function() {
   const server = gls.static('dist', 8000);
   server.start();
-  gulp.watch(['dist/*.html', 'dist/img/*.{png,jpg,gif}'], function(file) {
+  gulp.watch(['dist/*.html', 'dist/img/*.{png,jpg,gif}', 'dist/video/*.{mp4,webm}'], function(file) {
     /* eslint-disable */
     server.notify.apply(server, [file]);
     /* eslint-enable */
   });
 });
 
-gulp.task('deploy', function(callback) {
+gulp.task('deploy-to-prod', 'deploy to production server', function(callback) {
   runSequence('clean',
               'build',
-              'deploy-to-app-engine',
+              'deploy-to-app-engine-prod',
               callback);
 });
 
-gulp.task('deploy-to-app-engine', 'deploy to app engine', shell.task([
+gulp.task('deploy-to-staging', 'deploy to staging server', function(callback) {
+  runSequence('clean',
+              'build',
+              'deploy-to-app-engine-staging',
+              callback);
+});
+
+gulp.task('deploy-to-app-engine-prod', 'deploy to production app engine', shell.task([
   'goapp deploy'
+]));
+
+gulp.task('deploy-to-app-engine-staging', 'deploy to staging app engine', shell.task([
+  'goapp deploy -application  amp-by-example-staging'
 ]));
 
 gulp.task('copyImages', 'copy example images', function() {
   return gulp.src('src/img/*.{png,jpg,gif}')
     .pipe(cache('img'))
     .pipe(gulp.dest('dist/img'));
+});
+
+gulp.task('copyVideos', 'copy example videos', function() {
+  return gulp.src('src/video/*.{mp4,webm}')
+    .pipe(cache('video'))
+    .pipe(gulp.dest('dist/video'));
 });
 
 gulp.task('copyLicense', 'copy license', function() {
@@ -122,7 +139,7 @@ gulp.task('generateIndex', 'generate index.html', function() {
 
 gulp.task('create', 'create a new AMP example', function() {
   const title = process.argv[4];
-  return file(FileName.fromString(title) + '.html', '', {src: true})
+  return file(FileName.fromString(title), '', {src: true})
     .pipe(createExample('./src/templates/', 'new-example.html'))
     .pipe(gulp.dest('src'));
 });
@@ -174,7 +191,7 @@ gulp.task('validate',
 
 gulp.task('build',
           'build all resources',
-          ['copyImages', 'compileHtml', 'generateIndex', 'copyLicense', 'copyStaticFiles', 'favicons']);
+          ['copyImages', 'copyVideos', 'compileHtml', 'generateIndex', 'copyLicense', 'copyStaticFiles', 'favicons']);
 
 function isFixed(file) {
   return file.eslint.fixed;

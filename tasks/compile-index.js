@@ -90,7 +90,7 @@ module.exports = function(file, templateRoot, template) {
     const title = FileName.toString(file);
     fileNames.push({
       title: title,
-      file: FileName.fromString(title)
+      file: encodeURI(FileName.fromString(title))
     });
     cb();
   }
@@ -106,7 +106,7 @@ module.exports = function(file, templateRoot, template) {
     const args = {
       examples: fileNames,
       title: 'AMP by Example',
-      canonical: targetFile
+      canonical: '/'
     };
     Metadata.add(args);
     args.fileName = '';
