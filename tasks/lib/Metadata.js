@@ -26,7 +26,7 @@ module.exports.add = function(args) {
   const timeStamp = new Date().toISOString();
   let fileName = args.fileName;
   if (!fileName) {
-    fileName = FileName.fromString(args.title) + '.html';
+    fileName = encodeURI(FileName.fromString(args.title));
   }
   const metadata = {
     desc: 'Accelerated Mobile Pages in Action',
