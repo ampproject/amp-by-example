@@ -104,7 +104,7 @@ gulp.task("favicons", function () {
         developerURL: "http://sebastianbenz.de/",
         background: "#fff",
         path: "favicons/",
-        url: "http://amp-by-example.appspot.com/",
+        url: "https://amp-by-example.appspot.com/",
         display: "standalone",
         orientation: "portrait",
         version: 1.0,

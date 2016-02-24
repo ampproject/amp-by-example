@@ -17,7 +17,7 @@
 "use strict";
 
 const FileName = require('./FileName');
-const HOST = 'http://amp-by-example.appspot.com/';
+const HOST = 'https://amp-by-example.appspot.com/';
 
 /**
  * Adds default metadata to the given hash.
@@ -28,14 +28,16 @@ module.exports.add = function(args) {
   if (!fileName) {
     fileName = encodeURI(FileName.fromString(args.title));
   }
+  const canonical = HOST + fileName;
+  const logo = HOST + 'img/logo.png';
   const metadata = {
     desc: 'Accelerated Mobile Pages in Action',
     datePublished: timeStamp,
     dateModified: timeStamp,
     url: HOST + fileName,
     fileName: fileName,
-    canonical: fileName,
-    logo: HOST + 'img/logo.png',
+    canonical: canonical,
+    logo: logo,
     logoWidth: '362',
     logoHeight: '60',
     leader: '',
