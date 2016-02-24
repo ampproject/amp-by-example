@@ -106,7 +106,7 @@ module.exports = function(file, templateRoot, template) {
     const args = {
       examples: fileNames,
       title: 'AMP by Example',
-      canonical: '/'
+      fileName: '/'
     };
     Metadata.add(args);
     args.fileName = '';
