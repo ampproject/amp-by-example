@@ -77,6 +77,7 @@ class DocumentParser {
         this.updateHead(line);
         if (this.endOfCurrentTag(line)) {
           this.endSection();
+          this.currentTag = '';
         }
       }
       if (line.trim().endsWith('-->')) {
