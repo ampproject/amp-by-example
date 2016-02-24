@@ -1,16 +1,16 @@
 language: node_js
 node_js:
-  - "4.1"
+- '4.1'
 env:
-  - CXX=g++-4.8
+- CXX=g++-4.8
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - g++-4.8
+    - g++-4.8
 before_script:
-  - npm install -g gulp
+- npm install -g gulp
 script: gulp test && gulp clean build
 deploy:
   provider: gae
@@ -18,3 +18,6 @@ deploy:
   project: amp-by-example
   default: true
   skip_cleanup: true
+before_install:
+- openssl aes-256-cbc -K $encrypted_8592b1f8cf3c_key -iv $encrypted_8592b1f8cf3c_iv
+  -in credentials.tar.gz.enc -out credentials.tar.gz -d
