@@ -1,25 +1,27 @@
 <title>{{title}}</title>
 <meta name="description" content="{{desc}}" />
-{{#canonical}}
+{{^skipCanonical}}
 <link rel="canonical" href="{{canonical}}" >
-{{/canonical}}
+{{/skipCanonical}}
 
 <!-- Schema.org markup for Google+ -->
 <meta itemprop="name" content="{{title}}">
 <meta itemprop="description" content="{{desc}}">
-<meta itemprop="image" content="{{logo}}">
+<meta itemprop="image" content="{{leader}}">
 
 <!-- Twitter Card data -->
-<meta name="twitter:card" content="{{logoLarge}}">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@amphtml">
+<meta name="twitter:creator" content="@sebabenz">
 <meta name="twitter:title" content="{{title}}">
 <meta name="twitter:description" content="{{desc}}">
-<meta name="twitter:creator" content="@sebabenz">
+<meta name="twitter:image" content="{{leader}}">
 
 <!-- Open Graph data -->
 <meta property="og:title" content="{{title}}" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="{{url}}" />
+<meta property="og:image" content="{{leader}}" />
+<meta property="og:url" content="{{canonical}}" />
 <meta property="og:description" content="{{desc}}" />
 <meta property="og:site_name" content="AMP by Example" />
 <meta property="article:published_time" content="{{datePublished}}" />
@@ -30,7 +32,7 @@
 {
   "@context": "http://schema.org",
   "@type": "NewsArticle",
-  "mainEntityOfPage": "{{url}}",
+  "mainEntityOfPage": "{{canonical}}",
   "headline": "{{title}}",
   "datePublished": "{{datePublished}}",
   "dateModified": "{{dateModified}}",
