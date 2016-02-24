@@ -68,7 +68,7 @@ module.exports = function(templateRoot, template) {
       Metadata.add(args);
       // hack to avoid duplicate canonical refs as some examples define a canonical link
       if (document.head.indexOf('rel="canonical"') > -1) {
-        args.canonical = '';
+        args.skipCanonical = 'true';
       }
       const generatedContents = mu.compileAndRender(templateName, args);
       let html = '';

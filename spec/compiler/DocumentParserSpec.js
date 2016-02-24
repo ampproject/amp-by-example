@@ -95,6 +95,10 @@ describe("DocumentParser", function() {
             newSection('', ANOTHER_TAG + '\n', "")
         ]);
     });
+    it("resets current tag after tag end", function() {
+      var doc = parse(HEAD, COMMENT, META, LINK, HEAD_END);
+      expect(doc.sections.length).toEqual(3);
+    });
   });
 
   it("adds content in body to preview", function() {

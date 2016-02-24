@@ -27,7 +27,7 @@ const jasmine = require('gulp-jasmine');
 const eslint = require('gulp-eslint');
 const gutil = require('gulp-util');
 const gulpIf = require('gulp-if');
-const favicons = require("gulp-favicons")
+const favicons = require("gulp-favicons");
 const runSequence = require('run-sequence');
 
 const index = require('./tasks/compile-index');
@@ -39,48 +39,50 @@ const FileName = require('./tasks/lib/FileName');
 gulp.task('serve', 'starts a local webserver', function() {
   const server = gls.static('dist', 8000);
   server.start();
-  gulp.watch(['dist/*.html', 'dist/img/*.{png,jpg,gif}', 'dist/video/*.{mp4,webm}'], function(file) {
+  gulp.watch(['dist/*.html',
+              'dist/img/*.{png,jpg,gif}',
+              'dist/video/*.{mp4,webm}'], function(file) {
     /* eslint-disable */
     server.notify.apply(server, [file]);
     /* eslint-enable */
   });
 });
 
-gulp.task('deploy-to-prod', 'deploy to production server', function(callback) {
+gulp.task('deploy:prod', 'deploy to production server', function(callback) {
   runSequence('clean',
               'build',
-              'deploy-to-app-engine-prod',
+              'deploy:appeng:prod',
               callback);
 });
 
-gulp.task('deploy-to-staging', 'deploy to staging server', function(callback) {
+gulp.task('deploy:staging', 'deploy to staging server', function(callback) {
   runSequence('clean',
               'build',
-              'deploy-to-app-engine-staging',
+              'deploy:appeng:staging',
               callback);
 });
 
-gulp.task('deploy-to-app-engine-prod', 'deploy to production app engine', shell.task([
+gulp.task('deploy:appeng:prod', 'deploy to production app engine', shell.task([
   'goapp deploy'
 ]));
 
-gulp.task('deploy-to-app-engine-staging', 'deploy to staging app engine', shell.task([
+gulp.task('deploy:appeng:staging', 'deploy to staging app engine', shell.task([
   'goapp deploy -application  amp-by-example-staging'
 ]));
 
-gulp.task('copyImages', 'copy example images', function() {
+gulp.task('copy:images', 'copy example images', function() {
   return gulp.src('src/img/*.{png,jpg,gif}')
     .pipe(cache('img'))
     .pipe(gulp.dest('dist/img'));
 });
 
-gulp.task('copyVideos', 'copy example videos', function() {
+gulp.task('copy:videos', 'copy example videos', function() {
   return gulp.src('src/video/*.{mp4,webm}')
     .pipe(cache('video'))
     .pipe(gulp.dest('dist/video'));
 });
 
-gulp.task('copyLicense', 'copy license', function() {
+gulp.task('copy:license', 'copy license', function() {
   return gulp.src('LICENSE')
     .pipe(cache('static'))
     .pipe(rename(function(path) {
@@ -89,14 +91,14 @@ gulp.task('copyLicense', 'copy license', function() {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('copyStaticFiles', 'copy static files', function() {
-  return gulp.src('static/*.txt')
+gulp.task('copy:static', 'copy static files', function() {
+  return gulp.src('static/*.*')
     .pipe(cache('static'))
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task("favicons", function () {
-    return gulp.src("src/img/favicon.png")
+gulp.task("compile:favicons", function() {
+  return gulp.src("src/img/favicon.png")
       .pipe(cache('static'))
       .pipe(favicons({
         appName: "AMP by Example",
@@ -105,7 +107,7 @@ gulp.task("favicons", function () {
         developerURL: "http://sebastianbenz.de/",
         background: "#fff",
         path: "favicons/",
-        url: "http://amp-by-example.appspot.com/",
+        url: "https://amp-by-example.appspot.com/",
         display: "standalone",
         orientation: "portrait",
         version: 1.0,
@@ -119,19 +121,18 @@ gulp.task("favicons", function () {
       .pipe(gulp.dest("dist/favicons"));
 });
 
-gulp.task('compileHtml', 'compile example html files', function() {
+gulp.task('validate:example', 'validate example html files', function() {
+  return gulp.src('src/*.html')
+    .pipe(validateExample('./src/templates/', 'example.html'));
+});
+
+gulp.task('compile:example', 'compile example html files', function() {
   return gulp.src('src/*.html')
     .pipe(compileExample('./src/templates/', 'example.html'))
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('validateHtml', 'validate example html files', function() {
-  return gulp.src('src/*.html')
-    .pipe(compileExample('./src/templates/', 'example.html'))
-    .pipe(validateExample('./src/templates/', 'example.html'));
-});
-
-gulp.task('generateIndex', 'generate index.html', function() {
+gulp.task('compile:index', 'generate index.html', function() {
   return gulp.src('src/*.html')
     .pipe(index('index.html', './src/templates/', 'index.html'))
     .pipe(gulp.dest('dist'));
@@ -151,8 +152,8 @@ gulp.task('clean', 'delete all generated resources', function() {
 
 gulp.task('watch', 'watch for changes in the examples', function() {
   gulp.watch(['src/**/*.html', 'src/**/*.css'],
-             ['compileHtml', 'generateIndex']);
-  gulp.watch('src/img/*.{png,jpg,gif}', ['copyImages']);
+             ['compile:example', 'compile:index']);
+  gulp.watch('src/img/*.{png,jpg,gif}', ['copy:images']);
 });
 
 gulp.task('test', function() {
@@ -163,7 +164,7 @@ gulp.task('test', function() {
 gulp.task('lint', function() {
   const hasFixFlag = (process.argv.slice(2).indexOf('--fix') >= 0);
   let errorsFound = false;
-  return gulp.src(['tasks/**/*.js'], {base: './'})
+  return gulp.src(['tasks/**/*.js', 'gulpfile.js'], {base: './'})
     .pipe(eslint({fix: hasFixFlag}))
     .pipe(eslint.formatEach('stylish', function(msg) {
       errorsFound = true;
@@ -181,17 +182,19 @@ gulp.task('lint', function() {
     });
 });
 
-gulp.task('default',
-          'Run a webserver and watch for changes',
-          ['build', 'watch', 'serve']);
+gulp.task('default', 'Run a webserver and watch for changes', [
+  'build',
+  'watch',
+  'serve']);
 
-gulp.task('validate',
-          'Validate examples using the amp \'validate\' program',
-          ['validateHtml']);
-
-gulp.task('build',
-          'build all resources',
-          ['copyImages', 'copyVideos', 'compileHtml', 'generateIndex', 'copyLicense', 'copyStaticFiles', 'favicons']);
+gulp.task('build', 'build all resources', [
+  'copy:images',
+  'copy:videos',
+  'copy:license',
+  'copy:static',
+  'compile:favicons',
+  'compile:example',
+  'compile:index']);
 
 function isFixed(file) {
   return file.eslint.fixed;

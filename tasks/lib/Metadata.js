@@ -17,7 +17,7 @@
 "use strict";
 
 const FileName = require('./FileName');
-const HOST = 'http://amp-by-example.appspot.com/';
+const HOST = 'https://amp-by-example.appspot.com';
 
 /**
  * Adds default metadata to the given hash.
@@ -25,22 +25,27 @@ const HOST = 'http://amp-by-example.appspot.com/';
 module.exports.add = function(args) {
   const timeStamp = new Date().toISOString();
   let fileName = args.fileName;
-  if (!fileName) {
+  let canonical;
+  if (fileName) {
+    canonical = HOST + fileName;
+  } else {
     fileName = encodeURI(FileName.fromString(args.title));
+    canonical = HOST + '/' + fileName;
   }
+  const logo = HOST + '/img/logo.png';
+  const leader = HOST + '/img/abe_preview.png';
   const metadata = {
     desc: 'Accelerated Mobile Pages in Action',
     datePublished: timeStamp,
     dateModified: timeStamp,
-    url: HOST + fileName,
     fileName: fileName,
-    canonical: fileName,
-    logo: HOST + 'img/logo.png',
+    canonical: canonical,
+    logo: logo,
     logoWidth: '362',
     logoHeight: '60',
-    leader: '',
-    leaderWidth: '',
-    leaderHeight: ''
+    leader: leader,
+    leaderWidth: '2000',
+    leaderHeight: '1336'
   };
   addMissingMetadata(args, metadata);
 };
