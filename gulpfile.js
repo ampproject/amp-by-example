@@ -89,7 +89,7 @@ gulp.task('copyLicense', 'copy license', function() {
 });
 
 gulp.task('copyStaticFiles', 'copy static files', function() {
-  return gulp.src('static/*.txt')
+  return gulp.src('static/*.*')
     .pipe(cache('static'))
     .pipe(gulp.dest('dist'));
 });
