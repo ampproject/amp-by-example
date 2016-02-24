@@ -25,10 +25,13 @@ const HOST = 'https://amp-by-example.appspot.com';
 module.exports.add = function(args) {
   const timeStamp = new Date().toISOString();
   let fileName = args.fileName;
-  if (!fileName) {
+  let canonical;
+  if (fileName) {
+    canonical = HOST + fileName;
+  } else {
     fileName = encodeURI(FileName.fromString(args.title));
+    canonical = HOST + '/' + fileName;
   }
-  const canonical = HOST + '/' + fileName;
   const logo = HOST + '/img/logo.png';
   const leader = HOST + '/img/abe_preview.png';
   const metadata = {
