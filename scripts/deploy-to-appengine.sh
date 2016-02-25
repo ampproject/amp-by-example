@@ -8,6 +8,9 @@ if [ ! -d ${HOME}/google-cloud-sdk ]; then
    curl https://sdk.cloud.google.com | bash;
    source ~/.bash_profile
 fi
+# add gcloud to the path
+source ~/google-cloud-sdk/path.bash.inc
+source ~/google-cloud-sdk/completion.bash.inc
 export CLOUDSDK_CORE_DISABLE_PROMPTS=1
 gcloud auth activate-service-account --key-file client-secret.json
 # download go_appengine if not installed
