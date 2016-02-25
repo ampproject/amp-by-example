@@ -17,6 +17,8 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_8592b1f8cf3c_key -iv $encrypted_8592b1f8cf3c_iv
   -in client-secret.json.enc -out client-secret.json -d
 after_success:
+- export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+- export CLOUDSDK_PYTHON_SITEPACKAGES=1
 - test $TRAVIS_PULL_REQUEST == "true" && exit 0
 - if [ ! -d ${HOME}/google-cloud-sdk ]; then
      curl https://sdk.cloud.google.com | bash;
