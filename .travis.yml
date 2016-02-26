@@ -17,9 +17,9 @@ addons:
 before_script:
 - npm install -g gulp
 script: gulp test && gulp clean build
-before_install:
-- openssl aes-256-cbc -K $encrypted_8592b1f8cf3c_key -iv $encrypted_8592b1f8cf3c_iv
-  -in client-secret.json.enc -out client-secret.json -d
-after_success:
-- test $TRAVIS_PULL_REQUEST == "true" && exit 0
-- sh scripts/deploy-to-appengine.sh
+#before_install:
+#- openssl aes-256-cbc -K $encrypted_8592b1f8cf3c_key -iv $encrypted_8592b1f8cf3c_iv
+#  -in client-secret.json.enc -out client-secret.json -d
+#after_success:
+#- test $TRAVIS_PULL_REQUEST == "true" && exit 0
+#- sh scripts/deploy-to-appengine.sh
