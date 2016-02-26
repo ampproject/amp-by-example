@@ -1,0 +1,50 @@
+<!--
+  #### Introduction
+
+  Embed videos into your AMP HTML files. Video source files should be served via HTTPS.
+-->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <!-- #### Setup -->
+  <!--
+    amp-video is builtin custom tag and is automatically imported via the AMP runtime.
+  -->
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+</head>
+<body>
+
+  <!-- #### Basic Usage -->
+  <!--
+    A simple video with controller. Boolean attribute (`controls` in this case) must be without values.
+    Expression with value like `controls="controls"` is invalid.
+  -->
+  <amp-video width=480 height=270 src="video/tokyo.mp4"
+             poster="/img/tokyo.jpg"
+             layout="responsive"
+             controls>
+    <div fallback>
+      <p>Your browser doesn't support HTML5 video.</p>
+    </div>
+    <source type="video/mp4" src="video/tokyo.mp4">
+    <source type="video/webm" src="video/tokyo.webm">
+  </amp-video>
+  
+  <!--
+    Setting `autoplay` and `muted` will enable play video as soon as it get loaded in mute mode.
+  -->
+  <amp-video width=480 height=270 src="video/tokyo.mp4"
+             poster="/img/tokyo.jpg"
+             layout="responsive"
+             autoplay muted loop>
+    <div fallback>
+      <p>Your browser doesn't support HTML5 video.</p>
+    </div>
+    <source type="video/webm" src="video/tokyo.webm">
+  </amp-video>
+
+</body>
+</html>

@@ -21,7 +21,7 @@ const path = require('path');
 const gutil = require('gulp-util');
 const PluginError = gutil.PluginError;
 const mu = require('mu2');
-const FileName = require('./lib/FileName');
+const ExampleFile = require('./lib/ExampleFile');
 const Metadata = require('./lib/Metadata');
 
 /**
@@ -32,7 +32,7 @@ module.exports = function(file, templateRoot, template) {
   let latestFile;
   let latestMod;
   let targetFile;
-  let fileNames;
+  let files;
   let templateName;
 
   if (typeof file === 'string') {
@@ -82,30 +82,25 @@ module.exports = function(file, templateRoot, template) {
     }
 
     // create file name list
-    if (!fileNames) {
-      fileNames = [];
+    if (!files) {
+      files = [];
     }
-
-    // add file to fileNames instance
-    const title = FileName.toString(file);
-    fileNames.push({
-      title: title,
-      file: encodeURI(FileName.fromString(title))
-    });
-
+    files.push(file.path);
     cb();
   }
 
   function endStream(cb) {
     // no files passed in, no file goes out
-    if (!latestFile || !fileNames) {
+    if (!latestFile || !files) {
       cb();
       return;
     }
 
+    const categories = mapToCategories(files);
+
     const stream = this;
     const args = {
-      examples: fileNames,
+      categories: categories,
       title: 'AMP by Example',
       fileName: '/'
     };
@@ -124,6 +119,28 @@ module.exports = function(file, templateRoot, template) {
       stream.push(indexFile);
       cb();
     });
+  }
+
+  function mapToCategories(files) {
+    const categories = [];
+    let currentCategory;
+    files.sort().forEach(function(file) {
+      // add file to categories instance
+      const exampleFile = ExampleFile.fromPath(file);
+      if (!currentCategory || currentCategory.name != exampleFile.category()) {
+        currentCategory = {
+          name: exampleFile.category(),
+          examples: []
+        };
+        categories.push(currentCategory);
+      }
+      currentCategory.examples.push({
+        title: exampleFile.title(),
+        name: exampleFile.name(),
+        url: exampleFile.url()
+      });
+    });
+    return categories;
   }
 
   return through.obj(bufferContents, endStream);

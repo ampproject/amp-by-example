@@ -30,6 +30,7 @@ const gulpIf = require('gulp-if');
 const favicons = require("gulp-favicons");
 const runSequence = require('run-sequence');
 const argv = require('yargs').argv;
+const path = require('path');
 
 const index = require('./tasks/compile-index');
 const validateExample = require('./tasks/validate-example');
@@ -37,6 +38,9 @@ const compileExample = require('./tasks/compile-example');
 const createExample = require('./tasks/create-example');
 const FileName = require('./tasks/lib/FileName');
 const Metadata = require('./tasks/lib/Metadata');
+
+const SAMPLES_DIR = './src/';
+const TEMPLATES_DIR = './templates/';
 
 gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
   function() {
@@ -75,34 +79,34 @@ gulp.task('deploy:appeng:staging', 'deploy to staging app engine', shell.task([
 ]));
 
 gulp.task('copy:images', 'copy example images', function() {
-  return gulp.src('src/img/*.{png,jpg,gif}')
-    .pipe(cache('img'))
-    .pipe(gulp.dest('dist/img'));
+  return gulp.src(SAMPLES_DIR + 'img/*.{png,jpg,gif}')
+      .pipe(cache('img'))
+      .pipe(gulp.dest('dist/img'));
 });
 
 gulp.task('copy:videos', 'copy example videos', function() {
-  return gulp.src('src/video/*.{mp4,webm}')
-    .pipe(cache('video'))
-    .pipe(gulp.dest('dist/video'));
+  return gulp.src(SAMPLES_DIR + 'video/*.{mp4,webm}')
+      .pipe(cache('video'))
+      .pipe(gulp.dest('dist/video'));
 });
 
 gulp.task('copy:license', 'copy license', function() {
   return gulp.src('LICENSE')
-    .pipe(cache('static'))
-    .pipe(rename(function(path) {
-      path.extname = ".txt";
-    }))
-    .pipe(gulp.dest('dist'));
+      .pipe(cache('static'))
+      .pipe(rename(function(path) {
+        path.extname = ".txt";
+      }))
+      .pipe(gulp.dest('dist'));
 });
 
 gulp.task('copy:static', 'copy static files', function() {
   return gulp.src('static/*.*')
-    .pipe(cache('static'))
-    .pipe(gulp.dest('dist'));
+      .pipe(cache('static'))
+      .pipe(gulp.dest('dist'));
 });
 
 gulp.task("compile:favicons", function() {
-  return gulp.src("src/img/favicon.png")
+  return gulp.src(SAMPLES_DIR + 'img/favicon.png')
       .pipe(cache('static'))
       .pipe(favicons({
         appName: "AMP by Example",
@@ -132,23 +136,43 @@ gulp.task('validate:example', 'validate example html files', function() {
 });
 
 gulp.task('compile:example', 'compile example html files', function() {
-  return gulp.src('src/*.html')
-    .pipe(compileExample('./src/templates/', 'example.html'))
-    .pipe(gulp.dest('dist'));
+  return gulp.src(SAMPLES_DIR + '*/*.html')
+      .pipe(compileExample(TEMPLATES_DIR, 'example.html'))
+      .pipe(gulp.dest('dist'));
 });
 
 gulp.task('compile:index', 'generate index.html', function() {
-  return gulp.src('src/*.html')
-    .pipe(index('index.html', './src/templates/', 'index.html'))
-    .pipe(gulp.dest('dist'));
+  return gulp.src(SAMPLES_DIR + '*/*.html')
+      .pipe(index('index.html',TEMPLATES_DIR, 'index.html'))
+      .pipe(gulp.dest('dist'));
 });
 
 gulp.task('create', 'create a new AMP example', function() {
-  const title = argv.name;
-  return file(FileName.fromString(title), '', {src: true})
-    .pipe(createExample('./src/templates/', 'new-example.html'))
-    .pipe(gulp.dest('src'));
+  const fileName = FileName.fromString(argv.n || argv.name);
+  if (!fileName) {
+    throwInvalidArgumentError('example name missing');
+  }
+  const dir = path.basename(argv.d || argv.dest) ||
+      FileName.fromString(argv.c || argv.category);
+  if (!dir) {
+    throwInvalidArgumentError('example category or directory missing');
+  }
+  const examplePath = path.join(dir, fileName);
+  return file(examplePath, '', {src: true})
+      .pipe(createExample(TEMPLATES_DIR, 'new-example.html'))
+      .pipe(gulp.dest(SAMPLES_DIR));
 });
+
+function throwInvalidArgumentError(message) {
+  throw new gutil.PluginError({
+    plugin: 'create',
+    message: gutil.colors.red('\nError: ' + message + '\n\n') +
+        gutil.colors.blue('create a new category:\n') +
+        'gulp create -n "The Name" -c "The Category"\n\n' +
+        gutil.colors.blue('add to existing category:\n') +
+        'gulp create -n "The Name" -d src/directory'
+  });
+}
 
 gulp.task('clean', 'delete all generated resources', function() {
   cache.caches = {};
@@ -163,28 +187,28 @@ gulp.task('watch', 'watch for changes in the examples', function() {
 
 gulp.task('test', function() {
   return gulp.src('spec/**/*Spec.js')
-    .pipe(jasmine());
+      .pipe(jasmine());
 });
 
 gulp.task('lint', function() {
   const hasFixFlag = argv.fix;
   let errorsFound = false;
   return gulp.src(['tasks/**/*.js', 'gulpfile.js'], {base: './'})
-    .pipe(eslint({fix: hasFixFlag}))
-    .pipe(eslint.formatEach('stylish', function(msg) {
-      errorsFound = true;
-      gutil.log(gutil.colors.red(msg));
-    }))
-    .pipe(gulpIf(isFixed, gulp.dest('.')))
-    .on('end', function() {
-      if (errorsFound && !hasFixFlag) {
-        gutil.log(gutil.colors.blue('Run `gulp lint --fix` to automatically ' +
-        'fix some of these lint warnings/errors. This is a destructive ' +
-        'operation (operates on the file system) so please make sure ' +
-        'you commit before running.'));
-        process.exit(1);
-      }
-    });
+      .pipe(eslint({fix: hasFixFlag}))
+      .pipe(eslint.formatEach('stylish', function(msg) {
+        errorsFound = true;
+        gutil.log(gutil.colors.red(msg));
+      }))
+      .pipe(gulpIf(isFixed, gulp.dest('.')))
+      .on('end', function() {
+        if (errorsFound && !hasFixFlag) {
+          gutil.log(gutil.colors.blue('Run `gulp lint --fix` to ' +
+          'fix some of these lint warnings/errors. This is a destructive ' +
+          'operation (operates on the file system) so please make sure ' +
+          'you commit before running.'));
+          process.exit(1);
+        }
+      });
 });
 
 gulp.task('default', 'Run a webserver and watch for changes', [

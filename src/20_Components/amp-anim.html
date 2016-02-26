@@ -1,7 +1,7 @@
 <!--
   #### Introduction
 
-  Embed videos into your AMP HTML files. Video source files should be served via HTTPS.
+  Embed animations (gif, webp) into your AMP HTML files. Animation files should be loaded via HTTPS. 
 -->
 <!doctype html>
 <html ⚡>
@@ -9,8 +9,9 @@
   <meta charset="utf-8">
   <!-- #### Setup -->
   <!--
-    amp-video is builtin custom tag and is automatically imported via the AMP runtime.
+    Import the animation component in the header.
   -->
+  <script async custom-element="amp-anim" src="https://cdn.ampproject.org/v0/amp-anim-0.1.js"></script>
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
@@ -19,32 +20,20 @@
 
   <!-- #### Basic Usage -->
   <!--
-    A simple video with controller. Boolean attribute (`controls` in this case) must be without values.
-    Expression with value like `controls="controls"` is invalid.
+    A basic embed. The usage of amp-anim is similar to that of amp-img.
   -->
-  <amp-video width=480 height=270 src="video/tokyo.mp4"
-             poster="img/tokyo.jpg"
-             layout="responsive"
-             controls>
-    <div fallback>
-      <p>Your browser doesn't support HTML5 video.</p>
-    </div>
-    <source type="video/mp4" src="video/tokyo.mp4">
-    <source type="video/webm" src="video/tokyo.webm">
-  </amp-video>
+  <amp-anim width=245 height=300 src="/img/gopher.gif" alt="an animation"
+            attribution="The Go gopher was designed by Reneee French and is licensed under CC 3.0 attributions.">
+  </amp-anim>
   
   <!--
-    Setting `autoplay` and `muted` will enable play video as soon as it get loaded in mute mode.
+    You can use amp-img as a placeholder when loading of `src` file takes time. `placeholder` attribute must be assigned in the child `amp-img` in this case.
   -->
-  <amp-video width=480 height=270 src="video/tokyo.mp4"
-             poster="img/tokyo.jpg"
-             layout="responsive"
-             autoplay muted loop>
-    <div fallback>
-      <p>Your browser doesn't support HTML5 video.</p>
-    </div>
-    <source type="video/webm" src="video/tokyo.webm">
-  </amp-video>
+  <amp-anim width=245 height=300 src="/img/gopher.gif" alt="an animation"
+            attribution="The Go gopher was designed by Reneee French and is licensed under CC 3.0 attributions.">
+    <amp-img placeholder width=245 height=300 src="/img/gopher.png">
+    </amp-img>
+  </amp-anim>
 
 </body>
 </html>
