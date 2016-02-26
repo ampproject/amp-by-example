@@ -1,6 +1,6 @@
-#AMP by Example
+[![Build Status](https://travis-ci.org/ampproject/amp-by-example.svg?branch=master)](https://travis-ci.org/ampproject/amp-by-example)
 
-https://travis-ci.org/ampproject/amp-by-example.svg?branch=master
+#AMP by Example
 
 [AMP by Example](http://amp-by-example.appspot.com/) is a collection of [Accelerated Mobile Pages](https://www.ampproject.org).
 
