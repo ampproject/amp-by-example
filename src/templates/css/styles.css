@@ -125,6 +125,20 @@ footer li {
   border-left: 1px solid #000;
 }
 
+/* cards */
+
+.card {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  float: none; 
+  overflow: hidden;
+  padding: 0 8px;
+  border-radius: 2px;
+}
+
+.info-card {
+  background: #ccc;
+}
+
 .show-on-mobile {
   display: none;
 }

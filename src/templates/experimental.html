@@ -1,9 +1,12 @@
-<!--
-  `{{component}}` is currently in experimental mode. This means it is not available by default and needs to be enabled:
+<div class="card info-card">
+  <h4>Experimental Mode</h4>
+  `{{component}}` is currently in experimental mode and needs to be manually enabled:
 
-    1. via [cdn.ampproject.org](https://cdn.ampproject.org/experiments.html).
-    2. in your browser's [Javascript console](https://developer.chrome.com/devtools/docs/console) with:
-      ```
-      AMP.toggleExperiment('{{component}}')
-      ```
--->
+  <ol>
+    <li>check the box under [CDN experiments](https://cdn.ampproject.org/experiments.html).
+    </li>
+    <li>enter the following line in the [Javascript console](https://developer.chrome.com/devtools/docs/console):
+      <pre><code>AMP.toggleExperiment('{{component}}')</code></pre>
+    </li>
+  </ol>
+</div>
