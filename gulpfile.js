@@ -62,11 +62,11 @@ gulp.task('deploy:staging', 'deploy to staging server', function(callback) {
 });
 
 gulp.task('deploy:appeng:prod', 'deploy to production app engine', shell.task([
-  'goapp deploy -application  amp-by-example'
+  'goapp deploy -application  amp-by-example -version 1'
 ]));
 
 gulp.task('deploy:appeng:staging', 'deploy to staging app engine', shell.task([
-  'goapp deploy -application  amp-by-example-staging'
+  'goapp deploy -application  amp-by-example-staging -version 1'
 ]));
 
 gulp.task('copy:images', 'copy example images', function() {
