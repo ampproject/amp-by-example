@@ -42,7 +42,7 @@ module.exports = function() {
       // write file to disk, invoke validator, capture output & cleanup
       const inputFilename = path.basename(file.path);
       const tmpFile = os.tmpdir() + '/' + inputFilename;
-      fs.writeFile(tmpFile, file.contents, 'utf8', function(err) {
+      fs.writeFile(tmpFile, file.contents, encoding, function(err) {
         if (err) {
           return callback(err);
         }
@@ -64,10 +64,10 @@ module.exports = function() {
           const parsedOutput = JSON.parse(output);
           const exampleKey = 'http://localhost:30000/' + inputFilename;
           if (parsedOutput[exampleKey].success) {
-            printedOutput = 'PASS';
+            printedOutput = gutil.colors.green('PASS');
           } else {
             const errorList = parsedOutput[exampleKey].errors;
-            printedOutput = 'FAIL:\n';
+            printedOutput = gutil.colors.red('FAIL\n\n');
             errorList.forEach(function(item) {
               printedOutput += item.line + ': ' + item.reason + '\n';
             });
