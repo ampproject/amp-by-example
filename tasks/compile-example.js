@@ -57,18 +57,29 @@ module.exports = function(templateRoot, template) {
       const document = DocumentParser.parse(contents);
       const stream = this;
       const title = FileName.toString(file);
+      const nextTitle = FileName.toString(FileName.nextFile(file.path));
+      const next = FileName.fromString(nextTitle);
 
       const args = {
         head: document.head,
         title: title,
         subHeading: title,
         exampleStyles: document.styles,
-        sections: document.sections
+        sections: document.sections,
+        next: next,
+        nextTitle: nextTitle
       };
+
       Metadata.add(args);
       // hack to avoid duplicate canonical refs as some examples define a canonical link
       if (document.head.indexOf('rel="canonical"') > -1) {
         args.skipCanonical = 'true';
+      }
+      if (next) {
+        document.sections[document.sections.length - 1].appendDoc(
+              '<p>Next up: <a id="nextArticle" href="' +
+              next + '">' + nextTitle +
+              '</a></p>');
       }
       const generatedContents = mu.compileAndRender(templateName, args);
       let html = '';

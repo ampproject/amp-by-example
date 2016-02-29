@@ -18,11 +18,15 @@
 
 const gutil = require('gulp-util');
 const path = require('path');
+const fs = require("fs");
 
 /**
  * Encodes a string into file system compatible representation.
  */
 module.exports.fromString = function(string) {
+  if (!string) {
+    return '';
+  }
   let fileName = string.replace(/\s+/g, '_');
   fileName = encodeURIComponent(fileName);
   fileName = fileName.replace(/'/g,"%27");
@@ -34,6 +38,9 @@ module.exports.fromString = function(string) {
  * Decodes a string from a file name.
  */
 module.exports.toString = function(file) {
+  if (!file) {
+    return '';
+  }
   let string;
   if (typeof file === 'string') {
     string = file;
@@ -47,4 +54,18 @@ module.exports.toString = function(file) {
   string = decodeURIComponent(string);
   string = string.replace(/%27/g,"'");
   return string;
+};
+/**
+* Return the next file in alphabetical order
+*/
+module.exports.nextFile = function(file) {
+  const files = fs.readdirSync(path.dirname(file))
+      .sort().filter(function(file) {
+        return path.extname(file) == '.html';
+      });
+  const pos = files.indexOf(path.basename(file));
+  if (pos == -1) {
+    return undefined;
+  }
+  return files[pos + 1];
 };

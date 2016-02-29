@@ -92,6 +92,7 @@ module.exports = function(file, templateRoot, template) {
       title: title,
       file: encodeURI(FileName.fromString(title))
     });
+
     cb();
   }
 
