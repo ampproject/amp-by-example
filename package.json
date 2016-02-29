@@ -22,6 +22,7 @@
     "gcloud": "^0.27.0"
   },
   "devDependencies": {
+    "amp-validator": "^0.1.4",
     "del": "^2.2.0",
     "eslint": "^2.0.0",
     "eslint-plugin-google-camelcase": "0.0.2",

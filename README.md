@@ -33,6 +33,12 @@ $ gulp create --name 'Hello World'
 $ vim src/Hello_World.html
 ```
 
+Run validate to validate all examples against AMP spec:
+
+```none
+$ gulp validate
+```
+
 Run build to generate all examples:
 
 ```none
@@ -48,7 +54,7 @@ $ open http://localhost:8000/index.html
 ```
 
  Some components, like the [amp-user-notification with server endpoint](https://amp-by-example.appspot.com/amp-user-notification_with_server_enpoint.html) require an additional server endpoint.
- 
+
 ## Writing the sample
 
 Use HTML comments (`<!-- ... -->`) to document your sample code:
