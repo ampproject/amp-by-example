@@ -31,6 +31,7 @@ const favicons = require("gulp-favicons");
 const runSequence = require('run-sequence');
 
 const index = require('./tasks/compile-index');
+const validateExample = require('./tasks/validate-example');
 const compileExample = require('./tasks/compile-example');
 const createExample = require('./tasks/create-example');
 const FileName = require('./tasks/lib/FileName');
@@ -118,6 +119,12 @@ gulp.task("compile:favicons", function() {
       }))
       .on("error", gutil.log)
       .pipe(gulp.dest("dist/favicons"));
+});
+
+gulp.task('validate:example', 'validate example html files', function() {
+  return gulp.src('src/*.html')
+    .pipe(compileExample('./src/templates/', 'example.html'))
+    .pipe(validateExample('./src/templates/', 'example.html'));
 });
 
 gulp.task('compile:example', 'compile example html files', function() {
