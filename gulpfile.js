@@ -29,6 +29,7 @@ const gutil = require('gulp-util');
 const gulpIf = require('gulp-if');
 const favicons = require("gulp-favicons");
 const runSequence = require('run-sequence');
+const argv = require('yargs').argv;
 
 const index = require('./tasks/compile-index');
 const validateExample = require('./tasks/validate-example');
@@ -140,7 +141,7 @@ gulp.task('compile:index', 'generate index.html', function() {
 });
 
 gulp.task('create', 'create a new AMP example', function() {
-  const title = process.argv[4];
+  const title = argv.name;
   return file(FileName.fromString(title), '', {src: true})
     .pipe(createExample('./src/templates/', 'new-example.html'))
     .pipe(gulp.dest('src'));
@@ -163,7 +164,7 @@ gulp.task('test', function() {
 });
 
 gulp.task('lint', function() {
-  const hasFixFlag = (process.argv.slice(2).indexOf('--fix') >= 0);
+  const hasFixFlag = argv.fix ? true : false;
   let errorsFound = false;
   return gulp.src(['tasks/**/*.js', 'gulpfile.js'], {base: './'})
     .pipe(eslint({fix: hasFixFlag}))
