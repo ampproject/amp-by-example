@@ -37,17 +37,19 @@ const compileExample = require('./tasks/compile-example');
 const createExample = require('./tasks/create-example');
 const FileName = require('./tasks/lib/FileName');
 
-gulp.task('serve', 'starts a local webserver', function() {
-  const server = gls.static('dist', 8000);
-  server.start();
-  gulp.watch(['dist/*.html',
-              'dist/img/*.{png,jpg,gif}',
-              'dist/video/*.{mp4,webm}'], function(file) {
-    /* eslint-disable */
-    server.notify.apply(server, [file]);
-    /* eslint-enable */
+gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
+  function() {
+    const port = argv.port || 8000;
+    const server = gls.static('dist', port);
+    server.start();
+    gulp.watch(['dist/*.html',
+                'dist/img/*.{png,jpg,gif}',
+                'dist/video/*.{mp4,webm}'], function(file) {
+      /* eslint-disable */
+      server.notify.apply(server, [file]);
+      /* eslint-enable */
+    });
   });
-});
 
 gulp.task('deploy:prod', 'deploy to production server', function(callback) {
   runSequence('clean',
@@ -164,7 +166,7 @@ gulp.task('test', function() {
 });
 
 gulp.task('lint', function() {
-  const hasFixFlag = argv.fix ? true : false;
+  const hasFixFlag = argv.fix;
   let errorsFound = false;
   return gulp.src(['tasks/**/*.js', 'gulpfile.js'], {base: './'})
     .pipe(eslint({fix: hasFixFlag}))
