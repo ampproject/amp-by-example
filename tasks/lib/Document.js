@@ -26,6 +26,7 @@ module.exports = class Document {
     this.head = '';
     this.styles = '';
     this.title = '';
+    this.metadata = '';
   }
 
   addSection(section) {

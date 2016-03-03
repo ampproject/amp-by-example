@@ -59,19 +59,28 @@ class DocumentParser {
     this.currentTag = '';
     this.currentTagCounter = 0;
     this.inBody = false;
+    this.inMetadata = false;
+    this.metadata = '';
   }
 
   execute() {
     for (let i = 0; i < this.lines.length; i++) {
       const line = this.lines[i];
       if (line.trim().startsWith('<!--')) {
-        this.newSection();
-        this.inComment = true;
+        if (line.trim().startsWith('<!---')) {
+          this.inMetadata = true;
+        } else {
+          this.newSection();
+          this.inComment = true;
+        }
       }
       if (this.inComment) {
         this.currentSection().appendDoc(line);
       }
-      if (!this.inComment) {
+      if (this.inMetadata) {
+        this.appendMetadata(line);
+      }
+      if (!this.inComment && !this.inMetadata) {
         this.updatePreview(line);
         this.currentSection().appendCode(line);
         this.updateHead(line);
@@ -81,8 +90,18 @@ class DocumentParser {
         }
       }
       if (line.trim().endsWith('-->')) {
-        this.inComment = false;
-        this.currentTag = this.nextTag(i);
+        if (line.trim().endsWith('--->')) {
+          this.inMetadata = false;
+          try {
+            this.document.metadata = JSON.parse(this.metadata);
+          } catch (err) {
+            throw new Error(
+              "There is an error in the JSON metadata at line " + (i + 1));
+          }
+        } else {
+          this.inComment = false;
+          this.currentTag = this.nextTag(i);
+        }
       }
     }
   }
@@ -218,6 +237,15 @@ class DocumentParser {
     this.section.inBody = this.inBody;
     this.section.id = this.document.sections.length;
     this.document.addSection(this.section);
+  }
+
+  removeMetadataTag(string) {
+    return string.replace(/\<\!---|---\>/g, '').trim();
+  }
+
+  appendMetadata(metadata) {
+    metadata = this.removeMetadataTag(metadata);
+    this.metadata += metadata + '\n';
   }
 
 };

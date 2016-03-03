@@ -40,6 +40,15 @@ describe("DocumentParser", function() {
   var COMMENT = '<!--comment-->';
   var LINK = ' <link href="Hello World" />';
   var META = ' <meta href="Hello World" />';
+  var DOCUMENT_METADATA_1 = '<!---{"experiment": true}--->';
+  var DOCUMENT_METADATA_2 = `<!---{
+    "experiment": true,
+    "component": "amp-accordion"
+  }--->`;
+  var DOCUMENT_METADATA_INVALID = `<!---{
+    experiment: true,
+    "component": "amp-accordion"
+  }}--->`;
 
   beforeEach(function() {
     sectionCounter = 0;
@@ -136,6 +145,27 @@ describe("DocumentParser", function() {
   it("adds title to document", function() {
     var doc = parse(HEAD, TITLE, HEAD_END);
     expect(doc.title).toEqual('hello');
+  });
+
+  describe("adds metadata to document", function() {
+    it("before comment", function() {
+      var doc = parse(DOCUMENT_METADATA_1, COMMENT, HEAD, TITLE, HEAD_END);
+      expect(doc.metadata.experiment).toEqual(true);
+      expect(doc.sections.length).toEqual(1);
+    });
+
+    it("after comment", function() {
+      var doc = parse(COMMENT, DOCUMENT_METADATA_2, HEAD, TITLE, HEAD_END, BODY, COMMENT, BODY_END);
+      expect(doc.metadata.experiment).toEqual(true);
+      expect(doc.metadata.component).toEqual("amp-accordion");
+      expect(doc.sections.length).toEqual(3);
+    });
+
+    it("invalid metadata", function() {
+      expect(function(){
+        parse(COMMENT, DOCUMENT_METADATA_INVALID, HEAD, TITLE, HEAD_END, BODY, COMMENT, BODY_END);})
+          .toThrow(new Error("There is an error in the JSON metadata at line 5"));
+    });
   });
 
   describe('xml tag parsing', function() {
