@@ -15,9 +15,7 @@
 package hello
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"strings"
 )
@@ -26,24 +24,36 @@ const MAX_AGE_IN_SECONDS = 60 * 60 * 24 // 1 day
 const OLD_ADDRESS = "amp-by-example.appspot.com"
 const NEW_ADDRESS = "https://ampbyexample.com"
 
+var REDIRECTS [18][2]string = [18][2]string{
+	{"/amp-accordion.html", "/Components/amp-accordion"},
+	{"/amp-ad.html", "/Components/amp-ad"},
+	{"/amp-anim.html", "/Components/amp-anim"},
+	{"/amp-audio.html", "/Components/amp-audio"},
+	{"/amp-brightcove.html", "/Components/amp-brightcove"},
+	{"/amp-carousel.html", "/Components/amp-carousel"},
+	{"/amp-facebook.html", "/Components/amp-facebook"},
+	{"/amp-iframe.html", "/Components/amp-iframe"},
+	{"/amp-image-lightbox.html", "/Components/amp-image-lightbox"},
+	{"/amp-img.html", "/Components/amp-img"},
+	{"/amp-instagram.html", "/Components/amp-instagram"},
+	{"/amp-lightbox.html", "/Components/amp-lightbox"},
+	{"/amp-twitter.html", "/Components/amp-twitter"},
+	{"/amp-user-notification_with_local_storage.html", "/Components/amp-user-notification"},
+	{"/amp-user-notification_with_server_endpoint.html", "/Advanced/amp-user-notification_with_server_endpoint"},
+	{"/amp-video.html", "/Components/amp-video"},
+	{"/amp-youtube.html", "/Components/amp-youtube"},
+	{"/Hello_World.html", "/Components/Hello_World.html"},
+}
+
 func init() {
 	RedirectLegacyExamples()
 	http.Handle("/", RedirectDomain(http.FileServer(http.Dir("dist"))))
 }
 
 func RedirectLegacyExamples() {
-	var data [][]string
-	file, err := ioutil.ReadFile("src/redirects.json")
-	if err != nil {
-		panic(err)
-	}
-	err = json.Unmarshal(file, &data)
-	if err != nil {
-		panic(err)
-	}
-	for i := range data {
-		source := data[i][0]
-		target := data[i][1]
+	for i := range REDIRECTS {
+		source := REDIRECTS[i][0]
+		target := REDIRECTS[i][1]
 		http.Handle(source, http.RedirectHandler(target, 301))
 	}
 }
