@@ -15,7 +15,9 @@
 package hello
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"strings"
 )
@@ -25,8 +27,25 @@ const OLD_ADDRESS = "amp-by-example.appspot.com"
 const NEW_ADDRESS = "https://ampbyexample.com"
 
 func init() {
-	fs := http.FileServer(http.Dir("dist"))
-	http.Handle("/", RedirectDomain(fs))
+	RedirectLegacyExamples()
+	http.Handle("/", RedirectDomain(http.FileServer(http.Dir("dist"))))
+}
+
+func RedirectLegacyExamples() {
+	var data [][]string
+	file, err := ioutil.ReadFile("src/redirects.json")
+	if err != nil {
+		panic(err)
+	}
+	err = json.Unmarshal(file, &data)
+	if err != nil {
+		panic(err)
+	}
+	for i := range data {
+		source := data[i][0]
+		target := data[i][1]
+		http.Handle(source, http.RedirectHandler(target, 301))
+	}
 }
 
 func RedirectDomain(h http.Handler) http.Handler {

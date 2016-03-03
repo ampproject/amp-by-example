@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-
-
 describe("FileName", function() {
 
   var FileName = require('../../tasks/lib/FileName');
 
   describe('fromString', function() {
+    it('returns empty string for undefined', function() {
+      expect(FileName.fromString(null))
+        .toEqual('');
+    });
     it('appends .html', function() {
       expect(FileName.fromString('file'))
         .toEqual('file.html');
@@ -37,7 +39,12 @@ describe("FileName", function() {
       expect(FileName.fromString(undefined))
         .toEqual('');
     });
+    it('Adds path', function() {
+      expect(FileName.fromString("hello", "world"))
+        .toEqual("hello/world.html");
+    });
   });
+
   describe('toString', function() {
     it('removes file extension', function() {
       expect(FileName.toString('file.txt'))
@@ -54,21 +61,6 @@ describe("FileName", function() {
     it('returns empty string when the file is undefined', function() {
       expect(FileName.toString(undefined))
         .toEqual('');
-    });
-  });
-
-  describe('nextFile', function() {
-    it('returns next file in alphabetical order', function() {
-      expect(FileName.nextFile('spec/compiler/FileNameSpecFiles/a.html'))  
-        .toEqual("b.html")
-    });
-    it('returns undefined when the file is the last one in alphabetical order', function() {
-      expect(FileName.nextFile('spec/compiler/FileNameSpecFiles/b.html'))  
-        .toEqual(undefined)
-    });
-    it('returns undefined when the file does not exist', function() {
-      expect(FileName.nextFile('spec/compiler/FileNameSpecFiles/notExistentFile.html'))  
-        .toEqual(undefined)
     });
   });
 

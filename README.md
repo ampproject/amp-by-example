@@ -19,18 +19,25 @@ $ sudo npm i -g gulp
 
 ## Creating a new sample
 
-Create a new example with `gulp create`:
+Create a new example with `gulp create`. Set the title via `--name` or `-n` and add it to an existing section using `--dest` or `-d`:
 
 ```none
-$ gulp create --name amp-img
-$ vim src/amp-img.html
+$ gulp create --name amp-img --dest src/20_Components
+$ vim src/20_Components/amp-img.html
 ```
 
-For more descriptive example names with whitespaces use quotes:
+For more descriptive example names including whitespaces use quotes:
 
 ```none
-$ gulp create --name 'Hello World'
-$ vim src/Hello_World.html
+$ gulp create --name 'Hello World' --dest src/10_Introduction
+$ vim src/10_Introduction/Hello_World.html
+```
+
+If you want to create a new sample category, use `--category` or `-c`. Prefix the name with two digits followed by a space to define the sort order:
+
+```none
+$ gulp create --name amp-awesome --category "50 More Awesomeness"
+$ vim src/50_More_Awesomeness/amp-awesome.html
 ```
 
 Run validate to validate all examples against AMP spec:
@@ -45,12 +52,11 @@ Run build to generate all examples:
 $ gulp build
 ```
 
-While working on an example you can start a local webserver with auto-reload by simply running
-`gulp`:
+While working on an example you can start a local webserver with auto-reload by running `gulp`:
 
 ```none
 $ gulp
-$ open http://localhost:8000/index.html
+$ open http://localhost:8000/
 ```
 
 Some components, like [this one](src/30_Advanced/amp-user-notification_with_server_endpoint.html) require an additional server endpoint.

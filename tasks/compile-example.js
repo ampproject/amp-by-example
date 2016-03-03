@@ -18,11 +18,12 @@
 
 const through = require('through2');
 const gutil = require('gulp-util');
+const path = require('path');
 const PluginError = gutil.PluginError;
 const mu = require('mu2');
 const DocumentParser = require('./lib/DocumentParser');
 const Metadata = require('./lib/Metadata');
-const FileName = require('./lib/FileName');
+const ExampleFile = require('./lib/ExampleFile');
 
 /**
  * Parses an example into it's sections and renders them
@@ -56,29 +57,27 @@ module.exports = function(templateRoot, template) {
       const contents = file.contents.toString();
       const document = DocumentParser.parse(contents);
       const stream = this;
-      const title = FileName.toString(file);
-      const nextTitle = FileName.toString(FileName.nextFile(file.path));
-      const next = FileName.fromString(nextTitle);
+      const example = ExampleFile.fromPath(file.path);
+      const nextExample = example.nextFile();
 
       const args = {
         head: document.head,
-        title: title,
-        subHeading: title,
+        title: example.title(),
+        fileName: example.url(),
+        subHeading: example.title(),
         exampleStyles: document.styles,
-        sections: document.sections,
-        next: next,
-        nextTitle: nextTitle
+        sections: document.sections
       };
 
       Metadata.add(args);
-      // hack to avoid duplicate canonical refs as some examples define a canonical link
+      // avoid duplicate canonical refs as some examples define a canonical link
       if (document.head.indexOf('rel="canonical"') > -1) {
         args.skipCanonical = 'true';
       }
-      if (next) {
+      if (nextExample) {
         document.sections[document.sections.length - 1].appendDoc(
               '<p>Next up: <a id="nextArticle" href="' +
-              next + '">' + nextTitle +
+              nextExample.url() + '">' + nextExample.title() +
               '</a></p>');
       }
       const generatedContents = mu.compileAndRender(templateName, args);
@@ -87,8 +86,9 @@ module.exports = function(templateRoot, template) {
         html += chunk;
       })
       .on('end', function() {
-        gutil.log('Generated ' + file.relative);
+        file.path = path.join(file.base, example.targetPath());
         file.contents = new Buffer(html);
+        gutil.log('Generated ' + file.relative);
         stream.push(file);
         callback();
       });

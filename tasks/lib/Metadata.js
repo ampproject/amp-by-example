@@ -16,7 +16,6 @@
 
 "use strict";
 
-const FileName = require('./FileName');
 const HOST = 'https://ampbyexample.com';
 
 /**
@@ -24,14 +23,8 @@ const HOST = 'https://ampbyexample.com';
  */
 module.exports.add = function(args) {
   const timeStamp = new Date().toISOString();
-  let fileName = args.fileName;
-  let canonical;
-  if (fileName) {
-    canonical = HOST + fileName;
-  } else {
-    fileName = encodeURI(FileName.fromString(args.title));
-    canonical = HOST + '/' + fileName;
-  }
+  const fileName = args.fileName;
+  const canonical = HOST + fileName;
   const logo = HOST + '/img/logo.png';
   const leader = HOST + '/img/abe_preview.png';
   const metadata = {
