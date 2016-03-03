@@ -53,7 +53,7 @@ func init() {
 func RedirectLegacyExamples() {
 	for i := range REDIRECTS {
 		source := REDIRECTS[i][0]
-		target := REDIRECTS[i][1]
+		target := "https://ampbyexample.com" + REDIRECTS[i][1]
 		http.Handle(source, http.RedirectHandler(target, 301))
 	}
 }
