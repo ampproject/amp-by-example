@@ -152,7 +152,7 @@ gulp.task('create', 'create a new AMP example', function() {
   if (!fileName) {
     throwInvalidArgumentError('example name missing');
   }
-  const dir = path.basename(argv.d || argv.dest) ||
+  const dir = argv.d || argv.dest ||
       FileName.fromString(argv.c || argv.category);
   if (!dir) {
     throwInvalidArgumentError('example category or directory missing');
