@@ -36,6 +36,7 @@ const validateExample = require('./tasks/validate-example');
 const compileExample = require('./tasks/compile-example');
 const createExample = require('./tasks/create-example');
 const FileName = require('./tasks/lib/FileName');
+const Metadata = require('./tasks/lib/Metadata');
 
 gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
   function() {
@@ -110,7 +111,7 @@ gulp.task("compile:favicons", function() {
         developerURL: "http://sebastianbenz.de/",
         background: "#fff",
         path: "favicons/",
-        url: "https://amp-by-example.appspot.com/",
+        url: Metadata.HOST,
         display: "standalone",
         orientation: "portrait",
         version: 1.0,

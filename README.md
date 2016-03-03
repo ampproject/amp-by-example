@@ -2,7 +2,7 @@
 
 #AMP by Example
 
-[AMP by Example](http://amp-by-example.appspot.com/) is a collection of [Accelerated Mobile Pages](https://www.ampproject.org).
+[AMP by Example](http://ampbyexample.com/) is a collection of [Accelerated Mobile Pages](https://www.ampproject.org).
 
 ## Installation
 
@@ -53,7 +53,7 @@ $ gulp
 $ open http://localhost:8000/index.html
 ```
 
- Some components, like the [amp-user-notification with server endpoint](https://amp-by-example.appspot.com/amp-user-notification_with_server_enpoint.html) require an additional server endpoint.
+Some components, like [this one](src/30_Advanced/amp-user-notification_with_server_endpoint.html) require an additional server endpoint.
 
 ## Writing the sample
 

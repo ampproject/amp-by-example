@@ -17,7 +17,7 @@
 "use strict";
 
 const FileName = require('./FileName');
-const HOST = 'https://amp-by-example.appspot.com';
+const HOST = 'https://ampbyexample.com';
 
 /**
  * Adds default metadata to the given hash.
@@ -57,3 +57,5 @@ function addMissingMetadata(target, source) {
     }
   }
 }
+
+module.exports.HOST = HOST;
