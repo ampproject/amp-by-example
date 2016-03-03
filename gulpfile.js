@@ -130,9 +130,9 @@ gulp.task("compile:favicons", function() {
 });
 
 gulp.task('validate:example', 'validate example html files', function() {
-  return gulp.src('src/*.html')
-    .pipe(compileExample('./src/templates/', 'example.html'))
-    .pipe(validateExample('./src/templates/', 'example.html'));
+  return gulp.src('src/**/*.html')
+    .pipe(compileExample(TEMPLATES_DIR, 'example.html'))
+    .pipe(validateExample());
 });
 
 gulp.task('compile:example', 'compile example html files', function() {

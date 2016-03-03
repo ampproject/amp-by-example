@@ -28,7 +28,6 @@ const path = require('path');
  * Create an empty example.
  */
 module.exports = function() {
-
   return through.obj(function(file, encoding, callback) {
     if (file.isNull()) {
       return callback(null, file);
@@ -80,9 +79,9 @@ module.exports = function() {
             });
           }
         });
-        child.on('error', function() {
+        child.on('error', function(err) {
           error = true;
-          gutil.log('Error running validator');
+          gutil.log('Error running validator ' + err);
           callback();
         });
       });
