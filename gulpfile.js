@@ -157,7 +157,7 @@ gulp.task('create', 'create a new AMP example', function() {
   const dest = argv.d || argv.dest;
   const category = argv.c || argv.category;
   if (dest) {
-    examplePath = path.join(path.basename(dest), fileName); 
+    examplePath = path.join(path.basename(dest), fileName);
   } else if (category) {
     examplePath = FileName.fromString(category, title);
   } else {
