@@ -5,7 +5,6 @@ figure {
 /* layout */
 .body {
   background: #fff;
-  font-family: Roboto,sans-serif;
 }
 .box {
   min-height: -webkit-min-content;
@@ -16,10 +15,6 @@ figure {
 .column {
   flex: 1;
   width: 0;
-}
-
-ul {
-  list-style-type: none;
 }
 
 /* doc column */
