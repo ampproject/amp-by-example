@@ -37,7 +37,8 @@ class ExampleFile {
   }
 
   category() {
-    return FileName.toString(this.targetParentDir());
+    const parentDir = path.basename(path.dirname(this.filePath));
+    return FileName.toString(this.stripNumberPrefix(parentDir));
   }
 
   name() {
@@ -64,11 +65,15 @@ class ExampleFile {
 
   targetParentDir() {
     const parentDir = path.basename(path.dirname(this.filePath));
-    return this.stripNumberPrefix(parentDir);
+    return this.stripNumberPrefix(parentDir).toLowerCase();
+  }
+
+  targetName() {
+    return this.name().toLowerCase();
   }
 
   targetPath() {
-    return path.join(this.targetParentDir(), this.name(), 'index.html');
+    return path.join(this.targetParentDir(), this.targetName(), 'index.html');
   }
 
   title() {
@@ -79,7 +84,7 @@ class ExampleFile {
     return '/' +
       encodeURI(this.targetParentDir()) +
       '/' +
-      encodeURI(this.name());
+      encodeURI(this.targetName());
   }
 
   /** private **/

@@ -18,22 +18,22 @@ describe("ExampleFile", function() {
 
   var ExampleFile = require('../../tasks/lib/ExampleFile');
 
-  describe('created from relative path', function() {
-    var file = ExampleFile.fromPath('10_hello_world/What\'s%20up?.html');
+  describe('created from path', function() {
+    var file = ExampleFile.fromPath('10_Hello_world\'s/What\'s%20up?.html');
     it('extracts title', function() {
       expect(file.title()).toBe("What's up?");
     });
     it('extracts url', function() {
-      expect(file.url()).toBe("/hello_world/What\'s%2520up?");
+      expect(file.url()).toBe("/hello_world\'s/what\'s%2520up?");
     });
     it('extracts file name', function() {
       expect(file.fileName()).toBe("What\'s%20up?.html");
     });
     it('extracts category', function() {
-      expect(file.category()).toBe("hello world");
+      expect(file.category()).toBe("Hello world's");
     });
     it('target path', function() {
-      expect(file.targetPath()).toBe("hello_world/What\'s%20up?/index.html");
+      expect(file.targetPath()).toBe("hello_world\'s/what\'s%20up?/index.html");
     });
   });
 
