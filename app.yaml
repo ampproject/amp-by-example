@@ -1,52 +1,32 @@
+#	Copyright 2016, Google, Inc.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 runtime: go
 api_version: go1
+threadsafe: yes
+
+# cache all static assets for at most 1 day.
+default_expiration: 1d
 
 handlers:
-
-- url: /
-  mime_type: text/html
-  static_files: dist/index.html
-  upload: noop
-  secure: always
-
-- url: /(.*\.html)
-  mime_type: text/html
-  static_files: dist/\1
-  upload: dist/(.*\.html)
-  secure: always
-
-# favicons file
-- url: /favicons/(.*\.(bmp|gif|ico|jpeg|jpg|png|xml|json|webapp))
-  static_files: dist/favicons/\1
-  upload: dist/favicons/(.*\.(bmp|gif|ico|jpeg|jpg|png|xml|json|webapp))
-  secure: always
-
-# license file
-- url: /(.*\.txt)
-  mime_type: text/plain
-  static_files: dist/\1
-  upload: dist/(.*\.txt)
-  secure: always
-
-# image files
-- url: /(.*\.(bmp|gif|ico|jpeg|jpg|png|webm|mp4))
-  static_files: dist/\1
-  upload: dist/img/(.*\.(bmp|gif|ico|jpeg|jpg|png|webm|mp4))
-  secure: always
-
-# video files
-- url: /(.*\.(webm|mp4))
-  static_files: dist/\1
-  upload: dist/video/(.*\.(webm|mp4))
-  secure: always
-
 - url: /.*
   script: _go_app
-  secure: always
 
 skip_files:
 - node_modules
-- spec
-- lib
+- scripts
 - src
+- static
+- spec
 - tasks
+- templates
+- ^(.*/)?.*\.DS_Store$
