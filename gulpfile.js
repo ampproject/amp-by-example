@@ -148,16 +148,21 @@ gulp.task('compile:index', 'generate index.html', function() {
 });
 
 gulp.task('create', 'create a new AMP example', function() {
-  const fileName = FileName.fromString(argv.n || argv.name);
+  const title = argv.n || argv.name;
+  const fileName = FileName.fromString(title);
   if (!fileName) {
     throwInvalidArgumentError('example name missing');
   }
-  const dir = argv.d || argv.dest ||
-      FileName.fromString(argv.c || argv.category);
-  if (!dir) {
+  let examplePath;
+  const dest = argv.d || argv.dest;
+  const category = argv.c || argv.category;
+  if (dest) {
+    examplePath = path.join(path.basename(dest), fileName); 
+  } else if (category) {
+    examplePath = FileName.fromString(category, title);
+  } else {
     throwInvalidArgumentError('example category or directory missing');
   }
-  const examplePath = path.join(dir, fileName);
   return file(examplePath, '', {src: true})
       .pipe(createExample(TEMPLATES_DIR, 'new-example.html'))
       .pipe(gulp.dest(SAMPLES_DIR));
