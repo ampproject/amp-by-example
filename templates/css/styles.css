@@ -100,6 +100,19 @@ header h3 {
   right: 32px;
 }
 
+.toolbar a {
+  text-decoration: none;
+  color: #000;
+  padding-right: 28px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.gist {
+  background-position: right top;
+  background-repeat: no-repeat;
+  background-image: url(/img/gist.png);
+}
+
 /* footer */
 footer {
   margin-top: 48px;
@@ -200,6 +213,7 @@ footer li {
   }
   header {
     padding: 16px;
+    padding-top: 48px;
   }
   .toolbar {
     top: 16px;
