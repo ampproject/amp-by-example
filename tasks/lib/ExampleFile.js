@@ -19,6 +19,8 @@ const FileName = require('./FileName');
 const path = require('path');
 const fs = require('fs');
 const PREFIX = /\d+_/;
+const GITHUB_PREFIX = "https://github.com/ampproject/amp-by-example/blob/master/src"
+
 
 /**
  * Encodes a string into file system compatible representation.
@@ -63,6 +65,11 @@ class ExampleFile {
     return path.basename(this.filePath);
   }
 
+  githubUrl() {
+    const parentDir = path.basename(path.dirname(this.filePath));
+    return GITHUB_PREFIX + '/' + parentDir + '/' + this.fileName();
+  }
+
   targetParentDir() {
     const parentDir = path.basename(path.dirname(this.filePath));
     return this.stripNumberPrefix(parentDir).toLowerCase();
@@ -95,4 +102,5 @@ class ExampleFile {
 }
 
 module.exports.fromPath = fromPath;
+module.exports.GITHUB_PREFIX = GITHUB_PREFIX;
 

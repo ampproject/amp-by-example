@@ -19,7 +19,7 @@ describe("ExampleFile", function() {
   var ExampleFile = require('../../tasks/lib/ExampleFile');
 
   describe('created from path', function() {
-    var file = ExampleFile.fromPath('10_Hello_world\'s/What\'s%20up?.html');
+    var file = ExampleFile.fromPath('src/10_Hello_world\'s/What\'s%20up?.html');
     it('extracts title', function() {
       expect(file.title()).toBe("What's up?");
     });
@@ -34,6 +34,10 @@ describe("ExampleFile", function() {
     });
     it('target path', function() {
       expect(file.targetPath()).toBe("hello_world\'s/what\'s%20up?/index.html");
+    });
+    it('path on github', function() {
+      expect(file.githubUrl()).toBe(
+          ExampleFile.GITHUB_PREFIX + "/10_Hello_world\'s/What\'s%20up?.html");
     });
   });
 

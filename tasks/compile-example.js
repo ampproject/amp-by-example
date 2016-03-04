@@ -64,6 +64,7 @@ module.exports = function(templateRoot, template) {
         head: document.head,
         title: example.title(),
         fileName: example.url(),
+        github: example.githubUrl(),
         subHeading: example.title(),
         exampleStyles: document.styles,
         sections: document.sections
