@@ -40,17 +40,32 @@ const createExample = require('./tasks/create-example');
 const FileName = require('./tasks/lib/FileName');
 const Metadata = require('./tasks/lib/Metadata');
 
-const SAMPLES_DIR = './src/';
-const TEMPLATES_DIR = './templates/';
+const paths = {
+  dist: {
+    dir: 'dist',
+    html: 'dist/**/*.html',
+    img: 'dist/img',
+    video: 'dist/video',
+    favicons: 'dist/favicons',
+  },
+  images: 'src/img/*.{png,jpg,gif}',
+  favicon: 'src/img/favicon.png',
+  samples: 'src/**/*.html',
+  scripts: ['tasks/**/*.js', 'gulpfile.js'],
+  static: 'static/*.*',
+  templates: {
+    dir: 'templates',
+    files: ['templates/**/*.css', 'templates/**/*.html']
+  },
+  videos: 'src/video/*.{mp4,webm}'
+};
 
 gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
   function() {
     const port = argv.port || 8000;
-    const server = gls.static('dist', port);
+    const server = gls.static(paths.dist.dir, port);
     server.start();
-    gulp.watch(['dist/*.html',
-                'dist/img/*.{png,jpg,gif}',
-                'dist/video/*.{mp4,webm}'], function(file) {
+    gulp.watch([paths.templates.files, paths.dist.html], function(file) {
       /* eslint-disable */
       server.notify.apply(server, [file]);
       /* eslint-enable */
@@ -80,15 +95,15 @@ gulp.task('deploy:appeng:staging', 'deploy to staging app engine', shell.task([
 ]));
 
 gulp.task('copy:images', 'copy example images', function() {
-  return gulp.src(SAMPLES_DIR + 'img/*.{png,jpg,gif}')
+  return gulp.src(paths.images)
       .pipe(cache('img'))
-      .pipe(gulp.dest('dist/img'));
+      .pipe(gulp.dest(paths.dist.img));
 });
 
 gulp.task('copy:videos', 'copy example videos', function() {
-  return gulp.src(SAMPLES_DIR + 'video/*.{mp4,webm}')
+  return gulp.src(paths.videos)
       .pipe(cache('video'))
-      .pipe(gulp.dest('dist/video'));
+      .pipe(gulp.dest(paths.dist.video));
 });
 
 gulp.task('copy:license', 'copy license', function() {
@@ -97,17 +112,17 @@ gulp.task('copy:license', 'copy license', function() {
       .pipe(rename(function(path) {
         path.extname = ".txt";
       }))
-      .pipe(gulp.dest('dist'));
+      .pipe(gulp.dest(paths.dist.dir));
 });
 
 gulp.task('copy:static', 'copy static files', function() {
-  return gulp.src('static/*.*')
+  return gulp.src(paths.static)
       .pipe(cache('static'))
-      .pipe(gulp.dest('dist'));
+      .pipe(gulp.dest(paths.dist.dir));
 });
 
 gulp.task("compile:favicons", function() {
-  return gulp.src(SAMPLES_DIR + 'img/favicon.png')
+  return gulp.src(paths.favicon)
       .pipe(cache('static'))
       .pipe(favicons({
         appName: "AMP by Example",
@@ -127,25 +142,25 @@ gulp.task("compile:favicons", function() {
         replace: true
       }))
       .on("error", gutil.log)
-      .pipe(gulp.dest("dist/favicons"));
+      .pipe(gulp.dest(paths.dist.favicons));
 });
 
 gulp.task('validate:example', 'validate example html files', function() {
-  return gulp.src('src/**/*.html')
-    .pipe(compileExample(TEMPLATES_DIR, 'example.html'))
+  return gulp.src(paths.samples)
+    .pipe(compileExample(paths.templates.dir, 'example.html'))
     .pipe(validateExample());
 });
 
 gulp.task('compile:example', 'compile example html files', function() {
-  return gulp.src(SAMPLES_DIR + '*/*.html')
-      .pipe(compileExample(TEMPLATES_DIR, 'example.html'))
-      .pipe(gulp.dest('dist'));
+  return gulp.src(paths.samples)
+      .pipe(compileExample(paths.templates.dir, 'example.html'))
+      .pipe(gulp.dest(paths.dist.dir));
 });
 
 gulp.task('compile:index', 'generate index.html', function() {
-  return gulp.src(SAMPLES_DIR + '*/*.html')
-      .pipe(index('index.html',TEMPLATES_DIR, 'index.html'))
-      .pipe(gulp.dest('dist'));
+  return gulp.src(paths.samples)
+      .pipe(index('index.html',paths.templates.dir, 'index.html'))
+      .pipe(gulp.dest(paths.dist.dir));
 });
 
 gulp.task('compile:sitemap', 'generate sitemap.xml', function() {
@@ -171,7 +186,7 @@ gulp.task('create', 'create a new AMP example', function() {
     throwInvalidArgumentError('example category or directory missing');
   }
   return file(examplePath, '', {src: true})
-      .pipe(createExample(TEMPLATES_DIR, 'new-example.html'))
+      .pipe(createExample(paths.templates.dir, 'new-example.html'))
       .pipe(gulp.dest(SAMPLES_DIR));
 });
 
@@ -188,13 +203,14 @@ function throwInvalidArgumentError(message) {
 
 gulp.task('clean', 'delete all generated resources', function() {
   cache.caches = {};
-  return del(['dist']);
+  return del([paths.dist.dir]);
 });
 
 gulp.task('watch', 'watch for changes in the examples', function() {
-  gulp.watch(['src/**/*.html', 'src/**/*.css'],
+  gulp.watch([paths.samples, paths.templates.dir],
              ['compile:example', 'compile:index']);
-  gulp.watch('src/img/*.{png,jpg,gif}', ['copy:images']);
+  gulp.watch(paths.images, ['copy:images']);
+  gulp.watch(paths.videos, ['copy:videos']);
 });
 
 gulp.task('test', function() {
@@ -205,7 +221,7 @@ gulp.task('test', function() {
 gulp.task('lint', function() {
   const hasFixFlag = argv.fix;
   let errorsFound = false;
-  return gulp.src(['tasks/**/*.js', 'gulpfile.js'], {base: './'})
+  return gulp.src(paths.scripts, {base: './'})
       .pipe(eslint({fix: hasFixFlag}))
       .pipe(eslint.formatEach('stylish', function(msg) {
         errorsFound = true;
@@ -228,8 +244,7 @@ gulp.task('default', 'Run a webserver and watch for changes', [
   'watch',
   'serve']);
 
-gulp.task('validate', 'validate all examples', [
-  'validate:example']);
+gulp.task('validate', 'runs all checks', ['lint', 'test', 'validate:example']);
 
 gulp.task('build', 'build all resources', [
   'copy:images',
