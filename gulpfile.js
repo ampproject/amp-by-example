@@ -33,6 +33,7 @@ const argv = require('yargs').argv;
 const path = require('path');
 
 const index = require('./tasks/compile-index');
+const sitemap = require('./tasks/compile-sitemap');
 const validateExample = require('./tasks/validate-example');
 const compileExample = require('./tasks/compile-example');
 const createExample = require('./tasks/create-example');
@@ -147,6 +148,12 @@ gulp.task('compile:index', 'generate index.html', function() {
       .pipe(gulp.dest('dist'));
 });
 
+gulp.task('compile:sitemap', 'generate sitemap.xml', function() {
+  return gulp.src(SAMPLES_DIR + '*/*.html')
+      .pipe(sitemap())
+      .pipe(gulp.dest('dist'));
+});
+
 gulp.task('create', 'create a new AMP example', function() {
   const title = argv.n || argv.name;
   const fileName = FileName.fromString(title);
@@ -231,6 +238,7 @@ gulp.task('build', 'build all resources', [
   'copy:static',
   'compile:favicons',
   'compile:example',
+  'compile:sitemap',
   'compile:index']);
 
 function isFixed(file) {

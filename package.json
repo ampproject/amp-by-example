@@ -2,7 +2,10 @@
   "name": "amp-by-example",
   "version": "1.0.0",
   "description": "AMP by example",
-  "repository": "https://github.com/ampproject/amp-by-example.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ampproject/amp-by-example.git"
+  },
   "private": true,
   "main": "app.js",
   "engines": {
@@ -10,10 +13,6 @@
   },
   "author": "The AMP HTML Authors",
   "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ampproject/amp-by-example.git"
-  },
   "scripts": {
     "start": "gulp serve"
   },
@@ -46,6 +45,7 @@
     "marked": "^0.3.5",
     "mu2": "^0.5.20",
     "run-sequence": "^1.1.5",
+    "sitemap": "^1.5.0",
     "string": "^3.3.1",
     "through2": "^2.0.1",
     "yargs": "^3.10.0"
