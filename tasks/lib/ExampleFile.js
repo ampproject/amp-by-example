@@ -19,7 +19,7 @@ const FileName = require('./FileName');
 const path = require('path');
 const fs = require('fs');
 const PREFIX = /\d+_/;
-const GITHUB_PREFIX = "https://github.com/ampproject/amp-by-example/blob/master/src"
+const GITHUB_PREFIX = "https://github.com/ampproject/amp-by-example/blob/master/src";
 
 
 /**
