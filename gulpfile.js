@@ -51,6 +51,7 @@ const paths = {
   images: 'src/img/*.{png,jpg,gif}',
   favicon: 'src/img/favicon.png',
   samples: 'src/**/*.html',
+  src: 'src',
   scripts: ['tasks/**/*.js', 'gulpfile.js'],
   static: 'static/*.*',
   templates: {
@@ -164,7 +165,7 @@ gulp.task('compile:index', 'generate index.html', function() {
 });
 
 gulp.task('compile:sitemap', 'generate sitemap.xml', function() {
-  return gulp.src(SAMPLES_DIR + '*/*.html')
+  return gulp.src(paths.samples)
       .pipe(sitemap())
       .pipe(gulp.dest('dist'));
 });
@@ -187,7 +188,7 @@ gulp.task('create', 'create a new AMP example', function() {
   }
   return file(examplePath, '', {src: true})
       .pipe(createExample(paths.templates.dir, 'new-example.html'))
-      .pipe(gulp.dest(SAMPLES_DIR));
+      .pipe(gulp.dest(paths.src));
 });
 
 function throwInvalidArgumentError(message) {
