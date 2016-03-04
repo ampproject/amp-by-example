@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <style amp-custom>
-      {{> css/styles.css}}
       {{> css/material.css}}}
+      {{> css/styles.css}}
       {{{styles}}}
       main {
         margin: 0 auto;
@@ -12,7 +12,7 @@
         padding: 0 16px;
       }
       ul {
-        padding-left: 18px;
+        padding-left: 0;
       }
     </style>
     {{> head.html}}
@@ -28,7 +28,7 @@
       <p>AMP-by-Example gives you a hands-on introduction to <a href="https://www.ampproject.org">Accelerated Mobile Pages</a> based on code and live samples. Read the <a href="https://medium.com/@sebabenz/introducing-amp-by-example-dc6118794369#.ganu8ghx6">blog post</a> for more details.</p>
           {{#categories}}
           <h4>{{name}}</h4>
-          <ul>
+          <ul class="example-list">
             {{#examples}}
             <li><a href="{{url}}">{{title}}</a></li>
             {{/examples}}

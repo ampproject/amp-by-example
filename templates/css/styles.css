@@ -5,7 +5,11 @@ figure {
 /* layout */
 .body {
   background: #fff;
-  font-family: Roboto,sans-serif;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+.body p a{
+  text-decoration: none;
+  cursor: pointer;
 }
 .box {
   min-height: -webkit-min-content;
@@ -17,11 +21,14 @@ figure {
   flex: 1;
   width: 0;
 }
-
-ul {
+ul.example-list {
   list-style-type: none;
 }
-
+ul.example-list a {
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+} 
 /* doc column */
 .doc code {
   padding: 1px 5px;
@@ -30,6 +37,10 @@ ul {
   background-color: #fff;
   margin-left: 32px;
   margin-right: 16px;
+}
+.doc a {
+  text-decoration: none;
+  cursor: pointer;
 }
 .anchor-trigger {
   float: left;
@@ -132,6 +143,17 @@ footer ul {
   flex-flow: row wrap;
   justify-content: center;
   line-height: 12px;
+}
+
+footer ul a{
+  display: flex;
+  padding: 0;
+  margin: 0;
+  flex-flow: row wrap;
+  justify-content: center;
+  line-height: 12px;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 footer li:first-child {
