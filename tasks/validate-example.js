@@ -36,20 +36,18 @@ module.exports = function() {
       this.emit('error', new PluginError('validate-example',
             'Streams not supported!'));
     } else if (file.isBuffer()) {
-
-
       // write file to disk, invoke validator, capture output & cleanup
       const inputFilename = path.basename(file.path);
-      const tmpFile = os.tmpdir() + '/' + inputFilename;
+      const tmpFile = path.join(os.tmpdir(), inputFilename);
       fs.writeFile(tmpFile, file.contents, encoding, function(err) {
         if (err) {
           return callback(err);
         }
-        const child = cp.spawn(path.join(__dirname,
-        '../node_modules/.bin/amp-validator'),
-        ['-o', 'json', inputFilename], {
-          cwd: os.tmpdir()
-        });
+        const child = cp.spawn(
+            path.join(__dirname, '../node_modules/.bin/amp-validator'),
+            ['-o', 'json', inputFilename],
+            {cwd: os.tmpdir()}
+        );
         let output = '';
         let error = false;
         child.stderr.on('data', function(data) {
@@ -71,17 +69,17 @@ module.exports = function() {
               printedOutput += item.line + ': ' + item.reason + '\n';
             });
           }
-          gutil.log('Validating example ' +
-            file.relative + ': ' + printedOutput);
+          gutil.log('Validating ' + file.relative + ': ' +
+              printedOutput);
           if (!error) {
             fs.unlink(tmpFile, function() {
               callback();
             });
           }
         });
-        child.on('error', function(err) {
+        child.on('error', function() {
           error = true;
-          gutil.log('Error running validator ' + err);
+          gutil.log('Error running validator');
           callback();
         });
       });
