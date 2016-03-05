@@ -7,7 +7,7 @@ figure {
   background: #fff;
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
 }
-.body p a{
+.body p a {
   text-decoration: none;
   cursor: pointer;
 }
@@ -21,14 +21,6 @@ figure {
   flex: 1;
   width: 0;
 }
-ul.example-list {
-  list-style-type: none;
-}
-ul.example-list a {
-  text-decoration: none;
-  font-size: 16px;
-  cursor: pointer;
-} 
 /* doc column */
 .doc code {
   padding: 1px 5px;
@@ -145,7 +137,7 @@ footer ul {
   line-height: 12px;
 }
 
-footer ul a{
+footer ul a {
   display: flex;
   padding: 0;
   margin: 0;

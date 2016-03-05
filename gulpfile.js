@@ -51,6 +51,7 @@ const paths = {
   images: 'src/img/*.{png,jpg,gif}',
   favicon: 'src/img/favicon.png',
   samples: 'src/**/*.html',
+  src: 'src',
   scripts: ['tasks/**/*.js', 'gulpfile.js'],
   static: 'static/*.*',
   templates: {
@@ -187,7 +188,7 @@ gulp.task('create', 'create a new AMP example', function() {
   }
   return file(examplePath, '', {src: true})
       .pipe(createExample(paths.templates.dir, 'new-example.html'))
-      .pipe(gulp.dest('src'));
+      .pipe(gulp.dest(paths.src));
 });
 
 function throwInvalidArgumentError(message) {
