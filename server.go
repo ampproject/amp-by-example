@@ -65,6 +65,8 @@ func RedirectDomain(h http.Handler) http.Handler {
 			http.Redirect(w, r, NEW_ADDRESS+r.URL.Path, http.StatusMovedPermanently)
 		} else {
 			w.Header().Add("Cache-Control", fmt.Sprintf("max-age=%d, public, must-revalidate, proxy-revalidate", MAX_AGE_IN_SECONDS))
+			// make content accessible via the Google AMP CDN
+			w.Header().Add("Access-Control-Allow-Origin", "*")
 			h.ServeHTTP(w, r)
 		}
 	})
