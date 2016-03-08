@@ -66,7 +66,7 @@ gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
     const port = argv.port || 8000;
     const server = gls.static(paths.dist.dir, port);
     server.start();
-    gulp.watch([paths.templates.files, paths.dist.html], function(file) {
+    gulp.watch([paths.dist.html], function(file) {
       /* eslint-disable */
       server.notify.apply(server, [file]);
       /* eslint-enable */
@@ -208,7 +208,7 @@ gulp.task('clean', 'delete all generated resources', function() {
 });
 
 gulp.task('watch', 'watch for changes in the examples', function() {
-  gulp.watch([paths.samples, paths.templates.dir],
+  gulp.watch([paths.samples, paths.templates.files],
              ['compile:example', 'compile:index']);
   gulp.watch(paths.images, ['copy:images']);
   gulp.watch(paths.videos, ['copy:videos']);
