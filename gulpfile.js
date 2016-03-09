@@ -46,6 +46,7 @@ const paths = {
     html: 'dist/**/*.html',
     img: 'dist/img',
     video: 'dist/video',
+    json: 'dist/json',
     favicons: 'dist/favicons',
   },
   images: 'src/img/*.{png,jpg,gif}',
@@ -58,7 +59,8 @@ const paths = {
     dir: 'templates',
     files: ['templates/**/*.css', 'templates/**/*.html']
   },
-  videos: 'src/video/*.{mp4,webm}'
+  videos: 'src/video/*.{mp4,webm}',
+  json: 'src/json/*.json',
 };
 
 gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
@@ -105,6 +107,12 @@ gulp.task('copy:videos', 'copy example videos', function() {
   return gulp.src(paths.videos)
       .pipe(cache('video'))
       .pipe(gulp.dest(paths.dist.video));
+});
+
+gulp.task('copy:json', 'copy example json', function() {
+  return gulp.src(paths.json)
+      .pipe(cache('json'))
+      .pipe(gulp.dest(paths.dist.json));
 });
 
 gulp.task('copy:license', 'copy license', function() {
@@ -250,6 +258,7 @@ gulp.task('validate', 'runs all checks', ['lint', 'test', 'validate:example']);
 gulp.task('build', 'build all resources', [
   'copy:images',
   'copy:videos',
+  'copy:json',
   'copy:license',
   'copy:static',
   'compile:favicons',
