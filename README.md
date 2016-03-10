@@ -110,6 +110,15 @@ You can use [markdown](https://help.github.com/articles/github-flavored-markdown
 <amp-img src="img/image1.jpg" width=200 height=100 layout=responsive></amp-img>
 ```
 
+If your sample is using an experimental component, you can add a metadata section (`<!--- ... --->`) with the json variables `experiment` and `component`, this will skip its validation and add an experimental note with instructions to your sample:
+
+```html
+<!---{
+  "experiment": true,
+  "component": "amp-experimenal-component"
+}--->
+```
+
 ## Contributing
 
 Please see [the CONTRIBUTING file](CONTRIBUTING.md) for information on contributing to amp-by-example.
