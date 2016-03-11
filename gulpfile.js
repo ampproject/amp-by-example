@@ -168,7 +168,7 @@ gulp.task('compile:example', 'compile example html files', function() {
 
 gulp.task('compile:index', 'generate index.html', function() {
   return gulp.src(paths.samples)
-      .pipe(index('index.html',paths.templates.dir, 'index.html'))
+      .pipe(index('index.html', paths.templates.dir, 'index.html'))
       .pipe(gulp.dest(paths.dist.dir));
 });
 

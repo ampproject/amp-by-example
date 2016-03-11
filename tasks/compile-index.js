@@ -20,7 +20,7 @@ const through = require('through2');
 const path = require('path');
 const gutil = require('gulp-util');
 const PluginError = gutil.PluginError;
-const mu = require('mu2');
+const Templates = require('./lib/Templates');
 const ExampleFile = require('./lib/ExampleFile');
 const Metadata = require('./lib/Metadata');
 
@@ -34,6 +34,7 @@ module.exports = function(file, templateRoot, template) {
   let targetFile;
   let files;
   let templateName;
+  let templates;
 
   if (typeof file === 'string') {
     targetFile = file;
@@ -45,8 +46,7 @@ module.exports = function(file, templateRoot, template) {
   }
 
   if (typeof templateRoot === 'string') {
-    mu.cache = {};
-    mu.root = templateRoot;
+    templates = Templates.get(templateRoot);
   } else {
     throw new PluginError('compile-index',
         'Missing template root in template options for gulp-index');
@@ -107,19 +107,13 @@ module.exports = function(file, templateRoot, template) {
     };
     Metadata.add(args);
     args.fileName = '';
-    const htmlStream = mu.compileAndRender(templateName, args);
-    let html = '';
-
-    htmlStream.on('data', function(chunk) {
-      html += chunk;
-    }).on('end', function() {
-      const indexFile = latestFile.clone({contents: false});
-      indexFile.path = path.join(latestFile.base, targetFile);
-      indexFile.contents = new Buffer(html);
-      gutil.log('Generated ' + indexFile.relative);
-      stream.push(indexFile);
-      cb();
-    });
+    const html = templates.render(templateName, args);
+    const indexFile = latestFile.clone({contents: false});
+    indexFile.path = path.join(latestFile.base, targetFile);
+    indexFile.contents = new Buffer(html);
+    gutil.log('Generated ' + indexFile.relative);
+    stream.push(indexFile);
+    cb();
   }
 
   function mapToCategories(files) {

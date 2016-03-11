@@ -19,7 +19,7 @@
 const through = require('through2');
 const gutil = require('gulp-util');
 const PluginError = gutil.PluginError;
-const mu = require('mu2');
+const Templates = require('./lib/Templates');
 const FileName = require('./lib/FileName');
 
 /**
@@ -27,9 +27,10 @@ const FileName = require('./lib/FileName');
  */
 module.exports = function(templateRoot, template) {
   let templateName;
+  let templates;
 
   if (typeof templateRoot === 'string') {
-    mu.root = templateRoot;
+    templates = Templates.get(templateRoot);
   } else {
     throw new PluginError('create-example',
         'Missing template root in template options for create-example');
@@ -54,18 +55,13 @@ module.exports = function(templateRoot, template) {
       const stream = this;
       const exampleName = FileName.toString(file);
       gutil.log('Creating example ' + file.relative);
-      const htmlStream = mu.compileAndRender(templateName, {
+      const html = templates.render(templateName, {
         title: exampleName,
         fileName: FileName.fromString(exampleName)
       });
-      let html = '';
-      htmlStream.on('data', function(chunk) {
-        html += chunk;
-      }).on('end', function() {
-        file.contents = new Buffer(html);
-        stream.push(file);
-        callback();
-      });
+      file.contents = new Buffer(html);
+      stream.push(file);
+      callback();
     }
   });
 };
