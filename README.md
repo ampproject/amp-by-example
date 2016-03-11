@@ -112,7 +112,7 @@ You can use [markdown](https://help.github.com/articles/github-flavored-markdown
 
 If your sample is using an experimental component, you can add a metadata section (`<!--- ... --->`) with the json variables `experiment` and `component`, this will skip its validation and add an experimental note with instructions to your sample:
 
-```html
+```json
 <!---{
   "experiment": true,
   "component": "amp-experimenal-component"
