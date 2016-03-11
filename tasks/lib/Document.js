@@ -16,6 +16,10 @@
 
 "use strict";
 
+const striptags = require('striptags');
+const SENTENCE = /([^.!?]*[.!?])/;
+const PARAGRAPH = /\<p\>([\s\S]*)\<\/p\>/;
+
 /**
  * Contains the content of an example.
  */
@@ -39,6 +43,50 @@ module.exports = class Document {
 
   appendStyles(line) {
     this.styles += line + '\n';
+  }
+
+  /**
+   * Returns a short description consisting of the first
+   * sentence in the doc strings.
+   */
+  description() {
+    for (let i = 0; i < this.sections.length; i++) {
+      const section = this.sections[i];
+      if (!section.doc) {
+        continue;
+      }
+      const desc = this.extractDescription(section.markedDoc());
+      if (desc) {
+        return desc;
+      }
+    }
+    return '';
+  }
+
+  /* private */
+  extractDescription(htmlString) {
+    let desc = this.extractFirstParagraph(htmlString);
+    desc = striptags(desc);
+    desc = this.extractFirstSentence(desc);
+    desc = desc.replace(/[\r?\n]+/, ' ');
+    desc = desc.trim();
+    return desc;
+  }
+
+  extractFirstParagraph(string) {
+    const paragraphs = string.match(PARAGRAPH);
+    if (!paragraphs) {
+      return '';
+    }
+    return paragraphs[1];
+  }
+
+  extractFirstSentence(string) {
+    const sentences = string.match(SENTENCE);
+    if (!sentences) {
+      return string;
+    }
+    return sentences[1];
   }
 
 };
