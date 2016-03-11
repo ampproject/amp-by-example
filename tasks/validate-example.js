@@ -36,6 +36,12 @@ module.exports = function() {
       this.emit('error', new PluginError('validate-example',
             'Streams not supported!'));
     } else if (file.isBuffer()) {
+
+      // skip over experiments which will fail validation
+      if (file.experimental) {
+        return callback(null, file);
+      }
+
       // write file to disk, invoke validator, capture output & cleanup
       const inputFilename = path.basename(file.path);
       const tmpFile = path.join(os.tmpdir(), inputFilename);

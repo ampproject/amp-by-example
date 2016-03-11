@@ -95,6 +95,7 @@ module.exports = function(templateRoot, template) {
       })
       .on('end', function() {
         file.path = path.join(file.base, example.targetPath());
+        file.experimental = document.metadata.experiment;
         file.contents = new Buffer(html);
         gutil.log('Generated ' + file.relative);
         stream.push(file);
