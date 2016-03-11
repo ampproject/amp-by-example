@@ -59,7 +59,6 @@ module.exports = function(templateRoot, template) {
       const stream = this;
       const example = ExampleFile.fromPath(file.path);
       const nextExample = example.nextFile();
-
       const args = {
         head: document.head,
         title: example.title(),
@@ -68,8 +67,15 @@ module.exports = function(templateRoot, template) {
         github: example.githubUrl(),
         subHeading: example.title(),
         exampleStyles: document.styles,
-        sections: document.sections
+        component: document.metadata.component,
+        sections: document.sections,
+        isExperiment: document.metadata.experiment
       };
+
+      if (document.metadata.experiment && !document.metadata.component) {
+        throw new PluginError('create-example', 'Example (' + file.path
+          + ') is `experiment`: true, but is missing the `component` metadata');
+      }
 
       Metadata.add(args);
       // avoid duplicate canonical refs as some examples define a canonical link
