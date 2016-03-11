@@ -63,6 +63,7 @@ module.exports = function(templateRoot, template) {
       const args = {
         head: document.head,
         title: example.title(),
+        desc: document.description(),
         fileName: example.url(),
         github: example.githubUrl(),
         subHeading: example.title(),

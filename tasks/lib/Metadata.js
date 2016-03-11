@@ -28,7 +28,6 @@ module.exports.add = function(args) {
   const logo = HOST + '/img/logo.png';
   const leader = HOST + '/img/abe_preview.png';
   const metadata = {
-    desc: 'Accelerated Mobile Pages in Action',
     datePublished: timeStamp,
     dateModified: timeStamp,
     fileName: fileName,

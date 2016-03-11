@@ -102,6 +102,7 @@ module.exports = function(file, templateRoot, template) {
     const args = {
       categories: categories,
       title: 'AMP by Example',
+      desc: 'Accelerated Mobile Pages in Action',
       fileName: '/'
     };
     Metadata.add(args);
