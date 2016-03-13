@@ -38,7 +38,7 @@ module.exports = function() {
     } else if (file.isBuffer()) {
 
       // skip over experiments which will fail validation
-      if (file.experimental || file.skipValidation) {
+      if (file.metadata.experiment || file.metadata.skipValidation) {
         return callback(null, file);
       }
 
@@ -57,13 +57,21 @@ module.exports = function() {
         );
         let output = '';
         let error = false;
+        let timeout = false;
         child.stderr.on('data', function(data) {
           output += data.toString();
+          if (output === 'undefined:1') {
+            timeout = true;
+          }
         });
         child.stdout.on('data', function(data) {
           output += data.toString().trim();
         });
         child.on('exit', function() {
+          if (timeout) {
+            return self.emit('error', new PluginError('validate-example',
+              'Timeout occured while fetching AMP for validation. Try again'));
+          }
           let printedOutput = '';
           const parsedOutput = JSON.parse(output);
           const exampleKey = 'http://localhost:30000/' + inputFilename;

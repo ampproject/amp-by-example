@@ -68,7 +68,6 @@ module.exports = function(templateRoot, template) {
         subHeading: example.title(),
         exampleStyles: document.styles,
         component: document.metadata.component,
-        skipValidation: document.metadata.skipValidation,
         sections: document.sections,
         isExperiment: document.metadata.experiment
       };
@@ -96,8 +95,7 @@ module.exports = function(templateRoot, template) {
       })
       .on('end', function() {
         file.path = path.join(file.base, example.targetPath());
-        file.experimental = document.metadata.experiment;
-        file.skipValidation = document.metadata.skipValidation;
+        file.metadata = document.metadata;
         file.contents = new Buffer(html);
         gutil.log('Generated ' + file.relative);
         stream.push(file);
