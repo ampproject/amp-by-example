@@ -4,9 +4,9 @@
     {{{head}}}
     {{> head.html}}
     <style amp-custom>
-      {{> css/code.css}}}
-      {{> css/material.css}}}
-      {{> css/styles.css}}}
+      {{> css/code.css}}
+      {{> css/material.css}}
+      {{> css/styles.css}}
       {{{exampleStyles}}}
     </style>
   </head>
@@ -29,7 +29,7 @@
         <div class="column doc {{^inBody}}hide-on-mobile{{/inBody}}">
           {{#markedDoc}}
           <a id="example{{id}}"></a>
-            {{{markedDoc}}}
+            {{{this}}}
           <a href="#example{{id}}" class="anchor">
             <div class="anchor-img"></div>
           </a>

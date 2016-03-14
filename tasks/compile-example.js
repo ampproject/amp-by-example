@@ -20,7 +20,7 @@ const through = require('through2');
 const gutil = require('gulp-util');
 const path = require('path');
 const PluginError = gutil.PluginError;
-const mu = require('mu2');
+const Templates = require('./lib/Templates');
 const DocumentParser = require('./lib/DocumentParser');
 const Metadata = require('./lib/Metadata');
 const ExampleFile = require('./lib/ExampleFile');
@@ -31,9 +31,9 @@ const ExampleFile = require('./lib/ExampleFile');
  */
 module.exports = function(templateRoot, template) {
   let templateName;
+  let templates;
   if (typeof templateRoot === 'string') {
-    mu.cache = {};
-    mu.root = templateRoot;
+    templates = Templates.get(templateRoot);
   } else {
     throw new PluginError('gulp-index',
         'Missing template root in template options for gulp-index');
@@ -73,8 +73,10 @@ module.exports = function(templateRoot, template) {
       };
 
       if (document.metadata.experiment && !document.metadata.component) {
-        throw new PluginError('create-example', 'Example (' + file.path
-          + ') is `experiment`: true, but is missing the `component` metadata');
+        throw new PluginError({
+          plugin: 'compile-example',
+          message: 'Example (' + file.path + ') is `experiment`: true, but ' +
+            'is missing the `component` metadata'});
       }
 
       Metadata.add(args);
@@ -88,19 +90,13 @@ module.exports = function(templateRoot, template) {
               nextExample.url() + '">' + nextExample.title() +
               '</a></p>');
       }
-      const generatedContents = mu.compileAndRender(templateName, args);
-      let html = '';
-      generatedContents.on('data', function(chunk) {
-        html += chunk;
-      })
-      .on('end', function() {
-        file.path = path.join(file.base, example.targetPath());
-        file.metadata = document.metadata;
-        file.contents = new Buffer(html);
-        gutil.log('Generated ' + file.relative);
-        stream.push(file);
-        callback();
-      });
+      const html = templates.render(templateName, args);
+      file.path = path.join(file.base, example.targetPath());
+      file.metadata = document.metadata;
+      file.contents = new Buffer(html);
+      gutil.log('Generated ' + file.relative);
+      stream.push(file);
+      callback();
     }
   });
 };
