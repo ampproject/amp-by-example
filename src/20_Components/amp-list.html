@@ -1,3 +1,7 @@
+<!---{
+    "skipValidation": true
+}--->
+
 <!--
   #### Introduction
 
@@ -25,8 +29,8 @@
 
   <!-- #### Using a nested template -->
   <!--
-    The `amp-list` content is provided by a JSON CORS endpoint, which is defined by the `src` 
-    attribute. The URL's protocol must be HTTPS. The response must be a JSON object containing 
+    The `amp-list` content is provided by a JSON CORS endpoint, which is defined by the `src`
+    attribute. The URL's protocol must be HTTPS. The response must be a JSON object containing
     an array property `items`, for example:
     ```
     {
@@ -52,21 +56,21 @@
 
   <!-- #### Using an existing template -->
   <!--
-    The template can also be specified using an ID of an existing 
-    `template` element. This example references the template from the 
+    The template can also be specified using an ID of an existing
+    `template` element. This example references the template from the
     previous sample.
   -->
   <amp-list width=300 height=100 layout=responsive
-      src="https://ampbyexample.com/json/examples.json" 
+      src="https://ampbyexample.com/json/examples.json"
       template="amp-template-id">
   </amp-list>
 
   <!-- #### Handling List Overflow -->
   <!--
- If the `amp-list` content requires more space than available, the AMP runtime will display the overflow element (if specified). 
+ If the `amp-list` content requires more space than available, the AMP runtime will display the overflow element (if specified).
   -->
   <amp-list width=300 height=40 layout=responsive
-      src="https://ampbyexample.com/json/examples.json" 
+      src="https://ampbyexample.com/json/examples.json"
       template="amp-template-id">
   <button overflow role=button aria-label="Show more" class="list-overflow">
     Show more

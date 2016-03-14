@@ -38,13 +38,14 @@ module.exports = function() {
     } else if (file.isBuffer()) {
 
       // skip over experiments which will fail validation
-      if (file.experimental) {
+      if (file.metadata.experiment || file.metadata.skipValidation) {
         return callback(null, file);
       }
 
       // write file to disk, invoke validator, capture output & cleanup
       const inputFilename = path.basename(file.path);
       const tmpFile = path.join(os.tmpdir(), inputFilename);
+      const self = this;
       fs.writeFile(tmpFile, file.contents, encoding, function(err) {
         if (err) {
           return callback(err);
@@ -56,13 +57,21 @@ module.exports = function() {
         );
         let output = '';
         let error = false;
+        let timeout = false;
         child.stderr.on('data', function(data) {
           output += data.toString();
+          if (output === 'undefined:1') {
+            timeout = true;
+          }
         });
         child.stdout.on('data', function(data) {
           output += data.toString().trim();
         });
         child.on('exit', function() {
+          if (timeout) {
+            return self.emit('error', new PluginError('validate-example',
+              'Timeout occured while fetching AMP for validation. Try again'));
+          }
           let printedOutput = '';
           const parsedOutput = JSON.parse(output);
           const exampleKey = 'http://localhost:30000/' + inputFilename;
@@ -79,14 +88,19 @@ module.exports = function() {
               printedOutput);
           if (!error) {
             fs.unlink(tmpFile, function() {
-              callback();
+              if (parsedOutput[exampleKey].success) {
+                callback();
+              } else {
+                self.emit('error', new PluginError('validate-example',
+                      'Example has failed AMP validation'));
+              }
             });
           }
         });
         child.on('error', function() {
           error = true;
-          gutil.log('Error running validator');
-          callback();
+          self.emit('error', new PluginError('validate-example',
+                'Error invoking amp-validate process'));
         });
       });
     }
