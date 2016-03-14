@@ -19,25 +19,25 @@ describe("ExampleFile", function() {
   var ExampleFile = require('../../tasks/lib/ExampleFile');
 
   describe('created from path', function() {
-    var file = ExampleFile.fromPath('src/10_Hello_world\'s/What\'s%20up?.html');
+    var file = ExampleFile.fromPath('src/10_Hello-world\'s/What\'s_up_100%25?.html');
     it('extracts title', function() {
-      expect(file.title()).toBe("What's up?");
+      expect(file.title()).toBe("What's up 100%?");
     });
     it('extracts url', function() {
-      expect(file.url()).toBe("/hello_world\'s/what\'s%2520up?");
+      expect(file.url()).toBe("/hello-worlds/whats_up_100/");
     });
     it('extracts file name', function() {
-      expect(file.fileName()).toBe("What\'s%20up?.html");
+      expect(file.fileName()).toBe("What\'s_up_100%25?.html");
     });
     it('extracts category', function() {
-      expect(file.category()).toBe("Hello world's");
+      expect(file.category()).toBe("Hello-world's");
     });
     it('target path', function() {
-      expect(file.targetPath()).toBe("hello_world\'s/what\'s%20up?/index.html");
+      expect(file.targetPath()).toBe("hello-worlds/whats_up_100/index.html");
     });
     it('path on github', function() {
       expect(file.githubUrl()).toBe(
-          ExampleFile.GITHUB_PREFIX + "/10_Hello_world\'s/What\'s%20up?.html");
+          ExampleFile.GITHUB_PREFIX + "/10_Hello-world's/What\'s_up_100%25?.html");
     });
   });
 

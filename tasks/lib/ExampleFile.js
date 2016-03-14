@@ -72,11 +72,11 @@ class ExampleFile {
 
   targetParentDir() {
     const parentDir = path.basename(path.dirname(this.filePath));
-    return this.stripNumberPrefix(parentDir).toLowerCase();
+    return this.clean(this.stripNumberPrefix(parentDir));
   }
 
   targetName() {
-    return this.name().toLowerCase();
+    return this.clean(this.name());
   }
 
   targetPath() {
@@ -89,9 +89,10 @@ class ExampleFile {
 
   url() {
     return '/' +
-      encodeURI(this.targetParentDir()) +
+      this.targetParentDir() +
       '/' +
-      encodeURI(this.targetName());
+      this.targetName() +
+      '/';
   }
 
   /** private **/
@@ -99,6 +100,9 @@ class ExampleFile {
     return string.replace(PREFIX, '');
   }
 
+  clean(string) {
+    return decodeURIComponent(string).toLowerCase().replace(/[^\w\d_-]/g, '');
+  }
 }
 
 module.exports.fromPath = fromPath;
