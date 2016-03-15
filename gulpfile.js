@@ -32,10 +32,9 @@ const runSequence = require('run-sequence');
 const argv = require('yargs').argv;
 const path = require('path');
 
-const index = require('./tasks/compile-index');
+const compileExample = require('./tasks/compile-example');
 const sitemap = require('./tasks/compile-sitemap');
 const validateExample = require('./tasks/validate-example');
-const compileExample = require('./tasks/compile-example');
 const createExample = require('./tasks/create-example');
 const FileName = require('./tasks/lib/FileName');
 const Metadata = require('./tasks/lib/Metadata');
@@ -156,19 +155,13 @@ gulp.task("compile:favicons", function() {
 
 gulp.task('validate:example', 'validate example html files', function() {
   return gulp.src(paths.samples)
-    .pipe(compileExample(paths.templates.dir, 'example.html'))
+    .pipe(compileExample(paths.templates.dir, 'index.html', 'example.html'))
     .pipe(validateExample());
 });
 
-gulp.task('compile:example', 'compile example html files', function() {
+gulp.task('compile:example', 'generate index.html and examples', function() {
   return gulp.src(paths.samples)
-      .pipe(compileExample(paths.templates.dir, 'example.html'))
-      .pipe(gulp.dest(paths.dist.dir));
-});
-
-gulp.task('compile:index', 'generate index.html', function() {
-  return gulp.src(paths.samples)
-      .pipe(index('index.html', paths.templates.dir, 'index.html'))
+      .pipe(compileExample(paths.templates.dir, 'index.html', 'example.html'))
       .pipe(gulp.dest(paths.dist.dir));
 });
 
@@ -216,8 +209,7 @@ gulp.task('clean', 'delete all generated resources', function() {
 });
 
 gulp.task('watch', 'watch for changes in the examples', function() {
-  gulp.watch([paths.samples, paths.templates.files],
-             ['compile:example', 'compile:index']);
+  gulp.watch([paths.samples, paths.templates.files],['compile:example']);
   gulp.watch(paths.images, ['copy:images']);
   gulp.watch(paths.videos, ['copy:videos']);
 });
@@ -262,9 +254,8 @@ gulp.task('build', 'build all resources', [
   'copy:license',
   'copy:static',
   'compile:favicons',
-  'compile:example',
   'compile:sitemap',
-  'compile:index']);
+  'compile:example']);
 
 function isFixed(file) {
   return file.eslint.fixed;

@@ -20,6 +20,14 @@
         line-height: 200%;
         cursor: pointer;
       }
+      .amp-experiment {
+        padding-right: 24px;
+        background-position: right center;
+        background-repeat: no-repeat;
+        background-image: -webkit-image-set(
+          url('/img/ic_experiment_black_1x_web_18dp.png') 1x,
+          url('/img/ic_experiment_black_2x_web_18dp.png') 2x );
+      }
     </style>
     {{> head.html}}
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -36,7 +44,7 @@
           <h4>{{name}}</h4>
           <ul class="example-list">
             {{#examples}}
-            <li><a href="{{url}}">{{title}}</a></li>
+            <li><a {{#experiment}}class='amp-experiment'{{/experiment}} href="{{url}}">{{title}}</a></li>
             {{/examples}}
           </ul>
           {{/categories}}
