@@ -40,6 +40,13 @@
     <amp-img src="/img/image3.jpg" width="400" height="300" layout="responsive"></amp-img>
   </amp-carousel>
 
+  <!-- Display a list of images as slides with autoplay. Autoplay (type=slides only) advances the slide to the next slide without user interaction, by default it will advance a slide in 5000 millisecond intervals (5 seconds) and can be overridden by the delay attribute. If autoplay is present it will also attach the loop attribute to amp-carousel if loop is not already present.-->
+  <amp-carousel width="400" height="300" layout="responsive" type="slides" autoplay loop delay=2000>
+    <amp-img src="/img/image1.jpg" width="400" height="300" layout="responsive"></amp-img>
+    <amp-img src="/img/image2.jpg" width="400" height="300" layout="responsive"></amp-img>
+    <amp-img src="/img/image3.jpg" width="400" height="300" layout="responsive"></amp-img>
+  </amp-carousel>
+
   <!-- #### Supported Contents  -->
   <!-- Each of these nodes may also have arbitrary HTML children.  -->
   <amp-carousel width="400" height="300" layout="responsive" type="slides">
