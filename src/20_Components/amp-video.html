@@ -25,28 +25,28 @@
     Boolean attribute (`controls` in this case) must be without values.
     Expression with value like `controls="controls"` is invalid.
   -->
-  <amp-video width=480 height=270 src="video/tokyo.mp4"
+  <amp-video width=480 height=270 src="/video/tokyo.mp4"
              poster="/img/tokyo.jpg"
              layout="responsive"
              controls>
     <div fallback>
       <p>Your browser doesn't support HTML5 video.</p>
     </div>
-    <source type="video/mp4" src="video/tokyo.mp4">
-    <source type="video/webm" src="video/tokyo.webm">
+    <source type="video/mp4" src="/video/tokyo.mp4">
+    <source type="video/webm" src="/video/tokyo.webm">
   </amp-video>
   
   <!--
     Setting `autoplay` and `muted` will enable play video as soon as it get loaded in mute mode.
   -->
-  <amp-video width=480 height=270 src="video/tokyo.mp4"
+  <amp-video width=480 height=270 src="/video/tokyo.mp4"
              poster="/img/tokyo.jpg"
              layout="responsive"
              autoplay muted loop>
     <div fallback>
       <p>Your browser doesn't support HTML5 video.</p>
     </div>
-    <source type="video/webm" src="video/tokyo.webm">
+    <source type="video/webm" src="/video/tokyo.webm">
   </amp-video>
 
 </body>
