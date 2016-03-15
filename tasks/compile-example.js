@@ -190,7 +190,6 @@ module.exports = function(templateRoot, templateIndex, templateExample) {
     examples.sort(function(a, b) {
       return a.filePath.localeCompare(b.filePath);
     });
-    console.log(examples.forEach(function(e) {console.log(e.filePath);}));
     return examples;
   }
 
