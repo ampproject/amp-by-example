@@ -39,6 +39,8 @@ module.exports = function() {
 
       // skip over experiments which will fail validation
       if (file.metadata.experiment || file.metadata.skipValidation) {
+        gutil.log('Validating ' + file.relative +
+          ': ' + gutil.colors.yellow('IGNORED'));
         return callback(null, file);
       }
 
@@ -76,10 +78,10 @@ module.exports = function() {
           const parsedOutput = JSON.parse(output);
           const exampleKey = 'http://localhost:30000/' + inputFilename;
           if (parsedOutput[exampleKey].success) {
-            printedOutput = gutil.colors.green('PASS');
+            printedOutput = gutil.colors.green('PASSED');
           } else {
             const errorList = parsedOutput[exampleKey].errors;
-            printedOutput = gutil.colors.red('FAIL\n\n');
+            printedOutput = gutil.colors.red('FAILED\n\n');
             errorList.forEach(function(item) {
               printedOutput += item.line + ': ' + item.reason + '\n';
             });
