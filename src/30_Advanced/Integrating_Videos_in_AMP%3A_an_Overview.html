@@ -27,69 +27,7 @@
 </head>
 <body>
 
-  <!-- #### amp-brightcove -->
-  <!-- 
-    Use `amp-brightcove` for Brightcove videos.
-    Find more examples [here](https://ampbyexample.com/components/amp-brightcove/).
-  -->
-  <amp-brightcove
-                  data-account="906043040001"
-                  data-video-id="1401169490001"
-                  data-player-id="180a5658-8be8-4f33-8eba-d562ab41b40c"
-                  layout="responsive" width="480" height="270">
-  </amp-brightcove>
-  <!-- #### amp-dailymotion -->
-  <!--
-    Use `amp-dailymotion` for dailymotion videos.
-    Find more examples [here](https://ampbyexample.com/components/amp-dailymotion/).
-  -->
-  <amp-dailymotion
-    data-videoid="x2m8jpp"
-    layout="responsive"
-    data-ui-highlight="FF4081"
-    width="480" height="270">
-  </amp-dailymotion>
-  <!-- #### amp-facebook -->
-  <!-- 
-    Use `amp-facebook` for Facebook videos.
-    Find more examples [here](https://ampbyexample.com/components/amp-facebook/).
-  -->
-  <amp-facebook width="552" height="310"
-                    layout="responsive"
-                    data-href="https://www.facebook.com/zuck/videos/10102509264909801/">
-  </amp-facebook>
-  <!-- #### amp-iframe -->
-  <!-- 
-    Use `amp-iframe` for native videos not supported in AMP.
-    Find more examples [here](https://ampbyexample.com/components/amp-iframe/).
-  -->
-  <amp-iframe width="500" height="281"
-                          layout="responsive"
-                          sandbox="allow-scripts allow-same-origin allow-popups"
-                          allowfullscreen
-                          frameborder="0"
-                          src="https://player.ooyala.com/iframe.html?ec=Vxc2k0MDE6Y_C7J5podo3UDxlFxGaZrQ&pbid=6440813504804d76ba35c8c787a4b33c&platform=html5">
-  <!-- #### amp-instagram -->
-  <!--
-    Use `amp-instagram` for videos on Instagram.
-    Find more examples [here](https://ampbyexample.com/components/amp-instagram/).
-  -->
-  <amp-instagram
-      data-shortcode="BCtYW7mhRV8"
-      width="1"
-      height="1"
-      layout="responsive">
-  </amp-instagram>
-  <!-- #### amp-twitter -->
-  <!-- 
-    Use `amp-twitter` for Twitter videos.
-    Find more examples [here](https://ampbyexample.com/components/amp-twitter/).
-  -->
-  <amp-twitter width="375" height="472"
-    layout="responsive"
-    data-tweetid="707569406105092096">
-  </amp-twitter>
-  <!-- #### amp-video -->
+  <!-- #### Embed your own Video with amp-video -->
   <!--
     Use `amp-video` for hosted videos.
     Find more examples [here](https://ampbyexample.com/components/amp-video/).
@@ -104,7 +42,59 @@
     <source type="video/mp4" src="video/tokyo.mp4">
     <source type="video/webm" src="video/tokyo.webm">
   </amp-video>
-  <!-- #### amp-vimeo -->
+  <!-- #### Supported Video Platforms -->
+  <!-- ##### amp-brightcove -->
+  <!-- 
+    Use `amp-brightcove` for Brightcove videos.
+    Find more examples [here](https://ampbyexample.com/components/amp-brightcove/).
+  -->
+  <amp-brightcove
+                  data-account="906043040001"
+                  data-video-id="1401169490001"
+                  data-player-id="180a5658-8be8-4f33-8eba-d562ab41b40c"
+                  layout="responsive" width="480" height="270">
+  </amp-brightcove>
+  <!-- ##### amp-dailymotion -->
+  <!--
+    Use `amp-dailymotion` for dailymotion videos.
+    Find more examples [here](https://ampbyexample.com/components/amp-dailymotion/).
+  -->
+  <amp-dailymotion
+    data-videoid="x2m8jpp"
+    layout="responsive"
+    data-ui-highlight="FF4081"
+    width="480" height="270">
+  </amp-dailymotion>
+  <!-- ##### amp-facebook -->
+  <!-- 
+    Use `amp-facebook` for Facebook videos.
+    Find more examples [here](https://ampbyexample.com/components/amp-facebook/).
+  -->
+  <amp-facebook width="552" height="310"
+                    layout="responsive"
+                    data-href="https://www.facebook.com/zuck/videos/10102509264909801/">
+  </amp-facebook>
+  <!-- ##### amp-instagram -->
+  <!--
+    Use `amp-instagram` for videos on Instagram.
+    Find more examples [here](https://ampbyexample.com/components/amp-instagram/).
+  -->
+  <amp-instagram
+      data-shortcode="BCtYW7mhRV8"
+      width="1"
+      height="1"
+      layout="responsive">
+  </amp-instagram>
+  <!-- ##### amp-twitter -->
+  <!-- 
+    Use `amp-twitter` for Twitter videos.
+    Find more examples [here](https://ampbyexample.com/components/amp-twitter/).
+  -->
+  <amp-twitter width="375" height="472"
+    layout="responsive"
+    data-tweetid="707569406105092096">
+  </amp-twitter>
+  <!-- ##### amp-vimeo -->
   <!--
     Use `amp-vimeo` for Vimeo videos.
     Find more examples [here](https://ampbyexample.com/components/amp-vimeo/).
@@ -114,7 +104,7 @@
       layout="responsive"
       width="16" height="9">
   </amp-vimeo>
-  <!-- #### amp-vine -->
+  <!-- ##### amp-vine -->
   <!--
     Use `amp-vine` for Vine embeds.
     Find more examples [here](https://ampbyexample.com/components/amp-vine/).
@@ -123,7 +113,7 @@
   layout="responsive"
     data-vineid="MdKjXez002d">
   </amp-vine>
-  <!-- #### amp-youtube -->
+  <!-- ##### amp-youtube -->
   <!--
     Use `amp-youtube` for YouTube videos.
     Find more examples [here](https://ampbyexample.com/components/amp-youtube/).
@@ -132,6 +122,17 @@
                            layout=responsive
                            data-videoid="lBTCB7yLs8Y" >
   </amp-youtube>
+  <!-- #### What if your Video Provider is not Supported?-->
+  <!-- 
+    Use `amp-iframe` for videos not supported in AMP.
+    Find more examples [here](https://ampbyexample.com/components/amp-iframe/).
+  -->
+  <amp-iframe width="500" height="281"
+                          layout="responsive"
+                          sandbox="allow-scripts allow-same-origin allow-popups"
+                          allowfullscreen
+                          frameborder="0"
+                          src="https://player.ooyala.com/iframe.html?ec=Vxc2k0MDE6Y_C7J5podo3UDxlFxGaZrQ&pbid=6440813504804d76ba35c8c787a4b33c&platform=html5">
 
 </body>
 </html>
