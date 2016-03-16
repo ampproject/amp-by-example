@@ -1,0 +1,81 @@
+<!-- #### Introduction
+  The [amp-access](https://github.com/ampproject/amphtml/blob/master/extensions/amp-access/amp-access.md) component allows to control which content is accessible by the reader and with what restrictions. 
+
+  For a sample implementation on the server-side implementation of the amp-access component, check the samples on the [amp-publisher-sample](https://github.com/ampproject/amp-publisher-sample) on Github.
+-->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  
+  <!-- #### Setup -->
+  <!-- Import the `amp-access` component in the header. -->
+  <script async custom-element="amp-access" src="https://cdn.ampproject.org/v0/amp-access-0.1.js"></script>  
+
+  <!-- Optionally, use the `amp-mustache` component to show text with values replaced from
+  the authorization response -->
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+
+  <!-- Add the configuration for the `authorization`, `pingback` and the `login` endpoints. It is 
+  also possible to create a fallback reponse that will be used if the authorization fails with the `authorizationFallbackResponse` attribute -->
+  <script id="amp-access" type="application/json">
+  {
+    "authorization": "https://rocky-sierra-1919.herokuapp.com/amp-access/api/amp-authorization.json?rid=READER_ID&url=CANONICAL_URL&ref=DOCUMENT_REFERRER&_=RANDOM",
+    "pingback": "https://rocky-sierra-1919.herokuapp.com/amp-access/api/amp-pingback?rid=READER_ID&ref=DOCUMENT_REFERRER&url=CANONICAL_URL",
+    "login": "https://rocky-sierra-1919.herokuapp.com/amp-access/login/?rid=READER_ID&url=CANONICAL_URL",
+    "authorizationFallbackResponse": {
+        "error": true,
+        "access": true,
+        "login": false,
+        "read": 1,
+        "limit": 10
+      }  
+  }  
+  </script>  
+
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+</head>
+<body>
+  <!-- This section is visible to all users. No special markup is needed in this case.-->  
+  <div>
+    <h3>Article 1</h3>    
+    <p>
+      This text is part of the article preview and visible to all users. 
+      This text is part of the article preview and visible to all users. 
+      This text is part of the article preview and visible to all users. 
+    </p>
+  </div>
+
+   <!-- Use the `amp-access` attribute to control the visibility of each component. The expression
+   must evaluate to a boolean value. If it evaluates to `TRUE`, the section will be show.  --> 
+  <div amp-access="access">
+    <p>This section is visible to users with <pre>"access": true</pre> on the authorization response</p>
+  </div>
+
+  <!-- This section is only shown if the value of the `access` attribute on the response for 
+  the authorization requests evaluates to `FALSE`-->
+  <div amp-access="NOT access">
+    <p>This section is only visible to users with <pre>"access": false</pre> or without the access variable
+        in the authorization response</p>
+  </div>
+
+  <!-- It is possible to combine two values on the evaluation expression.
+    Check the docs to find out more about the [Expression Grammar](https://github.com/ampproject/amphtml/blob/master/extensions/amp-access/amp-access.md#appendix-a-amp-access-expression-grammar)
+   -->
+  <div amp-access="access AND NOT login">
+    <p>This section is only visible to users with <pre>"access": true</pre> and <pre>"login": false</pre></p>
+  </div>  
+
+  <!-- Combine `amp-access` and `amp-mustache` to show customise the messages with
+  information returned on the authorization request. -->
+  <div amp-access="access AND NOT login">
+    <template amp-access-template type="amp-mustache">
+      You are viewing article {{read}} of {{limit}} free articles this month!
+    </template>
+  </div>    
+
+</body>
+</html>  
