@@ -28,5 +28,4 @@ skip_files:
 - static
 - spec
 - tasks
-- templates
 - ^(.*/)?.*\.DS_Store$

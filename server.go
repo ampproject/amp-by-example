@@ -49,6 +49,7 @@ var REDIRECTS [18][2]string = [18][2]string{
 func init() {
 	RedirectLegacyExamples()
 	http.HandleFunc("/g", getParameterDemoHandler)
+	http.HandleFunc("/error", returnCode500)
 	http.Handle("/", RedirectDomain(http.FileServer(http.Dir("dist"))))
 }
 
@@ -82,4 +83,9 @@ func RedirectDomain(h http.Handler) http.Handler {
 		w.Header().Add("Access-Control-Allow-Origin", "*")
 		h.ServeHTTP(w, r)
 	})
+}
+
+func returnCode500(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusInternalServerError)
+	w.Write([]byte("Internal Server Error"))
 }
