@@ -16,6 +16,7 @@ package hello
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
 	"strings"
 )
@@ -47,7 +48,18 @@ var REDIRECTS [18][2]string = [18][2]string{
 
 func init() {
 	RedirectLegacyExamples()
+	http.HandleFunc("/g", getParameterDemoHandler)
 	http.Handle("/", RedirectDomain(http.FileServer(http.Dir("dist"))))
+}
+
+func getParameterDemoHandler(w http.ResponseWriter, r *http.Request) {
+	value := r.URL.Query().Get("value")
+	renderTemplate(w, "get-example", value)
+}
+
+func renderTemplate(w http.ResponseWriter, templateName string, value string) {
+	t, _ := template.ParseFiles("templates/" + templateName + ".html")
+	t.Execute(w, value)
 }
 
 func RedirectLegacyExamples() {
