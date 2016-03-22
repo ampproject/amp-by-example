@@ -138,7 +138,7 @@ gulp.task("compile:favicons", function() {
         developerName: "Sebastian Benz",
         developerURL: "http://sebastianbenz.de/",
         background: "#fff",
-        path: "favicons/",
+        path: "/favicons/",
         url: Metadata.HOST,
         display: "standalone",
         orientation: "portrait",
