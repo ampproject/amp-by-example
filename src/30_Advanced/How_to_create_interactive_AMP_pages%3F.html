@@ -40,8 +40,8 @@
     </p>
   </section>
   <!--
-    ...and interactive content embedded via iframes. 
-    
+    ...and interactive content embedded via iframes.
+
     One thing is important to be aware of: the AMP runtime will only show iframes located at the top of a website if they provide a placeholder image. The charts in the sample are updated in real-time which means we cannot provide a meaningful placeholder. As a workaround we use an empty image as placeholder, which is directly embedded via an [data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/data_URIs).
   -->
   <amp-iframe src="https://www.google.com/trends/embed/US_cu_82I1CVMBAACV6M_en/timeline_chart_ded633bd-7dbe-44f9-be0b-9f8b3e786894?template=fe"
@@ -49,8 +49,9 @@
               layout="fixed-height"
               frameborder="0"
               sandbox="allow-scripts allow-same-origin">
-    <amp-img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" layout="fill"
-             placeholder>
+    <amp-img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+      layout="fill"
+      placeholder>
     </amp-img>
   </amp-iframe>
 
@@ -72,7 +73,9 @@
     platforms as well, for example, in a mobile app via a webview.
   -->
   <amp-iframe src="https://www.google.com/trends/embed/US_cu_x1aYQFIBAAANlM_en/fe_geo_chart_f5a4cc96-b49b-4d88-9a3f-74cc902c2f35?forceMobileMode=true" height="565" layout="fixed-height" frameborder="0" sandbox="allow-scripts allow-same-origin">
-    <amp-img layout="fill" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" placeholder></amp-img>
+    <amp-img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+      layout="fill"
+      placeholder></amp-img>
   </amp-iframe>
 </body>
 </html>
