@@ -13,36 +13,38 @@
   <body>
     <div class="body">
       {{> header.html}}
-      {{#isExperiment}}
+      <main>
+        {{#metadata.experiment}}
+          <div class="box">
+            <div class="column doc">
+              {{> experiment.html}}
+            </div>
+            <div class="column code hide-on-mobile">
+            </div>
+            <div class="column preview ">
+            </div>
+          </div>
+        {{/metadata.experiment}}
+        {{#sections}}
         <div class="box">
-          <div class="column doc">
-            {{> experiment.html}}
+          <div class="column doc {{^inBody}}hide-on-mobile{{/inBody}}">
+            {{#markedDoc}}
+            <a id="example{{id}}"></a>
+              {{{this}}}
+            <a href="#example{{id}}" class="anchor">
+              <div class="anchor-img"></div>
+            </a>
+            {{/markedDoc}}
           </div>
-          <div class="column code hide-on-mobile">
+          <div class="column code hide-on-mobile {{#metadata.hideCode}}hide{{/metadata.hideCode}}">
+            <pre class="hljs"><code class="html">{{{escapedCode}}}</code></pre>
           </div>
-          <div class="column preview">
+          <div class="column preview {{#metadata.hidePreview}}hide{{/metadata.hidePreview}}">
+            {{{preview}}}
           </div>
         </div>
-      {{/isExperiment}}
-      {{#sections}}
-      <div class="box">
-        <div class="column doc {{^inBody}}hide-on-mobile{{/inBody}}">
-          {{#markedDoc}}
-          <a id="example{{id}}"></a>
-            {{{this}}}
-          <a href="#example{{id}}" class="anchor">
-            <div class="anchor-img"></div>
-          </a>
-          {{/markedDoc}}
-        </div>
-        <div class="column code hide-on-mobile">
-          <pre class="hljs"><code class="html">{{{escapedCode}}}</code></pre>
-        </div>
-        <div class="column preview">
-          {{{preview}}}
-        </div>
-      </div>
-      {{/sections}}
+        {{/sections}}
+      </main>
       {{> footer.html}}
     </div>
     {{> analytics.html}}

@@ -102,7 +102,7 @@ module.exports = function(templateRoot, templateIndex, templateExample) {
         exampleStyles: document.styles,
         component: document.metadata.component,
         sections: document.sections,
-        isExperiment: document.metadata.experiment
+        metadata: document.metadata
       };
 
       if (document.metadata.experiment && !document.metadata.component) {

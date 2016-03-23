@@ -11,6 +11,11 @@ figure {
   text-decoration: none;
   cursor: pointer;
 }
+main {
+  padding: 0 32px;
+  max-width: 2400px;
+  margin: auto;
+}
 .box {
   min-height: -webkit-min-content;
   min-height: -moz-min-content;
@@ -19,6 +24,8 @@ figure {
 }
 .column {
   flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
   width: 0;
 }
 /* doc column */
@@ -27,8 +34,7 @@ figure {
 }
 .doc {
   background-color: #fff;
-  margin-left: 32px;
-  margin-right: 16px;
+  padding-right: 16px;
 }
 .doc a {
   text-decoration: none;
@@ -83,7 +89,6 @@ code {
 /* preview column */
 .preview {
   background-color: #e0e0e0;
-  margin-right: 32px;
 }
 
 /* header */
@@ -168,7 +173,7 @@ footer li {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   float: none; 
   overflow: hidden;
-  padding: 0 8px;
+  padding: 8px;
   border-radius: 2px;
 }
 
@@ -182,19 +187,22 @@ footer li {
 .hide-on-mobile {
   display: block;
 }
+.hide {
+  display: none;
+}
 
 @media (max-width: 1280px) {
-  .doc {
-    margin-left: 20px;
-  }
-  .preview {
-    margin-right: 20px;
+  main {
+    padding: 0 20px;
   }
   .toolbar {
     right: 20px;
   }
 }
 @media (max-width: 800px) {
+  main {
+    padding: 0 0;
+  }
   .body {
     min-width: 0;
     overflow-x: hidden;

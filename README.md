@@ -119,6 +119,15 @@ If your sample is using an experimental component, you can add a metadata sectio
 }--->
 ```
 
+If your sample looks better with a single column layout, you can disable the code and preview columns adding the following flags to your sample file:
+
+```json
+<!---{
+  "hideCode": true,
+  "hidePreview": true
+}--->
+```
+
 ## Contributing
 
 Please see [the CONTRIBUTING file](CONTRIBUTING.md) for information on contributing to amp-by-example.
