@@ -63,6 +63,13 @@ module.exports = class Document {
     return '';
   }
 
+  /**
+   * Returns true if the document contains a canonical link
+   */
+  hasCanonical() {
+    return this.head.indexOf('rel="canonical"') > -1; 
+  }
+
   /* private */
   extractDescription(htmlString) {
     let desc = this.extractFirstParagraph(htmlString);

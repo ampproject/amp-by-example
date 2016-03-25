@@ -16,6 +16,9 @@
 
 describe("Document", function() {
 
+  const CANONICAL = '<link rel="canonical" href="https://ampbyexample.com/" >';
+  const NON_CANONICAL = '<link href="https://ampbyexample.com/" >';
+
   const CodeSection = require('../../tasks/lib/CodeSection');
   const Document = require('../../tasks/lib/Document');
 
@@ -59,6 +62,19 @@ describe("Document", function() {
       expect(doc.description()).toBe("hello world");
     });
 
+  });
+
+  describe("hasCanonical is", function() {
+    it("true if head contains canonical link ", function() {
+      const doc = new Document();
+      doc.appendHead(CANONICAL);
+      expect(doc.hasCanonical()).toEqual(true);
+    });
+    it("false if head doesn't include canonical link", function() {
+      const doc = new Document();
+      doc.appendHead(NON_CANONICAL);
+      expect(doc.hasCanonical()).toEqual(false);
+    });
   });
 
   function descriptionOf(text) {

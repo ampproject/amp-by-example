@@ -102,7 +102,8 @@ module.exports = function(templateRoot, templateIndex, templateExample) {
         exampleStyles: document.styles,
         component: document.metadata.component,
         sections: document.sections,
-        metadata: document.metadata
+        metadata: document.metadata,
+        skipCanonical: document.hasCanonical()
       };
 
       if (document.metadata.experiment && !document.metadata.component) {
@@ -116,10 +117,6 @@ module.exports = function(templateRoot, templateIndex, templateExample) {
       examples.push(example);
 
       Metadata.add(args);
-      // avoid duplicate canonical refs as some examples define a canonical link
-      if (document.head.indexOf('rel="canonical"') > -1) {
-        args.skipCanonical = 'true';
-      }
       if (nextExample) {
         document.sections[document.sections.length - 1].appendDoc(
               '<p>Next up: <a id="nextArticle" href="' +
