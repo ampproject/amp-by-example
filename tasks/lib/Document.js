@@ -34,6 +34,10 @@ module.exports = class Document {
   }
 
   addSection(section) {
+    const prevSection = this.lastSection();
+    if (prevSection) {
+      prevSection.isLastSection = false;
+    }
     this.sections.push(section);
   }
 
@@ -94,6 +98,10 @@ module.exports = class Document {
       return string;
     }
     return sentences[1];
+  }
+
+  lastSection() {
+    return this.sections[this.sections.length-1];
   }
 
 };

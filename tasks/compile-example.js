@@ -103,6 +103,7 @@ module.exports = function(templateRoot, templateIndex, templateExample) {
         component: document.metadata.component,
         sections: document.sections,
         metadata: document.metadata,
+        nextExample: nextExample,
         skipCanonical: document.hasCanonical()
       };
 
@@ -117,12 +118,6 @@ module.exports = function(templateRoot, templateIndex, templateExample) {
       examples.push(example);
 
       Metadata.add(args);
-      if (nextExample) {
-        document.sections[document.sections.length - 1].appendDoc(
-              '<p>Next up: <a id="nextArticle" href="' +
-              nextExample.url() + '">' + nextExample.title() +
-              '</a></p>');
-      }
       const html = templates.render(templateExampleName, args);
       file.path = path.join(file.base, example.targetPath());
       file.metadata = document.metadata;

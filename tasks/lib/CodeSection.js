@@ -39,6 +39,7 @@ module.exports = class CodeSection {
     this.inBody = false;
     this.id = 0;
     this.cachedMarkedDoc = false;
+    this.isLastSection = true;
   }
 
   appendDoc(doc) {

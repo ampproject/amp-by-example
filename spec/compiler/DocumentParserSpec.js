@@ -56,13 +56,13 @@ describe("DocumentParser", function() {
 
   it("adds code", function() {
     expect(parse(TAG).sections[0])
-      .toEqual(newSection('', TAG + '\n', ''));
+      .toEqual(newSection('', TAG + '\n', '', true));
   });
 
   it("adds comments", function() {
     expect(parse(COMMENT, TAG).sections)
       .toEqual([
-          newSection('comment\n', TAG + '\n', ""),
+          newSection('comment\n', TAG + '\n', "", true),
       ]);
   });
 
@@ -76,32 +76,32 @@ describe("DocumentParser", function() {
     it("element after comment", function() {
       expect(parse(COMMENT, TAG, ANOTHER_TAG).sections)
         .toEqual([
-            newSection('comment\n', TAG + '\n', ""),
-            newSection('', ANOTHER_TAG + '\n', "")
+            newSection('comment\n', TAG + '\n', "", false),
+            newSection('', ANOTHER_TAG + '\n', "", true)
         ]);
     });
 
     it("nested elements after comment", function() {
       expect(parse(COMMENT, NESTED_TAG, ANOTHER_TAG).sections)
         .toEqual([
-            newSection('comment\n', NESTED_TAG + '\n', ""),
-            newSection('', ANOTHER_TAG + '\n', "")
+            newSection('comment\n', NESTED_TAG + '\n', "", false),
+            newSection('', ANOTHER_TAG + '\n', "", true)
         ]);
     });
 
     it("nested elements of same type after comment", function() {
       expect(parse(COMMENT, NESTED_SAME_TAG, ANOTHER_TAG).sections)
         .toEqual([
-            newSection('comment\n', NESTED_SAME_TAG + '\n', ""),
-            newSection('', ANOTHER_TAG + '\n', "")
+            newSection('comment\n', NESTED_SAME_TAG + '\n', "", false),
+            newSection('', ANOTHER_TAG + '\n', "", true)
         ]);
     });
 
     it("ignores empty lines", function() {
       expect(parse(COMMENT, EMPTY_LINE, TAG, ANOTHER_TAG).sections)
         .toEqual([
-            newSection('comment\n', EMPTY_LINE + '\n' + TAG + '\n', ""),
-            newSection('', ANOTHER_TAG + '\n', "")
+            newSection('comment\n', EMPTY_LINE + '\n' + TAG + '\n', "", false),
+            newSection('', ANOTHER_TAG + '\n', "", true)
         ]);
     });
     it("resets current tag after tag end", function() {
@@ -153,14 +153,12 @@ describe("DocumentParser", function() {
       expect(doc.metadata.experiment).toEqual(true);
       expect(doc.sections.length).toEqual(1);
     });
-
     it("after comment", function() {
       var doc = parse(COMMENT, DOCUMENT_METADATA_2, HEAD, TITLE, HEAD_END, BODY, COMMENT, BODY_END);
       expect(doc.metadata.experiment).toEqual(true);
       expect(doc.metadata.component).toEqual("amp-accordion");
       expect(doc.sections.length).toEqual(3);
     });
-
     it("invalid metadata", function() {
       expect(function(){
         parse(COMMENT, DOCUMENT_METADATA_INVALID, HEAD, TITLE, HEAD_END, BODY, COMMENT, BODY_END);})
@@ -192,8 +190,9 @@ describe("DocumentParser", function() {
     });
   });
 
-  function newSection(comment, doc, preview) {
-    var section = new CodeSection(comment, doc, preview);
+  function newSection(comment, doc, preview, isLastSection) {
+    const section = new CodeSection(comment, doc, preview);
+    section.isLastSection = isLastSection;
     section.id = sectionCounter++;
     return section;
   }
