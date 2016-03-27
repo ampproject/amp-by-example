@@ -22,14 +22,14 @@ const HOST = 'https://ampbyexample.com';
  * Adds default metadata to the given hash.
  */
 module.exports.add = function(args) {
-  const timeStamp = new Date().toISOString();
+  const timestamp = args.timestamp;
   const fileName = args.fileName;
   const canonical = HOST + fileName;
   const logo = HOST + '/img/logo.png';
   const leader = HOST + '/img/abe_preview.png';
   const metadata = {
-    datePublished: timeStamp,
-    dateModified: timeStamp,
+    datePublished: timestamp,
+    dateModified: timestamp,
     fileName: fileName,
     canonical: canonical,
     logo: logo,

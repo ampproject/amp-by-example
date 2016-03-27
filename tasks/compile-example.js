@@ -29,33 +29,32 @@ const Templates = require('./lib/Templates');
  * Collects a list of example files, renders them (using templateExample) and
  * creates a list (using templateIndex)
  */
-module.exports = function(templateRoot, templateIndex, templateExample) {
+module.exports = function(config, updateTimestamp) {
   let latestFile;
   let latestMod;
   let examples;
-  let templateIndexName;
-  let templateExampleName;
   let templates;
+  let timestamp = new Date().toISOString();
 
-  if (typeof templateRoot === 'string') {
-    templates = Templates.get(templateRoot);
+  if (typeof config.templateRoot === 'string') {
+    templates = Templates.get(config.templateRoot);
   } else {
     throw new PluginError('compile-index-example',
-        'Missing template root in template options for gulp-index');
+        'Missing template root in template options for compile-example');
   }
 
-  if (typeof templateIndex === 'string') {
-    templateIndexName = templateIndex;
-  } else {
+  if (typeof config.templateIndex != 'string') {
     throw new PluginError('compile-index-example',
-        'Missing templateIndex name in template options for gulp-index');
+        'Missing templateIndex name in template options for compile-example');
   }
 
-  if (typeof templateExample === 'string') {
-    templateExampleName = templateExample;
-  } else {
+  if (typeof config.templateExample != 'string') {
     throw new PluginError('compile-index-example',
-        'Missing templateExample name in template options for gulp-index');
+        'Missing templateExample name in template options for compile-example');
+  }
+
+  if (updateTimestamp == false) {
+    timestamp = 0;
   }
 
   function bufferContents(file, enc, cb) {
@@ -67,7 +66,7 @@ module.exports = function(templateRoot, templateIndex, templateExample) {
 
     // we don't do streams
     if (file.isStream()) {
-      this.emit('error', new PluginError('gulp-index',
+      this.emit('error', new PluginError('compile-example',
             'Streaming not supported'));
       cb();
       return;
@@ -96,6 +95,7 @@ module.exports = function(templateRoot, templateIndex, templateExample) {
         head: document.head,
         title: example.title(),
         desc: document.description(),
+        timestamp: timestamp,
         fileName: example.url(),
         github: example.githubUrl(),
         subHeading: example.title(),
@@ -118,7 +118,7 @@ module.exports = function(templateRoot, templateIndex, templateExample) {
       examples.push(example);
 
       Metadata.add(args);
-      const html = templates.render(templateExampleName, args);
+      const html = templates.render(config.templateExample, args);
       file.path = path.join(file.base, example.targetPath());
       file.metadata = document.metadata;
       file.contents = new Buffer(html);
@@ -142,11 +142,12 @@ module.exports = function(templateRoot, templateIndex, templateExample) {
       categories: categories,
       title: 'AMP by Example',
       desc: 'Accelerated Mobile Pages in Action',
+      timestamp: timestamp,
       fileName: '/'
     };
     Metadata.add(args);
     args.fileName = '';
-    const html = templates.render(templateIndexName, args);
+    const html = templates.render(config.templateIndex, args);
     const indexFile = latestFile.clone({contents: false});
     indexFile.path = path.join(latestFile.base, "index.html");
     indexFile.contents = new Buffer(html);

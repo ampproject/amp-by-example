@@ -71,7 +71,7 @@ module.exports = class Document {
    * Returns true if the document contains a canonical link
    */
   hasCanonical() {
-    return this.head.indexOf('rel="canonical"') > -1; 
+    return this.head.indexOf('rel="canonical"') > -1;
   }
 
   /* private */
@@ -101,7 +101,7 @@ module.exports = class Document {
   }
 
   lastSection() {
-    return this.sections[this.sections.length-1];
+    return this.sections[this.sections.length - 1];
   }
 
 };

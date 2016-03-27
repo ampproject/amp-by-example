@@ -31,6 +31,7 @@ const favicons = require("gulp-favicons");
 const runSequence = require('run-sequence');
 const argv = require('yargs').argv;
 const path = require('path');
+const diff = require('gulp-diff');
 
 const compileExample = require('./tasks/compile-example');
 const sitemap = require('./tasks/compile-sitemap');
@@ -58,8 +59,17 @@ const paths = {
     dir: 'templates',
     files: ['templates/**/*.css', 'templates/**/*.html']
   },
+  tmp: {
+    dir: 'tmp'
+  },
   videos: 'src/video/*.{mp4,webm}',
   json: 'src/json/*.json',
+};
+
+const exampleConfig = {
+  templateRoot: paths.templates.dir,
+  templateIndex: 'index.html',
+  templateExample: 'example.html'
 };
 
 gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
@@ -155,20 +165,20 @@ gulp.task("compile:favicons", function() {
 
 gulp.task('validate:example', 'validate example html files', function() {
   return gulp.src(paths.samples)
-    .pipe(compileExample(paths.templates.dir, 'index.html', 'example.html'))
+    .pipe(compileExample(exampleConfig))
     .pipe(validateExample());
 });
 
 gulp.task('compile:example', 'generate index.html and examples', function() {
   return gulp.src(paths.samples)
-      .pipe(compileExample(paths.templates.dir, 'index.html', 'example.html'))
+      .pipe(compileExample(exampleConfig))
       .pipe(gulp.dest(paths.dist.dir));
 });
 
 gulp.task('compile:sitemap', 'generate sitemap.xml', function() {
   return gulp.src(paths.samples)
       .pipe(sitemap())
-      .pipe(gulp.dest('dist'));
+      .pipe(gulp.dest(paths.dist.dir));
 });
 
 gulp.task('create', 'create a new AMP example', function() {
@@ -247,6 +257,25 @@ gulp.task('default', 'Run a webserver and watch for changes', [
 
 gulp.task('validate', 'runs all checks', ['lint', 'test', 'validate:example']);
 
+gulp.task('snapshot',
+    'Saves a snapshot of the generated sample files',
+    function() {
+      return gulp.src(paths.samples)
+        .pipe(compileExample(exampleConfig, false))
+        .pipe(gulp.dest(paths.tmp.dir));
+    }
+);
+
+gulp.task('snapshot:verify',
+    'Compares generated samples against snapshot',
+    function() {
+      return gulp.src(paths.samples)
+        .pipe(compileExample(exampleConfig, false))
+        .pipe(diff(paths.tmp.dir))
+        .pipe(diff.reporter({fail: true}));
+    }
+);
+
 gulp.task('build', 'build all resources', [
   'copy:images',
   'copy:videos',
@@ -260,4 +289,3 @@ gulp.task('build', 'build all resources', [
 function isFixed(file) {
   return file.eslint.fixed;
 }
-
