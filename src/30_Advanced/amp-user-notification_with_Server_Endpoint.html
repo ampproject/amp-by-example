@@ -10,8 +10,10 @@
 <head>
   <meta charset="utf-8">
   <!-- #### Setup -->
-  <!-- Import the amp-user-notification component in the header. -->
+  <!-- Import `amp-user-notification` in the header. -->
   <script async custom-element="amp-user-notification" src="https://cdn.ampproject.org/v0/amp-user-notification-0.1.js"></script>
+  <!-- `amp-user-notification` requires `amp-analytics` to be imported as well. -->
+  <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
   <!--
     Specify any additional css, by default, the `amp-user-notification` is positioned
     in the left bottom corner.
