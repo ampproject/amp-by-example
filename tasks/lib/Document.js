@@ -34,6 +34,10 @@ module.exports = class Document {
   }
 
   addSection(section) {
+    const prevSection = this.lastSection();
+    if (prevSection) {
+      prevSection.isLastSection = false;
+    }
     this.sections.push(section);
   }
 
@@ -63,6 +67,13 @@ module.exports = class Document {
     return '';
   }
 
+  /**
+   * Returns true if the document contains a canonical link
+   */
+  hasCanonical() {
+    return this.head.indexOf('rel="canonical"') > -1;
+  }
+
   /* private */
   extractDescription(htmlString) {
     let desc = this.extractFirstParagraph(htmlString);
@@ -87,6 +98,10 @@ module.exports = class Document {
       return string;
     }
     return sentences[1];
+  }
+
+  lastSection() {
+    return this.sections[this.sections.length - 1];
   }
 
 };

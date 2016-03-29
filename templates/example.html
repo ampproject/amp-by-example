@@ -35,6 +35,15 @@
               <div class="anchor-img"></div>
             </a>
             {{/markedDoc}}
+            {{#isLastSection}}
+            {{#nextExample}}
+            <p>
+              Next up: 
+              <a id="nextArticle" href="{{url}}">{{title}}</a>
+            </p>
+            {{/nextExample}}
+            {{/isLastSection}}
+
           </div>
           <div class="column code hide-on-mobile {{#metadata.hideCode}}hide{{/metadata.hideCode}}">
             <pre class="hljs"><code class="html">{{{escapedCode}}}</code></pre>

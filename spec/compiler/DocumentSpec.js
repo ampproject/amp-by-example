@@ -16,11 +16,17 @@
 
 describe("Document", function() {
 
+  const CANONICAL = '<link rel="canonical" href="https://ampbyexample.com/" >';
+  const NON_CANONICAL = '<link href="https://ampbyexample.com/" >';
+
   const CodeSection = require('../../tasks/lib/CodeSection');
   const Document = require('../../tasks/lib/Document');
 
-  describe("description", function() {
+  beforeEach(function() {
+      doc = new Document();
+  });
 
+  describe("description", function() {
     it('first section stripped of html tags', function() {
       expect(descriptionOf("hello world")).toBe("hello world");
     });
@@ -37,10 +43,9 @@ describe("Document", function() {
       expect(descriptionOf("## Headline\nhello world\n")).toBe("hello world");
     });
     it('empty if there are no sections', function() {
-      expect(new Document().description()).toBe("");
+      expect(doc.description()).toBe("");
     });
     it('uses first section with docs', function() {
-      const doc = new Document();
       const sectionWithoutDoc = new CodeSection();
       doc.addSection(sectionWithoutDoc);
       const sectionWithDoc = new CodeSection();
@@ -49,7 +54,6 @@ describe("Document", function() {
       expect(doc.description()).toBe("hello world");
     });
     it('uses first section with paragraphs', function() {
-      const doc = new Document();
       const sectionWithoutParagraph = new CodeSection();
       sectionWithoutParagraph.appendDoc('## Headlline');
       doc.addSection(sectionWithoutParagraph);
@@ -61,8 +65,34 @@ describe("Document", function() {
 
   });
 
+  describe("hasCanonical is", function() {
+    it("true if head contains canonical link ", function() {
+      doc.appendHead(CANONICAL);
+      expect(doc.hasCanonical()).toEqual(true);
+    });
+    it("false if head doesn't include canonical link", function() {
+      doc.appendHead(NON_CANONICAL);
+      expect(doc.hasCanonical()).toEqual(false);
+    });
+  });
+
+  describe("marks last section", function() {
+    it("true", function() {
+      const onlySection = new CodeSection();
+      doc.addSection(onlySection);
+      expect(onlySection.isLastSection).toEqual(true);
+    });
+    it("false", function() {
+      const firstSection = new CodeSection();
+      const secondSection = new CodeSection();
+      doc.addSection(firstSection);
+      doc.addSection(secondSection);
+      expect(firstSection.isLastSection).toEqual(false);
+      expect(secondSection.isLastSection).toEqual(true);
+    });
+  });
+
   function descriptionOf(text) {
-    const doc = new Document();
     const section = new CodeSection();
     section.appendDoc(text);
     doc.addSection(section);
