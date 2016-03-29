@@ -76,6 +76,17 @@ describe("Document", function() {
     });
   });
 
+  describe("importsComponent is", function() {
+    it("true if head imports component ", function() {
+      doc.appendHead('<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>');
+      expect(doc.importsComponent('amp-analytics')).toEqual(true);
+    });
+    it("false if head doesn't include canonical link", function() {
+      doc.appendHead('<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>');
+      expect(doc.importsComponent('amp-accesss')).toEqual(false);
+    });
+  });
+
   describe("marks last section", function() {
     it("true", function() {
       const onlySection = new CodeSection();

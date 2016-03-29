@@ -74,6 +74,13 @@ module.exports = class Document {
     return this.head.indexOf('rel="canonical"') > -1;
   }
 
+  /**
+   * Returns true if the document imports the given component
+   */
+  importsComponent(componentName) {
+    return this.head.indexOf('custom-element="' + componentName + '"') > -1;
+  }
+
   /* private */
   extractDescription(htmlString) {
     let desc = this.extractFirstParagraph(htmlString);
