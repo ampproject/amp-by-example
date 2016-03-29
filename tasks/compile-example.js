@@ -104,7 +104,8 @@ module.exports = function(config, updateTimestamp) {
         sections: document.sections,
         metadata: document.metadata,
         nextExample: nextExample,
-        skipCanonical: document.hasCanonical()
+        skipCanonical: document.hasCanonical(),
+        includesAnalytics: document.importsComponent('amp-analytics')
       };
 
       if (document.metadata.experiment && !document.metadata.component) {
