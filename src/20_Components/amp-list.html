@@ -29,21 +29,21 @@
 
   <!-- #### Using a nested template -->
   <!--
-    The `amp-list` content is provided by a JSON CORS endpoint, which is defined by the `src`
-    attribute. The URL's protocol must be HTTPS. The response must be a JSON object containing
-    an array property `items`, for example:
-    ```
-    {
+  The `amp-list` content is provided by a JSON CORS endpoint, which is defined by the `src`
+  attribute. The URL's protocol must be HTTPS. The response must be a JSON object containing
+  an array property `items`, for example:
+  ```
+  {
     "items": [
       {
         "title": "amp-carousel",
         "url": "https://ampbyexample.com/components/amp-carousel"
       },
       ...
-      ]
-    }
-    ```
-    The list content is rendered via an [amp-mustache template](https://github.com/ampproject/amphtml/blob/master/extensions/amp-mustache/amp-mustache.md). The template can either be specified using a nested element.
+    ]
+  }
+  ```
+  The list content is rendered via an [amp-mustache template](https://github.com/ampproject/amphtml/blob/master/extensions/amp-mustache/amp-mustache.md). The template can either be specified using a nested element.
   -->
   <amp-list width=300 height=100 layout=responsive
       src="https://ampbyexample.com/json/examples.json">

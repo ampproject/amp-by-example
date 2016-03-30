@@ -24,6 +24,9 @@ marked.setOptions({
     return require('highlight.js').highlightAuto(code).value;
   }
 });
+const COMMENT_START = '<!--';
+const COMMENT_END = '-->';
+
 
 module.exports = class CodeSection {
 
@@ -40,11 +43,11 @@ module.exports = class CodeSection {
     this.id = 0;
     this.cachedMarkedDoc = false;
     this.isLastSection = true;
+    this.commentOffset = 0;
   }
 
   appendDoc(doc) {
-    doc = this.removeCommentTag(doc);
-    this.doc += doc + '\n';
+    this.doc += this.normalizeDoc(doc) + '\n';
     this.cachedMarkedDoc = false;
   }
 
@@ -76,8 +79,36 @@ module.exports = class CodeSection {
   }
 
   /* PRIVATE */
-  removeCommentTag(string) {
-    return string.replace(/\<\!--|--\>/g, '').trim();
+
+  /**
+   * Normalizes a string based on the indentation of the comment tag.
+   * Substracts the comment tag indentation from all following lines.
+   */
+  normalizeDoc(string) {
+    let startIndex = string.indexOf(COMMENT_START);
+    if (startIndex == -1) {
+      startIndex = this.stripLeadingWhitespace(string);
+    } else {
+      this.commentOffset = startIndex;
+      startIndex = startIndex + COMMENT_START.length;
+    }
+    let endIndex = string.indexOf(COMMENT_END);
+    if (endIndex == -1) {
+      endIndex = string.length;
+    }
+    return string.substring(startIndex, endIndex);
+  }
+
+  stripLeadingWhitespace(string) {
+    let startIndex = 0;
+    for (let i = 0; i < this.commentOffset; i++) {
+      if (string.charAt(i) == ' ') {
+        startIndex++;
+      } else {
+        break;
+      }
+    }
+    return startIndex;
   }
 };
 
