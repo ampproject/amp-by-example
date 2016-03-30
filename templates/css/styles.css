@@ -45,6 +45,12 @@ main {
  padding: 8px;
  margin: 16px 0;
 }
+
+.doc amp-img {
+  display: block;
+  margin: 0 auto;
+}
+
 .anchor-trigger {
   float: left;
 }
