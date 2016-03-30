@@ -23,28 +23,49 @@
 
 Loading your AMPs via the Google AMP Cache is easy. The AMP Cache URL is composed based on the source URL’s scheme (HTTP or HTTPS):
 
-* for HTTP prepend `cdn.ampproject.org/c/`, e.g.:
+* for HTTP prepend `cdn.ampproject.org/c/`. Example:
 [https://cdn.ampproject.org/c/www.bbc.co.uk/news/amp/35838735](https://cdn.ampproject.org/c/www.bbc.co.uk/news/amp/35838735)
-* for HTTPS prepend `cdn.ampproject.org/c/s`, e.g.: [https://cdn.ampproject.org/c/s/ampbyexample.com](https://cdn.ampproject.org/c/s/ampbyexample.com)
+* for HTTPS prepend `cdn.ampproject.org/c/s`. Example: [https://cdn.ampproject.org/c/s/ampbyexample.com](https://cdn.ampproject.org/c/s/ampbyexample.com)
 
-It is OK for URLs to include parameters in the query string, simply include these in the AMP Cache URL as well, e.g.: [https://cdn.ampproject.org/c/s/ampbyexample.com/g?value=Hello%20World](https://cdn.ampproject.org/c/s/ampbyexample.com/g?value=Hello%20World)
+It is OK for URLs to include parameters in the query string, simply include these in the AMP Cache URL as well. 
+
+Example: [https://cdn.ampproject.org/c/s/ampbyexample.com/g?value=Hello%20World](https://cdn.ampproject.org/c/s/ampbyexample.com/g?value=Hello%20World)
 
 #### Redirect & Error Handling
 
 Here are some examples for how the AMP Cache handles redirects and errors:
 
-* **Redirects**: The AMP Cache follows redirects when resolving AMP URLs. For example, if an URL redirects to another AMP URL:
+**Redirects**
+
+The AMP Cache follows redirects when resolving AMP URLs. For example, if an URL redirects to another AMP URL:
     ```
     $ curl -I https://ampbyexample.com/amp-img.html
     HTTP/1.1 301 Moved Permanently
     Location: https://ampbyexample.com/components/amp-img
     ...
     ```
-    Then the AMP Cache will return the content of the resolved redirect for the original URL, e.g [https://cdn.ampproject.org/c/s/ampbyexample.com/amp-img.html](https://cdn.ampproject.org/c/s/ampbyexample.com/amp-img.html).
+    Then the AMP Cache will return the content of the resolved redirect for the original URL. 
+
+Example: [https://cdn.ampproject.org/c/s/ampbyexample.com/amp-img.html](https://cdn.ampproject.org/c/s/ampbyexample.com/amp-img.html).
     <p class="card warning">**Important**: if you move the location of the AMP Files on your server, make sure to set up a redirect from the old location to the new one. </p>
-* **Not Found**: when a page is not found in the AMP Cache, it will show an error page and return a 404 status, e.g. [https://cdn.ampproject.org/c/s/ampbyexample.com/not-found](https://cdn.ampproject.org/c/s/ampbyexample.com/not-found).
-* **Invalid AMP**: when a page is invalid AMP, the AMP Cache will return a 404 status, e.g. [https://cdn.ampproject.org/c/s/ampbyexample.com/invalid_amp.html](https://cdn.ampproject.org/c/s/ampbyexample.com/invalid_amp_page.html).
-* **Server Errors**: if an URL returns a 5XX server errors, the AMP Cache will return a 404 status, e.g. [https://cdn.ampproject.org/c/s/ampbyexample.com/error](https://cdn.ampproject.org/c/s/ampbyexample.com/error).
+
+**Not Found**
+
+When a page is not found in the AMP Cache, it will show an error page and return a 404 status. 
+
+Example: [https://cdn.ampproject.org/c/s/ampbyexample.com/not-found](https://cdn.ampproject.org/c/s/ampbyexample.com/not-found).
+
+**Invalid AMP** 
+
+When a page is invalid AMP, the AMP Cache will return a 404 status.
+
+Example: [https://cdn.ampproject.org/c/s/ampbyexample.com/invalid_amp.html](https://cdn.ampproject.org/c/s/ampbyexample.com/invalid_amp_page.html).
+
+**Server Errors** 
+
+If an URL returns a 5XX server errors, the AMP Cache will return a 404 status. 
+
+Example: [https://cdn.ampproject.org/c/s/ampbyexample.com/error](https://cdn.ampproject.org/c/s/ampbyexample.com/error).
 -->
 </body>
 </html>
