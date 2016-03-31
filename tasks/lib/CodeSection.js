@@ -20,8 +20,12 @@ const S = require('string');
 const highlight = require('highlight.js').highlight;
 const marked = require('marked');
 marked.setOptions({
-  highlight: function(code) {
-    return require('highlight.js').highlightAuto(code).value;
+  highlight: function(code, lang) {
+    if (lang) {
+      return highlight(lang, code).value;
+    } else {
+      return S(code).escapeHTML().s;
+    }
   }
 });
 const COMMENT_START = '<!--';
