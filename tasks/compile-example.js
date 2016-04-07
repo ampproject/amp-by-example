@@ -142,7 +142,9 @@ module.exports = function(config, updateTimestamp) {
     const args = {
       categories: categories,
       title: 'AMP by Example',
-      desc: 'A hands-on introduction to Accelerated Mobile Pages (AMP) focusing on code and live samples. Learn how to create AMP pages and see all AMP components in action.',
+      desc: 'A hands-on introduction to Accelerated Mobile Pages (AMP) ' +
+        'focusing on code and live samples. Learn how to create AMP pages' +
+        'and see all AMP components in action.',
       timestamp: timestamp,
       fileName: '/'
     };
