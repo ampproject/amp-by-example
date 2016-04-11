@@ -29,7 +29,7 @@
       {{/metadata.experiment}}
       {{#sections}}
       <div class="box">
-        <div class="column doc {{^inBody}}hide-on-mobile{{/inBody}}">
+        <div class="column doc {{^inBody}}hide-on-mobile{{/inBody}} {{#metadata.hideDoc}}hide{{/metadata.hideDoc}}">
           {{#markedDoc}}
           <a id="example{{id}}"></a>
             {{{this}}}
