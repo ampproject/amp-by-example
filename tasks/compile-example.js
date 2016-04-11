@@ -143,8 +143,8 @@ module.exports = function(config, updateTimestamp) {
       categories: categories,
       title: 'AMP by Example',
       desc: 'A hands-on introduction to Accelerated Mobile Pages (AMP) ' +
-        'focusing on code and live samples. Learn how to create AMP pages' +
-        'and see all AMP components in action.',
+        'focusing on code and live samples. Learn how to create AMP pages ' +
+        'and see examples for all AMP components.',
       timestamp: timestamp,
       fileName: '/'
     };
