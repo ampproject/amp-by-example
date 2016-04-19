@@ -20,7 +20,7 @@ body a {
   text-decoration: none;
   cursor: pointer;
 }
-p, h1, h2, h3, h4, h5, h6, figcaption {
+p, h1, h2, h3, h4, h5, h6, figcaption, div.preview > a {
   padding: 0 16px;
 }
 ul, ol {
