@@ -1,0 +1,25 @@
+<!doctype html>
+<html ⚡>
+  <head>
+    {{{head}}}
+    {{> head.html}}
+    <style amp-custom>
+      {{> css/code.css}}
+      {{> css/material.css}}
+      {{> css/styles.css}}
+      {{> css/preview.css}}
+      {{{exampleStyles}}}
+    </style>
+  </head>
+  <body>
+    <a href=".." class="exit action">
+      Exit Preview
+    </a>
+    <article>
+      {{#sections}}
+      {{{preview}}}
+      {{/sections}}
+    </article>
+    {{> analytics.html}}
+  </body>
+</html>

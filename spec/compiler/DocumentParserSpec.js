@@ -56,13 +56,13 @@ describe("DocumentParser", function() {
 
   it("adds code", function() {
     expect(parse(TAG).sections[0])
-      .toEqual(newSection('', TAG + '\n', '', true));
+      .toEqual(newSection('', TAG + '\n', '', true, true));
   });
 
   it("adds comments", function() {
     expect(parse(COMMENT, TAG).sections)
       .toEqual([
-          newSection('comment\n', TAG + '\n', "", true),
+          newSection('comment\n', TAG + '\n', "", true, true),
       ]);
   });
 
@@ -76,32 +76,32 @@ describe("DocumentParser", function() {
     it("element after comment", function() {
       expect(parse(COMMENT, TAG, ANOTHER_TAG).sections)
         .toEqual([
-            newSection('comment\n', TAG + '\n', "", false),
-            newSection('', ANOTHER_TAG + '\n', "", true)
+            newSection('comment\n', TAG + '\n', "", true, false),
+            newSection('', ANOTHER_TAG + '\n', "", false, true)
         ]);
     });
 
     it("nested elements after comment", function() {
       expect(parse(COMMENT, NESTED_TAG, ANOTHER_TAG).sections)
         .toEqual([
-            newSection('comment\n', NESTED_TAG + '\n', "", false),
-            newSection('', ANOTHER_TAG + '\n', "", true)
+            newSection('comment\n', NESTED_TAG + '\n', "", true, false),
+            newSection('', ANOTHER_TAG + '\n', "", false, true)
         ]);
     });
 
     it("nested elements of same type after comment", function() {
       expect(parse(COMMENT, NESTED_SAME_TAG, ANOTHER_TAG).sections)
         .toEqual([
-            newSection('comment\n', NESTED_SAME_TAG + '\n', "", false),
-            newSection('', ANOTHER_TAG + '\n', "", true)
+            newSection('comment\n', NESTED_SAME_TAG + '\n', "", true, false),
+            newSection('', ANOTHER_TAG + '\n', "", false, true)
         ]);
     });
 
     it("ignores empty lines", function() {
       expect(parse(COMMENT, EMPTY_LINE, TAG, ANOTHER_TAG).sections)
         .toEqual([
-            newSection('comment\n', EMPTY_LINE + '\n' + TAG + '\n', "", false),
-            newSection('', ANOTHER_TAG + '\n', "", true)
+            newSection('comment\n', EMPTY_LINE + '\n' + TAG + '\n', "", true, false),
+            newSection('', ANOTHER_TAG + '\n', "", false, true)
         ]);
     });
     it("resets current tag after tag end", function() {
@@ -190,13 +190,13 @@ describe("DocumentParser", function() {
     });
   });
 
-  function newSection(comment, doc, preview, isLastSection) {
+  function newSection(comment, doc, preview, isFirstSection, isLastSection) {
     const section = new CodeSection(comment, doc, preview);
     section.isLastSection = isLastSection;
+    section.isFirstSection = isFirstSection;
     section.id = sectionCounter++;
     return section;
   }
-
 
   function parse() {
     var lines = [];

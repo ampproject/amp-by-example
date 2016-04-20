@@ -35,6 +35,9 @@ describe("ExampleFile", function() {
     it('target path', function() {
       expect(file.targetPath()).toBe("hello-worlds/whats_up_100/index.html");
     });
+    it('target preview path', function() {
+      expect(file.targetPreviewPath()).toBe("hello-worlds/whats_up_100/preview/index.html");
+    });
     it('path on github', function() {
       expect(file.githubUrl()).toBe(
           ExampleFile.GITHUB_PREFIX + "/10_Hello-world's/What\'s_up_100%25?.html");

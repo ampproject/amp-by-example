@@ -107,6 +107,7 @@ module.exports = function(config, updateTimestamp) {
         skipCanonical: document.hasCanonical(),
         includesAnalytics: document.importsComponent('amp-analytics')
       };
+      Metadata.add(args);
 
       if (document.metadata.experiment && !document.metadata.component) {
         throw new PluginError({
@@ -118,13 +119,25 @@ module.exports = function(config, updateTimestamp) {
       example.metadata = document.metadata;
       examples.push(example);
 
-      Metadata.add(args);
-      const html = templates.render(config.templateExample, args);
+      // compile example
+      const sampleHtml = templates.render(config.templateExample, args);
       file.path = path.join(file.base, example.targetPath());
       file.metadata = document.metadata;
-      file.contents = new Buffer(html);
+      file.contents = new Buffer(sampleHtml);
       gutil.log('Generated ' + file.relative);
       stream.push(file);
+
+      // compile example preview
+      if (document.metadata.preview) {
+        const previewFile = file.clone({contents: false});
+        const previewHtml = templates.render(config.templatePreview, args);
+        previewFile.path = path.join(file.base, example.targetPreviewPath());
+        previewFile.metadata = document.metadata;
+        previewFile.contents = new Buffer(previewHtml);
+        gutil.log('Generated ' + previewFile.relative);
+        stream.push(previewFile);
+      }
+
     }
 
     cb();
