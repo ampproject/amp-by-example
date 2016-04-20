@@ -1,16 +1,67 @@
 body {
   background: #f5f5f5;
+  text-align: justify;
 }
 
 article {
   padding: 1px 0;
+  padding-bottom: 16px;
   margin: 54px auto;
   max-width: 800px;
   background: #fff;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
 }
 
-p, h1, h2, h3, h4, h5, h6 {
+p, h1, h2, h3, h4, h5, h6, figcaption {
   padding: 0 16px;
 }
 
+ul, ol {
+  margin: 16px;
+}
+
+figcaption {
+  margin-top: 8px;
+  color: #656565;
+  font-size: 13px;
+}
+
+amp-video, amp-youtube, amp-vimeo, amp-twitter, amp-instagram, daily-motion, amp-vine,
+   amp-brightcove, amp-facebook, amp-twitter, amp-iframe, figure, amp-carousel {
+  margin: 24px 0;
+}
+
+.amp-ad-container {
+  background: #eee;
+  border-top: 0.0625rem solid #dfdfdf;
+  float: right;
+  height: 286px;
+  width: 316px;
+  margin: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.amp-ad-container > span {
+  position: relative;
+  font-size: 12px;
+  top: -4px;
+  left: 8px;
+  color: #666;
+}
+
+@media (max-width: 800px) {
+  article {
+    margin: 54px auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .amp-ad-container {
+    background: #eee;
+    float: none;
+    width: 100%;
+    margin: 16px 0;
+  }
+}
