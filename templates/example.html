@@ -45,12 +45,16 @@
           </p>
           {{/nextExample}}
           {{/isLastSection}}
-
         </div>
         <div class="column code hide-on-mobile {{#metadata.hideCode}}hide{{/metadata.hideCode}}">
           <pre class="hljs"><code class="html">{{{escapedCode}}}</code></pre>
         </div>
         <div class="column preview {{#metadata.hidePreview}}hide{{/metadata.hidePreview}}">
+          {{#isFirstSection}}
+          {{#metadata.preview}}
+            <a class="show-preview action" href="preview/">Show Preview</a>
+          {{/metadata.preview}}
+          {{/isFirstSection}}
           {{{preview}}}
         </div>
       </div>

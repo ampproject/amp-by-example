@@ -83,6 +83,13 @@ class ExampleFile {
     return path.join(this.targetParentDir(), this.targetName(), 'index.html');
   }
 
+  targetPreviewPath() {
+    return path.join(this.targetParentDir(),
+        this.targetName(),
+        'preview',
+        'index.html');
+  }
+
   title() {
     return FileName.toString(this.fileName());
   }

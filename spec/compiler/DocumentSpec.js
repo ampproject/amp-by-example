@@ -87,6 +87,21 @@ describe("Document", function() {
     });
   });
 
+  describe("marks first section", function() {
+    it("true", function() {
+      const onlySection = new CodeSection();
+      doc.addSection(onlySection);
+      expect(onlySection.isFirstSection).toEqual(true);
+    });
+    it("false", function() {
+      const firstSection = new CodeSection();
+      const secondSection = new CodeSection();
+      doc.addSection(firstSection);
+      doc.addSection(secondSection);
+      expect(secondSection.isFirstSection).toEqual(false);
+    });
+  });
+
   describe("marks last section", function() {
     it("true", function() {
       const onlySection = new CodeSection();

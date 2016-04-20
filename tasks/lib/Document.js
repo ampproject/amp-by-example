@@ -37,6 +37,8 @@ module.exports = class Document {
     const prevSection = this.lastSection();
     if (prevSection) {
       prevSection.isLastSection = false;
+    } else {
+      section.isFirstSection = true;
     }
     this.sections.push(section);
   }

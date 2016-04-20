@@ -69,7 +69,8 @@ const paths = {
 const exampleConfig = {
   templateRoot: paths.templates.dir,
   templateIndex: 'index.html',
-  templateExample: 'example.html'
+  templateExample: 'example.html',
+  templatePreview: 'preview.html'
 };
 
 gulp.task('serve', 'starts a local webserver (--port specifies bound port)',

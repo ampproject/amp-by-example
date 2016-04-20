@@ -47,6 +47,7 @@ module.exports = class CodeSection {
     this.id = 0;
     this.cachedMarkedDoc = false;
     this.isLastSection = true;
+    this.isFirstSection = false;
     this.commentOffset = 0;
   }
 
