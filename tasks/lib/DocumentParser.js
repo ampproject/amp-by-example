@@ -20,17 +20,15 @@ const CodeSection = require('./CodeSection');
 const Document = require('./Document');
 const beautifyHtml = require('js-beautify').html;
 
-const SINGLE_LINE_TAGS = ['link', 'meta'];
+const SINGLE_LINE_TAGS = ['link', 'meta', '!doctype'];
 
 /* eslint-disable */
 const BEAUTIFY_OPTIONS = {
   indent_size: 2,
   "wrap_attributes": "force",
   "wrap_attributes_indent_size": 4,
-  "wrap_line_length": 60,
   unformatted: ['noscript', 'style', 'head'],
   'indent-char': ' ',
-  'wrap-line-length': 60,
   'no-preserve-newlines': '',
   'extra_liners': []
 };
@@ -178,7 +176,6 @@ class DocumentParser {
     if (endTag == this.currentTag) {
       this.currentTagCounter--;
     }
-    //console.log('tag: ' + tag + ' endTag: ' + endTag + ' ' + this.currentTagCounter);
     return endTag == this.currentTag && this.currentTagCounter == 0;
   }
 
@@ -199,16 +196,19 @@ class DocumentParser {
 
   extractTag(string) {
     const start = string.indexOf('<');
-    if (string.charAt(start + 1) == '/') {
+    const nextChar = string.charAt(start + 1);
+    if (nextChar == '/' || nextChar == '!') {
       return '';
     }
-    const tagEnd = string.indexOf('>', start);
-    if (tagEnd == -1) {
+    const closingBracket = string.indexOf('>', start);
+    const nextSpace = string.indexOf(' ', start);
+    if (closingBracket == -1 && nextSpace == -1) {
       return '';
     }
-    let end = string.indexOf(' ', start);
-    if (end == -1) {
-      end = tagEnd;
+    let end = closingBracket;
+    if ((nextSpace > -1 && nextSpace < closingBracket) ||
+        closingBracket == -1) {
+      end = nextSpace;
     }
     return string.substring(start + 1, end);
   }
