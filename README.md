@@ -2,7 +2,7 @@
 
 #AMP by Example
 
-[AMP by Example](http://ampbyexample.com/) gives you a hands-on introduction to Accelerated Mobile Pages based on code and live samples. Learn how to create websites with AMP and how to effectively make use of the different AMP components.
+[ampbyexample.com](http://ampbyexample.com/) gives you a hands-on introduction to Accelerated Mobile Pages based on code and live samples. Learn how to create websites with AMP and how to effectively make use of the different AMP components.
 
 ![Screenshot](src/img/abe_preview.png)
 
