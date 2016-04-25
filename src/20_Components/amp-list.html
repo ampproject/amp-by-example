@@ -41,14 +41,14 @@
   ```
   The list content is rendered via an [amp-mustache template](https://github.com/ampproject/amphtml/blob/master/extensions/amp-mustache/amp-mustache.md). The template can either be specified using a nested element.
   -->
+  <ul>
   <amp-list width=300 height=100 layout=responsive
       src="https://ampbyexample.com/json/examples.json">
     <template type="amp-mustache" id="amp-template-id">
-      <ul>
-        <li><a href={{url}}>{{title}}</a></li>
-      </ul>
+      <li><a href={{url}}>{{title}}</a></li>
     </template>
   </amp-list>
+  </ul>
 
   <!-- #### Using an existing template -->
   <!--
@@ -56,15 +56,18 @@
     `template` element. This example references the template from the
     previous sample.
   -->
+  <ul>
   <amp-list width=300 height=100 layout=responsive
       src="https://ampbyexample.com/json/examples.json"
       template="amp-template-id">
   </amp-list>
+  </ul>
 
   <!-- #### Handling List Overflow -->
   <!--
  If the `amp-list` content requires more space than available, the AMP runtime will display the overflow element (if specified).
   -->
+  <ul>
   <amp-list width=300 height=40 layout=responsive
       src="https://ampbyexample.com/json/examples.json"
       template="amp-template-id">
@@ -72,5 +75,6 @@
     Show more
   </button>
   </amp-list>
+  </ul>
 </body>
 </html>
