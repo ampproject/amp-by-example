@@ -178,7 +178,13 @@ describe("DocumentParser", function() {
       expect(parser.extractTag('</div>')).toEqual('');
       expect(parser.extractTag('<div class="test">')).toEqual('div');
       expect(parser.extractTag('<')).toEqual('');
+      expect(parser.extractTag('< ')).toEqual('');
       expect(parser.extractTag('div')).toEqual('');
+      expect(parser.extractTag('<!--')).toEqual('');
+      expect(parser.extractTag('<!---{')).toEqual('');
+      expect(parser.extractTag('<!--- -->')).toEqual('');
+      expect(parser.extractTag('  <h4>Hello World</h4>')).toEqual('h4');
+      expect(parser.extractTag('<amp-ad width="300"')).toEqual('amp-ad');
     });
 
     it("end tag", function() {
@@ -187,6 +193,7 @@ describe("DocumentParser", function() {
       expect(parser.extractEndTag('</div>')).toEqual('div');
       expect(parser.extractEndTag('   </div>')).toEqual('div');
       expect(parser.extractEndTag('<div class="test">')).toEqual('');
+      expect(parser.extractEndTag('  <h4>Hello World</h4>')).toEqual('h4');
     });
   });
 
