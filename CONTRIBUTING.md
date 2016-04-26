@@ -22,6 +22,9 @@ frustration later on.
 All submissions, including submissions by project members, require review. We
 use [Github pull requests](https://help.github.com/articles/using-pull-requests/#fork--pull) for this purpose.
 
+In order to keep the repository easy to navigate, we ask you squash your commits to one commit before submitting a pull request. 
+Find documentation [here](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History)
+
 ### The small print
 
 Contributions made by corporations are covered by a different agreement than
