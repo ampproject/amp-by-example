@@ -117,7 +117,9 @@ module.exports = function(config, updateTimestamp) {
       }
 
       example.metadata = document.metadata;
-      examples.push(example);
+      if (!example.metadata.draft) {
+        examples.push(example);
+      }
 
       // compile example
       const sampleHtml = templates.render(config.templateExample, args);

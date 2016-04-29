@@ -104,6 +104,8 @@ Nested comments are not supported:
 </div>
 ```
 
+#### Formatting
+
 You can use [markdown](https://help.github.com/articles/github-flavored-markdown/) to format your documentation:
 
 ```html
@@ -114,6 +116,8 @@ You can use [markdown](https://help.github.com/articles/github-flavored-markdown
 <amp-img src="img/image1.jpg" width=200 height=100 layout=responsive></amp-img>
 ```
 
+#### Experimental Components
+
 If your sample is using an experimental component, you can add a metadata section (`<!--- ... --->`) with the json variables `experiment` and `component`, this will skip its validation and add an experimental note with instructions to your sample:
 
 ```json
@@ -123,6 +127,8 @@ If your sample is using an experimental component, you can add a metadata sectio
 }--->
 ```
 
+#### Single Column Layout
+
 If your sample looks better with a single column layout, you can disable the code and preview columns adding the following flags to your sample file:
 
 ```json
@@ -131,6 +137,17 @@ If your sample looks better with a single column layout, you can disable the cod
   "hidePreview": true
 }--->
 ```
+
+#### Drafts
+
+You can mark samples as drafts if they are still work-in-progress. This means the samples won't show up in the start page.
+
+```json
+<!---{
+  "draft": true
+}--->
+```
+
 
 ## Contributing
 
