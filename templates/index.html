@@ -9,11 +9,10 @@
       main {
         margin: 0 auto;
         max-width: 500px;
-        padding: 0 16px;
       }
       ul.example-list {
+        padding: 0;
         list-style-type: none;
-        padding-left: 0;
       }
       ul.example-list a {
         text-decoration: none;
@@ -27,6 +26,11 @@
         background-image: -webkit-image-set(
           url('/img/ic_experiment_black_1x_web_18dp.png') 1x,
           url('/img/ic_experiment_black_2x_web_18dp.png') 2x );
+      }
+      @media (max-width: 700px) {
+      ul.example-list {
+          margin: 0 16px;
+        }
       }
     </style>
     {{> head.html}}
