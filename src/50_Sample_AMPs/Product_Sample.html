@@ -1,0 +1,278 @@
+<!---{
+"preview": true,
+"draft": true
+}--->
+<!--
+#### Introduction
+
+This sample showcases how to build a product page in AMP HTML.
+-->
+<!doctype html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://ampbyexample.com/sample_amps/ecommerce_sample/">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <!--
+    Additionally used AMP components must be imported in the header.
+-->
+<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+<script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+<script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+<script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+<script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+<script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
+<script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+
+<style amp-custom>
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+header h2 {
+    flex: 2;
+    text-align: left;
+}
+header .call-to-action {
+    flex: 1;
+    margin-left: auto;
+    margin-right: 16px;
+    padding-right: 16px;
+}
+header a {
+    float: right;
+}
+amp-carousel {
+    clear: both;
+}
+amp-lightbox {
+    background: rgba(0,0,0,0.8);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.play {
+    padding-right: 28px;
+    margin: 16px;
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-image: -webkit-image-set(url(/img/ic_play_circle_filled_black_1x_web_24dp.png) 1x,url(/img/ic_play_circle_filled_black_2x_web_24dp.png) 2x);
+}
+
+.amp-youtube-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.video {
+    flex: 1;
+}
+.related {
+    background-color: #f5f5f5;
+    margin-right: 16px;
+    display: block;
+    color: #111;
+    height: 75px;
+    padding: 0;
+    line-height: 75px;
+}
+.related amp-img {
+    line-height: 24px;
+    font-weight: 400;
+    font-size: 24px;
+    vertical-align: middle;
+    float: left;
+}
+.related:hover {
+    background-color: #ccc;
+}
+amp-accordion h4 {
+    padding: 8px;
+}
+amp-accordion p {
+    padding: 8px;
+    font-size: 16px;
+}
+</style>
+
+<!-- #### Metadata -->
+<!-- The page indexing requires schema.org markup for one of the following types: Type, AggregateRating, Offers. [Learn more](https://developers.google.com/structured-data/carousels/top-stories#markup_specification). -->
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": "Nexus 6P",
+    "image": "http://www.ampbyexample.com/img/gold_nexus.png",
+    "description": "Gold Nexus",
+    "mpn": "925872",
+    "brand": {
+        "@type": "Phone",
+        "name": "Nexus"
+    },
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.4",
+        "reviewCount": "88"
+    },
+    "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "500",
+        "priceValidUntil": "2020-11-05",
+        "itemCondition": "http://schema.org/UsedCondition",
+        "availability": "http://schema.org/InStock",
+        "seller": {
+            "@type": "AMPByExample",
+            "name": "AMPByExample"
+        }
+    }
+}
+</script>
+
+<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+<script async src="https://cdn.ampproject.org/v0.js"></script>
+</head>
+<body>
+    <header>
+        <h2>Nexus 6P</h2>
+        <!-- This button adds the item to the shopping cart. Pressing this button should lead to a the shopping cart page on your normal website and the cart should be prefilled with the current item. -->
+        <div class="call-to-action">
+            <a href="/shopping-cart-sample.html" class="button button-primary">Buy</a>
+        </div>
+    </header>
+
+    <!-- #### Image Gallery -->
+    <!-- The `amp-carousel` works very well for product image galleries. Learn more about `amp-carousel` [here](/advanced/image_galleries_with_amp-carousel/). -->
+
+    <amp-carousel width="512" height="384" layout="responsive" type="slides">
+        <amp-img src="/img/all_nexuses.png" width="512" height="384" layout="responsive"></amp-img>
+        <amp-img src="/img/gold_nexus.png" width="512" height="384" layout="responsive"></amp-img>
+        <amp-img src="/img/silver_nexus.png" width="512" height="384" layout="responsive"></amp-img>
+    </amp-carousel>
+
+    <!-- #### Video -->
+    <!-- AMP supports a wide range of video platforms. Here we are using `amp-youtube` to show a product video. You can find an overview of all supported video platforms [here](/advanced/integrating_videos_in_amp_an_overview/).
+
+    In this sample we don't embed the video directly into the page, but instead show it in a lightbox using the `amp-lightbox` component. Learn more about `amp-lightbox` [here](/components/amp-lightbox/).  -->
+    <div>
+        <a on="tap:watch-video-lightbox"
+        role="button"
+        class="button button-secondary play"
+        tabindex="0">
+        Show Video
+    </a>
+
+    <amp-lightbox id="watch-video-lightbox" layout="nodisplay">
+        <div class="amp-youtube-container">
+            <div class="video">
+                <a on="tap:watch-video-lightbox.close"
+                role="button"
+                tabindex="0">Close
+            </a>
+            <amp-youtube width="480"
+            height="270"
+            layout=responsive
+            data-videoid="4cAHL4LMNlY">
+        </amp-youtube>
+    </div>
+</div>
+</amp-lightbox>
+</div>
+
+<!-- #### Social -->
+<!-- The Social Share extension provides a common interface for share buttons. Learn more about `amp-social-share` [here](/components/amp-social-share/). </a> -->
+<p>
+    <amp-social-share type="twitter"
+    width="45"
+    height="33"></amp-social-share>
+    <amp-social-share type="facebook"
+    width="45"
+    height="33"
+    data-attribution=254325784911610></amp-social-share>
+    <amp-social-share type="gplus"
+    width="45"
+    height="33"></amp-social-share>
+    <amp-social-share type="email"
+    width="45"
+    height="33"></amp-social-share>
+    <amp-social-share type="pinterest"
+    width="45"
+    height="33"></amp-social-share>
+</p>
+
+<h4>A 5.7-inch, high-resolution WQHD AMOLED display and front-facing stereo speakers — all housed in a contoured aluminum body.</h4>
+
+<!-- #### Collapsibles/Accordion -->
+<!-- Use `amp-accordion` to hide and show additional data about your product. Learn more about `amp-accordion` [here](/components/amp-accordion/). -->
+<div>
+    <amp-accordion>
+        <section>
+            <h4>An exquisite frame for your life</h4>
+            <p>See your photos, movies, and games in stunning clarity on the 5.7-inch WQHD AMOLED cinematic display. Crafted from aeronautical-grade anodized aluminum with diamond-cut edges for a smooth finish, it looks and feels good in hand.</p>
+        </section>
+        <section>
+            <h4>Built on a foundation of power</h4>
+            <p>With the Qualcomm® Snapdragon™ 810 v2.1 processor, performance is fast, yet gentle on the 3,450 mAh battery, so it can last all day long.² If you do get low, charging is quick with the USB Type-C plug. It's reversible, so there’s no more guessing which way is up.</p>
+        </section>
+        <section>
+            <h4>A camera that captures more light</h4>
+            <p>Larger 1.55 µm pixels absorb more light in even the dimmest conditions to make your photos vibrant and sharp. Plus, the Google Camera app is so quick and easy to use, you'll never miss a moment.</p>
+        </section>
+        <section>
+            <h4>Security at your fingertip</h4>
+            <p>Your Nexus is quicker to access and more secure with a fingerprint sensor placed on the back to complement the way you naturally hold your phone. Unlock your phone and compatible apps with just one touch.</p>
+        </section>
+    </amp-accordion>
+</div>
+
+<h3>Related products</h3>
+
+<!-- #### Related products -->
+<!-- Use `amp-list` to show a list of related products. Learn more about `amp-list` [here](/components/amp-list/) -->
+<ul>
+    <amp-list width=300
+    height=300
+    layout=responsive
+    src="/json/related_products.json">
+    <template type="amp-mustache">
+        <a class="card related" href={{url}}>
+            <amp-img width="100"
+            height="75"
+            src="{{src}}"></amp-img>
+            {{desc}}
+        </a>
+    </template>
+</amp-list>
+</ul>
+
+<!--
+#### Analytics
+-->
+<!--
+Analytics must be configured in the body. Here we use Google Analytics to track pageviews.
+-->
+<amp-analytics type="googleanalytics">
+    <script type="application/json">
+    {
+        "vars": {
+            "account": "UA-73836974-1"
+        },
+        "triggers": {
+            "default pageview": {
+                "on": "visible",
+                "request": "pageview",
+                "vars": {
+                    "title": "{{title}}"
+                }
+            }
+        }
+    }
+    </script>
+</amp-analytics>
+</body>
+</html>
