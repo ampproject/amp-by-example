@@ -25,28 +25,21 @@ This sample showcases how to build a product page in AMP HTML.
 <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
 
 <style amp-custom>
-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-}
-header h2 {
-    flex: 2;
-    text-align: left;
-}
-header .call-to-action {
-    flex: 1;
-    margin-left: auto;
-    margin-right: 16px;
-    padding-right: 16px;
-}
-header a {
+
+.call-to-action {
     float: right;
+    margin: 16px;
 }
-amp-carousel {
+h2 {
+    float: left;
+}
+
+#product-description {
     clear: both;
+}
+
+amp-carousel {
+    margin: 0;
 }
 amp-lightbox {
     background: rgba(0,0,0,0.8);
@@ -54,10 +47,18 @@ amp-lightbox {
     height: 100%;
     position: absolute;
 }
+
+amp-accordion p, amp-accordion h4 {
+    padding: 16px;
+}
+
+amp-accordion h4 {
+    font-size: 18px;
+}
+
 .play {
-    padding-right: 28px;
-    margin: 16px;
-    background-position: right center;
+    padding-left: 28px;
+    background-position: left center;
     background-repeat: no-repeat;
     background-image: -webkit-image-set(url(/img/ic_play_circle_filled_black_1x_web_24dp.png) 1x,url(/img/ic_play_circle_filled_black_2x_web_24dp.png) 2x);
 }
@@ -69,12 +70,15 @@ amp-lightbox {
     width: 100%;
     height: 100%;
 }
+
+#video-container, #social {
+    margin: 16px;
+}
 .video {
     flex: 1;
 }
 .related {
     background-color: #f5f5f5;
-    margin-right: 16px;
     display: block;
     color: #111;
     height: 75px;
@@ -91,12 +95,11 @@ amp-lightbox {
 .related:hover {
     background-color: #ccc;
 }
-amp-accordion h4 {
-    padding: 8px;
-}
-amp-accordion p {
-    padding: 8px;
-    font-size: 16px;
+@media (max-width: 320px) {
+    .call-to-action {
+        clear: both;
+        float: none;
+    }
 }
 </style>
 
@@ -138,13 +141,16 @@ amp-accordion p {
 <script async src="https://cdn.ampproject.org/v0.js"></script>
 </head>
 <body>
-    <header>
+
+    <!-- This button adds the item to the shopping cart. Pressing this button should lead to a the shopping cart page on your normal website and the cart should be prefilled with the current item. -->
+    <p id="product-header">
         <h2>Nexus 6P</h2>
-        <!-- This button adds the item to the shopping cart. Pressing this button should lead to a the shopping cart page on your normal website and the cart should be prefilled with the current item. -->
-        <div class="call-to-action">
-            <a href="/shopping-cart-sample.html" class="button button-primary">Buy</a>
-        </div>
-    </header>
+        <a href="/shopping-cart-sample.html" class="button button-primary call-to-action">Buy</a>
+    </p>
+
+    <p id="product-description">
+        A 5.7-inch, high-resolution WQHD AMOLED display and front-facing stereo speakers — all housed in a contoured aluminum body.
+    </p>
 
     <!-- #### Image Gallery -->
     <!-- The `amp-carousel` works very well for product image galleries. Learn more about `amp-carousel` [here](/advanced/image_galleries_with_amp-carousel/). -->
@@ -159,53 +165,48 @@ amp-accordion p {
     <!-- AMP supports a wide range of video platforms. Here we are using `amp-youtube` to show a product video. You can find an overview of all supported video platforms [here](/advanced/integrating_videos_in_amp_an_overview/).
 
     In this sample we don't embed the video directly into the page, but instead show it in a lightbox using the `amp-lightbox` component. Learn more about `amp-lightbox` [here](/components/amp-lightbox/).  -->
-    <div>
-        <a on="tap:watch-video-lightbox"
-        role="button"
-        class="button button-secondary play"
-        tabindex="0">
+    <div id="video-container">
+        <a on="tap:watch-video-lightbox" role="button" class="button button-secondary play" tabindex="0">
         Show Video
-    </a>
+        </a>
 
-    <amp-lightbox id="watch-video-lightbox" layout="nodisplay">
-        <div class="amp-youtube-container">
-            <div class="video">
-                <a on="tap:watch-video-lightbox.close"
-                role="button"
-                tabindex="0">Close
-            </a>
-            <amp-youtube width="480"
-            height="270"
-            layout=responsive
-            data-videoid="4cAHL4LMNlY">
-        </amp-youtube>
+        <amp-lightbox id="watch-video-lightbox" layout="nodisplay">
+            <div class="amp-youtube-container">
+                <div class="video">
+                    <a on="tap:watch-video-lightbox.close" role="button" tabindex="0">
+                        Close
+                    </a>
+                    <amp-youtube width="480"
+                        height="270"
+                        layout=responsive
+                        data-videoid="4cAHL4LMNlY">
+                    </amp-youtube>
+                </div>
+            </div>
+        </amp-lightbox>
     </div>
-</div>
-</amp-lightbox>
-</div>
+
 
 <!-- #### Social -->
 <!-- The Social Share extension provides a common interface for share buttons. Learn more about `amp-social-share` [here](/components/amp-social-share/). </a> -->
-<p>
+<div id="social">
     <amp-social-share type="twitter"
-    width="45"
-    height="33"></amp-social-share>
+    width="30"
+    height="22"></amp-social-share>
     <amp-social-share type="facebook"
-    width="45"
-    height="33"
+    width="30"
+    height="22"
     data-attribution=254325784911610></amp-social-share>
     <amp-social-share type="gplus"
-    width="45"
-    height="33"></amp-social-share>
+    width="30"
+    height="22"></amp-social-share>
     <amp-social-share type="email"
-    width="45"
-    height="33"></amp-social-share>
+    width="30"
+    height="22"></amp-social-share>
     <amp-social-share type="pinterest"
-    width="45"
-    height="33"></amp-social-share>
-</p>
-
-<h4>A 5.7-inch, high-resolution WQHD AMOLED display and front-facing stereo speakers — all housed in a contoured aluminum body.</h4>
+    width="33"
+    height="22"></amp-social-share>
+</div>
 
 <!-- #### Collapsibles/Accordion -->
 <!-- Use `amp-accordion` to hide and show additional data about your product. Learn more about `amp-accordion` [here](/components/amp-accordion/). -->
@@ -230,14 +231,15 @@ amp-accordion p {
     </amp-accordion>
 </div>
 
+
 <h3>Related products</h3>
 
 <!-- #### Related products -->
 <!-- Use `amp-list` to show a list of related products. Learn more about `amp-list` [here](/components/amp-list/) -->
 <ul>
-    <amp-list width=300
-    height=300
-    layout=responsive
+    <amp-list width=auto
+    height=200
+    layout=fixed-height
     src="/json/related_products.json">
     <template type="amp-mustache">
         <a class="card related" href={{url}}>
