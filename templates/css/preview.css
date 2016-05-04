@@ -10,6 +10,7 @@ article {
   max-width: 800px;
   background: #fff;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+  display: block;
 }
 
 p, h1, h2, h3, h4, h5, h6, figcaption {
@@ -18,6 +19,7 @@ p, h1, h2, h3, h4, h5, h6, figcaption {
 
 ul, ol {
   margin: 16px;
+  padding: 0;
 }
 
 figcaption {
@@ -50,10 +52,9 @@ amp-video, amp-youtube, amp-vimeo, amp-twitter, amp-instagram, daily-motion, amp
   left: 8px;
   color: #666;
 }
-
-@media (max-width: 800px) {
+@media (max-width: 600px) {
   article {
-    margin: 54px auto;
+      margin-bottom: 0;
   }
 }
 
