@@ -6,7 +6,7 @@ body {
 article {
   padding: 1px 0;
   padding-bottom: 16px;
-  margin: 54px auto;
+  margin: 0 auto;
   max-width: 800px;
   background: #fff;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
@@ -52,9 +52,11 @@ amp-video, amp-youtube, amp-vimeo, amp-twitter, amp-instagram, daily-motion, amp
   left: 8px;
   color: #666;
 }
+
 @media (max-width: 600px) {
   article {
-      margin-bottom: 0;
+    top: 0;
+    margin-bottom: 0;
   }
 }
 

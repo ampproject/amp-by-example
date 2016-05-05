@@ -7,6 +7,7 @@
       {{> css/styles.css}}
       {{{styles}}}
       main {
+        padding-top: 16px;
         margin: 0 auto;
         max-width: 500px;
       }
@@ -30,6 +31,12 @@
       @media (max-width: 700px) {
       ul.example-list {
           margin: 0 16px;
+        }
+      }
+      @media (max-width: 1024px) {
+        main {
+          position: relative;
+          top: 56px;
         }
       }
     </style>

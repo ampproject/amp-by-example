@@ -8,29 +8,27 @@
       {{> css/material.css}}
       {{> css/styles.css}}
       {{{exampleStyles}}}
-    </style>
+   </style>
   </head>
   <body>
-    {{> header.html}}
     {{#metadata.preview}}
     <a href="preview/" class="fab show-on-mobile">
       <amp-img src="/img/ic_play_arrow_white_2x_web_24dp.png" width="24" height="24"></amp-img>
     </a>
     {{/metadata.preview}}
+    {{> header.html}}
     <article>
-      <h3 class="title">
-        {{subHeading}}
-      </h3>
+      <h3>{{title}}</h3>
       {{#metadata.experiment}}
-        <div class="box">
-          <div class="column doc">
-            {{> experiment.html}}
-          </div>
-          <div class="column code hide-on-mobile">
-          </div>
-          <div class="column preview hide-on-mobile">
-          </div>
+      <div class="box">
+        <div class="column doc">
+          {{> experiment.html}}
         </div>
+        <div class="column code hide-on-mobile">
+        </div>
+        <div class="column preview hide-on-mobile">
+        </div>
+      </div>
       {{/metadata.experiment}}
       {{#sections}}
       <div class="box ">
@@ -55,11 +53,6 @@
           <pre class="hljs"><code class="html">{{{escapedCode}}}</code></pre>
         </div>
         <div class="column preview {{#hidePreviewOnMobile}}hide-on-mobile{{/hidePreviewOnMobile}} {{#metadata.hidePreview}}hide{{/metadata.hidePreview}}">
-          {{#isFirstSection}}
-          {{#metadata.preview}}
-            <a class="show-preview action hide-on-mobile" href="preview/">Show Preview</a>
-          {{/metadata.preview}}
-          {{/isFirstSection}}
           {{{preview}}}
         </div>
       </div>
