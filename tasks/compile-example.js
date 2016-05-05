@@ -98,7 +98,7 @@ module.exports = function(config, updateTimestamp) {
         timestamp: timestamp,
         fileName: example.url(),
         github: example.githubUrl(),
-        subHeading: example.title(),
+        title: example.title(),
         exampleStyles: document.styles,
         component: document.metadata.component,
         sections: document.sections,
@@ -161,6 +161,7 @@ module.exports = function(config, updateTimestamp) {
         'focusing on code and live samples. Learn how to create AMP pages ' +
         'and see examples for all AMP components.',
       timestamp: timestamp,
+      github: "https://github.com/ampproject/amp-by-example/",
       fileName: '/'
     };
 

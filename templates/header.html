@@ -1,12 +1,20 @@
-<header>
-  <div class="toolbar">
-  {{#github}}
-    <a href="{{this}}" class="gist action">
-      View on Github 
+<nav>
+  <a id="hamburger" href="#" class="button">
+    <amp-img src="/img/ic_menu_white_2x_web_24dp.png" width="24" height="24"></amp-img>
+  </a>
+  <a id="logo" href="/">AMP by Example</a>
+  <div id="actions">
+    {{#github}}
+    <a href="{{this}}" class="button">
+      <amp-img src="/img/ic_code_white_2x_web_24dp.png" width="24" height="24"></amp-img>
+      <span class="hide-on-mobile">View on Github</span>
     </a>
-  {{/github}}
+    {{/github}}
+    {{#metadata.preview}}
+    <a href="preview/" class="button hide-on-mobile"> 
+      <amp-img src="/img/ic_play_arrow_white_2x_web_24dp.png" width="24" height="24"></amp-img>
+      <span>Show Preview</span>
+    </a>
+    {{/metadata.preview}}
   </div>
-  <h1>
-    <a href="/">AMP by Example</a>
-  </h1>
-</header>
+</nav>
