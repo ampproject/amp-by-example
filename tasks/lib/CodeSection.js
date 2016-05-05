@@ -83,6 +83,18 @@ module.exports = class CodeSection {
     return this.cachedMarkedDoc;
   }
 
+  hideDocOnMobile() {
+    return !this.doc.trim();
+  }
+
+  hidePreviewOnMobile() {
+    return this.hideCodeOnMobile() || !this.preview.trim();
+  }
+
+  hideCodeOnMobile() {
+    return this.hideDocOnMobile() || !this.code.trim();
+  }
+
   /* PRIVATE */
 
   /**

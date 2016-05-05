@@ -1,10 +1,11 @@
 /* reset */
-figure {
+figure, ul, ol {
   margin: 0;
+  padding: 0;
 }
 /* layout */
 body {
-  background: #fff;
+  background: #fafafa;
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
 }
 body a {
@@ -120,9 +121,6 @@ header h1 a {
 header h3 {
   font-weight: 300;
   padding: 0;
-}
-ul {
-  padding-left: 1.3em;
 }
 
 /* toolbar */
@@ -250,6 +248,35 @@ footer li {
   border-left: 1px solid #000;
 }
 
+/* FAB */
+.fab {
+  position: fixed;
+  bottom: 5%; /* Adjust height */
+  right: 5%; /* Adjust position */
+  z-index: 1000;
+  background: #ff4081;
+  color: #fff;
+  line-height: 24px;
+  border-radius: 50%;
+  height: 56px;
+  margin: auto;
+  min-width: 56px;
+  width: 56px;
+  padding: 0;
+  box-shadow: 0 1px 1.5px 0 rgba(0,0,0,.12),0 1px 1px 0 rgba(0,0,0,.24);
+  outline: none;
+  cursor: pointer;
+}
+.fab amp-img {
+  vertical-align: middle;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-12px,-12px);
+  line-height: 24px;
+  width: 24px;
+}
+
 /* cards */
 
 .card {
@@ -258,7 +285,7 @@ footer li {
   overflow: hidden;
   padding: 8px;
   border-radius: 2px;
-  margin: 16px 0;
+  margin: 0px;
 }
 
 .info-card {
@@ -279,20 +306,38 @@ footer li {
   display: none;
 }
 
-@media (max-width: 1280px) {
+@media (min-width: 700px) and (max-width: 1024px) {
+  p, h1, h2, h3, h4, h5, h6, figcaption, ul, ol {
+    padding: 0 64px;
+  }
+  .hljs {
+    padding: 0 64px;
+  }
+}
+@media (max-width: 700px) {
+  p, h1, h2, h3, h4, h5, h6, figcaption, ol, ul {
+    padding: 0 16px;
+  }
+  ul, ol {
+    margin: 0 16px;
+  }
+  .hljs {
+    padding: 0 16px;
+  }
+}
+@media (max-width: 1024px) {
   article {
     padding: 0 20px;
   }
   .toolbar {
     right: 20px;
   }
-}
-@media (max-width: 800px) {
-  body {
-    margin: 0;
-  }
   article {
     padding: 0;
+  }
+  header {
+    padding: 16px;
+    padding-top: 48px;
   }
   header h1 {
     margin: 0;
@@ -305,33 +350,31 @@ footer li {
   article .title {
     font-size: 24px;
     font-weight: 300;
-    margin: 0;
+    margin: 0 16px;
   }
-  .hide-on-mobile {
-    display: none;
-  }
-  .show-on-mobile {
-    display: block;
+  .card {
+    margin: 16px;
   }
   .column {
     flex: none;
     width: auto;
+    max-width: 1280px;
   }
   .box {
     display: block;
     margin: 0;
   }
   .doc {
-    padding: 16px;
+    padding: 16px 0;
     margin: 0;
     float: none;
   }
-  .preview {
-    margin: 0;
+  .code {
+    padding: 8px;
+
   }
-  header {
-    padding: 16px;
-    padding-top: 48px;
+  .preview {
+    margin: 16px 0;
   }
   .toolbar {
     top: 16px;
@@ -345,5 +388,11 @@ footer li {
   }
   .anchor-trigger:hover + .anchor {
     display: none;
+  }
+  .hide-on-mobile {
+    display: none;
+  }
+  .show-on-mobile {
+    display: block;
   }
 }

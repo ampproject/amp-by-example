@@ -83,6 +83,7 @@ class DocumentParser {
         this.currentSection().appendCode(line);
         this.updateHead(line);
         if (this.endOfCurrentTag(line)) {
+          // console.log("end tag: " + this.currentTag);
           this.endSection();
           this.currentTag = '';
         }
@@ -99,6 +100,7 @@ class DocumentParser {
         } else {
           this.inComment = false;
           this.currentTag = this.nextTag(i);
+          // console.log("start tag: " + this.currentTag);
         }
       }
     }
