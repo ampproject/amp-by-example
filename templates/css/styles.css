@@ -12,12 +12,12 @@ body a {
   text-decoration: none;
   cursor: pointer;
 }
-p, h1, h2, h3, h4, h5, h6, figcaption {
+p, h1, h2, h3, h4, h5, h6, figcaption, div > a {
   padding: 0 16px;
 }
 ul, ol {
   margin: 16px;
-  padding: 0;
+  padding: 16px;
 }
 article {
   padding: 0;
@@ -70,9 +70,13 @@ article .title {
 .anchor-trigger:hover + .anchor {
   display: block;
 }
+.anchor-target {
+  margin: 0;
+  padding: 0;
+}
 .anchor {
   position: relative;
-  left: -20px;
+  left: -16px;
   top: 30px;
   display: none;
   vertical-align: middle;
@@ -287,14 +291,13 @@ footer li {
 }
 
 /* cards */
-
 .card {
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
   float: none; 
   overflow: hidden;
-  padding: 8px;
+  padding: 0 8px;
+  margin: 16px;
   border-radius: 2px;
-  margin: 0px;
 }
 
 .info-card {
@@ -316,33 +319,24 @@ footer li {
 }
 
 @media (min-width: 700px) and (max-width: 1024px) {
-  p, h1, h2, h3, h4, h5, h6, figcaption, ul, ol {
-    padding: 0 64px;
-  }
-  .hljs {
+  article {
     padding: 0 64px;
   }
 }
 @media (max-width: 700px) {
-  p, h1, h2, h3, h4, h5, h6, figcaption, ol, ul {
-    padding: 0 16px;
-  }
-  ul, ol {
-    margin: 0 16px;
-  }
   .hljs {
     padding: 0 16px;
   }
+  article {
+    padding: 0;
+  }
 }
 @media (max-width: 1024px) {
-  article {
-    padding: 0 20px;
+  body {
+    background: white;
   }
   .toolbar {
     right: 20px;
-  }
-  article {
-    padding: 0;
   }
   header {
     padding: 16px;
@@ -374,15 +368,16 @@ footer li {
     margin: 0;
   }
   .doc {
-    padding: 16px 0;
+    padding: 0;
     margin: 0;
     float: none;
   }
   .code {
-    padding: 8px;
-
+    padding: 8px 0;
+    margin: 16px 0;
   }
   .preview {
+    margin: 0;
     margin: 16px 0;
   }
   .toolbar {
