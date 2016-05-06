@@ -12,8 +12,15 @@ body a {
   text-decoration: none;
   cursor: pointer;
 }
+p, h1, h2, h3, h4, h5, h6, figcaption {
+  padding: 0 16px;
+}
+ul, ol {
+  margin: 16px;
+  padding: 0;
+}
 article {
-  padding: 0 32px;
+  padding: 0;
   max-width: 2400px;
   margin: auto;
 }
@@ -21,6 +28,7 @@ article .title {
   text-align: center;
 }
 .box {
+  clear: both;
   min-height: -webkit-min-content;
   min-height: -moz-min-content;
   min-height: min-content;
