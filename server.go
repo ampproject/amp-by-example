@@ -39,6 +39,7 @@ func init() {
 	backend.InitAmpAnalytics()
 	backend.InitCommentSection()
 	backend.InitHotelSample()
+	backend.InitDevicePreview()
 	http.Handle("/", RedirectDomain(NoDirListing(http.FileServer(http.Dir(DIST_DIR)))))
 }
 
