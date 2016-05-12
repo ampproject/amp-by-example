@@ -32,6 +32,7 @@ const runSequence = require('run-sequence');
 const argv = require('yargs').argv;
 const path = require('path');
 const diff = require('gulp-diff');
+const swPrecache = require('sw-precache');
 
 const compileExample = require('./tasks/compile-example');
 const sitemap = require('./tasks/compile-sitemap');
@@ -182,6 +183,19 @@ gulp.task('compile:sitemap', 'generate sitemap.xml', function() {
       .pipe(gulp.dest(paths.dist.dir));
 });
 
+gulp.task('compile:sw-precache', 'run sw-precache process', function() {
+  const staticDir = 'static';
+
+  swPrecache.write(path.join(staticDir, 'sw.js'), {
+    staticFileGlobs: [paths.images, paths.videos],
+    stripPrefix: 'src'
+  });
+
+  return gulp.src('static/sw.js')
+      .pipe(cache('static/sw.js'))
+      .pipe(gulp.dest(paths.dist.dir));
+});
+
 gulp.task('create', 'create a new AMP example', function() {
   const title = argv.n || argv.name;
   const fileName = FileName.fromString(title);
@@ -285,6 +299,7 @@ gulp.task('build', 'build all resources', [
   'copy:static',
   'compile:favicons',
   'compile:sitemap',
+  'compile:sw-precache',
   'compile:example']);
 
 function isFixed(file) {
