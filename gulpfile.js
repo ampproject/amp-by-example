@@ -185,22 +185,22 @@ gulp.task('compile:sitemap', 'generate sitemap.xml', function() {
 
 gulp.task('compile:sw-precache',
           ['copy:images', 'copy:videos', 'compile:example'], function() {
-  const staticDir = 'static';
+            const staticDir = 'static';
 
-  swPrecache.write(path.join(staticDir, 'sw.js'), {
-    staticFileGlobs: [
-      path.join(paths.dist.img, '*.{png,jpg,gif}'),
-      path.join(paths.dist.video, '*.{mp4,webm}'),
-      paths.dist.html
-    ],
-    stripPrefix: 'dist',
-    verbose: true
-  });
+            swPrecache.write(path.join(staticDir, 'sw.js'), {
+              staticFileGlobs: [
+                path.join(paths.dist.img, '*.{png,jpg,gif}'),
+                path.join(paths.dist.video, '*.{mp4,webm}'),
+                paths.dist.html
+              ],
+              stripPrefix: 'dist',
+              verbose: true
+            });
 
-  return gulp.src(path.join(staticDir, 'sw.js'))
-      .pipe(cache('static'))
-      .pipe(gulp.dest(paths.dist.dir));
-});
+            return gulp.src(path.join(staticDir, 'sw.js'))
+              .pipe(cache('static'))
+              .pipe(gulp.dest(paths.dist.dir));
+          });
 
 gulp.task('create', 'create a new AMP example', function() {
   const title = argv.n || argv.name;
