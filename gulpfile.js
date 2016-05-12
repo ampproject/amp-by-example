@@ -183,16 +183,22 @@ gulp.task('compile:sitemap', 'generate sitemap.xml', function() {
       .pipe(gulp.dest(paths.dist.dir));
 });
 
-gulp.task('compile:sw-precache', 'run sw-precache process', function() {
+gulp.task('compile:sw-precache',
+          ['copy:images', 'copy:videos', 'compile:example'], function() {
   const staticDir = 'static';
 
   swPrecache.write(path.join(staticDir, 'sw.js'), {
-    staticFileGlobs: [paths.images, paths.videos],
-    stripPrefix: 'src'
+    staticFileGlobs: [
+      path.join(paths.dist.img, '*.{png,jpg,gif}'),
+      path.join(paths.dist.video, '*.{mp4,webm}'),
+      paths.dist.html
+    ],
+    stripPrefix: 'dist',
+    verbose: true
   });
 
-  return gulp.src('static/sw.js')
-      .pipe(cache('static/sw.js'))
+  return gulp.src(path.join(staticDir, 'sw.js'))
+      .pipe(cache('static'))
       .pipe(gulp.dest(paths.dist.dir));
 });
 
@@ -299,8 +305,8 @@ gulp.task('build', 'build all resources', [
   'copy:static',
   'compile:favicons',
   'compile:sitemap',
-  'compile:sw-precache',
-  'compile:example']);
+  'compile:example',
+  'compile:sw-precache']);
 
 function isFixed(file) {
   return file.eslint.fixed;
