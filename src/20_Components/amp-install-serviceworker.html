@@ -34,7 +34,13 @@
       layout="nodisplay">
   </amp-install-serviceworker>
   <!--
-  `sw.js` here is generated using [sw-precache](https://github.com/GoogleChrome/sw-precache), which generates a Service Worker JavaScript file that caches specifiled static files. See example in the repository of `sw-precache` and [gulpfile.js](https://github.com/ampproject/amp-by-example/blob/master/gulpfile.js) for how to use it. 
+  `sw.js` here is generated using [sw-precache](https://github.com/GoogleChrome/sw-precache), which generates a Service Worker JavaScript file that caches specified static files. See example in the repository of `sw-precache` and [gulpfile.js](https://github.com/ampproject/amp-by-example/blob/master/gulpfile.js) for how to use it. In this sample, when users access this AMP page for the 2nd time, the Service Worker is installed and start caching all image files and video files under root path of this domain.
+  
+  In order to confirm if the Service Worker is installed and it is working as expected, follow the procedure below:
+  1. Access to https://ampbyexample.com/components/amp-install-serviceworker/ twice.
+  2. Open Chrome Dev Tools and navigate to "Resources" tab. You may see "Service Workers" section and see `/sw.js` is installed.
+  3. Then open "Cached Storage". You'll find a lot of files whose names start with "sw-precache-v1--", which are cached images and videos.
+  4. Try accessing other components demos, say [amp-img](https://ampbyexample.com/components/amp-img/). On "Network" tab in Dev Tools, you'll find "(from ServiceWorker)" notation in the rows of image/video file fetch events.  
   -->
 
 </body>
