@@ -26,9 +26,6 @@
       width: 250px;
       padding-right: 10px;
     }
-    .-amp-layout-container {
-      display: none;
-    }
     .amp-sidebar-image {
       line-height: 100px;
       vertical-align:middle;
@@ -50,14 +47,14 @@
 
   <!-- #### Basic Usage -->
   <!--
-    There can be only one `amp-sidebar` in an AMP document. The `amp-sidebar` should be a direct child of the `<body>`.
+    There can be only one `amp-sidebar` in an AMP document. The `amp-sidebar` should be a direct child of the `<body>`. It must have a layout of nodisplay.
 
     The`amp-sidebar` may not contain any AMP Elements except for `amp-accordion`, `amp-img` and `amp-fit-text`.
 
     `amp-fit-text` expands or shrinks its font size to fit the content within the space given to in the menu.
   -->
-    <amp-sidebar id='sidebar1'>
-      <amp-img class='amp-close-image' src="/img/ic_close_black_18dp_2x.png" width="20" height="20" alt="an image" on="tap:sidebar1.close"></amp-img>
+    <amp-sidebar id='sidebar1' layout="nodisplay">
+      <amp-img class='amp-close-image' src="/img/ic_close_black_18dp_2x.png" width="20" height="20" alt="an image" on="tap:sidebar1.close" role="button" tabindex="0"></amp-img>
       <ul>
         <li><a href="/">Home</a></li>
         <li> Nav item 1</li>
