@@ -189,9 +189,11 @@ gulp.task('compile:sw-precache',
 
             swPrecache.write(path.join(staticDir, 'sw.js'), {
               staticFileGlobs: [
-                path.join(paths.dist.img, '*.{png,jpg,gif}'),
-                path.join(paths.dist.video, '*.{mp4,webm}'),
-                paths.dist.html
+                path.join(paths.dist.dir, 'LICENSE.txt'),
+                path.join(paths.dist.img, 'gist.png'),
+                path.join(paths.dist.img, 'abe_preview.png'),
+                path.join(paths.dist.favicons, '*.png'),
+                path.join(paths.dist.dir, 'components/amp-install-serviceworker/*.html')
               ],
               stripPrefix: 'dist',
               verbose: true
