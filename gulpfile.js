@@ -193,14 +193,15 @@ gulp.task('compile:sw-precache',
                 path.join(paths.dist.img, 'gist.png'),
                 path.join(paths.dist.img, 'abe_preview.png'),
                 path.join(paths.dist.favicons, '*.png'),
-                path.join(paths.dist.dir, 'components/amp-install-serviceworker/*.html')
+                path.join(paths.dist.dir,
+                   'components/amp-install-serviceworker/*.html')
               ],
               stripPrefix: 'dist',
               verbose: true
             });
 
             return gulp.src(path.join(staticDir, 'sw.js'))
-              .pipe(cache('static'))
+              .pipe(cache(staticDir))
               .pipe(gulp.dest(paths.dist.dir));
           });
 

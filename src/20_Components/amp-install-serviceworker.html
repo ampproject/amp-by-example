@@ -4,7 +4,8 @@
   The [amp-install-serviceworker](https://github.com/ampproject/amphtml/blob/master/extensions%2Famp-install-serviceworker%2Famp-install-serviceworker.md)
   component enables Service Worker installation via original and cached AMP pages.
   
-  This demonstration installs a Service Worker that downloads other components' demo pages using Cache API triggered by the Service Worker.
+  The benefit of Service Worker is its capability, such as runnning on background even when the browser is closed, caching required contents in advance of rendering time and sending notifications to users and so on.
+   This demonstration installs a Service Worker that downloads this demo page using Cache API triggered by the Service Worker. You can confirm that this demo works even offline once the Service Worker gets installed.
 -->
 <!-- -->
 <!doctype html>
@@ -26,7 +27,7 @@
   <!-- #### Basic Usage -->
   <!--
   amp-install-serviceworker should have both properties `src` and `data-iframe-src`; `src` is the location of Service Worker to be installed when the original AMP pages is accessed, `data-iframe-src` is the location of HTML file which calls Service Worker installation process when the cached AMP pages is accessed.
-  The reason why the latter option is required is because of Service Worker's security protection function. For details of the security considerations of Service Worker, [see official specs](https://www.w3.org/TR/service-workers/#security-considerations). 
+  The reason why the latter option is required is because browsers can't install Service Worker from other domains for security reasons. For details of the security considerations of Service Worker, [see official specs](https://www.w3.org/TR/service-workers/#security-considerations).
   -->
   <amp-install-serviceworker
       src="https://ampbyexample.com/sw.js"
@@ -40,7 +41,7 @@
   1. Access to https://ampbyexample.com/components/amp-install-serviceworker/ twice.
   2. Open Chrome Dev Tools and navigate to "Resources" tab. You may see "Service Workers" section and see `/sw.js` is installed.
   3. Then open "Cached Storage". You'll find a lot of files whose names start with "sw-precache-v1--", which are cached images and videos.
-  4. Try accessing other components demos, say [amp-img](https://ampbyexample.com/components/amp-img/). On "Network" tab in Dev Tools, you'll find "(from ServiceWorker)" notation in the rows of image/video file fetch events.  
+  4. Try accessing amp-install-serviceworker when you are offline. On "Network" tab in Dev Tools, you'll find "(from ServiceWorker)" notation in the rows of image/video file fetch events.  
   -->
 
 </body>
