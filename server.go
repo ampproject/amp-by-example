@@ -18,15 +18,16 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
-	"os"
+	"amplivelist"
 	"strings"
+	"os"
 )
 
 const (
-	MAX_AGE_IN_SECONDS = 60 * 60 * 24 // 1 day
-	OLD_ADDRESS        = "amp-by-example.appspot.com"
-	NEW_ADDRESS        = "https://ampbyexample.com"
-	DIST_DIR           = "dist"
+	MAX_AGE_IN_SECONDS       = 1
+	OLD_ADDRESS              = "amp-by-example.appspot.com"
+	NEW_ADDRESS              = "https://ampbyexample.com"
+	DIST_DIR                 = "dist"
 )
 
 var REDIRECTS [18][2]string = [18][2]string{
@@ -54,6 +55,8 @@ func init() {
 	RedirectLegacyExamples()
 	http.HandleFunc("/g", getParameterDemoHandler)
 	http.HandleFunc("/error", returnCode500)
+	amplivelist.InitBlogs()
+	http.HandleFunc("/components/amp-live-list/", amplivelist.RenderLiveBlog)
 	http.Handle("/", RedirectDomain(NoDirListing(http.FileServer(http.Dir(DIST_DIR)))))
 }
 
