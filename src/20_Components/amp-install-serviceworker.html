@@ -1,0 +1,48 @@
+<!--
+  #### Introduction
+
+  The [amp-install-serviceworker](https://github.com/ampproject/amphtml/blob/master/extensions%2Famp-install-serviceworker%2Famp-install-serviceworker.md)
+  component enables Service Worker installation via original and cached AMP pages.
+  
+  The benefit of Service Worker is its capability, such as runnning on background even when the browser is closed, caching required contents in advance of rendering time and sending notifications to users and so on.
+  This demonstration installs a Service Worker that caches this demo page using Cache API triggered by the Service Worker on background. You can confirm that this demo works even offline once the Service Worker gets installed.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <!-- #### Setup -->
+  <!--
+      Import the amp-install-serviceworker component.
+  -->
+  <script async custom-element="amp-install-serviceworker" src="https://cdn.ampproject.org/v0/amp-install-serviceworker-0.1.js"></script>
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+</head>
+<body>
+
+  <!-- #### Basic Usage -->
+  <!--
+  amp-install-serviceworker should have both properties `src` and `data-iframe-src`; `src` is the location of Service Worker to be installed when the original AMP pages is accessed, `data-iframe-src` is the location of HTML file which calls Service Worker installation process when the cached AMP pages is accessed.
+  The reason why the latter option is required is because browsers can't install Service Worker from other domains for security reasons. For details of the security considerations of Service Worker, [see official specs](https://www.w3.org/TR/service-workers/#security-considerations).
+  -->
+  <amp-install-serviceworker
+      src="/sw.js"
+      data-iframe-src="https://ampbyexample.com/sw.html"
+      layout="nodisplay">
+  </amp-install-serviceworker>
+  <!--
+  <p class="card warning">`sw.js` here is generated using [sw-precache](https://github.com/GoogleChrome/sw-precache), which generates a [Service Worker JavaScript file](https://ampbyexample.com/sw.js) that caches specified static files. See example in the repository of `sw-precache` and [gulpfile.js](https://github.com/ampproject/amp-by-example/blob/master/gulpfile.js) for how to use it.</p> In this sample, when users access this AMP page for the 2nd time, the Service Worker is installed and start caching all image files and video files under root path of this domain.
+  
+  In order to confirm if the Service Worker is installed and it is working as expected, follow the procedure below:
+  1. Access to https://ampbyexample.com/components/amp-install-serviceworker/ twice.
+  2. Open Chrome Dev Tools and navigate to "Resources" tab. You may see "Service Workers" section and see `/sw.js` is installed.
+  3. Then open "Cached Storage". You'll find a lot of files whose names start with "sw-precache-v1--", which are cached images and videos.
+  4. Disable your network connection and reload this page. It still works! On "Network" tab in Dev Tools, you'll find "(from ServiceWorker)" notation in the rows of image/video file fetch events.  
+  -->
+
+</body>
+</html>

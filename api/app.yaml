@@ -10,23 +10,24 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 runtime: go
 api_version: go1
 threadsafe: yes
 
-# cache all static assets for at most 1 day.
-default_expiration: 1d
-
 handlers:
+- url: /iframe
+  static_dir: iframe
+  secure: always
+- url: /img
+  static_dir: img
+  secure: always
+- url: /third_party
+  static_dir: third_party
+  secure: always
 - url: /.*
   script: _go_app
+  secure: always
 
 skip_files:
-- node_modules
-- scripts
-- src
-- static
-- spec
-- tasks
 - ^(.*/)?.*\.DS_Store$
-- api

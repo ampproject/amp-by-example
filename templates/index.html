@@ -7,6 +7,7 @@
       {{> css/styles.css}}
       {{{styles}}}
       main {
+        padding-top: 16px;
         margin: 0 auto;
         max-width: 500px;
       }
@@ -32,6 +33,12 @@
           margin: 0 16px;
         }
       }
+      @media (max-width: 1024px) {
+        main {
+          position: relative;
+          top: 56px;
+        }
+      }
     </style>
     {{> head.html}}
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -39,6 +46,7 @@
     <script async src="https://cdn.ampproject.org/v0.js"></script>
   </head>
   <body>
+    {{> menu.html}}
     <div class="body">
       {{> header.html}}
       <main>

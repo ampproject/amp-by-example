@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="/third_party/linkify.min.js"></script>
+    <script src="/third_party/linkify-element.min.js"></script>
+
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style>
+      pre, textarea, code {
+        font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
+        font-size: 12px;
+        line-height: 16px;
+      }
+      pre, textarea {
+        overflow: auto;
+        margin: 0;
+        padding: 8px;
+        background-color: #f5f5f5;
+      }
+      pre {
+        height: 420px;
+      }
+      textarea {
+        height: 140px;
+        border-style: none;
+        resize: none;
+        display: block;
+        width: 100%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+      #run {
+        margin: 16px 0;
+      }
+      #loader {
+        display: none;
+        position: relative;
+        top: 124px;
+        width: 24px;
+        height: 24px;
+        margin: auto;
+      }
+    </style>
+    <script type="text/javascript">
+/**
+ * Execute the URL request and update the result field.
+ */
+function sendAmpUrlRequest() {
+  const resultView = document.getElementById('result');
+  resultView.innerHTML = '';
+  const loader = document.getElementById('loader');
+  loader.style.display = 'inline';
+  const urls = document.getElementById('input').value; 
+  sendApiRequest(urls, function(result) {
+    loader.style.display = 'none';
+    resultView.innerHTML = result;
+    linkifyElement(resultView);
+  });
+}
+
+/**
+ * Call the AMP URL API.
+ */
+function sendApiRequest(urls, callback) {
+  try {
+    var url = 'https://content-acceleratedmobilepageurl.googleapis.com/v1/ampUrls:batchGet?key=AIzaSyAM68IyT1bLVrlAU1172bspF-mZ93IdmsY';
+    var xhr = createRequest('POST', url);
+    xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+    xhr.onload = function () {
+      callback(this.responseText);
+    };
+    xhr.onerror = function () {
+      callback('API not available');
+    };
+    xhr.send(urls);
+  }catch(error) {
+    callback(error.message);
+  }
+}
+
+/**
+ * Create the XHR object.
+ */
+function createRequest(method, url) {
+  var xhr = new XMLHttpRequest();
+  if ("withCredentials" in xhr) {
+    // XHR for Chrome/Firefox/Opera/Safari.
+    xhr.open(method, url, true);
+  } else if (typeof XDomainRequest != "undefined") {
+    // XDomainRequest for IE.
+    xhr = new XDomainRequest();
+    xhr.open(method, url);
+  } else {
+    // CORS not supported.
+    xhr = null;
+  }
+  return xhr;
+}
+    </script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:regular&amp;lang=en' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <textarea type="text" id="input" >{  
+  "urls":[  
+    "https://ampbyexample.com",
+    "https://www.example.org/article-without-amp-version",
+    "https://www.theguardian.com/membership/2016/feb/24/todays-release-of-accelerated-mobile-pages-amp",
+    "http://bit.ly/28lya4p"
+  ]
+}</textarea>
+    <button id="run" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="sendAmpUrlRequest();">
+      Execute
+    </button>
+    <img id="loader" src="/img/loader.gif">
+    <pre><code id="result"></code></pre>
+    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+  </body>
+</html>

@@ -32,6 +32,7 @@ const runSequence = require('run-sequence');
 const argv = require('yargs').argv;
 const path = require('path');
 const diff = require('gulp-diff');
+const swPrecache = require('sw-precache');
 
 const compileExample = require('./tasks/compile-example');
 const sitemap = require('./tasks/compile-sitemap');
@@ -58,6 +59,9 @@ const paths = {
   templates: {
     dir: 'templates',
     files: ['templates/**/*.css', 'templates/**/*.html']
+  },
+  api: {
+    conf: 'api/conf.json'
   },
   tmp: {
     dir: 'tmp'
@@ -88,22 +92,37 @@ gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
 gulp.task('deploy:prod', 'deploy to production server', function(callback) {
   runSequence('clean',
               'build',
-              'deploy:appeng:prod',
+              'deploy:site:prod',
+              'deploy:api:prod',
               callback);
 });
 
 gulp.task('deploy:staging', 'deploy to staging server', function(callback) {
   runSequence('clean',
               'build',
-              'deploy:appeng:staging',
+              'deploy:site:staging',
               callback);
 });
 
-gulp.task('deploy:appeng:prod', 'deploy to production app engine', shell.task([
+gulp.task('conf:encode', 'encode the config file', shell.task([
+  'openssl aes-256-cbc -e -in ' + paths.api.conf + ' -out ' +
+    paths.api.conf + '.enc -pass env:AMP_BY_EXAMPLE_DEPLOY_KEY'
+]));
+
+gulp.task('conf:decode', 'decode the config file', shell.task([
+  'openssl aes-256-cbc -d -in ' + paths.api.conf + '.enc -out ' +
+    paths.api.conf + ' -pass env:AMP_BY_EXAMPLE_DEPLOY_KEY'
+]));
+
+gulp.task('deploy:site:prod', 'deploy to production site', shell.task([
   'goapp deploy -application  amp-by-example -version 1'
 ]));
 
-gulp.task('deploy:appeng:staging', 'deploy to staging app engine', shell.task([
+gulp.task('deploy:api:prod', 'deploy to production api app engine', shell.task([
+  'cd api && goapp deploy -application  amp-by-example-api -version 1'
+]));
+
+gulp.task('deploy:site:staging', 'deploy to staging app engine', shell.task([
   'goapp deploy -application  amp-by-example-staging -version 1'
 ]));
 
@@ -181,6 +200,22 @@ gulp.task('compile:sitemap', 'generate sitemap.xml', function() {
       .pipe(sitemap())
       .pipe(gulp.dest(paths.dist.dir));
 });
+
+gulp.task('compile:sw-precache',
+  ['copy:images', 'copy:videos', 'compile:example'], function() {
+    swPrecache.write(path.join(paths.dist.dir, 'sw.js'), {
+      staticFileGlobs: [
+        path.join(paths.dist.dir, 'LICENSE.txt'),
+        path.join(paths.dist.img, 'gist.png'),
+        path.join(paths.dist.img, 'abe_preview.png'),
+        path.join(paths.dist.favicons, '*.png'),
+        path.join(paths.dist.dir,
+          'components/amp-install-serviceworker/*.html')
+      ],
+      stripPrefix: 'dist',
+      verbose: true
+    });
+  });
 
 gulp.task('create', 'create a new AMP example', function() {
   const title = argv.n || argv.name;
@@ -285,7 +320,8 @@ gulp.task('build', 'build all resources', [
   'copy:static',
   'compile:favicons',
   'compile:sitemap',
-  'compile:example']);
+  'compile:example',
+  'compile:sw-precache']);
 
 function isFixed(file) {
   return file.eslint.fixed;

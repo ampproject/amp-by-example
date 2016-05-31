@@ -84,62 +84,13 @@ module.exports = function(config, updateTimestamp) {
       examples = [];
     }
 
-    // compile example
+    // parse examples into documents and add metadata
     if (file.isBuffer()) {
-      const contents = file.contents.toString();
-      const document = DocumentParser.parse(contents);
-      const stream = this;
       const example = ExampleFile.fromPath(file.path);
-      const nextExample = example.nextFile();
-      const args = {
-        head: document.head,
-        title: example.title(),
-        desc: document.description(),
-        timestamp: timestamp,
-        fileName: example.url(),
-        github: example.githubUrl(),
-        subHeading: example.title(),
-        exampleStyles: document.styles,
-        component: document.metadata.component,
-        sections: document.sections,
-        metadata: document.metadata,
-        nextExample: nextExample,
-        skipCanonical: document.hasCanonical(),
-        includesAnalytics: document.importsComponent('amp-analytics')
-      };
-      Metadata.add(args);
-
-      if (document.metadata.experiment && !document.metadata.component) {
-        throw new PluginError({
-          plugin: 'compile-example',
-          message: 'Example (' + file.path + ') is `experiment`: true, but ' +
-            'is missing the `component` metadata'});
-      }
-
-      example.metadata = document.metadata;
-      if (!example.metadata.draft) {
-        examples.push(example);
-      }
-
-      // compile example
-      const sampleHtml = templates.render(config.templateExample, args);
-      file.path = path.join(file.base, example.targetPath());
-      file.metadata = document.metadata;
-      file.contents = new Buffer(sampleHtml);
-      gutil.log('Generated ' + file.relative);
-      stream.push(file);
-
-      // compile example preview
-      if (document.metadata.preview) {
-        const previewFile = file.clone({contents: false});
-        const previewHtml = templates.render(config.templatePreview, args);
-        previewFile.path = path.join(file.base, example.targetPreviewPath());
-        previewFile.metadata = document.metadata;
-        previewFile.contents = new Buffer(previewHtml);
-        gutil.log('Generated ' + previewFile.relative);
-        stream.push(previewFile);
-      }
-
+      const contents = file.contents.toString();
+      example.document = DocumentParser.parse(contents);
+      example.file = file;
+      examples.push(example);
     }
 
     cb();
@@ -161,9 +112,13 @@ module.exports = function(config, updateTimestamp) {
         'focusing on code and live samples. Learn how to create AMP pages ' +
         'and see examples for all AMP components.',
       timestamp: timestamp,
+      github: "https://github.com/ampproject/amp-by-example/",
       fileName: '/'
     };
 
+    compileExamples(examples, categories, stream);
+
+    // compile index
     Metadata.add(args);
     args.fileName = '';
     const html = templates.render(config.templateIndex, args);
@@ -172,28 +127,84 @@ module.exports = function(config, updateTimestamp) {
     indexFile.contents = new Buffer(html);
     gutil.log('Generated ' + indexFile.relative);
     stream.push(indexFile);
+
     cb();
+  }
+
+  function compileExamples(examples, categories, stream) {
+    examples.forEach(function(example) {
+      const document = example.document;
+      const file = example.file;
+      const nextExample = example.nextFile();
+      const args = {
+        head: document.head,
+        title: example.title(),
+        desc: document.description(),
+        timestamp: timestamp,
+        fileName: example.url(),
+        github: example.githubUrl(),
+        title: example.title(),
+        exampleStyles: document.styles,
+        categories: categories,
+        component: document.metadata.component,
+        sections: document.sections,
+        metadata: document.metadata,
+        nextExample: nextExample,
+        skipCanonical: document.hasCanonical(),
+        includesAnalytics: document.importsComponent('amp-analytics')
+      };
+      Metadata.add(args);
+
+      if (document.metadata.experiment && !document.metadata.component) {
+        throw new PluginError({
+          plugin: 'compile-example',
+          message: 'Example (' + file.path + ') is `experiment`: true, but ' +
+            'is missing the `component` metadata'});
+      }
+
+      // compile example
+      const sampleHtml = templates.render(config.templateExample, args);
+      file.path = path.join(file.base, example.targetPath());
+      file.metadata = document.metadata;
+      file.contents = new Buffer(sampleHtml);
+      gutil.log('Generated ' + file.relative);
+      stream.push(file);
+
+      // compile example preview
+      if (document.metadata.preview) {
+        const previewFile = file.clone({contents: false});
+        const previewHtml = templates.render(config.templatePreview, args);
+        previewFile.path = path.join(file.base, example.targetPreviewPath());
+        previewFile.metadata = document.metadata;
+        previewFile.contents = new Buffer(previewHtml);
+        gutil.log('Generated ' + previewFile.relative);
+        stream.push(previewFile);
+      }
+    });
   }
 
   function mapToCategories(examples) {
     const categories = [];
     let currentCategory;
     sort(examples).forEach(function(exampleFile) {
-      // add example to categories instance
-      if (!currentCategory || currentCategory.name != exampleFile.category()) {
-        currentCategory = {
-          name: exampleFile.category(),
-          examples: []
-        };
-        categories.push(currentCategory);
-      }
+      if (!exampleFile.document.metadata.draft) {
+        // add example to categories instance
+        if (!currentCategory ||
+          currentCategory.name != exampleFile.category()) {
+          currentCategory = {
+            name: exampleFile.category(),
+            examples: []
+          };
+          categories.push(currentCategory);
+        }
 
-      currentCategory.examples.push({
-        title: exampleFile.title(),
-        name: exampleFile.name(),
-        url: exampleFile.url(),
-        experiment: exampleFile.metadata.experiment
-      });
+        currentCategory.examples.push({
+          title: exampleFile.title(),
+          name: exampleFile.name(),
+          url: exampleFile.url(),
+          experiment: exampleFile.document.metadata.experiment
+        });
+      }
     });
     return categories;
   }

@@ -35,6 +35,7 @@
     .amp-close-image {
        top: 15px;
        left: 225px;
+       cursor: pointer;
     }
     li {
       margin-bottom: 20px;
@@ -55,7 +56,7 @@
 
     `amp-fit-text` expands or shrinks its font size to fit the content within the space given to in the menu.
   -->
-    <amp-sidebar id='sidebar1' layout="nodisplay">
+    <amp-sidebar id='sidebar1' layout="nodisplay" side="right">
       <amp-img class='amp-close-image' src="/img/ic_close_black_18dp_2x.png" width="20" height="20" alt="an image" on="tap:sidebar1.close" role="button" tabindex="0"></amp-img>
       <ul>
         <li><a href="/">Home</a></li>
