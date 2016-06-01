@@ -30,18 +30,18 @@
   The reason why the latter option is required is because browsers can't install Service Worker from other domains for security reasons. For details of the security considerations of Service Worker, [see official specs](https://www.w3.org/TR/service-workers/#security-considerations).
   -->
   <amp-install-serviceworker
-      src="https://ampbyexample.com/sw.js"
+      src="/sw.js"
       data-iframe-src="https://ampbyexample.com/sw.html"
       layout="nodisplay">
   </amp-install-serviceworker>
   <!--
-  `sw.js` here is generated using [sw-precache](https://github.com/GoogleChrome/sw-precache), which generates a Service Worker JavaScript file that caches specified static files. See example in the repository of `sw-precache` and [gulpfile.js](https://github.com/ampproject/amp-by-example/blob/master/gulpfile.js) for how to use it. In this sample, when users access this AMP page for the 2nd time, the Service Worker is installed and start caching all image files and video files under root path of this domain.
+  <p class="card warning">`sw.js` here is generated using [sw-precache](https://github.com/GoogleChrome/sw-precache), which generates a [Service Worker JavaScript file](https://ampbyexample.com/sw.js) that caches specified static files. See example in the repository of `sw-precache` and [gulpfile.js](https://github.com/ampproject/amp-by-example/blob/master/gulpfile.js) for how to use it.</p> In this sample, when users access this AMP page for the 2nd time, the Service Worker is installed and start caching all image files and video files under root path of this domain.
   
   In order to confirm if the Service Worker is installed and it is working as expected, follow the procedure below:
   1. Access to https://ampbyexample.com/components/amp-install-serviceworker/ twice.
   2. Open Chrome Dev Tools and navigate to "Resources" tab. You may see "Service Workers" section and see `/sw.js` is installed.
   3. Then open "Cached Storage". You'll find a lot of files whose names start with "sw-precache-v1--", which are cached images and videos.
-  4. Try accessing amp-install-serviceworker when you are offline. On "Network" tab in Dev Tools, you'll find "(from ServiceWorker)" notation in the rows of image/video file fetch events.  
+  4. Disable your network connection and reload this page. It still works! On "Network" tab in Dev Tools, you'll find "(from ServiceWorker)" notation in the rows of image/video file fetch events.  
   -->
 
 </body>
