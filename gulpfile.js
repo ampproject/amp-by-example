@@ -184,26 +184,44 @@ gulp.task('compile:sitemap', 'generate sitemap.xml', function() {
 });
 
 gulp.task('compile:sw-precache',
-          ['copy:images', 'copy:videos', 'compile:example'], function() {
-            const staticDir = 'static';
+  ['copy:images', 'copy:videos', 'compile:example'], function() {
+    const staticDir = 'static';
 
-            swPrecache.write(path.join(staticDir, 'sw.js'), {
-              staticFileGlobs: [
-                path.join(paths.dist.dir, 'LICENSE.txt'),
-                path.join(paths.dist.img, 'gist.png'),
-                path.join(paths.dist.img, 'abe_preview.png'),
-                path.join(paths.dist.favicons, '*.png'),
-                path.join(paths.dist.dir,
-                   'components/amp-install-serviceworker/*.html')
-              ],
-              stripPrefix: 'dist',
-              verbose: true
-            });
+    swPrecache.write(path.join(staticDir, 'sw.js'), {
+      staticFileGlobs: [
+        path.join(paths.dist.dir, 'LICENSE.txt'),
+        path.join(paths.dist.img, 'gist.png'),
+        path.join(paths.dist.img, 'abe_preview.png'),
+        path.join(paths.dist.favicons, '*.png'),
+        path.join(paths.dist.dir,
+          'components/amp-install-serviceworker/*.html')
+      ],
+      stripPrefix: 'dist',
+      verbose: true
+    });
+  });
 
-            return gulp.src(path.join(staticDir, 'sw.js'))
-              .pipe(cache(staticDir))
-              .pipe(gulp.dest(paths.dist.dir));
-          });
+gulp.task('copy:sw-precache', ['compile:sw-precache'], function() {
+  const staticDir = 'static';
+
+  return gulp.src(path.join(staticDir, 'sw.js'))
+    .pipe(cache(staticDir))
+    .pipe(gulp.dest(paths.dist.dir));
+});
+
+gulp.task('clean:sw-precache', 'delete temporary file', function() {
+  const staticDir = 'static';
+
+  return del([path.join(staticDir, 'sw.js')]);
+});
+
+gulp.task('sw-precache', 'generate sw.js and clean temporary file',
+  function(callback) {
+    runSequence('compile:sw-precache',
+                'copy:sw-precache',
+                'clean:sw-precache',
+                callback);
+  });
 
 gulp.task('create', 'create a new AMP example', function() {
   const title = argv.n || argv.name;
@@ -309,7 +327,7 @@ gulp.task('build', 'build all resources', [
   'compile:favicons',
   'compile:sitemap',
   'compile:example',
-  'compile:sw-precache']);
+  'sw-precache']);
 
 function isFixed(file) {
   return file.eslint.fixed;
