@@ -32,6 +32,7 @@ const runSequence = require('run-sequence');
 const argv = require('yargs').argv;
 const path = require('path');
 const diff = require('gulp-diff');
+const swPrecache = require('sw-precache');
 
 const compileExample = require('./tasks/compile-example');
 const sitemap = require('./tasks/compile-sitemap');
@@ -182,6 +183,22 @@ gulp.task('compile:sitemap', 'generate sitemap.xml', function() {
       .pipe(gulp.dest(paths.dist.dir));
 });
 
+gulp.task('compile:sw-precache',
+  ['copy:images', 'copy:videos', 'compile:example'], function() {
+    swPrecache.write(path.join(paths.dist.dir, 'sw.js'), {
+      staticFileGlobs: [
+        path.join(paths.dist.dir, 'LICENSE.txt'),
+        path.join(paths.dist.img, 'gist.png'),
+        path.join(paths.dist.img, 'abe_preview.png'),
+        path.join(paths.dist.favicons, '*.png'),
+        path.join(paths.dist.dir,
+          'components/amp-install-serviceworker/*.html')
+      ],
+      stripPrefix: 'dist',
+      verbose: true
+    });
+  });
+
 gulp.task('create', 'create a new AMP example', function() {
   const title = argv.n || argv.name;
   const fileName = FileName.fromString(title);
@@ -285,7 +302,8 @@ gulp.task('build', 'build all resources', [
   'copy:static',
   'compile:favicons',
   'compile:sitemap',
-  'compile:example']);
+  'compile:example',
+  'compile:sw-precache']);
 
 function isFixed(file) {
   return file.eslint.fixed;

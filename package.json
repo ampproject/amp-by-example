@@ -20,7 +20,8 @@
     "compression": "^1.6.1",
     "connect": "^3.4.0",
     "express": "^4.13.4",
-    "gcloud": "^0.27.0"
+    "gcloud": "^0.27.0",
+    "sw-precache": "^3.1.1"
   },
   "devDependencies": {
     "amp-validator": "^0.1.4",
