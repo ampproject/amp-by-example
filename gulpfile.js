@@ -185,9 +185,7 @@ gulp.task('compile:sitemap', 'generate sitemap.xml', function() {
 
 gulp.task('compile:sw-precache',
   ['copy:images', 'copy:videos', 'compile:example'], function() {
-    const staticDir = 'static';
-
-    swPrecache.write(path.join(staticDir, 'sw.js'), {
+    swPrecache.write(path.join(paths.dist.dir, 'sw.js'), {
       staticFileGlobs: [
         path.join(paths.dist.dir, 'LICENSE.txt'),
         path.join(paths.dist.img, 'gist.png'),
@@ -199,28 +197,6 @@ gulp.task('compile:sw-precache',
       stripPrefix: 'dist',
       verbose: true
     });
-  });
-
-gulp.task('copy:sw-precache', ['compile:sw-precache'], function() {
-  const staticDir = 'static';
-
-  return gulp.src(path.join(staticDir, 'sw.js'))
-    .pipe(cache(staticDir))
-    .pipe(gulp.dest(paths.dist.dir));
-});
-
-gulp.task('clean:sw-precache', 'delete temporary file', function() {
-  const staticDir = 'static';
-
-  return del([path.join(staticDir, 'sw.js')]);
-});
-
-gulp.task('sw-precache', 'generate sw.js and clean temporary file',
-  function(callback) {
-    runSequence('compile:sw-precache',
-                'copy:sw-precache',
-                'clean:sw-precache',
-                callback);
   });
 
 gulp.task('create', 'create a new AMP example', function() {
@@ -327,7 +303,7 @@ gulp.task('build', 'build all resources', [
   'compile:favicons',
   'compile:sitemap',
   'compile:example',
-  'sw-precache']);
+  'compile:sw-precache']);
 
 function isFixed(file) {
   return file.eslint.fixed;
