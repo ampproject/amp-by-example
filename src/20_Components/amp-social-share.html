@@ -1,7 +1,3 @@
-<!---{
-    "experiment": true,
-    "component": "amp-social-share"
-  }--->
 <!--
   #### Introduction
 
@@ -32,18 +28,25 @@
   <!-- #### Basic Usage -->
   <!--
     Embed the `amp-social-share` widget choosing a share type from the [supported types](https://github.com/ampproject/amphtml/blob/master/extensions/amp-social-share/amp-social-share.md#types), ensuring you use the relevant width and height.
+
+    `amp-social-share` with `type="facebook"` requires to specify the [facebook app id](https://developers.facebook.com/apps) via `data-attribution`.
   -->
-  <amp-social-share type="twitter" width="60" height="44">
-  </amp-social-share>
-  <!-- #### Common Usage -->
+  <div>
+    <amp-social-share type="twitter" width="60" height="44"> </amp-social-share>
+    <amp-social-share type="gplus" width="60" height="44"></amp-social-share>
+    <amp-social-share type="email" width="60" height="44"></amp-social-share>
+    <amp-social-share type="pinterest" width="60" height="44"></amp-social-share>
+    <amp-social-share type="linkedin" width="60" height="44"></amp-social-share>
+    <amp-social-share type="facebook" width="60" height="44" data-attribution=254325784911610></amp-social-share>
+  </div>
+
+  <!-- #### Configuration -->
   <!--
     Embed the `amp-social-share` widget [choosing a type](https://github.com/ampproject/amphtml/blob/master/extensions/amp-social-share/amp-social-share.md#types), then configure the actions.
 
     * `text` is the text to include in the share
     * `url` is the URL to share
     * `attribution` is where the share is attributed to.
-
-    You can also configure the share link with embeded JSON. Just be sure to wrap the JSON in a `<script type="application/json">` tag.
   -->
   <amp-social-share type="linkedin" width="60" height="44"
     data-text="Check out these AMP Examples!"
@@ -51,21 +54,9 @@
     data-attribution="AMPhtml">
   </amp-social-share>
 
-  <amp-social-share type="pinterest" width="60" height="44">
-    <script type="application/json">
-      {
-        "text": "Check out these AMP Examples!",
-        "url": "https://ampbyexample.com/",
-        "attribution": "AMPhtml"
-      }
-    </script>
-  </amp-social-share>
-
   <!-- #### Customized Views -->
   <!--
     Sometimes you want to provide your own style. In this instance, you can **embed an anchor without a `href`** and it will be populated. This provides you the flexibility to build your own UI for the share button.
-
-    This works with both attributes and JSON configuration of the extension.
   -->
   <amp-social-share type="linkedin" width="60" height="44" data-text="The AMP Project" data-url="https://www.ampproject.org/" data-attribution="amphtml">
     <a id="customized-social-share" class="custom">
@@ -74,20 +65,5 @@
     </a>
   </amp-social-share>
 
-  <amp-social-share type="linkedin" width="60" height="44">
-    <script type="application/json">
-      {
-        "text": "Check out these AMP Examples!",
-        "url": "https://ampbyexample.com/",
-        "attribution": "AMPhtml"
-      }
-    </script>
-    <div class="my-style">
-      <a id="customized-social-share" class="custom">
-        <amp-img src="https://raw.githubusercontent.com/google/material-design-icons/master/social/1x_web/ic_group_black_48dp.png" width="18" height="18" layout="responsive" alt="an image">
-        </amp-img>
-      </a>
-    </div>
-  </amp-social-share>
 </body>
 </html>
