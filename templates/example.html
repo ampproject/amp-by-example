@@ -19,7 +19,7 @@
     {{/metadata.preview}}
     <article>
       <h3 class="title">
-        {{subHeading}}
+        {{subHeading}} {{#metadata.experiment}}<i class="amp-experiment-large"></i>{{/metadata.experiment}}
       </h3>
       {{#metadata.experiment}}
         <div class="box">
@@ -45,7 +45,7 @@
           {{#isLastSection}}
           {{#nextExample}}
           <p>
-            Next up: 
+            Next up:
             <a id="nextArticle" href="{{url}}">{{title}}</a>
           </p>
           {{/nextExample}}
