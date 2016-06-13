@@ -29,7 +29,16 @@
     @media (min-width: 1027px) {
       .align-right {
         float: right;
+        margin: 16px;
       }
+    }
+    .amp-flying-carpet-text-border {
+      background-color: black;
+      color: white;
+      text-align: center;
+    }
+    amp-fx-flying-carpet {
+      background: orange;
     }
   </style>
 </head>
@@ -53,16 +62,21 @@
 
     Use `height` parameter to specify the height of the flying carpets "window".    
   -->
+
+   <div>
+    <div class="amp-flying-carpet-text-border">Advertising</div>
     <amp-fx-flying-carpet height="300px">
-      <amp-ad width="300" 
-                class="align-right"
-                height="250"
-                type="a9"
-                data-aax_size="300x250"
-                data-aax_pubname="test123"
-                data-aax_src="302">
+      <amp-ad
+        width="300"
+        height="600"
+        class="align-right"
+        layout="fixed"
+        type="doubleclick"
+        data-slot="/35096353/amptesting/formats/flying_carpet">
       </amp-ad>
     </amp-fx-flying-carpet>
+    <div class="amp-flying-carpet-text-border">Advertising</div>
+  </div>
  
   <!-- -->
     <p>
@@ -73,6 +87,7 @@
     `amp-fx-flying-carpet` can be also used to display images.
 
     Use `vw/vh` to size elements inside the `amp-fx-flying-carpet` relative to the size of the viewport. Having the element cover the entire viewport provides a nice scrolling effect. 
+
   -->
   <amp-fx-flying-carpet height="200px">
      <amp-img src="/img/landscape1.jpg"
