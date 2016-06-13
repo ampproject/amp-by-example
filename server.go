@@ -18,12 +18,16 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"os"
 	"strings"
 )
 
-const MAX_AGE_IN_SECONDS = 60 * 60 * 24 // 1 day
-const OLD_ADDRESS = "amp-by-example.appspot.com"
-const NEW_ADDRESS = "https://ampbyexample.com"
+const (
+	MAX_AGE_IN_SECONDS = 60 * 60 * 24 // 1 day
+	OLD_ADDRESS        = "amp-by-example.appspot.com"
+	NEW_ADDRESS        = "https://ampbyexample.com"
+	DIST_DIR           = "dist"
+)
 
 var REDIRECTS [18][2]string = [18][2]string{
 	{"/amp-accordion.html", "/components/amp-accordion"},
@@ -50,7 +54,17 @@ func init() {
 	RedirectLegacyExamples()
 	http.HandleFunc("/g", getParameterDemoHandler)
 	http.HandleFunc("/error", returnCode500)
-	http.Handle("/", RedirectDomain(http.FileServer(http.Dir("dist"))))
+	http.Handle("/", RedirectDomain(NoDirListing(http.FileServer(http.Dir(DIST_DIR)))))
+}
+
+func NoDirListing(h http.Handler) http.HandlerFunc {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if strings.HasSuffix(r.URL.Path, "/") && !exists(DIST_DIR+r.URL.Path+"index.html") {
+			http.NotFound(w, r)
+			return
+		}
+		h.ServeHTTP(w, r)
+	})
 }
 
 func getParameterDemoHandler(w http.ResponseWriter, r *http.Request) {
@@ -88,4 +102,11 @@ func RedirectDomain(h http.Handler) http.Handler {
 func returnCode500(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusInternalServerError)
 	w.Write([]byte("Internal Server Error"))
+}
+
+func exists(path string) bool {
+	if _, err := os.Stat(path); err == nil {
+		return true
+	}
+	return false
 }
