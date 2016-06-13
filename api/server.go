@@ -15,36 +15,13 @@
 package api
 
 import (
-	"encoding/json"
-	"google.golang.org/appengine"
 	"net/http"
 )
 
-// init the handlers
 func init() {
-	http.HandleFunc("/url", apiHandler)
+	http.HandleFunc("/", serveNotFound)
 }
 
-// URL API handler routing calls the actual AMP URL API
-// which doesn't support CORS access.
-func apiHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Host != "amp-by-example-api.appspot.com" {
-		w.WriteHeader(http.StatusForbidden)
-		return
-	}
-
-	ctx := appengine.NewContext(r)
-	decoder := json.NewDecoder(r.Body)
-	var requestBody RequestBody
-	err := decoder.Decode(&requestBody)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Could not parse json request: " + err.Error()))
-	}
-	res, err := Amplify(ctx, requestBody)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Could not amplify: " + err.Error()))
-	}
-	w.Write(res)
+func serveNotFound(w http.ResponseWriter, r *http.Request) {
+	http.NotFound(w, r)
 }

@@ -93,7 +93,6 @@ gulp.task('deploy:prod', 'deploy to production server', function(callback) {
   runSequence('clean',
               'build',
               'deploy:site:prod',
-              'conf:decode',
               'deploy:api:prod',
               callback);
 });

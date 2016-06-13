@@ -16,8 +16,8 @@ api_version: go1
 threadsafe: yes
 
 handlers:
-- url: /view
-  static_dir: view
+- url: /iframe
+  static_dir: iframe
   secure: always
 - url: /img
   static_dir: img
