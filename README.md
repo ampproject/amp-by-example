@@ -10,7 +10,7 @@ In case we are missing any examples, feel free to [let us know](https://github.c
 
 ## Installation
 
-1. [Create a fork](https://github.com/ampproject/amp-by-example#fork-destination-box) of the repository.
+1. Fork the repository.
 2. Install [NodeJS](https://nodejs.org).
 3. Setup the repository.
 
