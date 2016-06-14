@@ -83,9 +83,11 @@ gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
     const server = gls.static(paths.dist.dir, port);
     server.start();
     gulp.watch([paths.dist.html], function(file) {
-      /* eslint-disable */
-      server.notify.apply(server, [file]);
-      /* eslint-enable */
+      setTimeout(function() {
+        /* eslint-disable */
+        server.notify.apply(server, [file]);
+        /* eslint-enable */
+      }, 500);
     });
   });
 
