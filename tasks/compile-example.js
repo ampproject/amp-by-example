@@ -84,12 +84,58 @@ module.exports = function(config, updateTimestamp) {
       examples = [];
     }
 
-    // compile example
+    // parse examples into documents and add metadata
     if (file.isBuffer()) {
-      const contents = file.contents.toString();
-      const document = DocumentParser.parse(contents);
-      const stream = this;
       const example = ExampleFile.fromPath(file.path);
+      const contents = file.contents.toString();
+      example.document = DocumentParser.parse(contents);
+      example.file = file;
+      examples.push(example);
+    }
+
+    cb();
+  }
+
+  function endStream(cb) {
+    // no examples passed in, no file goes out
+    if (!latestFile || !examples) {
+      cb();
+      return;
+    }
+
+    const stream = this;
+    compileIndex(stream);
+    compileExamples(stream);
+
+    cb();
+  }
+
+  function compileIndex(stream) {
+    const args = {
+      categories: mapToCategories(examples),
+      title: 'AMP by Example',
+      desc: 'A hands-on introduction to Accelerated Mobile Pages (AMP) ' +
+        'focusing on code and live samples. Learn how to create AMP pages ' +
+        'and see examples for all AMP components.',
+      timestamp: timestamp,
+      github: "https://github.com/ampproject/amp-by-example/",
+      fileName: '/'
+    };
+
+    Metadata.add(args);
+    args.fileName = '';
+    const html = templates.render(config.templateIndex, args);
+    const indexFile = latestFile.clone({contents: false});
+    indexFile.path = path.join(latestFile.base, "index.html");
+    indexFile.contents = new Buffer(html);
+    gutil.log('Generated ' + indexFile.relative);
+    stream.push(indexFile);
+  }
+
+  function compileExamples(stream) {
+    examples.forEach(function(example) {
+      const document = example.document;
+      const file = example.file;
       const nextExample = example.nextFile();
       const args = {
         head: document.head,
@@ -98,8 +144,9 @@ module.exports = function(config, updateTimestamp) {
         timestamp: timestamp,
         fileName: example.url(),
         github: example.githubUrl(),
-        title: example.title(),
+        subHeading: example.title(),
         exampleStyles: document.styles,
+        categories: mapToCategories(examples, example),
         component: document.metadata.component,
         sections: document.sections,
         metadata: document.metadata,
@@ -114,11 +161,6 @@ module.exports = function(config, updateTimestamp) {
           plugin: 'compile-example',
           message: 'Example (' + file.path + ') is `experiment`: true, but ' +
             'is missing the `component` metadata'});
-      }
-
-      example.metadata = document.metadata;
-      if (!example.metadata.draft) {
-        examples.push(example);
       }
 
       // compile example
@@ -139,63 +181,39 @@ module.exports = function(config, updateTimestamp) {
         gutil.log('Generated ' + previewFile.relative);
         stream.push(previewFile);
       }
-
-    }
-
-    cb();
+    });
   }
 
-  function endStream(cb) {
-    // no examples passed in, no file goes out
-    if (!latestFile || !examples) {
-      cb();
-      return;
-    }
-
-    const categories = mapToCategories(examples);
-    const stream = this;
-    const args = {
-      categories: categories,
-      title: 'AMP by Example',
-      desc: 'A hands-on introduction to Accelerated Mobile Pages (AMP) ' +
-        'focusing on code and live samples. Learn how to create AMP pages ' +
-        'and see examples for all AMP components.',
-      timestamp: timestamp,
-      github: "https://github.com/ampproject/amp-by-example/",
-      fileName: '/'
-    };
-
-    Metadata.add(args);
-    args.fileName = '';
-    const html = templates.render(config.templateIndex, args);
-    const indexFile = latestFile.clone({contents: false});
-    indexFile.path = path.join(latestFile.base, "index.html");
-    indexFile.contents = new Buffer(html);
-    gutil.log('Generated ' + indexFile.relative);
-    stream.push(indexFile);
-    cb();
-  }
-
-  function mapToCategories(examples) {
+  function mapToCategories(examples, currentExample) {
     const categories = [];
     let currentCategory;
-    sort(examples).forEach(function(exampleFile) {
-      // add example to categories instance
-      if (!currentCategory || currentCategory.name != exampleFile.category()) {
-        currentCategory = {
-          name: exampleFile.category(),
-          examples: []
-        };
-        categories.push(currentCategory);
-      }
+    sort(examples)
+      .filter(exampleFile => !exampleFile.document.metadata.draft)
+      .forEach(function(exampleFile) {
+        // add example to categories instance
+        if (!currentCategory ||
+          currentCategory.name != exampleFile.category()) {
+          currentCategory = {
+            name: exampleFile.category(),
+            examples: []
+          };
+          if (currentExample) {
+            currentCategory.selected =
+              (currentCategory.name == currentExample.category());
+          }
+          categories.push(currentCategory);
+        }
+        const selected = currentExample &&
+          exampleFile.title() == currentExample.title();
 
-      currentCategory.examples.push({
-        title: exampleFile.title(),
-        name: exampleFile.name(),
-        url: exampleFile.url(),
-        experiment: exampleFile.metadata.experiment
+        currentCategory.examples.push({
+          title: exampleFile.title(),
+          name: exampleFile.name(),
+          url: exampleFile.url(),
+          selected: selected,
+          experiment: exampleFile.document.metadata.experiment
+        });
       });
-    });
     return categories;
   }
 

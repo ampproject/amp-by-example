@@ -1,8 +1,9 @@
-<amp-sidebar id='sidebar' layout="nodisplay">
-  <amp-img class='sidebar-close-image' src="/img/ic_chevron_left_black_24dp_2x.png" width="32" height="32" alt="Home" on="tap:sidebar.close" role="button" tabindex="0"></amp-img>
+<amp-sidebar id='drawermenu' layout="nodisplay">
+  <amp-img class='close' src="/img/ic_chevron_left_black_24dp_2x.png" width="32" height="32" alt="Close" on="tap:drawermenu.close" role="button" tabindex="0"></amp-img>
   <div class="topheader">
-    <a href="/" class="homelogo">AMP by Example</a>
+    <a href="/" class="home">AMP by Example</a>
   </div>
+  <hr/>
   <amp-accordion>
   {{#categories}}
     <section {{#selected}}expanded{{/selected}} >
