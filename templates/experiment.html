@@ -1,12 +1,55 @@
+<!-- BEGIN INVALID AMP - don't try at home -->
 <div class="card info-card">
   <h4>Experimental Mode</h4>
-  <p>The <code>{{component}}</code> component is currently in experimental mode and needs to be manually enabled:</p>
 
-  <ol>
-    <li>check the box under <a href="https://cdn.ampproject.org/experiments.html">CDN experiments</a>.
-    </li>
-    <li>enter the following line in the <a href="https://developer.chrome.com/devtools/docs/console">Javascript console</a>:
-      <pre><code>AMP.toggleExperiment('{{component}}')</code></pre>
-    </li>
-  </ol>
+  <script>
+(window.AMP = window.AMP || []).push(function(AMP) {
+  updateExperimentWarning();
+  showInvalidAmpMessage();
+});
+
+function updateExperimentWarning() {
+  if (isExperimentOn()) {
+    disable('experiment-toggle');
+  }
+  if (isCanaryOn()) {
+    disable('canary-toggle');
+  }
+}
+
+function disable(button) {
+    const element = document.getElementById(button);
+    element.className = element.className.replace("primary", "inactive");
+}
+
+function isExperimentOn() {
+  return AMP.isExperimentOn('{{component}}');
+}
+
+function isCanaryOn() {
+  return window.AMP_CONFIG.canary;
+}
+
+function showInvalidAmpMessage() {
+  if (!window.location.hash.includes('development=1')) {
+    return;
+  }
+  console.log('This sample is intentionally not valid AMP.');
+}
+
+function enableExperiment() {
+  if (!isExperimentOn()) {
+    AMP.toggleExperiment('{{component}}');
+  }
+  location.reload();
+}
+  </script>
+
+  <p>The <code>{{component}}</code> component is currently in experimental mode and needs to be manually enabled (<a href="https://www.ampproject.org/docs/reference/experimental.html">more info</a>).</p>
+
+  <div id="experiment-container">
+    <button id="experiment-toggle" class="button-primary" onclick="enableExperiment()">Enable Experiment</button>
+    <a id="canary-toggle" class="button button-primary" href="https://cdn.ampproject.org/experiments.html" target="_blank">Enable Dev Channel</a>
+  </div>
 </div>
+<!-- END INVALID AMP -->

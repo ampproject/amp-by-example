@@ -49,7 +49,6 @@ article .title {
 }
 .doc a {
   text-decoration: none;
-  cursor: pointer;
 }
 .doc pre > code, .doc pre {
  background-color: white;
@@ -169,7 +168,7 @@ header h3 {
   background-color: #ccc;
 }
 
-.button {
+button, .button {
   background: 0 0;
   border: none;
   border-radius: 2px;
@@ -200,6 +199,47 @@ header h3 {
   background-color: #ff4081;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
 }
+
+.button-inactive {
+  color: #666;
+  background-color: #aaa;
+  cursor: default;
+}
+
+/* experiments */
+
+#experiment-container {
+  display: flex; 
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+#experiment-toggle, #canary-toggle {
+  padding: 0;
+  margin: 16px auto;
+  display: inline-block;
+  width: 200px;
+}
+
+.amp-experiment {
+  padding-right: 24px;
+  background-position: 100% center;
+  background-repeat: no-repeat;
+  background-image: -webkit-image-set(
+  url('/img/ic_experiment_black_1x_web_18dp.png') 1x,
+  url('/img/ic_experiment_black_2x_web_18dp.png') 2x );
+}
+
+.amp-experiment-large {
+  padding-right: 44px;
+  background-position: 100% center;
+  background-repeat: no-repeat;
+  background-image: -webkit-image-set(
+  url('/img/ic_experiment_black_1x_web_36dp.png') 1x,
+  url('/img/ic_experiment_black_2x_web_36dp.png') 2x );
+}
+
+/* actions */
 
 .gist {
   background-position: right 8px center;
