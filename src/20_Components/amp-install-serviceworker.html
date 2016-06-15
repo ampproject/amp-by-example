@@ -2,10 +2,12 @@
   #### Introduction
 
   The [amp-install-serviceworker](https://github.com/ampproject/amphtml/blob/master/extensions%2Famp-install-serviceworker%2Famp-install-serviceworker.md)
-  component enables Service Worker installation via original and cached AMP pages.
+  component enables service worker installation via same origin or via the Google AMP Cache.
   
-  The benefit of Service Worker is its capability, such as runnning on background even when the browser is closed, caching required contents in advance of rendering time and sending notifications to users and so on.
-  This demonstration installs a Service Worker that caches this demo page using Cache API triggered by the Service Worker on background. You can confirm that this demo works even offline once the Service Worker gets installed.
+  [Service workers](https://github.com/slightlyoff/ServiceWorker/blob/master/explainer.md) can run in the background even when the browser is closed, cache required contents in advance of rendering time, send notifications to users, and more.
+  This sample installs a service worker which caches this page in the background. You can test this by loading this page while offline once the service worker has been installed.
+
+  Service Workers are currently available in [Chrome, Firefox and Opera](https://jakearchibald.github.io/isserviceworkerready/).
 -->
 <!-- -->
 <!doctype html>
@@ -14,7 +16,7 @@
   <meta charset="utf-8">
   <!-- #### Setup -->
   <!--
-      Import the amp-install-serviceworker component.
+    Import the amp-install-serviceworker component.
   -->
   <script async custom-element="amp-install-serviceworker" src="https://cdn.ampproject.org/v0/amp-install-serviceworker-0.1.js"></script>
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -24,10 +26,11 @@
 </head>
 <body>
 
-  <!-- #### Basic Usage -->
+  <!-- #### Installing the Service Worker -->
   <!--
-  amp-install-serviceworker should have both properties `src` and `data-iframe-src`; `src` is the location of Service Worker to be installed when the original AMP pages is accessed, `data-iframe-src` is the location of HTML file which calls Service Worker installation process when the cached AMP pages is accessed.
-  The reason why the latter option is required is because browsers can't install Service Worker from other domains for security reasons. For details of the security considerations of Service Worker, [see official specs](https://www.w3.org/TR/service-workers/#security-considerations).
+Calls to amp-install-serviceworker can include the `src` and `data-iframe-src` attributes. `src` is the location of the service worker to be installed, and is used when the document is accessed via the same origin as the service worker file. When the document is accessed via the Google AMP Cache, the HTML document noted in the `data-iframe-src` attribute is used to install the service worker. We recommend using both attributes.
+
+  The reason why `amp-install-serviceworker` requires a separate `data-iframe-src` option is because browsers can't install service worker from other domains for security reasons. For details of the security considerations of service worker, [see official specs](https://www.w3.org/TR/service-workers/#security-considerations).
   -->
   <amp-install-serviceworker
       src="/sw.js"
@@ -35,13 +38,15 @@
       layout="nodisplay">
   </amp-install-serviceworker>
   <!--
-  <p class="card warning">`sw.js` here is generated using [sw-precache](https://github.com/GoogleChrome/sw-precache), which generates a [Service Worker JavaScript file](https://ampbyexample.com/sw.js) that caches specified static files. See example in the repository of `sw-precache` and [gulpfile.js](https://github.com/ampproject/amp-by-example/blob/master/gulpfile.js) for how to use it.</p> In this sample, when users access this AMP page for the 2nd time, the Service Worker is installed and start caching all image files and video files under root path of this domain.
+  <p class="card warning">The service worker in this sample ([sw.js](https://ampbyexample.com/sw.js)) is generated using [sw-precache](https://github.com/GoogleChrome/sw-precache). With sw-precache you can generate service worker code that will precache specific resources.</p> 
   
-  In order to confirm if the Service Worker is installed and it is working as expected, follow the procedure below:
+  In this sample, when users access this AMP page for the second time, the service worker is installed and caches all image files and video files under the root path of this domain.
+  
+  Confirm that the service worker is installed and works as expected by following the following steps:
   1. Access to https://ampbyexample.com/components/amp-install-serviceworker/ twice.
-  2. Open Chrome Dev Tools and navigate to "Resources" tab. You may see "Service Workers" section and see `/sw.js` is installed.
-  3. Then open "Cached Storage". You'll find a lot of files whose names start with "sw-precache-v1--", which are cached images and videos.
-  4. Disable your network connection and reload this page. It still works! On "Network" tab in Dev Tools, you'll find "(from ServiceWorker)" notation in the rows of image/video file fetch events.  
+  2. Open Chrome Dev Tools and navigate to the "Resources" tab. In the "Service Workers" section you can see that `/sw.js` is installed.
+  3. Then open the "Cached Storage" tab. You'll find a lot of files whose names start with `sw-precache-v1--`, these are the cached images and videos.
+  4. Disable your network connection and reload this page. It still works! In the "Network" tab in Dev Tools, you'll see which resources are cached by the service worker. 
   -->
 
 </body>
