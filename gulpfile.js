@@ -169,17 +169,21 @@ gulp.task("compile:favicons", function() {
         appDescription: "Accelerated Mobile Pages in Action",
         developerName: "Sebastian Benz",
         developerURL: "http://sebastianbenz.de/",
-        background: "#fff",
+        background: "#4E4E4E",
         path: "/favicons/",
         url: Metadata.HOST,
         display: "standalone",
-        orientation: "portrait",
+        orientation: "none",
         version: 1.0,
         logging: false,
         online: false,
         html: "favicons.html",
         pipeHTML: true,
-        replace: true
+        replace: true,
+        "icons": {
+          "opengraph": false,
+          "twitter": false
+        }
       }))
       .on("error", gutil.log)
       .pipe(gulp.dest(paths.dist.favicons));
