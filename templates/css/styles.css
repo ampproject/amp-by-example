@@ -12,7 +12,7 @@ body a {
   text-decoration: none;
   cursor: pointer;
 }
-p, h1, h2, h3, h4, h5, h6, figcaption, div > a {
+p, h1, h2, h3, h4, h5, h6, figcaption {
   padding: 0 16px;
 }
 ul, ol {
@@ -335,17 +335,17 @@ footer li {
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
   float: none; 
   overflow: hidden;
-  padding: 0 8px;
+  padding: 8px;
   margin: 16px;
   border-radius: 2px;
 }
 
-.info-card {
+.info {
   background: #ccc;
 }
 
-.warning {
-  background-color: #FFF9C4;
+.important {
+  background: #FFF9C4;
 }
 
 .show-on-mobile {
@@ -413,12 +413,12 @@ footer li {
     float: none;
   }
   .code {
-    padding: 8px 0;
-    margin: 16px 0;
+    padding: 8px;
+    margin: 16px;
   }
   .preview {
-    padding: 1px 0;
-    margin: 16px 0;
+    padding: 0px;
+    margin: 16px;
   }
   .toolbar {
     top: 16px;
