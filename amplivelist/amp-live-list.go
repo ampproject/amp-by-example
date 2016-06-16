@@ -51,16 +51,16 @@ var blogs []BlogItem
 func InitBlogs() {
 	blogs = make([]BlogItem, 0)
 	blogs = append(blogs,
-		createBlogEntry("A green landscape", "/img/landscape5.jpg"),
-		createBlogEntry("A mountain landscape", "/img/landscape6.jpg"),
-		createBlogEntry("A lake landscape", "/img/landscape1.jpg"),
-		createBlogEntry("A trees landscape", "/img/landscape2.jpg"),
-		createBlogEntry("A village landscape", "/img/landscape3.jpg"),
-		createBlogEntry("A canyon", "/img/landscape4.jpg"),
-		createBlogEntry("A beach", "/img/beach.jpg"),
-		createBlogEntry("Houses on the street", "/img/houses.jpg"),
-		createBlogEntry("Blue sea", "/img/sea.jpg"),
-		createBlogEntry("A ship", "/img/ship.jpg"))
+		createBlogEntry("A green landscape", "/img/landscape_hills_300x200.jpg"),
+		createBlogEntry("Mountains", "/img/landscape_mountains_300x200.jpg"),
+		createBlogEntry("Road leading to a lake", "/img/landscape_lake_300x200.jpg"),
+		createBlogEntry("Forested hills", "/img/landscape_trees_300x193.jpg"),
+		createBlogEntry("Scattered houses", "/img/landscape_village_300x169.jpg"),
+		createBlogEntry("A canyon", "/img/landscape_canyon_300x200.jpg"),
+		createBlogEntry("Desert", "/img/landscape_desert_300x142.jpg"),
+		createBlogEntry("Houses on the street", "/img/landscape_houses_300x201.jpg"),
+		createBlogEntry("Blue sea", "/img/landscape_sea_300x200.jpg"),
+		createBlogEntry("A sailing ship", "/img/landscape_ship_300x200.jpg"))
 }
 
 func createBlogEntry(text string, imagePath string) BlogItem {
@@ -84,6 +84,9 @@ func readStatus(r *http.Request) int {
 }
 
 func createPage(newStatus int) Page {
+	if newStatus > len(blogs) {
+		newStatus = len(blogs)
+	}
 	blogItems := getBlogEntries(newStatus)
 	score := createScore(newStatus, 0)
 	return Page{BlogItems: blogItems, FootballScore: score}
@@ -96,9 +99,6 @@ func renderAmpLiveListSample(w http.ResponseWriter, page Page) {
 
 func getBlogEntries(size int) []BlogItem {
 	result := make([]BlogItem, 0)
-	if size > len(blogs) {
-		size = len(blogs)
-	}
 	for i := 0; i < size; i++ {
 		result = append(result, blogs[i].clone())
 	}
