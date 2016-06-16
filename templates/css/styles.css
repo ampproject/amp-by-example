@@ -24,7 +24,7 @@ article {
   max-width: 2400px;
   margin: auto;
 }
-article .title {
+article #title {
   text-align: center;
 }
 .box {
