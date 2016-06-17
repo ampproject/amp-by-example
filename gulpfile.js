@@ -42,6 +42,7 @@ const createExample = require('./tasks/create-example');
 const FileName = require('./tasks/lib/FileName');
 const Metadata = require('./tasks/lib/Metadata');
 const ExampleFile = require('./tasks/lib/ExampleFile');
+const bower = require('gulp-bower');
 
 const paths = {
   dist: {
@@ -50,6 +51,7 @@ const paths = {
     img: 'dist/img',
     video: 'dist/video',
     json: 'dist/json',
+    scripts: 'dist/scripts',
     favicons: 'dist/favicons',
   },
   images: 'src/img/*.{png,jpg,gif}',
@@ -70,6 +72,7 @@ const paths = {
   },
   videos: 'src/video/*.{mp4,webm}',
   json: 'src/json/*.json',
+  scripts: 'src/scripts/*.js'
 };
 
 const exampleConfig = {
@@ -84,7 +87,7 @@ gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
     const port = argv.port || 8000;
     const server = gls.static(paths.dist.dir, port);
     server.start();
-    gulp.watch([paths.dist.html], function(file) {
+    gulp.watch([paths.dist.html, paths.dist.scripts], function(file) {
       setTimeout(function() {
         /* eslint-disable */
         server.notify.apply(server, [file]);
@@ -146,6 +149,12 @@ gulp.task('copy:json', 'copy example json', function() {
   return gulp.src(paths.json)
       .pipe(cache('json'))
       .pipe(gulp.dest(paths.dist.json));
+});
+
+gulp.task('copy:scripts', 'copy scripts', function() {
+  return gulp.src(paths.scripts)
+      .pipe(cache('scripts'))
+      .pipe(gulp.dest(paths.dist.scripts));
 });
 
 gulp.task('copy:license', 'copy license', function() {
@@ -265,6 +274,7 @@ gulp.task('watch', 'watch for changes in the examples', function() {
   gulp.watch([paths.samples, paths.templates.files],['compile:example']);
   gulp.watch(paths.images, ['copy:images']);
   gulp.watch(paths.videos, ['copy:videos']);
+  gulp.watch(paths.scripts, ['copy:scripts']);
 });
 
 gulp.task('test', function() {
@@ -332,17 +342,22 @@ function performChange(content) {
   return content;
 }
 
-
 gulp.task('change', 'use this task to batch change samples', function() {
   return gulp.src('src/**/*.html')
         .pipe(change(performChange))
         .pipe(gulp.dest('src/'));
 });
 
+gulp.task('bower', function() {
+  return bower()
+});
+
 gulp.task('build', 'build all resources', [
+  'bower',
   'copy:images',
   'copy:videos',
   'copy:json',
+  'copy:scripts',
   'copy:license',
   'copy:static',
   'compile:favicons',
