@@ -26,6 +26,9 @@ article {
 }
 article #title {
   text-align: center;
+  margin: 0;
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 .box {
   clear: both;
@@ -320,6 +323,9 @@ nav .button > span {
 #drawermenu {
   width: 320px;
   background-color: white;
+}
+#drawermenu amp-accordion {
+  padding-bottom: 24px;
 }
 #drawermenu .close {
    float:right;
