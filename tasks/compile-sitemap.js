@@ -22,6 +22,7 @@ const gutil = require('gulp-util');
 const PluginError = gutil.PluginError;
 const sm = require('sitemap');
 const ExampleFile = require('./lib/ExampleFile');
+const DocumentParser = require('./lib/DocumentParser');
 const Metadata = require('./lib/Metadata');
 
 /**
@@ -52,7 +53,17 @@ module.exports = function() {
       files = [];
     }
 
-    files.push(file.path);
+    if (file.isBuffer()) {
+      const contents = file.contents.toString();
+      const exampleFile = ExampleFile.fromPath(file.path);
+      const document = DocumentParser.parse(contents);
+      if (!document.metadata.draft) {
+        files.push({
+          path: file.path,
+          url: exampleFile.url()
+        });
+      }
+    }
     // set latest file if not already set,
     // or if the current file was modified more recently.
     if (!latestMod || file.stat && file.stat.mtime > latestMod) {
@@ -81,11 +92,11 @@ module.exports = function() {
     // add example urls
     files.forEach(function(file) {
       urls.push({
-        url: ExampleFile.fromPath(file).url(),
+        url: file.url,
         changefreq: 'daily',
         priority: 0.8,
         lastmodrealtime: true,
-        lastmodfile: file
+        lastmodfile: file.path
       });
     });
 
