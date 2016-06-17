@@ -152,7 +152,8 @@ module.exports = function(config, updateTimestamp) {
         metadata: document.metadata,
         nextExample: nextExample,
         skipCanonical: document.hasCanonical(),
-        includesAnalytics: document.importsComponent('amp-analytics')
+        includesAnalytics: document.importsComponent('amp-analytics'),
+        includesServiceWorker: document.importsComponent('amp-install-serviceworker')
       };
       Metadata.add(args);
 

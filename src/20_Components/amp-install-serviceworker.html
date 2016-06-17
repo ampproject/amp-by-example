@@ -35,18 +35,18 @@ Calls to amp-install-serviceworker can include the `src` and `data-iframe-src` a
   -->
   <amp-install-serviceworker
       src="/sw.js"
-      data-iframe-src="https://ampbyexample.com/sw.html"
+      data-iframe-src="/sw.html"
       layout="nodisplay">
   </amp-install-serviceworker>
   <!--
-  <p class="card info">The service worker in this sample ([sw.js](https://ampbyexample.com/sw.js)) is generated using [sw-precache](https://github.com/GoogleChrome/sw-precache). With sw-precache you can generate service worker code that will precache specific resources.</p> 
+  <p class="card info">The [service worker](/sw.js) in this sample uses [sw-toolbox](https://googlechrome.github.io/sw-toolbox/). </p> 
   
   In this sample, when users access this AMP page for the second time, the service worker is installed and caches all image files and video files under the root path of this domain.
   
   Confirm that the service worker is installed and works as expected by following the following steps:
   1. Access to https://ampbyexample.com/components/amp-install-serviceworker/ twice.
-  2. Open Chrome Dev Tools and navigate to the "Resources" tab. In the "Service Workers" section you can see that `/sw.js` is installed.
-  3. Then open the "Cached Storage" tab. You'll find a lot of files whose names start with `sw-precache-v1--`, these are the cached images and videos.
+  2. Open Chrome Dev Tools and navigate to the "Resources" tab (or "Application" tab on newer versions of Chrome). In the "Service Workers" section you can see that `/sw.js` is installed.
+  3. Then open the "Cached Storage" section. It shows all cached images and videos.
   4. Disable your network connection and reload this page. It still works! In the "Network" tab in Dev Tools, you'll see which resources are cached by the service worker. 
   -->
 

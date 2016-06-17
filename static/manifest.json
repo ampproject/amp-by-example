@@ -4,9 +4,8 @@
   "description": "Learn AMP by Examples",
   "start_url": "https://ampbyexample.com",
   "display": "standalone",
-  "orientation": "none",
   "background_color": "#607D8B",
-  "theme_color": "#eb407a",
+  "theme_color": "#607D8B",
   "icons": [
     {
       "src": "/favicons/android-chrome-36x36.png",

@@ -32,8 +32,8 @@ const runSequence = require('run-sequence');
 const argv = require('yargs').argv;
 const path = require('path');
 const diff = require('gulp-diff');
-const swPrecache = require('sw-precache');
 const change = require('gulp-change');
+const bower = require('gulp-bower');
 
 const compileExample = require('./tasks/compile-example');
 const sitemap = require('./tasks/compile-sitemap');
@@ -42,7 +42,6 @@ const createExample = require('./tasks/create-example');
 const FileName = require('./tasks/lib/FileName');
 const Metadata = require('./tasks/lib/Metadata');
 const ExampleFile = require('./tasks/lib/ExampleFile');
-const bower = require('gulp-bower');
 
 const paths = {
   dist: {
@@ -218,21 +217,6 @@ gulp.task('compile:sitemap', 'generate sitemap.xml', function() {
       .pipe(gulp.dest(paths.dist.dir));
 });
 
-gulp.task('compile:sw-precache',
-  ['copy:images', 'copy:videos', 'compile:example'], function() {
-    swPrecache.write(path.join(paths.dist.dir, 'sw.js'), {
-      staticFileGlobs: [
-        path.join(paths.dist.dir, 'LICENSE.txt'),
-        path.join(paths.dist.img, 'gist.png'),
-        path.join(paths.dist.img, 'abe_preview.png'),
-        path.join(paths.dist.favicons, '*.png'),
-        path.join(paths.dist.dir,
-          'components/amp-install-serviceworker/*.html')
-      ],
-      stripPrefix: 'dist'
-    });
-  });
-
 gulp.task('create', 'create a new AMP example', function() {
   const title = argv.n || argv.name;
   const fileName = FileName.fromString(title);
@@ -275,6 +259,7 @@ gulp.task('watch', 'watch for changes in the examples', function() {
   gulp.watch(paths.images, ['copy:images']);
   gulp.watch(paths.videos, ['copy:videos']);
   gulp.watch(paths.scripts, ['copy:scripts']);
+  gulp.watch(paths.static, ['copy:static']);
 });
 
 gulp.task('test', function() {
@@ -362,8 +347,8 @@ gulp.task('build', 'build all resources', [
   'copy:static',
   'compile:favicons',
   'compile:sitemap',
-  'compile:example',
-  'compile:sw-precache']);
+  'compile:example'
+]);
 
 function isFixed(file) {
   return file.eslint.fixed;

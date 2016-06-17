@@ -1,12 +1,12 @@
 {
   "name": "amp-by-example",
   "description": "AMP by example",
-  "main": "app.js",
+  "main": "sw.js",
   "authors": [
     "The AMP HTML Authors"
   ],
   "license": "Apache-2.0",
-  "homepage": "https://github.com/sebastianbenz/amp-by-example",
+  "homepage": "https://github.com/ampproject/amp-by-example",
   "private": true,
   "ignore": [
     "**/.*",
