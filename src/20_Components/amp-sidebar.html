@@ -56,8 +56,8 @@
 
     `amp-fit-text` expands or shrinks its font size to fit the content within the space given to in the menu.
   -->
-    <amp-sidebar id='sidebar1' layout="nodisplay">
-      <amp-img class='amp-close-image' src="/img/ic_close_black_18dp_2x.png" width="20" height="20" alt="close sidebar" on="tap:sidebar1.close" role="button" tabindex="0"></amp-img>
+    <amp-sidebar id='sidebar' layout="nodisplay" side="right">
+      <amp-img class='amp-close-image' src="/img/ic_close_black_18dp_2x.png" width="20" height="20" alt="close sidebar" on="tap:sidebar.close" role="button" tabindex="0"></amp-img>
       <ul>
         <li><a href="/">Home</a></li>
         <li> Nav item 1</li>
@@ -81,17 +81,17 @@
     <!--
     Click to toggle the sidebar.
     -->
-    <button on='tap:sidebar1.toggle'>Toggle sidebar</button>
+    <button on='tap:sidebar.toggle'>Toggle sidebar</button>
 
     <!--
     Click to open the sidebar.
     -->
-    <button on='tap:sidebar1.open'>Open sidebar</button>
+    <button on='tap:sidebar.open'>Open sidebar</button>
 
     <!--
     Click to close the sidebar.
     -->
-    <button on='tap:sidebar1.close'>Close sidebar</button>
+    <button on='tap:sidebar.close'>Close sidebar</button>
 
 </body>
 </html>

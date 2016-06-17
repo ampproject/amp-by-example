@@ -1,0 +1,29 @@
+<amp-sidebar id='drawermenu' layout="nodisplay">
+  <amp-img class='close' src="/img/ic_chevron_left_black_24dp_2x.png" width="32" height="32" alt="Close" on="tap:drawermenu.close" role="button" tabindex="0"></amp-img>
+  <div class="topheader">
+    <a href="/" class="home">AMP by Example</a>
+  </div>
+  <hr/>
+  <amp-accordion>
+  {{#categories}}
+    <section {{#selected}}expanded{{/selected}} >
+      <h4>
+        <div class="show-more category">{{name}}</div>
+        <div class="show-less category expanded">{{name}}</div>
+      </h4>
+      <div>
+        {{#examples}}
+        <div class="item">
+          <a {{#selected}}class="selected"{{/selected}} href="{{url}}">{{title}}
+            {{#experiment}}
+            <amp-img src="/img/ic_experiment_black_2x_web_18dp.png" width="18" height="18" alt="experimental">
+            {{/experiment}}
+            </amp-img>
+          </a>
+        </div>
+        {{/examples}}
+      </ul>
+    </section>
+  {{/categories}}
+  </amp-accordion>
+</amp-sidebar>
