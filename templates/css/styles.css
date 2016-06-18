@@ -301,6 +301,7 @@ nav #actions {
   margin-left: auto;
 }
 nav .button {
+  margin-left: 16px;
   padding: 0px;
   height: 40px;
   min-width: 40px;
