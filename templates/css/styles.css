@@ -7,6 +7,13 @@ figure, ul, ol {
 body {
   background: #fafafa;
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+main, article {
+  flex: 1;
+  width: 100%;
 }
 body a {
   text-decoration: none;
@@ -118,31 +125,6 @@ code {
 /* preview column */
 .preview {
   background-color: #e0e0e0;
-}
-
-/* header */
-header {
-  margin: 0 auto;
-}
-header {
-  text-align: center;
-}
-header h1 a {
-  text-decoration: none;
-  font-weight: 300;
-  color: #000;
-  padding: 0;
-}
-header h3 {
-  font-weight: 300;
-  padding: 0;
-}
-
-/* toolbar */
-.toolbar {
-  position: absolute;
-  top: 22px;
-  right: 32px;
 }
 
 .action {
@@ -265,8 +247,8 @@ button, .button {
   );
 }
 
-/* nav bar */
-nav {
+/* header */
+header {
   background-color: #607D8B;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
   display: flex;
@@ -274,7 +256,7 @@ nav {
   align-items: center;
   justify-content: space-between;
 }
-nav #logo {
+header #logo {
   align-self: flex-start;
   margin: 0 auto;
   text-align: left;
@@ -288,19 +270,19 @@ nav #logo {
   background-repeat: no-repeat;
   background-image: -webkit-image-set( url(/favicons/android-chrome-36x36.png) 1x, url(/favicons/android-chrome-72x72.png) 2x );
 }
-nav #hamburger {
+header #hamburger {
   align-self: flex-start;
   padding-top: 8px;
   padding-left: 8px;
   padding-right: 8px;
 }
-nav #actions {
+header #actions {
   max-width: 50%;
   padding: 0 16px;
   align-self: flex-start;
   margin-left: auto;
 }
-nav .button {
+header .button {
   margin-left: 16px;
   padding: 0px;
   height: 40px;
@@ -308,11 +290,11 @@ nav .button {
   display: block;
   float: left;
 }
-nav .button > amp-img {
+header .button > amp-img {
   margin: 8px;
   float: left;
 }
-nav .button > span {
+header .button > span {
   display: inline-block;
   font-weight: 300;
   line-height: 40px;
@@ -398,8 +380,8 @@ nav .button > span {
 
 /* footer */
 footer {
-  margin-top: 48px;
-  margin-bottom: 36px;
+  padding-top: 64px;
+  padding-bottom: 36px;
   text-align: center;
 }
 
@@ -507,14 +489,10 @@ footer li {
   body {
     background: white;
   }
-  .toolbar {
-    right: 20px;
-  }
   article {
-    position: relative;
-    top: 56px;
+    margin-top: 56px;
   }
-  nav {
+  header {
     height: 56px;
     flex-direction: row;
     position: fixed;
@@ -522,16 +500,16 @@ footer li {
     width: 100%;
     z-index: 1000;
   }
-  nav #actions {
+  header #actions {
     padding: 8px 16px;
   }
-  nav .button > span {
+  header .button > span {
     display: none;
   }
-  nav .hide-on-mobile {
+  header .hide-on-mobile {
     display: none;
   }
-  nav #logo {
+  header #logo {
     width: auto;
     margin: 0;
     padding: 0;
@@ -564,13 +542,6 @@ footer li {
   .preview {
     padding: 0px;
     margin: 16px;
-  }
-  .toolbar {
-    top: 16px;
-    right: 16px;
-  }
-  footer {
-    padding: 16px;
   }
   .anchor-trigger {
     float: none;
