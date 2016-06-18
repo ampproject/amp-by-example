@@ -197,7 +197,7 @@ button, .button {
 
 .button-primary {
   color: #fff;
-  background-color: #ff4081;
+  background-color: #eb407a;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
 }
 
@@ -359,7 +359,7 @@ nav .button > span {
 }
 #drawermenu .item .selected {
   font-weight: 700;
-  color: #ff4081;
+  color: #eb407a;
 }
 #drawermenu .expanded {
   background-color: #eee;
@@ -439,7 +439,7 @@ footer li {
   bottom: 5%; /* Adjust height */
   right: 5%; /* Adjust position */
   z-index: 1000;
-  background: #ff4081;
+  background: #eb407a;
   color: #fff;
   line-height: 24px;
   border-radius: 50%;
