@@ -327,6 +327,7 @@ header .button > span {
     padding: 10px 24px 10px 32px;
     white-space: nowrap;
     font-size: 13px;
+    -webkit-tap-highlight-color: #eee;
 }
 #drawermenu .item a:active {
   background-color: #eee;
