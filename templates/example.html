@@ -27,8 +27,8 @@
         <div class="column doc">
           {{> experiment.html}}
         </div>
-        <div class="column code hide-on-mobile"></div>
-        <div class="column preview hide-on-mobile"></div>
+        <div class="column code hide-on-mobile {{#metadata.hideCode}}hide{{/metadata.hideCode}}"></div>
+        <div class="column preview hide-on-mobile {{#metadata.hidePreview}}hide{{/metadata.hidePreview}}"></div>
       </div>
       {{/metadata.experiment}}
       {{#sections}}
