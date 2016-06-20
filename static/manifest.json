@@ -5,7 +5,7 @@
   "start_url": "https://ampbyexample.com",
   "display": "standalone",
   "orientation": "none",
-  "background_color": "#4E4E4E",
+  "background_color": "#607D8B",
   "theme_color": "#eb407a",
   "icons": [
     {

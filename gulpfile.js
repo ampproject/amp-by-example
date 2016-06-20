@@ -169,7 +169,7 @@ gulp.task("compile:favicons", function() {
         appDescription: "Accelerated Mobile Pages in Action",
         developerName: "Sebastian Benz",
         developerURL: "http://sebastianbenz.de/",
-        background: "#4E4E4E",
+        background: "#607D8B",
         path: "/favicons/",
         url: Metadata.HOST,
         display: "standalone",
