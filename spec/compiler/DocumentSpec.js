@@ -30,17 +30,32 @@ describe("Document", function() {
     it('first section stripped of html tags', function() {
       expect(descriptionOf("hello world")).toBe("hello world");
     });
-    it('trims newlines', function() {
-      expect(descriptionOf("hello\nworld")).toBe("hello world");
-    });
     it('is first sentence in first section', function() {
-      expect(descriptionOf("hello world. next sentence")).toBe("hello world.");
+      expect(descriptionOf("hello world. next sentence.")).toBe("hello world.");
+    });
+    it('trims newlines', function() {
+      expect(descriptionOf("hello\nworld. next sentence.")).toBe("hello world.");
     });
     it('sentences can span multiple lines', function() {
       expect(descriptionOf("hello\nworld. next sentence")).toBe("hello world.");
     });
+    it('sentences can end at line break', function() {
+      expect(descriptionOf("hello world.\nnext sentence.")).toBe("hello world.");
+    });
+    it('sentences can end at line break 2', function() {
+      expect(descriptionOf("hello world.\r\nnext sentence.")).toBe("hello world.");
+    });
+    it('sentences can end at line break 3', function() {
+      expect(descriptionOf("hello world.\n\nnext sentence.")).toBe("hello world.");
+    });
+    it('sentences cannot contain links', function() {
+      expect(descriptionOf('The <a href="https://example.com/amp-access.md">amp-access</a> component. Next sentence.')).toBe('The amp-access component.');
+    });
     it('ignores headlines', function() {
       expect(descriptionOf("## Headline\nhello world\n")).toBe("hello world");
+    });
+    it('unescapes html', function() {
+      expect(descriptionOf("don't")).toBe("don't");
     });
     it('empty if there are no sections', function() {
       expect(doc.description()).toBe("");

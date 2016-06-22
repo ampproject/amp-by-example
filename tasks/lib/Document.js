@@ -16,8 +16,7 @@
 
 "use strict";
 
-const striptags = require('striptags');
-const SENTENCE = /([^.!?]*[.!?])/;
+const S = require('string');
 const PARAGRAPH = /\<p\>([\s\S]*)\<\/p\>/;
 
 /**
@@ -53,9 +52,13 @@ module.exports = class Document {
 
   /**
    * Returns a short description consisting of the first
-   * sentence in the doc strings.
+   * sentence in the doc strings. The description may contain
+   * some html tags (code).
    */
   description() {
+    if (this._description) {
+      return this._description;
+    }
     for (let i = 0; i < this.sections.length; i++) {
       const section = this.sections[i];
       if (!section.doc) {
@@ -63,6 +66,7 @@ module.exports = class Document {
       }
       const desc = this.extractDescription(section.markedDoc());
       if (desc) {
+        this._description = desc;
         return desc;
       }
     }
@@ -86,27 +90,39 @@ module.exports = class Document {
   /* private */
   extractDescription(htmlString) {
     let desc = this.extractFirstParagraph(htmlString);
-    desc = striptags(desc);
+    desc = S(desc).stripTags().s;
     desc = this.extractFirstSentence(desc);
-    desc = desc.replace(/[\r?\n]+/, ' ');
     desc = desc.trim();
+    desc = S(desc).decodeHTMLEntities().s;
     return desc;
   }
 
   extractFirstParagraph(string) {
-    const paragraphs = string.match(PARAGRAPH);
+    const paragraphs = PARAGRAPH.exec(string);
     if (!paragraphs) {
       return '';
     }
     return paragraphs[1];
   }
 
-  extractFirstSentence(string) {
-    const sentences = string.match(SENTENCE);
-    if (!sentences) {
-      return string;
+  extractFirstSentence(str) {
+    let current;
+    let prev;
+    const result = [];
+    for (var i = 0, len = str.length; i < len; i++) {
+      current = str[i];
+      if (prev == '.' && (current === ' ' || current === '\r' || current === '\n' )) {
+        break;
+      }
+      if (current !== '\r' && current !== '\n') {
+        result.push(current);
+      }
+      if (prev !== '\n' && current === '\n') {
+        result.push(' ');
+      }
+      prev = current;
     }
-    return sentences[1];
+    return result.join('');
   }
 
   lastSection() {

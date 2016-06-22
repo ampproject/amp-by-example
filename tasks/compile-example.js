@@ -130,6 +130,7 @@ module.exports = function(config, updateTimestamp) {
     indexFile.contents = new Buffer(html);
     gutil.log('Generated ' + indexFile.relative);
     stream.push(indexFile);
+
   }
 
   function compileExamples(stream) {
@@ -139,7 +140,7 @@ module.exports = function(config, updateTimestamp) {
       const nextExample = example.nextFile();
       const args = {
         head: document.head,
-        title: example.title(),
+        title: example.title() + ' - ' + 'AMP by Example',
         desc: document.description(),
         timestamp: timestamp,
         fileName: example.url(),
@@ -193,14 +194,12 @@ module.exports = function(config, updateTimestamp) {
       .forEach(function(exampleFile) {
         // add example to categories instance
         if (!currentCategory ||
-          currentCategory.name != exampleFile.category()) {
-          currentCategory = {
-            name: exampleFile.category(),
-            examples: []
-          };
+          currentCategory.name != exampleFile.category().name) {
+          currentCategory =  exampleFile.category();
+          currentCategory.examples = [];
           if (currentExample) {
             currentCategory.selected =
-              (currentCategory.name == currentExample.category());
+              (currentCategory.name == currentExample.category().name);
           }
           categories.push(currentCategory);
         }
@@ -210,9 +209,11 @@ module.exports = function(config, updateTimestamp) {
         currentCategory.examples.push({
           title: exampleFile.title(),
           name: exampleFile.name(),
+          description: exampleFile.document.description(),
           url: exampleFile.url(),
           selected: selected,
-          experiment: exampleFile.document.metadata.experiment
+          experiment: exampleFile.document.metadata.experiment,
+          highlight: exampleFile.document.metadata.highlight
         });
       });
     return categories;

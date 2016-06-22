@@ -218,6 +218,15 @@ button, .button {
   url('/img/ic_experiment_black_2x_web_18dp.png') 2x );
 }
 
+.amp-experiment-medium {
+  padding-right: 36px;
+  background-position: 100% center;
+  background-repeat: no-repeat;
+  background-image: -webkit-image-set(
+  url('/img/ic_experiment_black_1x_web_24dp.png') 1x,
+  url('/img/ic_experiment_black_2x_web_24dp.png') 2x );
+}
+
 .amp-experiment-large {
   padding-right: 44px;
   background-position: 100% center;
@@ -386,39 +395,41 @@ header #actions {
 
 /* footer */
 footer {
-  padding-top: 64px;
+  background: #607D8B;
+  padding-top: 36px;
   padding-bottom: 36px;
-  text-align: center;
 }
 
 footer ul {
   display: flex;
+  flex-flow: row;
+  justify-content: center;
   padding: 0;
   margin: 0;
-  flex-flow: row wrap;
-  justify-content: center;
   line-height: 12px;
-}
-
-footer ul a {
-  display: flex;
-  padding: 0;
-  margin: 0;
-  flex-flow: row wrap;
-  justify-content: center;
-  line-height: 12px;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-footer li:first-child {
-  border-left: none;
 }
 
 footer li {
   display: block;
   padding: 0 1em;
-  border-left: 1px solid #000;
+  border-left: 1px solid white;
+}
+
+footer ul li:first-child {
+  border-left: none;
+}
+
+footer ul li a {
+  flex-flow: row wrap;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 400;
+  line-height: 12px;
+  cursor: pointer;
 }
 
 /* FAB */

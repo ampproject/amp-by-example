@@ -39,8 +39,25 @@ class ExampleFile {
     this.filePath = filePath;
   }
 
+  // TODO: cache categories across all samples in a dir 
   category() {
-    return FileName.toString(this.stripNumberPrefix(this.parentDir()));
+    if (this._category) {
+      return this._category;
+    }
+    const parentDir = this.parentDir();
+    if (!parentDir) {
+      return '';
+    }
+    const metadataFile = path.join(path.dirname(this.filePath), 'index.json');
+    try {
+      this._category = require(metadataFile);
+    }catch(err) {
+      this._category = {};
+    }
+    this._category.name = FileName.toString(this.stripNumberPrefix(parentDir));
+    this._category.url = this.targetParentDir();
+    this._category.targetDir = path.join(this.targetParentDir(), "index.html");
+    return this._category;
   }
 
   name() {
