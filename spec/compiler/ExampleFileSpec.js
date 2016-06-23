@@ -44,6 +44,16 @@ describe("ExampleFile", function() {
     });
   });
 
+  describe('non-example files', function() {
+    var file = ExampleFile.fromPath('src/offline.html');
+    it('target path in root', function() {
+      expect(file.targetPath()).toBe("offline/index.html");
+    });
+    it('has no category', function() {
+      expect(file.category()).toBe('');
+    });
+  });
+
   describe('nextFile', function() {
     it('returns next file in alphabetical order', function() {
       expect(ExampleFile.fromPath('spec/compiler/FileNameSpecFiles/a.html').nextFile().filePath)  

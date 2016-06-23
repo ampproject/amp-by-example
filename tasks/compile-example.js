@@ -189,7 +189,7 @@ module.exports = function(config, updateTimestamp) {
     const categories = [];
     let currentCategory;
     sort(examples)
-      .filter(exampleFile => !exampleFile.document.metadata.draft)
+      .filter(exampleFile => exampleFile.category() && !exampleFile.document.metadata.draft)
       .forEach(function(exampleFile) {
         // add example to categories instance
         if (!currentCategory ||

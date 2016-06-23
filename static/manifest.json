@@ -42,6 +42,11 @@
       "sizes": "192x192",
       "type": "image/png",
       "density": 4
+    },
+    {
+      "src": "/img/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ]
 }
