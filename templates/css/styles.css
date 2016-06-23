@@ -499,6 +499,7 @@ footer li {
   }
   header #actions {
     padding: 8px 16px;
+    margin-right: 0px; 
   }
   header .button > span {
     display: none;
