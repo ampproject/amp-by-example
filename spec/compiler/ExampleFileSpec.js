@@ -40,7 +40,7 @@ describe("ExampleFile", function() {
     });
     it('path on github', function() {
       expect(file.githubUrl()).toBe(
-          ExampleFile.GITHUB_PREFIX + "/10_Hello-world's/What\'s_up_100%25?.html");
+          ExampleFile.GITHUB_PREFIX + "/10_Hello-world's/What\'s_up_100%2525?.html");
     });
   });
 

@@ -67,7 +67,8 @@ class ExampleFile {
 
   githubUrl() {
     const parentDir = path.basename(path.dirname(this.filePath));
-    return GITHUB_PREFIX + '/' + parentDir + '/' + this.fileName();
+    const url = GITHUB_PREFIX + '/' + parentDir + '/' + this.fileName();
+    return encodeURI(url);
   }
 
   targetParentDir() {
