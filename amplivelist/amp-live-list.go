@@ -15,6 +15,7 @@
 package amplivelist
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 	"strconv"
@@ -23,6 +24,7 @@ import (
 
 const (
 	AMP_LIVE_LIST_COOKIE_NAME = "ABE_AMP_LIVE_LIST_STATUS"
+	MAX_AGE_IN_SECONDS        = 1
 )
 
 type BlogItem struct {
@@ -94,6 +96,7 @@ func createPage(newStatus int) Page {
 
 func renderAmpLiveListSample(w http.ResponseWriter, page Page) {
 	t, _ := template.ParseFiles("dist/components/amp-live-list/index.html")
+	w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d, public, must-revalidate", MAX_AGE_IN_SECONDS))
 	t.Execute(w, page)
 }
 
