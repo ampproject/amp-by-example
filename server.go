@@ -15,19 +15,19 @@
 package hello
 
 import (
+	"amplivelist"
 	"fmt"
 	"html/template"
 	"net/http"
-	"amplivelist"
-	"strings"
 	"os"
+	"strings"
 )
 
 const (
-	MAX_AGE_IN_SECONDS       = 1
-	OLD_ADDRESS              = "amp-by-example.appspot.com"
-	NEW_ADDRESS              = "https://ampbyexample.com"
-	DIST_DIR                 = "dist"
+	MAX_AGE_IN_SECONDS = 180 // three minutes
+	OLD_ADDRESS        = "amp-by-example.appspot.com"
+	NEW_ADDRESS        = "https://ampbyexample.com"
+	DIST_DIR           = "dist"
 )
 
 var REDIRECTS [18][2]string = [18][2]string{
@@ -95,9 +95,8 @@ func RedirectDomain(h http.Handler) http.Handler {
 			http.Redirect(w, r, NEW_ADDRESS+r.URL.Path, http.StatusMovedPermanently)
 			return
 		}
-		w.Header().Add("Cache-Control", fmt.Sprintf("max-age=%d, public, must-revalidate, proxy-revalidate", MAX_AGE_IN_SECONDS))
-		// make content accessible via the Google AMP CDN
-		w.Header().Add("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d, public", MAX_AGE_IN_SECONDS))
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		h.ServeHTTP(w, r)
 	})
 }
