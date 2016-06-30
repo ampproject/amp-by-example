@@ -15,6 +15,7 @@
 package hello
 
 import (
+	"ampform"
 	"amplivelist"
 	"fmt"
 	"html/template"
@@ -57,6 +58,8 @@ func init() {
 	http.HandleFunc("/error", returnCode500)
 	amplivelist.InitBlogs()
 	http.HandleFunc("/components/amp-live-list/", amplivelist.RenderLiveBlog)
+	http.HandleFunc("/components/amp-form/submit-form-xhr", ampform.SubmitFormXHR)
+	http.HandleFunc("/components/amp-form/submit-form", ampform.SubmitForm)
 	http.Handle("/", RedirectDomain(NoDirListing(http.FileServer(http.Dir(DIST_DIR)))))
 }
 
