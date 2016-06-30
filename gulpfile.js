@@ -33,6 +33,7 @@ const argv = require('yargs').argv;
 const path = require('path');
 const diff = require('gulp-diff');
 const swPrecache = require('sw-precache');
+const change = require('gulp-change');
 
 const compileExample = require('./tasks/compile-example');
 const sitemap = require('./tasks/compile-sitemap');
@@ -40,6 +41,7 @@ const validateExample = require('./tasks/validate-example');
 const createExample = require('./tasks/create-example');
 const FileName = require('./tasks/lib/FileName');
 const Metadata = require('./tasks/lib/Metadata');
+const ExampleFile = require('./tasks/lib/ExampleFile');
 
 const paths = {
   dist: {
@@ -316,6 +318,26 @@ gulp.task('snapshot:verify',
         .pipe(diff.reporter({fail: true}));
     }
 );
+
+/* adds a canonical link to sample files */
+function performChange(content) {
+  const exampleFile = ExampleFile.fromPath(this.file.path);
+  const canonical = "https://ampbyexample.com" + exampleFile.url();
+  if (!/<link rel="canonical"/.test(content)) {
+    content = content.replace(/<meta charset="utf-8">/g,
+    '<meta charset="utf-8">\n  <link rel="canonical" href="'
+    + canonical + '">');
+    gutil.log("updating canonical: " + this.file.relative);
+  }
+  return content;
+}
+
+
+gulp.task('change', 'use this task to batch change samples', function() {
+  return gulp.src('src/**/*.html')
+        .pipe(change(performChange))
+        .pipe(gulp.dest('src/'));
+});
 
 gulp.task('build', 'build all resources', [
   'copy:images',
