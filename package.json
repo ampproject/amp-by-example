@@ -20,8 +20,7 @@
     "compression": "^1.6.1",
     "connect": "^3.4.0",
     "express": "^4.13.4",
-    "gcloud": "^0.27.0",
-    "sw-precache": "^3.1.1"
+    "gcloud": "^0.27.0"
   },
   "devDependencies": {
     "amp-validator": "^0.1.4",
@@ -30,6 +29,7 @@
     "eslint": "^2.0.0",
     "eslint-plugin-google-camelcase": "0.0.2",
     "gulp": "^3.9.0",
+    "gulp-bower": "0.0.13",
     "gulp-cached": "^1.1.0",
     "gulp-change": "^1.0.0",
     "gulp-clean": "^0.3.1",

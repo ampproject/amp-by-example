@@ -152,7 +152,8 @@ module.exports = function(config, updateTimestamp) {
         metadata: document.metadata,
         nextExample: nextExample,
         skipCanonical: document.hasCanonical(),
-        includesAnalytics: document.importsComponent('amp-analytics')
+        includesAnalytics: document.importsComponent('amp-analytics'),
+        includesServiceWorker: document.importsComponent('amp-install-serviceworker')
       };
       Metadata.add(args);
 
@@ -188,7 +189,7 @@ module.exports = function(config, updateTimestamp) {
     const categories = [];
     let currentCategory;
     sort(examples)
-      .filter(exampleFile => !exampleFile.document.metadata.draft)
+      .filter(exampleFile => exampleFile.category() && !exampleFile.document.metadata.draft)
       .forEach(function(exampleFile) {
         // add example to categories instance
         if (!currentCategory ||

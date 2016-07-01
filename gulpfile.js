@@ -32,8 +32,8 @@ const runSequence = require('run-sequence');
 const argv = require('yargs').argv;
 const path = require('path');
 const diff = require('gulp-diff');
-const swPrecache = require('sw-precache');
 const change = require('gulp-change');
+const bower = require('gulp-bower');
 
 const compileExample = require('./tasks/compile-example');
 const sitemap = require('./tasks/compile-sitemap');
@@ -50,6 +50,7 @@ const paths = {
     img: 'dist/img',
     video: 'dist/video',
     json: 'dist/json',
+    scripts: 'dist/scripts',
     favicons: 'dist/favicons',
   },
   images: 'src/img/*.{png,jpg,gif}',
@@ -70,6 +71,7 @@ const paths = {
   },
   videos: 'src/video/*.{mp4,webm}',
   json: 'src/json/*.json',
+  scripts: 'src/scripts/*.js'
 };
 
 const exampleConfig = {
@@ -84,7 +86,7 @@ gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
     const port = argv.port || 8000;
     const server = gls.static(paths.dist.dir, port);
     server.start();
-    gulp.watch([paths.dist.html], function(file) {
+    gulp.watch([paths.dist.html, paths.dist.scripts], function(file) {
       setTimeout(function() {
         /* eslint-disable */
         server.notify.apply(server, [file]);
@@ -148,6 +150,12 @@ gulp.task('copy:json', 'copy example json', function() {
       .pipe(gulp.dest(paths.dist.json));
 });
 
+gulp.task('copy:scripts', 'copy scripts', function() {
+  return gulp.src(paths.scripts)
+      .pipe(cache('scripts'))
+      .pipe(gulp.dest(paths.dist.scripts));
+});
+
 gulp.task('copy:license', 'copy license', function() {
   return gulp.src('LICENSE')
       .pipe(cache('static'))
@@ -209,21 +217,6 @@ gulp.task('compile:sitemap', 'generate sitemap.xml', function() {
       .pipe(gulp.dest(paths.dist.dir));
 });
 
-gulp.task('compile:sw-precache',
-  ['copy:images', 'copy:videos', 'compile:example'], function() {
-    swPrecache.write(path.join(paths.dist.dir, 'sw.js'), {
-      staticFileGlobs: [
-        path.join(paths.dist.dir, 'LICENSE.txt'),
-        path.join(paths.dist.img, 'gist.png'),
-        path.join(paths.dist.img, 'abe_preview.png'),
-        path.join(paths.dist.favicons, '*.png'),
-        path.join(paths.dist.dir,
-          'components/amp-install-serviceworker/*.html')
-      ],
-      stripPrefix: 'dist'
-    });
-  });
-
 gulp.task('create', 'create a new AMP example', function() {
   const title = argv.n || argv.name;
   const fileName = FileName.fromString(title);
@@ -265,6 +258,8 @@ gulp.task('watch', 'watch for changes in the examples', function() {
   gulp.watch([paths.samples, paths.templates.files],['compile:example']);
   gulp.watch(paths.images, ['copy:images']);
   gulp.watch(paths.videos, ['copy:videos']);
+  gulp.watch(paths.scripts, ['copy:scripts']);
+  gulp.watch(paths.static, ['copy:static']);
 });
 
 gulp.task('test', function() {
@@ -332,23 +327,28 @@ function performChange(content) {
   return content;
 }
 
-
 gulp.task('change', 'use this task to batch change samples', function() {
   return gulp.src('src/**/*.html')
         .pipe(change(performChange))
         .pipe(gulp.dest('src/'));
 });
 
+gulp.task('bower', function() {
+  return bower()
+});
+
 gulp.task('build', 'build all resources', [
+  'bower',
   'copy:images',
   'copy:videos',
   'copy:json',
+  'copy:scripts',
   'copy:license',
   'copy:static',
   'compile:favicons',
   'compile:sitemap',
-  'compile:example',
-  'compile:sw-precache']);
+  'compile:example'
+]);
 
 function isFixed(file) {
   return file.eslint.fixed;

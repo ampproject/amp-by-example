@@ -19,7 +19,8 @@ const FileName = require('./FileName');
 const path = require('path');
 const fs = require('fs');
 const PREFIX = /\d+_/;
-const GITHUB_PREFIX = "https://github.com/ampproject/amp-by-example/blob/master/src";
+const SRC_DIR = "src";
+const GITHUB_PREFIX = "https://github.com/ampproject/amp-by-example/blob/master/" + SRC_DIR;
 
 
 /**
@@ -39,8 +40,7 @@ class ExampleFile {
   }
 
   category() {
-    const parentDir = path.basename(path.dirname(this.filePath));
-    return FileName.toString(this.stripNumberPrefix(parentDir));
+    return FileName.toString(this.stripNumberPrefix(this.parentDir()));
   }
 
   name() {
@@ -66,14 +66,11 @@ class ExampleFile {
   }
 
   githubUrl() {
-    const parentDir = path.basename(path.dirname(this.filePath));
-    const url = GITHUB_PREFIX + '/' + parentDir + '/' + this.fileName();
-    return encodeURI(url);
+    return encodeURI([GITHUB_PREFIX, this.parentDir(), this.fileName()].join('/'));
   }
 
   targetParentDir() {
-    const parentDir = path.basename(path.dirname(this.filePath));
-    return this.clean(this.stripNumberPrefix(parentDir));
+    return this.clean(this.stripNumberPrefix(this.parentDir()));
   }
 
   targetName() {
@@ -104,6 +101,14 @@ class ExampleFile {
   }
 
   /** private **/
+  parentDir() {
+    const parentDir = path.basename(path.dirname(this.filePath));
+    if (parentDir === SRC_DIR) {
+      return '';
+    }
+    return parentDir;
+  }
+
   stripNumberPrefix(string) {
     return string.replace(PREFIX, '');
   }
