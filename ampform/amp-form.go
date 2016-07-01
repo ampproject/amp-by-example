@@ -25,7 +25,12 @@ const (
 	ERROR_CASE_AMP_FORM = "error"
 )
 
-func SubmitFormXHR(w http.ResponseWriter, r *http.Request) {
+func Init() {
+	http.HandleFunc("/components/amp-form/submit-form-xhr", submitFormXHR)
+	http.HandleFunc("/components/amp-form/submit-form", submitForm)
+}
+
+func submitFormXHR(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
 	w.Header().Set("Content-Type", "application/json")
 	if r.Method != "POST" {
@@ -42,15 +47,15 @@ func SubmitFormXHR(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(response))
 }
 
-func SubmitForm(w http.ResponseWriter, r *http.Request) {
+func submitForm(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		http.Error(w, "post only", http.StatusMethodNotAllowed)
 		return
 	}
 	if isUserTryingTheErrorDemo(r.FormValue("name")) {
-		http.Redirect(w, r, fmt.Sprintf("%s/amp-form-error.html", buildSourceOrigin(r.Host)), http.StatusSeeOther)
+		http.Redirect(w, r, fmt.Sprintf("%s/amp-form-error/", buildSourceOrigin(r.Host)), http.StatusSeeOther)
 	} else {
-		http.Redirect(w, r, fmt.Sprintf("%s/amp-form-success.html", buildSourceOrigin(r.Host)), http.StatusSeeOther)
+		http.Redirect(w, r, fmt.Sprintf("%s/amp-form-success/", buildSourceOrigin(r.Host)), http.StatusSeeOther)
 	}
 }
 
