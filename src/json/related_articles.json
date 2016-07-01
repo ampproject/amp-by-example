@@ -3,17 +3,17 @@
    {
      "title": "Shopping websites with AMP",
      "thumbnail": "/img/shopping_thumb.jpg",
-     "url": "https://ampbyexample.com/samples/product_sample"
+     "url": "/sample_amps/product_page/preview"
    },
    {
      "title": "The tastiest recipes with AMP",
      "thumbnail": "/img/recipe_thumb.jpg",
-     "url": "#"
+     "url": "/sample_amps/recipe/preview"
    },
    {
-     "title": "Your Videos in AMP",
+     "title": "News Articles with AMP",
      "thumbnail": "/img/video_thumb.jpg",
-     "url": "#"
+     "url": "/sample_amps/news_article/preview"
    }
  ]
 }
