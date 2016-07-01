@@ -20,7 +20,8 @@ const through = require('through2');
 const gutil = require('gulp-util');
 const PluginError = gutil.PluginError;
 const Templates = require('./lib/Templates');
-const FileName = require('./lib/FileName');
+const Metadata = require('./lib/Metadata');
+const ExampleFile = require('./lib/ExampleFile');
 
 /**
  * Create an empty example.
@@ -53,12 +54,14 @@ module.exports = function(templateRoot, template) {
             'Streams not supported!'));
     } else if (file.isBuffer()) {
       const stream = this;
-      const exampleName = FileName.toString(file);
+      const exampleFile = ExampleFile.fromPath(file.path);
       gutil.log('Creating example ' + file.relative);
-      const html = templates.render(templateName, {
-        title: exampleName,
-        fileName: FileName.fromString(exampleName)
-      });
+      const args = {
+        title: exampleFile.title(),
+        fileName: exampleFile.url()
+      };
+      Metadata.add(args);
+      const html = templates.render(templateName, args);
       file.contents = new Buffer(html);
       stream.push(file);
       callback();
