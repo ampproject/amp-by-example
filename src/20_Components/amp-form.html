@@ -37,7 +37,10 @@
         form.amp-form-submit-error [submit-error] {
             color: red;
         }
-    </style>
+        form.amp-form-submit-success.hide-inputs > input {
+            display: none
+        }
+  </style>
 </head>
 <body> 
 
@@ -70,6 +73,23 @@
             Error! Thanks {{name}} for trying the <code>amp-form</code> demo with an error response.
         </template>
     </div>
+  </form>
+
+  <!-- #### Hiding input fields after success -->
+  <!--
+  Use the `amp-form-submit-success` class to hide input fields after a successfull submission. The following CSS rule hides all form input fields after successful form submission:
+
+  ```css
+  form.amp-form-submit-success > input { 
+    display: none
+  }
+  ```
+  -->
+  <form class="hide-inputs" method="post" action="/components/amp-form/submit-form" action-xhr="/components/amp-form/submit-form-xhr" target="_top">   
+    <input type="text" name="name" placeholder="Name..." required>
+    <input type="submit" value="Subscribe" class="button button-primary">
+    <div submit-success>Success!</div>
+    <div submit-error>Error!</div>
   </form>
 </body>
 </html>
