@@ -1,4 +1,5 @@
 /* reset */
+  everflow-wrap: break-word;
 figure, ul, ol {
   margin: 0;
   padding: 0;
@@ -118,6 +119,7 @@ pre {
   margin: 0;
   width: auto;
   line-height: 20px;
+  overflow-wrap: break-word;
 }
 code {
   font-size: 12px;
@@ -339,8 +341,7 @@ header #actions {
 .amp-mode-touch #drawermenu .item a {
     padding-top: 18px;
     padding-bottom: 17px;
-}
-#drawermenu .item amp-img {
+}#drawermenu .item amp-img {
     margin-left: 4px;
     vertical-align: text-bottom;
 }
