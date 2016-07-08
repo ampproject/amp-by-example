@@ -88,8 +88,16 @@
   <form class="hide-inputs" method="post" action="/components/amp-form/submit-form" action-xhr="/components/amp-form/submit-form-xhr" target="_top">   
     <input type="text" name="name" placeholder="Name..." required>
     <input type="submit" value="Subscribe" class="button button-primary">
-    <div submit-success>Success!</div>
-    <div submit-error>Error!</div>
+    <div submit-success>
+        <template type="amp-mustache">
+            Success! Thanks {{name}} for trying the <code>amp-form</code> demo! Try to insert the word "error" as a name input in the form to see how <code>amp-form</code> handles errors.
+        </template>
+    </div>
+    <div submit-error>
+        <template type="amp-mustache">
+            Error! Thanks {{name}} for trying the <code>amp-form</code> demo with an error response.
+        </template>
+    </div>
   </form>
 </body>
 </html>
