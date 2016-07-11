@@ -17,6 +17,8 @@ config.filesToCache = [
     '/favicons/android-chrome-72x72.png',
     '/img/ic_experiment_black_2x_web_18dp.png',
     '/img/ic_experiment_black_1x_web_18dp.png',
+    '/img/ic_experiment_black_2x_web_24dp.png',
+    '/img/ic_experiment_black_1x_web_24dp.png',
     '/img/ic_experiment_black_2x_web_36dp.png',
     '/img/ic_experiment_black_1x_web_36dp.png',
     '/img/ic_link_black_1x_web_18dp.png',
@@ -31,6 +33,8 @@ config.filesToCache = [
     '/img/ic_play_circle_filled_white_24dp_2x.png',
     '/img/GitHub-Mark-Light-32px.png',
     '/img/GitHub-Mark-Light-64px.png',
+    '/img/abe_device_screenshot_1x.png',
+    '/img/abe_device_screenshot_2x.png',
     'https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en'
 ];
 

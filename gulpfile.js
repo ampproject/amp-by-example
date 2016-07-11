@@ -56,6 +56,7 @@ const paths = {
   images: 'src/img/*.{png,jpg,gif}',
   favicon: 'src/img/favicon.png',
   samples: 'src/**/*.html',
+  metadata: 'src/**/*.json',
   src: 'src',
   scripts: ['tasks/**/*.js', 'gulpfile.js'],
   static: 'static/*.*',
@@ -77,6 +78,7 @@ const paths = {
 const exampleConfig = {
   templateRoot: paths.templates.dir,
   templateIndex: 'index.html',
+  templateCategory: 'category.html',
   templateExample: 'example.html',
   templatePreview: 'preview.html'
 };
@@ -255,7 +257,7 @@ gulp.task('clean', 'delete all generated resources', function() {
 });
 
 gulp.task('watch', 'watch for changes in the examples', function() {
-  gulp.watch([paths.samples, paths.templates.files],['compile:example']);
+  gulp.watch([paths.samples, paths.templates.files, paths.metadata],['compile:example']);
   gulp.watch(paths.images, ['copy:images']);
   gulp.watch(paths.videos, ['copy:videos']);
   gulp.watch(paths.scripts, ['copy:scripts']);

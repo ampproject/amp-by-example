@@ -30,7 +30,7 @@ describe("ExampleFile", function() {
       expect(file.fileName()).toBe("What\'s_up_100%25?.html");
     });
     it('extracts category', function() {
-      expect(file.category()).toBe("Hello-world's");
+      expect(file.category().name).toBe("Hello-world's");
     });
     it('target path', function() {
       expect(file.targetPath()).toBe("hello-worlds/whats_up_100/index.html");
