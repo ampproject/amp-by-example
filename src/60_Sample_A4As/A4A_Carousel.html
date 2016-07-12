@@ -1,11 +1,13 @@
 <!--
   #### Introduction
 
-  This is a [AMP Ad](https://github.com/ampproject/amphtml/issues/3133) (A4A) using a `amp-carousel` to display a slide-show style ad. In general an A4A should be a valid AMP document.
+  Sample [AMP Ad](https://github.com/ampproject/amphtml/issues/3133) (A4A) using `amp-carousel` to display a slide-show style ad. In general an A4A should be a valid AMP document.
 
-  This sample code represents the content that should be returned as a response initiated through an [amp-ad](http://https://ampbyexample.com/components/amp-ad/) component or otherwise whenever we want to return an A4A in any other context.
+  The code represents the body that should be returned as a response initiated through an [amp-ad](http://https://ampbyexample.com/components/amp-ad/) component or otherwise whenever we want to return an A4A in any other context.
 
-  This example displays a set of images forming a slide-show: Every image is clickable. You could build more elaborate slides embedding more amp components. See also [here](https://ampbyexample.com/advanced/image_galleries_with_amp-carousel/). We also include a tracking pixel using the `amp-pixel` components.
+  This example displays a set of images forming a slide-show: Every image is clickable. You could build more elaborate slides embedding more AMP components. See [here](https://ampbyexample.com/advanced/image_galleries_with_amp-carousel/) or [there](http://localhost:8000/advanced/video_carousels_with_amp-carousel/).
+
+  We include a rendering tracking pixel using the `amp-pixel` component.
 -->
 <!-- -->
 <!doctype html>
@@ -67,6 +69,8 @@
 
   <!--
    We include a tracking pixel to record that the ad was rendered using [amp-pixel](https://github.com/ampproject/amphtml/blob/master/builtins/amp-pixel.md).
+
+   Alternatively one could make use of [amp-analytics](https://www.ampproject.org/docs/reference/extended/amp-analytics.html) to enable much more comprenhensive measure activity.
   -->
    <amp-pixel src="https://foo.com/pixel?RANDOM"></amp-pixel>
 

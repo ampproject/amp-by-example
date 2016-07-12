@@ -1,11 +1,11 @@
 <!--
   #### Introduction
 
-  This is a simple banner [AMP Ad for AMP Pages](https://github.com/ampproject/amphtml/issues/3133) (A4A). In general an A4A should be a valid AMP document.
+  This sample demonstrates how to implement a simple banner [AMP Ad for AMP Pages](https://github.com/ampproject/amphtml/issues/3133) (A4A). In general an A4A should be a valid AMP document.
 
-  This sample code represents the content that should be returned as a response initiated through an [amp-ad](http://https://ampbyexample.com/components/amp-ad/) component or otherwise whenever we want to return an A4A in any other context.
+  The code represents the body that should be returned as a response initiated through an [amp-ad](http://https://ampbyexample.com/components/amp-ad/) component or otherwise whenever we want to return an A4A in any other context.
 
-  This example consists of an image and a tracking pixel that are implemented respectively using `amp-img` and `amp-pixel` components.
+  This example consists of an image and a rendering tracking pixel that are implemented respectively using `amp-img` and `amp-pixel` components.
 -->
 <!-- -->
 <!doctype html>
@@ -37,6 +37,8 @@
 
   <!--
    We include a tracking pixel to record that the ad was rendered using [amp-pixel](https://github.com/ampproject/amphtml/blob/master/builtins/amp-pixel.md).
+
+   Alternatively one could make use of [amp-analytics](https://www.ampproject.org/docs/reference/extended/amp-analytics.html) to enable much more comprenhensive measure activity.
    -->
    <amp-pixel src="https://foo.com/pixel?RANDOM"></amp-pixel>
 </body>
