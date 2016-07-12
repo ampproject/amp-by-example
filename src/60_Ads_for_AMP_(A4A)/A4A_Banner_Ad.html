@@ -1,0 +1,45 @@
+<!--
+  #### Introduction
+
+  This sample demonstrates how to implement a simple banner [AMP Ad for AMP Pages](https://github.com/ampproject/amphtml/issues/3133) (A4A). In general an A4A should be a valid AMP document.
+
+  The code represents the body that should be returned as a response initiated through an [amp-ad](http://https://ampbyexample.com/components/amp-ad/) component or otherwise whenever we want to return an A4A in any other context.
+
+  This example consists of an image and a rendering tracking pixel that are implemented respectively using `amp-img` and `amp-pixel` components.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <!-- #### Setup -->
+  <!--
+  As part of any other AMP document, we import the canonical boiler plate to make it a valid AMP document.
+  -->
+  <link rel="canonical" href="https://ampbyexample.com/sample_a4as/a4a_banner_ad/" >
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+</head>
+<body>
+
+  <!-- #### Basic Usage -->
+  <!--
+  The anatonomy of banner ad is an image with a hyperlink to the advertiser's page. We display the image for the creative using [amp-img](https://ampbyexample.com/components/amp-img/).
+  -->
+  <a target="_blank"
+     href="https://ampbyexample.com/sample_a4as/a4a_banner_ad/">
+     <amp-img src="/img/amp_300x250.jpg"
+              width=300
+              height=250
+              alt="a4a image"/>
+  </a>
+
+  <!--
+   We include a tracking pixel to record that the ad was rendered using [amp-pixel](https://github.com/ampproject/amphtml/blob/master/builtins/amp-pixel.md).
+
+   Alternatively one could make use of [amp-analytics](https://www.ampproject.org/docs/reference/extended/amp-analytics.html) to enable much more comprenhensive measure activity.
+   -->
+   <amp-pixel src="https://foo.com/pixel?RANDOM"></amp-pixel>
+</body>
+</html>
