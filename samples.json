@@ -1,0 +1,186 @@
+{
+    "You%27re_Offline.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/You%27re_Offline.html",
+        "url": "//youre_offline/"
+    },
+    "amp-form-error.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/amp-form-error.html",
+        "url": "//amp-form-error/"
+    },
+    "amp-form-success.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/amp-form-success.html",
+        "url": "//amp-form-success/"
+    },
+    "Hello_World.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/10_Introduction/Hello_World.html",
+        "url": "/introduction/hello_world/"
+    },
+    "How_to_publish_AMPs.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/10_Introduction/How_to_publish_AMPs.html",
+        "url": "/introduction/how_to_publish_amps/"
+    },
+    "amp-access.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-access.html",
+        "url": "/components/amp-access/"
+    },
+    "amp-accordion.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-accordion.html",
+        "url": "/components/amp-accordion/"
+    },
+    "amp-ad.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-ad.html",
+        "url": "/components/amp-ad/"
+    },
+    "amp-anim.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-anim.html",
+        "url": "/components/amp-anim/"
+    },
+    "amp-audio.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-audio.html",
+        "url": "/components/amp-audio/"
+    },
+    "amp-brightcove.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-brightcove.html",
+        "url": "/components/amp-brightcove/"
+    },
+    "amp-carousel.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-carousel.html",
+        "url": "/components/amp-carousel/"
+    },
+    "amp-dailymotion.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-dailymotion.html",
+        "url": "/components/amp-dailymotion/"
+    },
+    "amp-facebook.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-facebook.html",
+        "url": "/components/amp-facebook/"
+    },
+    "amp-form.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-form.html",
+        "url": "/components/amp-form/"
+    },
+    "amp-fx-flying-carpet.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-fx-flying-carpet.html",
+        "url": "/components/amp-fx-flying-carpet/"
+    },
+    "amp-iframe.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-iframe.html",
+        "url": "/components/amp-iframe/"
+    },
+    "amp-image-lightbox.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-image-lightbox.html",
+        "url": "/components/amp-image-lightbox/"
+    },
+    "amp-img.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-img.html",
+        "url": "/components/amp-img/"
+    },
+    "amp-instagram.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-instagram.html",
+        "url": "/components/amp-instagram/"
+    },
+    "amp-install-serviceworker.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-install-serviceworker.html",
+        "url": "/components/amp-install-serviceworker/"
+    },
+    "amp-lightbox.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-lightbox.html",
+        "url": "/components/amp-lightbox/"
+    },
+    "amp-list.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-list.html",
+        "url": "/components/amp-list/"
+    },
+    "amp-live-list.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-live-list.html",
+        "url": "/components/amp-live-list/"
+    },
+    "amp-pinterest.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-pinterest.html",
+        "url": "/components/amp-pinterest/"
+    },
+    "amp-sidebar.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-sidebar.html",
+        "url": "/components/amp-sidebar/"
+    },
+    "amp-social-share.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-social-share.html",
+        "url": "/components/amp-social-share/"
+    },
+    "amp-soundcloud.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-soundcloud.html",
+        "url": "/components/amp-soundcloud/"
+    },
+    "amp-sticky-ad.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-sticky-ad.html",
+        "url": "/components/amp-sticky-ad/"
+    },
+    "amp-twitter.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-twitter.html",
+        "url": "/components/amp-twitter/"
+    },
+    "amp-user-notification.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-user-notification.html",
+        "url": "/components/amp-user-notification/"
+    },
+    "amp-video.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-video.html",
+        "url": "/components/amp-video/"
+    },
+    "amp-vimeo.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-vimeo.html",
+        "url": "/components/amp-vimeo/"
+    },
+    "amp-vine.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-vine.html",
+        "url": "/components/amp-vine/"
+    },
+    "amp-youtube.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/20_Components/amp-youtube.html",
+        "url": "/components/amp-youtube/"
+    },
+    "How_to_create_interactive_AMP_pages%3F.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/30_Advanced/How_to_create_interactive_AMP_pages%3F.html",
+        "url": "/advanced/how_to_create_interactive_amp_pages/"
+    },
+    "Image_Galleries_with_amp-carousel.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/30_Advanced/Image_Galleries_with_amp-carousel.html",
+        "url": "/advanced/image_galleries_with_amp-carousel/"
+    },
+    "Integrating_Videos_in_AMP%3A_an_Overview.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/30_Advanced/Integrating_Videos_in_AMP%3A_an_Overview.html",
+        "url": "/advanced/integrating_videos_in_amp_an_overview/"
+    },
+    "Long_List_of_amp-instagram_Embeds.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/30_Advanced/Long_List_of_amp-instagram_Embeds.html",
+        "url": "/advanced/long_list_of_amp-instagram_embeds/"
+    },
+    "Using_the_AMP_URL_API.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/30_Advanced/Using_the_AMP_URL_API.html",
+        "url": "/advanced/using_the_amp_url_api/"
+    },
+    "Using_the_Google_AMP_Cache.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/30_Advanced/Using_the_Google_AMP_Cache.html",
+        "url": "/advanced/using_the_google_amp_cache/"
+    },
+    "Video_Carousels_with_amp-carousel.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/30_Advanced/Video_Carousels_with_amp-carousel.html",
+        "url": "/advanced/video_carousels_with_amp-carousel/"
+    },
+    "amp-user-notification_with_Server_Endpoint.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/30_Advanced/amp-user-notification_with_Server_Endpoint.html",
+        "url": "/advanced/amp-user-notification_with_server_endpoint/"
+    },
+    "News_Article.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/50_Sample_AMPs/News_Article.html",
+        "url": "/sample_amps/news_article/"
+    },
+    "Product_Sample.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/50_Sample_AMPs/Product_Sample.html",
+        "url": "/sample_amps/product_sample/"
+    },
+    "Recipe.html": {
+        "path": "/Users/sbenz/Documents/projects/amp-by-example-dev/src/50_Sample_AMPs/Recipe.html",
+        "url": "/sample_amps/recipe/"
+    }
+}

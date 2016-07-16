@@ -23,26 +23,32 @@ $ sudo npm i -g gulp
 
 ## Creating a new sample
 
-Create a new example with `gulp create`. Set the title via `--name` or `-n` and add it to an existing section using `--dest` or `-d`:
+Create a new example with `gulp create:sample`. Set the title via `--name` or `-n` and add it to an existing section using `--dest` or `-d`:
 
 ```none
-$ gulp create --name amp-img --dest src/20_Components
-$ vim src/20_Components/amp-img.html
+$ gulp create:sample --name amp-img --dest src/Getting_Started
+$ vim src/Getting_Started/amp-img.html
 ```
 
 For more descriptive example names including whitespaces use quotes:
 
 ```none
-$ gulp create --name 'Hello World' --dest src/10_Introduction
-$ vim src/10_Introduction/Hello_World.html
+$ gulp create:sample --name 'Hello World' --dest src/Getting_Started
+$ vim src/Getting_Started/Hello_World.html
 ```
 
-If you want to create a new sample category, use `--category` or `-c`. Prefix the name with two digits followed by a space to define the sort order:
+## Creating a new sample category
+
+Create a new example with `gulp create:category`. Set the title via `--name` or `-n`:
 
 ```none
-$ gulp create --name amp-awesome --category "50 More Awesomeness"
-$ vim src/50_More_Awesomeness/amp-awesome.html
+$ gulp create:category --name "More Awesomeness"
+$ vim src/More_Awesomeness/index.json
 ```
+
+Don't to forget to add a description and set the position in the *index.json* config file.
+
+## Sample validation
 
 Run validate to validate all examples against AMP spec:
 
@@ -116,7 +122,7 @@ You can use [markdown](https://help.github.com/articles/github-flavored-markdown
 <amp-img src="img/image1.jpg" width=200 height=100 layout=responsive></amp-img>
 ```
 
-#### Experimental Components
+#### Experimental components
 
 If your sample is using an experimental component, you can add a metadata section (`<!--- ... --->`) with the JSON variables `experiment` and `component`. This will skip its validation and add an experimental note with instructions to your sample:
 
@@ -127,7 +133,7 @@ If your sample is using an experimental component, you can add a metadata sectio
 }--->
 ```
 
-#### Single Column Layout
+#### Single column layout
 
 If your sample looks better with a single column layout, you can disable the code and preview columns adding the following flags to your sample file:
 

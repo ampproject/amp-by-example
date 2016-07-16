@@ -15,10 +15,12 @@
  */
 
 "use strict";
-const FileName = require('./FileName');
 const path = require('path');
 const fs = require('fs');
-const PREFIX = /\d+_/;
+const marked = require('marked');
+
+const FileName = require('./FileName');
+
 const SRC_DIR = "src";
 const GITHUB_PREFIX = "https://github.com/ampproject/amp-by-example/blob/master/" + SRC_DIR;
 
@@ -54,7 +56,13 @@ class ExampleFile {
     }catch(err) {
       this._category = {};
     }
-    this._category.name = FileName.toString(this.stripNumberPrefix(parentDir));
+    if (this._category.description) {
+      this._category.description = marked(this._category.description);
+    }
+    if (!this._category.position) {
+      this._category.position = Number.MAX_SAFE_INTEGER;
+    }
+    this._category.name = FileName.toString(parentDir);
     this._category.url = this.targetParentDir();
     this._category.targetDir = path.join(this.targetParentDir(), "index.html");
     return this._category;
@@ -87,7 +95,7 @@ class ExampleFile {
   }
 
   targetParentDir() {
-    return this.clean(this.stripNumberPrefix(this.parentDir()));
+    return this.clean(this.parentDir());
   }
 
   targetName() {
@@ -126,12 +134,11 @@ class ExampleFile {
     return parentDir;
   }
 
-  stripNumberPrefix(string) {
-    return string.replace(PREFIX, '');
-  }
-
   clean(string) {
-    return decodeURIComponent(string).toLowerCase().replace(/[^\w\d_-]/g, '');
+    return decodeURIComponent(string)
+      .toLowerCase()
+      .replace(/[^\w\d_-]/g, '')
+      .replace(/_+/g, '_');
   }
 }
 
