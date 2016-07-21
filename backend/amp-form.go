@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package ampform
+package backend
 
 import (
 	"bytes"
@@ -23,11 +23,12 @@ import (
 
 const (
 	ERROR_CASE_AMP_FORM = "error"
+	FORM_SAMPLE_PATH    = "/components/amp-form/"
 )
 
-func Init() {
-	http.HandleFunc("/components/amp-form/submit-form-xhr", submitFormXHR)
-	http.HandleFunc("/components/amp-form/submit-form", submitForm)
+func InitAmpForm() {
+	http.HandleFunc(FORM_SAMPLE_PATH+"submit-form-xhr", submitFormXHR)
+	http.HandleFunc(FORM_SAMPLE_PATH+"submit-form", submitForm)
 }
 
 func submitFormXHR(w http.ResponseWriter, r *http.Request) {

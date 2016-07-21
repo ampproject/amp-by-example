@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package amplivelist
+package backend
 
 import (
 	"fmt"
@@ -50,7 +50,7 @@ type Page struct {
 
 var blogs []BlogItem
 
-func InitBlogs() {
+func InitAmpLiveList() {
 	blogs = make([]BlogItem, 0)
 	blogs = append(blogs,
 		createBlogEntry("A green landscape", "/img/landscape_hills_300x200.jpg"),
@@ -63,6 +63,7 @@ func InitBlogs() {
 		createBlogEntry("Houses on the street", "/img/landscape_houses_300x201.jpg"),
 		createBlogEntry("Blue sea", "/img/landscape_sea_300x200.jpg"),
 		createBlogEntry("A sailing ship", "/img/landscape_ship_300x200.jpg"))
+	http.HandleFunc("/components/amp-live-list/", RenderLiveBlog)
 }
 
 func createBlogEntry(text string, imagePath string) BlogItem {

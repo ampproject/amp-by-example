@@ -1,0 +1,74 @@
+[
+  {
+    "source": "/amp-accordion.html",
+    "target": "/components/amp-accordion/"
+  },
+  {
+    "source": "/amp-ad.html",
+    "target": "/components/amp-ad/"
+  },
+  {
+    "source": "/amp-anim.html",
+    "target": "/components/amp-anim/"
+  },
+  {
+    "source": "/amp-audio.html",
+    "target": "/components/amp-audio/"
+  },
+  {
+    "source": "/amp-brightcove.html",
+    "target": "/components/amp-brightcove/"
+  },
+  {
+    "source": "/amp-carousel.html",
+    "target": "/components/amp-carousel/"
+  },
+  {
+    "source": "/amp-facebook.html",
+    "target": "/components/amp-facebook/"
+  },
+  {
+    "source": "/amp-iframe.html",
+    "target": "/components/amp-iframe/"
+  },
+  {
+    "source": "/amp-image-lightbox.html",
+    "target": "/components/amp-image-lightbox/"
+  },
+  {
+    "source": "/amp-img.html",
+    "target": "/components/amp-img/"
+  },
+  {
+    "source": "/amp-instagram.html",
+    "target": "/components/amp-instagram/"
+  },
+  {
+    "source": "/amp-lightbox.html",
+    "target": "/components/amp-lightbox/"
+  },
+  {
+    "source": "/amp-twitter.html",
+    "target": "/components/amp-twitter/"
+  },
+  {
+    "source": "/amp-user-notification_with_local_storage.html",
+    "target": "/components/amp-user-notification/"
+  },
+  {
+    "source": "/amp-user-notification_with_server_endpoint.html",
+    "target": "/advanced/amp-user-notification_with_server_endpoint/"
+  },
+  {
+    "source": "/amp-video.html",
+    "target": "/components/amp-video/"
+  },
+  {
+    "source": "/amp-youtube.html",
+    "target": "/components/amp-youtube/"
+  },
+  {
+    "source": "/Hello_World.html",
+    "target": "/introduction/hello_world/"
+  }
+]
