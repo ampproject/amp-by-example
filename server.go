@@ -12,13 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package hello
+package main
 
 import (
-	"ampform"
-	"amplivelist"
+	"backend"
 	"fmt"
-	"html/template"
 	"net/http"
 	"os"
 	"strings"
@@ -31,34 +29,11 @@ const (
 	DIST_DIR           = "dist"
 )
 
-var REDIRECTS [18][2]string = [18][2]string{
-	{"/amp-accordion.html", "/components/amp-accordion"},
-	{"/amp-ad.html", "/components/amp-ad"},
-	{"/amp-anim.html", "/components/amp-anim"},
-	{"/amp-audio.html", "/components/amp-audio"},
-	{"/amp-brightcove.html", "/components/amp-brightcove"},
-	{"/amp-carousel.html", "/components/amp-carousel"},
-	{"/amp-facebook.html", "/components/amp-facebook"},
-	{"/amp-iframe.html", "/components/amp-iframe"},
-	{"/amp-image-lightbox.html", "/components/amp-image-lightbox"},
-	{"/amp-img.html", "/components/amp-img"},
-	{"/amp-instagram.html", "/components/amp-instagram"},
-	{"/amp-lightbox.html", "/components/amp-lightbox"},
-	{"/amp-twitter.html", "/components/amp-twitter"},
-	{"/amp-user-notification_with_local_storage.html", "/components/amp-user-notification"},
-	{"/amp-user-notification_with_server_endpoint.html", "/Advanced/amp-user-notification_with_server_endpoint"},
-	{"/amp-video.html", "/components/amp-video"},
-	{"/amp-youtube.html", "/components/amp-youtube"},
-	{"/Hello_World.html", "/components/Hello_World.html"},
-}
-
 func init() {
-	RedirectLegacyExamples()
-	http.HandleFunc("/g", getParameterDemoHandler)
-	http.HandleFunc("/error", returnCode500)
-	amplivelist.InitBlogs()
-	http.HandleFunc("/components/amp-live-list/", amplivelist.RenderLiveBlog)
-	ampform.Init()
+	backend.InitRedirects()
+	backend.InitAmpLiveList()
+	backend.InitAmpForm()
+	backend.InitAmpCache()
 	http.Handle("/", RedirectDomain(NoDirListing(http.FileServer(http.Dir(DIST_DIR)))))
 }
 
@@ -72,24 +47,6 @@ func NoDirListing(h http.Handler) http.HandlerFunc {
 	})
 }
 
-func getParameterDemoHandler(w http.ResponseWriter, r *http.Request) {
-	value := r.URL.Query().Get("value")
-	renderTemplate(w, "get-example", value)
-}
-
-func renderTemplate(w http.ResponseWriter, templateName string, value string) {
-	t, _ := template.ParseFiles("templates/" + templateName + ".html")
-	t.Execute(w, value)
-}
-
-func RedirectLegacyExamples() {
-	for i := range REDIRECTS {
-		source := REDIRECTS[i][0]
-		target := "https://ampbyexample.com" + REDIRECTS[i][1]
-		http.Handle(source, http.RedirectHandler(target, 301))
-	}
-}
-
 func RedirectDomain(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.Host == OLD_ADDRESS ||
@@ -101,11 +58,6 @@ func RedirectDomain(h http.Handler) http.Handler {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		h.ServeHTTP(w, r)
 	})
-}
-
-func returnCode500(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusInternalServerError)
-	w.Write([]byte("Internal Server Error"))
 }
 
 func exists(path string) bool {
