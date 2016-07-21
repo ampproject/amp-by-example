@@ -1,0 +1,118 @@
+<!-- 
+  #### Introduction
+
+  Learn how to use the `amp-font` component to trigger and monitor the loading of custom fonts on AMP pages.
+
+-->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <link rel="canonical" href="https://ampbyexample.com/components/amp-font/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <script async custom-element="amp-font" src="https://cdn.ampproject.org/v0/amp-font-0.1.js"></script>
+  <!-- 
+    Define custom CSS rules to style your document depending on whether a font was loaded successfully or not. Find out about all the supported css classes [here](https://github.com/ampproject/amphtml/blob/b1607dff9446d332afcdead64b63e8d25e74cff7/extensions/amp-font/amp-font.md)
+  -->
+  <style amp-custom>
+    @font-face {
+      font-family: 'Font Does Not exist';
+      font-style: normal;
+      font-weight: 400;
+      src: url(fonts/FontDoesNotExist.ttf) format('truetype');
+    }
+    @font-face {
+      font-family: 'Another Font That Does Not exist';
+      font-style: normal;
+      font-weight: 400;
+      src: url(fonts/FontDoesNotExist.ttf) format('truetype');
+    }
+    @font-face {
+      font-family: 'Tangerine';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Tangerine'), url(http://fonts.gstatic.com/s/tangerine/v7/HGfsyCL5WASpHOFnouG-RJBw1xU1rKptJj_0jans920.woff2) format('woff2');
+    }
+
+    .unavailable-font-loaded .unavailable-font {
+      font-family: 'Font Does Not exist', serif, sans-serif;
+    }
+    .tangerine-loaded .tangerine {
+      font-family: 'Tangerine', serif, sans-serif;
+    }
+    .another-unavailable-font-loaded .another-unavailable-font {
+      font-family: 'Another Font That Does Not exist', serif, sans-serif;
+    }
+    .unavailable-font-loading, .tangerine-loading, .another-unavailable-font-loading {
+      color: blue;
+    }
+    .unavailable-font-loading .unavailable-font, 
+      .tangerine-loading .tangerine, 
+        .another-unavailable-font-loading .another-unavailable-font {
+          color: aqua;
+    }  
+    .unavailable-font-missing .unavailable-font, 
+      .tangerine-missing .tangerine, 
+        .another-unavailable-font-missing .another-unavailable-font  {
+          color: red;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- #### Sample for a non existing font -->
+  <!--
+    Embed amp-font inside the body or the head of the document.
+    Use the attribute `timeout` to specify the time in milliseconds to wait until the font becomes available. This attribute is optional and it's default value is 3000.
+    Use `on-error-remove-class`, `on-error-add-class`, `on-load-remove-class`, `on-load-add-class` to specify the CSS classes to be used if the font loads correctly or not. For a detailed description, please refer to the [documentation](https://www.ampproject.org/docs/reference/extended/amp-font.html)
+  -->
+  <amp-font
+    layout="nodisplay"
+    font-family="Font Does Not exist"
+    timeout="2000"
+    on-error-remove-class="unavailable-font-loading"
+    on-error-add-class="unavailable-font-missing"
+    on-load-remove-class="unavailable-font-loading"
+    on-load-add-class="unavailable-font-loaded">
+  </amp-font>
+  <!--
+    A simple text showing how to use `amp-font`.
+  -->
+  <p class="unavailable-font">
+    This text is displayed in red if the chosen font is not supported.
+  </p>
+  <!-- #### Sample for an existing font -->
+  <!-- -->
+    <amp-font
+    layout="nodisplay"
+    font-family="Tangerine"
+    timeout="2000"
+    on-error-remove-class="tangerine-loading"
+    on-error-add-class="tangerine-missing"
+    on-load-remove-class="tangerine-loading"
+    on-load-add-class="tangerine-loaded">
+  </amp-font>
+  <p class="tangerine">
+    This text is displayed in red if the chosen font is not supported.
+  </p>
+  <!-- #### Using only cached fonts -->
+  <!--
+  Set `timeout="0"` to load the font only if already in cache.
+  -->
+  <amp-font
+    layout="nodisplay"
+    font-family="Another Font That Does Not exist"
+    timeout="0"
+    on-error-remove-class="another-unavailable-font-loading"
+    on-error-add-class="another-unavailable-font-missing"
+    on-load-remove-class="another-unavailable-font-loading"
+    on-load-add-class="another-unavailable-font-loaded">
+  </amp-font>
+  <p class="another-unavailable-font">
+    This text is displayed in red if the chosen font is not cached.
+  </p>
+
+</body>
+</html>
