@@ -51,7 +51,7 @@ $ gulp create --name 'Hello World' --dest src/10_Introduction
 $ vim src/10_Introduction/Hello_World.html
 ```
 
-If you want to create a new sample category, use `--category` or `-c`. Prefix the name with two digits followed by a space to define the sort order:none
+If you want to create a new sample category, use `--category` or `-c`. Prefix the name with two digits followed by a space to define the sort order:
 
 ```none
 $ gulp create --name amp-awesome --category "50 More Awesomeness"
