@@ -52,6 +52,7 @@ const paths = {
     json: 'dist/json',
     scripts: 'dist/scripts',
     favicons: 'dist/favicons',
+    fonts: 'dist/fonts',
   },
   images: 'src/img/*.{png,jpg,gif}',
   favicon: 'src/img/favicon.png',
@@ -72,7 +73,8 @@ const paths = {
   },
   videos: 'src/video/*.{mp4,webm}',
   json: 'src/json/*.json',
-  scripts: 'src/scripts/*.js'
+  scripts: 'src/scripts/*.js',
+  fonts: 'src/fonts/*.ttf'
 };
 
 const exampleConfig = {
@@ -150,6 +152,12 @@ gulp.task('copy:json', 'copy example json', function() {
   return gulp.src(paths.json)
       .pipe(cache('json'))
       .pipe(gulp.dest(paths.dist.json));
+});
+
+gulp.task('copy:fonts', 'copy example fonts', function() {
+  return gulp.src(paths.fonts)
+      .pipe(cache('fonts'))
+      .pipe(gulp.dest(paths.dist.fonts));
 });
 
 gulp.task('copy:scripts', 'copy scripts', function() {
@@ -344,6 +352,7 @@ gulp.task('build', 'build all resources', [
   'copy:images',
   'copy:videos',
   'copy:json',
+  'copy:fonts',
   'copy:scripts',
   'copy:license',
   'copy:static',
