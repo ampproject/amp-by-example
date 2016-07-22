@@ -1,7 +1,13 @@
-<!-- BEGIN INVALID AMP - don't try at home -->
 <div class="card info">
   <h4>Experimental Mode</h4>
+  <p>The <code>{{component}}</code> component is currently in experimental mode and needs to be manually enabled (<a href="https://www.ampproject.org/docs/reference/experimental.html">more info</a>).</p>
 
+  <div id="experiment-container">
+    <button id="experiment-toggle" class="button-inactive" onclick="enableExperiment()">Enable Experiment</button>
+    <a id="canary-toggle" class="button button-inactive" href="https://cdn.ampproject.org/experiments.html" target="_blank">Enable Dev Channel</a>
+  </div>
+</div>
+<!-- BEGIN INVALID AMP - don't try at home -->
   <script>
 (window.AMP = window.AMP || []).push(function(AMP) {
   updateExperimentWarning();
@@ -9,11 +15,15 @@
 });
 
 function updateExperimentWarning() {
-  if (isExperimentOn()) {
+  if (isExperimentEnabled()) {
     disable('experiment-toggle');
+  } else {
+    enable('experiment-toggle');
   }
-  if (isCanaryOn()) {
+  if (isCanaryEnabled()) {
     disable('canary-toggle');
+  } else {
+    enable('canary-toggle');
   }
 }
 
@@ -22,11 +32,16 @@ function disable(button) {
     element.className = element.className.replace("primary", "inactive");
 }
 
-function isExperimentOn() {
+function enable(button) {
+    const element = document.getElementById(button);
+    element.className = element.className.replace("inactive", "primary");
+}
+
+function isExperimentEnabled() {
   return AMP.isExperimentOn('{{component}}');
 }
 
-function isCanaryOn() {
+function isCanaryEnabled() {
   return window.AMP_CONFIG.canary;
 }
 
@@ -38,18 +53,10 @@ function showInvalidAmpMessage() {
 }
 
 function enableExperiment() {
-  if (!isExperimentOn()) {
+  if (!isExperimentEnabled()) {
     AMP.toggleExperiment('{{component}}');
   }
   location.reload();
 }
   </script>
-
-  <p>The <code>{{component}}</code> component is currently in experimental mode and needs to be manually enabled (<a href="https://www.ampproject.org/docs/reference/experimental.html">more info</a>).</p>
-
-  <div id="experiment-container">
-    <button id="experiment-toggle" class="button-primary" onclick="enableExperiment()">Enable Experiment</button>
-    <a id="canary-toggle" class="button button-primary" href="https://cdn.ampproject.org/experiments.html" target="_blank">Enable Dev Channel</a>
-  </div>
-</div>
 <!-- END INVALID AMP -->
