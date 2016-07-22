@@ -15,23 +15,23 @@ In case we are missing any examples, feel free to [let us know](https://github.c
 3. Install [Gulp](http://gulpjs.com/) via `npm`:
    * *Note:* You may need to use `sudo` on the last command depending on your Node installation.
 
-```none
-$ npm install -g gulp
-```
+   ```none
+  $ npm install -g gulp
+  ```
 
 4. Setup the repository:
 
-```none
-$ git clone https://github.com/YOUR_GITHUB_NAME/amp-by-example.git
-$ cd amp-by-example
-$ npm install
-```
+  ```none
+  $ git clone https://github.com/YOUR_GITHUB_NAME/amp-by-example.git
+  $ cd amp-by-example
+  $ npm install
+  ```
 
 5. Build and run the site:
 
-```none
-$ gulp
-```
+  ```none
+  $ gulp
+  ```
 
 6. If everything went well, `gulp` should now be running the site on <http://localhost:8000/>
 
