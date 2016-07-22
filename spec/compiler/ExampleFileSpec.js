@@ -67,6 +67,10 @@ describe("ExampleFile", function() {
       expect(ExampleFile.fromPath('spec/compiler/FileNameSpecFiles/notExistentFile.html').nextFile())  
         .toEqual(null)
     });
+    it('returns undefined when the file has no category', function() {
+      expect(ExampleFile.fromPath('src/amp-form-error.html').nextFile())  
+        .toEqual(null)
+    });
   });
 
 });

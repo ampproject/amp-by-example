@@ -65,6 +65,9 @@ class ExampleFile {
   }
 
   nextFile() {
+    if (!this.category()) {
+      return null;
+    }
     const dir = path.dirname(this.filePath);
     const files = fs.readdirSync(dir)
         .sort()
