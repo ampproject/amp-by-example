@@ -19,6 +19,7 @@
 const gulp = require('gulp-help')(require('gulp'));
 const gls = require('gulp-live-server');
 const file = require('gulp-file');
+const fs = require('fs');
 const rename = require('gulp-rename');
 const del = require('del');
 const cache = require('gulp-cached');
@@ -37,6 +38,8 @@ const bower = require('gulp-bower');
 
 const compileExample = require('./tasks/compile-example');
 const sitemap = require('./tasks/compile-sitemap');
+const sampleMap = require('./tasks/create-sample-map');
+const redirects = require('./tasks/create-redirects');
 const validateExample = require('./tasks/validate-example');
 const createExample = require('./tasks/create-example');
 const FileName = require('./tasks/lib/FileName');
@@ -82,6 +85,11 @@ const exampleConfig = {
   templateExample: 'example.html',
   templatePreview: 'preview.html'
 };
+
+const categoryDefaultConfig = {
+  position: 999,
+  description: "TODO: Please add a description"
+}
 
 gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
   function() {
@@ -219,35 +227,60 @@ gulp.task('compile:sitemap', 'generate sitemap.xml', function() {
       .pipe(gulp.dest(paths.dist.dir));
 });
 
-gulp.task('create', 'create a new AMP example', function() {
+gulp.task('compile:samplemap', 'generate samples.json', function() {
+  return gulp.src(paths.samples)
+      .pipe(sampleMap())
+      .pipe(gulp.dest(paths.dist.dir));
+});
+
+gulp.task('compile:redirects', 'generate redirects.json', function() {
+  return gulp.src(paths.samples)
+      .pipe(redirects())
+      .pipe(gulp.dest(paths.dist.dir));
+});
+
+gulp.task('create:sample', 'create a new AMP example', function() {
   const title = argv.n || argv.name;
   const fileName = FileName.fromString(title);
   if (!fileName) {
-    throwInvalidArgumentError('example name missing');
+    throwInvalidSampleArgumentError('example name missing');
   }
   let examplePath;
   const dest = argv.d || argv.dest;
-  const category = argv.c || argv.category;
   if (dest) {
     examplePath = path.join(path.basename(dest), fileName);
-  } else if (category) {
-    examplePath = FileName.fromString(category, title);
   } else {
-    throwInvalidArgumentError('example category or directory missing');
+    throwInvalidSampleArgumentError('example directory missing');
   }
   return file(examplePath, '', {src: true})
       .pipe(createExample(paths.templates.dir, 'new-example.html'))
       .pipe(gulp.dest(paths.src));
 });
 
-function throwInvalidArgumentError(message) {
+gulp.task('create:category', 'create a new sample category', function() {
+  const title = argv.n || argv.name;
+  const fileName = FileName.encode(title);
+  if (!fileName) {
+    throw new gutil.PluginError({
+      plugin: 'compile-example',
+      message: gutil.colors.red('\nError: category name missing\n\n') +
+          gutil.colors.blue('creating a new sample category:\n') +
+          'gulp create:category -n "The Name"'
+    });
+  }
+  const categoryDir = path.join(paths.src, fileName);
+  fs.mkdirSync(categoryDir); 
+  const indexJson = path.join(categoryDir, 'index.json');
+  const indexJsonContent = JSON.stringify(categoryDefaultConfig, null, 2);
+  fs.writeFileSync(indexJson, indexJsonContent, 'utf8');
+});
+
+function throwInvalidSampleArgumentError(message) {
   throw new gutil.PluginError({
-    plugin: 'create',
+    plugin: 'compile-example',
     message: gutil.colors.red('\nError: ' + message + '\n\n') +
-        gutil.colors.blue('create a new category:\n') +
-        'gulp create -n "The Name" -c "The Category"\n\n' +
         gutil.colors.blue('add to existing category:\n') +
-        'gulp create -n "The Name" -d src/directory'
+        'gulp create:sample -n "The Name" -d src/directory'
   });
 }
 
@@ -317,7 +350,7 @@ gulp.task('snapshot:verify',
 );
 
 /* adds a canonical link to sample files */
-function performChange(content) {
+function addCanonical(content) {
   const exampleFile = ExampleFile.fromPath(this.file.path);
   const canonical = "https://ampbyexample.com" + exampleFile.url();
   if (!/<link rel="canonical"/.test(content)) {
@@ -329,9 +362,9 @@ function performChange(content) {
   return content;
 }
 
-gulp.task('change', 'use this task to batch change samples', function() {
+gulp.task('add-canonical', 'use this task to add canonical links to existing samples', function() {
   return gulp.src('src/**/*.html')
-        .pipe(change(performChange))
+        .pipe(change(addCanonical))
         .pipe(gulp.dest('src/'));
 });
 

@@ -63,3 +63,5 @@ function encode(string) {
   fileName = fileName.replace(/'/g,"%27");
   return fileName;
 }
+
+module.exports.encode = encode;

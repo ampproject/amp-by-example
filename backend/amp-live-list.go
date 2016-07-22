@@ -63,7 +63,7 @@ func InitAmpLiveList() {
 		createBlogEntry("Houses on the street", "/img/landscape_houses_300x201.jpg"),
 		createBlogEntry("Blue sea", "/img/landscape_sea_300x200.jpg"),
 		createBlogEntry("A sailing ship", "/img/landscape_ship_300x200.jpg"))
-	http.HandleFunc("/components/amp-live-list/", RenderLiveBlog)
+	http.HandleFunc("/dynamic_content_personalization/amp-live-list/", RenderLiveBlog)
 }
 
 func createBlogEntry(text string, imagePath string) BlogItem {
@@ -96,7 +96,7 @@ func createPage(newStatus int) Page {
 }
 
 func renderAmpLiveListSample(w http.ResponseWriter, page Page) {
-	t, _ := template.ParseFiles("dist/components/amp-live-list/index.html")
+	t, _ := template.ParseFiles("dist/dynamic_content_personalization/amp-live-list/index.html")
 	w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d, public, must-revalidate", MAX_AGE_IN_SECONDS))
 	t.Execute(w, page)
 }

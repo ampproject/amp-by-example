@@ -69,6 +69,178 @@
   },
   {
     "source": "/Hello_World.html",
-    "target": "/introduction/hello_world/"
+    "target": "/components/hello_world/"
+  },
+  {
+    "source": "/components/amp-access/",
+    "target": "/ads_analytics_paywalls/amp-access/"
+  },
+  {
+    "source": "/components/amp-ad/",
+    "target": "/ads_analytics_paywalls/amp-ad/"
+  },
+  {
+    "source": "/components/amp-sticky-ad/",
+    "target": "/ads_analytics_paywalls/amp-sticky-ad/"
+  },
+  {
+    "source": "/advanced/how_to_create_interactive_amp_pages/",
+    "target": "/dynamic_content_personalization/how_to_create_interactive_amp_pages/"
+  },
+  {
+    "source": "/components/amp-list/",
+    "target": "/dynamic_content_personalization/amp-list/"
+  },
+  {
+    "source": "/components/amp-live-list/",
+    "target": "/dynamic_content_personalization/amp-live-list/"
+  },
+  {
+    "source": "/components/amp-user-notification/",
+    "target": "/dynamic_content_personalization/amp-user-notification/"
+  },
+  {
+    "source": "/advanced/amp-user-notification_with_server_endpoint/",
+    "target": "/dynamic_content_personalization/amp-user-notification_with_server_endpoint/"
+  },
+  {
+    "source": "/advanced/integrating_videos_in_amp_an_overview/",
+    "target": "/embedding_audio_video/integrating_videos_in_amp_an_overview/"
+  },
+  {
+    "source": "/advanced/video_carousels_with_amp-carousel/",
+    "target": "/embedding_audio_video/video_carousels_with_amp-carousel/"
+  },
+  {
+    "source": "/components/amp-audio/",
+    "target": "/embedding_audio_video/amp-audio/"
+  },
+  {
+    "source": "/components/amp-brightcove/",
+    "target": "/embedding_audio_video/amp-brightcove/"
+  },
+  {
+    "source": "/components/amp-dailymotion/",
+    "target": "/embedding_audio_video/amp-dailymotion/"
+  },
+  {
+    "source": "/components/amp-soundcloud/",
+    "target": "/embedding_audio_video/amp-soundcloud/"
+  },
+  {
+    "source": "/components/amp-video/",
+    "target": "/embedding_audio_video/amp-video/"
+  },
+  {
+    "source": "/components/amp-vimeo/",
+    "target": "/embedding_audio_video/amp-vimeo/"
+  },
+  {
+    "source": "/components/amp-vine/",
+    "target": "/embedding_audio_video/amp-vine/"
+  },
+  {
+    "source": "/components/amp-youtube/",
+    "target": "/embedding_audio_video/amp-youtube/"
+  },
+  {
+    "source": "/introduction/hello_world/",
+    "target": "/getting_started_with_amp/hello_world/"
+  },
+  {
+    "source": "/introduction/how_to_publish_amps/",
+    "target": "/getting_started_with_amp/how_to_publish_amps/"
+  },
+  {
+    "source": "/components/amp-accordion/",
+    "target": "/presentation_forms/amp-accordion/"
+  },
+  {
+    "source": "/components/amp-carousel/",
+    "target": "/presentation_forms/amp-carousel/"
+  },
+  {
+    "source": "/components/amp-form/",
+    "target": "/presentation_forms/amp-form/"
+  },
+  {
+    "source": "/components/amp-fx-flying-carpet/",
+    "target": "/presentation_forms/amp-fx-flying-carpet/"
+  },
+  {
+    "source": "/components/amp-iframe/",
+    "target": "/presentation_forms/amp-iframe/"
+  },
+  {
+    "source": "/components/amp-lightbox/",
+    "target": "/presentation_forms/amp-lightbox/"
+  },
+  {
+    "source": "/components/amp-sidebar/",
+    "target": "/presentation_forms/amp-sidebar/"
+  },
+  {
+    "source": "/components/amp-install-serviceworker/",
+    "target": "/progressive_web_appswithamp/amp-install-serviceworker/"
+  },
+  {
+    "source": "/advanced/long_list_of_amp-instagram_embeds/",
+    "target": "/social_embeds_sharing/long_list_of_amp-instagram_embeds/"
+  },
+  {
+    "source": "/components/amp-facebook/",
+    "target": "/social_embeds_sharing/amp-facebook/"
+  },
+  {
+    "source": "/components/amp-instagram/",
+    "target": "/social_embeds_sharing/amp-instagram/"
+  },
+  {
+    "source": "/components/amp-pinterest/",
+    "target": "/social_embeds_sharing/amp-pinterest/"
+  },
+  {
+    "source": "/components/amp-social-share/",
+    "target": "/social_embeds_sharing/amp-social-share/"
+  },
+  {
+    "source": "/components/amp-twitter/",
+    "target": "/social_embeds_sharing/amp-twitter/"
+  },
+  {
+    "source": "/sample_amps/news_article/",
+    "target": "/templates_samples/news_article/"
+  },
+  {
+    "source": "/sample_amps/product_sample/",
+    "target": "/templates_samples/product_sample/"
+  },
+  {
+    "source": "/sample_amps/recipe/",
+    "target": "/templates_samples/recipe/"
+  },
+  {
+    "source": "/advanced/image_galleries_with_amp-carousel/",
+    "target": "/using_images_creating_galleries/image_galleries_with_amp-carousel/"
+  },
+  {
+    "source": "/components/amp-anim/",
+    "target": "/using_images_creating_galleries/amp-anim/"
+  },
+  {
+    "source": "/components/amp-image-lightbox/",
+    "target": "/using_images_creating_galleries/amp-image-lightbox/"
+  },
+  {
+    "source": "/components/amp-img/",
+    "target": "/using_images_creating_galleries/amp-img/"
+  },
+  {
+    "source": "/advanced/using_the_amp_url_api/",
+    "target": "/using_the_amp_apis_amp_cache/using_the_amp_url_api/"
+  },
+  {
+    "source": "/advanced/using_the_google_amp_cache/",
+    "target": "/using_the_amp_apis_amp_cache/using_the_google_amp_cache/"
   }
 ]

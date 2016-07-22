@@ -19,12 +19,16 @@ describe("ExampleFile", function() {
   var ExampleFile = require('../../tasks/lib/ExampleFile');
 
   describe('created from path', function() {
-    var file = ExampleFile.fromPath('src/10_Hello-world\'s/What\'s_up_100%25?.html');
+    var file = ExampleFile.fromPath('src/Hello-world\'s/What\'s_up_100%25?.html');
     it('extracts title', function() {
       expect(file.title()).toBe("What's up 100%?");
     });
     it('extracts url', function() {
       expect(file.url()).toBe("/hello-worlds/whats_up_100/");
+    });
+    it('extracts url and removes double _', function() {
+      var file = ExampleFile.fromPath('src/Social_%26_Sharing/Test.html');
+      expect(file.url()).toBe("/social_sharing/test/");
     });
     it('extracts file name', function() {
       expect(file.fileName()).toBe("What\'s_up_100%25?.html");
@@ -40,7 +44,7 @@ describe("ExampleFile", function() {
     });
     it('path on github', function() {
       expect(file.githubUrl()).toBe(
-          ExampleFile.GITHUB_PREFIX + "/10_Hello-world's/What\'s_up_100%2525?.html");
+          ExampleFile.GITHUB_PREFIX + "/Hello-world's/What\'s_up_100%2525?.html");
     });
   });
 

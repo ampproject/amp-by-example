@@ -23,8 +23,8 @@ const config = {
 
 config.filesToCache = [
     '/',
-    '/components/amp-img/',
-    '/components/amp-install-serviceworker/',
+    '/using_images_creating_galleries/amp-img/',
+    '/progressive_web_apps_with_amp/amp-install-serviceworker/',
     config.offlinePage,
     '/img/offline.png',
     '/favicons/favicon.ico',

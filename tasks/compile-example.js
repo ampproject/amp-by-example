@@ -189,13 +189,13 @@ module.exports = function(config, updateTimestamp) {
   function mapToCategories(examples, currentExample) {
     const categories = [];
     let currentCategory;
-    sort(examples)
+    sortedExamples(examples)
       .filter(exampleFile => exampleFile.category() && !exampleFile.document.metadata.draft)
       .forEach(function(exampleFile) {
         // add example to categories instance
         if (!currentCategory ||
           currentCategory.name != exampleFile.category().name) {
-          currentCategory =  exampleFile.category();
+          currentCategory = exampleFile.category();
           currentCategory.examples = [];
           if (currentExample) {
             currentCategory.selected =
@@ -216,14 +216,21 @@ module.exports = function(config, updateTimestamp) {
           highlight: exampleFile.document.metadata.highlight
         });
       });
-    return categories;
+    return sortedCategories(categories);
   }
 
-  function sort(examples) {
+  function sortedExamples(examples) {
     examples.sort(function(a, b) {
       return a.filePath.localeCompare(b.filePath);
     });
     return examples;
+  }
+
+  function sortedCategories(categories) {
+    categories.sort(function(a, b) {
+      return a.position - b.position;
+    });
+    return categories;
   }
 
   return through.obj(bufferContents, endStream);
