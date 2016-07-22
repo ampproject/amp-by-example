@@ -33,7 +33,7 @@ $ npm install
 $ gulp
 ```
 
-6. If everything went well, `gulp` should now be running the site on http://localhost:8000/
+6. If everything went well, `gulp` should now be running the site on <http://localhost:8000/>
 
 ## Creating a new sample
 
@@ -70,7 +70,7 @@ Run build to generate all examples:
 $ gulp build
 ```
 
-While working on an example you can start a local webserver with auto-reload on http://localhost:8000 by running `gulp`:
+While working on an example you can start a local webserver with auto-reload on <http://localhost:8000/> by running `gulp`:
 
 ```none
 $ gulp
