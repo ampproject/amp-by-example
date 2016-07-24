@@ -591,17 +591,42 @@ form {
 }
 
 input[type=text], input[type=email] {
-    border: none;
-    border-bottom: 1px solid rgba(0,0,0,.12);
     display: block;
-    font-size: 16px;
     font-family: "Helvetica","Arial",sans-serif;
     margin: 0;
     margin-bottom: 16px;
-    padding: 4px 0;
     width: 100%;
-    background: 0 0;
     text-align: left;
     color: inherit;
     outline: none;
 }
+
+.data-input {
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    font-size: 16px;
+    margin-bottom: 16px;
+    padding: 4px 0;
+    background: 0 0;
+    color: inherit;
+    outline: none;
+    background: 0 0;
+}
+
+.search-input {
+  float: left;
+  border: 1px solid;
+  border-color: #ddd;
+  height: 43px;
+  padding: 0px;   
+  font-size: 20px;
+}
+
+.search-input-submit {
+        top: -61px;
+        float: right;
+        font-size: 16px;
+        margin-top: 1px;
+        background-color: rgb(66,133,244);
+        height: 43px
+    }
