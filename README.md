@@ -11,15 +11,28 @@ In case we are missing any examples, feel free to [let us know](https://github.c
 ## Installation
 
 1. Fork the repository.
-2. Install [NodeJS](https://nodejs.org).
-3. Setup the repository.
+2. Install [NodeJS](https://nodejs.org). You will need version 4.0.0 or above.
+3. Install [Gulp](http://gulpjs.com/) via `npm`. You may need to use `sudo` depending on your Node installation.
 
-```none
-$ git clone https://github.com/YOUR_GITHUB_NAME/amp-by-example.git
-$ cd amp-by-example
-$ npm i
-$ sudo npm i -g gulp
-```
+   ```none
+  $ npm install -g gulp
+  ```
+
+4. Set up the repository:
+
+  ```none
+  $ git clone https://github.com/YOUR_GITHUB_NAME/amp-by-example.git
+  $ cd amp-by-example
+  $ npm install
+  ```
+
+5. Build and run the site:
+
+  ```none
+  $ gulp
+  ```
+
+6. If everything went well, `gulp` should now be running the site on <http://localhost:8000/>
 
 ## Creating a new sample
 
@@ -56,11 +69,10 @@ Run build to generate all examples:
 $ gulp build
 ```
 
-While working on an example you can start a local webserver with auto-reload by running `gulp`:
+While working on an example you can start a local webserver with auto-reload on <http://localhost:8000/> by running `gulp`:
 
 ```none
 $ gulp
-$ open http://localhost:8000/
 ```
 
 Some components, like [this one](src/30_Advanced/amp-user-notification_with_server_endpoint.html) require an additional server endpoint.
