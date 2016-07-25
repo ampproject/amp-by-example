@@ -12,14 +12,13 @@ In case we are missing any examples, feel free to [let us know](https://github.c
 
 1. Fork the repository.
 2. Install [NodeJS](https://nodejs.org). You will need version 4.0.0 or above.
-3. Install [Gulp](http://gulpjs.com/) via `npm`:
-   * *Note:* You may need to use `sudo` on the last command depending on your Node installation.
+3. Install [Gulp](http://gulpjs.com/) via `npm`. You may need to use `sudo` depending on your Node installation.
 
    ```none
   $ npm install -g gulp
   ```
 
-4. Setup the repository:
+4. Set up the repository:
 
   ```none
   $ git clone https://github.com/YOUR_GITHUB_NAME/amp-by-example.git
