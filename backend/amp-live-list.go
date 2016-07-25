@@ -27,7 +27,7 @@ const (
 	AMP_LIVE_LIST_COOKIE_NAME = "ABE_AMP_LIVE_LIST_STATUS"
 	MAX_AGE_IN_SECONDS        = 1
 	DIST_FOLDER               = "dist"
-	SAMPLE_AMPS_FOLDER        = "sample_amps"
+	SAMPLE_AMPS_FOLDER        = "samples_templates"
 	COMPONENTS_FOLDER         = "components"
 	MINUS_FIFTEEN_SECONDS     = -15
 )
