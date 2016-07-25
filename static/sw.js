@@ -88,6 +88,11 @@ function requestAccepts(request, contentType) {
 function ampByExampleHandler(request, values) {
   // for samples show offline page if offline and samples are not cached
   if (requestAccepts(request, 'text/html')) {
+    // never use cached version for AMP CORS requests (e.g. amp-live-list)
+    if (request.url.indexOf("__amp_source_origin" != -1)) {
+      return toolbox.networkOnly(request, values);
+    }
+    // cache or network - whatever is fastest
     return toolbox.fastest(request, values).catch(function() {
         return toolbox.cacheOnly(new Request(config.offlinePage), values);
     });
