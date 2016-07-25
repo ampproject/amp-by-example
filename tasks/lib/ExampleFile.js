@@ -134,7 +134,10 @@ class ExampleFile {
   }
 
   clean(string) {
-    return decodeURIComponent(string).toLowerCase().replace(/[^\w\d_-]/g, '');
+    return decodeURIComponent(string)
+      .toLowerCase()
+      .replace(/[^\w\d_-]/g, '')
+      .replace(/_+/g, '_');
   }
 }
 

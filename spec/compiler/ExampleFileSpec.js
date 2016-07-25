@@ -26,6 +26,10 @@ describe("ExampleFile", function() {
     it('extracts url', function() {
       expect(file.url()).toBe("/hello-worlds/whats_up_100/");
     });
+    it('extracts url without __', function() {
+    var file = ExampleFile.fromPath('src/50_Samples_%26_Templates/Test.html');
+      expect(file.url()).toBe("/samples_templates/test/");
+    });
     it('extracts file name', function() {
       expect(file.fileName()).toBe("What\'s_up_100%25?.html");
     });
