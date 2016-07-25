@@ -133,11 +133,23 @@ module.exports = function(config, updateTimestamp) {
 
   }
 
+  function findNextExample(examples, index) {
+      const next = examples[index];
+      if (!next) {
+        return null;
+      }
+      const metadata = next.document.metadata;
+      if (metadata && metadata.draft) {
+        return findNextExample(examples, index+1);
+      }
+      return next;
+  }
+
   function compileExamples(stream) {
-    examples.forEach(function(example) {
+    examples.forEach(function(example, index) {
       const document = example.document;
       const file = example.file;
-      const nextExample = example.nextFile();
+      const nextExample = findNextExample(examples, index + 1);
       const args = {
         head: document.head,
         title: example.title() + ' - ' + 'AMP by Example',
