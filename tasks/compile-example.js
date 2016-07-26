@@ -166,6 +166,8 @@ module.exports = function(config, updateTimestamp) {
         nextExample: nextExample,
         skipCanonical: document.hasCanonical(),
         includesAnalytics: document.importsComponent('amp-analytics'),
+        includesAccordion: document.importsComponent('amp-accordion'),
+        includesSidebar: document.importsComponent('amp-sidebar'),
         includesServiceWorker: document.importsComponent('amp-install-serviceworker')
       };
       Metadata.add(args);
