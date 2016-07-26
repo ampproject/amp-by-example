@@ -184,17 +184,8 @@ This sample showcases how to build a product page in AMP HTML.
             <h2>Nexus 6P</h2>
             <a href="/shopping-cart-sample.html" class="button button-primary call-to-action seller-button">Buy</a>
         </div>
-        <!-- Use [amp-list](/components/amp-list/) to ensure the pages shows the latest price if it is loaded via the Google AMP Cache. -->
-        <amp-list width=auto height=100 layout=fixed-height
-          src="/json/product.json?RANDOM">
-        <template type="amp-mustache" id="amp-template-id">
-            <p id="product-description">
-                {{description}}
-            </p>
-            <h5 class="price-description">{{price}}</h5>
-        </template>
-      </amp-list>
-        
+        <p id="product-description"> A 5.7-inch, high-resolution WQHD AMOLED display and front-facing stereo speakers — all housed in a contoured aluminum body.</p>
+        <h5 class="price-description">From 399$</h5>   
 
         <!-- #### Image Gallery -->
         <!-- The `amp-carousel` works very well for product image galleries. Learn more about `amp-carousel` [here](/advanced/image_galleries_with_amp-carousel/). -->
