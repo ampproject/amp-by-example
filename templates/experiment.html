@@ -3,60 +3,49 @@
   <p>The <code>{{component}}</code> component is currently in experimental mode and needs to be manually enabled (<a href="https://www.ampproject.org/docs/reference/experimental.html">more info</a>).</p>
 
   <div id="experiment-container">
-    <button id="experiment-toggle" class="button-inactive" onclick="enableExperiment()">Enable Experiment</button>
+    <button id="experiment-toggle" class="button-inactive">Enable Experiment</button>
     <a id="canary-toggle" class="button button-inactive" href="https://cdn.ampproject.org/experiments.html" target="_blank">Enable Dev Channel</a>
   </div>
 </div>
 <!-- BEGIN INVALID AMP - don't try at home -->
-  <script>
-(window.AMP = window.AMP || []).push(function(AMP) {
-  updateExperimentWarning();
-  showInvalidAmpMessage();
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+  (window.AMP = window.AMP || []).push(function(AMP) {
+
+    function enableButton(button) {
+      const element = document.getElementById(button);
+      element.className = element.className.replace("inactive", "primary");
+    }
+
+    function isExperimentEnabled() {
+      return AMP.isExperimentOn('{{component}}');
+    }
+
+    function enableExperiment() {
+      if (!isExperimentEnabled()) {
+        AMP.toggleExperiment('{{component}}');
+      }
+      location.reload();
+    }
+
+    // enable active experiment button
+    if (!isExperimentEnabled()) {
+      var experimentToggle = document.getElementById("experiment-toggle");
+      experimentToggle.addEventListener("click", enableExperiment);
+      enableButton('experiment-toggle');
+    }
+
+    // enable active dev channel button
+    if (!window.AMP_CONFIG.canary) {
+      enableButton('canary-toggle');
+    }
+
+    // show invalid AMP message in dev mode
+    if (window.location.hash.includes('development=1')) {
+      console.log('This sample is intentionally not valid AMP.');
+    }
+  });
 });
 
-function updateExperimentWarning() {
-  if (isExperimentEnabled()) {
-    disable('experiment-toggle');
-  } else {
-    enable('experiment-toggle');
-  }
-  if (isCanaryEnabled()) {
-    disable('canary-toggle');
-  } else {
-    enable('canary-toggle');
-  }
-}
-
-function disable(button) {
-    const element = document.getElementById(button);
-    element.className = element.className.replace("primary", "inactive");
-}
-
-function enable(button) {
-    const element = document.getElementById(button);
-    element.className = element.className.replace("inactive", "primary");
-}
-
-function isExperimentEnabled() {
-  return AMP.isExperimentOn('{{component}}');
-}
-
-function isCanaryEnabled() {
-  return window.AMP_CONFIG.canary;
-}
-
-function showInvalidAmpMessage() {
-  if (!window.location.hash.includes('development=1')) {
-    return;
-  }
-  console.log('This sample is intentionally not valid AMP.');
-}
-
-function enableExperiment() {
-  if (!isExperimentEnabled()) {
-    AMP.toggleExperiment('{{component}}');
-  }
-  location.reload();
-}
   </script>
 <!-- END INVALID AMP -->
