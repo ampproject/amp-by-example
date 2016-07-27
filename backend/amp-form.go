@@ -15,10 +15,8 @@
 package backend
 
 import (
-	"bytes"
 	"fmt"
 	"net/http"
-	"strings"
 )
 
 const (
@@ -27,17 +25,18 @@ const (
 )
 
 func InitAmpForm() {
-	http.HandleFunc(FORM_SAMPLE_PATH+"submit-form-xhr", submitFormXHR)
-	http.HandleFunc(FORM_SAMPLE_PATH+"submit-form", submitForm)
+	http.HandleFunc(HOUSING_SAMPLE_PATH+"submit-form-xhr", func(w http.ResponseWriter, r *http.Request) {
+		handlePost(w, r, submitFormXHR)
+	})
+	http.HandleFunc(HOUSING_SAMPLE_PATH+"submit-form", func(w http.ResponseWriter, r *http.Request) {
+		handlePost(w, r, submitForm)
+	})
+
 }
 
 func submitFormXHR(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
 	w.Header().Set("Content-Type", "application/json")
-	if r.Method != "POST" {
-		http.Error(w, "post only", http.StatusMethodNotAllowed)
-		return
-	}
 	response := ""
 	name := r.FormValue("name")
 	if isUserTryingTheErrorDemo(name) {
@@ -49,10 +48,6 @@ func submitFormXHR(w http.ResponseWriter, r *http.Request) {
 }
 
 func submitForm(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		http.Error(w, "post only", http.StatusMethodNotAllowed)
-		return
-	}
 	if isUserTryingTheErrorDemo(r.FormValue("name")) {
 		http.Redirect(w, r, fmt.Sprintf("%s/amp-form-error/", buildSourceOrigin(r.Host)), http.StatusSeeOther)
 	} else {
@@ -64,13 +59,4 @@ func isUserTryingTheErrorDemo(name string) bool {
 	return name == ERROR_CASE_AMP_FORM
 }
 
-func buildSourceOrigin(host string) string {
-	var sourceOrigin bytes.Buffer
-	if strings.HasPrefix(host, "localhost") {
-		sourceOrigin.WriteString("http://")
-	} else {
-		sourceOrigin.WriteString("https://")
-	}
-	sourceOrigin.WriteString(host)
-	return sourceOrigin.String()
-}
+

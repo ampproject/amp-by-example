@@ -1,0 +1,355 @@
+<!---{
+    "experiment": true,
+    "component": "amp-form",
+    "preview": true
+  }--->
+<!--
+#### Introduction
+
+This sample showcases how to build a housing page in AMP HTML. Explore how to use amp components, like `amp-carousel`, `form` and `amp-list` to create a housing page.
+-->
+<!doctype html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://ampbyexample.com/sample_amps/housing/">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <!--
+    Additionally used AMP components must be imported in the header.
+    -->
+    <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+    <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+    <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+    <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+    <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+    <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+    <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
+    <style amp-custom>
+
+    .call-to-action {
+        float: right;
+        margin: 16px;
+    }
+    h2 {
+        float: left;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    a {
+        color: rgb(66,133,244);
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    #housing-description {
+        clear: both;
+    }
+
+    amp-carousel {
+        margin: 0;
+    }
+
+    amp-accordion p, amp-accordion h4 {
+        padding: 16px;
+    }
+
+    amp-accordion h4 {
+        font-size: 18px;
+    }
+
+    .related {
+        background-color: #f5f5f5;
+        display: block;
+        color: #111;
+        height: 100px;
+        padding: 0;
+        line-height: 75px;
+        padding-right: 8px;
+    }
+    .related amp-img {
+        line-height: 24px;
+        font-weight: 400;
+        font-size: 24px;
+        vertical-align: middle;
+        float: left;
+        margin-right: 10px;
+    }
+    .related:hover {
+        background-color: #ccc;
+    }
+    .agency-button {
+        background-color: rgb(66,133,244);
+    }
+    .price-description {
+        color: green;
+        font-weight: 400;
+    }
+    amp-fit-text {
+        margin-bottom: 24px;
+        margin-top: 24px;
+        padding: 0 16px;
+    }
+    .price-other {
+        font-weight: bold;
+    }
+    .contact-section {
+        margin-top: 24px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    @media (max-width: 744px) {
+        .contact-section {
+            display: block;
+        }
+    }
+
+    .contact-heading {
+        margin-top: 0px
+    }
+    @media (max-width: 744px) {
+        .contact {
+            display: flex;
+            margin-bottom: 16px;
+            margin-top: 24px;
+            justify-content: center;
+            padding: 0 16px;
+        }
+    }
+    .call-to-action {
+         margin: 0 16px;
+    }
+    @media (max-width: 744px) {
+        .call-to-action {
+            clear: both;
+            float: none;
+            margin: 0 auto;
+            justify-content: space-between;
+        }
+    }
+    .social-share {
+        line-height:36px;
+        display: flex;
+        padding-bottom: 16px;
+        padding-top: 16px;
+    }
+    amp-social-share {
+        margin-right: 8px;
+    }
+    .list-overflow {
+        position: absolute;
+        bottom: 0;
+    }
+    .form-field-right {
+        border: 1px solid #dfdfdf;
+        position: relative;
+        background: white;
+        width: 200px;
+        width: 179px;
+    }
+    .form-field-right input {
+        border: none;
+    }
+    .form-field-left {
+        width: 200px;
+    }
+    .form-field {
+        display: flex;
+        margin-bottom: 16px;
+    }
+    .description {
+        padding: 16px;
+        margin: 16px;
+    }
+
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    </head>     
+    <body>
+        <h4>
+            <!-- #### Title -->
+            <!--[amp-fit-text](https://www.ampproject.org/docs/reference/extended/amp-fit-text.html) can to fit the text to the available space. It works well for titles that vary not too much in length. -->
+            <amp-fit-text width="300" height="45" layout="responsive" max-font-size="45">
+                    Cosy House in Central London
+            </amp-fit-text>
+        </h4>  
+        <h4 class="price-description">£430,000</h4> 
+        <p id="housing-description">London SW1A 1AA</p>
+          
+
+        <!-- #### Image Gallery -->
+        <!-- The `amp-carousel` works very well for housing image galleries. Learn more about `amp-carousel` [here](/advanced/image_galleries_with_amp-carousel/). -->
+        <amp-carousel width="512" height="384" layout="responsive" type="slides">
+            <amp-img src="/img/buckingham_palace_building_1280x960.jpg" width="1280" height="960" layout="responsive" alt="Buckingham Palace" attribution="https://pixabay.com"></amp-img>
+            <amp-img src="/img/buckingham_palace_entrance_1280x853.jpg" width="1280" height="853" layout="responsive" alt="Buckingham Palace entrance" attribution="https://pixabay.com"></amp-img>
+        </amp-carousel>
+        <!-- These buttons are used for requesting details on the property. -->  
+        <div class="contact-section">
+            <h4 class="contact-heading"> Do you like this property?</h4> 
+            <div class="contact">       
+                <a href="tel:012 3456789" class="button button-primary call-to-action agency-button">Call agent</a>
+                <a href="mailto:someone@example.com" class="button button-primary call-to-action agency-button">Email agent</a>
+            </div>
+        </div>
+
+
+    <!-- #### Social -->
+    <!-- The Social Share extension provides a common interface for share buttons. Learn more about `amp-social-share` [here](/components/amp-social-share/). --> 
+    <p class="social-share">
+        <amp-social-share type="twitter"
+        width="60"
+        height="44"></amp-social-share>
+        <amp-social-share type="facebook"
+        width="60"
+        height="44"
+        data-attribution=254325784911610></amp-social-share>
+        <amp-social-share type="gplus"
+        width="60"
+        height="44"></amp-social-share>
+        <amp-social-share type="email"
+        width="60"
+        height="44"></amp-social-share>
+        <amp-social-share type="pinterest"
+        width="66"
+        height="44"></amp-social-share>
+    </p>
+
+    <!-- #### Collapsibles/Accordion -->
+    <!-- Use `amp-accordion` to hide and show additional data about your product. Learn more about `amp-accordion` [here](/components/amp-accordion/). Embedding Google Maps is possible via the [Google Maps Embed API](https://developers.google.com/maps/documentation/embed/guide), see [here](https://ampbyexample.com/components/amp-iframe/#example16) for a sample.-->
+    <div>
+        <amp-accordion>
+            <section>
+                <h4>Description</h4>
+                <ul class="description">
+                    <li type="square">Ideally located near tube station</li>
+                    <li type="square">Open plan kitchen</li>
+                    <li type="square">Bicycle storage, visitors parking, communal gardens and roof terraces</li>
+                </ul>
+            </section>
+            <section>
+                <h4>View on map</h4>
+                <amp-iframe width="600"
+                      height="400"
+                      layout="responsive"
+                      sandbox="allow-scripts allow-same-origin allow-popups"
+                      frameborder="0"
+                      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCNCZ0Twm_HFRaZ5i-FuPDYs3rLwm4_848&q=London SW1A 1AA">
+                </amp-iframe>
+            </section>
+            <section>
+                <h4>Floorplan</h4>
+                <amp-img src="/img/floorplan_518x340.jpg" width="518" height="340"></amp-img>
+            </section>
+            <section>
+                <h4>Mortgage Calculator</h4>
+                <form method="post" action="/samples_templates/housing/calculate-mortgage" action-xhr="/samples_templates/housing/calculate-mortgage-xhr"  target="_top">  
+                    <div class="form-field">
+                        <span class="form-field-left">
+                            Price
+                        </span>
+                        <div class="form-field-right">
+                            <span>&#163</span><input type="number" name="price" maxlength="10" value="2000000" required> 
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <span class="form-field-left">
+                            Deposit
+                        </span>
+                        <div class="form-field-right">
+                            <span>&#163</span><input type="number" name="deposit" maxlength="10" value="100000" required>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <span class="form-field-left">
+                            Annual interest
+                        </span>
+                        <div class="form-field-right">
+                            <span>&#37;</span><input type="number" name="annual_interest" maxlength="10" value="2.5" step="0.01" required>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <span class="form-field-left">
+                            Repayment period (years)
+                        </span>
+                        <div class="form-field-right">
+                            <span> </span><input type="number" name="repayment_period" value="25" required>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <input type="submit" value="Calculate" class="button button-primary">
+                    </div>
+                <div submit-success>
+                    <template type="amp-mustache">
+                        Monthly repayment {{monthly_repayment}}
+                    </template>
+                </div>
+                <div submit-error>
+                    <template type="amp-mustache">
+                        Error! You entered some incorrect details {{err}}
+                    </template>
+                </div>
+              </form>
+            </section>
+        </amp-accordion>
+    </div>
+
+
+    <h4>Properties sold nearby</h4>
+
+    <!-- #### Properties sold nearby -->
+    <!-- Use `amp-list` to show a list of properties sold nearby. Learn more about `amp-list` [here](/components/amp-list/) -->
+    <ul>
+        <amp-list width=auto
+        height=150
+        layout=fixed-height
+        src="/json/other_properties.json">
+        <template type="amp-mustache">
+            <div class="card related">
+                <amp-img width="122"
+                height="100"
+                src="{{src}}"
+                alt="{{alt}}"
+                attribution="{{attribution}}"></amp-img>
+                <p>{{desc}}</p>
+                <p>{{address}}</p>
+                <p class= "price-other">{{price}}</p>
+            </div>
+        </template>
+        <div overflow role=button aria-label="Show more" class="list-overflow">
+            Show more
+        </div>
+    </amp-list>
+    </ul>
+
+    <!--
+    #### Analytics
+    -->
+    <!--
+    Analytics must be configured in the body. Here we use Google Analytics to track pageviews.
+    -->
+    <amp-analytics type="googleanalytics">
+        <script type="application/json">
+        {
+            "vars": {
+                "account": "UA-73836974-1"
+            },
+            "triggers": {
+                "default pageview": {
+                    "on": "visible",
+                    "request": "pageview",
+                    "vars": {
+                        "title": "Housing"
+                    }
+                }
+            }
+        }
+        </script>
+    </amp-analytics>
+</body>
+</html>
