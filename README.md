@@ -170,6 +170,9 @@ If you need to run or write a sample that depends on the backend server, you can
    $ go_appengine/goapp serve -admin_port 8081
    ```
 3. If everything went well, the full site should now be running on <http://localhost:8080/>
+
+The backend code is all in the [backend](backend) directory.
+
 ## Contributing
 
 Please see [the CONTRIBUTING file](CONTRIBUTING.md) for information on contributing to amp-by-example.
