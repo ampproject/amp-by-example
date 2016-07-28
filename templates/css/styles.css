@@ -331,6 +331,9 @@ header #actions {
 #drawermenu .category {
   padding-left: 16px;
 }
+#drawermenu .category a {
+  color: #333;
+}
 #drawermenu h4 {
   font-weight: 700;
   font-size: 13px;

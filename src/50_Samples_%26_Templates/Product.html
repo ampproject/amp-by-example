@@ -1,7 +1,10 @@
 <!---{
+  "preview": true,
   "default": "preview",
-  "preview": true
-}--->
+  "draft": true,
+  "experiment": true,
+  "component": "amp-form"
+  }--->
 <!--
 #### Introduction
 
@@ -23,34 +26,16 @@ This sample showcases how to build a product page in AMP HTML.
     <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
     <script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
     <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+    <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
 
     <style amp-custom>
-
+    <%>css/product.css%>
     .call-to-action {
         float: right;
-        margin: 16px;
+        margin: 0 16px;
     }
-    h2 {
-        float: left;
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-
-    a {
-        color: rgb(66,133,244);
-    }
-
-    ul {
-        margin: 0;
-        padding: 0;
-    }
-
     #product-description {
         clear: both;
-    }
-
-    amp-carousel {
-        margin: 0;
     }
     amp-lightbox {
         background: rgba(0,0,0,0.8);
@@ -58,22 +43,18 @@ This sample showcases how to build a product page in AMP HTML.
         height: 100%;
         position: absolute;
     }
-
     amp-accordion p, amp-accordion h4 {
         padding: 16px;
     }
-
     amp-accordion h4 {
         font-size: 18px;
     }
-
     .play {
         padding-left: 28px;
         background-position: left center;
         background-repeat: no-repeat;
         background-image: -webkit-image-set(url(/img/ic_play_circle_filled_black_1x_web_24dp.png) 1x,url(/img/ic_play_circle_filled_black_2x_web_24dp.png) 2x);
     }
-
     .amp-youtube-container {
         display: flex;
         align-items: center;
@@ -81,45 +62,11 @@ This sample showcases how to build a product page in AMP HTML.
         width: 100%;
         height: 100%;
     }
-
     #video-container, #social {
         margin: 16px;
     }
     .video {
         flex: 1;
-    }
-    .related {
-        background-color: #f5f5f5;
-        display: block;
-        color: #111;
-        height: 75px;
-        padding: 0;
-        line-height: 75px;
-    }
-    .related amp-img {
-        line-height: 24px;
-        font-weight: 400;
-        font-size: 24px;
-        vertical-align: middle;
-        float: left;
-    }
-    .related:hover {
-        background-color: #ccc;
-    }
-    .call-to-action {
-         margin: 0 16px;
-    }
-    @media (max-width: 320px) {
-        .call-to-action {
-            clear: both;
-            float: none;
-        }
-    }
-    .seller-logo {
-        padding: 16px;
-    }
-    .seller-button {
-        background-color: rgb(66,133,244);
     }
     .price-description {
         color: grey;
@@ -141,13 +88,13 @@ This sample showcases how to build a product page in AMP HTML.
     {
         "@context": "http://schema.org/",
         "@type": "Product",
-        "name": "Nexus 6P",
-        "image": "http://www.ampbyexample.com/img/gold_nexus.png",
-        "description": "Gold Nexus",
+        "name": "[[.Name]]",
+        "image": "http://www.ampbyexample.com/img/product1_1024x682.jpg",
+        "description": "Lorem ipsum",
         "mpn": "925872",
         "brand": {
-            "@type": "Phone",
-            "name": "Nexus"
+            "@type": "Fruit",
+            "name": "Apple"
         },
         "aggregateRating": {
             "@type": "AggregateRating",
@@ -157,13 +104,13 @@ This sample showcases how to build a product page in AMP HTML.
         "offers": {
             "@type": "Offer",
             "priceCurrency": "USD",
-            "price": "500",
+            "price": "1.99",
             "priceValidUntil": "2020-11-05",
             "itemCondition": "http://schema.org/UsedCondition",
             "availability": "http://schema.org/InStock",
             "seller": {
-                "@type": "AMPByExample",
-                "name": "AMPByExample"
+                "@type": "Retail",
+                "name": "AMP by Example"
             }
         }
     }
@@ -173,27 +120,22 @@ This sample showcases how to build a product page in AMP HTML.
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     </head>
     <body>
-        <!--
-        Use `amp-img` to add the logo of the seller.
-        -->
-        <div class="seller-logo">
-            <amp-img src="/img/google_store.png" width="163" height="35"></amp-img>
-        </div>
+    <%>product/header.html%>
 
         <!-- This button adds the item to the shopping cart. Pressing this button should lead to a the shopping cart page on your normal website and the cart should be prefilled with the current item. -->
         <div id="product-header">
-            <h2>Nexus 6P</h2>
-            <a href="/shopping-cart-sample.html" class="button button-primary call-to-action seller-button">Buy</a>
+            <h2>Apple</h2>
+            <a href="/shopping_cart/" class="button button-primary call-to-action">Buy</a>
         </div>
-        <p id="product-description"> A 5.7-inch, high-resolution WQHD AMOLED display and front-facing stereo speakers — all housed in a contoured aluminum body.</p>
-        <h5 class="price-description">From 399$</h5>   
+        <p id="product-description">Lorem ipsum dolor sit amet, ut sed non vel mattis. Et nulla suscipit ante ligula nisl in. Ut venenatis et mauris, mauris porta vulputate tellus mauris integer facilisis.</p>
+        <h5 class="price-description">From $1.99</h5>
 
         <!-- #### Image Gallery -->
         <!-- The `amp-carousel` works very well for product image galleries. Learn more about `amp-carousel` [here](/advanced/image_galleries_with_amp-carousel/). -->
         <amp-carousel width="512" height="384" layout="responsive" type="slides">
-            <amp-img src="/img/all_nexuses.png" width="512" height="384" layout="responsive"></amp-img>
-            <amp-img src="/img/gold_nexus.png" width="512" height="384" layout="responsive"></amp-img>
-            <amp-img src="/img/silver_nexus.png" width="512" height="384" layout="responsive"></amp-img>
+            <amp-img src="/img/product1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
+            <amp-img src="/img/product1_alt1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
+            <amp-img src="/img/product1_alt2_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
         </amp-carousel>
 
         <!-- #### Video -->
@@ -214,13 +156,12 @@ This sample showcases how to build a product page in AMP HTML.
                         <amp-youtube width="480"
                             height="270"
                             layout=responsive
-                            data-videoid="4cAHL4LMNlY">
+                            data-videoid="lBTCB7yLs8Y" >
                         </amp-youtube>
                     </div>
                 </div>
             </amp-lightbox>
         </div>
-
 
     <!-- #### Social -->
     <!-- The Social Share extension provides a common interface for share buttons. Learn more about `amp-social-share` [here](/components/amp-social-share/). </a> -->
@@ -248,44 +189,28 @@ This sample showcases how to build a product page in AMP HTML.
     <div>
         <amp-accordion>
             <section>
-                <h4>An exquisite frame for your life</h4>
-                <p>See your photos, movies, and games in stunning clarity on the 5.7-inch WQHD AMOLED cinematic display. Crafted from aeronautical-grade anodized aluminum with diamond-cut edges for a smooth finish, it looks and feels good in hand.</p>
+                <h4>Description</h4>
+                <p>Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
             </section>
             <section>
-                <h4>Built on a foundation of power</h4>
-                <p>With the Qualcomm® Snapdragon™ 810 v2.1 processor, performance is fast, yet gentle on the 3,450 mAh battery, so it can last all day long.² If you do get low, charging is quick with the USB Type-C plug. It's reversible, so there’s no more guessing which way is up.</p>
+                <h4>Specification</h4>
+                <p>Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
             </section>
             <section>
-                <h4>A camera that captures more light</h4>
-                <p>Larger 1.55 µm pixels absorb more light in even the dimmest conditions to make your photos vibrant and sharp. Plus, the Google Camera app is so quick and easy to use, you'll never miss a moment.</p>
+                <h4>Measurements</h4>
+                <p>Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
             </section>
             <section>
-                <h4>Security at your fingertip</h4>
-                <p>Your Nexus is quicker to access and more secure with a fingerprint sensor placed on the back to complement the way you naturally hold your phone. Unlock your phone and compatible apps with just one touch.</p>
+                <h4>Other</h4>
+                <p>Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
             </section>
         </amp-accordion>
     </div>
 
-
-    <h3>Related products</h3>
-
-    <!-- #### Related products -->
-    <!-- Use `amp-list` to show a list of related products. Learn more about `amp-list` [here](/components/amp-list/) -->
-    <ul>
-        <amp-list width=auto
-        height=200
-        layout=fixed-height
-        src="/json/related_products.json">
-        <template type="amp-mustache">
-            <a class="card related" href={{url}}>
-                <amp-img width="100"
-                height="75"
-                src="{{src}}"></amp-img>
-                {{desc}}
-            </a>
-        </template>
-    </amp-list>
-    </ul>
+    <!-- #### Dynamic Related Product Lists -->
+    <!--  -->
+    <h5>Related products</h5>
+    <%>product/related.html%>
 
     <!--
     #### Analytics

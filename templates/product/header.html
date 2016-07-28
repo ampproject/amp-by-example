@@ -1,0 +1,29 @@
+<!-- #### Navigation -->
+<!--
+Use the [amp-sidebar](/components/amp-sidebar/) component to give customers the chance to quickly jump to any of your product categories.  
+-->
+<amp-sidebar id='drawermenu' layout="nodisplay">
+  <div class="topheader">
+    <a href="/" class="home">Products by Example</a>
+  </div>
+  <hr/>
+  <h4 class="category expanded"><a href="/samples_templates/product_listing/preview/">Fruit</a></h4>
+  <h4 class="category"><a href="/samples_templates/product_listing/preview/">Vegetable</a></h4>
+  <h4 class="category"><a href="/samples_templates/product_listing/preview/">More</a></h4>
+</amp-sidebar>
+<!-- #### Header with Search -->
+<!--
+AMP supports forms, which means you can directly integrate a product search into your AMPs. Try searching for "Apple".
+
+AMP doesn't support custom Javascript, but you can use CSS3 animations to enrich your page. The expanding text field when the search box is focused is implemented with CSS only.
+-->
+<div class="header">
+  <a id="hamburger" on='tap:drawermenu.toggle'>
+    <amp-img srcset="/img/ic_menu_white_1x_web_24dp.png 1x, /img/ic_menu_white_2x_web_24dp.png 2x" width="24" height="24" alt="navigation"></amp-img>
+  </a>
+  <form  method="post" action="<%host%>/samples_templates/product_listing/preview/search" target="_top">
+    <input name="search" type="search" placeholder="Search">
+    <a id="logo" href="/">Products by Example</a>
+    <input type="submit" value="">
+  </form>
+</div>

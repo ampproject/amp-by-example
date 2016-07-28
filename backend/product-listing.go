@@ -15,8 +15,10 @@
 package backend
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
+	"io/ioutil"
 	"net/http"
 	"path"
 	"strings"
@@ -24,86 +26,94 @@ import (
 
 const (
 	SAMPLE_TEMPLATE_FOLDER = "/samples_templates"
-	SEARCH = "search"
+	SEARCH                 = "search"
 )
 
 type ProductListingPage struct {
+	Title        string
 	Products     []Product
 	SearchAction string
 }
 
 type Product struct {
-	Name  string
-	Image string
-	URL   string
-	Stars string
+	Id          int    `json:"id"`
+	Img         string `json:"img"`
+	Name        string `json:"name"`
+	Price       string `json:"price"`
+	Stars       string `json:"stars"`
+	Attribution string `json:"attribution"`
+	Url         string `json:"url"`
+}
+
+func (p *Product) StarsAsHtml() template.HTML {
+	return template.HTML(p.Stars)
+}
+
+type JsonRoot struct {
+	Products []Product `json:"items"`
 }
 
 var products []Product
+var productListingTemplate template.Template
 
 func InitProductListing() {
-	products = make([]Product, 0)
-	products = append(products,
-		Product{"Nexus 5x",
-			"/img/silver_nexus.png",
-			"/samples_templates/product/preview/",
-			"★★★★★"},
-		Product{"Nexus 5x Case",
-			"https://lh3.googleusercontent.com/O00xttgXZHWYdpiWi7K0y7J2kvBMRXwlumBQNLV1853AMtf7MBBMSJ_ug9MDyUxMNjyo",
-			"#",
-			"★★★★★"},
-		Product{"Nexus 5x Folio",
-			"https://lh3.googleusercontent.com/ttVsejKSBY5OLLDj38d1YddiBjkvK9BXqIOzIwa7thdWpMoAJzyhdfYixsl0G2Rx_W8",
-			"#",
-			"★"},
-		Product{"Nexus 6P",
-			"https://lh3.googleusercontent.com/meAtjplzh2B6G9n8kipX7vZ9cti4cUlk48ggRsWiCge1_b_6Ni2U9PFEs6l0RQSlvqGH",
-			"#",
-			"★★★★"},
-		Product{"Speck CandyShell Grip Case for Nexus 6P",
-			"https://lh3.googleusercontent.com/a_JFyb2hYBMd-NVaGZWq2piD6txa6cG3DV2KI2i3k59HRuYDZ8lXYe5m9zrACtFFIA_K",
-			"#",
-			"★★"},
-		Product{"Chromecast Audio",
-			"https://lh3.googleusercontent.com/ysmhjWszkLsyiWRJ97JZyL0oXL0HUzKXfhOgYC8wvLHhQUwr_dRADE1tBvUNzXPGrA",
-			"#",
-			"★★★★★"},
-	)
+	initProducts(DIST_FOLDER + "/json/related_products.json")
 	registerProductListingHandler("product_listing")
 	registerProductListingHandler("product_listing/preview")
 }
 
+func initProducts(path string) {
+	productsFile, err := ioutil.ReadFile(path)
+	if err != nil {
+		panic(err)
+	}
+	var root JsonRoot
+	err = json.Unmarshal(productsFile, &root)
+	if err != nil {
+		panic(err)
+	}
+	products = root.Products
+}
+
 func registerProductListingHandler(sampleName string) {
+	filePath := path.Join(DIST_FOLDER, SAMPLE_TEMPLATE_FOLDER, sampleName, "index.html")
+	template, err := template.New("index.html").Delims("[[", "]]").ParseFiles(filePath)
+	if err != nil {
+		panic(err)
+	}
 	route := path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName) + "/"
 	http.HandleFunc(route, func(w http.ResponseWriter, r *http.Request) {
-		renderProductListing(w, r, sampleName)
+		renderProductListing(w, r, sampleName, *template)
 	})
 	http.HandleFunc(route+SEARCH, func(w http.ResponseWriter, r *http.Request) {
 		handleSearchRequest(w, r, sampleName)
 	})
 }
 
-func renderProductListing(w http.ResponseWriter, r *http.Request, sampleName string) {
-	productsToShow := searchProducts(r.URL.Query().Get(SEARCH))
-	filePath := path.Join(DIST_FOLDER, SAMPLE_TEMPLATE_FOLDER, sampleName, "index.html")
-	t, _ := template.ParseFiles(filePath)
+func renderProductListing(w http.ResponseWriter, r *http.Request, sampleName string, t template.Template) {
+	productListing := searchProducts(sampleName, r.URL.Query().Get(SEARCH))
 	w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d, public, must-revalidate", MAX_AGE_IN_SECONDS))
-	t.Execute(w, ProductListingPage{Products: productsToShow, SearchAction: path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName, SEARCH)})
+	t.Execute(w, productListing)
 }
 
-func searchProducts(query string) []Product{
+func searchProducts(sampleName string, query string) ProductListingPage {
+	var title string
+	var result []Product
 	if query == "" {
-		return products
-	}
-	query = strings.ToLower(query)
-	var searchResultProducts []Product
-	for _, product := range products {
-		productName := strings.ToLower(product.Name)
-		if strings.Contains(productName, query) {
-			searchResultProducts = append(searchResultProducts, product)
+		title = "Fruits"
+		result = products
+	} else {
+		title = "Search Results for '" + query + "'"
+		query = strings.ToLower(query)
+		for _, product := range products {
+			productName := strings.ToLower(product.Name)
+			if strings.Contains(productName, query) {
+				result = append(result, product)
+			}
 		}
 	}
-	return searchResultProducts
+	searchAction := path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName, query)
+	return ProductListingPage{Title: title, Products: result, SearchAction: searchAction}
 }
 
 func handleSearchRequest(w http.ResponseWriter, r *http.Request, sampleName string) {
@@ -111,7 +121,6 @@ func handleSearchRequest(w http.ResponseWriter, r *http.Request, sampleName stri
 		http.Error(w, "post only", http.StatusMethodNotAllowed)
 		return
 	}
-	route := path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName,"?"+SEARCH+"=")
-	http.Redirect(w, r, route + r.FormValue(SEARCH), http.StatusSeeOther)
-
+	route := path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName, "?"+SEARCH+"=") + r.FormValue(SEARCH)
+	http.Redirect(w, r, route, http.StatusSeeOther)
 }
