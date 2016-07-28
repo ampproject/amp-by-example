@@ -160,7 +160,16 @@ You can mark samples as drafts if they are still work-in-progress. This means th
 }--->
 ```
 
+## Running the backend server
 
+If you need to run or write a sample that depends on the backend server, you can run a local version.
+
+1. Install the [Google App Engine SDK](https://cloud.google.com/appengine/downloads#Google_App_Engine_SDK_for_Go).
+2. Run the development server. If you are running the Gulp dev server at the same time, you will need to pick a different `admin_port` as the default will conflict.
+   ```none
+   $ go_appengine/goapp serve -admin_port 8081
+   ```
+3. If everything went well, the full site should now be running on <http://localhost:8080/>
 ## Contributing
 
 Please see [the CONTRIBUTING file](CONTRIBUTING.md) for information on contributing to amp-by-example.
