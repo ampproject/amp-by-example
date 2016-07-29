@@ -204,9 +204,9 @@ button, .button {
 
 #experiment-toggle, #canary-toggle {
   padding: 0;
-  margin: 16px auto;
+  margin: 0 auto;
   display: inline-block;
-  width: 200px;
+  width: 160px;
 }
 
 .amp-experiment {
@@ -469,6 +469,16 @@ footer ul li a {
   padding: 8px;
   margin: 16px;
   border-radius: 2px;
+}
+
+.card h4 {
+  margin-top: 0;
+  padding: 0;
+}
+
+.card p {
+  margin-top: 8px;
+  padding: 0;
 }
 
 .info {

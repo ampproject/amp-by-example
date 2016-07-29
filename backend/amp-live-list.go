@@ -70,8 +70,8 @@ func InitAmpLiveList() {
 		createBlogEntryWithTimeNow("Canyon", "A deep canyon at sunset.", "/img/landscape_canyon_1280x853.jpg", 6),
 		createBlogEntryWithTimeNow("Desert", "A desert with mountains in the background.", "/img/landscape_desert_1280x606.jpg", 7),
 		createBlogEntryWithTimeNow("Houses", "Colorful one floor houses on a street.", "/img/landscape_houses_1280x858.jpg", 8),
-		createBlogEntryWithTimeNow("Blue sea", "Blue sea surrounding a cave.", "/img/landscape_sea_1280_853.jpg", 9),
-		createBlogEntryWithTimeNow("Sailing ship", "A ship sailing the sea at sunset.", "/img/landscape_ship_1280_853.jpg", 10))
+		createBlogEntryWithTimeNow("Blue sea", "Blue sea surrounding a cave.", "/img/landscape_sea_1280x853.jpg", 9),
+		createBlogEntryWithTimeNow("Sailing ship", "A ship sailing the sea at sunset.", "/img/landscape_ship_1280x853.jpg", 10))
 
 	registerHandler(SAMPLE_AMPS_FOLDER, "live_blog")
 	registerHandler(SAMPLE_AMPS_FOLDER, "live_blog/preview")
