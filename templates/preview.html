@@ -15,6 +15,9 @@
     <a href=".." class="exit action">
       View annotated Source 
     </a>
+      {{#metadata.experiment}}
+        {{> experiment.html}}
+      {{/metadata.experiment}}
     <article>
       {{#sections}}
       {{{preview}}}

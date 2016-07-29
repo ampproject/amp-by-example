@@ -79,74 +79,72 @@ This is a sample template for implementing live blogs in AMP.
           background-image: -webkit-image-set(
             url(/img/ic_menu_white_1x_web_24dp.png) 1x,
             url(/img/ic_menu_white_2x_web_24dp.png) 2x
-          );
+            );
           background-color: #333;
           text-align: left;
           padding: 16px;
           padding-left: 72px;
           box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
         }
-       .logo > a {
-         font-size: 16px;
-         font-weight: 500;
-         color: white;  
-         text-transform: uppercase;
-       }
-       .social-share {
-        line-height:36px;
-        display: flex;
-        padding-bottom: 16px;
-        padding-top: 16px;
-       }
-       amp-social-share {
-        margin-right: 8px;
-       }
-       .heading {
-         padding-bottom: 8px;
-       }
-       .heading > #summary {
-         font-weight: 500;
-       }
-       .heading > small {
-         color: #656565;
-       }
-
-      .date {
+        .logo > a {
+          font-size: 16px;
+          font-weight: 500;
+          color: white;  
+          text-transform: uppercase;
+        }
+        amp-social-share {
+          margin-right: 8px;
+        }
+        .heading {
+          padding-bottom: 8px;
+        }
+        .heading > #summary {
+          font-weight: 500;
+        }
+        .heading > small {
+          color: #656565;
+        }
+        .date {
           color: #a8a3ae;
           font-size: 12px;
-       }
-      .blog {
-            padding: 0;
-            min-width: 70%;
-            background: #fff;
-      }
-      .blog p {
-            margin: 0;
-      }
-       .blog .text {
-            color: black;
-            padding-top: 0;
-       }
-       .blog .title {
+        }
+        .blog {
+          padding: 0;
+          min-width: 70%;
+          background: #fff;
+        }
+        .blog p {
+          margin: 0 16px;
+        }
+        .blog .text {
+          color: black;
+          padding-top: 0;
+        }
+        .blog .title {
           color: white;
           position: relative;
           top: -48px;
-          margin: 0;
+          margin: 0 16px;
           height: 0;
           padding-bottom: 16px;
-       }
-       #live-list-update-button {
-        position: fixed;
-        top: 10px;
-        right: 16px;
-      }
-      @media (max-width: 600px) {
-        #live-list-update-button {
-          top: 60px;
         }
-      }
-}
-  </style>
+        .blog .social-share {
+          line-height:36px;
+          display: flex;
+          padding-bottom: 16px;
+          padding-top: 16px;
+        }
+        #live-list-update-button {
+          position: fixed;
+          top: 10px;
+          right: 16px;
+        }
+        @media (max-width: 600px) {
+          #live-list-update-button {
+            top: 60px;
+          }
+        }
+      </style>
 
   </head>
   <body>
