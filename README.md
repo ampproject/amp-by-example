@@ -160,6 +160,28 @@ You can mark samples as drafts if they are still work-in-progress. This means th
 }--->
 ```
 
+## Running the backend server
+
+If you need to run or write a sample that depends on the backend server, you can run a local version.
+
+1. Install the [Google App Engine SDK](https://cloud.google.com/appengine/downloads#Google_App_Engine_SDK_for_Go).
+2. If you're running the `gulp` dev server, then stop it and instead run `gulp` in watch mode so it will recompile on changes.
+
+   ```none
+   $ gulp build watch
+   ```
+
+3. Run the development server.
+
+   ```none
+   $ go_appengine/goapp serve
+   ```
+
+4. If everything went well, the full site should now be running on <http://localhost:8080/>
+
+### Adding backend functionality
+
+Sample specific backend endpoints should be defined in their own file, e.g. for a sample `amp-my-component.html` the backend should be `backends/amp-my-component.go`.
 
 ## Contributing
 
