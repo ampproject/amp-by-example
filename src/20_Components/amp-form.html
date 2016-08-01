@@ -49,8 +49,8 @@
     Use the `action` attribute to specify a server-endpoint which should handle the form input. The URL must be HTTPS. The subscribe button will trigger a page reload.
   -->
   <form method="post" action="/components/amp-form/submit-form" target="_top">   
-      <input type="text" name="name" placeholder="Name..." required>
-      <input type="email" name="email" placeholder="Email..." required>
+      <input type="text" name="name" class="data-input" placeholder="Name..." required>
+      <input type="email" name="email" class="data-input" placeholder="Email..." required>
       <input type="submit" value="Subscribe" class="button button-primary">
   </form>
 
@@ -59,8 +59,8 @@
     Use the `action-xhr` attribute to submit the form via XMLHttpRequest (XHR). You can use [amp-mustache](https://github.com/ampproject/amphtml/blob/master/extensions/amp-mustache/amp-mustache.md) templates to show custom success or error messages. The `amp-form` component displays `submit-success` or `submit-error` elements based on the response and renders the template data inside these two elements.
   -->
   <form method="post" action="/components/amp-form/submit-form" action-xhr="/components/amp-form/submit-form-xhr"  target="_top">   
-      <input type="text" name="name" placeholder="Name..." required>
-      <input type="email" name="email" placeholder="Email..." required>
+      <input type="text" class="data-input" name="name" placeholder="Name..." required>
+      <input type="email" class="data-input" name="email" placeholder="Email..." required>
       <input type="submit" value="Subscribe" class="button button-primary">
 
     <div submit-success>
@@ -86,7 +86,7 @@
   ```
   -->
   <form class="hide-inputs" method="post" action="/components/amp-form/submit-form" action-xhr="/components/amp-form/submit-form-xhr" target="_top">   
-    <input type="text" name="name" placeholder="Name..." required>
+    <input type="text" class="data-input" name="name" placeholder="Name..." required>
     <input type="submit" value="Subscribe" class="button button-primary">
     <div submit-success>
         <template type="amp-mustache">
