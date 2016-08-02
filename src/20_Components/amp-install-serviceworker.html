@@ -17,7 +17,7 @@
 <html ⚡>
 <head>
   <meta charset="utf-8">
-  <link rel="canonical" href="https://ampbyexample.com/components/amp-install-serviceworker/">
+  <link rel="canonical" href="<%host%>/components/amp-install-serviceworker/">
   <!-- #### Setup -->
   <!--
     Import the amp-install-serviceworker component.
@@ -47,7 +47,7 @@ Calls to amp-install-serviceworker can include the `src` and `data-iframe-src` a
   In this sample, when users access this AMP page for the second time, the service worker is installed and caches all image files and video files under the root path of this domain.
   
   Confirm that the service worker is installed and works as expected by following the following steps:
-  1. Access to https://ampbyexample.com/components/amp-install-serviceworker/ twice.
+  1. Access [amp-install-serviceworker](/components/amp-install-serviceworker) twice.
   2. Open Chrome Dev Tools and navigate to the "Resources" tab (or "Application" tab on newer versions of Chrome). In the "Service Workers" section you can see that `/sw.js` is installed.
   3. Then open the "Cached Storage" section. It shows all cached images and videos.
   4. Disable your network connection and reload this page. It still works! In the "Network" tab in Dev Tools, you'll see which resources are cached by the service worker. 

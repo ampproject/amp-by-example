@@ -26,19 +26,19 @@ const ExampleFile = require('./lib/ExampleFile');
 /**
  * Create an empty example.
  */
-module.exports = function(templateRoot, template) {
+module.exports = function(config) {
   let templateName;
   let templates;
 
-  if (typeof templateRoot === 'string') {
-    templates = Templates.get(templateRoot);
+  if (typeof config.templates.root === 'string') {
+    templates = Templates.get(config.templates.root);
   } else {
     throw new PluginError('create-example',
         'Missing template root in template options for create-example');
   }
 
-  if (typeof template === 'string') {
-    templateName = template;
+  if (typeof config.templates.newExample === 'string') {
+    templateName = config.templates.newExample;
   } else {
     throw new PluginError('create-example',
         'Missing template name in template options for create-example');
@@ -57,6 +57,7 @@ module.exports = function(templateRoot, template) {
       const exampleFile = ExampleFile.fromPath(file.path);
       gutil.log('Creating example ' + file.relative);
       const args = {
+        config: config,
         title: exampleFile.title(),
         fileName: exampleFile.url()
       };

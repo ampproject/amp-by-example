@@ -28,7 +28,7 @@ const Metadata = require('./lib/Metadata');
 /**
  * Collects a list of example files and generates a sitemap.xml file.
  */
-module.exports = function() {
+module.exports = function(config) {
   let latestFile;
   let latestMod;
   let files;
@@ -101,7 +101,7 @@ module.exports = function() {
     });
 
     const sitemap = sm.createSitemap({
-      hostname: Metadata.HOST,
+      hostname: config.host,
       cacheTime: 600000,  //600 sec (10 min) cache purge period
       urls: urls
     });

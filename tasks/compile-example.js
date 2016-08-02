@@ -115,6 +115,7 @@ module.exports = function(config, updateTimestamp) {
 
   function compileIndex(stream) {
     const args = {
+      config: config,
       categories: mapToCategories(examples),
       title: 'AMP by Example',
       desc: 'A hands-on introduction to Accelerated Mobile Pages (AMP) ' +
@@ -154,6 +155,7 @@ module.exports = function(config, updateTimestamp) {
       const file = example.file;
       const nextExample = findNextExample(examples, index + 1);
       const args = {
+        config: config,
         head: document.head,
         title: example.title() + ' - ' + 'AMP by Example',
         desc: document.description(),

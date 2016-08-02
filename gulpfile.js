@@ -77,11 +77,12 @@ const paths = {
   fonts: 'src/fonts/*.ttf'
 };
 
-const exampleConfig = {
+const config = {
   templates: {
     root: paths.templates.dir,
     index: 'index.html',
     example: 'example.html',
+    newExample: 'new-example.html',
     preview: 'preview.html'
   }, 
   host: 'https://ampbyexample.com'
@@ -91,6 +92,7 @@ gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
   function() {
     const port = argv.port || 8000;
     const server = gls.static(paths.dist.dir, port);
+    config.host = "http://localhost:" + port;
     server.start();
     gulp.watch([paths.dist.html, paths.dist.scripts], function(file) {
       setTimeout(function() {
@@ -213,19 +215,19 @@ gulp.task("compile:favicons", function() {
 
 gulp.task('validate:example', 'validate example html files', function() {
   return gulp.src(paths.samples)
-    .pipe(compileExample(exampleConfig))
+    .pipe(compileExample(config))
     .pipe(validateExample());
 });
 
 gulp.task('compile:example', 'generate index.html and examples', function() {
   return gulp.src(paths.samples)
-      .pipe(compileExample(exampleConfig))
+      .pipe(compileExample(config))
       .pipe(gulp.dest(paths.dist.dir));
 });
 
 gulp.task('compile:sitemap', 'generate sitemap.xml', function() {
   return gulp.src(paths.samples)
-      .pipe(sitemap())
+      .pipe(sitemap(config))
       .pipe(gulp.dest(paths.dist.dir));
 });
 
@@ -246,7 +248,7 @@ gulp.task('create', 'create a new AMP example', function() {
     throwInvalidArgumentError('example category or directory missing');
   }
   return file(examplePath, '', {src: true})
-      .pipe(createExample(paths.templates.dir, 'new-example.html'))
+      .pipe(createExample(config))
       .pipe(gulp.dest(paths.src));
 });
 
@@ -311,7 +313,7 @@ gulp.task('snapshot',
     'Saves a snapshot of the generated sample files',
     function() {
       return gulp.src(paths.samples)
-        .pipe(compileExample(exampleConfig, false))
+        .pipe(compileExample(config, false))
         .pipe(gulp.dest(paths.tmp.dir));
     }
 );
@@ -320,7 +322,7 @@ gulp.task('snapshot:verify',
     'Compares generated samples against snapshot',
     function() {
       return gulp.src(paths.samples)
-        .pipe(compileExample(exampleConfig, false))
+        .pipe(compileExample(config, false))
         .pipe(diff(paths.tmp.dir))
         .pipe(diff.reporter({fail: true}));
     }
@@ -329,7 +331,7 @@ gulp.task('snapshot:verify',
 /* adds a canonical link to sample files */
 function performChange(content) {
   const exampleFile = ExampleFile.fromPath(this.file.path);
-  const canonical = "https://ampbyexample.com" + exampleFile.url();
+  const canonical = config.host + exampleFile.url();
   if (!/<link rel="canonical"/.test(content)) {
     content = content.replace(/<meta charset="utf-8">/g,
     '<meta charset="utf-8">\n  <link rel="canonical" href="'
