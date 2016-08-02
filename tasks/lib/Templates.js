@@ -16,24 +16,30 @@
 
 "use strict";
 
-const Handlebars = require('handlebars');
+const Hogan = require('hogan.js');
 const CleanCSS = new (require('clean-css'));
 const fs = require('fs');
 const path = require('path');
 
-module.exports.get = function(root) {
-  return new Templates(root);
+module.exports.get = function(root, minify, delimiters) {
+  return new Templates(root, minify, delimiters);
 };
 
 class Templates {
 
-  constructor(root) {
+  constructor(root, minify, delimiters) {
+    this.delimiters = delimiters;
+    this.minify = minify;
     this.templates = [];
     this.registerTemplates(root, '');
   }
 
   render(templateFile, args) {
-    return this.templates[templateFile](args);
+    return this.templates[templateFile].render(args, this.templates);
+  }
+
+  renderString(string, args) {
+    return this.compileTemplate(string).render(args, this.templates);
   }
 
   /* private */
@@ -45,19 +51,22 @@ class Templates {
       if (fs.statSync(filePath).isDirectory()) {
         context.registerTemplates(filePath, key);
       } else {
-        const compiledTemplate = context.compileTemplate(filePath);
-        Handlebars.registerPartial(key, compiledTemplate);
+        const compiledTemplate = context.compileTemplateFromFile(filePath);
         context.templates[key] = compiledTemplate;
       }
     });
   }
 
-  compileTemplate(filePath) {
-    let contents = fs.readFileSync(filePath, 'utf8');
-    if (filePath.endsWith('.css')) {
-      contents = CleanCSS.minify(contents).styles;
+  compileTemplateFromFile(filePath) {
+    let string = fs.readFileSync(filePath, 'utf8');
+    if (filePath.endsWith('.css') && this.minify) {
+      string = CleanCSS.minify(string).styles;
     }
-    return Handlebars.compile(contents, {compat: true});
+    return this.compileTemplate(string);
+  }
+
+  compileTemplate(string) {
+    return Hogan.compile(string, {delimiters: this.delimiters});
   }
 
 }

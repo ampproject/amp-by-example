@@ -78,11 +78,13 @@ const paths = {
 };
 
 const exampleConfig = {
-  templateRoot: paths.templates.dir,
-  templateIndex: 'index.html',
-  templateCategory: 'category.html',
-  templateExample: 'example.html',
-  templatePreview: 'preview.html'
+  templates: {
+    root: paths.templates.dir,
+    index: 'index.html',
+    example: 'example.html',
+    preview: 'preview.html'
+  }, 
+  host: 'https://ampbyexample.com'
 };
 
 gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
