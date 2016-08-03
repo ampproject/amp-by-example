@@ -1,11 +1,12 @@
 <!---{
+    "draft": true,
     "experiment": true,
     "component": "amp-experiment"
   }--->
-<!-- 
+<!--
   #### Introduction
 
-  [amp-experiment](https://github.com/ampproject/amphtml/blob/master/extensions/amp-experiment/amp-experiment.md) allows to perform user experience experiments on an AMP document and collect resulting data. This is good for A/B testing new features in your AMPs.
+The  [amp-experiment](https://github.com/ampproject/amphtml/blob/master/extensions/amp-experiment/amp-experiment.md) component allows to perform user experience experiments on an AMP document and collect resulting data. This is, for example, good for A/B testing new features in your AMPs, but you can test as many variants as you want.
 -->
 <!-- -->
 <!doctype html>
@@ -45,7 +46,9 @@
 
   <!-- #### Basic Usage -->
   <!--
-    Configure experiments inside the `amp-experiment` inside a JSON object. Use `variants` within each experiment to declare how many users in percent will be part of an experiment variant. The total sum of the variants must be a number <= 100, if the number is < 100, then the default behaviour is used. A user belongs to one of the variants based on a random number generated between 0 and 100. For more details about variants read the official [documentation](https://github.com/ampproject/amphtml/blob/master/extensions/amp-experiment/amp-experiment.md). Multiple experiments can be run on the same AMP document in parallel with their own sets of variants. One AMP document can have at most one `amp-experiment` element.
+    Configure experiments inside the `amp-experiment` inside a JSON object. Use `variants` within each experiment to declare how many users in percent will be part of an experiment variant. The total sum of the variants must be a number <= 100, if the number is < 100, then the default behaviour is used. A user belongs to one of the variants based on a random number generated between 0 and 100.
+
+   For more details about variants read the official [documentation](https://github.com/ampproject/amphtml/blob/master/extensions/amp-experiment/amp-experiment.md). Multiple experiments can be run on the same AMP document in parallel with their own sets of variants. One AMP document can have at most one `amp-experiment` element.
   -->
   <amp-experiment>
     <script type="application/json">
@@ -72,7 +75,7 @@
 -->
 <amp-pixel src="https://example.com/track/?xname=button-color-experiment&xvar=VARIANT(button-color-experiment)"></amp-pixel>
 <!--
-... and/or [amp-analytics](https://github.com/ampproject/amphtml/blob/master/extensions/amp-analytics/amp-analytics.md). Allocated variants are available as a URL substitution variable: `VARIANT(name-of-the-experiment)`. You can check the analytics requests in the network tab of the developer tools.
+... or [amp-analytics](https://github.com/ampproject/amphtml/blob/master/extensions/amp-analytics/amp-analytics.md). Allocated variants are available as a URL substitution variable: `VARIANT(name-of-the-experiment)`. You can check the analytics requests in the network tab of the developer tools.
 -->
 <amp-analytics type="googleanalytics" id="analytics">
   <script type="application/json">
@@ -101,13 +104,12 @@
 
 <!-- #### Development Tip -->
 <!--
-  You can force an experiment to be in a specific variant by adding `amp-x-experiment-name` to the AMP page URL. 
+  You can force an experiment to be in a specific variant by adding `amp-x-experiment-name` to the AMP page URL.
   * <a href="https://ampbyexample.com/components/amp-experiment#amp-x-button-color-experiment=red">#amp-x-button-color-experiment=red</a>
   * <a href="https://ampbyexample.com/components/amp-experiment#amp-x-button-color-experiment=blue">#amp-x-button-color-experiment=blue</a>
   * <a href="https://ampbyexample.com/components/amp-experiment#amp-x-button-color-experiment=yellow">#amp-x-button-color-experiment=yellow</a>
 
 -->
-      
 
 </body>
 </html>
