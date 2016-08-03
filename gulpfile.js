@@ -105,6 +105,7 @@ gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
 
 gulp.task('deploy:prod', 'deploy to production server', function(callback) {
   runSequence('clean',
+              'robots:allow',
               'build',
               'deploy:site:prod',
               'deploy:api:prod',
@@ -112,7 +113,9 @@ gulp.task('deploy:prod', 'deploy to production server', function(callback) {
 });
 
 gulp.task('deploy:staging', 'deploy to staging server', function(callback) {
+  config.host = 'https://amp-by-example-staging.appspot.com';
   runSequence('clean',
+              'robots:disallow',
               'build',
               'deploy:site:staging',
               callback);
@@ -312,7 +315,7 @@ gulp.task('backend:watch', 'Run the go backend and watch for changes', function(
   runSequence(
     'build',
     'watch',
-    'run:backend',
+    'backend:serve',
     callback);
 });
 
@@ -341,6 +344,23 @@ gulp.task('snapshot:verify',
         .pipe(diff.reporter({fail: true}));
     }
 );
+
+gulp.task('robots:disallow', 'generate robots.txt disallowing robots to access', function() {
+  return generateRobotsTxt(`User-Agent: *
+Disallow: /
+`);
+});
+
+gulp.task('robots:allow', 'generate robots.txt allowing robots to access', function() {
+  return generateRobotsTxt(`User-Agent: *
+Disallow: 
+`);
+});
+
+function generateRobotsTxt(contents) {
+  return file('robots.txt', contents, { src: true })
+    .pipe(gulp.dest('dist'));
+}
 
 /* adds a canonical link to sample files */
 function performChange(content) {

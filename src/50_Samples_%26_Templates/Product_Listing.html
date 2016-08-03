@@ -67,7 +67,7 @@ This sample showcases how to build a product listing page in AMP HTML.
     <!-- #### Search Form -->
     <!-- Use [amp-form](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md0) to add a search form.
     -->
-    <form  method="post" action="{{.SearchAction}}" target="_top">
+    <form  method="post" action="<%host%>{{.SearchAction}}" target="_top">
         <fieldset>
             <label>
                 <input type="text" class="search-input" name="search" required>
