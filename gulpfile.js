@@ -307,6 +307,20 @@ gulp.task('default', 'Run a webserver and watch for changes', [
   'watch',
   'serve']);
 
+gulp.task('backend:watch', 'Run the go backend and watch for changes', function(callback) {
+  config.host = 'http://localhost:8080';
+  runSequence(
+    'build',
+    'watch',
+    'run:backend',
+    callback);
+});
+
+
+gulp.task('backend:serve', 'Run the go backend', shell.task([
+  'goapp serve'
+]));
+
 gulp.task('validate', 'runs all checks', ['lint', 'test', 'validate:example']);
 
 gulp.task('snapshot',
