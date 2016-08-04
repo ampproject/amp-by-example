@@ -14,7 +14,7 @@ In case we are missing any examples, feel free to [let us know](https://github.c
 2. Install [NodeJS](https://nodejs.org). You will need version 4.0.0 or above.
 3. Install [Gulp](http://gulpjs.com/) via `npm`. You may need to use `sudo` depending on your Node installation.
 
-   ```none
+  ```none
   $ npm install -g gulp
   ```
 
@@ -165,19 +165,12 @@ You can mark samples as drafts if they are still work-in-progress. This means th
 If you need to run or write a sample that depends on the backend server, you can run a local version.
 
 1. Install the [Google App Engine SDK](https://cloud.google.com/appengine/downloads#Google_App_Engine_SDK_for_Go).
-2. If you're running the `gulp` dev server, then stop it and instead run `gulp` in watch mode so it will recompile on changes.
+2. Run the backend server in watch mode so it will recompile on changes via:
 
    ```none
-   $ gulp build watch
+   $ gulp backend:watch
    ```
-
-3. Run the development server.
-
-   ```none
-   $ go_appengine/goapp serve
-   ```
-
-4. If everything went well, the full site should now be running on <http://localhost:8080/>
+3. If everything went well, the full site should now be running on <http://localhost:8080/>
 
 ### Adding backend functionality
 

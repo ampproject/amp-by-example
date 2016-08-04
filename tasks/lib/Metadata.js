@@ -16,17 +16,15 @@
 
 "use strict";
 
-const HOST = 'https://ampbyexample.com';
-
 /**
  * Adds default metadata to the given hash.
  */
 module.exports.add = function(args) {
   const timestamp = args.timestamp;
   const fileName = args.fileName;
-  const canonical = HOST + fileName;
-  const logo = HOST + '/img/logo.png';
-  const leader = HOST + '/img/abe_preview.png';
+  const canonical = args.config.host + fileName;
+  const logo = args.config.host + '/img/logo.png';
+  const leader = args.config.host + '/img/abe_preview.png';
   const metadata = {
     datePublished: timestamp,
     dateModified: timestamp,
@@ -49,5 +47,3 @@ function addMissingMetadata(target, source) {
     }
   }
 }
-
-module.exports.HOST = HOST;

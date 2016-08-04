@@ -14,7 +14,7 @@ This is a sample template for implementing live blogs in AMP.
 <html ⚡>
   <head>
     <meta charset="utf-8">
-  <link rel="canonical" href="https://ampbyexample.com/samples_templates/live_blog/">
+    <link rel="canonical" href="<%host%>/samples_templates/live_blog/">
     <!-- #### Setup -->
     <!--
       All additionally used AMP components must be imported in the header. Import `amp-live-list` for implementing a live blog and `amp-social-share` for adding share buttons.
@@ -31,7 +31,7 @@ This is a sample template for implementing live blogs in AMP.
         {
           "@context": "http://schema.org",
           "@type": "LiveBlogPosting",
-          "url": "https://ampbyexample.com/samples_templates/live_blog/",
+          "url": "<%host%>/samples_templates/live_blog/",
           "about": {
             "@type": "Event",
             "startDate": "2016-07-23T13:00:00-07:00",
@@ -58,7 +58,7 @@ This is a sample template for implementing live blogs in AMP.
             {
               "@type": "BlogPosting",
               "headline": "{{.Heading}}",
-              "url": "https://ampbyexample.com/samples_templates/live_blog/#{{.ID}}",
+              "url": "<%host%>/samples_templates/live_blog/#{{.ID}}",
               "datePublished": "{{.MetadataTimestamp}}",
               "articleBody": {
                 "@value": "{{.Text}}",

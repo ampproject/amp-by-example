@@ -77,18 +77,22 @@ const paths = {
   fonts: 'src/fonts/*.ttf'
 };
 
-const exampleConfig = {
-  templateRoot: paths.templates.dir,
-  templateIndex: 'index.html',
-  templateCategory: 'category.html',
-  templateExample: 'example.html',
-  templatePreview: 'preview.html'
+const config = {
+  templates: {
+    root: paths.templates.dir,
+    index: 'index.html',
+    example: 'example.html',
+    newExample: 'new-example.html',
+    preview: 'preview.html'
+  }, 
+  host: 'https://ampbyexample.com'
 };
 
 gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
   function() {
     const port = argv.port || 8000;
     const server = gls.static(paths.dist.dir, port);
+    config.host = "http://localhost:" + port;
     server.start();
     gulp.watch([paths.dist.html, paths.dist.scripts], function(file) {
       setTimeout(function() {
@@ -101,6 +105,7 @@ gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
 
 gulp.task('deploy:prod', 'deploy to production server', function(callback) {
   runSequence('clean',
+              'robots:allow',
               'build',
               'deploy:site:prod',
               'deploy:api:prod',
@@ -108,7 +113,9 @@ gulp.task('deploy:prod', 'deploy to production server', function(callback) {
 });
 
 gulp.task('deploy:staging', 'deploy to staging server', function(callback) {
+  config.host = 'https://amp-by-example-staging.appspot.com';
   runSequence('clean',
+              'robots:disallow',
               'build',
               'deploy:site:staging',
               callback);
@@ -211,19 +218,19 @@ gulp.task("compile:favicons", function() {
 
 gulp.task('validate:example', 'validate example html files', function() {
   return gulp.src(paths.samples)
-    .pipe(compileExample(exampleConfig))
+    .pipe(compileExample(config))
     .pipe(validateExample());
 });
 
 gulp.task('compile:example', 'generate index.html and examples', function() {
   return gulp.src(paths.samples)
-      .pipe(compileExample(exampleConfig))
+      .pipe(compileExample(config))
       .pipe(gulp.dest(paths.dist.dir));
 });
 
 gulp.task('compile:sitemap', 'generate sitemap.xml', function() {
   return gulp.src(paths.samples)
-      .pipe(sitemap())
+      .pipe(sitemap(config))
       .pipe(gulp.dest(paths.dist.dir));
 });
 
@@ -244,7 +251,7 @@ gulp.task('create', 'create a new AMP example', function() {
     throwInvalidArgumentError('example category or directory missing');
   }
   return file(examplePath, '', {src: true})
-      .pipe(createExample(paths.templates.dir, 'new-example.html'))
+      .pipe(createExample(config))
       .pipe(gulp.dest(paths.src));
 });
 
@@ -303,13 +310,27 @@ gulp.task('default', 'Run a webserver and watch for changes', [
   'watch',
   'serve']);
 
+gulp.task('backend:watch', 'Run the go backend and watch for changes', function(callback) {
+  config.host = 'http://localhost:8080';
+  runSequence(
+    'build',
+    'watch',
+    'backend:serve',
+    callback);
+});
+
+
+gulp.task('backend:serve', 'Run the go backend', shell.task([
+  'goapp serve'
+]));
+
 gulp.task('validate', 'runs all checks', ['lint', 'test', 'validate:example']);
 
 gulp.task('snapshot',
     'Saves a snapshot of the generated sample files',
     function() {
       return gulp.src(paths.samples)
-        .pipe(compileExample(exampleConfig, false))
+        .pipe(compileExample(config, false))
         .pipe(gulp.dest(paths.tmp.dir));
     }
 );
@@ -318,16 +339,33 @@ gulp.task('snapshot:verify',
     'Compares generated samples against snapshot',
     function() {
       return gulp.src(paths.samples)
-        .pipe(compileExample(exampleConfig, false))
+        .pipe(compileExample(config, false))
         .pipe(diff(paths.tmp.dir))
         .pipe(diff.reporter({fail: true}));
     }
 );
 
+gulp.task('robots:disallow', 'generate robots.txt disallowing robots to access', function() {
+  return generateRobotsTxt(`User-Agent: *
+Disallow: /
+`);
+});
+
+gulp.task('robots:allow', 'generate robots.txt allowing robots to access', function() {
+  return generateRobotsTxt(`User-Agent: *
+Disallow: 
+`);
+});
+
+function generateRobotsTxt(contents) {
+  return file('robots.txt', contents, { src: true })
+    .pipe(gulp.dest('dist'));
+}
+
 /* adds a canonical link to sample files */
 function performChange(content) {
   const exampleFile = ExampleFile.fromPath(this.file.path);
-  const canonical = "https://ampbyexample.com" + exampleFile.url();
+  const canonical = config.host + exampleFile.url();
   if (!/<link rel="canonical"/.test(content)) {
     content = content.replace(/<meta charset="utf-8">/g,
     '<meta charset="utf-8">\n  <link rel="canonical" href="'

@@ -13,7 +13,7 @@
 <html ⚡>
 <head>
   <meta charset="utf-8">
-  <link rel="canonical" href="https://ampbyexample.com/components/amp-form/">
+  <link rel="canonical" href="<%host%>/components/amp-form/">
   <!-- #### Setup -->
   <!--
     Import the library.
@@ -22,12 +22,12 @@
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-  <script async src="https://cdn.ampproject.org/v0.js"></script> 
-  <!-- 
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!--
     Customize success or error messages by using `amp-form-submit-success` and `amp-form-submit-error` classes.
    -->
   <style amp-custom>
-        form.amp-form-submit-success [submit-success],  
+        form.amp-form-submit-success [submit-success],
           form.amp-form-submit-error [submit-error]{
             margin-top: 16px;
         }
@@ -42,13 +42,13 @@
         }
   </style>
 </head>
-<body> 
+<body>
 
   <!-- #### Form Submission with Page Reload -->
   <!--
     Use the `action` attribute to specify a server-endpoint which should handle the form input. The URL must be HTTPS. The subscribe button will trigger a page reload.
   -->
-  <form method="post" action="/components/amp-form/submit-form" target="_top">   
+  <form method="post" action="<%host%>/components/amp-form/submit-form" target="_top">
       <input type="text" name="name" class="data-input" placeholder="Name..." required>
       <input type="email" name="email" class="data-input" placeholder="Email..." required>
       <input type="submit" value="Subscribe" class="button button-primary">
@@ -58,7 +58,7 @@
   <!--
     Use the `action-xhr` attribute to submit the form via XMLHttpRequest (XHR). You can use [amp-mustache](https://github.com/ampproject/amphtml/blob/master/extensions/amp-mustache/amp-mustache.md) templates to show custom success or error messages. The `amp-form` component displays `submit-success` or `submit-error` elements based on the response and renders the template data inside these two elements.
   -->
-  <form method="post" action="/components/amp-form/submit-form" action-xhr="/components/amp-form/submit-form-xhr"  target="_top">   
+  <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr"  target="_top">
       <input type="text" class="data-input" name="name" placeholder="Name..." required>
       <input type="email" class="data-input" name="email" placeholder="Email..." required>
       <input type="submit" value="Subscribe" class="button button-primary">
@@ -80,12 +80,12 @@
   Use the `amp-form-submit-success` class to hide input fields after a successful submission. The following CSS rule hides all form input fields after successful form submission:
 
   ```css
-  form.amp-form-submit-success > input { 
+  form.amp-form-submit-success > input {
     display: none
   }
   ```
   -->
-  <form class="hide-inputs" method="post" action="/components/amp-form/submit-form" action-xhr="/components/amp-form/submit-form-xhr" target="_top">   
+  <form class="hide-inputs" method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
     <input type="text" class="data-input" name="name" placeholder="Name..." required>
     <input type="submit" value="Subscribe" class="button button-primary">
     <div submit-success>

@@ -30,25 +30,28 @@ const Templates = require('./lib/Templates');
  * creates a list (using templateIndex)
  */
 module.exports = function(config, updateTimestamp) {
+  let sampleTemplates;
+  let pageTemplates;
+
   let latestFile;
   let latestMod;
   let examples;
-  let templates;
   let timestamp = new Date().toISOString();
 
-  if (typeof config.templateRoot === 'string') {
-    templates = Templates.get(config.templateRoot);
+  if (typeof config.templates.root === 'string') {
+    pageTemplates = Templates.get(config.templates.root,/* minify */ true);
+    sampleTemplates = Templates.get(config.templates.root,/* minify */ false, '<% %>');
   } else {
     throw new PluginError('compile-index-example',
         'Missing template root in template options for compile-example');
   }
 
-  if (typeof config.templateIndex != 'string') {
+  if (typeof config.templates.index != 'string') {
     throw new PluginError('compile-index-example',
         'Missing templateIndex name in template options for compile-example');
   }
 
-  if (typeof config.templateExample != 'string') {
+  if (typeof config.templates.example != 'string') {
     throw new PluginError('compile-index-example',
         'Missing templateExample name in template options for compile-example');
   }
@@ -87,7 +90,7 @@ module.exports = function(config, updateTimestamp) {
     // parse examples into documents and add metadata
     if (file.isBuffer()) {
       const example = ExampleFile.fromPath(file.path);
-      const contents = file.contents.toString();
+      const contents = prerenderTemplates(file.contents.toString(), config);
       example.document = DocumentParser.parse(contents);
       example.file = file;
       examples.push(example);
@@ -112,6 +115,7 @@ module.exports = function(config, updateTimestamp) {
 
   function compileIndex(stream) {
     const args = {
+      config: config,
       categories: mapToCategories(examples),
       title: 'AMP by Example',
       desc: 'A hands-on introduction to Accelerated Mobile Pages (AMP) ' +
@@ -124,7 +128,7 @@ module.exports = function(config, updateTimestamp) {
 
     Metadata.add(args);
     args.fileName = '';
-    const html = templates.render(config.templateIndex, args);
+    const html = pageTemplates.render(config.templates.index, args);
     const indexFile = latestFile.clone({contents: false});
     indexFile.path = path.join(latestFile.base, "index.html");
     indexFile.contents = new Buffer(html);
@@ -151,6 +155,7 @@ module.exports = function(config, updateTimestamp) {
       const file = example.file;
       const nextExample = findNextExample(examples, index + 1);
       const args = {
+        config: config,
         head: document.head,
         title: example.title() + ' - ' + 'AMP by Example',
         desc: document.description(),
@@ -180,7 +185,7 @@ module.exports = function(config, updateTimestamp) {
       }
 
       // compile example
-      const sampleHtml = templates.render(config.templateExample, args);
+      const sampleHtml = pageTemplates.render(config.templates.example, args);
       file.path = path.join(file.base, example.targetPath());
       file.metadata = document.metadata;
       file.contents = new Buffer(sampleHtml);
@@ -190,7 +195,7 @@ module.exports = function(config, updateTimestamp) {
       // compile example preview
       if (document.metadata.preview) {
         const previewFile = file.clone({contents: false});
-        const previewHtml = templates.render(config.templatePreview, args);
+        const previewHtml = pageTemplates.render(config.templates.preview, args);
         previewFile.path = path.join(file.base, example.targetPreviewPath());
         previewFile.metadata = document.metadata;
         previewFile.contents = new Buffer(previewHtml);
@@ -198,6 +203,10 @@ module.exports = function(config, updateTimestamp) {
         stream.push(previewFile);
       }
     });
+  }
+
+  function prerenderTemplates(string, config) {
+    return sampleTemplates.renderString(string, config);
   }
 
   function mapToCategories(examples, currentExample) {

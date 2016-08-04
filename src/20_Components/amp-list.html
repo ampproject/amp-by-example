@@ -8,7 +8,7 @@
 <html ⚡>
 <head>
   <meta charset="utf-8">
-  <link rel="canonical" href="https://ampbyexample.com/components/amp-list/">
+  <link rel="canonical" href="<%host%>/components/amp-list/">
   <!-- #### Setup -->
   <!-- Import the `amp-list` and `amp-mustache` components in the header -->
   <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
@@ -35,7 +35,7 @@
     "items": [
       {
         "title": "amp-carousel",
-        "url": "https://ampbyexample.com/components/amp-carousel"
+        "url": "<%host%>/components/amp-carousel"
       },
       ...
     ]
@@ -44,8 +44,7 @@
   The list content is rendered via an [amp-mustache template](https://github.com/ampproject/amphtml/blob/master/extensions/amp-mustache/amp-mustache.md). The template can either be specified using a nested element.
   -->
   <ul>
-  <amp-list width=auto height=100 layout=fixed-height
-      src="https://ampbyexample.com/json/examples.json">
+  <amp-list width=auto height=100 layout=fixed-height src="<%host%>/json/examples.json">
     <template type="amp-mustache" id="amp-template-id">
       <li><a href={{url}}>{{title}}</a></li>
     </template>
@@ -59,8 +58,7 @@
     previous sample.
   -->
   <ul>
-  <amp-list width=auto height=100 layout=fixed-height
-      src="https://ampbyexample.com/json/examples.json"
+  <amp-list width=auto height=100 layout=fixed-height src="<%host%>/json/examples.json"
       template="amp-template-id">
   </amp-list>
   </ul>
@@ -70,9 +68,7 @@
  If the `amp-list` content requires more space than available, the AMP runtime will display the overflow element (if specified).
   -->
   <ul>
-  <amp-list width=auto height=10 layout=fixed-height
-      src="https://ampbyexample.com/json/examples.json"
-      template="amp-template-id">
+  <amp-list width=auto height=10 layout=fixed-height src="<%host%>/json/examples.json" template="amp-template-id">
   <button overflow role=button aria-label="Show more" class="list-overflow">
     Show more
   </button>
