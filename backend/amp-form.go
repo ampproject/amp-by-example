@@ -58,5 +58,3 @@ func submitForm(w http.ResponseWriter, r *http.Request) {
 func isUserTryingTheErrorDemo(name string) bool {
 	return name == ERROR_CASE_AMP_FORM
 }
-
-
