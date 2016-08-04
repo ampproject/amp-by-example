@@ -16,12 +16,13 @@
 <meta charset="utf-8">
 <!-- #### Setup -->
 <!--
-Import the additional AMP components. This sample uses an image carousel, a form, mustache templates, an iframe, and a list.
+Import the additional AMP components. This sample uses fitted text, an image carousel, a form, mustache templates, an iframe, and a list.
 -->
 <link rel="canonical" href="https://ampbyexample.com/samples_templates/hotel/">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 <script async src="https://cdn.ampproject.org/v0.js"></script>
+<script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
 <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
 <script async custom-element="amp-access" src="https://cdn.ampproject.org/v0/amp-access-0.1.js"></script>
 <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
@@ -93,7 +94,7 @@ Specify the endpoints required for `amp-access` to detect a signed-user. This wi
       font-size: smaller;
       max-height: 30%;
   }
-  .loyaltymessage {
+  .loyalty-message {
       padding: 2px;
       margin: 2px 20px 2px 20px;
       background: #d0dff9;
@@ -140,10 +141,10 @@ Specify the endpoints required for `amp-access` to detect a signed-user. This wi
 <body>
 <!-- #### Hero images -->
 <!--
-  The `amp-carousel` element is used to add hero images for the property. Learn more about configuring the element [here](/components/amp-carousel).
+  The heading resizes to the available space using `amp-fit-text`. The `amp-carousel` element is used to add hero images for the property. Learn more about configuring these elements look at the [advanced carousel demo here](/advanced/image_galleries_with_amp-carousel/).
 -->
 <div>
-    <h5>Buckingham Palace Guest Rooms</h5>
+    <h5><amp-fit-text layout="responsive" min-font-size="20px" max-font-size="80px" height="80" width="600">Buckingham Palace Guest Rooms</amp-fit-text></h5>
     <div class="star-rating"><span>★★★★☆</span> 4.3 stars from 250 reviews</div>
     <amp-carousel id="hero-images" width="640" height="383" layout="responsive" type="slides">
         <div>
@@ -180,13 +181,13 @@ Specify the endpoints required for `amp-access` to detect a signed-user. This wi
 <div>
     <section amp-access="status = 'Gold'">
         <template amp-access-template type="amp-mustache">
-            <div class="loyaltymessage">Congratulations <strong>{{username}}</strong>, your PAMPered <strong>{{status}}</strong> status has earned you <strong>{{freenights}}</strong> free nights you can apply to this stay.</div>
+            <div class="loyalty-message">Congratulations <strong>{{username}}</strong>, your PAMPered <strong>{{status}}</strong> status has earned you <strong>{{freenights}}</strong> free nights you can apply to this stay.</div>
         </template>
     </section>
 </div>
 <!-- #### Dates of stay -->
 <!--
-  An amp-form is used to allow the user to change the dates of their stay. Learn more about handling the result of a form submission in the [form example](/components/amp-form).
+  An amp-form is used to allow the user to change the dates of their stay. The `type="data"` is used to allow the browser to display a native date picker. Learn more about handling the result of a form submission in the [form example](/components/amp-form).
 -->
 <div>
 <h6>Your stay</h2>
