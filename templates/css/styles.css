@@ -197,7 +197,7 @@ button, .button {
 /* experiments */
 
 #experiment-container {
-  display: flex; 
+  display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
@@ -278,7 +278,7 @@ header #logo {
   font-size: 38px;
   text-transform: uppercase;
   line-height: 36px;
-  color: white;  
+  color: white;
   padding-left: 46px;
   background-position: left center;
   background-repeat: no-repeat;
@@ -300,7 +300,7 @@ header .button > span {
   display: inline-block;
   font-weight: 300;
   line-height: 40px;
-  color: white;  
+  color: white;
   text-transform: uppercase;
 }
 header #hamburger {
@@ -464,7 +464,7 @@ footer ul li a {
 /* cards */
 .card {
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
-  float: none; 
+  float: none;
   overflow: hidden;
   padding: 8px;
   margin: 16px;
@@ -524,7 +524,7 @@ footer ul li a {
   }
   header #actions {
     padding: 8px 16px;
-    margin-right: 0px; 
+    margin-right: 0px;
   }
   header .button > span {
     display: none;
@@ -583,7 +583,7 @@ footer ul li a {
     display: block;
   }
 }
-/* form */ 
+/* form */
 form {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -600,7 +600,7 @@ form {
   color: rgb(97, 97, 97);
 }
 
-input[type=text], input[type=email] {
+input[type=text], input[type=email], input[type=date] {
     display: block;
     font-family: "Helvetica","Arial",sans-serif;
     margin: 0;
@@ -628,7 +628,7 @@ input[type=text], input[type=email] {
   border: 1px solid;
   border-color: #ddd;
   height: 43px;
-  padding: 0px;   
+  padding: 0px;
   font-size: 20px;
 }
 
