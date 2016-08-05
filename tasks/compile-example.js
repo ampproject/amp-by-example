@@ -134,7 +134,6 @@ module.exports = function(config, updateTimestamp) {
     indexFile.contents = new Buffer(html);
     gutil.log('Generated ' + indexFile.relative);
     stream.push(indexFile);
-
   }
 
   function findNextExample(examples, index) {
@@ -194,6 +193,9 @@ module.exports = function(config, updateTimestamp) {
 
       // compile example preview
       if (document.metadata.preview) {
+        args.title = example.title() + ' (Preview) - ' + 'AMP by Example';
+        args.desc = "This is a live preview of the '" + example.title() + "' sample. " + args.desc;
+        args.canonical = config.host + example.url() + 'preview/';
         const previewFile = file.clone({contents: false});
         const previewHtml = pageTemplates.render(config.templates.preview, args);
         previewFile.path = path.join(file.base, example.targetPreviewPath());
@@ -229,11 +231,16 @@ module.exports = function(config, updateTimestamp) {
         const selected = currentExample &&
           exampleFile.title() == currentExample.title();
 
+        let exampleUrl = exampleFile.url();
+        if(exampleFile.document.metadata.default == 'preview') {
+          exampleUrl += "preview/";
+        }
+
         currentCategory.examples.push({
           title: exampleFile.title(),
           name: exampleFile.name(),
           description: exampleFile.document.description(),
-          url: exampleFile.url(),
+          url: exampleUrl,
           selected: selected,
           experiment: exampleFile.document.metadata.experiment,
           highlight: exampleFile.document.metadata.highlight
