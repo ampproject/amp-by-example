@@ -132,31 +132,6 @@ code {
   background-color: #CFD8DC;
 }
 
-.action {
-  text-decoration: none;
-  text-align: end;
-  margin: 8px;
-  padding-bottom: 2px;
-  padding-top: 2px;
-  padding-right: 36px;
-  padding-left: 8px;
-  color: #000;
-  display: block;
-  border-radius: 2px;
-  position: relative;
-  line-height: 36px;
-  height: 36px;
-  min-width: 64px;
-  font-size: 14px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0;
-}
-
-.action:hover {
-  background-color: #ccc;
-}
-
 button, .button {
   background: 0 0;
   border: none;
@@ -250,14 +225,6 @@ button, .button {
   background-image: -webkit-image-set(
   url(/img/ic_play_circle_filled_black_1x_web_24dp.png) 1x,
   url(/img/ic_play_circle_filled_black_2x_web_24dp.png) 2x
-  );
-}
-.exit {
-  background-position: right center;
-  background-repeat: no-repeat;
-  background-image: -webkit-image-set(
-  url(/img/ic_close_black_1x_web_24dp.png) 1x,
-  url(/img/ic_close_black_2x_web_24dp.png) 2x
   );
 }
 
