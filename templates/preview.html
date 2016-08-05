@@ -12,13 +12,15 @@
     </style>
   </head>
   <body>
-    <a href=".." class="exit action">
-      View annotated Source 
-    </a>
+    <div id="close-preview">
+      <a href=".." id="exit">
+        View annotated Source 
+      </a>
+    </div>
       {{#metadata.experiment}}
         {{> experiment.html}}
       {{/metadata.experiment}}
-    <article>
+    <article id="preview">
       {{#sections}}
       {{{preview}}}
       {{/sections}}
