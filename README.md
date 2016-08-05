@@ -195,6 +195,13 @@ If you need to run or write a sample that depends on the backend server, you can
 
 Sample specific backend endpoints should be defined in their own file, e.g. for a sample `amp-my-component.html` the backend should be `backends/amp-my-component.go`.
 
+#### How to style examples
+
+You can’t reference external stylesheets when creating samples. AMP by Example provides a [default styling](https://github.com/ampproject/amp-by-example/blob/master/templates/css/styles.css) for common elements (p, h1, h2, h3, a, ...) which you should use. Sample specific styles must live in the head of the document using the tag `<style amp-custom>`.
+If you compile a sample via Gulp and run it, the default styling will be applied.
+Please note: if you copy code from a sample's code section, you will not get the style that you can see in the preview section. We try to limit the CSS that we add to the examples only adding the relevant one for the specific AMP component that we are testing; all the other required CSS will be added by the AMP by Example default styling.
+
+
 ## Contributing
 
 Please see [the CONTRIBUTING file](CONTRIBUTING.md) for information on contributing to amp-by-example.
