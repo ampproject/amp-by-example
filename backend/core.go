@@ -16,8 +16,8 @@ package backend
 
 import (
 	"bytes"
-	"strings"
 	"net/http"
+	"strings"
 )
 
 func buildSourceOrigin(host string) string {
@@ -31,7 +31,7 @@ func buildSourceOrigin(host string) string {
 	return sourceOrigin.String()
 }
 
-func isFormPostRequest(method string, w http.ResponseWriter,) bool {
+func isFormPostRequest(method string, w http.ResponseWriter) bool {
 	if method != "POST" {
 		http.Error(w, "post only", http.StatusMethodNotAllowed)
 		return false
@@ -40,9 +40,9 @@ func isFormPostRequest(method string, w http.ResponseWriter,) bool {
 }
 
 func handlePost(w http.ResponseWriter, r *http.Request, postHandler func(http.ResponseWriter, *http.Request)) {
-    if r.Method != "POST" {
-    http.Error(w, "post only", http.StatusMethodNotAllowed)
-    return;
-   }
-  postHandler(w, r)
+	if r.Method != "POST" {
+		http.Error(w, "post only", http.StatusMethodNotAllowed)
+		return
+	}
+	postHandler(w, r)
 }

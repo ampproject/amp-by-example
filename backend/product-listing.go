@@ -24,7 +24,7 @@ import (
 
 const (
 	SAMPLE_TEMPLATE_FOLDER = "/samples_templates"
-	SEARCH = "search"
+	SEARCH                 = "search"
 )
 
 type ProductListingPage struct {
@@ -91,7 +91,7 @@ func renderProductListing(w http.ResponseWriter, r *http.Request, sampleName str
 	t.Execute(w, ProductListingPage{Products: productsToShow, SearchAction: path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName, SEARCH)})
 }
 
-func searchProducts(query string) []Product{
+func searchProducts(query string) []Product {
 	if query == "" {
 		return products
 	}
@@ -111,7 +111,7 @@ func handleSearchRequest(w http.ResponseWriter, r *http.Request, sampleName stri
 		http.Error(w, "post only", http.StatusMethodNotAllowed)
 		return
 	}
-	route := path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName,"?"+SEARCH+"=")
-	http.Redirect(w, r, route + r.FormValue(SEARCH), http.StatusSeeOther)
+	route := path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName, "?"+SEARCH+"=")
+	http.Redirect(w, r, route+r.FormValue(SEARCH), http.StatusSeeOther)
 
 }
