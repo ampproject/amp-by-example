@@ -128,6 +128,16 @@ You can use [markdown](https://help.github.com/articles/github-flavored-markdown
 <amp-img src="img/image1.jpg" width=200 height=100 layout=responsive></amp-img>
 ```
 
+#### Drafts
+
+You can mark samples as drafts if they are still work-in-progress. This means the samples won't show up in the start page.
+
+```json
+<!---{
+  "draft": true
+}--->
+```
+
 #### Experimental Components
 
 If your sample is using an experimental component, you can add a metadata section (`<!--- ... --->`) with the JSON variables `experiment` and `component`. This will skip its validation and add an experimental note with instructions to your sample:
@@ -139,6 +149,25 @@ If your sample is using an experimental component, you can add a metadata sectio
 }--->
 ```
 
+#### Preview Mode
+
+Visually rich examples can provide a preview mode like [this](https://ampbyexample.com/samples_templates/news_article/preview/). Enable via metadata in the sample:
+
+```json
+<!---{
+  "preview": true
+}--->
+```
+
+It is possible to make the preview mode the default version via:
+
+```json
+<!---{
+  "preview": true,
+  "default": "preview"
+}--->
+```
+
 #### Single Column Layout
 
 If your sample looks better with a single column layout, you can disable the code and preview columns adding the following flags to your sample file:
@@ -147,16 +176,6 @@ If your sample looks better with a single column layout, you can disable the cod
 <!---{
   "hideCode": true,
   "hidePreview": true
-}--->
-```
-
-#### Drafts
-
-You can mark samples as drafts if they are still work-in-progress. This means the samples won't show up in the start page.
-
-```json
-<!---{
-  "draft": true
 }--->
 ```
 
