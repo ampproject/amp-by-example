@@ -45,7 +45,7 @@ handlers:
     Access-Control-Allow-Origin: "*"
 
 - url: /video
-  static_dir: video
+  static_dir: dist/video
   secure: always
   http_headers:
 
