@@ -37,6 +37,7 @@ func init() {
 	backend.InitProductListing()
 	backend.InitHousingForm()
 	backend.InitAmpAccess()
+	backend.InitAmpAnalytics()
 	http.Handle("/", RedirectDomain(NoDirListing(http.FileServer(http.Dir(DIST_DIR)))))
 }
 
