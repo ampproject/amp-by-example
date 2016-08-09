@@ -152,7 +152,10 @@ module.exports = function(config, updateTimestamp) {
     examples.forEach(function(example, index) {
       const document = example.document;
       const file = example.file;
-      const nextExample = findNextExample(examples, index + 1);
+      let nextExample = '';
+      if (example.category()) {
+        nextExample = findNextExample(examples, index + 1);
+      }
       const args = {
         config: config,
         head: document.head,
