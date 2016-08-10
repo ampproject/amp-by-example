@@ -23,7 +23,7 @@ module.exports.add = function(args) {
   const timestamp = args.timestamp;
   const fileName = args.fileName;
   const canonical = args.config.host + fileName;
-  const logo = args.config.host + '/img/logo.png';
+  const logo = args.config.host + '/img/favicon.png';
   const leader = args.config.host + '/img/abe_preview.png';
   const metadata = {
     datePublished: timestamp,
@@ -31,11 +31,11 @@ module.exports.add = function(args) {
     fileName: fileName,
     canonical: canonical,
     logo: logo,
-    logoWidth: '362',
-    logoHeight: '60',
+    logoWidth: '512',
+    logoHeight: '512',
     leader: leader,
-    leaderWidth: '2000',
-    leaderHeight: '1336'
+    leaderWidth: '2046',
+    leaderHeight: '1532'
   };
   addMissingMetadata(args, metadata);
 };
