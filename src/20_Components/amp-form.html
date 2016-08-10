@@ -6,7 +6,9 @@
 <!--
   #### Introduction
 
-  The [amp-form](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md) extension allows the usage of forms and input fields in an AMP document. `amp-form` allows HTTP and XHR (XMLHttpRequest) form submissions. An HTTP form submission loads a new page, while an XHR form submission doesn't require a page reload.
+  The [amp-form](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md) extension allows
+  the usage of forms and input fields in an AMP document. `amp-form` allows HTTP and XHR (XMLHttpRequest) form
+  submissions. An HTTP form submission loads a new page, while an XHR form submission doesn't require a page reload.
 -->
 <!-- -->
 <!doctype html>
@@ -46,7 +48,8 @@
 
   <!-- #### Form Submission with Page Reload -->
   <!--
-    Use the `action` attribute to specify a server-endpoint which should handle the form input. The URL must be HTTPS. The subscribe button will trigger a page reload.
+    Use the `action` attribute to specify a server-endpoint which should handle the form input. The URL must be HTTPS.
+    The subscribe button will trigger a page reload.
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form" target="_top">
       <input type="text" name="name" class="data-input" placeholder="Name..." required>
@@ -56,7 +59,10 @@
 
   <!-- #### Form Submission with Page Update -->
   <!--
-    Use the `action-xhr` attribute to submit the form via XMLHttpRequest (XHR). You can use [amp-mustache](https://github.com/ampproject/amphtml/blob/master/extensions/amp-mustache/amp-mustache.md) templates to show custom success or error messages. The `amp-form` component displays `submit-success` or `submit-error` elements based on the response and renders the template data inside these two elements.
+    Use the `action-xhr` attribute to submit the form via XMLHttpRequest (XHR). You can use
+    [amp-mustache](https://github.com/ampproject/amphtml/blob/master/extensions/amp-mustache/amp-mustache.md)
+    templates to show custom success or error messages. The `amp-form` component displays `submit-success` or
+    `submit-error` elements based on the response and renders the template data inside these two elements.
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr"  target="_top">
       <input type="text" class="data-input" name="name" placeholder="Name..." required>
@@ -77,7 +83,8 @@
 
   <!-- #### Hiding input fields after success -->
   <!--
-  Use the `amp-form-submit-success` class to hide input fields after a successful submission. The following CSS rule hides all form input fields after successful form submission:
+  Use the `amp-form-submit-success` class to hide input fields after a successful submission.
+  The following CSS rule hides all form input fields after successful form submission:
 
   ```css
   form.amp-form-submit-success > input {
