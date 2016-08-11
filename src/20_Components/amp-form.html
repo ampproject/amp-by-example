@@ -27,21 +27,28 @@
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <!--
     Customize success or error messages by using `amp-form-submit-success` and `amp-form-submit-error` classes.
-   -->
+  -->
   <style amp-custom>
-        form.amp-form-submit-success [submit-success],
-          form.amp-form-submit-error [submit-error]{
-            margin-top: 16px;
-        }
-        form.amp-form-submit-success [submit-success] {
-            color: green;
-        }
-        form.amp-form-submit-error [submit-error] {
-            color: red;
-        }
-        form.amp-form-submit-success.hide-inputs > input {
-            display: none
-        }
+  form.amp-form-submit-success [submit-success],
+  form.amp-form-submit-error [submit-error]{
+    margin-top: 16px;
+  }
+  form.amp-form-submit-success [submit-success] {
+    color: green;
+  }
+  form.amp-form-submit-error [submit-error] {
+    color: red;
+  }
+  form.amp-form-submit-success.hide-inputs > input {
+    display: none
+  }
+  .horizontal-display {
+    display: flex;
+    align-items: center;
+  }
+  .other-input {
+    margin: 0 16px;
+  }
   </style>
 </head>
 <body>
@@ -51,10 +58,10 @@
     Use the `action` attribute to specify a server-endpoint which should handle the form input. The URL must be HTTPS.
     The subscribe button will trigger a page reload.
   -->
-  <form method="post" action="<%host%>/components/amp-form/submit-form" target="_top">
-      <input type="text" name="name" class="data-input" placeholder="Name..." required>
-      <input type="email" name="email" class="data-input" placeholder="Email..." required>
-      <input type="submit" value="Subscribe" class="button button-primary">
+  <form method="post" action="<%host%>/components/amp-form/submit-form-input-text" target="_top">
+    <input type="text" name="name" class="data-input" placeholder="Name..." required>
+    <input type="email" name="email" class="data-input" placeholder="Email..." required>
+    <input type="submit" value="Subscribe" class="button button-primary">
   </form>
 
   <!-- #### Form Submission with Page Update -->
@@ -64,20 +71,20 @@
     templates to show custom success or error messages. The `amp-form` component displays `submit-success` or
     `submit-error` elements based on the response and renders the template data inside these two elements.
   -->
-  <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr"  target="_top">
-      <input type="text" class="data-input" name="name" placeholder="Name..." required>
-      <input type="email" class="data-input" name="email" placeholder="Email..." required>
-      <input type="submit" value="Subscribe" class="button button-primary">
+  <form method="post" action="<%host%>/components/amp-form/submit-form-input-text" action-xhr="<%host%>/components/amp-form/submit-form-input-text-xhr"  target="_top">
+    <input type="text" class="data-input" name="name" placeholder="Name..." required>
+    <input type="email" class="data-input" name="email" placeholder="Email..." required>
+    <input type="submit" value="Subscribe" class="button button-primary">
 
     <div submit-success>
-        <template type="amp-mustache">
-            Success! Thanks {{name}} for trying the <code>amp-form</code> demo! Try to insert the word "error" as a name input in the form to see how <code>amp-form</code> handles errors.
-        </template>
+      <template type="amp-mustache">
+        Success! Thanks {{name}} for trying the <code>amp-form</code> demo! Try to insert the word "error" as a name input in the form to see how <code>amp-form</code> handles errors.
+      </template>
     </div>
     <div submit-error>
-        <template type="amp-mustache">
-            Error! Thanks {{name}} for trying the <code>amp-form</code> demo with an error response.
-        </template>
+      <template type="amp-mustache">
+        Error! Thanks {{name}} for trying the <code>amp-form</code> demo with an error response.
+      </template>
     </div>
   </form>
 
@@ -91,19 +98,284 @@
     display: none
   }
   ```
+-->
+<form class="hide-inputs" method="post" action="<%host%>/components/amp-form/submit-form-input-text" action-xhr="<%host%>/components/amp-form/submit-form-input-text-xhr" target="_top">
+  <input type="text" class="data-input" name="name" placeholder="Name..." required>
+  <input type="submit" value="Subscribe" class="button button-primary">
+  <div submit-success>
+    <template type="amp-mustache">
+      Success! Thanks {{name}} for trying the <code>amp-form</code> demo! Try to insert the word "error" as a name input in the form to see how <code>amp-form</code> handles errors.
+    </template>
+  </div>
+  <div submit-error>
+    <template type="amp-mustache">
+      Error! Thanks {{name}} for trying the <code>amp-form</code> demo with an error response.
+    </template>
+  </div>
+</form>
+<!-- #### Other form input samples -->
+  <!--
+    `amp-form` supports all HTML5 form types with the exception of file, password and image.
+    Use `type="date"` for input fields that should contain a date. 
   -->
-  <form class="hide-inputs" method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
-    <input type="text" class="data-input" name="name" placeholder="Name..." required>
-    <input type="submit" value="Subscribe" class="button button-primary">
+  <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+    <input name="select-date" type="date" value="2020-12-30" class="data-input">
+    <input type="submit" value="OK" class="button button-primary">
     <div submit-success>
-        <template type="amp-mustache">
-            Success! Thanks {{name}} for trying the <code>amp-form</code> demo! Try to insert the word "error" as a name input in the form to see how <code>amp-form</code> handles errors.
-        </template>
+      <template type="amp-mustache">
+        Success! Thanks for trying the <code>amp-form</code> demo!
+      </template>
     </div>
     <div submit-error>
-        <template type="amp-mustache">
-            Error! Thanks {{name}} for trying the <code>amp-form</code> demo with an error response.
-        </template>
+      <template type="amp-mustache">
+        Error!
+      </template>
+    </div>
+  </form>
+  <!--
+    Use `type="month"` for input fields that should contain a month. 
+  -->
+  <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+    <input name="select-month" type="month" alue="2020-12-30" class="data-input">
+    <input type="submit" value="OK" class="button button-primary other-input">
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Thanks for trying the <code>amp-form</code> demo!
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error!
+      </template>
+    </div>
+  </form>
+  <!--
+    Use `type="week"` for input fields that should contain a week. 
+  -->
+  <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+    <input type="week" name="week_year" class="data-input">
+    <input type="submit" value="OK" class="button button-primary other-input">
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Thanks for trying the <code>amp-form</code> demo!
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error!
+      </template>
+    </div>
+  </form>
+  <!--
+    Use `type="datetime-local"` for input fields that should contain a date and time. 
+  -->
+  <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+    <input name="select-datetime" type="datetime-local" value="2020-12-30" class="data-input">
+    <input type="submit" value="OK" class="button button-primary other-input">
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Thanks for trying the <code>amp-form</code> demo!
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error!
+      </template>
+    </div>
+  </form>
+  <!--
+    Use `type="time"` for input fields that should contain a time. 
+  -->
+  <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+    <input type="time" name="time_now" class="data-input">
+    <input type="submit" value="OK" class="button button-primary other-input">
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Thanks for trying the <code>amp-form</code> demo!
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error!
+      </template>
+    </div>
+  </form>
+  <!--
+    Use `type="checkbox"` to let the user select ZERO or MORE options of a limited number of choices. 
+  -->
+  <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+    <div class="horizontal-display">
+      <input type="checkbox" name="animal1" value="Cats"> I like cats</input>
+      <input type="checkbox" name="animal2" value="Dogs"> I like dogs </input>
+      <input type="submit" value="OK" class="button button-primary other-input">
+    </div>
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Thanks for trying the <code>amp-form</code> demo!
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error!
+      </template>
+    </div>
+  </form>
+   <!--
+    Use `type="email"` for input fields that should contain an e-mail address. 
+  -->
+  <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+    <input type="email" name="email" placeholder="Email..." class="data-input">
+    <input type="submit" value="OK" class="button button-primary">
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Thanks for trying the <code>amp-form</code> demo!
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error!
+      </template>
+    </div>
+  </form>
+  <!--
+    Use `type="hidden"` to define a field not visible to a user. 
+  -->
+  <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+    <input type="hidden" name="city" value="London">
+    <input type="submit" value="OK" class="button button-primary">
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Thanks for trying the <code>amp-form</code> demo!
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error!
+      </template>
+    </div>
+  </form>
+   <!--
+    Use `type="number"` for input fields that should contain a numeric value. 
+  -->
+  <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+    <input type="number" name="quantity" min="1" max="5" class="data-input">
+    <input type="submit" value="OK" class="button button-primary other-input">
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Thanks for trying the <code>amp-form</code> demo!
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error!
+      </template>
+    </div>
+  </form>
+   <!--
+    Use `type="radio"` to let a user select ONLY ONE of a limited number of choices. 
+  -->
+  <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+    <div class="horizontal-display">
+      <input type="radio" name="favourite animal" value="cat" checked> Cat<br>
+      <input type="radio" name="favourite animal" value="dog"> Dog<br>
+      <input type="radio" name="favourite animal" value="other"> Other
+      <input type="submit" value="OK" class="button button-primary other-input">
+    </div>
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Thanks for trying the <code>amp-form</code> demo!
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error!
+      </template>
+    </div>
+  </form>
+   <!--
+    Use `type="range"` for input fields that should contain a value within a range. 
+  -->
+  <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+    <input type="range" name="points" min="0" max="10" />
+    <input type="submit" value="OK" class="button button-primary other-input">
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Thanks for trying the <code>amp-form</code> demo!
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error!
+      </template>
+    </div>
+  </form>
+   <!--
+    Use `type="telephone"` for input fields that should contain a telephone number. 
+  -->
+  <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+    <input type="tel" name="my_tel" class="data-input" placeholder="Telephone...">
+    <input type="submit" value="OK" class="button button-primary other-input">
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Thanks for trying the <code>amp-form</code> demo!
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error!
+      </template>
+    </div>
+  </form>
+   <!--
+    Use `type="url"` for input fields that should contain a URL address. 
+  -->
+  <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+    <input type="url" class="data-input" placeholder="URL..." name="website">
+    <input type="submit" value="OK" class="button button-primary other-input">
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Thanks for trying the <code>amp-form</code> demo!
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error!
+      </template>
+    </div>
+  </form>
+   <!--
+    Use `type="search"` for search fields. 
+  -->
+  <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+    <input type="search" class="data-input" placeholder="Search..." name="googlesearch">
+    <input type="submit" value="OK" class="button button-primary other-input">
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Thanks for trying the <code>amp-form</code> demo!
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error!
+      </template>
+    </div>
+  </form>
+  <!--
+    Use `type="reset"` to clear input fields. 
+  -->
+  <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+    <input type="text" class="data-input" placeholder="Some text...">
+    <input type="submit" value="OK" class="button button-primary ">
+    <input type="reset" value="Reset" class="button button-primary other-input">
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Thanks for trying the <code>amp-form</code> demo!
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error!
+      </template>
     </div>
   </form>
 </body>
