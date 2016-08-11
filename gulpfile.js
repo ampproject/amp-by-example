@@ -83,8 +83,18 @@ const config = {
     index: 'index.html',
     example: 'example.html',
     newExample: 'new-example.html',
-    preview: 'preview.html'
+    preview: 'preview.html',
   }, 
+  api: {
+    host: 'https://amp-by-example-api.appspot.com',
+    dist: 'api/dist'
+  },
+  a4a: {
+    template: 'preview-a4a.html',
+    defaultWidth: 300,
+    defaultHeight: 250,
+    adContainerLabelHeight: 22
+  },
   host: 'https://ampbyexample.com'
 };
 
@@ -268,7 +278,7 @@ function throwInvalidArgumentError(message) {
 
 gulp.task('clean', 'delete all generated resources', function() {
   cache.caches = {};
-  return del([paths.dist.dir]);
+  return del([paths.dist.dir, config.api.dist]);
 });
 
 gulp.task('watch', 'watch for changes in the examples', function() {
@@ -310,7 +320,7 @@ gulp.task('default', 'Run a webserver and watch for changes', [
   'watch',
   'serve']);
 
-gulp.task('backend:watch', 'Run the go backend and watch for changes', function(callback) {
+gulp.task('backend:watch', 'run the go backend and watch for changes', function(callback) {
   config.host = 'http://localhost:8080';
   runSequence(
     'build',
@@ -319,9 +329,12 @@ gulp.task('backend:watch', 'Run the go backend and watch for changes', function(
     callback);
 });
 
-
 gulp.task('backend:serve', 'Run the go backend', shell.task([
   'goapp serve'
+]));
+
+gulp.task('api:serve', 'Run the go api backend', shell.task([
+  'cd api && goapp serve -admin_port=8100'
 ]));
 
 gulp.task('validate', 'runs all checks', ['lint', 'test', 'validate:example']);

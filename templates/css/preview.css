@@ -51,7 +51,7 @@ article#preview {
 }
 
 article#preview, #close-preview, #experimental-mode {
-  max-width: 800px;
+  max-width: 740px;
   margin: 0 auto;
   width: 100%;
   -moz-box-sizing: border-box;

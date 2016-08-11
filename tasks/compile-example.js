@@ -19,6 +19,8 @@
 const gutil = require('gulp-util');
 const path = require('path');
 const through = require('through2');
+const fs = require('fs');
+const mkdirp = require('mkdirp');
 const PluginError = gutil.PluginError;
 const DocumentParser = require('./lib/DocumentParser');
 const ExampleFile = require('./lib/ExampleFile');
@@ -93,6 +95,7 @@ module.exports = function(config, updateTimestamp) {
       const contents = prerenderTemplates(file.contents.toString(), config);
       example.document = DocumentParser.parse(contents);
       example.file = file;
+      example.contents = contents;
       examples.push(example);
     }
 
@@ -196,11 +199,30 @@ module.exports = function(config, updateTimestamp) {
 
       // compile example preview
       if (document.metadata.preview) {
+        // the default preview template
+        let previewTemplate = config.templates.preview;
+
+        // a4a preview embeds the original sample via iframe
+        if (document.metadata.preview.toLowerCase() == "a4a") {
+          previewTemplate = config.a4a.template;
+          // copy ad sample to api app engine folder
+          const previewPath = path.join(config.api.dist, example.targetPath());
+          mkdirp.sync(path.dirname(previewPath));
+          fs.writeFileSync(previewPath, example.contents);
+          gutil.log('Generated ' + previewPath);
+          // configure a4a preview
+          args.width = document.metadata.width || config.a4a.defaultWidth;
+          args.height = document.metadata.height || config.a4a.defaultHeight;
+          args.adContainerHeight = args.height + config.a4a.adContainerLabelHeight;
+          args.a4aEmbedUrl = config.api.host + '/' + example.targetPath();
+        }
+
+        // generate prewiew 
         args.title = example.title() + ' (Preview) - ' + 'AMP by Example';
         args.desc = "This is a live preview of the '" + example.title() + "' sample. " + args.desc;
         args.canonical = config.host + example.url() + 'preview/';
         const previewFile = file.clone({contents: false});
-        const previewHtml = pageTemplates.render(config.templates.preview, args);
+        const previewHtml = pageTemplates.render(previewTemplate, args);
         previewFile.path = path.join(file.base, example.targetPreviewPath());
         previewFile.metadata = document.metadata;
         previewFile.contents = new Buffer(previewHtml);
