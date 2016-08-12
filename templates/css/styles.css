@@ -8,6 +8,8 @@ figure, ul, ol {
 body {
   background: #fafafa;
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
