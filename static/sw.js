@@ -1,4 +1,3 @@
-
 /**
  * Copyright 2016 Google Inc. All Rights Reserved.
  *
@@ -117,6 +116,9 @@ function ampByExampleHandler(request, values) {
 toolbox.options.debug = true;
 toolbox.router.default = toolbox.networkOnly;
 toolbox.router.get('/(.*)', ampByExampleHandler, {origin: self.location.origin});
-toolbox.router.get('/(.*)', toolbox.fastest, {origin: 'https://cdn.ampproject.org'});
+// cache first amp runtime 
+toolbox.router.get('/(.*)', toolbox.cacheFirst, {origin: 'https://cdn.ampproject.org'});
+// cache first google fonts
+toolbox.router.get('/(.+)', toolbox.cacheFirst, {origin: /https?:\/\/fonts.+/});
 
 toolbox.precache(config.filesToCache);
