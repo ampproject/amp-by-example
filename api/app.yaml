@@ -25,9 +25,13 @@ handlers:
 - url: /third_party
   static_dir: third_party
   secure: always
+- url: /
+  static_dir: dist
+  secure: always
 - url: /.*
   script: _go_app
   secure: always
 
 skip_files:
 - ^(.*/)?.*\.DS_Store$
+- ^(.*/)?.*\.swp$

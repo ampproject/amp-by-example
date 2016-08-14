@@ -155,7 +155,7 @@ Visually rich examples can provide a preview mode like [this](https://ampbyexamp
 
 ```json
 <!---{
-  "preview": true
+  "preview": "default"
 }--->
 ```
 
@@ -163,8 +163,16 @@ It is possible to make the preview mode the default version via:
 
 ```json
 <!---{
-  "preview": true,
+  "preview": "default",
   "default": "preview"
+}--->
+```
+
+There is a special preview mode for AMP for Ads (A4A) samples:
+
+```json
+<!---{
+  "preview": "a4a"
 }--->
 ```
 

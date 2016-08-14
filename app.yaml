@@ -60,4 +60,5 @@ skip_files:
 - spec
 - tasks
 - ^(.*/)?.*\.DS_Store$
+- ^(.*/)?.*\.swp$
 - api
