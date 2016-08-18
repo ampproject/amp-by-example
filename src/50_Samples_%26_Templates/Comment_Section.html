@@ -1,0 +1,89 @@
+<!---{
+  "preview": "default",
+  "default": "preview",
+  "draft": true,
+  "experiments": ["amp-form", "form-submit"]
+  }--->
+<!--
+#### Introduction
+
+This sample showcases how to build a comment section in AMP HTML using the [amp-form](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md) component. Type a comment and press the COMMENT button; your comment will not be persisted, so reload the page if you want to start commenting again. 
+-->
+<!doctype html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="<%host%>/samples_templates/comment_section/">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <!--
+    Additionally used AMP components must be imported in the header.
+    -->
+    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+    <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+
+    <style amp-custom>
+     form.amp-form-submit-success [submit-success],
+    form.amp-form-submit-error [submit-error]{
+        margin-top: 16px;
+    }
+    form.amp-form-submit-success [submit-success] {
+        width: 100%;
+        color: black;
+    }
+    form.amp-form-submit-error [submit-error] {
+        color: red;
+    }
+    .date {
+    color: #a8a3ae;
+    font-size: 12px;
+    }
+    .comment {
+        background: #fff;
+    }
+    .nomargin {
+        margin: 0;
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    </head>
+    <body>
+    <!-- #### Add a Comment Section -->
+  <!--
+    Use the `amp-form` component to realize a comment section. 
+  -->
+  <div>
+    <form method="post" action="<%host%>/samples_templates/comment_section/submit-comment" action-xhr="<%host%>/samples_templates/comment_section/submit-comment-xhr"  target="_top" >
+      <input type="text" class="data-input" name="text" placeholder="Your comment..." required>
+      <input type="submit" value="Comment" class="button button-primary"><br/>
+      <div submit-success>
+        <template type="amp-mustache">
+          <div class="card comment nomargin">
+           <p class= "date">{{Datetime}}</p>
+           <p>{{Text}}</p>
+       </div>
+        </template>
+      </div>
+      <div submit-error>
+        <template type="amp-mustache">
+          Error! Looks like something went wrong with your comment, please try to submit it again. {{error}}
+        </template>
+      </div>
+    </form>
+
+  <h5>Previous Comments</h5>
+
+  <div>
+    [[range .Comments]]
+    <div class="card comment">
+      <p class= "date">[[.Datetime]]</p>
+      <p>[[.Text]]</p>
+    </div>
+  [[else]]
+  <p>No comments found.</p>
+  [[end]]
+  </div>
+</div>
+</body>
+</html>

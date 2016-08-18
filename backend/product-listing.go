@@ -25,7 +25,6 @@ import (
 )
 
 const (
-	SAMPLE_TEMPLATE_FOLDER = "/samples_templates"
 	SEARCH                 = "search"
 )
 

@@ -20,6 +20,10 @@ import (
 	"net/http"
 )
 
+const (
+		SAMPLE_TEMPLATE_FOLDER = "/samples_templates"
+)
+
 func buildSourceOrigin(host string) string {
 	var sourceOrigin bytes.Buffer
 	if strings.HasPrefix(host, "localhost") {

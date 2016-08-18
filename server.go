@@ -38,6 +38,7 @@ func init() {
 	backend.InitHousingForm()
 	backend.InitAmpAccess()
 	backend.InitAmpAnalytics()
+	backend.InitCommentSection()
 	http.Handle("/", RedirectDomain(NoDirListing(http.FileServer(http.Dir(DIST_DIR)))))
 }
 
