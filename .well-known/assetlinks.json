@@ -1,5 +1,6 @@
 [{
   "relation": ["delegate_permission/common.handle_all_urls"],
-  "target" : { "namespace": "android_app", "package_name": "com.google.aia.example.instant.amp",
+  "target" : { "namespace": "android_app", "package_name": "com.ampbyexample.android.aia.hello.amp",
                "sha256_cert_fingerprints": ["AD:AB:39:FC:6B:1B:97:98:66:16:A4:F8:8A:00:90:C1:5E:C6:B0:13:67:19:66:D7:AC:16:38:1D:86:48:B9:AB"] }
 }]
+
