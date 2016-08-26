@@ -53,6 +53,7 @@ const paths = {
     scripts: 'dist/scripts',
     favicons: 'dist/favicons',
     fonts: 'dist/fonts',
+    wellknown: 'dist/.well-known'
   },
   images: 'src/img/*.{png,jpg,gif}',
   favicon: 'src/img/favicon.png',
@@ -74,7 +75,8 @@ const paths = {
   videos: 'src/video/*.{mp4,webm}',
   json: 'src/json/*.json',
   scripts: 'src/scripts/*.js',
-  fonts: 'src/fonts/*.ttf'
+  fonts: 'src/fonts/*.ttf',
+  wellknown: '.well-known/assetlinks.json'
 };
 
 const config = {
@@ -175,6 +177,12 @@ gulp.task('copy:fonts', 'copy example fonts', function() {
   return gulp.src(paths.fonts)
       .pipe(cache('fonts'))
       .pipe(gulp.dest(paths.dist.fonts));
+});
+
+gulp.task('copy:well-known', 'copy well-known folder', function() {
+  return gulp.src(paths.wellknown)
+      .pipe(cache('wellknown'))
+      .pipe(gulp.dest(paths.dist.wellknown));
 });
 
 gulp.task('copy:scripts', 'copy scripts', function() {
@@ -409,7 +417,8 @@ gulp.task('build', 'build all resources', [
   'copy:static',
   'compile:favicons',
   'compile:sitemap',
-  'compile:example'
+  'compile:example',
+  'copy:well-known'
 ]);
 
 function isFixed(file) {
