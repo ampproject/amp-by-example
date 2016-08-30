@@ -116,7 +116,7 @@
 <!-- #### Other form input samples -->
   <!--
     `amp-form` supports all HTML5 form types with the exception of file, password and image.
-    Use `type="date"` for input fields that should contain a date. 
+    Use `type="date"` for input fields that should contain a date.
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
     <input name="select-date" type="date" value="2020-12-30" class="data-input">
@@ -133,10 +133,10 @@
     </div>
   </form>
   <!--
-    Use `type="month"` for input fields that should contain a month. 
+    Use `type="month"` for input fields that should contain a month.
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
-    <input name="select-month" type="month" alue="2020-12-30" class="data-input">
+    <input name="select-month" type="month" value="2020-12" class="data-input">
     <input type="submit" value="OK" class="button button-primary other-input">
     <div submit-success>
       <template type="amp-mustache">
@@ -150,7 +150,7 @@
     </div>
   </form>
   <!--
-    Use `type="week"` for input fields that should contain a week. 
+    Use `type="week"` for input fields that should contain a week.
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
     <input type="week" name="week_year" class="data-input">
@@ -167,10 +167,10 @@
     </div>
   </form>
   <!--
-    Use `type="datetime-local"` for input fields that should contain a date and time. 
+    Use `type="datetime-local"` for input fields that should contain a date and time.
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
-    <input name="select-datetime" type="datetime-local" value="2020-12-30" class="data-input">
+    <input name="select-datetime" type="datetime-local" value="2020-12-30T12:34:56" class="data-input">
     <input type="submit" value="OK" class="button button-primary other-input">
     <div submit-success>
       <template type="amp-mustache">
@@ -184,7 +184,7 @@
     </div>
   </form>
   <!--
-    Use `type="time"` for input fields that should contain a time. 
+    Use `type="time"` for input fields that should contain a time.
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
     <input type="time" name="time_now" class="data-input">
@@ -201,7 +201,7 @@
     </div>
   </form>
   <!--
-    Use `type="checkbox"` to let the user select ZERO or MORE options of a limited number of choices. 
+    Use `type="checkbox"` to let the user select ZERO or MORE options of a limited number of choices.
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
     <div class="horizontal-display">
@@ -221,7 +221,7 @@
     </div>
   </form>
    <!--
-    Use `type="email"` for input fields that should contain an e-mail address. 
+    Use `type="email"` for input fields that should contain an e-mail address.
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
     <input type="email" name="email" placeholder="Email..." class="data-input">
@@ -238,7 +238,7 @@
     </div>
   </form>
   <!--
-    Use `type="hidden"` to define a field not visible to a user. 
+    Use `type="hidden"` to define a field not visible to a user.
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
     <input type="hidden" name="city" value="London">
@@ -255,7 +255,7 @@
     </div>
   </form>
    <!--
-    Use `type="number"` for input fields that should contain a numeric value. 
+    Use `type="number"` for input fields that should contain a numeric value.
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
     <input type="number" name="quantity" min="1" max="5" class="data-input">
@@ -272,7 +272,7 @@
     </div>
   </form>
    <!--
-    Use `type="radio"` to let a user select ONLY ONE of a limited number of choices. 
+    Use `type="radio"` to let a user select ONLY ONE of a limited number of choices.
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
     <div class="horizontal-display">
@@ -293,7 +293,7 @@
     </div>
   </form>
    <!--
-    Use `type="range"` for input fields that should contain a value within a range. 
+    Use `type="range"` for input fields that should contain a value within a range.
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
     <input type="range" name="points" min="0" max="10" />
@@ -310,7 +310,7 @@
     </div>
   </form>
    <!--
-    Use `type="telephone"` for input fields that should contain a telephone number. 
+    Use `type="telephone"` for input fields that should contain a telephone number.
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
     <input type="tel" name="my_tel" class="data-input" placeholder="Telephone...">
@@ -327,7 +327,7 @@
     </div>
   </form>
    <!--
-    Use `type="url"` for input fields that should contain a URL address. 
+    Use `type="url"` for input fields that should contain a URL address.
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
     <input type="url" class="data-input" placeholder="URL..." name="website">
@@ -344,7 +344,7 @@
     </div>
   </form>
    <!--
-    Use `type="search"` for search fields. 
+    Use `type="search"` for search fields.
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
     <input type="search" class="data-input" placeholder="Search..." name="googlesearch">
@@ -361,7 +361,7 @@
     </div>
   </form>
   <!--
-    Use `type="reset"` to clear input fields. 
+    Use `type="reset"` to clear input fields.
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
     <input type="text" class="data-input" placeholder="Some text...">
