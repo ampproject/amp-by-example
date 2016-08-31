@@ -20,9 +20,9 @@
     {{> header.html}}
     <article>
       <h3 id="title">
-        {{subHeading}} {{#metadata.experiment}}<i class="amp-experiment-large"></i>{{/metadata.experiment}}
+        {{subHeading}} {{#metadata.experiments.length}}<i class="amp-experiment-large"></i>{{/metadata.experiments.length}}
       </h3>
-      {{#metadata.experiment}}
+      {{#metadata.experiments.length}}
       <div class="box">
         <div class="column doc">
           {{> experiment.html}}
@@ -30,7 +30,7 @@
         <div class="column code hide-on-mobile {{#metadata.hideCode}}hide{{/metadata.hideCode}}"></div>
         <div class="column preview hide-on-mobile {{#metadata.hidePreview}}hide{{/metadata.hidePreview}}"></div>
       </div>
-      {{/metadata.experiment}}
+      {{/metadata.experiments.length}}
       {{#sections}}
       <div class="box ">
         <div class="column doc {{#hideDocOnMobile}}hide-on-mobile{{/hideDocOnMobile}} {{#metadata.hideDoc}}hide{{/metadata.hideDoc}}">

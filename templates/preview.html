@@ -14,12 +14,12 @@
   <body>
     <div id="close-preview">
       <a href=".." id="exit">
-        View annotated Source 
+        View annotated Source
       </a>
     </div>
-      {{#metadata.experiment}}
+      {{#metadata.experiments.length}}
         {{> experiment.html}}
-      {{/metadata.experiment}}
+      {{/metadata.experiments.length}}
     <article id="preview">
       {{#sections}}
       {{{preview}}}

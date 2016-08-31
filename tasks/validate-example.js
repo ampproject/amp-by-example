@@ -39,7 +39,7 @@ module.exports = function() {
 
       // skip over experiments which will fail validation
       if (file.metadata &&
-        (file.metadata.experiment || file.metadata.skipValidation)) {
+        (file.metadata.experiments || file.metadata.skipValidation)) {
         gutil.log('Validating ' + file.relative +
           ': ' + gutil.colors.yellow('IGNORED'));
         return callback(null, file);

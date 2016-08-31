@@ -1,6 +1,5 @@
 <!---{
-    "experiment": true,
-    "component": "amp-form",
+    "experiments": ["amp-form", "form-submit"],
     "default": "preview",
     "preview": "default"
   }--->
@@ -148,7 +147,7 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
 
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
-    </head>     
+    </head>
     <body>
         <h4>
             <!-- #### Title -->
@@ -156,10 +155,10 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
             <amp-fit-text width="300" height="45" layout="responsive" max-font-size="45">
                     Cosy House in Central London
             </amp-fit-text>
-        </h4>  
-        <h4 class="price-description">£430,000</h4> 
+        </h4>
+        <h4 class="price-description">£430,000</h4>
         <p id="housing-description">London SW1A 1AA</p>
-          
+
 
         <!-- #### Image Gallery -->
         <!-- The `amp-carousel` works very well for housing image galleries. Learn more about `amp-carousel` [here](/advanced/image_galleries_with_amp-carousel/). -->
@@ -167,10 +166,10 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
             <amp-img src="/img/buckingham_palace_building_1280x960.jpg" width="1280" height="960" layout="responsive" alt="Buckingham Palace" attribution="https://pixabay.com"></amp-img>
             <amp-img src="/img/buckingham_palace_entrance_1280x853.jpg" width="1280" height="853" layout="responsive" alt="Buckingham Palace entrance" attribution="https://pixabay.com"></amp-img>
         </amp-carousel>
-        <!-- These buttons are used for requesting details on the property. -->  
+        <!-- These buttons are used for requesting details on the property. -->
         <div class="contact-section">
-            <h4 class="contact-heading"> Do you like this property?</h4> 
-            <div class="contact">       
+            <h4 class="contact-heading"> Do you like this property?</h4>
+            <div class="contact">
                 <a href="tel:012 3456789" class="button button-primary call-to-action">Call agent</a>
                 <a href="mailto:someone@example.com" class="button button-primary call-to-action">Email agent</a>
             </div>
@@ -178,7 +177,7 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
 
 
     <!-- #### Social -->
-    <!-- The Social Share extension provides a common interface for share buttons. Learn more about `amp-social-share` [here](/components/amp-social-share/). --> 
+    <!-- The Social Share extension provides a common interface for share buttons. Learn more about `amp-social-share` [here](/components/amp-social-share/). -->
     <p class="social-share">
         <amp-social-share type="twitter"
         width="60"
@@ -226,13 +225,13 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
         </section>
         <section>
           <h4>Mortgage Calculator</h4>
-          <form method="post" action="<%host%>/samples_templates/housing/calculate-mortgage" action-xhr="<%host%>/samples_templates/housing/calculate-mortgage-xhr"  target="_top">  
+          <form method="post" action="<%host%>/samples_templates/housing/calculate-mortgage" action-xhr="<%host%>/samples_templates/housing/calculate-mortgage-xhr"  target="_top">
             <div class="form-field">
               <span class="form-field-left">
                 Price
               </span>
               <div class="form-field-right">
-                <span>&#163</span><input type="number" name="price" maxlength="10" value="2000000" required> 
+                <span>&#163</span><input type="number" name="price" maxlength="10" value="2000000" required>
               </div>
             </div>
             <div class="form-field">
