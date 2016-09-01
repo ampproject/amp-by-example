@@ -1,9 +1,9 @@
 <div id="experimental-mode" class="card info">
   <h4>Experimental Mode</h4>
-  <p>The <code>{{component}}</code> component is currently in experimental mode and needs to be manually enabled (<a href="https://www.ampproject.org/docs/reference/experimental.html">more info</a>).</p>
+  <p>This example uses the following experimental feature{{#metadata.experiments.1}}s{{/metadata.experiments.1}}: <code class="amp-experiment-list">[{{#metadata.experiments}}<span>{{.}}</span>{{/metadata.experiments}}]</code><br>Enable them below and <a href="https://www.ampproject.org/docs/reference/experimental.html">learn more here</a>.</p>
 
   <div id="experiment-container">
-    <button id="experiment-toggle" class="button-inactive">Enable Experiment</button>
+    <button id="experiment-toggle" class="button-inactive">Enable Experiment{{#metadata.experiments.1}}s{{/metadata.experiments.1}}</button>
     <a id="canary-toggle" class="button button-inactive" href="https://cdn.ampproject.org/experiments.html" target="_blank">Enable Dev Channel</a>
   </div>
 </div>
@@ -17,21 +17,30 @@ document.addEventListener("DOMContentLoaded", function(event) {
       element.className = element.className.replace("inactive", "primary");
     }
 
-    function isExperimentEnabled() {
-      return AMP.isExperimentOn('{{component}}');
+    function areAllExperimentsEnabled() {
+      {{#metadata.experiments}}
+      if (!AMP.isExperimentOn('{{.}}')) {
+        return false;
+      }
+      {{/metadata.experiments}}
+
+      return true;
     }
 
-    function enableExperiment() {
-      if (!isExperimentEnabled()) {
-        AMP.toggleExperiment('{{component}}');
+    function enableExperiments() {
+      {{#metadata.experiments}}
+      if (!AMP.isExperimentOn('{{.}}')) {
+        AMP.toggleExperiment('{{.}}');
       }
+      {{/metadata.experiments}}
+
       location.reload();
     }
 
     // enable active experiment button
-    if (!isExperimentEnabled()) {
+    if (!areAllExperimentsEnabled()) {
       var experimentToggle = document.getElementById("experiment-toggle");
-      experimentToggle.addEventListener("click", enableExperiment);
+      experimentToggle.addEventListener("click", enableExperiments);
       enableButton('experiment-toggle');
     }
 

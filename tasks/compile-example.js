@@ -182,13 +182,6 @@ module.exports = function(config, updateTimestamp) {
       };
       Metadata.add(args);
 
-      if (document.metadata.experiment && !document.metadata.component) {
-        throw new PluginError({
-          plugin: 'compile-example',
-          message: 'Example (' + file.path + ') is `experiment`: true, but ' +
-            'is missing the `component` metadata'});
-      }
-
       // compile example
       const sampleHtml = pageTemplates.render(config.templates.example, args);
       file.path = path.join(file.base, example.targetPath());
@@ -217,7 +210,7 @@ module.exports = function(config, updateTimestamp) {
           args.a4aEmbedUrl = config.api.host + '/' + example.targetPath();
         }
 
-        // generate prewiew 
+        // generate preview
         args.title = example.title() + ' (Preview) - ' + 'AMP by Example';
         args.desc = "This is a live preview of the '" + example.title() + "' sample. " + args.desc;
         args.canonical = config.host + example.url() + 'preview/';
@@ -267,7 +260,7 @@ module.exports = function(config, updateTimestamp) {
           description: exampleFile.document.description(),
           url: exampleUrl,
           selected: selected,
-          experiment: exampleFile.document.metadata.experiment,
+          experiments: exampleFile.document.metadata.experiments,
           highlight: exampleFile.document.metadata.highlight
         });
       });

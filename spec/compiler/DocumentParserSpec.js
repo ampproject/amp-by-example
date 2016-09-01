@@ -40,10 +40,8 @@ describe("DocumentParser", function() {
   var COMMENT = '<!--comment-->';
   var LINK = ' <link href="Hello World" />';
   var META = ' <meta href="Hello World" />';
-  var DOCUMENT_METADATA_1 = '<!---{"experiment": true}--->';
-  var DOCUMENT_METADATA_2 = `<!---{
-    "experiment": true,
-    "component": "amp-accordion"
+  var DOCUMENT_METADATA = `<!---{
+    "experiments": ["amp-accordion"]
   }--->`;
   var DOCUMENT_METADATA_INVALID = `<!---{
     experiment: true,
@@ -148,15 +146,9 @@ describe("DocumentParser", function() {
   });
 
   describe("adds metadata to document", function() {
-    it("before comment", function() {
-      var doc = parse(DOCUMENT_METADATA_1, COMMENT, HEAD, TITLE, HEAD_END);
-      expect(doc.metadata.experiment).toEqual(true);
-      expect(doc.sections.length).toEqual(1);
-    });
     it("after comment", function() {
-      var doc = parse(COMMENT, DOCUMENT_METADATA_2, HEAD, TITLE, HEAD_END, BODY, COMMENT, BODY_END);
-      expect(doc.metadata.experiment).toEqual(true);
-      expect(doc.metadata.component).toEqual("amp-accordion");
+      var doc = parse(COMMENT, DOCUMENT_METADATA, HEAD, TITLE, HEAD_END, BODY, COMMENT, BODY_END);
+      expect(doc.metadata.experiments).toEqual(["amp-accordion"]);
       expect(doc.sections.length).toEqual(3);
     });
     it("invalid metadata", function() {
@@ -216,4 +208,3 @@ describe("DocumentParser", function() {
   }
 
 });
-

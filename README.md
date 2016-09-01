@@ -138,14 +138,13 @@ You can mark samples as drafts if they are still work-in-progress. This means th
 }--->
 ```
 
-#### Experimental Components
+#### Experimental Features
 
-If your sample is using an experimental component, you can add a metadata section (`<!--- ... --->`) with the JSON variables `experiment` and `component`. This will skip its validation and add an experimental note with instructions to your sample:
+If your sample is using one or more experimental features, you can add a metadata section (`<!--- ... --->`) with the JSON variable `experiments` to specify which experiments to enable. This will skip its validation and add an experimental note with instructions to your sample:
 
 ```json
 <!---{
-  "experiment": true,
-  "component": "amp-experimenal-component"
+  "experiments": ["amp-experiment-name", "amp-experiment-another-name"]
 }--->
 ```
 
@@ -208,7 +207,7 @@ Sample specific backend endpoints should be defined in their own file, e.g. for 
 
 You can’t reference external stylesheets when creating samples. AMP by Example provides a [default styling](https://github.com/ampproject/amp-by-example/blob/master/templates/css/styles.css) for common elements (p, h1, h2, h3, a, ...) which you should use. Sample specific styles must live in the head of the document using the tag `<style amp-custom>`. Try to keep the additional CSS for samples to a minimum and use the default styles as often as possible. If you compile a sample via Gulp and run it, the default styling will be applied.
 
-Please note: if you copy code from a sample's code section, you will not get the style that you can see in the preview section. 
+Please note: if you copy code from a sample's code section, you will not get the style that you can see in the preview section.
 
 ## Contributing
 

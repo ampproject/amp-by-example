@@ -186,6 +186,10 @@ button, .button {
   width: 160px;
 }
 
+.amp-experiment-list span:not(:last-of-type)::after {
+  content: ", "
+}
+
 .amp-experiment {
   padding-right: 24px;
   background-position: 100% center;
@@ -212,6 +216,7 @@ button, .button {
   url('/img/ic_experiment_black_1x_web_36dp.png') 1x,
   url('/img/ic_experiment_black_2x_web_36dp.png') 2x );
 }
+
 
 /* actions */
 
