@@ -1,5 +1,4 @@
 /* reset */
-  everflow-wrap: break-word;
 figure, ul, ol {
   margin: 0;
   padding: 0;
@@ -299,34 +298,37 @@ header #actions {
 #drawermenu amp-accordion {
   padding-bottom: 24px;
 }
+#drawermenu amp-accordion > * {
+  -webkit-tap-highlight-color: #e5e5e5;
+}
 #drawermenu .close {
-   float:right;
-   top: 16px;
-   margin-right: 16px;
-   cursor: pointer;
+  float:right;
+  top: 16px;
+  margin-right: 16px;
+  cursor: pointer;
 }
 #drawermenu .close:hover {
-    background-color: #ccc;
+  background-color: #ccc;
 }
 #drawermenu .item a {
-    color: #333;
-    display: block;
-    font-weight: 400;
-    letter-spacing: 0.1px;
-    padding: 10px 24px 10px 32px;
-    white-space: nowrap;
-    font-size: 13px;
-    -webkit-tap-highlight-color: #eee;
+  color: #333;
+  display: block;
+  font-weight: 400;
+  letter-spacing: 0.1px;
+  padding: 10px 24px 10px 32px;
+  white-space: nowrap;
+  font-size: 13px;
+  -webkit-tap-highlight-color: #e5e5e5;
 }
 #drawermenu .item a:active {
   background-color: #eee;
 }
 .amp-mode-touch #drawermenu .item a {
-    padding-top: 18px;
-    padding-bottom: 17px;
+  padding-top: 18px;
+  padding-bottom: 17px;
 }#drawermenu .item amp-img {
-    margin-left: 4px;
-    vertical-align: text-bottom;
+  margin-left: 4px;
+  vertical-align: text-bottom;
 }
 #drawermenu .item .selected {
   font-weight: 700;
@@ -567,37 +569,37 @@ form {
   display: flex;
   flex-flow: row wrap;
   -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
   padding: 16px;
   -webkit-flex-grow: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
   margin: 0;
   color: rgb(97, 97, 97);
 }
 
 input[type=text], input[type=email], input[type=date] {
-    display: block;
-    font-family: "Helvetica","Arial",sans-serif;
-    margin: 0;
-    margin-bottom: 16px;
-    width: 100%;
-    text-align: left;
-    color: inherit;
-    outline: none;
+  display: block;
+  font-family: "Helvetica","Arial",sans-serif;
+  margin: 0;
+  margin-bottom: 16px;
+  width: 100%;
+  text-align: left;
+  color: inherit;
+  outline: none;
 }
 
 .data-input {
-    border: none;
-    border-bottom: 1px solid rgba(0,0,0,.12);
-    font-size: 16px;
-    margin-bottom: 16px;
-    padding: 4px 0;
-    background: 0 0;
-    color: inherit;
-    outline: none;
-    background: 0 0;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,.12);
+  font-size: 16px;
+  margin-bottom: 16px;
+  padding: 4px 0;
+  background: 0 0;
+  color: inherit;
+  outline: none;
+  background: 0 0;
 }
 
 .search-input {
@@ -610,10 +612,10 @@ input[type=text], input[type=email], input[type=date] {
 }
 
 .search-input-submit {
-        top: -61px;
-        float: right;
-        font-size: 16px;
-        margin-top: 1px;
-        background-color: rgb(66,133,244);
-        height: 43px
-    }
+  top: -61px;
+  float: right;
+  font-size: 16px;
+  margin-top: 1px;
+  background-color: rgb(66,133,244);
+  height: 43px
+}
