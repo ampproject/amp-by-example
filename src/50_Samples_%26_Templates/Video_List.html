@@ -1,0 +1,218 @@
+<!---{
+  "experiments": ['amp-experiment'],
+  "default": "preview",
+  "preview": "default"
+}--->
+<!--
+  #### Introduction
+
+  This sample demonstrates how a video playlist might be made in AMP.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <!-- #### Setup -->
+  <!--
+    In this example, we're using amp-font, amp-fit-text, amp-analytics, amp-ad, and amp-experiment in addition to the core amp components.
+  -->
+  <script async custom-element="amp-font" src="https://cdn.ampproject.org/v0/amp-font-0.1.js"></script>
+  <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
+  <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+  <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+  <script async custom-element="amp-anim" src="https://cdn.ampproject.org/v0/amp-anim-0.1.js"></script>
+  <script async custom-element="amp-experiment" src="https://cdn.ampproject.org/v0/amp-experiment-0.1.js"></script>
+
+  <link rel="canonical" href="https://ampbyexample.com/sample_amps/video_list/" >
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+  <style amp-custom>
+    body {
+      font-family: 'Montserrat';
+    }
+
+    body.font-missing {
+      font-family: 'Arial', 'Helvetica', sans-serif;
+    }
+
+    #content {
+      display: flex;
+      flex-flow: column wrap;
+    }
+    
+    .videocard {
+      margin: 1em;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: flex-start;
+    }
+
+    .videocard-content {
+      margin-left: 1em;
+      display: flex;
+      flex-flow: column wrap;
+    }
+
+    a.videocard {
+      text-decoration: none;
+      color: black;
+    }
+
+    .experiment {
+      display: none;
+    }
+
+    body[amp-x-playlist-tagline="playlist-tagline-fullnum1"] span.playlist-tagline-fullnum1 {
+      display: inline;
+    }
+
+    body[amp-x-playlist-tagline="playlist-tagline-fullnum2"] span.playlist-tagline-fullnum2 {
+      display: inline;
+    }
+
+    body[amp-x-playlist-tagline="playlist-tagline-summary1"] span.playlist-tagline-summary1 {
+      display: inline;
+    }
+
+    body[amp-x-playlist-tagline="playlist-tagline-summary2"] span.playlist-tagline-summary2 {
+      display: inline;
+    }
+
+    body[amp-x-playlist-tagline="playlist-tagline-control"] span.playlist-tagline-control {
+      display: inline;
+    }
+
+  </style>
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+</head>
+<body class="font-missing">
+
+  <!-- #### Basic Usage -->
+
+  <!-- 
+    Once our fancy font is loaded, let's use that instead.
+  -->
+  <amp-font layout="nodisplay" font-family="Montserrat" timeout="3000" on-load-remove-class="font-missing"></amp-font>
+
+  <!-- 
+    We use amp-fit-text to ensure the playlist's title fits within the size of the device
+  -->
+  <h1><amp-fit-text width="300" height="45" layout="responsive" max-font-size"45">Yawning Cat Videos</amp-fit-text></h1>
+  
+  <!-- We're testing out a theory where we think it might help to be less specific on the number of videos available.  Let's find out! -->
+  <amp-experiment>
+    <script type="application/json">
+      {
+        playlist-tagline: {
+          variants: {
+            playlist-tagline-fullnum1: 12.5,
+            playlist-tagline-fullnum2: 12.5,
+            playlist-tagline-summary1: 12.5,
+            playlist-tagline-summary2: 12.5,
+            playlist-tagline-control: 50
+          }
+        }
+      }
+    </script>
+  </amp-experiment>
+  <div>
+    <span class="experiment playlist-tagline-fullnum1">5 awesome videos of yawning cats</p>
+    <span class="experiment playlist-tagline-fullnum2">5 super cool videos of yawning cats</p>
+    <span class="experiment playlist-tagline-summary1">A few awesome videos of yawning cats</p>
+    <span class="experiment playlist-tagline-summary2">A few super cool videos of yawning cats</p>
+    <span class="experiment playlist-tagline-control">5 videos of yawning cats</p>
+  </div>
+
+<div id="content">
+  <!--
+    This list of videos is built as a series of cards that can fit the size of the screen used to view them.  They're using flex boxes.
+  -->
+
+  <div>
+    <a href="#videoURL1" class="videocard">
+      <div class="videocard-thumbnail"><amp-img src="/img/320px-Gähnender_Kater.jpg" width="320" height="240"></amp-img></div>
+      <div class="videocard-content">
+        <span class="title">Gähnender Kater</span>
+        <span class="uploader">by jmadler</span>
+        <span class="uploaded">added 16th September 2016</span>
+        <span class="count views">15 views</span>
+        <span class="count comments">1 comment</span>
+        <span class="count time">5 minutes 35 seconds</span>
+      </div>
+    </a>
+  </div>
+
+  <div>
+    <a href="#videoURL2" class="videocard">
+      <div class="videocard-thumbnail"><amp-img src="/img/320px-Yawning_Norwegian_Forest_Cat.jpg" width="320" height="240"></amp-img></div>
+      <div class="videocard-content">
+        <span class="title">Yawning Norwegian Forest Cat</span>
+        <span class="uploader">by jmadler</span>
+        <span class="uploaded">added 9th September 2016</span>
+        <span class="count views">350 views</span>
+        <span class="count comments">3 comments</span>
+        <span class="count time">5 minutes 35 seconds</span>
+      </div>
+    </a>
+  </div>
+
+
+  <div>
+    <a href="#videoURL3" class="videocard">
+      <div class="videocard-thumbnail"><amp-img src="/img/320px-A_cat_yawn_on_a_Motorcycle.jpg" width="320" height="240"></amp-img></div>
+      <div class="videocard-content">
+        <span class="title">Cat yawning on a motorcycle</span>
+        <span class="uploader">by jmadler</span>
+        <span class="uploaded">added 10th September 2016</span>
+        <span class="count views">360000 views</span>
+        <span class="count comments">24 comments</span>
+        <span class="count time">5 minutes 35 seconds</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Let's put a paid listing in here in case it's also a cool cat yawning video -->
+  <amp-ad></amp-ad>
+
+  <div>
+    <a href="#videoURL4" class="videocard">
+      <div class="videocard-thumbnail"><amp-img src="/img/320px-Yawning_Norwegian_Forest_Cat.jpg" width="320" height="240"></amp-img></div>
+      <div class="videocard-content">
+        <span class="title">Yawning Norwegian Forest Cat</span>
+        <span class="uploader">by jmadler</span>
+        <span class="uploaded">added 9th September 2016</span>
+        <span class="count views">350 views</span>
+        <span class="count comments">3 comments</span>
+        <span class="count time">5 minutes 35 seconds</span>
+      </div>
+    </a>
+  </div>
+
+
+  <div>
+    <a href="#videoURL5" class="videocard">
+      <div class="videocard-thumbnail"><amp-img src="/img/320px-A_cat_yawn_on_a_Motorcycle.jpg" width="320" height="240"></amp-img></div>
+      <div class="videocard-content">
+        <span class="title">Cat yawning on a motorcycle</span>
+        <span class="uploader">by jmadler</span>
+        <span class="uploaded">added 10th September 2016</span>
+        <span class="count views">360000 views</span>
+        <span class="count comments">24 comments</span>
+        <span class="count time">5 minutes 35 seconds</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- Don't forget to measure impact! -->
+  <amp-analytics type="googleanalytics">
+    <script type="application/json">
+      {}
+    </script>
+  </amp-analytics>
+
+</body>
+</html>
