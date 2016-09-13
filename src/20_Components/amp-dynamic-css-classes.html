@@ -1,0 +1,70 @@
+<!--
+  #### Introduction
+
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <!-- #### Setup -->
+  <!--
+    Include the amp-dynamic-css-classes extended component.
+  -->
+  <script async custom-element="amp-dynamic-css-classes" src="https://cdn.ampproject.org/v0/amp-dynamic-css-classes-0.1.js"></script>
+  <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+  <link rel="canonical" href="<%host%>/components/amp-dynamic-css-classes/" >
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <style amp-custom>
+    body:not(.amp-referrer-pinterest-com) .if-pinterest, 
+    body:not(.amp-referrer-ampbyexample-com) .if-ampbyexample, 
+    body:not(.amp-referrer-google-com) .if-google,
+    body:not(.amp-referrer-twitter-com) .if-twitter {
+      display: none;
+    }
+    body:not(.amp-viewer) .if-viewer,
+    body.amp-viewer .if-not-viewer {
+      display: none;
+    }
+    div.social-share {
+      display: flex;
+      flex-flow: row wrap;
+    }
+    
+    body.amp-referrer-pinterest-com .social-share-pinterest, 
+    body.amp-referrer-google-com .social-share-gplus,
+    body.amp-referrer-twitter-com .social-share-twitter {
+      order: -1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- You do not need to include a call to the amp-dynamic-css-classes component to initialize the classes on the body element -->
+
+  <!-- #### Referrer -->
+  <!--
+    Using these referrer classes can allow you to conditionally include elements.
+  -->
+  <span class="if-pinterest">You were referred here or embedded by Pinterest!  I'll add a few extra "Pin It" buttons</span>
+  <span class="if-twitter">You were referred here or embedded by Twitter!  I'll add a few extra Tweet buttons</span>
+  <span class="if-google">You were referred here or embedded by Google!  I'll add a few extra Google+ buttons</span>
+  <span class="if-ampbyexample">You came here directly!  Cool :)</span>
+
+  <!-- You can also use the referrer classes to reconfigure styling in a way that modifies user behavior -->
+   <div class="social-share">
+      <amp-social-share type="email" layout="flex-item" class="social-share-email"></amp-social-share>
+      <amp-social-share type="gplus" layout="flex-item" class="social-share-gplus"></amp-social-share>
+      <amp-social-share type="twitter" layout="flex-item" class="social-share-twitter"></amp-social-share>
+      <amp-social-share type="pinterest" layout="flex-item" class="social-share-pinterest"></amp-social-share>
+      <amp-social-share type="linkedin" layout="flex-item" class="social-share-linkedin"></amp-social-share>
+   </div>
+
+  <!-- #### Viewer -->
+  <span class="if-not-viewer">Hey!  You're not visiting within the context of an AMP Viewer!</span>
+  <span class="if-viewer">Ahoy! Since you're coming from a viewer, I'll reorder my social share buttons to prefer the one you prefer.  Hope you like 'em!</span>
+
+</body>
+</html>
