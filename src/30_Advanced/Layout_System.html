@@ -1,0 +1,87 @@
+<!--
+  #### Introduction
+
+  In each of these examples, we'll use a 200x200 grey square as a parent to each element to demonstrate the layout values.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <link rel="canonical" href="<%host%>/advanced/layout_system/" >
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <style amp-custom>
+  div.square {
+    display: inline-block;
+    width: 500px;
+    height:500px;
+    background-color: grey;
+  }
+  </style>
+</head>
+<body>
+
+  <!-- #### Layout Types -->
+  <!--
+    When an element is given a height, width, and layout="responsive" attribute, it will use the height and width to calculate an aspect ratio, and responsively scale the element's box to match the width of the parent element.
+  -->
+  <div class="square"><amp-fit-text width="300" height="200" layout="responsive">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
+  <!--
+    In the responsive layout, since the height and width are only used for determining the aspect ratio, 3x2 and 300x200 are functionally equivalent.
+  -->
+  <div class="square"><amp-fit-text width="3" height="2" layout="responsive">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
+  <!--
+    The layout attribute applies to all amp-* tags, though not all amp tags support all layout types.
+  -->
+  <div class="square"><amp-img width="300" height="200" layout="responsive" src="/img/amp.jpg"></amp-img></div>
+  <!--
+   Some elements, such as amp-font, only support the nodisplay type.  These elements do not require space to be allocated on the page for their rendering.
+  -->
+    <amp-install-serviceworker src="/sw.js" data-iframe-src="https://ampbyexample.com/sw.html" layout="nodisplay"></amp-install-serviceworker>
+  <!--
+    The layout="fixed" attribute value indicate that the element should fit to the size its given (300x200), even if that exceeds the size of the parent element, and without regard for the screen size.
+  -->
+  <div class="square"><amp-fit-text width="300" height="200" layout="fixed">Lorem ipsum dolori sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
+  <div class="square"><amp-img width="300" height="200" layout="fixed" src="/img/amp.jpg"></amp-img></div>
+  <!--
+    The layout="fixed-height" attribute value indicates that the element should fill to the width that it's given, but remain at a fixed height.  
+    Elements with a fixed-height layout attribute value will respond to the screen size provided, but will not respect aspect ratio.
+    As the width is disregarded in fixed-height, it can only be set to "auto" (or not set at all).
+  -->
+  <div class="square"><amp-fit-text height="200" layout="fixed-height">Lorem ipsum dolori sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
+  <div class="square"><amp-img height="200" layout="fixed-height" src="/img/amp.jpg"></amp-img></div>
+  <!--
+    The layout="fill" attribute value indicates that the element should fill the space within the parent that it can, based on the space provided by the parent, and the space allocated to siblings.  Width and height are not used with fill layouts.
+  -->
+  <div class="square"><amp-fit-text width="300" height="200" layout="fixed">Lorem ipsum dolori sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
+  <div class="square"><amp-img width="300" height="200" layout="fixed" src="/img/amp.jpg"></amp-img></div>
+  <!--
+    The layout="flex-item" attribute value is similar to the layout="fill" attribute value, except that it is used in a flexbox model.
+  -->
+  <div class="square"><amp-fit-text width="300" height="200" layout="fixed">Lorem ipsum dolori sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
+  <div class="square"><amp-img width="300" height="200" layout="fixed" src="/img/amp.jpg"></amp-img></div>
+  <!--
+    The layout="container" attribute value indicates that the element has no intrisic space needs of its own, and that it's size should be determined by the needs of its children.  This is functionally equivalent to the default behavior of the "div" tag in HTML5.
+  -->
+  <div>pffft</div>
+  <!--
+    The min-width and max-width CSS properties can also be used to modify the element's sizing
+  -->
+  <div class="square"><amp-img>Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
+  <!-- #### Sizes (Width) 
+    The sizes attribute is a list of media conditions and source size values (width).
+  -->
+  <div class="square"><amp-img width="300" height="200" layout="fixed" src="/img/amp.jpg"></amp-img></div>
+  <!-- #### Sizes (Height) 
+    The heights attribute is a list of media conditions and source size values (height).
+  -->
+  <!-- #### Media 
+    The media attribute is a media query that is evaluated and used as a conditional to determine if a given element should be loaded.  This can be a useful way to 
+  -->
+  <div class="square"><amp-img width="300" height="200" layout="fixed" src="/img/amp.jpg"></amp-img></div>
+  <div class="square"><amp-img width="300" height="200" layout="fixed" src="/img/amp.jpg"></amp-img></div>
+  <div class="square"><amp-img width="300" height="200" layout="fixed" src="/img/amp.jpg"></amp-img></div>
+</body>
+</html>
