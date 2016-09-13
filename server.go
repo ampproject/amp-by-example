@@ -36,9 +36,9 @@ func init() {
 	backend.InitAmpCache()
 	backend.InitProductListing()
 	backend.InitHousingForm()
-	backend.InitAmpAccess()
 	backend.InitAmpAnalytics()
 	backend.InitCommentSection()
+	backend.InitHotelSample()
 	http.Handle("/", RedirectDomain(NoDirListing(http.FileServer(http.Dir(DIST_DIR)))))
 }
 
