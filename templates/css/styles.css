@@ -245,14 +245,14 @@ header #logo {
   text-align: left;
   font-weight: 300;
   font-size: 38px;
-  text-transform: uppercase;
-  line-height: 36px;
-  color: white;
-  padding-left: 46px;
+  line-height: 62px;
   background-position: left center;
   background-repeat: no-repeat;
-  background-image: -webkit-image-set( url(/favicons/android-chrome-36x36.png) 1x, url(/favicons/android-chrome-72x72.png) 2x );
+  height: 62px;
+  width: 500px;
+  background-image: url(/img/ABE-logo.svg);
 }
+
 header .button {
   margin-left: 16px;
   padding: 0px;
@@ -509,12 +509,11 @@ footer ul li a {
     display: none;
   }
   header #logo {
-    width: auto;
+    width: 200px;
     margin: 0;
     padding: 0;
     font-weight: 400;
     font-size: 16px;
-    background-image: none;
     align-self: center;
   }
   .card {
