@@ -1,6 +1,6 @@
 <!--
   #### Introduction
-  amp-fit-text enables you to manage the size and fit of text within a given area
+  `amp-fit-text` enables you to manage the size and fit of text within a given area
 -->
 <!-- -->
 <!doctype html>
@@ -9,7 +9,7 @@
   <meta charset="utf-8">
   <!-- #### Setup -->
   <!--
-    Include the amp-fit-text component
+    Include the `amp-fit-text` component
   -->
   <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
   <link rel="canonical" href="<%host%>/components/amp-fit-text/" >
@@ -27,31 +27,34 @@
 </head>
 <body>
   <!-- #### Basic Usage 
-    In each of these examples, the <amp-fit-text> line is wrapped in a 200x200 grey div block to demonstrate differences in attributes and layout values.
+    In each of these examples, the `<amp-fit-text>` element is nested within in a 200x200 grey div block to demonstrate differences in attributes and layout values.
   -->
   <!--
-    When amp-fit-text is used with a given height, width, and layout="responsive" attribute, 
+    When `amp-fit-text` is used with a given `height`, `width`, and `layout="responsive"` attribute, the text will scale responsively in the ratio provided but not exceed the size of its parent.
   -->
   <div class="square"><amp-fit-text width="300" height="200" layout="responsive">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
+  <div class="square"><amp-fit-text width="200" height="200" layout="responsive">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
+  <div class="square"><amp-fit-text width="100" height="200" layout="responsive">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
+  <div class="square"><amp-fit-text layout="responsive">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
   <!--
-    The min-font-size attribute dictates a minimum size for the text.  In this case, we've dictated a minimum of 30, which will cause it to exceed the size of its square and be truncated to fit as appropriate.
+    The `min-font-size` attribute dictates a minimum size for the text.  In this case, we've dictated a minimum of 30, which will cause it to exceed the size of its square and be truncated to fit as appropriate.
   -->
   <div class="square"><amp-fit-text width="300" height="200" layout="responsive" min-font-size="30">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
   <!--
-    The max-font-size attribute dictates a maximum size for the text.  In this case, we've dictated a maximum of 10, ensuring it won't fill the size of its square.
+    The `max-font-size` attribute dictates a maximum size for the text.  In this case, we've dictated a maximum of 10, ensuring it won't fill the size of its parent element.
   -->
   <div class="square"><amp-fit-text width="300" height="200" layout="responsive" max-font-size="10">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
   <!--
-    When amp-fit-text is used with a given height, width, and layout="fixed" attribute, it will fit to the size its given (300x200), even if that exceeds the size of the parent element.
+    When `amp-fit-text` is used with a given `height`, `width`, and `layout="fixed"` attribute, it will fit to the size its given (300x200 in this case), even if that exceeds the size of the parent element.
   -->
   <div class="square"><amp-fit-text width="300" height="200" layout="fixed">Lorem ipsum dolori sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
   <!--
-    When amp-fit-text is used with a given height, width, and layout="fixed-height" attribute, it will fit to the size of its given height (200), and adjust the width as needed to stay within the bounds of its parent container.
+    When `amp-fit-text` is used with a given `height` and `layout="fixed-height"` attribute, it will fit to the size of its given height (200), and adjust the width as needed to stay within the bounds of its parent container.
   -->
   <div class="square"><amp-fit-text height="200" layout="fixed-height">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
   <!--
-    When amp-fit-text is used with a given height, width, and layout="fill" attribute, the text will fit to fill its parents element.
+    When `amp-fit-text` is used with the `layout="fill"` attribute, the text will fit to fill its parents element.
   -->
-  <div class="square"><amp-fit-text width="300" height="200" layout="fill">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
+  <div class="square"><amp-fit-text layout="fill">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
 </body>
 </html>
