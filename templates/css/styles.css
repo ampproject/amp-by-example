@@ -493,6 +493,9 @@ footer ul li a {
   article {
     margin-top: 56px;
   }
+  article #title {
+    padding-bottom: 0px;
+  }
   header {
     height: 56px;
     flex-direction: row;
