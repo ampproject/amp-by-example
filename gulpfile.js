@@ -55,7 +55,7 @@ const paths = {
     fonts: 'dist/fonts',
     wellknown: 'dist/.well-known'
   },
-  images: 'src/img/*.{png,jpg,gif}',
+  images: 'src/img/*.{png,jpg,gif,svg}',
   favicon: 'src/img/favicon.png',
   samples: 'src/**/*.html',
   metadata: 'src/**/*.json',

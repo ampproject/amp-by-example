@@ -26,6 +26,7 @@ config.filesToCache = [
     '/components/amp-install-serviceworker/',
     config.offlinePage,
     '/img/offline.png',
+    '/img/logo.svg',
     '/favicons/favicon.ico',
     '/favicons/favicon-230x230.png',
     '/favicons/favicon-96x96.png',
