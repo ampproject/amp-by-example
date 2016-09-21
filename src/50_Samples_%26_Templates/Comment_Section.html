@@ -7,7 +7,7 @@
 <!--
 #### Introduction
 
-This sample showcases how to build a comment section in AMP HTML using the [amp-form](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md) component. Type a comment and press the COMMENT button; your comment will not be persisted, so reload the page if you want to start commenting again. 
+This sample showcases how to build a comment section in AMP HTML using the [amp-form](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md) component after a successfull login flow. Login, type a comment and press the COMMENT button; your comment will not be persisted, so reload the page if you want to start commenting again. 
 -->
 <!doctype html>
 <html ⚡>
@@ -20,27 +20,33 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     -->
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
-    <script async custom-element="amp-access" src="https://cdn.ampproject.org/v0/amp-access-0.1.js"></script>
     <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    <script async custom-element="amp-access" src="https://cdn.ampproject.org/v0/amp-access-0.1.js"></script>
 
     <style amp-custom>
-     form.amp-form-submit-success [submit-success],
-    form.amp-form-submit-error [submit-error]{
-        margin-top: 16px;
+    .full-width {
+      width: 100%;
     }
     form.amp-form-submit-success [submit-success] {
         width: 100%;
         color: black;
     }
+    form.amp-form-submit-success .data-input,
+    form.amp-form-submit-success .img-data-input, 
+    form.amp-form-submit-success .button{
+        display: none;
+    }
     form.amp-form-submit-error [submit-error] {
         color: red;
     }
     .date {
-    color: #a8a3ae;
-    font-size: 12px;
+      color: #a8a3ae;
+      font-size: 12px;
     }
     .comment {
         background: #fff;
+        margin: 0 0 16px 0;
+        width:100%;
     }
     .nomargin {
         margin: 0;
@@ -48,47 +54,73 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     .space-left {
       margin-left: 16px;
     }
+    .nopadding {
+      padding: 0;
+    }
+    .comment-user {
+      display: flex;
+    }
     </style>
 
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <script id="amp-access" type="application/json">
     {
-        "authorization": "/samples_templates/comment_section/authorization?rid=READER_ID&url=CANONICAL_URL&ref=DOCUMENT_REFERRER&_=RANDOM",
+        "authorization": [[.AuthorizationEndpoint]],
         "pingback": "/samples_templates/comment_section/pingback?rid=READER_ID&ref=DOCUMENT_REFERRER&url=CANONICAL_URL",
-        "login": "/samples_templates/comment_section/login?rid=READER_ID&url=CANONICAL_URL",
+        "login": [[.LoginEndpoint]],
         "authorizationFallbackResponse": {
             "error": true,
             "access": false
         }
     }
     </script>
-
     </head>
     <body>
     <!-- #### Add a Comment Section -->
   <!--
     Use the `amp-access` to realize a login flow. Learn more about amp-access [here](/components/amp-access). 
-    Use the `amp-form` component to realize a comment section that would be available only after a successfull login.
+    Use the `amp-form` component to realize a comment section. Learn more about amp-fomr [here](/components/amp-form).
   -->
   <div>
-    <span amp-access="user = 'test-user'">
-          <a href="<%host%>/samples_templates/comment_section/logout" class="button button-primary space-left">Logout</a>
+    <span amp-access="user = 'test-user'" amp-access-hide>
+          <a href="<%host%>/samples_templates/[[.Path]]/logout" class="button button-primary space-left">Logout</a>
     </span>            
     <span amp-access="NOT user = 'test-user'" role="button" tabindex="0">
           <h5>Please login to comment</h5>
           <a on="tap:amp-access.login" class="button button-primary space-left">Login</a>  
     </span>
-    <span amp-access="user = 'test-user'">    
+    <span amp-access="user = 'test-user'" amp-access-hide>    
       <form method="post" action="<%host%>/samples_templates/comment_section/submit-comment" action-xhr="<%host%>/samples_templates/comment_section/submit-comment-xhr"  target="_top" >
-        <input type="text" class="data-input" name="text" placeholder="Your comment..." required>
-        <input type="submit" value="Comment" class="button button-primary"><br/>
+      <div class="full-width">
+        <h5 class="nopadding">Comments</h5>
+        <div>
+          [[range .Comments]]
+          <div class="comment-user">
+            <amp-img width="44" height="44" alt="user" src="[[.UserImg]]"></amp-img>
+            <div class="card comment">
+              <p class= "date">[[.User]] [[.Datetime]]</p>
+              <p>[[.Text]]</p>
+            </div>
+          </div>
+          [[else]]
+          <p>No comments found.</p>
+          [[end]]
+        </div>
+        <div class="comment-user">
+          <amp-img width="44" class="img-data-input" height="44" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
+          <input type="text" class="data-input" name="text" placeholder="Your comment..." required>
+        </div>
+        <input type="submit" value="Comment" class="button button-primary">
         <div submit-success>
           <template type="amp-mustache">
-            <div class="card comment nomargin">
-             <p class= "date">{{Datetime}}</p>
-             <p>{{Text}}</p>
-         </div>
+            <div class="comment-user">
+              <amp-img width="44" height="44" alt="user" src="{{UserImg}}"></amp-img>
+              <div class="card comment nomargin">
+               <p class= "date">{{User}} {{Datetime}}</p>
+               <p>{{Text}}</p>
+              </div>
+            </div>
           </template>
         </div>
         <div submit-error>
@@ -97,20 +129,7 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
           </template>
         </div>
       </form>
-    </span>
-
-  <h5>Previous Comments</h5>
-
-  <div>
-    [[range .Comments]]
-    <div class="card comment">
-      <p class= "date">[[.Datetime]]</p>
-      <p>[[.Text]]</p>
     </div>
-  [[else]]
-  <p>No comments found.</p>
-  [[end]]
-  </div>
 </div>
 </body>
 </html>
