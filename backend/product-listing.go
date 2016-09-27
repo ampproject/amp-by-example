@@ -26,6 +26,7 @@ import (
 
 const (
 	SEARCH                 = "search"
+	ADD_TO_CART            = "add_to_cart"
 )
 
 type ProductListingPage struct {
@@ -87,6 +88,9 @@ func registerProductListingHandler(sampleName string) {
 	http.HandleFunc(route+SEARCH, func(w http.ResponseWriter, r *http.Request) {
 		handleSearchRequest(w, r, sampleName)
 	})
+	http.HandleFunc(route+ADD_TO_CART, func(w http.ResponseWriter, r *http.Request) {
+		handleAddToCartRequest(w, r, sampleName)
+	})
 }
 
 func renderProductListing(w http.ResponseWriter, r *http.Request, sampleName string, t template.Template) {
@@ -116,10 +120,16 @@ func searchProducts(sampleName string, query string) ProductListingPage {
 }
 
 func handleSearchRequest(w http.ResponseWriter, r *http.Request, sampleName string) {
-	if r.Method != "POST" {
-		http.Error(w, "post only", http.StatusMethodNotAllowed)
+	if !isFormPostRequest(r.Method, w) {
 		return
 	}
 	route := path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName, "?"+SEARCH+"=") + r.FormValue(SEARCH)
 	http.Redirect(w, r, route, http.StatusSeeOther)
+}
+
+func handleAddToCartRequest(w http.ResponseWriter, r *http.Request, sampleName string) {
+	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
+	w.Header().Set("Content-Type", "application/json")
+	response := "{\"result\":\"ok\"}"
+	w.Write([]byte(response))
 }

@@ -35,7 +35,7 @@ func buildSourceOrigin(host string) string {
 	return sourceOrigin.String()
 }
 
-func isFormPostRequest(method string, w http.ResponseWriter,) bool {
+func isFormPostRequest(method string, w http.ResponseWriter) bool {
 	if method != "POST" {
 		http.Error(w, "post only", http.StatusMethodNotAllowed)
 		return false

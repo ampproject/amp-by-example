@@ -31,6 +31,7 @@ This sample showcases how to build a product page in AMP HTML.
     .call-to-action {
         float: right;
         margin: 0 16px;
+        display: flex;
     }
     #product-description {
         clear: both;
@@ -78,6 +79,21 @@ This sample showcases how to build a product page in AMP HTML.
         align-items: center;
         justify-content: space-between;
     }
+    .lightbox {
+            background: rgba(0,0,0,.8);
+    }
+    .lightbox-content {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            padding-top: 16px;
+    }
+    select {
+        height: 36px;
+        line-height: 36px;
+        font-size: 14px;
+        margin: 16px;
+    }
     </style>
 
     <!-- #### Metadata -->
@@ -120,10 +136,34 @@ This sample showcases how to build a product page in AMP HTML.
     <body>
     <%>product/header.html%>
 
-        <!-- This button adds the item to the shopping cart. Pressing this button should lead to a the shopping cart page on your normal website and the cart should be prefilled with the current item. -->
+        <!-- This dropdown adds the item to the shopping cart. Pressing the `ADD TO CART` button should lead to a lighbox which will allow to choose whether to continue to the shopping cart page or to continue with your shopping. The shopping cart page will be on your normal website and the cart should be prefilled with the current item. -->
         <div id="product-header">
             <h2>Apple</h2>
-            <a href="/shopping_cart/" class="button button-primary call-to-action">Buy</a>
+            <div class="call-to-action">
+                <select>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                </select>
+                <form method="post"
+                  action-xhr="<%host%>/samples_templates/product_listing/preview/add_to_cart"
+                  target="_blank"
+                  on="submit-success:success-lightbox;submit-error:error-lightbox">
+                  <input type="submit" class="button button-primary" value="ADD TO CART">
+                </form>
+            </div>
+            <amp-lightbox id="success-lightbox" class="lightbox" layout="nodisplay">
+                <div class="lightbox-content">
+                    <a href="/shopping_cart/" class="button button-primary call-to-action">Go to Cart</a>
+                    <a href="/samples_templates/product/preview/" class="button button-primary call-to-action">Continue Shopping</a>
+                </div>
+            </amp-lightbox>
+
+            <amp-lightbox id="error-lightbox" class="lightbox" layout="nodisplay">
+                <div class="lightbox-content">
+                    <h1>Oops! Error occured!</h1>
+                </div>
+            </amp-lightbox>
         </div>
         <p id="product-description">Lorem ipsum dolor sit amet, ut sed non vel mattis. Et nulla suscipit ante ligula nisl in. Ut venenatis et mauris, mauris porta vulputate tellus mauris integer facilisis.</p>
         <h5 class="price-description">From $1.99</h5>
