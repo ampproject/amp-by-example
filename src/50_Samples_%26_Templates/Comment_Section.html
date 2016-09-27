@@ -54,8 +54,11 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     .space-left {
       margin-left: 16px;
     }
-    .nopadding {
-      padding: 0;
+    .comments-heading {
+      padding-top: 16px;
+    }
+    .comments-container {
+      padding-left: 16px;
     }
     .comment-user {
       display: flex;
@@ -66,9 +69,12 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <script id="amp-access" type="application/json">
     {
-        "authorization": [[.AuthorizationEndpoint]],
-        "pingback": "/samples_templates/comment_section/pingback?rid=READER_ID&ref=DOCUMENT_REFERRER&url=CANONICAL_URL",
-        "login": [[.LoginEndpoint]],
+        "authorization": "<%host%>/samples_templates/[[.Path]]/authorization?rid=READER_ID&url=CANONICAL_URL&ref=DOCUMENT_REFERRER&_=RANDOM",
+        "pingback": "<%host%>/samples_templates/comment_section/pingback?rid=READER_ID&ref=DOCUMENT_REFERRER&url=CANONICAL_URL",
+        "login": {
+          "sign-in": "<%host%>/samples_templates/[[.Path]]/login?rid=READER_ID&url=CANONICAL_URL",
+          "sign-out": "<%host%>/samples_templates/[[.Path]]/logout?returnUrl=AMPDOC_URL"
+        },
         "authorizationFallbackResponse": {
             "error": true,
             "access": false
@@ -79,34 +85,37 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     <body>
     <!-- #### Add a Comment Section -->
   <!--
-    Use the `amp-access` to realize a login flow. Learn more about amp-access [here](/components/amp-access). 
-    Use the `amp-form` component to realize a comment section. Learn more about amp-fomr [here](/components/amp-form).
+    Use the `amp-access` to realize a login flow. After clicking on the `login` button, you can use the user `test-user` to perform a successfull login. You can then logout by clicking on the `logout` button. Learn more about amp-access [here](/components/amp-access). 
+    Use the `amp-form` component to realize a comment section. Learn more about amp-form [here](/components/amp-form).
   -->
   <div>
-    <span amp-access="user = 'test-user'" amp-access-hide>
-          <a href="<%host%>/samples_templates/[[.Path]]/logout" class="button button-primary space-left">Logout</a>
-    </span>            
-    <span amp-access="NOT user = 'test-user'" role="button" tabindex="0">
-          <h5>Please login to comment</h5>
-          <a on="tap:amp-access.login" class="button button-primary space-left">Login</a>  
-    </span>
-    <span amp-access="user = 'test-user'" amp-access-hide>    
-      <form method="post" action="<%host%>/samples_templates/comment_section/submit-comment" action-xhr="<%host%>/samples_templates/comment_section/submit-comment-xhr"  target="_top" >
-      <div class="full-width">
-        <h5 class="nopadding">Comments</h5>
-        <div>
-          [[range .Comments]]
-          <div class="comment-user">
-            <amp-img width="44" height="44" alt="user" src="[[.UserImg]]"></amp-img>
+    <h5 class="comments-heading">Comments</h5>
+   
+          <div class="comment-user comments-container">
+            <amp-img width="44" height="44" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
             <div class="card comment">
-              <p class= "date">[[.User]] [[.Datetime]]</p>
-              <p>[[.Text]]</p>
+              <p class= "date">user1 20:25:50</p>
+              <p>This is the first comment</p>
             </div>
           </div>
-          [[else]]
-          <p>No comments found.</p>
-          [[end]]
-        </div>
+          <div class="comment-user comments-container">
+            <amp-img width="44" height="44" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
+            <div class="card comment">
+              <p class= "date">user2 20:26:50</p>
+              <p>This is the second comment</p>
+            </div>
+          </div>
+
+    <span amp-access="loggedIn" role="button" tabindex="0" amp-access-hide>
+          <a on="tap:amp-access.login-sign-out" class="button button-primary space-left">Logout</a>
+    </span>            
+    <span amp-access="NOT loggedIn" role="button" tabindex="0" amp-access-hide>
+          <h5>Please login to comment</h5>
+          <a on="tap:amp-access.login-sign-in" class="button button-primary space-left">Login</a>  
+    </span>
+    <span amp-access="loggedIn" amp-access-hide>  
+      <form method="post" action="<%host%>/samples_templates/comment_section/submit-comment" action-xhr="<%host%>/samples_templates/comment_section/submit-comment-xhr"  target="_top" >
+      <div class="full-width">
         <div class="comment-user">
           <amp-img width="44" class="img-data-input" height="44" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
           <input type="text" class="data-input" name="text" placeholder="Your comment..." required>

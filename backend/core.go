@@ -43,6 +43,11 @@ func isFormPostRequest(method string, w http.ResponseWriter,) bool {
 	return true
 }
 
+func enableCors(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
+		w.Header().Set("Content-Type", "application/json")
+}
+
 func handlePost(w http.ResponseWriter, r *http.Request, postHandler func(http.ResponseWriter, *http.Request)) {
     if r.Method != "POST" {
     http.Error(w, "post only", http.StatusMethodNotAllowed)

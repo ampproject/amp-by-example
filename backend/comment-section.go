@@ -23,32 +23,29 @@ import (
 )
 
 const (
-	COMMENT_SAMPLE_PATH                  = "/samples_templates/comment_section/"
-	COMMENT_SAMPLE_PATH_PREVIEW          = "/samples_templates/comment_section/preview/"
-	MINUS_TEN_SECONDS                    = -10
-	COMMENT_COOKIE_NAME                  = "ABE_EMAIL"
-	AUTHORIZATION_ENDPOINT_SPECIFICATION = "authorization?rid=READER_ID&url=CANONICAL_URL&ref=DOCUMENT_REFERRER&_=RANDOM"
-	LOGIN_ENDPOINT_SPECIFICATION         = "login?rid=READER_ID&url=CANONICAL_URL"
-	USER_IMG                             = "/img/ic_account_box_black_48dp_1x.png"
+	COMMENT_SAMPLE_PATH         = "/samples_templates/comment_section/"
+	COMMENT_SAMPLE_PATH_PREVIEW = COMMENT_SAMPLE_PATH + "preview/"
+	MINUS_TEN_SECONDS           = -10
+	COMMENT_COOKIE_NAME         = "ABE_EMAIL"
+	SUBMIT_COMMENT              = "submit-comment"
+	SUBMIT_COMMENT_XHR          = "submit-comment-xhr"
+	TEST_USER                   = "test-user"
 )
 
 type CommentAuthorizationResponse struct {
-	User string `json:"user"`
+	User bool `json:"loggedIn"`
 }
 
 func (h CommentAuthorizationResponse) CreateAuthorizationResponse() AuthorizationResponse {
-	return CommentAuthorizationResponse{"test-user"}
+	return CommentAuthorizationResponse{true}
 }
 
 func (h CommentAuthorizationResponse) CreateInvalidAuthorizationResponse() AuthorizationResponse {
-	return CommentAuthorizationResponse{"invalid-user"}
+	return CommentAuthorizationResponse{false}
 }
 
 type CommentPage struct {
-	Comments              []Comment
-	Path                  string
-	AuthorizationEndpoint template.JSStr
-	LoginEndpoint         template.JSStr
+	Path string
 }
 
 type Comment struct {
@@ -64,16 +61,16 @@ type AccessData struct {
 }
 
 func InitCommentSection() {
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"submit-comment-xhr", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc(COMMENT_SAMPLE_PATH+SUBMIT_COMMENT_XHR, func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitCommentXHR)
 	})
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"submit-comment", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc(COMMENT_SAMPLE_PATH+SUBMIT_COMMENT, func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitComment)
 	})
-	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+"submit-comment-xhr", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+SUBMIT_COMMENT_XHR, func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitCommentXHR)
 	})
-	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+"submit-comment", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+SUBMIT_COMMENT, func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitComment)
 	})
 	registerCommentSectionHandler("comment_section")
@@ -83,8 +80,8 @@ func InitCommentSection() {
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"pingback", handlePingback)
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"login", handleCommentLogin)
 	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+"login", handleCommentLogin)
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"logout", handleDefaultCommentLogout)
-	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+"logout", handlePreviewCommentLogout)
+	http.HandleFunc(COMMENT_SAMPLE_PATH+"logout", handleCommentLogout)
+	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+"logout", handleCommentLogout)
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"submit", handleCommentSubmit)
 	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+"submit", handleCommentSubmit)
 }
@@ -102,33 +99,20 @@ func registerCommentSectionHandler(sampleName string) {
 }
 
 func renderPage(w http.ResponseWriter, r *http.Request, sampleName string, t template.Template) {
-	comments := listComment(sampleName, r)
 	w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d, public, must-revalidate", MAX_AGE_IN_SECONDS))
-	t.Execute(w, CommentPage{Comments: comments, Path: sampleName,
-		AuthorizationEndpoint: template.JSStr(path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName, AUTHORIZATION_ENDPOINT_SPECIFICATION)),
-		LoginEndpoint:         template.JSStr(path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName, LOGIN_ENDPOINT_SPECIFICATION))})
-}
-
-func listComment(sampleName string, r *http.Request) []Comment {
-	var comments []Comment
-	firstComment := Comment{"This is the first comment", "user1", time.Now().Add(time.Duration(MINUS_TEN_SECONDS) * time.Second).Format("15:04:05"), USER_IMG}
-	lastComment := Comment{"This is the second comment", "user2", time.Now().Format("15:04:05"), USER_IMG}
-	comments = append(comments, firstComment)
-	comments = append(comments, lastComment)
-	return comments
+	t.Execute(w, CommentPage{Path: sampleName})
 }
 
 func submitCommentXHR(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
-	w.Header().Set("Content-Type", "application/json")
+	enableCors(w, r)
 	response := ""
 	text := r.FormValue("text")
 	if text != "" {
 		newComment := Comment{
 			Text:     text,
-			User:     "test-user",
+			User:     TEST_USER,
 			Datetime: time.Now().Format("15:04:05"),
-			UserImg:  USER_IMG,
+			UserImg:  "/img/ic_account_box_black_48dp_1x.png",
 		}
 		response = fmt.Sprintf("{\"Datetime\":\"%s\", \"User\":\"%s\", \"Text\":\"%s\", \"UserImg\":\"%s\"}",
 			newComment.Datetime, newComment.User, newComment.Text, newComment.UserImg)
@@ -163,15 +147,7 @@ func handleCommentLogin(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, AccessData{ReaderID: "", ReturnURL: returnURL})
 }
 
-func handleDefaultCommentLogout(w http.ResponseWriter, r *http.Request) {
-	handleCommentLogout(w, r, COMMENT_SAMPLE_PATH)
-}
-
-func handlePreviewCommentLogout(w http.ResponseWriter, r *http.Request) {
-	handleCommentLogout(w, r, COMMENT_SAMPLE_PATH_PREVIEW)
-}
-
-func handleCommentLogout(w http.ResponseWriter, r *http.Request, path string) {
+func handleCommentLogout(w http.ResponseWriter, r *http.Request) {
 	//delete the cookie
 	cookie := &http.Cookie{
 		Name:   COMMENT_COOKIE_NAME,
@@ -179,7 +155,8 @@ func handleCommentLogout(w http.ResponseWriter, r *http.Request, path string) {
 		Value:  "",
 	}
 	http.SetCookie(w, cookie)
-	http.Redirect(w, r, fmt.Sprintf("%s%s", buildSourceOrigin(r.Host), path), http.StatusSeeOther)
+	returnURL := r.URL.Query().Get("returnUrl")
+	http.Redirect(w, r, fmt.Sprintf("%s", returnURL), http.StatusSeeOther)
 }
 
 func handleCommentSubmit(w http.ResponseWriter, r *http.Request) {
