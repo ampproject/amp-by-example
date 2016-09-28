@@ -89,7 +89,7 @@ func registerProductListingHandler(sampleName string) {
 		handleSearchRequest(w, r, sampleName)
 	})
 	http.HandleFunc(route+ADD_TO_CART, func(w http.ResponseWriter, r *http.Request) {
-		handleAddToCartRequest(w, r, sampleName)
+		handleAddToCartRequest(w, r)
 	})
 }
 
@@ -127,9 +127,9 @@ func handleSearchRequest(w http.ResponseWriter, r *http.Request, sampleName stri
 	http.Redirect(w, r, route, http.StatusSeeOther)
 }
 
-func handleAddToCartRequest(w http.ResponseWriter, r *http.Request, sampleName string) {
+func handleAddToCartRequest(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
 	w.Header().Set("Content-Type", "application/json")
-	response := "{\"result\":\"ok\"}"
+	response := "{\"number\":\"2\"}"
 	w.Write([]byte(response))
 }
