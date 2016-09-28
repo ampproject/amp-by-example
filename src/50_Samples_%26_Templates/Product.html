@@ -61,7 +61,7 @@ This sample showcases how to build a product page in AMP HTML.
         width: 100%;
         height: 100%;
     }
-    #video-container, #social {
+    #video-container, #social, #add-to-cart {
         margin: 16px;
     }
     .video {
@@ -140,25 +140,25 @@ This sample showcases how to build a product page in AMP HTML.
         <div id="product-header">
             <h2>Apple</h2>
             <div class="call-to-action">
-                <select>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                </select>
-                <form method="post"
+                <form method="get"
                   action-xhr="<%host%>/samples_templates/product_listing/preview/add_to_cart"
+                  action="<%host%>/samples_templates/product_listing/preview/add_to_cart"
                   target="_blank"
                   on="submit-success:success-lightbox;submit-error:error-lightbox">
-                  <input type="submit" class="button button-primary" value="ADD TO CART">
+                  <select name="quantity">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                  </select>
+                  <input type="submit" class="button button-primary" id="add-to-cart"value="ADD TO CART">
                 </form>
-            </div>
+            </div>                              
             <amp-lightbox id="success-lightbox" class="lightbox" layout="nodisplay">
                 <div class="lightbox-content">
-                    <a href="/shopping_cart/" class="button button-primary call-to-action">Go to Cart</a>
+                    <a href="/shopping_cart" class="button button-primary call-to-action">Go to Cart</a>
                     <a href="/samples_templates/product/preview/" class="button button-primary call-to-action">Continue Shopping</a>
-                </div>
+                </div>               
             </amp-lightbox>
-
             <amp-lightbox id="error-lightbox" class="lightbox" layout="nodisplay">
                 <div class="lightbox-content">
                     <h1>Oops! Error occured!</h1>

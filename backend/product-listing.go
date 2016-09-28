@@ -22,17 +22,23 @@ import (
 	"net/http"
 	"path"
 	"strings"
+	"strconv"
 )
 
 const (
 	SEARCH                 = "search"
 	ADD_TO_CART            = "add_to_cart"
+	SHOPPING_CART          = "shopping_cart"
 )
 
 type ProductListingPage struct {
 	Title        string
 	Products     []Product
 	SearchAction string
+}
+
+type ShoppingCartPage struct {
+	Quantity int
 }
 
 type Product struct {
@@ -60,6 +66,7 @@ func InitProductListing() {
 	initProducts(DIST_FOLDER + "/json/related_products.json")
 	registerProductListingHandler("product_listing")
 	registerProductListingHandler("product_listing/preview")
+	registerShoppingCartHandler(SHOPPING_CART)
 }
 
 func initProducts(path string) {
@@ -89,7 +96,18 @@ func registerProductListingHandler(sampleName string) {
 		handleSearchRequest(w, r, sampleName)
 	})
 	http.HandleFunc(route+ADD_TO_CART, func(w http.ResponseWriter, r *http.Request) {
-		handleAddToCartRequest(w, r)
+		handleAddToCartRequest(w, r, sampleName, *template)
+	})
+}
+
+func registerShoppingCartHandler(sampleName string) {
+	filePath := path.Join(DIST_FOLDER, sampleName, "index.html")
+	template, err := template.New("index.html").Delims("[[", "]]").ParseFiles(filePath)
+	if err != nil {
+		panic(err)
+	}
+	http.HandleFunc("/"+sampleName, func(w http.ResponseWriter, r *http.Request) {
+		renderShoppingCart(w, r, sampleName, *template)
 	})
 }
 
@@ -127,9 +145,15 @@ func handleSearchRequest(w http.ResponseWriter, r *http.Request, sampleName stri
 	http.Redirect(w, r, route, http.StatusSeeOther)
 }
 
-func handleAddToCartRequest(w http.ResponseWriter, r *http.Request) {
+func renderShoppingCart(w http.ResponseWriter, r *http.Request, sampleName string, t template.Template) {
+	quantity, _ := strconv.Atoi(r.URL.Query().Get("quantity"))
+	w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d, public, must-revalidate", MAX_AGE_IN_SECONDS))
+	t.Execute(w, ShoppingCartPage{Quantity: quantity})
+}
+
+func handleAddToCartRequest(w http.ResponseWriter, r *http.Request, sampleName string, t template.Template) {
 	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
 	w.Header().Set("Content-Type", "application/json")
-	response := "{\"number\":\"2\"}"
+	response := fmt.Sprintf("{\"quantity\":\"%s\"}", r.URL.Query().Get("quantity"))
 	w.Write([]byte(response))
 }
