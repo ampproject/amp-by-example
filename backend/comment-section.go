@@ -29,7 +29,7 @@ const (
 	COMMENT_COOKIE_NAME         = "ABE_EMAIL"
 	SUBMIT_COMMENT              = "submit-comment"
 	SUBMIT_COMMENT_XHR          = "submit-comment-xhr"
-	TEST_USER                   = "test-user"
+	USER                   			= "Charlie"
 )
 
 type CommentAuthorizationResponse struct {
@@ -42,10 +42,6 @@ func (h CommentAuthorizationResponse) CreateAuthorizationResponse() Authorizatio
 
 func (h CommentAuthorizationResponse) CreateInvalidAuthorizationResponse() AuthorizationResponse {
 	return CommentAuthorizationResponse{false}
-}
-
-type CommentPage struct {
-	Path string
 }
 
 type Comment struct {
@@ -73,34 +69,15 @@ func InitCommentSection() {
 	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+SUBMIT_COMMENT, func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitComment)
 	})
-	registerCommentSectionHandler("comment_section")
-	registerCommentSectionHandler("comment_section/preview")
+
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"authorization", handleCommentAuthorization)
 	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+"authorization", handleCommentAuthorization)
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"pingback", handlePingback)
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"login", handleCommentLogin)
 	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+"login", handleCommentLogin)
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"logout", handleCommentLogout)
 	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+"logout", handleCommentLogout)
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"submit", handleCommentSubmit)
 	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+"submit", handleCommentSubmit)
-}
-
-func registerCommentSectionHandler(sampleName string) {
-	filePath := path.Join(DIST_FOLDER, SAMPLE_TEMPLATE_FOLDER, sampleName, "index.html")
-	template, err := template.New("index.html").Delims("[[", "]]").ParseFiles(filePath)
-	if err != nil {
-		panic(err)
-	}
-	route := path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName) + "/"
-	http.HandleFunc(route, func(w http.ResponseWriter, r *http.Request) {
-		renderPage(w, r, sampleName, *template)
-	})
-}
-
-func renderPage(w http.ResponseWriter, r *http.Request, sampleName string, t template.Template) {
-	w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d, public, must-revalidate", MAX_AGE_IN_SECONDS))
-	t.Execute(w, CommentPage{Path: sampleName})
 }
 
 func submitCommentXHR(w http.ResponseWriter, r *http.Request) {
@@ -110,7 +87,7 @@ func submitCommentXHR(w http.ResponseWriter, r *http.Request) {
 	if text != "" {
 		newComment := Comment{
 			Text:     text,
-			User:     TEST_USER,
+			User:     USER,
 			Datetime: time.Now().Format("15:04:05"),
 			UserImg:  "/img/ic_account_box_black_48dp_1x.png",
 		}
@@ -132,7 +109,7 @@ func handleCommentAuthorization(w http.ResponseWriter, r *http.Request) {
 		handleAuthorization(w, r, new(CommentAuthorizationResponse).CreateInvalidAuthorizationResponse())
 	} else {
 		email := cookie.Value
-		if email != "test-user@gmail.com" {
+		if email != "charlie@gmail.com" {
 			return
 		}
 		handleAuthorization(w, r, new(CommentAuthorizationResponse).CreateAuthorizationResponse())
@@ -143,7 +120,6 @@ func handleCommentLogin(w http.ResponseWriter, r *http.Request) {
 	returnURL := r.URL.Query().Get("return")
 	filePath := path.Join(DIST_FOLDER, "login.html")
 	t, _ := template.ParseFiles(filePath)
-	w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d, public, must-revalidate", MAX_AGE_IN_SECONDS))
 	t.Execute(w, AccessData{ReaderID: "", ReturnURL: returnURL})
 }
 
@@ -155,8 +131,8 @@ func handleCommentLogout(w http.ResponseWriter, r *http.Request) {
 		Value:  "",
 	}
 	http.SetCookie(w, cookie)
-	returnURL := r.URL.Query().Get("returnUrl")
-	http.Redirect(w, r, fmt.Sprintf("%s", returnURL), http.StatusSeeOther)
+	returnURL := r.URL.Query().Get("return")
+	http.Redirect(w, r, fmt.Sprintf("%s#success=true", returnURL), http.StatusSeeOther)
 }
 
 func handleCommentSubmit(w http.ResponseWriter, r *http.Request) {
