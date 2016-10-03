@@ -25,38 +25,35 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
 
     <style amp-custom>
-    .full-width {
-      width: 100%;
-    }
     form.amp-form-submit-success [submit-success] {
         width: 100%;
         color: black;
     }
-    form.amp-form-submit-success .data-input,
-    form.amp-form-submit-success .img-data-input, 
+    form.amp-form-submit-success > div.comment-user, 
     form.amp-form-submit-success .button{
         display: none;
     }
     form.amp-form-submit-error [submit-error] {
         color: red;
     }
+    .user {
+      color: #ff4081;
+      font-weight: 700;
+    }
     .date {
       color: #a8a3ae;
-      font-size: 12px;
     }
     .comment {
-        background: #fff;
+        background: #f2f2f2;
         margin: 0 16px 16px 0;
-        width:100%;
+        width: 100%;
     }
-    .comment-button {
-      margin-left: 16px;
-    }
-    .nomargin {
-        margin: 0;
+    .button-primary {
+      margin: 16px
     }
     .user-image {
       margin-right: 16px;
+      flex-shrink: 0;
     }
     .comments-heading {
       padding-top: 16px;
@@ -91,32 +88,32 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     <!-- #### Add a Comment Section -->
     <h5 class="comments-heading">Comments</h5>   
 
-    <!-- Use `amp-list` to render existing comment to make sure that the latest comments appear if the page is loaded via AMP Cache.  --> 
+    <!-- Use `amp-list` to render existing comments to make sure that the latest comments appear if the page is loaded via AMP Cache.  --> 
       <amp-list width=auto height=200 layout=fixed-height src="<%host%>/json/comments.json">
-        <template type="amp-mustache" id="amp-template-id">
+        <template type="amp-mustache">
           <div class="comment-user comments-container">
             <amp-img width="44" height="44" class="user-image" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
             <div class="card comment">
-              <p class= "date">{{user}} {{datetime}}</p>
+              <p><span class="user">{{user}}</span> <span class="date">{{datetime}}</span></p>
               <p>{{text}}</p>
             </div>
           </div>
         </template>
       </amp-list>
 
-    <!-- In order to add comments users need to be logged in. We use `amp-access` to integrate login. `on="tap:amp-access.login-sign-in"` specifies which 
+    <!-- In order to add comments users need to be logged in. We use `amp-access` to integrate login and to show and hide the login button depending on whether the user is logged in. `on="tap:amp-access.login-sign-in"` specifies which 
     action should be taken when clicking on the login button: `login` defines the property inside the `amp-access` json configuration, while `sign-in` defines
-    the endpoint. After clicking on the login button, a popup will appear; after clicking the displayed login button, the popup itself will disappear and the user will come back to sample page. We realize this behaviour by specifying an hidden input `return` with the value of [RETURN_URL](https://github.com/ampproject/amphtml/blob/master/extensions/amp-access/amp-access.md#access-url-variables) in the [login](https://github.com/ampproject/amp-by-example/tree/master/static/login.html) page; the AMP runtime will take care of the rest. --> 
+    the endpoint. --> 
     <span amp-access="NOT loggedIn" role="button" tabindex="0" amp-access-hide>
           <h5>Please login to comment</h5>
           <a on="tap:amp-access.login-sign-in" class="button button-primary comment-button">Login</a>  
     </span>    
-      <!-- Similar to the sign-in, the sign-out flow is specified by `on="tap:amp-access.login-sign-out"`. On the contrary of the sign-in, after clicking on the logout button the user stays on the same page: we realize this by redirecting to the URL specified by the `return` query parameter added by AMP runtime and adding `#success=true`. --> 
+      <!-- We specify the logout via a login endpoint to be able to use the `return URL` environment variable. --> 
       <a amp-access="loggedIn" amp-access-hide role="button" tabindex="0" on="tap:amp-access.login-sign-out" class="button button-primary comment-button">Logout</a>
-      <!-- Use amp-form to submit the comment. It's possible to add only one comment in this sample because the comment is not persisted anywhere.  --> 
+      <!-- Use amp-form to submit the comment. In this sample, only a single comment can be added as comments are not persisted in the backend.  --> 
       <form amp-access="loggedIn" amp-access-hide method="post" action="<%host%>/samples_templates/comment_section/submit-comment" action-xhr="<%host%>/samples_templates/comment_section/submit-comment-xhr"  target="_top" >
         <div class="comment-user">
-          <amp-img width="44" class="img-data-input user-image" height="44" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
+          <amp-img width="44" class="user-image" height="44" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
           <input type="text" class="data-input" name="text" placeholder="Your comment..." required>
         </div>
         <input type="submit" value="Comment" class="button button-primary comment-button">
@@ -124,8 +121,8 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
           <template type="amp-mustache">
             <div class="comment-user">
               <amp-img width="44" class="user-image" height="44" alt="user" src="{{UserImg}}"></amp-img>
-              <div class="card comment nomargin">
-               <p class= "date">{{User}} {{Datetime}}</p>
+              <div class="card comment">
+               <p><span class="user">{{User}}</span> <span class="date">{{Datetime}}</span></p>
                <p>{{Text}}</p>
               </div>
             </div>

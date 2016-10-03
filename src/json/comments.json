@@ -1,12 +1,12 @@
 {
  "items": [
    {
-     "user": "bob",
+     "user": "Bob",
      "datetime": "20:25:50",
      "text": "This is the first comment"
    },
    {
-     "user": "alice",
+     "user": "Alice",
      "datetime": "20:26:50",
      "text": "This is the second comment"
    }

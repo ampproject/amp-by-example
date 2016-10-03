@@ -25,8 +25,7 @@ import (
 const (
 	COMMENT_SAMPLE_PATH         = "/samples_templates/comment_section/"
 	COMMENT_SAMPLE_PATH_PREVIEW = COMMENT_SAMPLE_PATH + "preview/"
-	MINUS_TEN_SECONDS           = -10
-	COMMENT_COOKIE_NAME         = "ABE_EMAIL"
+	COMMENT_COOKIE_NAME         = "ABE_LOGGED_IN"
 	SUBMIT_COMMENT              = "submit-comment"
 	SUBMIT_COMMENT_XHR          = "submit-comment-xhr"
 	USER                   			= "Charlie"
@@ -52,8 +51,7 @@ type Comment struct {
 }
 
 type AccessData struct {
-	ReaderID  string
-	ReturnURL string
+	ReturnURL  string
 }
 
 func InitCommentSection() {
@@ -104,23 +102,19 @@ func submitComment(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleCommentAuthorization(w http.ResponseWriter, r *http.Request) {
-	cookie, err := r.Cookie(COMMENT_COOKIE_NAME)
+	_, err := r.Cookie(COMMENT_COOKIE_NAME)
 	if err != nil {
 		handleAuthorization(w, r, new(CommentAuthorizationResponse).CreateInvalidAuthorizationResponse())
-	} else {
-		email := cookie.Value
-		if email != "charlie@gmail.com" {
-			return
-		}
-		handleAuthorization(w, r, new(CommentAuthorizationResponse).CreateAuthorizationResponse())
+		return
 	}
+	handleAuthorization(w, r, new(CommentAuthorizationResponse).CreateAuthorizationResponse())
 }
 
 func handleCommentLogin(w http.ResponseWriter, r *http.Request) {
 	returnURL := r.URL.Query().Get("return")
 	filePath := path.Join(DIST_FOLDER, "login.html")
 	t, _ := template.ParseFiles(filePath)
-	t.Execute(w, AccessData{ReaderID: "", ReturnURL: returnURL})
+	t.Execute(w, AccessData{ReturnURL: returnURL})
 }
 
 func handleCommentLogout(w http.ResponseWriter, r *http.Request) {
@@ -128,7 +122,6 @@ func handleCommentLogout(w http.ResponseWriter, r *http.Request) {
 	cookie := &http.Cookie{
 		Name:   COMMENT_COOKIE_NAME,
 		MaxAge: -1,
-		Value:  "",
 	}
 	http.SetCookie(w, cookie)
 	returnURL := r.URL.Query().Get("return")
@@ -136,12 +129,11 @@ func handleCommentLogout(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleCommentSubmit(w http.ResponseWriter, r *http.Request) {
-	email := r.FormValue("email")
 	expireInOneDay := time.Now().AddDate(0, 0, 1)
 	cookie := &http.Cookie{
 		Name:    COMMENT_COOKIE_NAME,
 		Expires: expireInOneDay,
-		Value:   email,
+		Value:   "true",
 	}
 	http.SetCookie(w, cookie)
 	returnURL := r.FormValue("returnurl")
