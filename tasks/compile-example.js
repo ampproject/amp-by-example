@@ -175,6 +175,7 @@ module.exports = function(config, updateTimestamp) {
         desc: document.description(),
         timestamp: timestamp,
         fileName: example.url(),
+        urlPreview: example.urlPreview(),
         github: example.githubUrl(),
         subHeading: example.title(),
         exampleStyles: document.styles,
@@ -270,17 +271,15 @@ module.exports = function(config, updateTimestamp) {
         const selected = currentExample &&
           exampleFile.title() == currentExample.title();
 
-        let exampleUrl = exampleFile.url();
-        if(exampleFile.document.metadata.default == 'preview') {
-          exampleUrl += "preview/";
-        }
-
         currentCategory.examples.push({
           title: exampleFile.title(),
           name: exampleFile.name(),
           description: exampleFile.document.description(),
-          url: exampleUrl,
+          url: exampleFile.url(),
+          urlPreview: exampleFile.urlPreview(),
+          urlEmbed: exampleFile.urlEmbed(),
           selected: selected,
+          metadata: exampleFile.document.metadata,
           experiments: exampleFile.document.metadata.experiments,
           highlight: exampleFile.document.metadata.highlight
         });
