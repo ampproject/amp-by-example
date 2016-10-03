@@ -141,29 +141,17 @@ This sample showcases how to build a product page in AMP HTML.
             <h2>Apple</h2>
             <div class="call-to-action">
                 <form method="get"
-                  action-xhr="<%host%>/samples_templates/product_listing/preview/add_to_cart"
-                  action="<%host%>/samples_templates/product_listing/preview/add_to_cart"
-                  target="_blank"
-                  on="submit-success:success-lightbox;submit-error:error-lightbox">
+                  
+                  action="<%host%>/shopping_cart/"
+                  target="_blank">
                   <select name="quantity">
                       <option>1</option>
                       <option>2</option>
                       <option>3</option>
                   </select>
-                  <input type="submit" class="button button-primary" id="add-to-cart"value="ADD TO CART">
+                   <input type="submit" class="button button-primary" id="add-to-cart"value="ADD TO CART">
                 </form>
             </div>                              
-            <amp-lightbox id="success-lightbox" class="lightbox" layout="nodisplay">
-                <div class="lightbox-content">
-                    <a href="/shopping_cart" class="button button-primary call-to-action">Go to Cart</a>
-                    <a href="/samples_templates/product/preview/" class="button button-primary call-to-action">Continue Shopping</a>
-                </div>               
-            </amp-lightbox>
-            <amp-lightbox id="error-lightbox" class="lightbox" layout="nodisplay">
-                <div class="lightbox-content">
-                    <h1>Oops! Error occured!</h1>
-                </div>
-            </amp-lightbox>
         </div>
         <p id="product-description">Lorem ipsum dolor sit amet, ut sed non vel mattis. Et nulla suscipit ante ligula nisl in. Ut venenatis et mauris, mauris porta vulputate tellus mauris integer facilisis.</p>
         <h5 class="price-description">From $1.99</h5>

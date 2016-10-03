@@ -22,7 +22,6 @@ import (
 	"net/http"
 	"path"
 	"strings"
-	"strconv"
 )
 
 const (
@@ -95,19 +94,17 @@ func registerProductListingHandler(sampleName string) {
 	http.HandleFunc(route+SEARCH, func(w http.ResponseWriter, r *http.Request) {
 		handleSearchRequest(w, r, sampleName)
 	})
-	http.HandleFunc(route+ADD_TO_CART, func(w http.ResponseWriter, r *http.Request) {
-		handleAddToCartRequest(w, r, sampleName, *template)
-	})
+
 }
 
 func registerShoppingCartHandler(sampleName string) {
 	filePath := path.Join(DIST_FOLDER, sampleName, "index.html")
-	template, err := template.New("index.html").Delims("[[", "]]").ParseFiles(filePath)
+	t, err := template.ParseFiles(filePath)
 	if err != nil {
 		panic(err)
 	}
 	http.HandleFunc("/"+sampleName, func(w http.ResponseWriter, r *http.Request) {
-		renderShoppingCart(w, r, sampleName, *template)
+		t.Execute(w, template.HTML(r.URL.Query().Get("quantity")))
 	})
 }
 
@@ -145,15 +142,4 @@ func handleSearchRequest(w http.ResponseWriter, r *http.Request, sampleName stri
 	http.Redirect(w, r, route, http.StatusSeeOther)
 }
 
-func renderShoppingCart(w http.ResponseWriter, r *http.Request, sampleName string, t template.Template) {
-	quantity, _ := strconv.Atoi(r.URL.Query().Get("quantity"))
-	w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d, public, must-revalidate", MAX_AGE_IN_SECONDS))
-	t.Execute(w, ShoppingCartPage{Quantity: quantity})
-}
 
-func handleAddToCartRequest(w http.ResponseWriter, r *http.Request, sampleName string, t template.Template) {
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
-	w.Header().Set("Content-Type", "application/json")
-	response := fmt.Sprintf("{\"quantity\":\"%s\"}", r.URL.Query().Get("quantity"))
-	w.Write([]byte(response))
-}
