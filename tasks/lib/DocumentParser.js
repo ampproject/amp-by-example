@@ -64,8 +64,9 @@ class DocumentParser {
   execute() {
     for (let i = 0; i < this.lines.length; i++) {
       const line = this.lines[i];
-      if (line.trim().startsWith('<!--')) {
-        if (line.trim().startsWith('<!---')) {
+      const trimmedLine = line.trim();
+      if (trimmedLine.startsWith('<!--')) {
+        if (trimmedLine.startsWith('<!---')) {
           this.inMetadata = true;
         } else {
           this.newSection();
@@ -88,8 +89,8 @@ class DocumentParser {
           this.currentTag = '';
         }
       }
-      if (line.trim().endsWith('-->')) {
-        if (line.trim().endsWith('--->')) {
+      if (trimmedLine.endsWith('-->')) {
+        if (trimmedLine.endsWith('--->')) {
           this.inMetadata = false;
           try {
             this.document.metadata = JSON.parse(this.metadata);
