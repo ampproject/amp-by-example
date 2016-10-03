@@ -145,6 +145,7 @@ class DocumentParser {
   updatePreview(line) {
     if (this.extractTag(line) == 'body') {
       this.inBody = true;
+      this.document.body = this.extractTagValue(line, 'body');
       return;
     }
     if (!this.inBody) {
@@ -249,6 +250,12 @@ class DocumentParser {
   appendMetadata(metadata) {
     metadata = this.removeMetadataTag(metadata);
     this.metadata += metadata + '\n';
+  }
+
+  extractTagValue(string, tagName) {
+    const start = string.indexOf('<' + tagName);
+    const end = string.indexOf('>') + 1;
+    return string.substring(start, end);
   }
 
 };

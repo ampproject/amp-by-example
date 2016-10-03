@@ -171,6 +171,7 @@ module.exports = function(config, updateTimestamp) {
         exampleStyles: document.styles,
         categories: mapToCategories(examples, example),
         component: document.metadata.component,
+        bodyTag: document.body,
         sections: document.sections,
         metadata: document.metadata,
         nextExample: nextExample,
