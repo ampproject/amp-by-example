@@ -486,10 +486,8 @@ footer ul li a {
   body {
     background: white;
   }
-  article {
-    margin-top: 56px;
-  }
   article #title {
+    margin-top: 56px;
     padding-bottom: 0px;
   }
   header {

@@ -11,6 +11,7 @@
    </style>
   </head>
   {{{bodyTag}}}
+    {{^isEmbed}}
     {{> menu.html}}
     {{#metadata.preview}}
     <a href="preview/" class="fab show-on-mobile">
@@ -18,10 +19,13 @@
     </a>
     {{/metadata.preview}}
     {{> header.html}}
+    {{/isEmbed}}
     <article>
+      {{^isEmbed}}
       <h3 id="title">
         {{subHeading}} {{#metadata.experiments.length}}<i class="amp-experiment-large"></i>{{/metadata.experiments.length}}
       </h3>
+      {{/isEmbed}}
       {{#metadata.experiments.length}}
       <div class="box">
         <div class="column doc">
@@ -35,6 +39,7 @@
       <div class="box ">
         <div class="column doc {{#hideDocOnMobile}}hide-on-mobile{{/hideDocOnMobile}} {{#metadata.hideDoc}}hide{{/metadata.hideDoc}}">
           {{{markedDoc}}}
+          {{^isEmbed}}
           {{#isLastSection}}
           {{#nextExample}}
           <p>
@@ -43,6 +48,7 @@
           </p>
           {{/nextExample}}
           {{/isLastSection}}
+          {{/isEmbed}}
         </div>
         <div class="column code {{#hideCodeOnMobile}}hide-on-mobile{{/hideCodeOnMobile}} {{#metadata.hideCode}}hide{{/metadata.hideCode}}">
           <pre class="hljs"><code class="html">{{{escapedCode}}}</code></pre>
@@ -53,7 +59,9 @@
       </div>
       {{/sections}}
     </article>
+    {{^isEmbed}}
     {{> footer.html}}
+    {{/isEmbed}}
     {{> analytics.html}}
     {{> serviceworker.html}}
   </body>

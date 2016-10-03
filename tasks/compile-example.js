@@ -110,16 +110,17 @@ module.exports = function(config, updateTimestamp) {
     }
 
     const stream = this;
-    compileIndex(stream);
     compileExamples(stream);
-
+    const categories = mapToCategories(examples);
+    compileIndex(stream, categories);
+    compileSitemap(stream, categories);
     cb();
   }
 
-  function compileIndex(stream) {
+  function compileIndex(stream, categories) {
     const args = {
       config: config,
-      categories: mapToCategories(examples),
+      categories: categories,
       title: 'AMP by Example',
       desc: 'A hands-on introduction to Accelerated Mobile Pages (AMP) ' +
         'focusing on code and live samples. Learn how to create AMP pages ' +
@@ -135,6 +136,14 @@ module.exports = function(config, updateTimestamp) {
     const indexFile = latestFile.clone({contents: false});
     indexFile.path = path.join(latestFile.base, "index.html");
     indexFile.contents = new Buffer(html);
+    gutil.log('Generated ' + indexFile.relative);
+    stream.push(indexFile);
+  }
+
+  function compileSitemap(stream, categories) {
+    const indexFile = latestFile.clone({contents: false});
+    indexFile.path = path.join(latestFile.base, "sitemap.json");
+    indexFile.contents = new Buffer(JSON.stringify(categories, null, 2));
     gutil.log('Generated ' + indexFile.relative);
     stream.push(indexFile);
   }
@@ -185,9 +194,20 @@ module.exports = function(config, updateTimestamp) {
 
       // compile example
       const sampleHtml = pageTemplates.render(config.templates.example, args);
-      file.path = path.join(file.base, example.targetPath());
+      const embedFile = file.clone({contents: false});
+      embedFile.path = path.join(file.base, example.targetPath());
+      embedFile.metadata = document.metadata;
+      embedFile.contents = new Buffer(sampleHtml);
+      gutil.log('Generated ' + embedFile.relative);
+      stream.push(embedFile);
+
+      // compile embed
+      args.isEmbed = true;
+      const embedHtml = pageTemplates.render(config.templates.example, args);
+      args.isEmbed = false;
+      file.path = path.join(file.base, example.targetEmbedPath());
       file.metadata = document.metadata;
-      file.contents = new Buffer(sampleHtml);
+      file.contents = new Buffer(embedHtml);
       gutil.log('Generated ' + file.relative);
       stream.push(file);
 
@@ -273,6 +293,10 @@ module.exports = function(config, updateTimestamp) {
       return a.filePath.localeCompare(b.filePath);
     });
     return examples;
+  }
+
+  function clone(obj) {
+    return JSON.parse(JSON.stringify(obj));
   }
 
   return through.obj(bufferContents, endStream);
