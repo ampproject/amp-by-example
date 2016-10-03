@@ -30,6 +30,7 @@ module.exports = class Document {
     this.styles = '';
     this.title = '';
     this.metadata = '';
+    this.body = '';
   }
 
   addSection(section) {
