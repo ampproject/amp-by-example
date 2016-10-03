@@ -28,7 +28,7 @@ const (
 	COMMENT_COOKIE_NAME         = "ABE_LOGGED_IN"
 	SUBMIT_COMMENT              = "submit-comment"
 	SUBMIT_COMMENT_XHR          = "submit-comment-xhr"
-	USER                   			= "Charlie"
+	USER                        = "Charlie"
 )
 
 type CommentAuthorizationResponse struct {
@@ -51,7 +51,7 @@ type Comment struct {
 }
 
 type AccessData struct {
-	ReturnURL  string
+	ReturnURL string
 }
 
 func InitCommentSection() {
@@ -59,12 +59,6 @@ func InitCommentSection() {
 		handlePost(w, r, submitCommentXHR)
 	})
 	http.HandleFunc(COMMENT_SAMPLE_PATH+SUBMIT_COMMENT, func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, submitComment)
-	})
-	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+SUBMIT_COMMENT_XHR, func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, submitCommentXHR)
-	})
-	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+SUBMIT_COMMENT, func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitComment)
 	})
 
