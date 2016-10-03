@@ -101,6 +101,13 @@ class ExampleFile {
     return path.join(this.targetParentDir(), this.targetName(), 'index.html');
   }
 
+  targetEmbedPath() {
+    return path.join(this.targetParentDir(), 
+      this.targetName(), 
+      'embed', 
+      'index.html');
+  }
+
   targetPreviewPath() {
     return path.join(this.targetParentDir(),
         this.targetName(),
