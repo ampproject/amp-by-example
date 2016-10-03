@@ -69,13 +69,9 @@ func InitCommentSection() {
 	})
 
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"authorization", handleCommentAuthorization)
-	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+"authorization", handleCommentAuthorization)
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"login", handleCommentLogin)
-	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+"login", handleCommentLogin)
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"logout", handleCommentLogout)
-	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+"logout", handleCommentLogout)
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"submit", handleCommentSubmit)
-	http.HandleFunc(COMMENT_SAMPLE_PATH_PREVIEW+"submit", handleCommentSubmit)
 }
 
 func submitCommentXHR(w http.ResponseWriter, r *http.Request) {

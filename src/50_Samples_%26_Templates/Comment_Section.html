@@ -55,9 +55,6 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
       margin-right: 16px;
       flex-shrink: 0;
     }
-    .comments-heading {
-      padding-top: 16px;
-    }
     .comments-container {
       padding-left: 16px;
     }
@@ -86,7 +83,8 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     </head>
     <body>
     <!-- #### Add a Comment Section -->
-    <h5 class="comments-heading">Comments</h5>   
+    <!-- -->
+    <h5>Comments</h5>   
 
     <!-- Use `amp-list` to render existing comments to make sure that the latest comments appear if the page is loaded via AMP Cache.  --> 
       <amp-list width=auto height=200 layout=fixed-height src="<%host%>/json/comments.json">
