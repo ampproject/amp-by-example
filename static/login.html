@@ -1,0 +1,37 @@
+<!doctype html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <title>Login</title>
+    <style>
+      .button {
+        border-radius: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-body">
+      <main>
+      <h1> 
+        Login
+      </h1>
+      <h5>
+        Please use charlie@gmail.com to test a successfull login.
+        <h5>
+      <form method=post action="submit">
+          <div class=label>Email:</div>
+          <input type=email name=email value="charlie@gmail.com">
+        <div class=form-line>
+          <div class=label>Password:</div>
+          <input type=password name=password value="123456">
+        </div>
+          <input type=submit value=Login class="button">
+        <input name=returnurl type=hidden value="{{.ReturnURL}}">
+      </form>
+      </main>
+    </div>
+  </body>
+</html>

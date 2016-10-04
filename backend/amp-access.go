@@ -19,25 +19,11 @@ import (
 	"net/http"
 )
 
-const (
-	ACCESS_SAMPLE_PATH = "/components/amp-access/"
-)
-
-type AuthorizationResponse struct {
-	User       string `json:"username"`
-	Status     string `json:"status"`
-	Freenights int    `json:"freenights"`
+type AuthorizationResponse interface {
+	CreateAuthorizationResponse() AuthorizationResponse
 }
 
-func InitAmpAccess() {
-	http.HandleFunc(ACCESS_SAMPLE_PATH+"authorization", handleAuthorization)
-	http.HandleFunc(ACCESS_SAMPLE_PATH+"pingback", handlePingback)
-	http.HandleFunc(ACCESS_SAMPLE_PATH+"login", handleLogin)
-}
-
-func handleAuthorization(w http.ResponseWriter, r *http.Request) {
-
-	authedUser := AuthorizationResponse{"test-user", "Gold", 2}
+func handleAuthorization(w http.ResponseWriter, r *http.Request, authedUser AuthorizationResponse) {
 	js, err := json.Marshal(authedUser)
 
 	if err != nil {
