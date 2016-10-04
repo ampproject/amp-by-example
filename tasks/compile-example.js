@@ -110,10 +110,10 @@ module.exports = function(config, updateTimestamp) {
     }
 
     const stream = this;
-    compileExamples(stream);
     const categories = mapToCategories(examples);
     compileIndex(stream, categories);
     compileSitemap(stream, categories);
+    compileExamples(stream);
     cb();
   }
 
