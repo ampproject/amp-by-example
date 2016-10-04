@@ -110,16 +110,24 @@
         padding: 0;
         flex-grow: 1;
       }
-      .samples .card .button {
+      .samples .card .buttons {
+        display: flex;
+        border-top: solid 1px #ccc;
+        width: 100%;
+        padding: 8px;
+        margin-top: auto;
+      }
+      .samples .card .buttons .button {
         text-align: left;
         color: #eb407a;
-        font-weight: 500;
-        margin-top: auto;
-        padding: 8px 16px;
+        font-weight: 700;
         -webkit-tap-highlight-color: #eee;
+
         letter-spacing: .1px;
-        width: 100%;
-        border-top: solid 1px #ccc;
+        padding: 0 16px;
+      }
+      .samples .card a:hover {
+        background-color: #eee;
       }
       .samples .card a:active {
         background-color: #eee;
@@ -193,7 +201,12 @@
               {{title}}
             </h4> 
             {{#description}} <p class="description">{{{ description }}}</p> {{/description}}
-            <a class="button" href="{{url}}">View Sample</a>
+            <div class="buttons">
+              <a class="button" href="{{url}}">View Sample</a>
+              {{#metadata.preview}}
+              <a class="button" href="{{urlPreview}}">View Demo</a>
+              {{/metadata.preview}}
+            </div>
           </div>
           {{/examples}}
       </section>

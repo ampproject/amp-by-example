@@ -127,6 +127,14 @@ class ExampleFile {
       '/';
   }
 
+  urlPreview() {
+    return this.url() + 'preview/'; 
+  }
+
+  urlEmbed() {
+    return this.url() + 'embed/'; 
+  }
+
   /** private **/
   parentDir() {
     const parentDir = path.basename(path.dirname(this.filePath));
