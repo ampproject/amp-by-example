@@ -140,9 +140,8 @@ This sample showcases how to build a product page in AMP HTML.
         <div id="product-header">
             <h2>Apple</h2>
             <div class="call-to-action">
-                <form method="get"
-                  
-                  action="<%host%>/shopping_cart/"
+                <form method="get"                 
+                  action="<%host%>/shopping_cart"
                   target="_blank">
                   <select name="quantity">
                       <option>1</option>
@@ -150,6 +149,9 @@ This sample showcases how to build a product page in AMP HTML.
                       <option>3</option>
                   </select>
                    <input type="submit" class="button button-primary" id="add-to-cart"value="ADD TO CART">
+                   <input type="hidden" name="name" value="Apple">
+                   <input type="hidden" name="price" value="$1.99">
+                   <input type="hidden" name="img" value="/img/product1_1024x682.jpg">
                 </form>
             </div>                              
         </div>

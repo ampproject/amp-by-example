@@ -36,10 +36,6 @@ type ProductListingPage struct {
 	SearchAction string
 }
 
-type ShoppingCartPage struct {
-	Quantity int
-}
-
 type Product struct {
 	Id          int    `json:"id"`
 	Img         string `json:"img"`
@@ -104,7 +100,13 @@ func registerShoppingCartHandler(sampleName string) {
 		panic(err)
 	}
 	http.HandleFunc("/"+sampleName, func(w http.ResponseWriter, r *http.Request) {
-		t.Execute(w, template.HTML(r.URL.Query().Get("quantity")))
+		quantity := r.URL.Query().Get("quantity")
+		price := r.URL.Query().Get("price")
+		img := r.URL.Query().Get("img")
+		name := r.URL.Query().Get("name")
+		header := "<div class=\"shopping-cart-line\"><div class=\"shopping-cart-line-element\"></div><div class=\"shopping-cart-line-element\"></div><div class=\"shopping-cart-line-element\">Price</div><div class=\"shopping-cart-line-element\">Quantity</div>"
+		product := "<div class=\"shopping-cart-line-element\"><amp-img width=\"60\" height=\"40\" layout=\"fixed\" alt=\"Apple\" src=\"" + img + "\"></amp-img></div><div class=\"shopping-cart-line-element\">" + name + "</div><div class=\"shopping-cart-line-element\">" + price + "</div><div class=\"shopping-cart-line-element\">" + quantity + "</div></div>"
+		t.Execute(w, template.HTML(header+product))
 	})
 }
 
@@ -141,5 +143,3 @@ func handleSearchRequest(w http.ResponseWriter, r *http.Request, sampleName stri
 	route := path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName, "?"+SEARCH+"=") + r.FormValue(SEARCH)
 	http.Redirect(w, r, route, http.StatusSeeOther)
 }
-
-

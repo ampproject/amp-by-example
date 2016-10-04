@@ -1,29 +1,34 @@
 <!---{
-"hideDoc": true,
+  "hideDoc": true,
   "hideCode": true
 }--->
 <!doctype html>
 <html ⚡>
 <head>
-  <link rel="canonical" href="<%host%>/amp-form-success/">
+  <link rel="canonical" href="<%host%>/shopping_cart/">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-  <script async src="https://cdn.ampproject.org/v0.js"></script>  
-  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+  <script async src="https://cdn.ampproject.org/v0.js"></script> 
+  <style amp-custom>
+    .shopping-cart-line {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .shopping-cart-line-element {
+      width: 25%;
+      box-sizing: border-box;
+      flex-grow: 1;
+      overflow: hidden;
+      padding: 16px;
+    }
+  </style> 
 </head>
 <body> 
   
+{{.}}
 
-  <p>
-  This should be your Shopping Basket. It could either be an AMP version or your normal page.
-      
-  {{.}} product added to the basket
-
-  Test "{{.}} asdffasd
-
-  Back to <a href="/samples_templates/product/preview/">product</a> sample.
-</p>
+  <p>Back to <a href="/samples_templates/product/preview/">product</a> sample.</p>
 
 </body>
 </html>
