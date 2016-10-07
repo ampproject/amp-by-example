@@ -30,7 +30,7 @@ This is a sample template for implementing live blogs in AMP.
         {
           "@context": "http://schema.org",
           "@type": "LiveBlogPosting",
-          "url": "https://ampbyexample.com/samples_templates/live_blog/",
+          "url": "<%host%>/samples_templates/live_blog/",
           "articleBody": "This is the initial text in the blog post",
           "datePublished": "2016-09-08T23:04:28.24337",
           "about": {
@@ -57,14 +57,14 @@ This is a sample template for implementing live blogs in AMP.
             "name": "Google",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://ampbyexample.com/img/favicon.png",
+              "url": "<%host%>/img/favicon.png",
               "width": "512",
               "height": "512"
             }
           },
           "image": {
             "@type": "ImageObject",
-            "url": "https://ampbyexample.com/img/abe_preview.png",
+            "url": "<%host%>/img/abe_preview.png",
             "height": "1532",
             "width": "2046"
           },
@@ -72,23 +72,19 @@ This is a sample template for implementing live blogs in AMP.
           "coverageEndTime": "2016-07-23T16:00:00-07:00",
           "headline": "An AMP Live Blog",
           "description": "A Live Blog implementation with AMP",
+          {{range .BlogItems}}
           "liveBlogUpdate": [ {
               "@type": "BlogPosting",
-              "headline": "An AMP Live Blog - just in update #1",
-              "url": "https://ampbyexample.com/samples_templates/live_blog/#post1",
-              "datePublished": "2016-09-08T23:09:28.24337",
+              "headline": "{{.Heading}}",
+              "url": "<%host%>/samples_templates/live_blog/#{{.ID}}",
+              "datePublished": "{{.MetadataTimestamp}}",
               "articleBody": {
-                "@value": "It's $14.99 a month. <br> And for a limited time, only $9.99",
+                "@value": "{{.Text}}",
                 "@type": "rdf:text"
               }
-            }, {
-              "@type": "BlogPosting",
-              "headline": "An AMP Live Blog - just in update #2",
-              "url": "https://ampbyexample.com/samples_templates/live_blog/#post2",
-              "datePublished": "2016-09-08T23:15:28.24337",
-              "articleBody": "This is a second update to the original post"
-            }
+            },
           ]
+          {{end}}
         }
       </script>
       <style amp-custom>
