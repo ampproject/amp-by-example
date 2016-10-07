@@ -48,10 +48,10 @@ type Product struct {
 }
 
 type ShoppingCartProduct struct {
-	Img         string `json:"img"`
-	Name        string `json:"name"`
-	Price       string `json:"price"`
-	Quantity    string `json:"quantity"`
+	Img      string `json:"img"`
+	Name     string `json:"name"`
+	Price    string `json:"price"`
+	Quantity string `json:"quantity"`
 }
 
 func (p *Product) StarsAsHtml() template.HTML {
@@ -108,11 +108,13 @@ func registerShoppingCartHandler(sampleName string) {
 		panic(err)
 	}
 	http.HandleFunc("/"+sampleName, func(w http.ResponseWriter, r *http.Request) {
-		quantity := r.URL.Query().Get("quantity")
-		price := r.URL.Query().Get("price")
 		img := r.URL.Query().Get("img")
-		name := r.URL.Query().Get("name")
-		t.Execute(w, ShoppingCartProduct{html.UnescapeString(img), name, price, quantity})
+		t.Execute(w,
+			ShoppingCartProduct{
+				Img:      html.UnescapeString(img),
+				Name:     r.URL.Query().Get("name"),
+				Price:    r.URL.Query().Get("price"),
+				Quantity: r.URL.Query().Get("quantity")})
 	})
 }
 
