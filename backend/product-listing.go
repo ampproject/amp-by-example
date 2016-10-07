@@ -17,6 +17,7 @@ package backend
 import (
 	"encoding/json"
 	"fmt"
+	"html"
 	"html/template"
 	"io/ioutil"
 	"net/http"
@@ -44,6 +45,13 @@ type Product struct {
 	Stars       string `json:"stars"`
 	Attribution string `json:"attribution"`
 	Url         string `json:"url"`
+}
+
+type ShoppingCartProduct struct {
+	Img         string `json:"img"`
+	Name        string `json:"name"`
+	Price       string `json:"price"`
+	Quantity    string `json:"quantity"`
 }
 
 func (p *Product) StarsAsHtml() template.HTML {
@@ -104,9 +112,7 @@ func registerShoppingCartHandler(sampleName string) {
 		price := r.URL.Query().Get("price")
 		img := r.URL.Query().Get("img")
 		name := r.URL.Query().Get("name")
-		header := "<div class=\"shopping-cart-line\"><div class=\"shopping-cart-line-element\"></div><div class=\"shopping-cart-line-element\"></div><div class=\"shopping-cart-line-element\">Price</div><div class=\"shopping-cart-line-element\">Quantity</div>"
-		product := "<div class=\"shopping-cart-line-element\"><amp-img width=\"60\" height=\"40\" layout=\"fixed\" alt=\"Apple\" src=\"" + img + "\"></amp-img></div><div class=\"shopping-cart-line-element\">" + name + "</div><div class=\"shopping-cart-line-element\">" + price + "</div><div class=\"shopping-cart-line-element\">" + quantity + "</div></div>"
-		t.Execute(w, template.HTML(header+product))
+		t.Execute(w, ShoppingCartProduct{html.UnescapeString(img), name, price, quantity})
 	})
 }
 

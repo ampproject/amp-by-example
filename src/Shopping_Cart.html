@@ -11,11 +11,11 @@
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <script async src="https://cdn.ampproject.org/v0.js"></script> 
   <style amp-custom>
-    .shopping-cart-line {
+    .shopping-cart {
       display: flex;
       flex-wrap: wrap;
     }
-    .shopping-cart-line-element {
+    .shopping-cart-item {
       width: 25%;
       box-sizing: border-box;
       flex-grow: 1;
@@ -25,8 +25,22 @@
   </style> 
 </head>
 <body> 
-  
-{{.}}
+  <!-- #### Shopping Cart -->
+  <!-- An implementation of a Shopping Cart -->
+    <div class="shopping-cart">
+    <div class="shopping-cart-item"></div>
+    <div class="shopping-cart-item"></div>
+    <div class="shopping-cart-item">Price</div>
+    <div class="shopping-cart-item">Quantity</div>
+
+    <div class="shopping-cart-item">
+      <amp-img width="60" height="40" layout="fixed" alt="Apple" src="{{.Img}}"></amp-img>
+    </div>
+    <div class="shopping-cart-item">{{.Name}}</div>
+    <div class="shopping-cart-item">{{.Price}}</div>
+    <div class="shopping-cart-item">{{.Quantity}}</div>
+    </div>
+    
 
   <p>Back to <a href="/samples_templates/product/preview/">product</a> sample.</p>
 
