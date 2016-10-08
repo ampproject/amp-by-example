@@ -56,6 +56,8 @@
   <!--
     Use the `action` attribute to specify a server-endpoint which should handle the form input. The URL must be HTTPS.
     The subscribe button will trigger a page reload.
+
+    You can find the code for the server endpoint used in this demo at [/backend/amp-form.go](https://github.com/ampproject/amp-by-example/blob/master/backend/amp-form.go).
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form-input-text" target="_top">
     <input type="text" name="name" class="data-input" placeholder="Name..." required>
