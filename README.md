@@ -190,8 +190,8 @@ If your sample looks better with a single column layout, you can disable the cod
 
 If you need to run or write a sample that depends on the backend server, you can run a local version.
 
-1. Install the [Google App Engine SDK](https://cloud.google.com/appengine/downloads#Google_App_Engine_SDK_for_Go).
-2. Run the backend server in watch mode so it will recompile on change. This assumes that `goapp` is available in your `PATH`, you may need to update your environment accordingly.
+1. Install the [Google App Engine SDK](https://cloud.google.com/appengine/downloads) for Go and follow the instructions for adding `goapp` to your `PATH`.
+2. Run the backend server in watch mode so it will recompile on change.
 
    ```none
    $ gulp backend:watch
