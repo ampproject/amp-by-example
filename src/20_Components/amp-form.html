@@ -67,8 +67,11 @@
   <!--
     Use the `action-xhr` attribute to submit the form via XMLHttpRequest (XHR). You can use
     [amp-mustache](https://github.com/ampproject/amphtml/blob/master/extensions/amp-mustache/amp-mustache.md)
-    templates to show custom success or error messages. The `amp-form` component displays `submit-success` or
-    `submit-error` elements based on the response and renders the template data inside these two elements.
+    templates to show custom success or error messages, using data sent by the server endpoint as JSON. For
+    example, if the server sends `{"foo": "bar"}`, you can use use `{{foo}}` in the template to render `bar`.
+
+    The `amp-form` component displays `submit-success` or `submit-error` elements based on the response and
+    renders the template data inside these two elements.
   -->
   <form method="post" action="<%host%>/components/amp-form/submit-form-input-text" action-xhr="<%host%>/components/amp-form/submit-form-input-text-xhr"  target="_top">
     <input type="text" class="data-input" name="name" placeholder="Name..." required>
