@@ -21,6 +21,7 @@ import (
 	"path"
 	"strconv"
 	"time"
+	"log"
 )
 
 const (
@@ -129,7 +130,10 @@ func createPage(newStatus int, timestamp time.Time) Page {
 }
 
 func renderSample(w http.ResponseWriter, r *http.Request, filePath string) {
-	t, _ := template.ParseFiles(filePath)
+	// t := template.New("template test")
+	// t = template.Must(template.ParseFiles(filePath))
+	t, error := template.ParseFiles(filePath)
+	log.Println(error)
 	w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d, public, must-revalidate", MAX_AGE_IN_SECONDS))
 	newStatus := updateStatus(w, r)
 	t.Execute(w, createPage(newStatus, time.Now()))
