@@ -47,7 +47,7 @@ type Product struct {
 	Url         string `json:"url"`
 }
 
-type ShoppingCartProduct struct {
+type ShoppingCartItem struct {
 	Img      string `json:"img"`
 	Name     string `json:"name"`
 	Price    string `json:"price"`
@@ -108,10 +108,9 @@ func registerShoppingCartHandler(sampleName string) {
 		panic(err)
 	}
 	http.HandleFunc("/"+sampleName, func(w http.ResponseWriter, r *http.Request) {
-		img := r.URL.Query().Get("img")
 		t.Execute(w,
-			ShoppingCartProduct{
-				Img:      html.UnescapeString(img),
+			ShoppingCartItem{
+				Img:      html.UnescapeString(r.URL.Query().Get("img")),
 				Name:     r.URL.Query().Get("name"),
 				Price:    r.URL.Query().Get("price"),
 				Quantity: r.URL.Query().Get("quantity")})
