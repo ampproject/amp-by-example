@@ -79,12 +79,6 @@ This sample showcases how to build a product page in AMP HTML.
         align-items: center;
         justify-content: space-between;
     }
-    .lightbox-content {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            padding-top: 16px;
-    }
     </style>
 
     <!-- #### Metadata -->
@@ -127,10 +121,10 @@ This sample showcases how to build a product page in AMP HTML.
     <body>
     <%>product/header.html%>
 
-        <!-- This dropdown allows to select how many items to be added to the shopping cart. Pressing the `ADD TO CART` button should lead to the shopping cart page page. -->
         <div id="product-header">
             <h2>Apple</h2>
             <div class="call-to-action">
+            <!-- This dropdown is realized using [amp-form](/components/amp-form/) and allows to select how many items to be added to the shopping cart. Pressing the `ADD TO CART` button leads to a shopping cart page page. -->
                 <form method="get"                 
                   action="<%host%>/shopping_cart"
                   target="_top">
