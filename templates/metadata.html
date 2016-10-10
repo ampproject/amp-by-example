@@ -16,7 +16,7 @@
 <meta name="twitter:title" content="{{title}}">
 <meta name="twitter:description" content="{{desc}}">
 <meta name="twitter:image" content="{{logo}}">
-<meta name="twitter:image:alt" content="AMP by Example Screenshot">
+<meta name="twitter:image:alt" content="AMP by Example">
 
 <!-- Open Graph data -->
 <meta property="fb:app_id" content="254325784911610" />
@@ -28,36 +28,3 @@
 <meta property="og:site_name" content="AMP by Example" />
 <meta property="article:published_time" content="{{datePublished}}" />
 <meta property="article:modified_time" content="{{dateModified}}" />
-
-<!-- Metadata required by Google for AMP files -->
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "NewsArticle",
-  "mainEntityOfPage": "{{canonical}}",
-  "headline": "{{title}}",
-  "datePublished": "{{datePublished}}",
-  "dateModified": "{{dateModified}}",
-  "description": "{{desc}}",
-  "author": {
-    "@type": "Person",
-    "name": "Sebastian Benz"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Google",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "{{logo}}",
-      "width": "{{logoWidth}}",
-      "height": "{{logoHeight}}"
-    }
-  },
-  "image": {
-    "@type": "ImageObject",
-    "url": "{{leader}}",
-    "height": "{{leaderHeight}}",
-    "width": "{{leaderWidth}}"
-  }
-}
-</script>
