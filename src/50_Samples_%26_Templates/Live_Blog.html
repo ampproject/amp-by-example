@@ -31,15 +31,19 @@ This is a sample template for implementing live blogs in AMP.
           "@context": "http://schema.org",
           "@type": "LiveBlogPosting",
           "url": "<%host%>/samples_templates/live_blog/",
+          "articleBody": "This is the initial text in the blog post",
+          "datePublished": "2016-09-08T23:04:28.24337",
           "about": {
             "@type": "Event",
+            "description": "This is my great live blog sample",
             "startDate": "2016-07-23T13:00:00-07:00",
+            "endDate": "2016-07-23T15:00:00-07:00",
             "name": "An AMP Live Blog",
             "url": "<%host%>/samples_templates/live_blog/",
             "location": {
               "@type": "EventVenue",
-              "name": "Chiara Chiappini",
-              "address" :{
+              "name": "The Venue Name",
+              "address" : {
                 "@type": "PostalAddress",
                 "streetAddress": "701 Mission St",
                 "addressLocality": "San Francisco",
@@ -48,6 +52,27 @@ This is a sample template for implementing live blogs in AMP.
                 "addressCountry": "US"
               }
             }
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Google",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "<%host%>/img/favicon.png",
+              "width": "512",
+              "height": "512"
+            }
+          },
+          "author": {
+            "@type": "Person",
+            "sameAs": "https://github.com/kul3r4",
+            "name": "Chiara Chiappini"
+          },
+          "image": {
+            "@type": "ImageObject",
+            "url": "<%host%>/img/abe_preview.png",
+            "height": "1532",
+            "width": "2046"
           },
           "coverageStartTime": "2016-07-23T11:30:00-07:00",
           "coverageEndTime": "2016-07-23T16:00:00-07:00",
@@ -76,7 +101,7 @@ This is a sample template for implementing live blogs in AMP.
         .logo > a {
           font-size: 16px;
           font-weight: 500;
-          color: white;  
+          color: white;
           text-transform: uppercase;
         }
         amp-social-share {
@@ -164,14 +189,14 @@ This is a sample template for implementing live blogs in AMP.
               </amp-img>
               <h4 class="title">{{.Heading}}</h4>
               <p class="date">{{.Date}}</p>
-              <p class="text">{{.Text}}</p>             
+              <p class="text">{{.Text}}</p>
               <p class="social-share">
                 <amp-social-share type="twitter" width="45" height="33" data-param-url="AMPDOC_URL#{{.ID}}"></amp-social-share>
                 <amp-social-share type="facebook" width="45" height="33" data-attribution=254325784911610 data-param-url="AMPDOC_URL#{{.ID}}" ></amp-social-share>
                 <amp-social-share type="gplus" width="45" height="33" data-param-url="AMPDOC_URL#{{.ID}}"></amp-social-share>
                 <amp-social-share type="email" width="45" height="33" data-param-url="AMPDOC_URL#{{.ID}}"></amp-social-share>
                 <amp-social-share type="pinterest" width="45" height="33" data-param-url="AMPDOC_URL#{{.ID}}"></amp-social-share>
-              </p>              
+              </p>
             </div>
           </div>
         {{end}}
