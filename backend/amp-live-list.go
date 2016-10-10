@@ -15,13 +15,12 @@
 package backend
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"path"
 	"strconv"
-	"text/template"
+	"html/template"
 	"time"
 )
 
@@ -84,7 +83,7 @@ type Score struct {
 type Page struct {
 	BlogItems     []BlogItem
 	FootballScore Score
-	BlogMetadata  string
+	BlogMetadata  []BlogPosting
 }
 
 var blogs []BlogItem
@@ -171,8 +170,7 @@ func createPage(newStatus int, timestamp time.Time, r *http.Request) Page {
 	}
 	blogItems := getBlogEntries(newStatus, timestamp)
 	score := createScore(newStatus, 0)
-	metadata, _ := json.Marshal(createMetadata(r))
-	return Page{BlogItems: blogItems, FootballScore: score, BlogMetadata: string(metadata)}
+	return Page{BlogItems: blogItems, FootballScore: score, BlogMetadata: createMetadata(r)}
 }
 
 func renderSample(w http.ResponseWriter, r *http.Request, filePath string) {
