@@ -16,7 +16,6 @@ package backend
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"path"
 	"strconv"
@@ -112,9 +111,12 @@ func registerHandler(sampleType string, sampleName string) {
 
 	url := path.Join("/", sampleType, sampleName) + "/"
 	filePath := path.Join(DIST_FOLDER, sampleType, sampleName, "index.html")
-
+	t, error := template.ParseFiles(filePath)
+	if error != nil {
+		panic(error)
+	}
 	http.HandleFunc(url, func(w http.ResponseWriter, r *http.Request) {
-		renderSample(w, r, filePath)
+		renderSample(w, r, filePath, t)
 	})
 }
 
@@ -173,9 +175,7 @@ func createPage(newStatus int, timestamp time.Time, r *http.Request) Page {
 	return Page{BlogItems: blogItems, FootballScore: score, BlogMetadata: createMetadata(r)}
 }
 
-func renderSample(w http.ResponseWriter, r *http.Request, filePath string) {
-	t, error := template.ParseFiles(filePath)
-	log.Println(error)
+func renderSample(w http.ResponseWriter, r *http.Request, filePath string, t *template.Template) {
 	w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d, public, must-revalidate", MAX_AGE_IN_SECONDS))
 	newStatus := updateStatus(w, r)
 	t.Execute(w, createPage(newStatus, time.Now(), r))
