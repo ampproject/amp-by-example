@@ -35,6 +35,7 @@ This is a sample template for implementing live blogs in AMP.
             "@type": "Event",
             "startDate": "2016-07-23T13:00:00-07:00",
             "name": "An AMP Live Blog",
+            "url": "<%host%>/samples_templates/live_blog/",
             "location": {
               "@type": "EventVenue",
               "name": "Chiara Chiappini",
@@ -52,21 +53,7 @@ This is a sample template for implementing live blogs in AMP.
           "coverageEndTime": "2016-07-23T16:00:00-07:00",
           "headline": "An AMP Live Blog",
           "description": "A Live Blog implementation with AMP",
-          "liveBlogUpdate": [
-          {{range $index, $value := .BlogItems}}
-            {{if $index}}, {{end}}
-            {
-              "@type": "BlogPosting",
-              "headline": "{{$value.Heading}}",
-              "url": "<%host%>/samples_templates/live_blog/#{{$value.ID}}",
-              "datePublished": "{{$value.MetadataTimestamp}}",
-              "articleBody": {
-                "@value": "{{$value.Text}}",
-                "@type": "rdf:HTML"
-              }
-            }
-          {{end}}
-          ]
+          "liveBlogUpdate": {{.BlogMetadata}}
         }
       </script>
       <style amp-custom>
