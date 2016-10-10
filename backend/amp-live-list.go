@@ -16,11 +16,12 @@ package backend
 
 import (
 	"fmt"
-	"html/template"
 	"net/http"
 	"path"
 	"strconv"
+	"html/template"
 	"time"
+	"encoding/json"
 )
 
 const (
@@ -42,6 +43,33 @@ type BlogItem struct {
 	MetadataTimestamp string
 }
 
+type BlogPosting struct {
+	Type            string      `json:"@type"`
+	Headline        string      `json:"headline"`
+	URL             string      `json:"url"`
+	DatePublished   string      `json:"datePublished"`
+	BlogArticleBody ArticleBody `json:"articleBody"`
+	BlogPublisher   Publisher   `json:"publisher"`
+	BlogImage       Image       `json:"image"`
+}
+
+type ArticleBody struct {
+	Type string `json:"@type"`
+}
+
+type Publisher struct {
+	Type             string `json:"@type"`
+	Name             string `json:"name"`
+	BlogPostingImage Image  `json:"logo"`
+}
+
+type Image struct {
+	Type   string `json:"@type"`
+	URL    string `json:"url"`
+	Width  string `json:"width"`
+	Height string `json:"height"`
+}
+
 func (blogItem BlogItem) cloneWith(id int, timestamp time.Time) BlogItem {
 	return createBlogEntry(blogItem.Heading, blogItem.Text, blogItem.Image, timestamp, id)
 }
@@ -55,6 +83,7 @@ type Score struct {
 type Page struct {
 	BlogItems     []BlogItem
 	FootballScore Score
+	BlogMetadata  string
 }
 
 var blogs []BlogItem
@@ -83,9 +112,12 @@ func registerHandler(sampleType string, sampleName string) {
 
 	url := path.Join("/", sampleType, sampleName) + "/"
 	filePath := path.Join(DIST_FOLDER, sampleType, sampleName, "index.html")
-
+	t, error := template.ParseFiles(filePath)
+	if error != nil {
+		panic(error)
+	}
 	http.HandleFunc(url, func(w http.ResponseWriter, r *http.Request) {
-		renderSample(w, r, filePath)
+		renderSample(w, r, filePath, t)
 	})
 }
 
@@ -119,20 +151,36 @@ func readStatus(r *http.Request) int {
 	return result
 }
 
-func createPage(newStatus int, timestamp time.Time) Page {
+func createMetadata(r *http.Request) []BlogPosting {
+	result := make([]BlogPosting, 0)
+	for i := 0; i < len(blogs); i++ {
+		result = append(result, BlogPosting{"BlogPosting",
+			blogs[i].Heading,
+			buildSourceOrigin(r.Host) + "/samples_templates/live_blog/#" + blogs[i].ID,
+			blogs[i].MetadataTimestamp,
+			ArticleBody{"Text"},
+			Publisher{"Organization", "AMPByExample",
+				Image{"ImageObject", "https://ampbyexample.com/img/favicon.png", "512", "512"}},
+			Image{"ImageObject", blogs[i].Image, "853", "1280"},
+		})
+	}
+	return result
+}
+
+func createPage(newStatus int, timestamp time.Time, r *http.Request) Page {
 	if newStatus > len(blogs) {
 		newStatus = len(blogs)
 	}
 	blogItems := getBlogEntries(newStatus, timestamp)
 	score := createScore(newStatus, 0)
-	return Page{BlogItems: blogItems, FootballScore: score}
+	jsonMetadata, _ := json.MarshalIndent(createMetadata(r), "        ", "  ")	
+	return Page{BlogItems: blogItems, FootballScore: score, BlogMetadata: string(jsonMetadata)}
 }
 
-func renderSample(w http.ResponseWriter, r *http.Request, filePath string) {
-	t, _ := template.ParseFiles(filePath)
+func renderSample(w http.ResponseWriter, r *http.Request, filePath string, t *template.Template) {
 	w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d, public, must-revalidate", MAX_AGE_IN_SECONDS))
 	newStatus := updateStatus(w, r)
-	t.Execute(w, createPage(newStatus, time.Now()))
+	t.Execute(w, createPage(newStatus, time.Now(), r))
 }
 
 func getBlogEntries(size int, timestamp time.Time) []BlogItem {
