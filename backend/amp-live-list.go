@@ -21,6 +21,7 @@ import (
 	"strconv"
 	"html/template"
 	"time"
+	"encoding/json"
 )
 
 const (
@@ -82,7 +83,7 @@ type Score struct {
 type Page struct {
 	BlogItems     []BlogItem
 	FootballScore Score
-	BlogMetadata  []BlogPosting
+	BlogMetadata  string
 }
 
 var blogs []BlogItem
@@ -172,7 +173,8 @@ func createPage(newStatus int, timestamp time.Time, r *http.Request) Page {
 	}
 	blogItems := getBlogEntries(newStatus, timestamp)
 	score := createScore(newStatus, 0)
-	return Page{BlogItems: blogItems, FootballScore: score, BlogMetadata: createMetadata(r)}
+	jsonMetadata, _ := json.MarshalIndent(createMetadata(r), "        ", "  ")	
+	return Page{BlogItems: blogItems, FootballScore: score, BlogMetadata: string(jsonMetadata)}
 }
 
 func renderSample(w http.ResponseWriter, r *http.Request, filePath string, t *template.Template) {
