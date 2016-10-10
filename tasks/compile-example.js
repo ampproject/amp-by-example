@@ -271,6 +271,8 @@ module.exports = function(config, updateTimestamp) {
         const selected = currentExample &&
           exampleFile.title() == currentExample.title();
 
+        const experiments = exampleFile.document.metadata.experiments;
+
         currentCategory.examples.push({
           title: exampleFile.title(),
           name: exampleFile.name(),
@@ -280,7 +282,8 @@ module.exports = function(config, updateTimestamp) {
           urlEmbed: exampleFile.urlEmbed(),
           selected: selected,
           metadata: exampleFile.document.metadata,
-          experiments: exampleFile.document.metadata.experiments,
+          experiments: experiments,
+          experiment: experiments && experiments.length > 0,
           highlight: exampleFile.document.metadata.highlight
         });
       });
