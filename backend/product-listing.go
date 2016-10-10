@@ -17,6 +17,7 @@ package backend
 import (
 	"encoding/json"
 	"fmt"
+	"html"
 	"html/template"
 	"io/ioutil"
 	"net/http"
@@ -26,6 +27,8 @@ import (
 
 const (
 	SEARCH                 = "search"
+	ADD_TO_CART            = "add_to_cart"
+	SHOPPING_CART          = "shopping_cart"
 )
 
 type ProductListingPage struct {
@@ -44,6 +47,13 @@ type Product struct {
 	Url         string `json:"url"`
 }
 
+type ShoppingCartItem struct {
+	Img      string `json:"img"`
+	Name     string `json:"name"`
+	Price    string `json:"price"`
+	Quantity string `json:"quantity"`
+}
+
 func (p *Product) StarsAsHtml() template.HTML {
 	return template.HTML(p.Stars)
 }
@@ -59,6 +69,7 @@ func InitProductListing() {
 	initProducts(DIST_FOLDER + "/json/related_products.json")
 	registerProductListingHandler("product_listing")
 	registerProductListingHandler("product_listing/preview")
+	registerShoppingCartHandler(SHOPPING_CART)
 }
 
 func initProducts(path string) {
@@ -86,6 +97,23 @@ func registerProductListingHandler(sampleName string) {
 	})
 	http.HandleFunc(route+SEARCH, func(w http.ResponseWriter, r *http.Request) {
 		handleSearchRequest(w, r, sampleName)
+	})
+
+}
+
+func registerShoppingCartHandler(sampleName string) {
+	filePath := path.Join(DIST_FOLDER, sampleName, "index.html")
+	t, err := template.ParseFiles(filePath)
+	if err != nil {
+		panic(err)
+	}
+	http.HandleFunc("/"+sampleName, func(w http.ResponseWriter, r *http.Request) {
+		t.Execute(w,
+			ShoppingCartItem{
+				Img:      html.UnescapeString(r.URL.Query().Get("img")),
+				Name:     r.URL.Query().Get("name"),
+				Price:    r.URL.Query().Get("price"),
+				Quantity: r.URL.Query().Get("quantity")})
 	})
 }
 
@@ -116,8 +144,7 @@ func searchProducts(sampleName string, query string) ProductListingPage {
 }
 
 func handleSearchRequest(w http.ResponseWriter, r *http.Request, sampleName string) {
-	if r.Method != "POST" {
-		http.Error(w, "post only", http.StatusMethodNotAllowed)
+	if !isFormPostRequest(r.Method, w) {
 		return
 	}
 	route := path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName, "?"+SEARCH+"=") + r.FormValue(SEARCH)

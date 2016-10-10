@@ -619,3 +619,10 @@ input[type=text], input[type=email], input[type=date] {
   background-color: rgb(66,133,244);
   height: 43px
 }
+
+select {
+  height: 36px;
+  line-height: 36px;
+  font-size: 14px;
+  margin: 16px;
+}
