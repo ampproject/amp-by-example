@@ -5,6 +5,15 @@
 <!--
   #### Introduction
   The [amp-google-vrview-image](https://www.ampproject.org/docs/reference/components/amp-google-vrview-image) extension allows embedding 360 degree VR media into AMP pages.
+  If experimenting with this sample on a desktop web browser, you can interact with the displayed image by clicking on it and dragging the mouse around. The best way to perceive the effects enabled by this component is to
+  view it on a mobile device and interact with the images by moving the device around using the
+  [cardboard](https://vr.google.com/cardboard/) viewer.
+
+  The attributes supported by this component are:
+  * **src**: the source of the image being displayed
+  * **stereo**: if provided, the image is considered to be a stereoscopic image; otherwise it is a monoscopic image.
+  * **yaw**: initial [yaw rotation](https://en.wikipedia.org/wiki/Yaw_(rotation)) of the viewer
+  * **yaw-only**: if specified, restrict motion to yaw rotations only
 -->
 <!doctype html>
 <html ⚡>
@@ -27,7 +36,6 @@
     custom-element="amp-google-vrview-image" 
     src="https://cdn.ampproject.org/v0/amp-google-vrview-image-0.1.js">        
   </script>
-  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 <!--
   Include the AMP boilerplate.  
@@ -36,10 +44,30 @@
 </head>
 <body>
 <article>
-    <!-- ##### Define the VR view component -->
+    <!-- **VR view component.** -->
+    <!-- Attributes:[**mono** (default), **yaw=**0 (default)] -->
+    <amp-google-vrview-image
+        src="https://storage.googleapis.com/vrview/examples/coral.jpg"
+        width="400" height="300" layout=responsive>
+    </amp-google-vrview-image>
+    <!-- Attributes: [**stereo**, **yaw:** 0 (default)] -->
     <amp-google-vrview-image
         src="https://storage.googleapis.com/vrview/examples/coral.jpg"
         stereo
+        width="400" height="300" layout=responsive>
+    </amp-google-vrview-image>
+    <!-- Attributes: [**stereo**, **yaw:** 90] -->
+    <amp-google-vrview-image
+        src="https://storage.googleapis.com/vrview/examples/coral.jpg"
+        stereo
+        yaw=90
+        width="400" height="300" layout=responsive>
+    </amp-google-vrview-image>
+    <!-- Attributes: [**stereo**, **yaw-only**] -->
+    <amp-google-vrview-image
+        src="https://storage.googleapis.com/vrview/examples/coral.jpg"
+        stereo
+        yaw-only
         width="400" height="300" layout=responsive>
     </amp-google-vrview-image>
 </article>
