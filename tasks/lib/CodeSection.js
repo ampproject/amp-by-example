@@ -30,6 +30,7 @@ marked.setOptions({
 });
 const COMMENT_START = '<!--';
 const COMMENT_END = '-->';
+const HIDDEN_LINE_COUNT_THRESHOLD = 4;
 
 
 module.exports = class CodeSection {
@@ -88,7 +89,19 @@ module.exports = class CodeSection {
     return this.hideDocOnMobile() || !this.code.trim();
   }
 
+  hideColumns() {
+    return !this.doc.trim() && this.shouldHideSection(this.code);
+  }
+
   /* PRIVATE */
+  shouldHideSection(str) {
+    const lines = str.trim().split(/\r\n|\r|\n/);
+    return lines.length > HIDDEN_LINE_COUNT_THRESHOLD || lines.some(this.isBoilerplate);
+  }
+
+  isBoilerplate(str) {
+    return str.trim().startsWith('<style amp-boilerplate>')
+  }
 
   /**
    * Normalizes a string based on the indentation of the comment tag.
