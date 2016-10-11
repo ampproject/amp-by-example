@@ -79,6 +79,9 @@ This sample showcases how to build a product page in AMP HTML.
         align-items: center;
         justify-content: space-between;
     }
+    form {
+        flex-wrap: nowrap;
+    }
     </style>
 
     <!-- #### Metadata -->
@@ -121,14 +124,15 @@ This sample showcases how to build a product page in AMP HTML.
     <body>
     <%>product/header.html%>
 
+        <!-- #### Product Quantity -->
+        <!-- This dropdown is realized using [amp-form](/components/amp-form/) and allows to select how many items to be added to the shopping cart. Pressing the `ADD TO CART` button leads to a shopping cart page page. -->
         <div id="product-header">
             <h2>Apple</h2>
             <div class="call-to-action">
-            <!-- This dropdown is realized using [amp-form](/components/amp-form/) and allows to select how many items to be added to the shopping cart. Pressing the `ADD TO CART` button leads to a shopping cart page page. -->
                 <form method="get"                 
                   action="<%host%>/shopping_cart"
                   target="_top">
-                  <select name="quantity">
+                  <select name="quantity" class="data-input">
                       <option>1</option>
                       <option>2</option>
                       <option>3</option>
