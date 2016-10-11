@@ -1,0 +1,47 @@
+<!---{
+    "experiments": ["amp-google-vrview-image"],
+    "preview": "default"
+}--->
+<!--
+  #### Introduction
+  The [amp-google-vrview-image](https://www.ampproject.org/docs/reference/components/amp-google-vrview-image) extension allows embedding 360 degree VR media into AMP pages.
+-->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <link rel="canonical" href="<%host%>/components/amp-google-vrview-image/">
+  <!-- #### Setup -->
+  <!--
+    Import the AMP library.
+  -->
+  <script 
+    async 
+    src="https://cdn.ampproject.org/v0.js">    
+  </script>
+  <!--
+    Import the AMP component.
+  -->  
+  <script 
+    async 
+    custom-element="amp-google-vrview-image" 
+    src="https://cdn.ampproject.org/v0/amp-google-vrview-image-0.1.js">        
+  </script>
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<!--
+  Include the AMP boilerplate.  
+-->
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+</head>
+<body>
+<article>
+    <!-- ##### Define the VR view component -->
+    <amp-google-vrview-image
+        src="https://storage.googleapis.com/vrview/examples/coral.jpg"
+        stereo
+        width="400" height="300" layout=responsive>
+    </amp-google-vrview-image>
+</article>
+</body>
+</html>
