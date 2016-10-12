@@ -1,7 +1,7 @@
 <!--
   #### Introduction
 
-  The `amp-list` component fetches dynamic content from a CORS JSON endpoint and renders it using a supplied template. This is good for embedding a dynamic list of related articles.
+  The [`amp-list`](https://www.ampproject.org/docs/reference/components/amp-list) component fetches dynamic content from a CORS JSON endpoint and renders it using a supplied template. This is good for embedding a dynamic list of related articles.
 -->
 <!-- -->
 <!doctype html>
@@ -41,7 +41,7 @@
     ]
   }
   ```
-  The list content is rendered via an [amp-mustache template](https://github.com/ampproject/amphtml/blob/master/extensions/amp-mustache/amp-mustache.md). The template can be specified either by id, or by using a nested element.
+  The list content is rendered via an [amp-mustache template](https://www.ampproject.org/docs/reference/components/amp-mustache). The template can be specified either by id, or by using a nested element.
   -->
   <ul>
   <amp-list width=auto height=100 layout=fixed-height src="<%host%>/json/examples.json">
