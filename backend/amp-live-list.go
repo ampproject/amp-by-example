@@ -18,11 +18,22 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+	"errors"
+
 )
 
 const (
 	AMP_LIVE_LIST_COOKIE_NAME = "ABE_AMP_LIVE_LIST_STATUS"
+<<<<<<< HEAD
 	FIFTEEN_SECONDS           = 15
+=======
+	MAX_AGE_IN_SECONDS        = 1
+	DIST_FOLDER               = "dist"
+	SAMPLE_AMPS_FOLDER        = "samples_templates"
+	COMPONENTS_FOLDER         = "components"
+	MINUS_FIFTEEN_SECONDS     = -15
+	MAX_BLOG_NUMBER						= 5
+>>>>>>> Add pagination
 )
 
 type BlogItem struct {
@@ -96,6 +107,8 @@ type LiveBlogSample struct {
 	BlogItems     []BlogItem
 	FootballScore Score
 	BlogMetadata  []BlogPosting
+	NextPageURL string
+	PageNumber int
 }
 
 var blogs []BlogItem
@@ -121,10 +134,39 @@ func initBlogPosts() {
 		createBlogEntryWithTimeNow("Sailing ship", "A ship sailing the sea at sunset.", "/img/landscape_ship_1280x853.jpg", 10))
 }
 
+
 func handleLiveList(w http.ResponseWriter, r *http.Request, page Page) {
 	newStatus := updateStatus(w, r)
 	page.Render(w, createLiveBlogSample(newStatus, time.Now(), r))
 }
+/**
+func registerHandler(sampleType string, sampleName string) {
+
+	url := path.Join("/", sampleType, sampleName) + "/"
+	filePath := path.Join(DIST_FOLDER, sampleType, sampleName, "index.html")
+	t, error := template.ParseFiles(filePath)
+	if error != nil {
+		panic(error)
+	}
+	http.HandleFunc(url, func(w http.ResponseWriter, r *http.Request) {
+		renderSample(w, r, url, t)
+	})
+}
+
+func createBlogEntryWithTimeNow(heading string, text string, imagePath string, id int) BlogItem {
+	var now = time.Now()
+	return createBlogEntry(heading, text, imagePath, now, id)
+}
+
+func createBlogEntry(heading string, text string, imagePath string, time time.Time, id int) BlogItem {
+	return BlogItem{Text: text,
+		Image:             imagePath,
+		Timestamp:         time.Format("20060102150405"),
+		Date:              time.Format("15:04:05"),
+		ID:                "post" + strconv.Itoa(id),
+		Heading:           heading,
+		MetadataTimestamp: time.Format("2006-01-02T15:04:05.999999-07:00")}
+		**/
 
 func updateStatus(w http.ResponseWriter, r *http.Request) int {
 	newStatus := readStatus(r) + 1
@@ -157,13 +199,39 @@ func createMetadata(r *http.Request) []BlogPosting {
 	return result
 }
 
-func createLiveBlogSample(newStatus int, timestamp time.Time, r *http.Request) LiveBlogSample {
+
+func createLiveBlogSample(newStatus int, timestamp time.Time, r *http.Request, firstBlogID string, url string) LiveBlogSample {
+
 	if newStatus > len(blogs) {
 		newStatus = len(blogs)
 	}
 	blogItems := getBlogEntries(newStatus, timestamp)
 	score := createScore(newStatus, 0)
-	return LiveBlogSample{BlogItems: blogItems, FootballScore: score, BlogMetadata: createMetadata(r)}
+	firstItemIndex, _ := getProductIndexFromID(firstBlogID)
+	nextPageURL := ""
+	if firstItemIndex+MAX_BLOG_NUMBER < len(blogs) {
+			nextPageFirstItemID := blogItems[firstItemIndex+MAX_BLOG_NUMBER].ID
+			nextPageURL = buildSourceOrigin(r.Host) +url+"?from=" + nextPageFirstItemID
+	}
+
+	return LiveBlogSample{BlogItems: blogItems[firstItemIndex:firstItemIndex+MAX_BLOG_NUMBER], 
+		FootballScore: score, 
+		BlogMetadata: createMetadata(r), 
+		NextPageURL: nextPageURL, 
+		PageNumber: getPageNumberFromProductIndex(firstItemIndex)}
+}
+
+func getPageNumberFromProductIndex(index int) int{
+	return (index / MAX_BLOG_NUMBER ) + 1
+}
+
+func getProductIndexFromID(id string) (int, error){
+	for i := 0; i < len(blogs); i++ {
+		if blogs[i].ID == id {
+			return i, nil
+		}		
+	}
+	return 0, errors.New("ID not found")
 }
 
 func getBlogEntries(size int, timestamp time.Time) []BlogItem {

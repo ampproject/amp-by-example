@@ -156,6 +156,21 @@ This is a sample template for implementing live blogs in AMP.
             top: 60px;
           }
         }
+            .pagination {
+      display: inline-block;
+      padding: 0;
+    }
+    amp-live-list [pagination] nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pagination li {
+      display: inline;
+      border: 1px solid black;
+      padding: 10px;
+      list-style-type: none;
+    }
       </style>
 
   </head>
@@ -199,6 +214,14 @@ This is a sample template for implementing live blogs in AMP.
             </div>
           </div>
         [[end]]
+    </div>
+        <div pagination>
+      <nav aria-label="amp live list pagination">
+      <ul class="pagination">
+        <li>{{.PageNumber}}</li>
+        <li><a href="{{.NextPageURL}}">Next</a></li>
+      </ul>
+      </nav>
     </div>
   </amp-live-list>
 
