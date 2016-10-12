@@ -4,6 +4,7 @@
   Learn how to use the `amp-font` component to trigger and monitor the loading of custom fonts on AMP pages.
 
 -->
+<!-- -->
 <!doctype html>
 <html ⚡>
 <head>
@@ -77,14 +78,8 @@
     on-load-remove-class="unavailable-font-loading"
     on-load-add-class="unavailable-font-loaded">
   </amp-font>
-  <!--
-    A simple text showing how to use `amp-font`.
-  -->
-  <p class="unavailable-font">
-    This text is displayed in red if the chosen font is not supported.
-  </p>
-  <!-- #### Sample for an existing font -->
-  <!-- -->
+  <!-- Here we declare... -->
+    
     <amp-font
     layout="nodisplay"
     font-family="Tangerine"
@@ -94,7 +89,14 @@
     on-load-remove-class="tangerine-loading"
     on-load-add-class="tangerine-loaded">
   </amp-font>
+    <!-- and use an existing font. -->
   <p class="tangerine">
+    This text is displayed in red if the chosen font is not supported.
+  </p>
+  <!--
+    This time the font is not available.
+  -->
+  <p class="unavailable-font">
     This text is displayed in red if the chosen font is not supported.
   </p>
   <!-- #### Using only cached fonts -->

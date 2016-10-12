@@ -133,6 +133,33 @@ describe("CodeSection", function() {
       expect(section.hideDocOnMobile()).toEqual(true);
     });
   });
+  describe('hide columns if code section', function() {
+    it('is longer than 4 lines', function() {
+      section.appendCode("line1");
+      expect(section.hideColumns()).toEqual(false);
+      section.appendCode("line2");
+      expect(section.hideColumns()).toEqual(false);
+      section.appendCode("line3");
+      expect(section.hideColumns()).toEqual(false);
+      section.appendCode("line4");
+      expect(section.hideColumns()).toEqual(false);
+      section.appendCode("line5");
+      expect(section.hideColumns()).toEqual(true);
+    });
+    it('has no doc', function() {
+      section.appendDoc("some doc");
+      section.appendCode("line1");
+      section.appendCode("line2");
+      section.appendCode("line3");
+      section.appendCode("line4");
+      section.appendCode("line5");
+      expect(section.hideColumns()).toEqual(false);
+    });
+    it('is boilerplate', function() {
+      section.appendCode("line1\n   <style amp-boilerplate> more\n code");
+      expect(section.hideColumns()).toEqual(true);
+    });
+  });
 
 });
 
