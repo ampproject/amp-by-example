@@ -26,7 +26,6 @@ const (
 	COMMENT_SAMPLE_PATH         = "/samples_templates/comment_section/"
 	COMMENT_SAMPLE_PATH_PREVIEW = COMMENT_SAMPLE_PATH + "preview/"
 	COMMENT_COOKIE_NAME         = "ABE_LOGGED_IN"
-	SUBMIT_COMMENT              = "submit-comment"
 	SUBMIT_COMMENT_XHR          = "submit-comment-xhr"
 	USER                        = "Charlie"
 )
@@ -58,9 +57,6 @@ func InitCommentSection() {
 	http.HandleFunc(COMMENT_SAMPLE_PATH+SUBMIT_COMMENT_XHR, func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitCommentXHR)
 	})
-	http.HandleFunc(COMMENT_SAMPLE_PATH+SUBMIT_COMMENT, func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, submitComment)
-	})
 
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"authorization", handleCommentAuthorization)
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"login", handleCommentLogin)
@@ -85,10 +81,6 @@ func submitCommentXHR(w http.ResponseWriter, r *http.Request) {
 	} else {
 		w.WriteHeader(http.StatusBadRequest)
 	}
-}
-
-func submitComment(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusBadRequest)
 }
 
 func handleCommentAuthorization(w http.ResponseWriter, r *http.Request) {

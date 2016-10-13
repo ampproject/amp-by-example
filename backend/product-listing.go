@@ -119,6 +119,7 @@ func registerShoppingCartHandler(sampleName string) {
 
 func renderProductListing(w http.ResponseWriter, r *http.Request, sampleName string, t template.Template) {
 	productListing := searchProducts(sampleName, r.URL.Query().Get(SEARCH))
+	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
 	w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d, public, must-revalidate", MAX_AGE_IN_SECONDS))
 	t.Execute(w, productListing)
 }
@@ -144,9 +145,6 @@ func searchProducts(sampleName string, query string) ProductListingPage {
 }
 
 func handleSearchRequest(w http.ResponseWriter, r *http.Request, sampleName string) {
-	if !isFormPostRequest(r.Method, w) {
-		return
-	}
 	route := path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName, "?"+SEARCH+"=") + r.FormValue(SEARCH)
 	http.Redirect(w, r, route, http.StatusSeeOther)
 }

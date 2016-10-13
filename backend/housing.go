@@ -36,10 +36,10 @@ type MortgageForm struct {
 
 func InitHousingForm() {
 	http.HandleFunc(HOUSING_SAMPLE_PATH+"calculate-mortgage-xhr", func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, calculateMortgageXHR)
+		calculateMortgageXHR(w, r)
 	})
 	http.HandleFunc(HOUSING_SAMPLE_PATH+"calculate-mortgage", func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, calculateMortgage)
+		calculateMortgage(w, r)
 	})
 }
 

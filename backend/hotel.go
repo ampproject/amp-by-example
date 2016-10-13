@@ -36,6 +36,16 @@ func InitHotelSample() {
 	http.HandleFunc(HOTEL_SAMPLE_PATH+"authorization", handleHotelAuthorization)
 	http.HandleFunc(HOTEL_SAMPLE_PATH+"pingback", handlePingback)
 	http.HandleFunc(HOTEL_SAMPLE_PATH+"login", handleLogin)
+	http.HandleFunc(HOTEL_SAMPLE_PATH+"book", func(w http.ResponseWriter, r *http.Request) {
+		handlePost(w, r, book)
+	})
+}
+
+func book(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
+	w.Header().Set("Content-Type", "application/json")
+	response := "{\"result\":\"OK\"}"
+	w.Write([]byte(response))
 }
 
 func handleHotelAuthorization(w http.ResponseWriter, r *http.Request) {

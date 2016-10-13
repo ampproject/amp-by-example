@@ -28,14 +28,11 @@ func InitAmpForm() {
 	http.HandleFunc(FORM_SAMPLE_PATH+"submit-form-input-text-xhr", func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitFormXHRInputText)
 	})
-	http.HandleFunc(FORM_SAMPLE_PATH+"submit-form-input-text", func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, submitFormInputText)
-	})
 	http.HandleFunc(FORM_SAMPLE_PATH+"submit-form-xhr", func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitFormXHR)
 	})
 	http.HandleFunc(FORM_SAMPLE_PATH+"submit-form", func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, submitForm)
+		submitForm(w, r)
 	})
 
 }
