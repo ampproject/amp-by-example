@@ -25,7 +25,6 @@
       <h3 id="title">
         {{subHeading}} {{#metadata.experiments.length}}<i class="amp-experiment-large"></i>{{/metadata.experiments.length}}
       </h3>
-      {{/isEmbed}}
       {{#metadata.experiments.length}}
       <div class="box">
         <div class="column doc">
@@ -35,6 +34,7 @@
         <div class="column preview hide-on-mobile {{#metadata.hidePreview}}hide{{/metadata.hidePreview}}"></div>
       </div>
       {{/metadata.experiments.length}}
+      {{/isEmbed}}
       {{#sections}}
       {{#hideColumns}}
       <amp-accordion class="hidden-section-accordion">

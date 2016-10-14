@@ -195,22 +195,23 @@ module.exports = function(config, updateTimestamp) {
 
       // compile example
       const sampleHtml = pageTemplates.render(config.templates.example, args);
-      const embedFile = file.clone({contents: false});
-      embedFile.path = path.join(file.base, example.targetPath());
-      embedFile.metadata = document.metadata;
-      embedFile.contents = new Buffer(sampleHtml);
-      gutil.log('Generated ' + embedFile.relative);
-      stream.push(embedFile);
+      const sampleFile = file.clone({contents: false});
+      sampleFile.path = path.join(file.base, example.targetPath());
+      sampleFile.metadata = document.metadata;
+      sampleFile.contents = new Buffer(sampleHtml);
+      gutil.log('Generated ' + sampleFile.relative);
+      stream.push(sampleFile);
 
       // compile embed
       args.isEmbed = true;
       const embedHtml = pageTemplates.render(config.templates.example, args);
       args.isEmbed = false;
-      file.path = path.join(file.base, example.targetEmbedPath());
-      file.metadata = document.metadata;
-      file.contents = new Buffer(embedHtml);
-      gutil.log('Generated ' + file.relative);
-      stream.push(file);
+      const embedFile = file.clone({contents: false});
+      embedFile.path = path.join(embedFile.base, example.targetEmbedPath());
+      embedFile.metadata = document.metadata;
+      embedFile.contents = new Buffer(embedHtml);
+      gutil.log('Generated ' + embedFile.relative);
+      stream.push(embedFile);
 
       // compile example preview
       if (document.metadata.preview) {
@@ -243,6 +244,17 @@ module.exports = function(config, updateTimestamp) {
         previewFile.contents = new Buffer(previewHtml);
         gutil.log('Generated ' + previewFile.relative);
         stream.push(previewFile);
+
+        // generate preview embed
+        args.isEmbed = true;
+        const embedPreviewHtml = pageTemplates.render(previewTemplate, args);
+        args.isEmbed = false;
+        const embedPreviewFile = file.clone({contents: false});
+        embedPreviewFile.path = path.join(embedPreviewFile.base, example.targetPreviewEmbedPath());
+        embedPreviewFile.metadata = document.metadata;
+        embedPreviewFile.contents = new Buffer(embedPreviewHtml );
+        gutil.log('Generated ' + embedPreviewFile.relative);
+        stream.push(embedPreviewFile);
       }
     });
   }
@@ -279,6 +291,7 @@ module.exports = function(config, updateTimestamp) {
           description: exampleFile.document.description(),
           url: exampleFile.url(),
           urlPreview: exampleFile.urlPreview(),
+          urlPreviewEmbed: exampleFile.urlPreviewEmbed(),
           urlEmbed: exampleFile.urlEmbed(),
           selected: selected,
           metadata: exampleFile.document.metadata,

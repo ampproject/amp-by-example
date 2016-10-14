@@ -115,6 +115,14 @@ class ExampleFile {
         'index.html');
   }
 
+  targetPreviewEmbedPath() {
+    return path.join(this.targetParentDir(), 
+      this.targetName(), 
+      'preview',
+      'embed', 
+      'index.html');
+  }
+
   title() {
     return FileName.toString(this.fileName());
   }
@@ -129,6 +137,10 @@ class ExampleFile {
 
   urlPreview() {
     return this.url() + 'preview/'; 
+  }
+
+  urlPreviewEmbed() {
+    return this.urlPreview() + 'embed/'; 
   }
 
   urlEmbed() {
