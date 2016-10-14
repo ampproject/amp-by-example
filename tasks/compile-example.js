@@ -194,24 +194,18 @@ module.exports = function(config, updateTimestamp) {
       Metadata.add(args);
 
       // compile example
-      const sampleHtml = pageTemplates.render(config.templates.example, args);
-      const sampleFile = file.clone({contents: false});
-      sampleFile.path = path.join(file.base, example.targetPath());
-      sampleFile.metadata = document.metadata;
-      sampleFile.contents = new Buffer(sampleHtml);
-      gutil.log('Generated ' + sampleFile.relative);
-      stream.push(sampleFile);
+      compileTemplate(stream, example, args, {
+        template: config.templates.example,
+        targetPath: example.targetPath(),
+        isEmbed: false
+      });
 
       // compile embed
-      args.isEmbed = true;
-      const embedHtml = pageTemplates.render(config.templates.example, args);
-      args.isEmbed = false;
-      const embedFile = file.clone({contents: false});
-      embedFile.path = path.join(embedFile.base, example.targetEmbedPath());
-      embedFile.metadata = document.metadata;
-      embedFile.contents = new Buffer(embedHtml);
-      gutil.log('Generated ' + embedFile.relative);
-      stream.push(embedFile);
+      compileTemplate(stream, example, args, {
+        template: config.templates.example,
+        targetPath: example.targetEmbedPath(),
+        isEmbed: true
+      });
 
       // compile example preview
       if (document.metadata.preview) {
@@ -233,28 +227,23 @@ module.exports = function(config, updateTimestamp) {
           args.a4aEmbedUrl = config.api.host + '/' + example.targetPath();
         }
 
-        // generate preview
         args.title = example.title() + ' (Preview) - ' + 'AMP by Example';
         args.desc = "This is a live preview of the '" + example.title() + "' sample. " + args.desc;
         args.canonical = config.host + example.url() + 'preview/';
-        const previewFile = file.clone({contents: false});
-        const previewHtml = pageTemplates.render(previewTemplate, args);
-        previewFile.path = path.join(file.base, example.targetPreviewPath());
-        previewFile.metadata = document.metadata;
-        previewFile.contents = new Buffer(previewHtml);
-        gutil.log('Generated ' + previewFile.relative);
-        stream.push(previewFile);
+
+        // generate preview
+        compileTemplate(stream, example, args, {
+          template: previewTemplate,
+          targetPath: example.targetPreviewPath(),
+          isEmbed: false
+        });
 
         // generate preview embed
-        args.isEmbed = true;
-        const embedPreviewHtml = pageTemplates.render(previewTemplate, args);
-        args.isEmbed = false;
-        const embedPreviewFile = file.clone({contents: false});
-        embedPreviewFile.path = path.join(embedPreviewFile.base, example.targetPreviewEmbedPath());
-        embedPreviewFile.metadata = document.metadata;
-        embedPreviewFile.contents = new Buffer(embedPreviewHtml );
-        gutil.log('Generated ' + embedPreviewFile.relative);
-        stream.push(embedPreviewFile);
+        compileTemplate(stream, example, args, {
+          template: previewTemplate,
+          targetPath: example.targetPreviewEmbedPath(),
+          isEmbed: true
+        });
       }
     });
   }
@@ -301,6 +290,20 @@ module.exports = function(config, updateTimestamp) {
         });
       });
     return categories;
+  }
+
+  function compileTemplate(stream, example, args, options) {
+    const document = example.document;
+    const inputFile = example.file;
+    args.isEmbed = options.isEmbed;
+    const sampleHtml = pageTemplates.render(options.template, args);
+    args.isEmbed = false;
+    const sampleFile = inputFile.clone({contents: false});
+    sampleFile.path = path.join(inputFile.base, options.targetPath);
+    sampleFile.metadata = document.metadata;
+    sampleFile.contents = new Buffer(sampleHtml);
+    gutil.log('Generated ' + sampleFile.relative);
+    stream.push(sampleFile);
   }
 
   function sort(examples) {
