@@ -32,6 +32,9 @@ describe("ExampleFile", function() {
     it('extracts embed url', function() {
       expect(file.urlEmbed()).toBe("/hello-worlds/whats_up_100/embed/");
     });
+    it('extracts preview embed url', function() {
+      expect(file.urlPreviewEmbed()).toBe("/hello-worlds/whats_up_100/preview/embed/");
+    });
     it('extracts url without __', function() {
     var file = ExampleFile.fromPath('src/50_Samples_%26_Templates/Test.html');
       expect(file.url()).toBe("/samples_templates/test/");
