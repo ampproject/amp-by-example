@@ -16,12 +16,13 @@ package backend
 
 import (
 	"bytes"
-	"strings"
+	"fmt"
 	"net/http"
+	"strings"
 )
 
 const (
-		SAMPLE_TEMPLATE_FOLDER = "/samples_templates"
+	SAMPLE_TEMPLATE_FOLDER = "/samples_templates"
 )
 
 func buildSourceOrigin(host string) string {
@@ -44,14 +45,21 @@ func isFormPostRequest(method string, w http.ResponseWriter) bool {
 }
 
 func enableCors(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
-		w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
+}
+
+func contentTypeJson(w http.ResponseWriter) {
+	w.Header().Set("Content-Type", "application/json")
+}
+
+func setDefaultMaxage(w http.ResponseWriter) {
+	w.Header().Set("cache-control", fmt.Sprintf("max-age=%d, public, must-revalidate", 60))
 }
 
 func handlePost(w http.ResponseWriter, r *http.Request, postHandler func(http.ResponseWriter, *http.Request)) {
-    if r.Method != "POST" {
-    http.Error(w, "post only", http.StatusMethodNotAllowed)
-    return;
-   }
-  postHandler(w, r)
+	if r.Method != "POST" {
+		http.Error(w, "post only", http.StatusMethodNotAllowed)
+		return
+	}
+	postHandler(w, r)
 }

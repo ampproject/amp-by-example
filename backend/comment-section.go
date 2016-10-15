@@ -23,11 +23,9 @@ import (
 )
 
 const (
-	COMMENT_SAMPLE_PATH         = "/samples_templates/comment_section/"
-	COMMENT_SAMPLE_PATH_PREVIEW = COMMENT_SAMPLE_PATH + "preview/"
-	COMMENT_COOKIE_NAME         = "ABE_LOGGED_IN"
-	SUBMIT_COMMENT_XHR          = "submit-comment-xhr"
-	USER                        = "Charlie"
+	COMMENT_SAMPLE_PATH = "/" + CATEGORY_SAMPLE_TEMPLATES + "/comment_section/"
+	COMMENT_COOKIE_NAME = "ABE_LOGGED_IN"
+	USER                = "Charlie"
 )
 
 type CommentAuthorizationResponse struct {
@@ -54,7 +52,7 @@ type AccessData struct {
 }
 
 func InitCommentSection() {
-	http.HandleFunc(COMMENT_SAMPLE_PATH+SUBMIT_COMMENT_XHR, func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc(COMMENT_SAMPLE_PATH+"submit-comment-xhr", func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitCommentXHR)
 	})
 
@@ -93,6 +91,7 @@ func handleCommentAuthorization(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleCommentLogin(w http.ResponseWriter, r *http.Request) {
+	enableCors(w, r)
 	returnURL := r.URL.Query().Get("return")
 	filePath := path.Join(DIST_FOLDER, "login.html")
 	t, _ := template.ParseFiles(filePath)
@@ -100,6 +99,7 @@ func handleCommentLogin(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleCommentLogout(w http.ResponseWriter, r *http.Request) {
+	enableCors(w, r)
 	//delete the cookie
 	cookie := &http.Cookie{
 		Name:   COMMENT_COOKIE_NAME,
@@ -111,6 +111,7 @@ func handleCommentLogout(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleCommentSubmit(w http.ResponseWriter, r *http.Request) {
+	enableCors(w, r)
 	expireInOneDay := time.Now().AddDate(0, 0, 1)
 	cookie := &http.Cookie{
 		Name:    COMMENT_COOKIE_NAME,

@@ -21,7 +21,7 @@ AMP doesn't support custom Javascript, but you can use CSS3 animations to enrich
   <a id="hamburger" on='tap:drawermenu.toggle'>
     <amp-img srcset="/img/ic_menu_white_1x_web_24dp.png 1x, /img/ic_menu_white_2x_web_24dp.png 2x" width="24" height="24" alt="navigation"></amp-img>
   </a>
-  <form  method="GET" action="<%host%>/samples_templates/product_listing/preview/search">
+  <form  method="GET" action="<%host%>/samples_templates/product_listing[[.Mode]]/search">
     <input name="search" type="search" placeholder="Search">
     <a id="logo" href="/">Products by Example</a>
     <input type="submit" value="">

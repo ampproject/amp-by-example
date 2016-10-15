@@ -14,21 +14,12 @@
 
 package backend
 
-import (
-	"net/http"
+const (
+	DIST_FOLDER     = "dist"
+	TEMPLATE_FOLDER = "templates"
+
+	AMP_CLIENT_ID_COOKIE = "AMP_ECID_GOOGLE"
+
+	CATEGORY_COMPONENTS       = "components"
+	CATEGORY_SAMPLE_TEMPLATES = "samples_templates"
 )
-
-func InitAmpCache() {
-	RegisterTemplate("/g", "", TEMPLATE_FOLDER+"/get-example.html", parameterDemoHandler)
-	http.HandleFunc("/error", returnCode500)
-}
-
-func parameterDemoHandler(w http.ResponseWriter, r *http.Request, page Page) {
-	setDefaultMaxage(w)
-	page.Render(w, r.URL.Query().Get("value"))
-}
-
-func returnCode500(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusInternalServerError)
-	w.Write([]byte("Internal Server Error"))
-}

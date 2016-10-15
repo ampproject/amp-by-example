@@ -80,19 +80,19 @@ Additionally used AMP components must be imported in the header.
 
 <div class="items">
   [[range .Products]]
-<a class="tile item" href="/samples_templates/product/preview/">
-  <amp-img width="640"
-           height="426"
-           layout="responsive"
-           alt="[[.Name]]"
-           src="[[.Img]]"></amp-img>
-         <p class="name">[[.Name]]</p>
-         <p class="star">[[.StarsAsHtml]]</p>
-         <p class="price">$[[.Price]]</p>
-</a>
-[[else]]
-<p>No products found.</p>
-[[end]]
+  <a class="tile item" href="/samples_templates/product/[[$.Mode]]">
+    <amp-img width="640"
+             height="426"
+             layout="responsive"
+             alt="[[.Name]]"
+             src="[[.Img]]"></amp-img>
+           <p class="name">[[.Name]]</p>
+           <p class="star">[[.StarsAsHtml]]</p>
+           <p class="price">$[[.Price]]</p>
+  </a>
+  [[else]]
+  <p>No products found.</p>
+  [[end]]
 </div>
 
 <!-- #### Offers & Highlights -->

@@ -31,14 +31,15 @@ func handleAuthorization(w http.ResponseWriter, r *http.Request, authedUser Auth
 		return
 	}
 
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
-	w.Header().Set("Content-Type", "application/json")
+	enableCors(w, r)
+	contentTypeJson(w)
 	w.Write(js)
 }
 
 func handlePingback(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
+	enableCors(w, r)
 }
 
 func handleLogin(w http.ResponseWriter, r *http.Request) {
+	// nothing to do
 }

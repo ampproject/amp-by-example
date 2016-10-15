@@ -15,20 +15,19 @@
 package backend
 
 import (
-	"net/http"
+	"math/rand"
+	"time"
 )
 
-func InitAmpCache() {
-	RegisterTemplate("/g", "", TEMPLATE_FOLDER+"/get-example.html", parameterDemoHandler)
-	http.HandleFunc("/error", returnCode500)
+func init() {
+	rand.Seed(time.Now().UTC().UnixNano())
 }
 
-func parameterDemoHandler(w http.ResponseWriter, r *http.Request, page Page) {
-	setDefaultMaxage(w)
-	page.Render(w, r.URL.Query().Get("value"))
-}
-
-func returnCode500(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusInternalServerError)
-	w.Write([]byte("Internal Server Error"))
+func RandomString(strlen int) string {
+	const chars = "abcdefghijklmnopqrstuvwxyz0123456789"
+	result := make([]byte, strlen)
+	for i := 0; i < strlen; i++ {
+		result[i] = chars[rand.Intn(len(chars))]
+	}
+	return string(result)
 }
