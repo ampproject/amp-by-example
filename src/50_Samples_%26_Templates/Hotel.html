@@ -64,6 +64,10 @@ Specify the endpoints required for `amp-access` to detect a signed-user. This wi
     }
 </script>
 <style amp-custom>
+  form.amp-form-submit-success [submit-success],
+  form.amp-form-submit-error [submit-error]{
+    margin: 16px;
+  }
   .star-rating {
       padding: 2px;
       margin: 2px 20px;
@@ -188,13 +192,23 @@ Specify the endpoints required for `amp-access` to detect a signed-user. This wi
 <div>
 <h6>Your stay</h2>
   <p>7 nights, from 12 Dec 2020 to 06 Jan 2021</p>
-  <form method="GET" action="/samples_templates/hotel" target="_top">
+  <form method="GET" action="/samples_templates/hotel/check-available" action-xhr="/samples_templates/hotel/check-available" target="_top">
     <fieldset id="stay-input">
       <label for="checkin">Check-in:</label> <input name="checkin" type="date" class="data-input" value="2020-12-30">
       <label for="checkout">Check-out:</label> <input name="checkout" type="date" class="data-input" value="2021-01-06">
       <label for="guests">Guests:</label> <select name="guests" class="data-input"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select>
     </fieldset>
     <input type="submit" value="Check availability" class="button button-primary">
+    <div submit-success>
+      <template type="amp-mustache">
+        Yay!
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        No rooms available.
+      </template>
+    </div>
   </form>
 </div>
 <!-- #### Available rooms -->

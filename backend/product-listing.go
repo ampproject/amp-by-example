@@ -16,7 +16,6 @@ package backend
 
 import (
 	"encoding/json"
-	"fmt"
 	"html"
 	"html/template"
 	"io/ioutil"
@@ -26,15 +25,20 @@ import (
 )
 
 const (
-	SEARCH                 = "search"
-	ADD_TO_CART            = "add_to_cart"
-	SHOPPING_CART          = "shopping_cart"
+	SEARCH        = "search"
+	ADD_TO_CART   = "add_to_cart"
+	SHOPPING_CART = "shopping_cart"
 )
 
 type ProductListingPage struct {
 	Title        string
 	Products     []Product
 	SearchAction string
+	Mode         string
+}
+
+type ProductPage struct {
+	Mode string
 }
 
 type Product struct {
@@ -63,13 +67,13 @@ type JsonRoot struct {
 }
 
 var products []Product
-var productListingTemplate template.Template
 
 func InitProductListing() {
 	initProducts(DIST_FOLDER + "/json/related_products.json")
-	registerProductListingHandler("product_listing")
-	registerProductListingHandler("product_listing/preview")
-	registerShoppingCartHandler(SHOPPING_CART)
+	RegisterSample(SHOPPING_CART, renderShoppingCart)
+	RegisterSample("samples_templates/product_listing", renderProductListing)
+	RegisterSample("samples_templates/product", renderProduct)
+	RegisterSampleEndpoint("samples_templates/product_listing", SEARCH, handleSearchRequest)
 }
 
 func initProducts(path string) {
@@ -85,46 +89,27 @@ func initProducts(path string) {
 	products = root.Products
 }
 
-func registerProductListingHandler(sampleName string) {
-	filePath := path.Join(DIST_FOLDER, SAMPLE_TEMPLATE_FOLDER, sampleName, "index.html")
-	template, err := template.New("index.html").Delims("[[", "]]").ParseFiles(filePath)
-	if err != nil {
-		panic(err)
-	}
-	route := path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName) + "/"
-	http.HandleFunc(route, func(w http.ResponseWriter, r *http.Request) {
-		renderProductListing(w, r, sampleName, *template)
-	})
-	http.HandleFunc(route+SEARCH, func(w http.ResponseWriter, r *http.Request) {
-		handleSearchRequest(w, r, sampleName)
-	})
-
+func renderShoppingCart(w http.ResponseWriter, r *http.Request, page Page) {
+	page.Render(w,
+		ShoppingCartItem{
+			Img:      html.UnescapeString(r.URL.Query().Get("img")),
+			Name:     r.URL.Query().Get("name"),
+			Price:    r.URL.Query().Get("price"),
+			Quantity: r.URL.Query().Get("quantity"),
+		},
+	)
 }
 
-func registerShoppingCartHandler(sampleName string) {
-	filePath := path.Join(DIST_FOLDER, sampleName, "index.html")
-	t, err := template.ParseFiles(filePath)
-	if err != nil {
-		panic(err)
-	}
-	http.HandleFunc("/"+sampleName, func(w http.ResponseWriter, r *http.Request) {
-		t.Execute(w,
-			ShoppingCartItem{
-				Img:      html.UnescapeString(r.URL.Query().Get("img")),
-				Name:     r.URL.Query().Get("name"),
-				Price:    r.URL.Query().Get("price"),
-				Quantity: r.URL.Query().Get("quantity")})
-	})
+func renderProduct(w http.ResponseWriter, r *http.Request, page Page) {
+	page.Render(w, ProductPage{Mode: page.Mode})
 }
 
-func renderProductListing(w http.ResponseWriter, r *http.Request, sampleName string, t template.Template) {
-	productListing := searchProducts(sampleName, r.URL.Query().Get(SEARCH))
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
-	w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d, public, must-revalidate", MAX_AGE_IN_SECONDS))
-	t.Execute(w, productListing)
+func renderProductListing(w http.ResponseWriter, r *http.Request, page Page) {
+	productListing := searchProducts(page, r.URL.Query().Get(SEARCH))
+	page.Render(w, productListing)
 }
 
-func searchProducts(sampleName string, query string) ProductListingPage {
+func searchProducts(page Page, query string) ProductListingPage {
 	var title string
 	var result []Product
 	if query == "" {
@@ -132,19 +117,30 @@ func searchProducts(sampleName string, query string) ProductListingPage {
 		result = products
 	} else {
 		title = "Search Results for '" + query + "'"
-		query = strings.ToLower(query)
-		for _, product := range products {
-			productName := strings.ToLower(product.Name)
-			if strings.Contains(productName, query) {
-				result = append(result, product)
-			}
-		}
+		result = findProducts(query)
 	}
-	searchAction := path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName, query)
-	return ProductListingPage{Title: title, Products: result, SearchAction: searchAction}
+	searchAction := path.Join(page.Route, query)
+	return ProductListingPage{
+		Title:        title,
+		Products:     result,
+		SearchAction: searchAction,
+		Mode:         page.Mode,
+	}
 }
 
-func handleSearchRequest(w http.ResponseWriter, r *http.Request, sampleName string) {
-	route := path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName, "?"+SEARCH+"=") + r.FormValue(SEARCH)
+func findProducts(query string) []Product {
+	query = strings.ToLower(query)
+	var result []Product
+	for _, product := range products {
+		productName := strings.ToLower(product.Name)
+		if strings.Contains(productName, query) {
+			result = append(result, product)
+		}
+	}
+	return result
+}
+
+func handleSearchRequest(w http.ResponseWriter, r *http.Request, page Page) {
+	route := page.Route + "?" + SEARCH + "=" + r.FormValue(SEARCH)
 	http.Redirect(w, r, route, http.StatusSeeOther)
 }

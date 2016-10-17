@@ -25,12 +25,8 @@ type HotelAuthorizationResponse struct {
 }
 
 const (
-	HOTEL_SAMPLE_PATH = "/samples_templates/hotel/"
+	HOTEL_SAMPLE_PATH = "/" + CATEGORY_SAMPLE_TEMPLATES + "/hotel/"
 )
-
-func (h HotelAuthorizationResponse) CreateAuthorizationResponse() AuthorizationResponse {
-	return HotelAuthorizationResponse{"test-user", "Gold", 2}
-}
 
 func InitHotelSample() {
 	http.HandleFunc(HOTEL_SAMPLE_PATH+"authorization", handleHotelAuthorization)
@@ -39,15 +35,27 @@ func InitHotelSample() {
 	http.HandleFunc(HOTEL_SAMPLE_PATH+"book", func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, book)
 	})
+	http.HandleFunc(HOTEL_SAMPLE_PATH+"check-available", checkAvailability)
 }
 
-func book(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
-	w.Header().Set("Content-Type", "application/json")
-	response := "{\"result\":\"OK\"}"
-	w.Write([]byte(response))
+func (h HotelAuthorizationResponse) CreateAuthorizationResponse() AuthorizationResponse {
+	return HotelAuthorizationResponse{"test-user", "Gold", 2}
 }
 
 func handleHotelAuthorization(w http.ResponseWriter, r *http.Request) {
 	handleAuthorization(w, r, new(HotelAuthorizationResponse).CreateAuthorizationResponse())
+}
+
+func checkAvailability(w http.ResponseWriter, r *http.Request) {
+	enableCors(w, r)
+	contentTypeJson(w)
+	response := "{\"result\":\"Available\"}"
+	w.Write([]byte(response))
+}
+
+func book(w http.ResponseWriter, r *http.Request) {
+	enableCors(w, r)
+	contentTypeJson(w)
+	response := "{\"result\":\"OK\"}"
+	w.Write([]byte(response))
 }

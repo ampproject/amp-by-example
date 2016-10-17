@@ -21,25 +21,25 @@ import (
 
 const (
 	ERROR_CASE_AMP_FORM = "error"
-	FORM_SAMPLE_PATH    = "/components/amp-form/"
+	SAMPLE_NAME         = "/" + CATEGORY_COMPONENTS + "/amp-form/"
 )
 
 func InitAmpForm() {
-	http.HandleFunc(FORM_SAMPLE_PATH+"submit-form-input-text-xhr", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc(SAMPLE_NAME+"submit-form-input-text-xhr", func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitFormXHRInputText)
 	})
-	http.HandleFunc(FORM_SAMPLE_PATH+"submit-form-xhr", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc(SAMPLE_NAME+"submit-form-xhr", func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitFormXHR)
 	})
-	http.HandleFunc(FORM_SAMPLE_PATH+"submit-form", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc(SAMPLE_NAME+"submit-form", func(w http.ResponseWriter, r *http.Request) {
 		submitForm(w, r)
 	})
 
 }
 
 func submitFormXHRInputText(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
-	w.Header().Set("Content-Type", "application/json")
+	enableCors(w, r)
+	contentTypeJson(w)
 	response := ""
 	name := r.FormValue("name")
 	if isUserTryingTheInputTextErrorDemo(name) {
@@ -60,8 +60,8 @@ func submitFormInputText(w http.ResponseWriter, r *http.Request) {
 }
 
 func submitFormXHR(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
-	w.Header().Set("Content-Type", "application/json")
+	enableCors(w, r)
+	contentTypeJson(w)
 	response := "{\"result\":\"ok\"}"
 	w.Write([]byte(response))
 }

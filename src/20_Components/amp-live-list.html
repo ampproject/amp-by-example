@@ -92,16 +92,16 @@
     id="amp-live-list-insert-blog">
     <button update on="tap:amp-live-list-insert-blog.update" class="button button-primary button-update">You have updates</button>
     <div items>
-      {{range .BlogItems}}
-          <div id="{{.Text}}" data-sort-time="{{.Timestamp}}">
+      [[range .BlogItems]]
+          <div id="[[.Text]]" data-sort-time="[[.Timestamp]]">
             <div class="card blog">
-                <amp-img src="{{.Image}}"
+                <amp-img src="[[.Image]]"
                     layout="responsive" width="1280" height="853">
                 </amp-img>
-                <p>{{.Text}}</p>
+                <p>[[.Text]]</p>
             </div>
           </div>
-        {{end}}
+        [[end]]
     </div>
   </amp-live-list>
 
@@ -118,7 +118,7 @@
     id="amp-live-list-update">
     <button update on="tap:amp-live-list-update.update" class="button button-primary">You have updates</button>
     <div items>
-        <div id="list-item-1" data-sort-time="1234567" data-update-time="{{.FootballScore.Timestamp}}">
+        <div id="list-item-1" data-sort-time="1234567" data-update-time="[[.FootballScore.Timestamp]]">
           <div class="card match">
             <div class="side">
               <div class="flag">
@@ -126,7 +126,7 @@
                     layout="fixed" height="50" width="100">
                 </amp-img>
               </div>
-              <div class="content">{{.FootballScore.ScoreTeam1}} - {{.FootballScore.ScoreTeam2}}</div>
+              <div class="content">[[.FootballScore.ScoreTeam1]] - [[.FootballScore.ScoreTeam2]]</div>
               <div class="flag">
                 <amp-img src="/img/england-flag.png"
                   layout="fixed" height="50" width="100">

@@ -15,35 +15,16 @@
 package backend
 
 import (
-	"fmt"
-	"html/template"
-	"math/rand"
 	"net/http"
-	"path"
-	"time"
 )
-
-const (
-	AMP_CLIENT_ID_COOKIE = "AMP_ECID_GOOGLE"
-	SAMPLE_FOLDER        = "/components/amp-analytics/"
-)
-
-var sampleTemplate *template.Template
 
 func InitAmpAnalytics() {
-	rand.Seed(time.Now().UTC().UnixNano())
-	sampleFile := path.Join(DIST_FOLDER, SAMPLE_FOLDER, "index.html")
-	var err error
-	sampleTemplate, err = template.ParseFiles(sampleFile)
-	if err != nil {
-		panic(err)
-	}
-	http.HandleFunc(SAMPLE_FOLDER, renderAnalyticsSample)
+	RegisterSample(CATEGORY_COMPONENTS+"/amp-analytics", renderAnalyticsSample)
 }
 
-func renderAnalyticsSample(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("cache-control", fmt.Sprintf("max-age=%d, public, must-revalidate", 60))
-	sampleTemplate.Execute(w, clientId(r))
+func renderAnalyticsSample(w http.ResponseWriter, r *http.Request, page Page) {
+	setDefaultMaxage(w)
+	page.Render(w, clientId(r))
 }
 
 func clientId(r *http.Request) string {
@@ -53,13 +34,4 @@ func clientId(r *http.Request) string {
 	} else {
 		return cookie.Value
 	}
-}
-
-func RandomString(strlen int) string {
-	const chars = "abcdefghijklmnopqrstuvwxyz0123456789"
-	result := make([]byte, strlen)
-	for i := 0; i < strlen; i++ {
-		result[i] = chars[rand.Intn(len(chars))]
-	}
-	return string(result)
 }
