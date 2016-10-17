@@ -19,6 +19,7 @@ import (
 	"strconv"
 	"time"
 	"errors"
+	"math"
 
 )
 
@@ -108,6 +109,7 @@ type LiveBlogSample struct {
 	FootballScore Score
 	BlogMetadata  []BlogPosting
 	NextPageURL string
+	PrevPageURL string
 	PageNumber int
 }
 
@@ -209,15 +211,22 @@ func createLiveBlogSample(newStatus int, timestamp time.Time, r *http.Request, f
 	score := createScore(newStatus, 0)
 	firstItemIndex, _ := getProductIndexFromID(firstBlogID)
 	nextPageURL := ""
-	if firstItemIndex+MAX_BLOG_NUMBER < len(blogs) {
-			nextPageFirstItemID := blogItems[firstItemIndex+MAX_BLOG_NUMBER].ID
+	prevPageURL := ""
+	min := int(math.Min(float64(newStatus), float64(firstItemIndex+MAX_BLOG_NUMBER)))
+
+	if (firstItemIndex+MAX_BLOG_NUMBER < len(blogs) && len(blogItems)> MAX_BLOG_NUMBER){
+			nextPageFirstItemID := blogs[min].ID
 			nextPageURL = buildSourceOrigin(r.Host) +url+"?from=" + nextPageFirstItemID
 	}
-
-	return LiveBlogSample{BlogItems: blogItems[firstItemIndex:firstItemIndex+MAX_BLOG_NUMBER], 
+	if(firstItemIndex >= MAX_BLOG_NUMBER) {
+		prevPageFirstItemID := blogs[firstItemIndex-MAX_BLOG_NUMBER].ID
+		prevPageURL = buildSourceOrigin(r.Host) +url+"?from=" + prevPageFirstItemID
+	}
+	return LiveBlogSample{BlogItems: blogItems[firstItemIndex:min], 
 		FootballScore: score, 
 		BlogMetadata: createMetadata(r), 
-		NextPageURL: nextPageURL, 
+		NextPageURL: nextPageURL,
+		PrevPageURL: prevPageURL, 
 		PageNumber: getPageNumberFromProductIndex(firstItemIndex)}
 }
 

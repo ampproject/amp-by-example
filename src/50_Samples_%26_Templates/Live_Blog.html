@@ -215,14 +215,18 @@ This is a sample template for implementing live blogs in AMP.
           </div>
         [[end]]
     </div>
+
         <div pagination>
       <nav aria-label="amp live list pagination">
       <ul class="pagination">
         <li>{{.PageNumber}}</li>
-        <li><a href="{{.NextPageURL}}">Next</a></li>
+        {{if eq .NextPageURL ""}}{{else}}
+          <li><a href="{{.NextPageURL}}">Next</a></li>
+        {{end}}
       </ul>
       </nav>
     </div>
+
   </amp-live-list>
 
   </body>
