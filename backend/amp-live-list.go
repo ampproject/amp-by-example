@@ -177,11 +177,10 @@ func createLiveBlogSample(newStatus int, timestamp time.Time, firstBlogID string
 	lenghtCurrentPageBlog := int(math.Min(float64(len(blogItems)), float64(firstItemIndex+MAX_BLOG_ITEMS_NUMBER_PER_PAGE)))
 
 	urlPrefix := buildPrefixPaginationURL(originSource, page)
-	nextPageId := getNextPageId(blogItems, firstItemIndex + MAX_BLOG_ITEMS_NUMBER_PER_PAGE)
+	nextPageId := getNextPageId(blogItems, firstItemIndex+MAX_BLOG_ITEMS_NUMBER_PER_PAGE)
 	previousPageId := getPrevPageId(firstItemIndex)
 	nextPageUrl := buildPaginationURL(urlPrefix, nextPageId)
 	prevPageUrl := buildPaginationURL(urlPrefix, previousPageId)
-
 
 	return LiveBlogSample{BlogItems: blogItems[firstItemIndex:lenghtCurrentPageBlog],
 		FootballScore: score,
@@ -210,10 +209,10 @@ func buildPrefixPaginationURL(originSource string, page Page) string {
 }
 
 func buildPaginationURL(urlPrefix string, pageId string) string {
-		if pageId != "" {
-			return urlPrefix + pageId
-		}
-		return ""
+	if pageId != "" {
+		return urlPrefix + pageId
+	}
+	return ""
 }
 
 func getPageNumberFromProductIndex(index int) int {
