@@ -15,17 +15,19 @@
 package backend
 
 import (
-	"errors"
+	"fmt"
 	"math"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 )
 
 const (
-	AMP_LIVE_LIST_COOKIE_NAME = "ABE_AMP_LIVE_LIST_STATUS"
-	FIFTEEN_SECONDS           = 15
-	MAX_BLOG_NUMBER           = 5
+	AMP_LIVE_LIST_COOKIE_NAME      = "ABE_AMP_LIVE_LIST_STATUS"
+	FIFTEEN_SECONDS                = 15
+	MAX_BLOG_ITEMS_NUMBER_PER_PAGE = 5
+	BLOG_ID_PREFIX                 = "post"
 )
 
 type BlogItem struct {
@@ -152,7 +154,7 @@ func createMetadata(r *http.Request) []BlogPosting {
 	for i := 0; i < len(blogs); i++ {
 		result = append(result, BlogPosting{"BlogPosting",
 			blogs[i].Heading,
-			buildSourceOrigin(r.Host) + "/" + CATEGORY_SAMPLE_TEMPLATES + "/live_blog/#" + blogs[i].ID,
+			buildSourceOrigin(r.Host) + "/" + CATEGORY_SAMPLE_TEMPLATES + "/live_blog/#" + fmt.Sprintf("%s%d", BLOG_ID_PREFIX, i+1),
 			blogs[i].MetadataTimestamp,
 			ArticleBody{"Text"},
 			Publisher{"Organization", "AMP By Example",
@@ -164,55 +166,70 @@ func createMetadata(r *http.Request) []BlogPosting {
 }
 
 func createLiveBlogSample(newStatus int, timestamp time.Time, r *http.Request, page Page) LiveBlogSample {
-
-	firstBlogID := r.URL.Query().Get("from")
 	if newStatus > len(blogs) {
 		newStatus = len(blogs)
 	}
 	blogItems := getBlogEntries(newStatus, timestamp)
 	score := createScore(newStatus, 0)
-	firstItemIndex, _ := getProductIndexFromID(firstBlogID, blogItems)
-	nextPageFirstItemIndex := firstItemIndex + MAX_BLOG_NUMBER
-	nextPageURL := getNextPageUrl(r, page, blogItems, nextPageFirstItemIndex)
-	prevPageURL := getPrevPageUrl(firstItemIndex, r, page, newStatus)
-
-	lenghtCurrentPageBlog := int(math.Min(float64(len(blogItems)), float64(firstItemIndex+MAX_BLOG_NUMBER)))
+	firstBlogID := strings.TrimPrefix(r.URL.Query().Get("from"), BLOG_ID_PREFIX)
+	firstItemIndex := getBlogEntryIndexFromID(firstBlogID, blogItems)
+	lenghtCurrentPageBlog := int(math.Min(float64(len(blogItems)), float64(firstItemIndex+MAX_BLOG_ITEMS_NUMBER_PER_PAGE)))
 
 	return LiveBlogSample{BlogItems: blogItems[firstItemIndex:lenghtCurrentPageBlog],
 		FootballScore: score,
 		BlogMetadata:  createMetadata(r),
-		NextPageURL:   nextPageURL,
-		PrevPageURL:   prevPageURL,
+		NextPageURL:   getNextPageUrl(firstItemIndex, r, page, blogItems),
+		PrevPageURL:   getPrevPageUrl(firstItemIndex, r, page, newStatus),
 		PageNumber:    getPageNumberFromProductIndex(firstItemIndex)}
 }
 
-func getNextPageUrl(r *http.Request, page Page, blogItems []BlogItem, nextPageFirstItemIndex int) string {
-	if nextPageFirstItemIndex < len(blogItems) {
-		nextPageFirstItemID := blogs[nextPageFirstItemIndex].ID
-		return buildSourceOrigin(r.Host) + page.Route + "?from=" + nextPageFirstItemID
+func getNextPageUrl(firstItemIndex int, r *http.Request, page Page, blogItems []BlogItem) string {
+	nextPageFirstItemIndex := firstItemIndex + MAX_BLOG_ITEMS_NUMBER_PER_PAGE
+	nextPageId := getNextPageId(r, page, blogItems, nextPageFirstItemIndex)
+	if nextPageId != "" {
+		return buildPaginationURL(r, page, nextPageId)
 	}
 	return ""
 }
 
 func getPrevPageUrl(firstItemIndex int, r *http.Request, page Page, newStatus int) string {
-	if firstItemIndex >= MAX_BLOG_NUMBER {
-		prevPageFirstItemID := blogs[firstItemIndex-MAX_BLOG_NUMBER].ID
-		return buildSourceOrigin(r.Host) + page.Route + "?from=" + prevPageFirstItemID
+	prevPageId := getPrevPageId(firstItemIndex, r, page, newStatus)
+	if prevPageId != "" {
+		return buildPaginationURL(r, page, prevPageId)
 	}
 	return ""
 }
 
-func getPageNumberFromProductIndex(index int) int {
-	return (index / MAX_BLOG_NUMBER) + 1
+func getNextPageId(r *http.Request, page Page, blogItems []BlogItem, nextPageFirstItemIndex int) string {
+	if nextPageFirstItemIndex < len(blogItems) {
+		return fmt.Sprintf("%s%d", BLOG_ID_PREFIX, nextPageFirstItemIndex+1)
+	}
+	return ""
 }
 
-func getProductIndexFromID(id string, blogItems []BlogItem) (int, error) {
-	for i := 0; i < len(blogs); i++ {
-		if blogs[i].ID == id {
-			return i, nil
-		}
+func getPrevPageId(firstItemIndex int, r *http.Request, page Page, newStatus int) string {
+	if firstItemIndex >= MAX_BLOG_ITEMS_NUMBER_PER_PAGE {
+		return fmt.Sprintf("%s%d", BLOG_ID_PREFIX, firstItemIndex-MAX_BLOG_ITEMS_NUMBER_PER_PAGE+1)
 	}
-	return 0, errors.New("ID not found")
+	return ""
+}
+
+func buildPaginationURL(r *http.Request, page Page, id string) string {
+	return buildSourceOrigin(r.Host) + page.Route + "?from=" + id
+}
+
+func getPageNumberFromProductIndex(index int) int {
+	return (index / MAX_BLOG_ITEMS_NUMBER_PER_PAGE) + 1
+}
+
+func getBlogEntryIndexFromID(id string, blogItems []BlogItem) int {
+	blogEntryId, error := strconv.Atoi(id)
+	//default to the first page
+	if error != nil || blogEntryId > len(blogItems) {
+		return 0
+	}
+	//blog entry ids start from 1
+	return blogEntryId - 1
 }
 
 func getBlogEntries(size int, timestamp time.Time) []BlogItem {
