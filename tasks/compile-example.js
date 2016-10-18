@@ -154,7 +154,7 @@ module.exports = function(config, updateTimestamp) {
         return null;
       }
       const metadata = next.document.metadata;
-      if (metadata && metadata.draft) {
+      if (!next.category() || (metadata && metadata.draft)) {
         return findNextExample(examples, index+1);
       }
       return next;
