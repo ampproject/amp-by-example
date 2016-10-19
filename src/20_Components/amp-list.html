@@ -1,3 +1,7 @@
+<!---{
+  "default": "preview",
+  "preview": "default"
+  }--->
 <!--
   #### Introduction
 
@@ -65,10 +69,11 @@
 
   <!-- #### Handling List Overflow -->
   <!--
- If the `amp-list` content requires more space than available, the AMP runtime will display the overflow element (if specified).
+  If the `amp-list` content requires more space than available, the AMP runtime will display the overflow element (if specified).
+  You may need to [View the Demo](preview) to experience this feature.
   -->
   <ul>
-  <amp-list width=auto height=10 layout=fixed-height src="<%host%>/json/examples.json" template="amp-template-id">
+  <amp-list width=auto height=40 layout="fixed-height" src="<%host%>/json/examples.json" template="amp-template-id">
   <button overflow role=button aria-label="Show more" class="list-overflow">
     Show more
   </button>
