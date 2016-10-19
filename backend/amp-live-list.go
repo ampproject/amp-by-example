@@ -21,6 +21,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"html/template"
 )
 
 const (
@@ -104,7 +105,7 @@ type LiveBlogSample struct {
 	NextPageURL   string
 	PrevPageURL   string
 	PageNumber    int
-	Disabled      string
+	Disabled      template.HTMLAttr
 }
 
 var blogs []BlogItem
@@ -193,7 +194,7 @@ func createLiveBlogSample(newStatus int, timestamp time.Time, firstBlogID string
 		NextPageURL:   nextPageUrl,
 		PrevPageURL:   prevPageUrl,
 		PageNumber:    getPageNumberFromProductIndex(firstItemIndex),
-		Disabled:      disabled}
+		Disabled:      template.HTMLAttr(disabled)}
 }
 
 func getNextPageId(blogItems []BlogItem, nextPageFirstItemIndex int) string {
