@@ -22,6 +22,7 @@ import (
 	"strings"
 	"time"
 	"html/template"
+	"encoding/json"
 )
 
 const (
@@ -101,7 +102,7 @@ func createScore(scoreTeam1 int, scoreTeam2 int) Score {
 type LiveBlogSample struct {
 	BlogItems     []BlogItem
 	FootballScore Score
-	BlogMetadata  []BlogPosting
+	BlogMetadata  template.JS
 	NextPageURL   string
 	PrevPageURL   string
 	PageNumber    int
@@ -187,10 +188,11 @@ func createLiveBlogSample(newStatus int, timestamp time.Time, firstBlogID string
 	if prevPageUrl != "" {
 		disabled = "disabled"
 	}
-
+	blogMetadata, _ := json.Marshal(createMetadata(originSource))
+	
 	return LiveBlogSample{BlogItems: blogItems[firstItemIndex:lenghtCurrentPageBlog],
 		FootballScore: score,
-		BlogMetadata:  createMetadata(originSource),
+		BlogMetadata:  template.JS(blogMetadata),
 		NextPageURL:   nextPageUrl,
 		PrevPageURL:   prevPageUrl,
 		PageNumber:    getPageNumberFromProductIndex(firstItemIndex),
