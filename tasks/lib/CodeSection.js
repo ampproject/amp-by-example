@@ -32,7 +32,6 @@ const COMMENT_START = '<!--';
 const COMMENT_END = '-->';
 const HIDDEN_LINE_COUNT_THRESHOLD = 4;
 
-
 module.exports = class CodeSection {
 
   constructor(doc, code, preview) {
@@ -67,7 +66,7 @@ module.exports = class CodeSection {
 
   escapedCode() {
     const result = S(this.code).trimRight().s;
-    return highlight('html', result).value;
+    return this.cleanUpCode(highlight('html', result).value);
   }
 
   markedDoc() {
@@ -132,6 +131,10 @@ module.exports = class CodeSection {
       }
     }
     return startIndex;
+  }
+
+  cleanUpCode(input) {
+    return input.replace(/\[\[\s*\n*<span\sclass=\"hljs\-attr\">(.*?)<\/span>\s*\n*\]\]/g,"[[$1]]");
   }
 };
 

@@ -160,6 +160,12 @@ describe("CodeSection", function() {
       expect(section.hideColumns()).toEqual(true);
     });
   });
+  describe('removes uncorrectly escaped templates', function(){
+    it('contains a template', function() {
+      expect(section.cleanUpCode("[[<span class=\"hljs-attr\">.Disabled</span>]]")).toEqual("[[.Disabled]]")
+    });
+
+  });
 
 });
 

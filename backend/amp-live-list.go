@@ -104,6 +104,7 @@ type LiveBlogSample struct {
 	NextPageURL   string
 	PrevPageURL   string
 	PageNumber    int
+	Disabled      string
 }
 
 var blogs []BlogItem
@@ -181,13 +182,18 @@ func createLiveBlogSample(newStatus int, timestamp time.Time, firstBlogID string
 	previousPageId := getPrevPageId(firstItemIndex)
 	nextPageUrl := buildPaginationURL(urlPrefix, nextPageId)
 	prevPageUrl := buildPaginationURL(urlPrefix, previousPageId)
+	disabled := ""
+	if prevPageUrl != "" {
+		disabled = "disabled"
+	}
 
 	return LiveBlogSample{BlogItems: blogItems[firstItemIndex:lenghtCurrentPageBlog],
 		FootballScore: score,
 		BlogMetadata:  createMetadata(originSource),
 		NextPageURL:   nextPageUrl,
 		PrevPageURL:   prevPageUrl,
-		PageNumber:    getPageNumberFromProductIndex(firstItemIndex)}
+		PageNumber:    getPageNumberFromProductIndex(firstItemIndex),
+		Disabled:      disabled}
 }
 
 func getNextPageId(blogItems []BlogItem, nextPageFirstItemIndex int) string {
