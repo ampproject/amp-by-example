@@ -164,6 +164,12 @@ describe("CodeSection", function() {
     it('contains a template', function() {
       expect(section.cleanUpCode("[[<span class=\"hljs-attr\">.Disabled</span>]]")).toEqual("[[.Disabled]]")
     });
+    it('does not alter valid escaped templates', function() {
+      expect(section.cleanUpCode("<span class=\"hljs-string\">\"[[.Timestamp]]\"</span>")).toEqual("<span class=\"hljs-string\">\"[[.Timestamp]]\"</span>")
+    });
+    it('does not alter valid escaped templates which contains if clause', function() {
+      expect(section.cleanUpCode("</span>[[if .PrevPageURL]]<span class=\"hljs-tag\">")).toEqual("</span>[[if .PrevPageURL]]<span class=\"hljs-tag\">")   
+    });
 
   });
 

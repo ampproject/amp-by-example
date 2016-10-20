@@ -188,8 +188,8 @@ func createLiveBlogSample(newStatus int, timestamp time.Time, firstBlogID string
 	if prevPageUrl != "" {
 		disabled = "disabled"
 	}
-	blogMetadata, _ := json.Marshal(createMetadata(originSource))
-	
+	blogMetadata, _ := json.MarshalIndent(createMetadata(originSource),  "        ", "  ")
+
 	return LiveBlogSample{BlogItems: blogItems[firstItemIndex:lenghtCurrentPageBlog],
 		FootballScore: score,
 		BlogMetadata:  template.JS(blogMetadata),
