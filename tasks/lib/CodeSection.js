@@ -19,6 +19,8 @@
 const S = require('string');
 const highlight = require('highlight.js').highlight;
 const marked = require('marked');
+const encodedTemplateRegexp = /\[\[\s*<.*?>([A-Za-z]*?)\s*(<.*?>)?(\.[A-Za-z]*)?\s*<\/span>\s*\]\]/g
+
 marked.setOptions({
   highlight: function(code, lang) {
     if (lang) {
@@ -134,7 +136,6 @@ module.exports = class CodeSection {
   }
 
   cleanUpCode(input) {
-    const encodedTemplateRegexp = /\[\[\s*\n*<span\sclass="hljs\-attr">(range|if|else|end)?(<\/span><span\sclass="hljs\-attr">)?(\.[A-Za-z]*)?<\/span>\s*\n*\]\]/g
     return input.replace(encodedTemplateRegexp,"[[$1 $3]]");
   }
 };
