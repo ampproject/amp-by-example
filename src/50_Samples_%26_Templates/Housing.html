@@ -277,28 +277,26 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
 
     <!-- #### Properties sold nearby -->
     <!-- Use `amp-list` to show a list of properties sold nearby. Learn more about `amp-list` [here](/components/amp-list/) -->
-    <ul>
-      <amp-list width=auto
-                              height=150
-                              layout=fixed-height
-                              src="/json/other_properties.json">
-        <template type="amp-mustache">
-          <a href="#" class="card related">
-            <amp-img width="122"
-                     height="100"
-                     src="{{src}}"
-                     alt="{{alt}}"
-                     attribution="{{attribution}}"></amp-img>
-                   <p>{{desc}}</p>
-                   <p>{{address}}</p>
-                   <p class= "price-other">{{price}}</p>
-          </a>
-        </template>
-        <div overflow role=button aria-label="Show more" class="list-overflow">
-          Show more
-        </div>
-      </amp-list>
-    </ul>
+    <amp-list width=auto
+              height=150
+              layout=fixed-height
+              src="/json/other_properties.json">
+      <template type="amp-mustache">
+        <a href="#" class="card related">
+          <amp-img width="122"
+                   height="100"
+                   src="{{src}}"
+                   alt="{{alt}}"
+                   attribution="{{attribution}}"></amp-img>
+                 <p>{{desc}}</p>
+                 <p>{{address}}</p>
+                 <p class= "price-other">{{price}}</p>
+        </a>
+      </template>
+      <div overflow role=button aria-label="Show more" class="list-overflow">
+        Show more
+      </div>
+    </amp-list>
 
     <!-- #### Analytics -->
     <!-- Analytics must be configured in the body. Here we use Google Analytics to track pageviews.  -->
