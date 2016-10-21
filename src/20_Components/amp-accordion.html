@@ -26,6 +26,10 @@
   section:not([expanded]) .show-less {
     display: none;
   }
+  .nested-accordion h4 {
+    font-size: 14px;
+    background-color: #ddd;
+  }
 </style>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
 </head>
@@ -72,6 +76,45 @@
       <section>
         <h4><span class="show-more">Show more</span></h4>
         <p>Id lacus amet. Aliquam eos nunc ut scelerisque lacinia, eu rutrum id, vestibulum aliqua vivamus luctus eu rhoncus ut, sodales id. Velit lacus, fermentum neque et sagittis, ac venenatis volutpat, dolore neque feugiat proin fermentum odio, odio arcu in eu wisi. </p>
+      </section>
+    </amp-accordion>
+
+    <!-- #### Nested Accordions -->
+    <!-- 
+    You can even nest multiple accordions. Just be sure to avoid styling elements based on the expanded state of the enclosing amp-accordion.  In particular, avoid overly generic rules such as:
+
+    ```css
+    section[expanded] h4 {
+      ...
+    }
+    ```
+
+    instead directly target elements:
+  
+    ```css
+    section[expanded] > h4 {
+      ...
+    }
+    ```
+    
+    -->
+    <amp-accordion >
+      <section>
+        <h4>Section 1</h4>
+        <p>Bunch of content.</p>
+      </section>
+      <section>
+        <h4>Section 2</h4>
+        <amp-accordion class="nested-accordion">
+          <section>
+            <h4>Nested Section 2.1</h4>
+            <p>Bunch of content.</p>
+          </section>
+          <section>
+            <h4>Nested Section 2.2</h4>
+            <p>Bunch of more content.</p>
+          </section>
+        </amp-accordion>
       </section>
     </amp-accordion>
 </body>
