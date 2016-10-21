@@ -6,12 +6,10 @@ figure, ul, ol {
 /* layout */
 body {
   background: #fafafa;
-  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  display: flex;
   min-height: 100vh;
-  flex-direction: column;
 }
 main, article {
   flex: 1;
