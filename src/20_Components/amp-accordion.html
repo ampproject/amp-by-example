@@ -26,6 +26,10 @@
   section:not([expanded]) .show-less {
     display: none;
   }
+  .nested-accordion h4 {
+    font-size: 14px;
+    background-color: #ddd;
+  }
 </style>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
 </head>
@@ -101,7 +105,7 @@
       </section>
       <section>
         <h4>Section 2</h4>
-        <amp-accordion>
+        <amp-accordion class="nested-accordion">
           <section>
             <h4>Nested Section 2.1</h4>
             <p>Bunch of content.</p>
