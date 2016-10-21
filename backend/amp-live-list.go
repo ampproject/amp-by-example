@@ -109,15 +109,15 @@ func InitAmpLiveList() {
 func initBlogPosts() {
 	blogs = make([]BlogItem, 0)
 	blogs = append(blogs,
-		createBlogEntryWithTimeNow("Green landscape", "A green landscape with a house and trees.", "/img/landscape_hills_1280x853.jpg", 1),
-		createBlogEntryWithTimeNow("Mountains", "Mountains reflecting on a lake.", "/img/landscape_mountains_1280x853.jpg", 2),
-		createBlogEntryWithTimeNow("Road leading to a lake", "A road leading to a lake with mountains on the back.", "/img/landscape_lake_1280x853.jpg", 3),
-		createBlogEntryWithTimeNow("Forested hills", "Forested hills with a blue sky in the background.", "/img/landscape_trees_1280x823.jpg", 4),
-		createBlogEntryWithTimeNow("Scattered houses", "Scattered houses in a mountain village.", "/img/landscape_village_1280x720.jpg", 5),
-		createBlogEntryWithTimeNow("Canyon", "A deep canyon at sunset.", "/img/landscape_canyon_1280x853.jpg", 6),
-		createBlogEntryWithTimeNow("Desert", "A desert with mountains in the background.", "/img/landscape_desert_1280x606.jpg", 7),
-		createBlogEntryWithTimeNow("Houses", "Colorful one floor houses on a street.", "/img/landscape_houses_1280x858.jpg", 8),
-		createBlogEntryWithTimeNow("Blue sea", "Blue sea surrounding a cave.", "/img/landscape_sea_1280x853.jpg", 9),
+		createBlogEntryWithTimeNow("Green landscape", "A green landscape with trees.", "/img/landscape_green_1280x853.jpg", 1),
+		createBlogEntryWithTimeNow("Mountains", "Mountains reflecting on a lake.", "/img/landscape_mountains_1280x657.jpg", 2),
+		createBlogEntryWithTimeNow("Road leading to a lake", "A road leading to a lake with mountains on the back.", "/img/landscape_lake_1280x857.jpg", 3),
+		createBlogEntryWithTimeNow("Forested hills", "Forested hills with a grey sky in the background.", "/img/landscape_trees_1280x960.jpg", 4),
+		createBlogEntryWithTimeNow("Scattered houses", "Scattered houses in a mountain village.", "/img/landscape_village_1280x853.jpg", 5),
+		createBlogEntryWithTimeNow("Canyon", "A deep canyon.", "/img/landscape_canyon_1280x1700.jpg", 6),
+		createBlogEntryWithTimeNow("Desert", "A desert with mountains in the background.", "/img/landscape_desert_1280x853.jpg", 7),
+		createBlogEntryWithTimeNow("Houses", "Colorful houses on a street.", "/img/landscape_houses_1280x803.jpg", 8),
+		createBlogEntryWithTimeNow("Blue sea", "Blue sea surrounding a cave.", "/img/landscape_sea_1280x848.jpg", 9),
 		createBlogEntryWithTimeNow("Sailing ship", "A ship sailing the sea at sunset.", "/img/landscape_ship_1280x853.jpg", 10))
 }
 
