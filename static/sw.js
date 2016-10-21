@@ -55,8 +55,7 @@ config.filesToCache = [
     '/img/GitHub-Mark-Light-32px.png',
     '/img/GitHub-Mark-Light-64px.png',
     '/img/abe_device_screenshot_1x.png',
-    '/img/abe_device_screenshot_2x.png',
-    'https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en'
+    '/img/abe_device_screenshot_2x.png'
 ];
 
 /**
@@ -74,7 +73,6 @@ text{
 ]]></style>
 </svg>`;
 }
-
 /**
  * Returns true if the Accept header contains the given content type string.
  */
