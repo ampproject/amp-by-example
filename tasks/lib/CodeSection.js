@@ -134,7 +134,8 @@ module.exports = class CodeSection {
   }
 
   cleanUpCode(input) {
-    return input.replace(/\[\[\s*\n*<span\sclass=\"hljs\-attr\">(.*?)<\/span>\s*\n*\]\]/g,"[[$1]]");
+    const encodedTemplateRegexp = /\[\[\s*\n*<span\sclass="hljs\-attr">(range|if|else|end)?(<\/span><span\sclass="hljs\-attr">)?(\.[A-Za-z]*)?<\/span>\s*\n*\]\]/g
+    return input.replace(encodedTemplateRegexp,"[[$1 $3]]");
   }
 };
 
