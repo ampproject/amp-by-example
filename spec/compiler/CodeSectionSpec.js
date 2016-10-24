@@ -160,6 +160,30 @@ describe("CodeSection", function() {
       expect(section.hideColumns()).toEqual(true);
     });
   });
+  describe('removes uncorrectly escaped templates', function(){
+    it('contains an escaped template', function() {
+      expect(section.cleanUpCode("[[<span class=\"hljs-attr\">.Disabled</span>]]")).toEqual("[[ .Disabled]]")
+    });
+    it('contains an escaped template and spaces', function() {
+      expect(section.cleanUpCode("[[    <span class=\"hljs-attr\">.Disabled    </span>]]")).toEqual("[[ .Disabled]]")
+    });
+    it('does not alter valid escaped templates', function() {
+      expect(section.cleanUpCode("<span class=\"hljs-string\">\"[[.Timestamp]]\"</span>")).toEqual("<span class=\"hljs-string\">\"[[.Timestamp]]\"</span>")
+    });
+    it('contains an escaped template with range clause', function() {
+      expect(section.cleanUpCode("[[<span class=\"hljs-attr\">range</span><span class=\"hljs-attr\">.BlogItems</span>]]")).toEqual("[[range .BlogItems]]")   
+    });
+    it('contains an escaped template with if clause', function() {
+      expect(section.cleanUpCode("[[<span class=\"hljs-attr\">if</span><span class=\"hljs-attr\">.BlogItems</span>]]")).toEqual("[[if .BlogItems]]")   
+    });
+    it('contains an escaped template with if clause and spaces', function() {
+      expect(section.cleanUpCode("[[   <span class=\"hljs-attr\">if   </span><span class=\"hljs-attr\">.BlogItems</span>   ]]")).toEqual("[[if .BlogItems]]")   
+    });
+    it('contains an escaped template with end clause', function() {
+      expect(section.cleanUpCode("[[<span class=\"hljs-attr\">end</span>]]")).toEqual("[[end ]]") 
+    });
+
+  });
 
 });
 
