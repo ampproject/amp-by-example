@@ -81,7 +81,7 @@ func registerSampleHandler(samplePath string, mode string, handler func(http.Res
 	if _, err := os.Stat(templatePath); err != nil {
 		return
 	}
-	route := path.Join("/", samplePath, mode) + "/"
+	route := path.Join("/", samplePath, mode)
 	RegisterTemplate(route, mode, templatePath, handler)
 }
 
