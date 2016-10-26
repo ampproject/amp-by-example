@@ -31,13 +31,13 @@ func handleAuthorization(w http.ResponseWriter, r *http.Request, authedUser Auth
 		return
 	}
 
-	enableCors(w, r)
-	contentTypeJson(w)
+	EnableCors(w, r)
+	SetContentTypeJson(w)
 	w.Write(js)
 }
 
 func handlePingback(w http.ResponseWriter, r *http.Request) {
-	enableCors(w, r)
+	EnableCors(w, r)
 }
 
 func handleLogin(w http.ResponseWriter, r *http.Request) {

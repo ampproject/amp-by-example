@@ -21,9 +21,15 @@ import (
 	"strings"
 )
 
-const (
-	SAMPLE_TEMPLATE_FOLDER = "/samples_templates"
-)
+const NEW_ADDRESS = "https://ampbyexample.com"
+
+func RedirectToSecureVersion(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, NEW_ADDRESS+r.URL.Path, http.StatusMovedPermanently)
+}
+
+func IsInsecureRequest(r *http.Request) bool {
+	return r.TLS == nil && !strings.HasPrefix(r.Host, "localhost")
+}
 
 func buildSourceOrigin(host string) string {
 	var sourceOrigin bytes.Buffer
@@ -44,15 +50,16 @@ func isFormPostRequest(method string, w http.ResponseWriter) bool {
 	return true
 }
 
-func enableCors(w http.ResponseWriter, r *http.Request) {
+func EnableCors(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
 }
 
-func contentTypeJson(w http.ResponseWriter) {
+func SetContentTypeJson(w http.ResponseWriter) {
 	w.Header().Set("Content-Type", "application/json")
 }
 
-func setDefaultMaxage(w http.ResponseWriter) {
+func SetDefaultMaxAge(w http.ResponseWriter) {
 	w.Header().Set("cache-control", fmt.Sprintf("max-age=%d, public, must-revalidate", 60))
 }
 

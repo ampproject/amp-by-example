@@ -85,8 +85,8 @@ func appendError(anError error, errors []string) {
 }
 
 func calculateMortgageXHR(w http.ResponseWriter, r *http.Request) {
-	enableCors(w, r)
-	contentTypeJson(w)
+	EnableCors(w, r)
+	SetContentTypeJson(w)
 	response := ""
 	mortgageForm, err := parseForm(r)
 	if err != nil {

@@ -38,8 +38,8 @@ func InitAmpForm() {
 }
 
 func submitFormXHRInputText(w http.ResponseWriter, r *http.Request) {
-	enableCors(w, r)
-	contentTypeJson(w)
+	EnableCors(w, r)
+	SetContentTypeJson(w)
 	response := ""
 	name := r.FormValue("name")
 	if isUserTryingTheInputTextErrorDemo(name) {
@@ -60,8 +60,8 @@ func submitFormInputText(w http.ResponseWriter, r *http.Request) {
 }
 
 func submitFormXHR(w http.ResponseWriter, r *http.Request) {
-	enableCors(w, r)
-	contentTypeJson(w)
+	EnableCors(w, r)
+	SetContentTypeJson(w)
 	response := "{\"result\":\"ok\"}"
 	w.Write([]byte(response))
 }

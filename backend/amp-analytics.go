@@ -23,7 +23,7 @@ func InitAmpAnalytics() {
 }
 
 func renderAnalyticsSample(w http.ResponseWriter, r *http.Request, page Page) {
-	setDefaultMaxage(w)
+	SetDefaultMaxAge(w)
 	page.Render(w, clientId(r))
 }
 

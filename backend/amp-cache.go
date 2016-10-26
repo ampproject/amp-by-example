@@ -24,7 +24,7 @@ func InitAmpCache() {
 }
 
 func parameterDemoHandler(w http.ResponseWriter, r *http.Request, page Page) {
-	setDefaultMaxage(w)
+	SetDefaultMaxAge(w)
 	page.Render(w, r.URL.Query().Get("value"))
 }
 

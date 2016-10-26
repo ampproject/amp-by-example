@@ -60,6 +60,10 @@ func RegisterTemplate(route string, mode string, templatePath string,
 		Route:    route,
 	}
 	http.HandleFunc(route, func(w http.ResponseWriter, r *http.Request) {
+		if IsInsecureRequest(r) {
+			RedirectToSecureVersion(w, r)
+			return
+		}
 		handler(w, r, page)
 	})
 }
