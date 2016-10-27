@@ -59,6 +59,7 @@ skip_files:
 - static
 - spec
 - tasks
+- android
 - ^(.*/)?.*\.DS_Store$
 - ^(.*/)?.*\.swp$
 - api

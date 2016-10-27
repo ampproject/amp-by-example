@@ -63,7 +63,7 @@ func InitCommentSection() {
 }
 
 func submitCommentXHR(w http.ResponseWriter, r *http.Request) {
-	enableCors(w, r)
+	EnableCors(w, r)
 	response := ""
 	text := r.FormValue("text")
 	if text != "" {
@@ -91,7 +91,7 @@ func handleCommentAuthorization(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleCommentLogin(w http.ResponseWriter, r *http.Request) {
-	enableCors(w, r)
+	EnableCors(w, r)
 	returnURL := r.URL.Query().Get("return")
 	filePath := path.Join(DIST_FOLDER, "login.html")
 	t, _ := template.ParseFiles(filePath)
@@ -99,7 +99,7 @@ func handleCommentLogin(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleCommentLogout(w http.ResponseWriter, r *http.Request) {
-	enableCors(w, r)
+	EnableCors(w, r)
 	//delete the cookie
 	cookie := &http.Cookie{
 		Name:   COMMENT_COOKIE_NAME,
@@ -111,7 +111,7 @@ func handleCommentLogout(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleCommentSubmit(w http.ResponseWriter, r *http.Request) {
-	enableCors(w, r)
+	EnableCors(w, r)
 	expireInOneDay := time.Now().AddDate(0, 0, 1)
 	cookie := &http.Cookie{
 		Name:    COMMENT_COOKIE_NAME,

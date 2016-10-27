@@ -47,15 +47,15 @@ func handleHotelAuthorization(w http.ResponseWriter, r *http.Request) {
 }
 
 func checkAvailability(w http.ResponseWriter, r *http.Request) {
-	enableCors(w, r)
-	contentTypeJson(w)
+	EnableCors(w, r)
+	SetContentTypeJson(w)
 	response := "{\"result\":\"Available\"}"
 	w.Write([]byte(response))
 }
 
 func book(w http.ResponseWriter, r *http.Request) {
-	enableCors(w, r)
-	contentTypeJson(w)
+	EnableCors(w, r)
+	SetContentTypeJson(w)
 	response := "{\"result\":\"OK\"}"
 	w.Write([]byte(response))
 }
