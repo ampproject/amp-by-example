@@ -7,6 +7,7 @@ The `amp-analytics` element can be used to measure activity on an AMP document. 
 * Anchor Clicks
 * Timer
 * Scrolling
+* AMP Carousel changes
 
 This sample demonstrates which events can be measured and how they can be configured. For a completele overview of all available options and parameters, have a look at the [official documentation](https://www.ampproject.org/docs/reference/extended/amp-analytics.html).
 -->
@@ -19,6 +20,7 @@ This sample demonstrates which events can be measured and how they can be config
   <!-- #### Setup -->
   <!--  Import the amp-analytics component in the header. -->
   <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+  <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
   <!--
     We need `amp-iframe` to embed an analytics dashboard.
   -->
@@ -35,6 +37,14 @@ This sample demonstrates which events can be measured and how they can be config
         width:100%;
         margin: 8px;
         z-index: 100;
+    }
+    amp-carousel .slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      background: green;
+      color: white;
     }
     </style>
 </head>
@@ -215,6 +225,81 @@ This sample demonstrates which events can be measured and how they can be config
         "request": "event",
         "vars": {
           "eventId": "timer"
+        }
+      }
+    }
+  }
+  </script>
+  </amp-analytics>
+  <!-- #### AMP Carousel Tracking-->
+  <!--
+ It is possible to track [amp-carousel](https://www.ampproject.org/docs/reference/components/amp-carousel) events with amp-analytics (this works only for  `type="slides"`). Here is a sample carousel:
+  -->
+  <amp-carousel width="400" height="300" layout="responsive" type="slides">
+    <div class="slide" data-slide-id="slide1">Slide 1</div>
+    <div class="slide" data-slide-id="slide2">Slide 2</div>
+    <div class="slide">Slide 3</div>
+  </amp-carousel>
+
+  <!--
+You can use the `fromSlide` and `toSlide` [variables](https://github.com/ampproject/amphtml/blob/master/extensions/amp-analytics/analytics-vars.md) for tracking which slides are viewed. The value is either taken from the `data-slide-id` attribute of the slide when present, else it represents the index of the slide (starting from 0).
+  -->
+  <!--
+The `amp-carousel-change` event is issued when there is any change in the slide that is currently visible:
+  -->
+  <amp-analytics>
+  <script type="application/json">
+  {
+    "requests": {
+      "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
+    },
+    "triggers": {
+      "ampCarouselChange": {
+        "on": "amp-carousel-change",
+        "request": "event",
+        "vars": {
+          "eventId": "carousel-change-${toSlide}"
+        }
+      }
+    }
+  }
+  </script>
+  </amp-analytics>
+  <!--
+The `amp-carousel-next` event is issued when there is a traversal to the next slide: 
+  -->
+  <amp-analytics>
+  <script type="application/json">
+  {
+    "requests": {
+      "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
+    },
+    "triggers": {
+      "ampCarouselNext": {
+        "on": "amp-carousel-next",
+        "request": "event",
+        "vars": {
+          "eventId": "carousel-next-${toSlide}"
+        }
+      }
+    }
+  }
+  </script>
+  </amp-analytics>
+  <!--
+The `amp-carousel-next` event is issued when there is a traversal to the previous slide: -->
+  <amp-analytics>
+  <script type="application/json">
+  {
+    "requests": {
+      "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
+    },
+    "triggers": {
+      "ampCarouselPrev": {
+        "on": "amp-carousel-next",
+        "request": "event",
+        "vars": {
+          "eventId": "carousel-prev-${fromSlide}"
         }
       }
     }
