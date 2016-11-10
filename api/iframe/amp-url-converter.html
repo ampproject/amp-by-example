@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+      }
+      pre, textarea, code {
+        font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+        font-size: 16px;
+        color: #222;
+        overflow: auto;
+        margin: 0;
+        padding: 0;
+        white-space: pre-wrap;
+      }
+      a {
+        color: #0379C4;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .error {
+        color: red;
+      }
+      .input-container {
+        display: flex;
+      }
+      .input-container .responsive {
+        flex: 1;
+      }
+      .input-container .fixed {
+        flex: 0;
+        margin: 0 0 0 16px;
+      }
+      .input-container div input {
+        font-size: 16px;
+        padding: 6px;
+        width: 100%;
+      }
+      .input-container div button {
+        font-size: 16px;
+        padding: 8px 16px;
+        white-space: nowrap;
+      }
+      .result-container p {
+        font-size: 16px;
+        line-height: 28px;
+        color: #424242;
+        padding: 16px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="input-container">
+      <div class="responsive">
+        <input id="input" type="text" />
+      </div>
+      <div class="fixed">
+        <button id="execute">Convert</button>
+      </div>
+    </section>
+    <section class="result-container">
+      <p>AMP Cache URL:</p>
+      <pre id="result"></pre>
+    </section>
+    <script src="https://cdn.ampproject.org/viewer/google/amp_url.js"></script>
+    <script src="/scripts/amp_url_converter.js"></script>
+  </body>
+</html>
