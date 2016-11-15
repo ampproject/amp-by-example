@@ -88,6 +88,10 @@ module.exports = class Document {
     return this.head.indexOf('custom-element="' + componentName + '"') > -1;
   }
 
+  includesLink(relType) {
+    return this.head.indexOf('rel="' + relType + '"') > -1;
+  }
+
   /* private */
   extractDescription(htmlString) {
     let desc = this.extractFirstParagraph(htmlString);
