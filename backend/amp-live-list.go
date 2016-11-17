@@ -15,14 +15,14 @@
 package backend
 
 import (
+	"encoding/json"
 	"fmt"
+	"html/template"
 	"math"
 	"net/http"
 	"strconv"
 	"strings"
 	"time"
-	"html/template"
-	"encoding/json"
 )
 
 const (
@@ -47,6 +47,7 @@ type BlogPosting struct {
 	Headline        string      `json:"headline"`
 	URL             string      `json:"url"`
 	DatePublished   string      `json:"datePublished"`
+	Author          Author      `json:"author"`
 	BlogArticleBody ArticleBody `json:"articleBody"`
 	BlogPublisher   Publisher   `json:"publisher"`
 	BlogImage       Image       `json:"image"`
@@ -67,6 +68,12 @@ type Image struct {
 	URL    string `json:"url"`
 	Width  string `json:"width"`
 	Height string `json:"height"`
+}
+
+type Author struct {
+	Type   string `json:"@type"`
+	SameAs string `json:"sameAs"`
+	Name   string `json:"name"`
 }
 
 func createBlogEntryWithTimeNow(heading string, text string, imagePath string, id int) BlogItem {
@@ -161,10 +168,11 @@ func createMetadata(sourceOrigin string) []BlogPosting {
 			blogs[i].Heading,
 			fmt.Sprintf("%s%s%d", urlPrefix, BLOG_ID_PREFIX, i+1),
 			blogs[i].MetadataTimestamp,
+			Author{"Person", "https://github.com/kul3r4", "Chiara Chiappini"},
 			ArticleBody{"Text"},
 			Publisher{"Organization", "AMP By Example",
 				Image{"ImageObject", sourceOrigin + "/img/favicon.png", "512", "512"}},
-			Image{"ImageObject", blogs[i].Image, "853", "1280"},
+			Image{"ImageObject", sourceOrigin + blogs[i].Image, "853", "1280"},
 		})
 	}
 	return result
@@ -188,7 +196,7 @@ func createLiveBlogSample(newStatus int, timestamp time.Time, firstBlogID string
 	if prevPageUrl != "" {
 		disabled = "disabled"
 	}
-	blogMetadata, _ := json.MarshalIndent(createMetadata(originSource),  "        ", "  ")
+	blogMetadata, _ := json.MarshalIndent(createMetadata(originSource), "        ", "  ")
 
 	return LiveBlogSample{BlogItems: blogItems[firstItemIndex:lenghtCurrentPageBlog],
 		FootballScore: score,
