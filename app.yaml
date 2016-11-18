@@ -18,10 +18,10 @@ threadsafe: yes
 default_expiration: 1d
 
 handlers:
-- url: /sw.js
+- url: /sw\.js$
   secure: always
   static_files: static/sw.js
-  upload: static/sw.js
+  upload: static/sw\.js$
   expiration: 0
   http_headers:
     Access-Control-Allow-Origin: "*"
@@ -64,7 +64,6 @@ skip_files:
 - kickstart
 - scripts
 - src
-- static
 - spec
 - tasks
 - android
