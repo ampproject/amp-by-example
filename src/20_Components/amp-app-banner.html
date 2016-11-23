@@ -22,7 +22,7 @@
   -->
   <meta name="apple-itunes-app" content="app-id=828256236, app-argument=medium://p/cb7f223fad86">
   <!--
-    Android apps need to be delared in the web app manifest, this will also enable the [native app install banner](https://developers.google.com/web/updates/2015/03/increasing-engagement-with-app-install-banners-in-chrome-for-android#native) in Chrome on Android.  
+    Android apps need to be declared in the [web app manifest](/amp-app-banner-manifest.json). This will also enable the [native app install banner](https://developers.google.com/web/updates/2015/03/increasing-engagement-with-app-install-banners-in-chrome-for-android#native) in Chrome on Android.  
   -->
   <link rel="manifest" href="/amp-app-banner-manifest.json">
   <!--
@@ -33,6 +33,12 @@
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
 <style amp-custom>
+.amp-app-banner-dismiss-button {
+  border-top-left-radius: 0;
+}
+button {
+  min-width: 0;
+}
 #banner {
   display: flex;
   width: 100%;
@@ -63,7 +69,7 @@
 
   <!-- #### Basic Usage -->
   <!--
-The `amp-app-banner` can be fully customized by the developer as long as the height doesn't exceed 100px.  One required UI element is a button with the attribute `[open-button]`, which triggers the app install, or opens the deep-link if the app is already installed.
+The `amp-app-banner` can be fully customized by the developer as long as the height doesn't exceed 100px.  One required UI element is a button with the attribute `[open-button]`, which triggers the app install, or opens the deep-link if the app is already installed. Style the close button via `.amp-app-banner-dismiss-button`.
 
   -->
   <amp-app-banner layout="nodisplay" id="banner">

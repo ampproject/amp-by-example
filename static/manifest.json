@@ -2,7 +2,7 @@
   "name": "AMP by Example",
   "short_name": "AMP Examples",
   "description": "Learn AMP by Examples",
-  "start_url": "/index.html",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#607D8B",
   "theme_color": "#607D8B",
