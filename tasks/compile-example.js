@@ -186,6 +186,7 @@ module.exports = function(config, updateTimestamp) {
         metadata: document.metadata,
         nextExample: nextExample,
         skipCanonical: document.hasCanonical(),
+        includesManifest: document.includesLink('manifest'),
         includesAnalytics: document.importsComponent('amp-analytics'),
         includesAccordion: document.importsComponent('amp-accordion'),
         includesSidebar: document.importsComponent('amp-sidebar'),

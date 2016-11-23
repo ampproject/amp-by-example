@@ -6,6 +6,13 @@
   "display": "standalone",
   "background_color": "#607D8B",
   "theme_color": "#607D8B",
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "play",
+      "id": "com.medium.reader"
+    }
+  ],
   "icons": [
     {
       "src": "/favicons/android-chrome-36x36.png",
