@@ -19,94 +19,74 @@
 const through = require('through2');
 const gutil = require('gulp-util');
 const PluginError = gutil.PluginError;
-const os = require('os');
-const fs = require('fs');
-const cp = require('child_process');
-const path = require('path');
+const amphtmlValidator = require('amphtml-validator');
 
-/**
- * Create an empty example.
- */
 module.exports = function() {
-  return through.obj(function(file, encoding, callback) {
+  let success = true;
+  const passed = [];
+  const failed = [];
+  const ignored = [];
+
+  function validate(file, encoding, callback) {
     if (file.isNull()) {
       return callback(null, file);
     }
     if (file.isStream()) {
       this.emit('error', new PluginError('validate-example',
-            'Streams not supported!'));
+        'Streams not supported!'));
     } else if (file.isBuffer()) {
-
       // skip over experiments which will fail validation
       if (file.metadata &&
-        (file.metadata.experiments || file.metadata.skipValidation) ||
-         !file.path.endsWith('.html')) {
-        gutil.log('Validating ' + file.relative +
-          ': ' + gutil.colors.yellow('IGNORED'));
+        (file.metadata.experiments ||
+          file.metadata.skipValidation) ||
+          !file.path.endsWith('.html')) {
+        ignored.push(gutil.colors.yellow('IGNORED') + ' ' + file.relative);
         return callback(null, file);
       }
-
-      // write file to disk, invoke validator, capture output & cleanup
-      const inputFilename = path.basename(file.path);
-      const tmpFile = path.join(os.tmpdir(), inputFilename);
-      const self = this;
-      fs.writeFile(tmpFile, file.contents, encoding, function(err) {
-        if (err) {
-          return callback(err);
-        }
-        const child = cp.spawn(
-            path.join(__dirname, '../node_modules/.bin/amp-validator'),
-            ['-o', 'json', inputFilename],
-            {cwd: os.tmpdir()}
-        );
-        let output = '';
-        let error = false;
-        let timeout = false;
-        child.stderr.on('data', function(data) {
-          output += data.toString();
-          if (output === 'undefined:1') {
-            timeout = true;
+      return amphtmlValidator.getInstance().then(function(validator) {
+        try {
+          let report = '';
+          const result = validator.validateString(file.contents.toString());
+          const validationPassed = result.status === 'PASS';
+          if (validationPassed) {
+            report += gutil.colors.green('PASSED ') + ' ' + file.relative;
+          } 
+          for (let ii = 0; ii < result.errors.length; ii++) {
+            const error = result.errors[ii];
+            let msg = 'line ' + error.line + ', col ' + error.col + ': ' +
+              error.message;
+            if (error.specUrl !== null) {
+              msg += ' (see ' + error.specUrl + ')';
+            }
+            if (error.severity === 'ERROR') {
+              report += gutil.colors.red('FAILED ')  + ' ' + file.relative + '\n' + msg;
+              success = false;
+            }
           }
-        });
-        child.stdout.on('data', function(data) {
-          output += data.toString().trim();
-        });
-        child.on('exit', function() {
-          if (timeout) {
-            return self.emit('error', new PluginError('validate-example',
-              'Timeout occured while fetching AMP for validation. Try again'));
-          }
-          let printedOutput = '';
-          const parsedOutput = JSON.parse(output);
-          const exampleKey = 'http://localhost:30000/' + inputFilename;
-          if (parsedOutput[exampleKey].success) {
-            printedOutput = gutil.colors.green('PASSED');
+          if (validationPassed) {
+            passed.push(report);
           } else {
-            const errorList = parsedOutput[exampleKey].errors;
-            printedOutput = gutil.colors.red('FAILED\n\n');
-            errorList.forEach(function(item) {
-              printedOutput += item.line + ': ' + item.reason + '\n';
-            });
+            failed.push(report);
           }
-          gutil.log('Validating ' + file.relative + ': ' +
-              printedOutput);
-          if (!error) {
-            fs.unlink(tmpFile, function() {
-              if (parsedOutput[exampleKey].success) {
-                callback();
-              } else {
-                self.emit('error', new PluginError('validate-example',
-                      'Example has failed AMP validation'));
-              }
-            });
-          }
-        });
-        child.on('error', function() {
-          error = true;
-          self.emit('error', new PluginError('validate-example',
-                'Error invoking amp-validate process'));
-        });
+        } catch (e) {
+          gutil.log(e);
+          this.emit('error', new PluginError('validate-example',
+            'Sample validation exception'));
+        }
+        return callback(null, file);
       });
     }
-  });
+  }
+
+  function endStream(callback) {
+    const result = passed.concat(ignored, failed).join('\n');
+    gutil.log('Validation results:\n\n' + result + '\n');
+    if (success) {
+      return callback();
+    }
+    this.emit('error', new PluginError('validate-example',
+      'Validation failed with ' + failed.length + ' errors'));
+  }
+
+  return through.obj(validate, endStream);
 };
