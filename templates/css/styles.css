@@ -499,6 +499,7 @@ footer ul li a {
   padding: 8px;
   margin: 16px;
   border-radius: 2px;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 .card h4 {
@@ -509,6 +510,11 @@ footer ul li a {
 .card p {
   margin-top: 8px;
   padding: 0;
+}
+
+a.card:active {
+  opacity: 0.8;
+  background-color: #e5e5e5;
 }
 
 .info {
