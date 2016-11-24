@@ -23,12 +23,12 @@
     "gcloud": "^0.27.0"
   },
   "devDependencies": {
-    "amp-validator": "^0.1.4",
+    "amphtml-validator": "^1.0.15",
     "clean-css": "^3.4.10",
     "del": "^2.2.0",
     "eslint": "^2.0.0",
     "eslint-plugin-google-camelcase": "0.0.2",
-    "gulp": "^3.9.0",
+    "gulp": "^3.9.1",
     "gulp-bower": "0.0.13",
     "gulp-cached": "^1.1.0",
     "gulp-change": "^1.0.0",
