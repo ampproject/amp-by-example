@@ -21,7 +21,15 @@
 
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-
+  <style amp-custom>
+    amp-social-share.custom-style {
+      background-color: #008080;
+      background-image: url('https://raw.githubusercontent.com/google/material-design-icons/master/social/1x_web/ic_share_white_48dp.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+  </style>
 </head>
 <body>
 
@@ -63,23 +71,22 @@
   <!-- #### Custom Style -->
   <!--
     Whenever you want to provide your own style, use CSS properties within an `<style amp-custom>` ([Modify the presentation](https://www.ampproject.org/docs/get_started/create/presentation_layout)) element. This will make sure the image stays responsive and centered, and the default styling is overwritten.
+
+    * `background-color`, if you want the element to be a different color.
+    * `background-image`, provide another image if you want to change the icon.
+    * `background-repeat` (when using `background-image`), set to `no-repeat`.
+    * `background-position` (when using `background-image`), set to `center`.
+    * `background-size` (when using `background-image`), set to `contain`.
   -->
-  <style amp-custom>
-    amp-social-share[type="linkedin"] {
-      background-color: #008080;
-      background-image: url('https://raw.githubusercontent.com/google/material-design-icons/master/social/1x_web/ic_share_white_48dp.png');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-    }
-  </style>
   <amp-social-share type="linkedin"
     width="76"
-    height="22">
+    height="22"
+    class="custom-style">
   </amp-social-share>
   <amp-social-share type="linkedin"
     width="41"
-    height="64">
+    height="64"
+    class="custom-style">
   </amp-social-share>
 
 </body>
