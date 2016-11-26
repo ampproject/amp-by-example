@@ -52,21 +52,34 @@
 
     All `data-param-*` prefixed attributes will be turned into URL parameters and passed to the share endpoint.
   -->
-  <amp-social-share type="linkedin" width="40" height="40"
+  <amp-social-share type="linkedin"
+    width="40"
+    height="40"
     data-param-text="Check out these AMP Examples!"
     data-param-url="https://ampbyexample.com/"
     data-param-attribution="AMPhtml">
   </amp-social-share>
 
-  <!-- #### Customized Views -->
+  <!-- #### Custom Style -->
   <!--
-    Sometimes you want to provide your own style. In this instance, you can **embed an anchor without a `href`** and it will be populated. This provides you the flexibility to build your own UI for the share button.
+    Whenever you want to provide your own style, use CSS properties within an `<style amp-custom>` ([Modify the presentation](https://www.ampproject.org/docs/get_started/create/presentation_layout)) element. This will make sure the image stays responsive and centered, and the default styling is overwritten.
   -->
-  <amp-social-share type="linkedin">
-    <a id="customized-social-share" class="custom">
-      <amp-img src="https://raw.githubusercontent.com/google/material-design-icons/master/social/1x_web/ic_share_white_48dp.png" width="18" height="18" layout="responsive" alt="an image">
-      </amp-img>
-    </a>
+  <style amp-custom>
+    amp-social-share[type="linkedin"] {
+      background-color: #008080;
+      background-image: url('https://raw.githubusercontent.com/google/material-design-icons/master/social/1x_web/ic_share_white_48dp.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+  </style>
+  <amp-social-share type="linkedin"
+    width="76"
+    height="22">
+  </amp-social-share>
+  <amp-social-share type="linkedin"
+    width="41"
+    height="64">
   </amp-social-share>
 
 </body>
