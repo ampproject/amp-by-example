@@ -32,33 +32,37 @@
     `amp-social-share` with `type="facebook"` requires to specify the [facebook app id](https://developers.facebook.com/apps) via `data-attribution`.
   -->
   <div>
-    <amp-social-share type="twitter" width="60" height="44"> </amp-social-share>
-    <amp-social-share type="gplus" width="60" height="44"></amp-social-share>
-    <amp-social-share type="email" width="60" height="44"></amp-social-share>
-    <amp-social-share type="pinterest" width="60" height="44"></amp-social-share>
-    <amp-social-share type="linkedin" width="60" height="44"></amp-social-share>
-    <amp-social-share type="facebook" width="60" height="44" data-param-app_id="254325784911610"></amp-social-share>
+    <amp-social-share type="twitter"></amp-social-share>
+    <amp-social-share type="gplus"></amp-social-share>
+    <amp-social-share type="email"></amp-social-share>
+    <amp-social-share type="pinterest"></amp-social-share>
+    <amp-social-share type="linkedin"></amp-social-share>
+    <amp-social-share type="facebook" data-param-app_id="254325784911610"></amp-social-share>
   </div>
 
   <!-- #### Configuration -->
   <!--
     Embed the `amp-social-share` widget [choosing a type](https://www.ampproject.org/docs/reference/components/amp-social-share#types), then configure the actions.
 
-    * `text` is the text to include in the share
-    * `url` is the URL to share
-    * `attribution` is where the share is attributed to.
+    * `width`, default 60px.
+    * `height`, default 44px.
+    * `data-param-text` is the text to include in the share.
+    * `data-param-url` is the URL to share.
+    * `data-param-attribution` is where the share is attributed to.
+
+    All `data-param-*` prefixed attributes will be turned into URL parameters and passed to the share endpoint.
   -->
-  <amp-social-share type="linkedin" width="60" height="44"
-    data-text="Check out these AMP Examples!"
-    data-url="https://ampbyexample.com/"
-    data-attribution="AMPhtml">
+  <amp-social-share type="linkedin" width="40" height="40"
+    data-param-text="Check out these AMP Examples!"
+    data-param-url="https://ampbyexample.com/"
+    data-param-attribution="AMPhtml">
   </amp-social-share>
 
   <!-- #### Customized Views -->
   <!--
     Sometimes you want to provide your own style. In this instance, you can **embed an anchor without a `href`** and it will be populated. This provides you the flexibility to build your own UI for the share button.
   -->
-  <amp-social-share type="linkedin" width="60" height="44" data-text="The AMP Project" data-url="https://www.ampproject.org/" data-attribution="amphtml">
+  <amp-social-share type="linkedin">
     <a id="customized-social-share" class="custom">
       <amp-img src="https://raw.githubusercontent.com/google/material-design-icons/master/social/1x_web/ic_share_white_48dp.png" width="18" height="18" layout="responsive" alt="an image">
       </amp-img>
