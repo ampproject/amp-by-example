@@ -66,71 +66,9 @@ The  [amp-experiment](https://www.ampproject.org/docs/reference/components/amp-e
 <!-- #### Reporting -->
 
 <!--
-  Measure results of the experiment using [amp-pixel](https://www.ampproject.org/docs/reference/components/amp-pixel)
+  Measure results of the experiment using [amp-pixel](https://www.ampproject.org/docs/reference/components/amp-pixel).
 -->
 <amp-pixel src="https://example.com/track/?xname=button-color-experiment&xvar=VARIANT(button-color-experiment)"></amp-pixel>
-
-  <!--
-    If you use Google Analytics experiment, Style different variants of the experiment by using `body[amp-x-name-of-experiment="INDEX"`]. Original page INDEX is 0, Variant1 page INDEX is 1, etc.  
-  ```  
-  <style amp-custom>
-    body[amp-x-button-color-experiment="0"] .button-color-experiment {
-      background-color: yellow;
-      color: black;
-    }
-    body[amp-x-button-color-experiment="1"] .button-color-experiment {
-      background-color: red;
-    }
-    body[amp-x-button-color-experiment="2"] .button-color-experiment {
-      background-color: blue;
-    }
-    button {
-      background-color: grey;
-    }
-  </style>
-  ```
-  -->
-  <!--
-    Attributes with variants object are also specified by INDEX. 
-  -->
-  <amp-experiment>
-    <script type="application/json">
-      {
-        "button-color-experiment": {
-          "variants": {
-            "0": 30,
-            "1": 30,
-            "2": 30
-          }
-        }
-      }
-    </script>
-  </amp-experiment>
-<!-- 
-    [amp-analytics](https://www.ampproject.org/docs/reference/components/amp-analytics). In your Google Analytics tracking code of experiment page, You will change to following tracking code. In this tracking code, request path include xid and xvar variables. These variables are for identifying Google Analytics experiments.   
--->
-<amp-analytics type="googleanalytics" id="analytics">
-  <script type="application/json">
-    {
-      "vars": {
-        "account": "UA-73836974-1" // Yout Google Analytics Tracking ID
-      },
-      "requests": {
-        "experiment": "${pageview}&xid=${experiment}&xvar=${variant}"
-      },
-      "triggers": {
-        "default pageview": {
-          "on": "visible",
-          "request": "experiment",
-          "vars": {
-            "experiment": "button-color-experiment",
-            "variant": "VARIANT(button-color-experiment)"
-          }
-        }
-      }
-    }
-  </script>
-</amp-analytics>
 
 <!-- #### Development Tip -->
 <!--
@@ -138,6 +76,8 @@ The  [amp-experiment](https://www.ampproject.org/docs/reference/components/amp-e
   * <a href="<%host%>/components/amp-experiment#amp-x-button-color-experiment=red">#amp-x-button-color-experiment=red</a>
   * <a href="<%host%>/components/amp-experiment#amp-x-button-color-experiment=blue">#amp-x-button-color-experiment=blue</a>
   * <a href="<%host%>/components/amp-experiment#amp-x-button-color-experiment=yellow">#amp-x-button-color-experiment=yellow</a>
+
+  If you are using the Google Analytics Experiment feature, please refer to [amp-experiment with google analytics](https://www.ampproject.org/advanced/amp-experiment_with_google_analytics/).
 -->
 
 </body>
