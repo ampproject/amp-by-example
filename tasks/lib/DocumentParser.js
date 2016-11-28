@@ -18,6 +18,7 @@
 
 const CodeSection = require('./CodeSection');
 const Document = require('./Document');
+const elementSorting = require('./ElementSorting');
 const beautifyHtml = require('js-beautify').html;
 
 const SINGLE_LINE_TAGS = ['link', 'meta', '!doctype'];
@@ -45,6 +46,7 @@ module.exports.parse = function(input) {
   input = beautifyHtml(input, BEAUTIFY_OPTIONS);
   const parsing = new DocumentParser(input.split('\n'));
   parsing.execute();
+  elementSorting.apply(parsing.document);
   return parsing.document;
 };
 

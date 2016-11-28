@@ -302,6 +302,11 @@ gulp.task('test', function() {
       .pipe(jasmine());
 });
 
+gulp.task('test2', function() {
+  return gulp.src('spec/**/*Spec.js')
+      .pipe(jasmine({includeStackTrace: true}));
+});
+
 gulp.task('lint', function() {
   const hasFixFlag = argv.fix;
   let errorsFound = false;
