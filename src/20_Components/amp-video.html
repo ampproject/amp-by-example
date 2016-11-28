@@ -21,7 +21,7 @@
 
   <!-- #### Basic Usage -->
   <!--
-    A simple video with controller. 
+    A simple video with controller.
     `amp-video` supports the following formats: mp4, webm, ogg together with all the formats
     supported by the HTML5 video tag including HLS.
     Boolean attribute (`controls` in this case) must be without values.
@@ -37,14 +37,24 @@
     <source type="video/mp4" src="/video/tokyo.mp4">
     <source type="video/webm" src="/video/tokyo.webm">
   </amp-video>
-  
+
+  <!-- #### Autoplay -->
   <!--
-    Setting `autoplay` and `muted` will enable play video as soon as it get loaded in mute mode.
+    Setting `autoplay` will automatically play/pause the video as it is
+    scrolled into/out of view on supported browsers.
+
+    The video is automatically muted before autoplay starts, when the user
+    taps the video, the video is unmuted.
+
+    If the user has interacted with the video
+    (e.g., mutes/unmutes, pauses/resumes, etc.), and the video is scrolled in
+    or out of view, the state of the video remains as how the user left it.
   -->
   <amp-video width=480 height=270 src="/video/tokyo.mp4"
              poster="/img/tokyo.jpg"
              layout="responsive"
-             autoplay muted loop>
+             controls
+             autoplay>
     <div fallback>
       <p>Your browser doesn't support HTML5 video.</p>
     </div>
