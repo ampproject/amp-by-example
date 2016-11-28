@@ -35,7 +35,7 @@
 
   <!-- #### Basic Usage -->
   <!--
-    Embed the [`amp-social-share`](https://www.ampproject.org/docs/reference/components/amp-social-share) widget choosing a share type from the [supported types](https://www.ampproject.org/docs/reference/components/amp-social-share#types), ensuring you use the relevant width and height.
+    Embed the [`amp-social-share`](https://www.ampproject.org/docs/reference/components/amp-social-share) widget choosing a share type from the [supported types](https://www.ampproject.org/docs/reference/components/amp-social-share#types).
 
     `amp-social-share` with `type="facebook"` requires to specify the [facebook app id](https://developers.facebook.com/apps) via `data-attribution`.
   -->
@@ -55,8 +55,9 @@
     * `width`, default 60px.
     * `height`, default 44px.
     * `data-param-text` is the text to include in the share.
-    * `data-param-url` is the URL to share.
+    * `data-param-url` is the URL to share, current URL by default.
     * `data-param-attribution` is where the share is attributed to.
+
 
     All `data-param-*` prefixed attributes will be turned into URL parameters and passed to the share endpoint.
   -->
@@ -70,7 +71,7 @@
 
   <!-- #### Custom Style -->
   <!--
-    Whenever you want to provide your own style, use CSS properties within an `<style amp-custom>` ([Modify the presentation](https://www.ampproject.org/docs/get_started/create/presentation_layout)) element. This will make sure the image stays responsive and centered, and the default styling is overwritten.
+    Whenever you want to provide your own style, use CSS properties within the `<style amp-custom>` element ([Modify the presentation](https://www.ampproject.org/docs/get_started/create/presentation_layout)). This will make sure the image stays responsive and centered, and the default styling is overwritten.
 
     * `background-color`, if you want the element to be a different color.
     * `background-image`, provide another image if you want to change the icon.
@@ -81,11 +82,6 @@
   <amp-social-share type="linkedin"
     width="76"
     height="22"
-    class="custom-style">
-  </amp-social-share>
-  <amp-social-share type="linkedin"
-    width="41"
-    height="64"
     class="custom-style">
   </amp-social-share>
 
