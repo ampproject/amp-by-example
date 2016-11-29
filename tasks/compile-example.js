@@ -182,6 +182,7 @@ module.exports = function(config, updateTimestamp) {
         categories: mapToCategories(examples, example),
         component: document.metadata.component,
         bodyTag: document.body,
+        elementsAfterBody: document.elementsAfterBody,
         sections: document.sections,
         metadata: document.metadata,
         nextExample: nextExample,
