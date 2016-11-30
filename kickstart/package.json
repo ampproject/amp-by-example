@@ -1,0 +1,11 @@
+{
+  "name": "kickstart",
+  "private": true,
+  "devDependencies": {
+    "gulp-help": "^1.6.1",
+    "gulp-posthtml": "^2.0.0",
+    "posthtml-extend-attrs": "^1.0.0",
+    "posthtml-prefix-class": "^1.0.5",
+    "run-sequence": "^1.1.5"
+  }
+}
