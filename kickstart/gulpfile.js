@@ -39,3 +39,23 @@ gulp.task('posthtml', 'build kickstart files', function() {
     .pipe(posthtml(plugins, options))
     .pipe(gulp.dest(config.dist))
 });
+
+function serve() {
+  var app = require('express')();
+  var webserver = require('gulp-webserver');
+
+  var host = 'localhost';
+  var port = process.env.PORT || 8000;
+  var server = gulp.src(cofig.dist)
+      .pipe(webserver({
+        port,
+        host,
+        directoryListing: true,
+        https: false,
+        middleware: [app]
+      }));
+
+  return server;
+}
+
+gulp.task('serve', serve);
