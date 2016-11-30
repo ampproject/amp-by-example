@@ -191,7 +191,7 @@ module.exports = function(config, updateTimestamp) {
         includesAnalytics: document.importsComponent('amp-analytics'),
         includesAccordion: document.importsComponent('amp-accordion'),
         includesSidebar: document.importsComponent('amp-sidebar'),
-        includesServiceWorker: document.importsComponent('amp-install-serviceworker')
+        includesServiceWorker: document.importsComponent('amp-install-serviceworker') || document.metadata.skipServiceWorker
       };
       Metadata.add(args);
 
