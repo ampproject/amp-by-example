@@ -37,20 +37,6 @@ In this sample, we're using Google Analytics to track the experiment. Google Ana
     button {
       background-color: grey;
     }
-
-    /**
-    If you don't use Google Analytics experiment, it is also possible to write as following. 
-    body[amp-x-button-color-experiment="yellow"] .button-color-experiment {
-      background-color: yellow;
-      color: black;
-    }
-    body[amp-x-button-color-experiment="red"] .button-color-experiment {
-      background-color: red;
-    }
-    body[amp-x-button-color-experiment="blue"] .button-color-experiment {
-      background-color: blue;
-    }
-    */
   </style>
 </head>
 <body>
@@ -72,19 +58,6 @@ In this sample, we're using Google Analytics to track the experiment. Google Ana
           }
         }
       }
-
-      /**
-      If you don't use Google Analytics experiment, it is also possible to write as following. These keys must match the CSS. 
-      {
-        "button-color-experiment": {
-          "variants": {
-            "yellow": 30,
-            "red": 30,
-            "blue": 30
-          }
-        }
-      }
-      */
     </script>
   </amp-experiment>
 <!--
