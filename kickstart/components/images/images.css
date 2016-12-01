@@ -1,0 +1,9 @@
+.ampstart-image-with-heading {
+  position: relative;
+}
+.ampstart-image-with-heading h1 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
