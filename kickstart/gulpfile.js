@@ -16,15 +16,21 @@
 
 const gulp = require('gulp-help')(require('gulp'));
 const posthtml = require('gulp-posthtml');
+const postcss = require('gulp-postcss');
 const runSequence = require('run-sequence');
 
 const config = {
   dist: 'dist',
   templates: 'templates/**/*.html',
+  css: '{css,components}/**/*.css',
 };
 
 gulp.task('build', 'build', function(cb) {
-  runSequence('posthtml', cb);
+  runSequence('posthtml', 'postcss', cb);
+});
+
+gulp.task('watch', 'watch stuff', function() {
+  gulp.watch([config.templates, config.css], ['build']);
 });
 
 gulp.task('default', ['build']);
@@ -35,8 +41,25 @@ gulp.task('posthtml', 'build kickstart files', function() {
   };
   const plugins = [require('posthtml-prefix-class')(prefixOptions)];
   const options = {};
-  gulp.src(config.templates)
+  return gulp.src(config.templates)
     .pipe(posthtml(plugins, options))
+    .pipe(gulp.dest(config.dist))
+});
+
+gulp.task('postcss', 'build postcss files', function() {
+  const plugins = [
+    require('postcss-import')(),
+    require('autoprefixer')(),
+    require('postcss-calc')(),
+    require('postcss-color-function')(),
+    require('postcss-custom-properties')(),
+    require('postcss-discard-comments')(),
+    require('postcss-custom-media')(),
+    require('cssnano')(),
+  ];
+  const options = {};
+  return gulp.src(config.css)
+    .pipe(postcss(plugins, options))
     .pipe(gulp.dest(config.dist))
 });
 
