@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "basscss": "^8.0.3",
+    "basscss-addons": "^1.0.0",
     "basscss-basic": "^1.0.0"
   }
 }
