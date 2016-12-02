@@ -16,11 +16,13 @@
 
 const gulp = require('gulp-help')(require('gulp'));
 const posthtml = require('gulp-posthtml');
+const posthtml = require('gulp-postcss');
 const runSequence = require('run-sequence');
 
 const config = {
   dist: 'dist',
   templates: 'templates/**/*.html',
+  css: '{css,components}/**/*.css',
 };
 
 gulp.task('build', 'build', function(cb) {
@@ -35,8 +37,14 @@ gulp.task('posthtml', 'build kickstart files', function() {
   };
   const plugins = [require('posthtml-prefix-class')(prefixOptions)];
   const options = {};
-  gulp.src(config.templates)
+  return gulp.src(config.templates)
     .pipe(posthtml(plugins, options))
+    .pipe(gulp.dest(config.dist))
+});
+
+gulp.task('postcss', 'build postcss files', function() {
+  return gulp.src(config.css)
+    .pipe(postcss(plugins, options))
     .pipe(gulp.dest(config.dist))
 });
 
