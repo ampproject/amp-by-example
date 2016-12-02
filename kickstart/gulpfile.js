@@ -16,7 +16,7 @@
 
 const gulp = require('gulp-help')(require('gulp'));
 const posthtml = require('gulp-posthtml');
-const posthtml = require('gulp-postcss');
+const postcss = require('gulp-postcss');
 const runSequence = require('run-sequence');
 
 const config = {
@@ -26,7 +26,11 @@ const config = {
 };
 
 gulp.task('build', 'build', function(cb) {
-  runSequence('posthtml', cb);
+  runSequence('posthtml', 'postcss', cb);
+});
+
+gulp.task('watch', 'watch stuff', function() {
+  gulp.watch([config.templates, config.css], ['build']);
 });
 
 gulp.task('default', ['build']);
@@ -43,6 +47,12 @@ gulp.task('posthtml', 'build kickstart files', function() {
 });
 
 gulp.task('postcss', 'build postcss files', function() {
+  const plugins = [
+    require('postcss-import')(),
+    require('autoprefixer')(),
+    require('postcss-custom-properties')()
+  ];
+  const options = {};
   return gulp.src(config.css)
     .pipe(postcss(plugins, options))
     .pipe(gulp.dest(config.dist))
