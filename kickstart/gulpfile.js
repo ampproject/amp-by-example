@@ -50,7 +50,12 @@ gulp.task('postcss', 'build postcss files', function() {
   const plugins = [
     require('postcss-import')(),
     require('autoprefixer')(),
-    require('postcss-custom-properties')()
+    require('postcss-calc')(),
+    require('postcss-color-function')(),
+    require('postcss-custom-properties')(),
+    require('postcss-discard-comments')(),
+    require('postcss-custom-media')(),
+    require('cssnano')(),
   ];
   const options = {};
   return gulp.src(config.css)

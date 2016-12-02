@@ -4,16 +4,25 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "autoprefixer": "^6.5.3",
+    "cssnano": "^3.8.1",
     "express": "^4.14.0",
     "gulp-help": "^1.6.1",
     "gulp-postcss": "^6.2.0",
     "gulp-posthtml": "^2.0.0",
     "gulp-webserver": "^0.9.1",
     "postcss": "5.0.14",
+    "postcss-calc": "^5.3.1",
+    "postcss-color-function": "^2.0.1",
+    "postcss-custom-media": "^5.0.1",
     "postcss-custom-properties": "^5.0.1",
+    "postcss-discard-comments": "^2.0.4",
     "postcss-import": "8.0.2",
     "posthtml-extend-attrs": "^1.0.0",
     "posthtml-prefix-class": "^1.0.5",
     "run-sequence": "^1.1.5"
+  },
+  "dependencies": {
+    "basscss": "^8.0.3",
+    "basscss-basic": "^1.0.0"
   }
 }
