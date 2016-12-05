@@ -29,7 +29,7 @@ gulp.task('build', 'build', function(cb) {
   runSequence('posthtml', 'postcss', cb);
 });
 
-gulp.task('watch', 'watch stuff', function() {
+gulp.task('watch', 'watch stuff', ['build'], function() {
   gulp.watch([config.templates, config.css], ['build']);
 });
 
@@ -39,7 +39,16 @@ gulp.task('posthtml', 'build kickstart files', function() {
   const prefixOptions = {
     prefix: 'prefix-',
   };
-  const plugins = [require('posthtml-prefix-class')(prefixOptions)];
+  const plugins = [
+    require('posthtml-prefix-class')(prefixOptions),
+    require('posthtml-inline-assets')({
+      from: config.dist + '/',
+      inline: {
+        script: { check: function() { return false } },
+      }
+    }),
+    require('posthtml-include')(),
+  ];
   const options = {};
   return gulp.src(config.templates)
     .pipe(posthtml(plugins, options))
@@ -73,9 +82,10 @@ function serve() {
       .pipe(webserver({
         port,
         host,
-        directoryListing: true,
+        fallback: 'index.amp.html',
+        livereload: true,
         https: false,
-        middleware: [app]
+        middleware: [app],
       }));
 
   return server;
