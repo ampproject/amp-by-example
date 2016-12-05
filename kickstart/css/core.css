@@ -24,7 +24,7 @@
  * potentially get a scrolling box. See #3108 for more details.
  */
 
-@import 'basscss-basic';
+@import 'normalize.css';
 
 /* Basscss Modules */
 @import 'basscss-type-scale';

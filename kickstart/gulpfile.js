@@ -69,7 +69,7 @@ function serve() {
 
   var host = 'localhost';
   var port = process.env.PORT || 8000;
-  var server = gulp.src(cofig.dist)
+  var server = gulp.src(config.dist)
       .pipe(webserver({
         port,
         host,
