@@ -6,6 +6,7 @@
     "autoprefixer": "^6.5.3",
     "cssnano": "^3.8.1",
     "express": "^4.14.0",
+    "gulp": "^3.9.1",
     "gulp-help": "^1.6.1",
     "gulp-postcss": "^6.2.0",
     "gulp-posthtml": "^2.0.0",
@@ -24,6 +25,7 @@
   "dependencies": {
     "basscss": "^8.0.3",
     "basscss-addons": "^1.0.0",
-    "basscss-basic": "^1.0.0"
+    "basscss-basic": "^1.0.0",
+    "normalize.css": "^5.0.0"
   }
 }
