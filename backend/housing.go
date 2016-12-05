@@ -19,7 +19,6 @@ import (
 	"math"
 	"net/http"
 	"strconv"
-	"strings"
 )
 
 const (
@@ -57,31 +56,12 @@ func parseForm(r *http.Request) (MortgageForm, error) {
 	// can't return nil in place of a struct, so creating one in case there are errors
 	mortgageForm := MortgageForm{price, deposit, interest, period}
 
-	err := parseFormErrors(priceErr, depositErr, interestErr, periodErr)
+	err := parseFormErrors([]error{priceErr, depositErr, interestErr, periodErr})
 	if err != nil {
 		return mortgageForm, err
 	}
 
 	return mortgageForm, nil
-}
-
-func parseFormErrors(priceErr error, depositErr error, interestErr error, periodErr error) error {
-	var errors []string
-	appendError(priceErr, errors)
-	appendError(depositErr, errors)
-	appendError(interestErr, errors)
-	appendError(periodErr, errors)
-
-	if errors != nil {
-		return fmt.Errorf(strings.Join(errors, "\n"))
-	}
-	return nil
-}
-
-func appendError(anError error, errors []string) {
-	if anError != nil {
-		errors = append(errors, anError.Error())
-	}
 }
 
 func calculateMortgageXHR(w http.ResponseWriter, r *http.Request) {
