@@ -27,6 +27,7 @@ const jasmine = require('gulp-jasmine');
 const eslint = require('gulp-eslint');
 const gutil = require('gulp-util');
 const gulpIf = require('gulp-if');
+const gulpIgnore = require('gulp-ignore');
 const favicons = require("gulp-favicons");
 const runSequence = require('run-sequence');
 const argv = require('yargs').argv;
@@ -37,11 +38,11 @@ const bower = require('gulp-bower');
 
 const compileExample = require('./tasks/compile-example');
 const sitemap = require('./tasks/compile-sitemap');
-const validateExample = require('./tasks/validate-example');
 const createExample = require('./tasks/create-example');
 const FileName = require('./tasks/lib/FileName');
 const Metadata = require('./tasks/lib/Metadata');
 const ExampleFile = require('./tasks/lib/ExampleFile');
+const gulpAmpValidator = require('gulp-amphtml-validator');
 
 const paths = {
   dist: {
@@ -234,10 +235,33 @@ gulp.task("compile:favicons", function() {
       .pipe(gulp.dest(paths.dist.favicons));
 });
 
+const shouldIgnoreSample = function (file) {
+  const metadata = file.metadata;
+  if (!file.path.endsWith('.html')) {
+    return true;
+  }
+  if (!metadata) {
+    return false;
+  }
+  if (!metadata.experiments && !metadata.skipValidation) {
+    return false;
+  }
+  gutil.log(gutil.colors.yellow('IGNORED') + ' ' + file.relative);
+  return true;
+};
+
 gulp.task('validate:example', 'validate example html files', function() {
   return gulp.src(paths.samples)
     .pipe(compileExample(config))
-    .pipe(validateExample());
+    .pipe(gulpIgnore.exclude(shouldIgnoreSample))
+    // Valide the input and attach the validation result to the "amp" property 
+    // of the file object.  
+    .pipe(gulpAmpValidator.validate())
+    // Print the validation results to the console. 
+    .pipe(gulpAmpValidator.format())
+    // Exit the process with error code (1) if an AMP validation error 
+    // occurred. 
+    .pipe(gulpAmpValidator.failAfterError());
 });
 
 gulp.task('compile:example', 'generate index.html and examples', function() {
