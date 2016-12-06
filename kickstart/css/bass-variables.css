@@ -1,0 +1,15 @@
+:root {
+  --h1: 3rem;
+  --h2: 2rem;
+  --h3: 1.5rem;
+  --h4: 1.125rem; /*18px*/
+  --h5: .875rem;
+  --h6: .75rem;
+/*
+  --bold-font-weight: bold;
+
+  --space-1: .5rem;
+  --space-2: 1rem;
+  --space-3: 2rem;
+  --space-4: 4rem;*/
+}

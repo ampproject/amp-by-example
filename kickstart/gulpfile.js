@@ -21,7 +21,7 @@ const runSequence = require('run-sequence');
 
 const config = {
   dist: 'dist',
-  templates: 'templates/**/*.html',
+  templates: ['**/*.html', '!{dist,node_modules}/**/*.*'],
   css: '{css,components}/**/*.css',
 };
 
@@ -37,7 +37,7 @@ gulp.task('default', ['build']);
 
 gulp.task('posthtml', 'build kickstart files', function() {
   const prefixOptions = {
-    prefix: 'prefix-',
+    prefix: 'ampstart-',
   };
   const plugins = [
     require('posthtml-prefix-class')(prefixOptions),
@@ -78,11 +78,11 @@ function serve() {
 
   var host = 'localhost';
   var port = process.env.PORT || 8000;
-  var server = gulp.src(config.dist)
+  var server = gulp.src(process.cwd())
       .pipe(webserver({
         port,
         host,
-        fallback: 'index.amp.html',
+        directoryListing: true,
         livereload: true,
         https: false,
         middleware: [app],
