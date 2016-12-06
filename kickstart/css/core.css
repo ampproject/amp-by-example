@@ -75,22 +75,4 @@
 
 
 /* Custom properties */
-
-:root {
-  --h1: 100rem;
-  --h2: 1.5rem;
-  --h3: 1.25rem;
-  --h4: 1rem;
-  --h5: .875rem;
-  --h6: .75rem;
-
-  --bold-font-weight: bold;
-
-  --space-1: .5rem;
-  --space-2: 1rem;
-  --space-3: 2rem;
-  --space-4: 4rem;
-
-  --border-width: 1px;
-  --border-radius: 3px;
-}
+@import 'bass-variables';
