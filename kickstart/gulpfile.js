@@ -15,34 +15,58 @@
  */
 
 const gulp = require('gulp-help')(require('gulp'));
+const del = require('del');
 const posthtml = require('gulp-posthtml');
 const postcss = require('gulp-postcss');
 const runSequence = require('run-sequence');
 
 const config = {
-  dist: 'dist',
-  templates: ['**/*.html', '!{dist,node_modules}/**/*.*'],
-  css: '{css,components}/**/*.css',
+  src: {
+    templates: 'templates/**/*.html',
+    components: 'components/**/*.html',
+    css: '{css,components}/**/*.css',
+  },
+  dest: {
+    default: 'dist',
+    templates: 'dist',
+    components: 'dist/components',
+    css: 'dist',
+  },
 };
 
 gulp.task('build', 'build', function(cb) {
-  runSequence('posthtml', 'postcss', cb);
+  runSequence(
+      'clean', 'postcss', 'posthtml:components', 'posthtml:templates', cb);
+});
+
+gulp.task('clean', function() {
+  return del(['dist']);
 });
 
 gulp.task('watch', 'watch stuff', ['build'], function() {
-  gulp.watch([config.templates, config.css], ['build']);
+  gulp.watch([config.src.templates, config.src.components, config.src.css],
+      ['build']);
 });
 
 gulp.task('default', ['build']);
 
-gulp.task('posthtml', 'build kickstart files', function() {
+gulp.task('posthtml:components', 'build kickstart files', function() {
   const prefixOptions = {
     prefix: 'ampstart-',
   };
   const plugins = [
     require('posthtml-prefix-class')(prefixOptions),
+  ];
+  const options = {};
+  return gulp.src(config.src.components)
+    .pipe(posthtml(plugins, options))
+    .pipe(gulp.dest(config.dest.components))
+});
+
+gulp.task('posthtml:templates', 'build kickstart files', function() {
+  const plugins = [
     require('posthtml-inline-assets')({
-      from: config.dist + '/',
+      from: config.dest.templates,
       inline: {
         script: { check: function() { return false } },
       }
@@ -50,9 +74,9 @@ gulp.task('posthtml', 'build kickstart files', function() {
     require('posthtml-include')(),
   ];
   const options = {};
-  return gulp.src(config.templates)
+  return gulp.src(config.src.templates)
     .pipe(posthtml(plugins, options))
-    .pipe(gulp.dest(config.dist))
+    .pipe(gulp.dest(config.dest.templates))
 });
 
 gulp.task('postcss', 'build postcss files', function() {
@@ -67,9 +91,9 @@ gulp.task('postcss', 'build postcss files', function() {
     require('cssnano')(),
   ];
   const options = {};
-  return gulp.src(config.css)
+  return gulp.src(config.src.css)
     .pipe(postcss(plugins, options))
-    .pipe(gulp.dest(config.dist))
+    .pipe(gulp.dest(config.dest.css))
 });
 
 function serve() {
