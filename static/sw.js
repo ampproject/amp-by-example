@@ -96,7 +96,13 @@ function ampByExampleHandler(request, values) {
     }
     // cache or network - whatever is fastest
     return toolbox.fastest(request, values).catch(function() {
-        return toolbox.cacheOnly(new Request(config.offlinePage), values);
+      return toolbox.cacheOnly(new Request(config.offlinePage), values)
+        .then(function(response) {
+          return response || new Response('You\'re offline. Sorry.', {
+            status: 500,
+            statusText: 'Offline Page Missing'
+          });
+        });
     });
   }
   // always try to load images from the cache first
@@ -125,3 +131,19 @@ toolbox.router.get('/(.*)', toolbox.cacheFirst, {origin: 'https://cdn.ampproject
 toolbox.router.get('/(.+)', toolbox.cacheFirst, {origin: /https?:\/\/fonts.+/});
 
 toolbox.precache(config.filesToCache);
+
+// Cache the page registering the service worker. Without this, the
+// "first" page the user visits is only cached on the second visit,
+// since the first load is uncontrolled.
+toolbox.precache(
+  clients.matchAll({includeUncontrolled: true}).then(l => {
+    return l.map(c => c.url);
+  })
+);
+
+// Claim clients so that the very first page load is controlled by a service
+// worker. (Important for responding correctly in offline state.)
+self.addEventListener('activate', () => self.clients.claim());
+
+// Make sure the SW the page we register() is the service we use.
+self.addEventListener('install', () => self.skipWaiting());
