@@ -16,27 +16,30 @@
 
 const gulp = require('gulp-help')(require('gulp'));
 const del = require('del');
+const mustache = require('gulp-mustache');
 const posthtml = require('gulp-posthtml');
 const postcss = require('gulp-postcss');
 const runSequence = require('run-sequence');
 
+function getData() {
+  return JSON.parse(require('fs').readFileSync('data.json'));
+}
+
 const config = {
   src: {
-    templates: 'templates/**/*.html',
-    components: 'components/**/*.html',
+    templates: '{templates,components}/**/*.html',
     css: '{css,components}/**/*.css',
+    data: 'data.json',
   },
   dest: {
     default: 'dist',
-    templates: 'dist/templates',
-    components: 'dist/components',
+    templates: 'dist',
     css: 'dist',
   },
 };
 
 gulp.task('build', 'build', function(cb) {
-  runSequence(
-      'clean', 'postcss', 'posthtml:components', 'posthtml:templates', cb);
+  runSequence('clean', 'postcss', 'posthtml', cb);
 });
 
 gulp.task('clean', function() {
@@ -44,36 +47,25 @@ gulp.task('clean', function() {
 });
 
 gulp.task('watch', 'watch stuff', ['build'], function() {
-  gulp.watch([config.src.templates, config.src.components, config.src.css],
+  return gulp.watch([config.src.templates, config.src.css, config.src.data],
       ['build']);
 });
 
 gulp.task('default', ['build']);
 
-gulp.task('posthtml:components', 'build kickstart files', function() {
-  const prefixOptions = {
-    prefix: '',
-  };
-  const plugins = [
-  ];
-  const options = {};
-  return gulp.src(config.src.components)
-    .pipe(posthtml(plugins, options))
-    .pipe(gulp.dest(config.dest.components))
-});
-
-gulp.task('posthtml:templates', 'build kickstart files', function() {
+gulp.task('posthtml', 'build kickstart files', function() {
   const plugins = [
     require('posthtml-inline-assets')({
       from: config.dest.templates,
       inline: {
-        script: { check: function() { return false } },
+        script: { check: function() { return false; } },
       }
     }),
     require('posthtml-include')(),
   ];
   const options = {};
   return gulp.src(config.src.templates)
+    .pipe(mustache(getData()))
     .pipe(posthtml(plugins, options))
     .pipe(gulp.dest(config.dest.templates))
 });
