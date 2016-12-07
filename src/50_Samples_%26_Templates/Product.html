@@ -1,7 +1,8 @@
 <!---{
   "preview": "default",
   "skipValidation": "true",
-  "default": "preview"
+  "default": "preview",
+  "experiments": ["amp-form-var-sub"]
   }--->
 <!--
 #### Introduction
@@ -30,9 +31,9 @@ This sample showcases how to build a product page in AMP HTML.
     <style amp-custom>
     <%>css/product.css%>
     .call-to-action {
+        display: flex;
         float: right;
         margin: 0 16px;
-        display: flex;
     }
     #product-description {
         clear: both;
@@ -83,6 +84,16 @@ This sample showcases how to build a product page in AMP HTML.
     form {
         flex-wrap: nowrap;
     }
+    form.amp-form-submit-success > #add-to-cart {
+        display: none;
+    }
+    .go-to-cart {
+        margin: 16px;
+    }
+    #add-to-cart, .go-to-cart {
+        width: 110px;
+        padding: 0px;
+    }
     </style>
 
     <!-- #### Metadata -->
@@ -125,24 +136,35 @@ This sample showcases how to build a product page in AMP HTML.
     <%>product/header.html%>
 
         <!-- #### Product Quantity -->
-        <!-- This dropdown is realized using [amp-form](/components/amp-form/) and allows to select how many items to be added to the shopping cart. Pressing the `ADD TO CART` button leads to a shopping cart page page. -->
+        <!-- This dropdown is realized using [amp-form](/components/amp-form/) and allows to select how many items to be added to the shopping cart. Pressing the `ADD TO CART` button leads to a shopping cart page. We are using the `CLIENT_ID` variable to identify the user. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md)-->
         <div id="product-header">
             <h2>Apple</h2>
             <div class="call-to-action">
-                <form method="get"                 
-                  action="<%host%>/shopping_cart/"
+                <form method="POST"
+                  action-xhr="<%host%>/samples_templates/product/add_to_cart"
                   target="_top">
                   <select name="quantity" class="data-input">
                       <option>1</option>
                       <option>2</option>
                       <option>3</option>
                   </select>
-                   <input type="submit" class="button button-primary" id="add-to-cart"value="ADD TO CART">
+                   <input type="submit" class="button button-primary" id="add-to-cart" value="ADD TO CART">
                    <input type="hidden" name="name" value="Apple">
                    <input type="hidden" name="price" value="$1.99">
                    <input type="hidden" name="img" value="/img/product1_1024x682.jpg">
+                   <input name="clientId" type="hidden" default-value="CLIENT_ID(cart)">
+                   <div class="submit-success" submit-success>
+                        <template type="amp-mustache">
+                            <a class="button button-primary go-to-cart" href="<%host%>/shopping_cart/?clientId={{ClientId}}">GO TO CART</a>
+                        </template>
+                    </div>
+                    <div submit-error>
+                        <template type="amp-mustache">
+                            Error! Looks like something went wrong with your comment, please try to submit it again. {{error}}
+                        </template>
+                    </div>
                 </form>
-            </div>                              
+            </div>
         </div>
         <p id="product-description">Lorem ipsum dolor sit amet, ut sed non vel mattis. Et nulla suscipit ante ligula nisl in. Ut venenatis et mauris, mauris porta vulputate tellus mauris integer facilisis.</p>
         <h5 class="price-description">From $1.99</h5>

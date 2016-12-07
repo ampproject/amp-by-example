@@ -15,8 +15,9 @@
 package backend
 
 import (
+	"container/list"
 	"encoding/json"
-	"html"
+	"fmt"
 	"html/template"
 	"io/ioutil"
 	"net/http"
@@ -25,9 +26,9 @@ import (
 )
 
 const (
-	SEARCH        = "search"
-	ADD_TO_CART   = "add_to_cart"
-	SHOPPING_CART = "shopping_cart"
+	SEARCH           = "search"
+	SHOPPING_CART    = "shopping_cart"
+	ADD_TO_CART_PATH = "/samples_templates/product/add_to_cart"
 )
 
 type ProductListingPage struct {
@@ -58,6 +59,10 @@ type ShoppingCartItem struct {
 	Quantity string `json:"quantity"`
 }
 
+type ShoppingCart struct {
+	ShoppingCart []ShoppingCartItem
+}
+
 func (p *Product) StarsAsHtml() template.HTML {
 	return template.HTML(p.Stars)
 }
@@ -67,6 +72,8 @@ type JsonRoot struct {
 }
 
 var products []Product
+var shoppingCarts map[string]ShoppingCart
+var clientIds *list.List
 
 func InitProductListing() {
 	initProducts(DIST_FOLDER + "/json/related_products.json")
@@ -74,6 +81,43 @@ func InitProductListing() {
 	RegisterSample("samples_templates/product_listing", renderProductListing)
 	RegisterSample("samples_templates/product", renderProduct)
 	RegisterSampleEndpoint("samples_templates/product_listing", SEARCH, handleSearchRequest)
+	http.HandleFunc(ADD_TO_CART_PATH, func(w http.ResponseWriter, r *http.Request) {
+		handlePost(w, r, addToCart)
+	})
+	shoppingCarts = make(map[string]ShoppingCart)
+	clientIds = list.New()
+}
+
+func addToCart(w http.ResponseWriter, r *http.Request) {
+	EnableCors(w, r)
+	response := ""
+	name := r.FormValue("name")
+	quantity := r.FormValue("quantity")
+	clientId := r.FormValue("clientId")
+	img := r.FormValue("img")
+	price := r.FormValue("price")
+
+	shoppingCartItem := ShoppingCartItem{
+		Img:      img,
+		Name:     name,
+		Price:    price,
+		Quantity: quantity,
+	}
+
+	if clientIds.Len() == 100 {
+		delete(shoppingCarts, clientIds.Front().Value.(string))
+		clientIds.Remove(clientIds.Front())
+	}
+	shoppingCartItems := []ShoppingCartItem{shoppingCartItem}
+	shoppingCarts[clientId] = ShoppingCart{ShoppingCart: shoppingCartItems}
+	clientIds.PushFront(clientId)
+
+	if clientId != "" {
+		response = fmt.Sprintf("{\"ClientId\":\"%s\"}", clientId)
+		w.Write([]byte(response))
+	} else {
+		w.WriteHeader(http.StatusBadRequest)
+	}
 }
 
 func initProducts(path string) {
@@ -90,14 +134,9 @@ func initProducts(path string) {
 }
 
 func renderShoppingCart(w http.ResponseWriter, r *http.Request, page Page) {
-	page.Render(w,
-		ShoppingCartItem{
-			Img:      html.UnescapeString(r.URL.Query().Get("img")),
-			Name:     r.URL.Query().Get("name"),
-			Price:    r.URL.Query().Get("price"),
-			Quantity: r.URL.Query().Get("quantity"),
-		},
-	)
+	clientId := r.FormValue("clientId")
+	shoppingCartItem := shoppingCarts[clientId].ShoppingCart[0]
+	page.Render(w, shoppingCartItem)
 }
 
 func renderProduct(w http.ResponseWriter, r *http.Request, page Page) {
@@ -141,6 +180,11 @@ func findProducts(query string) []Product {
 }
 
 func handleSearchRequest(w http.ResponseWriter, r *http.Request, page Page) {
+	route := page.Route + "?" + SEARCH + "=" + r.FormValue(SEARCH)
+	http.Redirect(w, r, route, http.StatusSeeOther)
+}
+
+func handleAddToCartRequest(w http.ResponseWriter, r *http.Request, page Page) {
 	route := page.Route + "?" + SEARCH + "=" + r.FormValue(SEARCH)
 	http.Redirect(w, r, route, http.StatusSeeOther)
 }
