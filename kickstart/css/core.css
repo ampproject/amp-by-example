@@ -65,7 +65,6 @@
 @import 'basscss-addons/modules/background-images';
 */
 
-
 /* Custom media queries */
 /*
 @custom-media --breakpoint-sm (min-width: 40em);
@@ -73,6 +72,7 @@
 @custom-media --breakpoint-lg (min-width: 64em);
 */
 
-
-/* Custom properties */
 @import 'bass-variables';
+/* Custom properties */
+
+@import 'ampstart-base/heading';

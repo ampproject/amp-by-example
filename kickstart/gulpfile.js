@@ -28,7 +28,7 @@ const config = {
   },
   dest: {
     default: 'dist',
-    templates: 'dist',
+    templates: 'dist/templates',
     components: 'dist/components',
     css: 'dist',
   },
@@ -52,10 +52,9 @@ gulp.task('default', ['build']);
 
 gulp.task('posthtml:components', 'build kickstart files', function() {
   const prefixOptions = {
-    prefix: 'ampstart-',
+    prefix: '',
   };
   const plugins = [
-    require('posthtml-prefix-class')(prefixOptions),
   ];
   const options = {};
   return gulp.src(config.src.components)
