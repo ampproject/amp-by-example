@@ -22,7 +22,6 @@
     "posthtml-extend-attrs": "^1.0.0",
     "posthtml-include": "^1.1.0",
     "posthtml-inline-assets": "^2.0.0",
-    "posthtml-prefix-class": "^1.0.5",
     "run-sequence": "^1.1.5"
   },
   "dependencies": {
