@@ -28,6 +28,10 @@ type Page struct {
 	template *template.Template
 }
 
+func avoidCacheForRoute(route string) string{
+	return route+"?cache=0"
+}
+
 func (self Page) Render(wr io.Writer, data interface{}) {
 	self.template.Execute(wr, data)
 }

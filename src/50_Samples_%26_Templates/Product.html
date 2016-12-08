@@ -155,12 +155,12 @@ This sample showcases how to build a product page in AMP HTML.
                    <input name="clientId" type="hidden" default-value="CLIENT_ID(cart)">
                    <div class="submit-success" submit-success>
                         <template type="amp-mustache">
-                            <a class="button button-primary go-to-cart" href="<%host%>/shopping_cart/?clientId={{ClientId}}">GO TO CART</a>
+                            <a class="button button-primary go-to-cart" href="<%host%>/shopping_cart/?clientId={{ClientId}}&cache=0">go to cart</a>
                         </template>
                     </div>
                     <div submit-error>
                         <template type="amp-mustache">
-                            Error! Looks like something went wrong with your comment, please try to submit it again. {{error}}
+                            Error! Looks like something went wrong with your shopping cart, please try to add an item again. {{error}}
                         </template>
                     </div>
                 </form>

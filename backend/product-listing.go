@@ -15,7 +15,6 @@
 package backend
 
 import (
-	"container/list"
 	"encoding/json"
 	"fmt"
 	"html/template"
@@ -23,12 +22,14 @@ import (
 	"net/http"
 	"path"
 	"strings"
+	"time"
 )
 
 const (
 	SEARCH           = "search"
 	SHOPPING_CART    = "shopping_cart"
 	ADD_TO_CART_PATH = "/samples_templates/product/add_to_cart"
+	ABE_CLIENT_ID    = "ABE_CLIENT_ID"
 )
 
 type ProductListingPage struct {
@@ -72,20 +73,18 @@ type JsonRoot struct {
 }
 
 var products []Product
-var shoppingCarts map[string]ShoppingCart
-var clientIds *list.List
+var cache *ShoppingCartCache
 
 func InitProductListing() {
 	initProducts(DIST_FOLDER + "/json/related_products.json")
-	RegisterSample(SHOPPING_CART, renderShoppingCart)
+	RegisterSample(SHOPPING_CART, gotToShoppingCart)
 	RegisterSample("samples_templates/product_listing", renderProductListing)
 	RegisterSample("samples_templates/product", renderProduct)
 	RegisterSampleEndpoint("samples_templates/product_listing", SEARCH, handleSearchRequest)
 	http.HandleFunc(ADD_TO_CART_PATH, func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, addToCart)
 	})
-	shoppingCarts = make(map[string]ShoppingCart)
-	clientIds = list.New()
+	cache = NewShoppingCartCache(100)
 }
 
 func addToCart(w http.ResponseWriter, r *http.Request) {
@@ -104,13 +103,8 @@ func addToCart(w http.ResponseWriter, r *http.Request) {
 		Quantity: quantity,
 	}
 
-	if clientIds.Len() == 100 {
-		delete(shoppingCarts, clientIds.Front().Value.(string))
-		clientIds.Remove(clientIds.Front())
-	}
 	shoppingCartItems := []ShoppingCartItem{shoppingCartItem}
-	shoppingCarts[clientId] = ShoppingCart{ShoppingCart: shoppingCartItems}
-	clientIds.PushFront(clientId)
+	cache.Add(clientId, ShoppingCart{ShoppingCart: shoppingCartItems})
 
 	if clientId != "" {
 		response = fmt.Sprintf("{\"ClientId\":\"%s\"}", clientId)
@@ -133,10 +127,37 @@ func initProducts(path string) {
 	products = root.Products
 }
 
-func renderShoppingCart(w http.ResponseWriter, r *http.Request, page Page) {
-	clientId := r.FormValue("clientId")
-	shoppingCartItem := shoppingCarts[clientId].ShoppingCart[0]
+func redirectToShoppingCart(w http.ResponseWriter, r *http.Request, page Page, clientId string) {
+	expireInOneDay := time.Now().AddDate(0, 0, 1)
+	cookie := &http.Cookie{
+		Name:    ABE_CLIENT_ID,
+		Expires: expireInOneDay,
+		Value:   clientId,
+	}
+	http.SetCookie(w, cookie)
+	route := page.Route
+	route = strings.Split(route, "?")[0]
+
+	http.Redirect(w, r, avoidCacheForRoute(route), http.StatusFound)
+}
+
+func renderShoppingCart(w http.ResponseWriter, r *http.Request, page Page, clientId string) {
+	cookie, err := r.Cookie(ABE_CLIENT_ID)
+	if err != nil {
+		return
+	}
+	shoppingCart, _ := cache.Get(cookie.Value)
+	shoppingCartItem := shoppingCart.ShoppingCart[0]
 	page.Render(w, shoppingCartItem)
+}
+
+func gotToShoppingCart(w http.ResponseWriter, r *http.Request, page Page) {
+	clientId := r.FormValue("clientId")
+	if clientId != "" {
+		redirectToShoppingCart(w, r, page, clientId)
+	} else {
+		renderShoppingCart(w, r, page, clientId)
+	}
 }
 
 func renderProduct(w http.ResponseWriter, r *http.Request, page Page) {
@@ -180,11 +201,6 @@ func findProducts(query string) []Product {
 }
 
 func handleSearchRequest(w http.ResponseWriter, r *http.Request, page Page) {
-	route := page.Route + "?" + SEARCH + "=" + r.FormValue(SEARCH)
-	http.Redirect(w, r, route, http.StatusSeeOther)
-}
-
-func handleAddToCartRequest(w http.ResponseWriter, r *http.Request, page Page) {
 	route := page.Route + "?" + SEARCH + "=" + r.FormValue(SEARCH)
 	http.Redirect(w, r, route, http.StatusSeeOther)
 }
