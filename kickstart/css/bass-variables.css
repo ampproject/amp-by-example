@@ -30,5 +30,8 @@
   --letter-spacing: 1;
   --caps-letter-spacing: .2em;
   --bold-font-weight: bold;
+
+  --border-width: 1px;
+  --border-radius: 3px;
 */
 }
