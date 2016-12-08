@@ -1,0 +1,33 @@
+@import '../bass-variables';
+
+ampstart-btn {
+  box-sizing: border-box;
+  font-size: var(--h5);
+  height: 1.5rem;
+  padding: var(--space-1) var(--space-2);
+}
+
+ampstart-btn:active {
+  opacity: 0.8;
+}
+
+ampstart-btn[disabled] {
+  opacity: 0.5;
+}
+
+ampstart-btn-primary {
+  background-color: var(--color-primary);
+}
+
+ampstart-btn-secondary {
+  background-color: var(--color-white);
+  border: solid var(--border-width) var(--color-black);
+}
+
+:root {
+  --color-primary: #000;
+  --color-secondary: #4a4a4a;
+  --color-disabled: #9b9b9b;
+  --color-white: #fff;
+  --color-black: #000;
+}

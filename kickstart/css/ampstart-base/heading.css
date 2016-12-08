@@ -1,3 +1,5 @@
+@import '../bass-variables';
+
 h1 {
  font-size: var(--h1);
 }
