@@ -82,14 +82,17 @@ Import the additional AMP components. This sample uses a amp-form and mustache t
 <h4 id="header1">Flightless bird poll</h4>
 <!-- #### Poll -->
 <!--
-We use `amp-form` to realize a poll. Use `clientId` variable to identify the user that has voted, more info [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md#client-id).
--->
+We use `amp-form` to realize a poll.
+We use the `CLIENT_ID` variable to identify the user, this enables storing answers between repeated visits of an AMP page. This variable can be used inside an amp-form by declaring an hidden input value with `default-value="CLIENT_ID(cart)`. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
+
 <form method="post" action-xhr="<%host%>/samples_templates/poll/submit-xhr" target="_blank"
       id="poll1"
       custom-validation-reporting="as-you-go">
     <input name="clientId" type="hidden" default-value="CLIENT_ID(poll)">
     <fieldset>
         <p>What is your favorite flightless bird?</p>
+        <p>Choose your favourite flightless bird and you will be redirected to a page showing what other users have chosen.
+        If you have already voted, your answer will be overwritten.</p>
         <ul>
             <li>
                 <label>

@@ -15,11 +15,12 @@
 package backend
 
 import (
-	"appengine"
-	"appengine/datastore"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"golang.org/x/net/context"
+	"google.golang.org/appengine"
+	"google.golang.org/appengine/datastore"
 	"net/http"
 )
 
@@ -47,7 +48,7 @@ func InitPollSample() {
 	http.HandleFunc(POLL_SAMPLE_PATH+"submit-xhr", submitXHR)
 }
 
-func getAnswersFromDatastore(context appengine.Context) ([]Answer, error) {
+func getAnswersFromDatastore(context context.Context) ([]Answer, error) {
 	query := datastore.NewQuery("Answer")
 	answers := make([]Answer, 0, 4)
 	if _, err := query.GetAll(context, &answers); err != nil {
@@ -56,7 +57,7 @@ func getAnswersFromDatastore(context appengine.Context) ([]Answer, error) {
 	return answers, nil
 }
 
-func saveAnswerIntoDatastore(context appengine.Context, answerText string, voteCount int) error {
+func saveAnswerIntoDatastore(context context.Context, answerText string, voteCount int) error {
 	answer := &Answer{
 		AnswerText: answerText,
 		Votes:      voteCount,
@@ -89,27 +90,54 @@ func updateAnswerCount(answers []Answer, answerText string) int {
 	return voteCount
 }
 
-func calculateResult(w http.ResponseWriter, context appengine.Context, pollForm PollForm) ([]Result, error) {
+func calculatePollResults(w http.ResponseWriter, ctx context.Context, pollForm PollForm) ([]Result, error) {
 	var results []Result
-	answerText := pollForm.Answer
-	answers, error := getAnswersFromDatastore(context)
-	if error != nil {
-		return results, error
-	}
-	voteCount := updateAnswerCount(answers, answerText)
-	error = saveAnswerIntoDatastore(context, answerText, voteCount)
-	if error != nil {
-		return results, error
+	err := datastore.RunInTransaction(ctx, func(ctx context.Context) error {
+		//create keys
+		clientIdKey := datastore.NewKey(ctx, "PollForm", pollForm.ClientId, 0, nil)
+		answerKey := datastore.NewKey(ctx, "Answer", pollForm.Answer, 0, nil)
+		//check if the user has already answered
+		var existingPollForm PollForm
+		err := datastore.Get(ctx, clientIdKey, &existingPollForm)
+		//error is nil if the user has answered
+		if err == nil {
+			//decrement the vote for the existing answer
+			var answer Answer
+			existingPollFormKey := datastore.NewKey(ctx, "Answer", existingPollForm.Answer, 0, nil)
+			err = datastore.Get(ctx, existingPollFormKey, &answer)
+			//decrement the vote for the answer
+			answer.Votes--
+			//update the existing answer
+			_, err = datastore.Put(ctx, existingPollFormKey, &answer)
+		}
+		//persist association between clientId and answer
+		_, err = datastore.Put(ctx, clientIdKey, &pollForm)
+		//get the lastest vote count for the answer
+		var answer Answer
+		err = datastore.Get(ctx, answerKey, &answer)
+		answer.AnswerText = pollForm.Answer
+		//increment the vote for the answer
+		answer.Votes++
+		//persist the answer
+		_, err = datastore.Put(ctx, answerKey, &answer)
+		return err
+	}, &datastore.TransactionOptions{XG: true})
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return results, err
 	}
 
+	answers, error := getAnswersFromDatastore(ctx)
+	if error != nil {
+		return results, error
+	}
 	for _, value := range answers {
 		results = append(results, Result{Answer: value.AnswerText, Percentage: make([]int, value.Votes)})
 	}
-
 	return results, nil
 }
 
-func parsePollForm(w http.ResponseWriter, r *http.Request, context appengine.Context) (PollForm, error) {
+func parsePollForm(w http.ResponseWriter, r *http.Request, context context.Context) (PollForm, error) {
 	answerText, answerErr := parseNotEmptyFormValue(r, "answer")
 	clientId, clientIdErr := parseNotEmptyFormValue(r, "clientId")
 
@@ -136,10 +164,11 @@ func submitXHR(w http.ResponseWriter, r *http.Request) {
 	response := ""
 	context := appengine.NewContext(r)
 	pollForm, error := parsePollForm(w, r, context)
+
 	if error != nil {
 		handleError(error, w)
 	}
-	result, error := calculateResult(w, context, pollForm)
+	result, error := calculatePollResults(w, context, pollForm)
 	if error != nil {
 		handleError(error, w)
 	}
@@ -152,8 +181,4 @@ func handleError(error error, w http.ResponseWriter) {
 	w.WriteHeader(http.StatusBadRequest)
 	response := fmt.Sprintf("{\"err\":\"%s\"}", error)
 	w.Write([]byte(response))
-}
-
-func submit(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusBadRequest)
 }
