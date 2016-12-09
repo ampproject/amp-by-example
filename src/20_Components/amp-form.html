@@ -73,7 +73,8 @@
     example, if the server sends `{"foo": "bar"}`, you can use use `{{foo}}` in the template to render `bar`.
 
     The `amp-form` component displays `submit-success` or `submit-error` elements based on the response and
-    renders the template data inside these two elements.
+    renders the template data inside these two elements. The `submit-success` and `submit-error` elements
+    must be direct children of `form`.
   -->
   <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-input-text-xhr" target="_top">
     <input type="text" class="data-input" name="name" placeholder="Name..." required>
