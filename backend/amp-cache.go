@@ -16,6 +16,7 @@ package backend
 
 import (
 	"net/http"
+	"time"
 )
 
 func InitAmpCache() {
@@ -24,8 +25,10 @@ func InitAmpCache() {
 }
 
 func parameterDemoHandler(w http.ResponseWriter, r *http.Request, page Page) {
-	SetDefaultMaxAge(w)
-	page.Render(w, r.URL.Query().Get("value"))
+	SetMaxAge(w, 0)
+	timestamp := time.Now().Format("Mon Jan _2 15:04:05 2006")
+	s := timestamp + ": '" + r.URL.Query().Get("value") + "'"
+	page.Render(w, s)
 }
 
 func returnCode500(w http.ResponseWriter, r *http.Request) {
