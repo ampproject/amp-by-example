@@ -22,6 +22,7 @@ import (
 )
 
 const NEW_ADDRESS = "https://ampbyexample.com"
+const DEFAULT_MAX_AGE = 60
 
 func RedirectToSecureVersion(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, NEW_ADDRESS+r.URL.Path, http.StatusMovedPermanently)
@@ -62,7 +63,11 @@ func SetContentTypeJson(w http.ResponseWriter) {
 }
 
 func SetDefaultMaxAge(w http.ResponseWriter) {
-	w.Header().Set("cache-control", fmt.Sprintf("max-age=%d, public, must-revalidate", 60))
+	SetMaxAge(w, DEFAULT_MAX_AGE)
+}
+
+func SetMaxAge(w http.ResponseWriter, age int) {
+	w.Header().Set("cache-control", fmt.Sprintf("max-age=%d, public, must-revalidate", age))
 }
 
 func handlePost(w http.ResponseWriter, r *http.Request, postHandler func(http.ResponseWriter, *http.Request)) {
