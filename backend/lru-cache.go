@@ -16,30 +16,28 @@ package backend
 
 import "container/list"
 
-type ShoppingCartCache struct {
+type LRUCache struct {
 	MaxEntries int
 	ll    *list.List
-	cache map[string]*list.Element
+	cache map[interface{}]*list.Element
 }
+
+type Key interface{}
 
 type entry struct {
-	key   string
-	value ShoppingCart
+	key   Key
+	value interface{}
 }
 
-func NewShoppingCartCache(maxEntries int) *ShoppingCartCache {
-	return &ShoppingCartCache{
+func NewLRUCache(maxEntries int) *LRUCache {
+	return &LRUCache{
 		MaxEntries: maxEntries,
 		ll:         list.New(),
-		cache:      make(map[string]*list.Element),
+		cache:      make(map[interface{}]*list.Element),
 	}
 }
 
-func (c *ShoppingCartCache) Add(key string, value ShoppingCart) {
-	if c.cache == nil {
-		c.cache = make(map[string]*list.Element)
-		c.ll = list.New()
-	}
+func (c *LRUCache) Add(key Key, value interface{}) {
 	if ee, ok := c.cache[key]; ok {
 		c.ll.MoveToFront(ee)
 		ee.Value.(*entry).value = value
@@ -52,10 +50,7 @@ func (c *ShoppingCartCache) Add(key string, value ShoppingCart) {
 	}
 }
 
-func (c *ShoppingCartCache) Get(key string) (shoppingCart ShoppingCart, ok bool) {
-	if c.cache == nil {
-		return
-	}
+func (c *LRUCache) Get(key Key) (value interface{}, ok bool) {
 	if ele, hit := c.cache[key]; hit {
 		c.ll.MoveToFront(ele)
 		return ele.Value.(*entry).value, true
@@ -63,34 +58,25 @@ func (c *ShoppingCartCache) Get(key string) (shoppingCart ShoppingCart, ok bool)
 	return
 }
 
-func (c *ShoppingCartCache) Remove(key string) {
-	if c.cache == nil {
-		return
-	}
+func (c *LRUCache) Remove(key Key) {
 	if ele, hit := c.cache[key]; hit {
 		c.removeElement(ele)
 	}
 }
 
-func (c *ShoppingCartCache) RemoveOldest() {
-	if c.cache == nil {
-		return
-	}
+func (c *LRUCache) RemoveOldest() {
 	ele := c.ll.Back()
 	if ele != nil {
 		c.removeElement(ele)
 	}
 }
 
-func (c *ShoppingCartCache) removeElement(e *list.Element) {
+func (c *LRUCache) removeElement(e *list.Element) {
 	c.ll.Remove(e)
 	kv := e.Value.(*entry)
 	delete(c.cache, kv.key)
 }
 
-func (c *ShoppingCartCache) Len() int {
-	if c.cache == nil {
-		return 0
-	}
+func (c *LRUCache) Len() int {
 	return c.ll.Len()
 }

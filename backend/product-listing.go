@@ -23,6 +23,7 @@ import (
 	"path"
 	"strings"
 	"time"
+	"strconv"
 )
 
 const (
@@ -73,7 +74,7 @@ type JsonRoot struct {
 }
 
 var products []Product
-var cache *ShoppingCartCache
+var cache *LRUCache
 
 func InitProductListing() {
 	initProducts(DIST_FOLDER + "/json/related_products.json")
@@ -84,7 +85,7 @@ func InitProductListing() {
 	http.HandleFunc(ADD_TO_CART_PATH, func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, addToCart)
 	})
-	cache = NewShoppingCartCache(100)
+	cache = NewLRUCache(100)
 }
 
 func addToCart(w http.ResponseWriter, r *http.Request) {
@@ -96,13 +97,13 @@ func addToCart(w http.ResponseWriter, r *http.Request) {
 	img := r.FormValue("img")
 	price := r.FormValue("price")
 
-	shoppingCartItem := ShoppingCartItem{
-		Img:      img,
-		Name:     name,
-		Price:    price,
-		Quantity: quantity,
+	shoppingCartFromCache, shoppingCartIsInCache := cache.Get(clientId)
+	if shoppingCartIsInCache {
+		quantityNumber, _ := strconv.Atoi(quantity)
+		quantityFromCacheNumber, _ := strconv.Atoi(shoppingCartFromCache.(ShoppingCart).ShoppingCart[0].Quantity)
+		quantity = strconv.Itoa(quantityFromCacheNumber + quantityNumber)
 	}
-
+	shoppingCartItem := ShoppingCartItem{img, name, price, quantity}
 	shoppingCartItems := []ShoppingCartItem{shoppingCartItem}
 	cache.Add(clientId, ShoppingCart{ShoppingCart: shoppingCartItems})
 
@@ -136,18 +137,21 @@ func redirectToShoppingCart(w http.ResponseWriter, r *http.Request, page Page, c
 	}
 	http.SetCookie(w, cookie)
 	route := page.Route
+	// remove CLIENT_ID from URL
 	route = strings.Split(route, "?")[0]
 
 	http.Redirect(w, r, route, http.StatusFound)
 }
 
-func renderShoppingCart(w http.ResponseWriter, r *http.Request, page Page, clientId string) {
+func renderShoppingCart(w http.ResponseWriter, r *http.Request, page Page, clientId string){
 	cookie, err := r.Cookie(ABE_CLIENT_ID)
 	if err != nil {
-		return
+			w.WriteHeader(http.StatusBadRequest)
+			response := fmt.Sprintf("{\"error\":\"%s\"}", err)
+			w.Write([]byte(response))
 	}
 	shoppingCart, _ := cache.Get(cookie.Value)
-	shoppingCartItem := shoppingCart.ShoppingCart[0]
+	shoppingCartItem := shoppingCart.(ShoppingCart).ShoppingCart[0]
 	page.Render(w, shoppingCartItem)
 }
 

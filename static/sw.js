@@ -92,8 +92,8 @@ function requestAccepts(request, contentType) {
 function ampByExampleHandler(request, values) {
   // for samples show offline page if offline and samples are not cached
   if (requestAccepts(request, 'text/html')) {
-    // never use cached version for AMP CORS requests (e.g. amp-live-list) or pages URL containing cache=0
-    if (request.url.indexOf("__amp_source_origin") != -1 || isNotCacheableURL(request.url)) {
+    // never use cached version for AMP CORS requests (e.g. amp-live-list) or pages that shouldn't be cached
+    if (request.url.indexOf("__amp_source_origin") != -1 || shouldNotCache(request.url)) {
       return toolbox.networkOnly(request, values);
     }
     // cache or network - whatever is fastest
@@ -118,13 +118,8 @@ function ampByExampleHandler(request, values) {
   }
 }
 
-function isNotCacheableURL(url) {
-  for (i = 0; i < IGNORED_URLS.length; i++) {
-    if (request.url.indexOf(IGNORED_URLS[i]) != -1) {
-      return true
-    }
-  }
-  return false
+function shouldNotCache(url) {
+  return IGNORED_URLS.some(url => request.url.indexOf(url) != -1);
 }
 
 toolbox.options.debug = true;
