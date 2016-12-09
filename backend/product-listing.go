@@ -138,7 +138,7 @@ func redirectToShoppingCart(w http.ResponseWriter, r *http.Request, page Page, c
 	route := page.Route
 	route = strings.Split(route, "?")[0]
 
-	http.Redirect(w, r, avoidCacheForRoute(route), http.StatusFound)
+	http.Redirect(w, r, route, http.StatusFound)
 }
 
 func renderShoppingCart(w http.ResponseWriter, r *http.Request, page Page, clientId string) {
