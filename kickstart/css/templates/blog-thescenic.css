@@ -3,6 +3,10 @@
 @import '../../components/navbar/navbar';
 
 
+.ampstart-image-fullpage-hero {
+  margin: 0;
+}
+
 :root {
   --color-primary: #9013fe;
   --color-font-primary: #fff;
