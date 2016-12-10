@@ -1,19 +1,19 @@
 {{#navbar}}
-  <header class="ampstart-headerbar fixed top-0 left-0 right-0 pl3 pr4">
+  <header class="ampstart-headerbar fixed flex justify-start items-center top-0 left-0 right-0 pl3 pr4">
     <a href="#" on="tap:{{sidebar-id}}.toggle"class="ampstart-headerbar-trigger md-hide lg-hide p1">☰</a>
     <amp-img src="{{logo}}" width="147" height="44" layout="fixed" class="" alt="{{name}}"></amp-img>
     <nav class="ampstart-headerbar-nav ampstart-nav xs-hide sm-hide">
-      <ul>
+      <ul class="list-reset m0 p0 flex justify-around">
         {{#nav}}
           {{#link}}
             <li class="ampstart-nav-item"><a href="{{url}}">{{text}}</a></li>
           {{/link}}
           {{#dropdown}}
-            <li class="ampstart-nav-item ampstart-nav-dropdown">
-              <amp-accordion layout="container">
+            <li class="ampstart-nav-item ampstart-nav-dropdown relative">
+              <amp-accordion layout="container" class="absolute top-0 left-0 right-0 bottom-0">
                 <section>
                   <header  class="">{{heading}}</header>
-                  <ul>
+                  <ul class="list-reset m0 p0">
                     {{#options}}
                       <li class="ampstart-nav-item"><a href="{{link.url}}">{{link.text}}</a></li>
                     {{/options}}
@@ -33,17 +33,17 @@
   </header>
   <amp-sidebar id="{{sidebar-id}}" class="ampstart-sidebar md-hide lg-hide" layout="nodisplay">
     <nav class="ampstart-sidebar-nav ampstart-nav">
-      <ul>
+      <ul class="list-reset m0 p0">
         {{#nav}}
           {{#link}}
             <li class="ampstart-nav-item"><a href="{{url}}">{{text}}</a></li>
           {{/link}}
           {{#dropdown}}
-            <li class="ampstart-nav-item ampstart-nav-dropdown">
+            <li class="ampstart-nav-item ampstart-nav-dropdown relative">
               <amp-accordion layout="container">
                 <section>
                   <header  class="">{{heading}}</header>
-                  <ul>
+                  <ul class="list-reset m0 p0">
                     {{#options}}
                       <li class="ampstart-nav-item"><a href="{{link.url}}">{{link.text}}</a></li>
                     {{/options}}

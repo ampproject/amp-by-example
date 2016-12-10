@@ -5,6 +5,27 @@
 
 .ampstart-image-fullpage-hero {
   margin: 0;
+  position: relative;
+}
+
+.ampstart-image-fullpage-hero figcaption {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.ampstart-image-fullpage-hero figcaption > .ampstart-image-heading {
+}
+
+.ampstart-image-fullpage-hero figcaption > .ampstart-readmore {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=0 );
 }
 
 :root {
