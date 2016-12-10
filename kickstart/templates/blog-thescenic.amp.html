@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>The Scenic</title>
-  <link rel="canonical" href="amps.html" >
+  <link rel="canonical" href="www.ampbyexample.com" >
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
@@ -11,56 +11,57 @@
    <script custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js" async></script>
     <script custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js" async></script>
     <script custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js" async></script>
+    <script custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js" async></script>
 
   <link href="dist/css/templates/blog-thescenic.css" rel="stylesheet" amp-custom>
 
   <script async src="https://cdn.ampproject.org/v0.js"></script>
 </head>
 <body>
-  <header class="ampstart-headerbar fixed top-0 left-0 right-0 center px4">
-    <a class="ampstart-headerbar-navtrigger lg-hide absolute left-0 top-0 p1">☰</a>
+  <header class="ampstart-headerbar fixed top-0 left-0 right-0 pl3 pr4">
+    <a href="#" on="tap:header-sidebar.toggle"class="ampstart-headerbar-trigger md-hide lg-hide p1">☰</a>
     <amp-img src="../img/blog-thescenic/header-logo.png" alt="Logo of the scenic times" width="147" height="44" layout="fixed" class="" alt="Scenic Times"></amp-img>
-  </header>
-  <nav class="ampstart-headerbar-nav sm-hide md-hide">
-    <ul>
-      <li><a href="">Link1</a></li>
-      <li><a href="">Link2</a></li>
-      <li><a href="">Link3</a></li>
-      <li><a href="">Link4</a></li>
-      <li><button href="">Button</button></li>
-      <li>
-        <amp-accordion>
-          <section>
-            <header>Dropdown</header>
-            <ul>
-              <li><a href="">Link5</a></li>
-              <li><a href="">Link6</a></li>
-              <li><a href="">Link7</a></li>
-            </ul>
-          </section>
-        </amp-accordion>
-      </li>
-    </ul>
-  </nav>
-  <amp-sidebar id="" class="lg-hide">
-    <nav class="ampstart-sidebar-nav">
+    <nav class="ampstart-headerbar-nav ampstart-nav xs-hide sm-hide">
       <ul>
-        <li><a href="">Link1</a></li>
-        <li><a href="">Link2</a></li>
-        <li><a href="">Link3</a></li>
-        <li><a href="">Link4</a></li>
-        <li><button href="">Button</button></li>
-        <li>
-          <amp-accordion>
+        <li class="ampstart-nav-item"><a href="#">Link1</a></li>
+        <li class="ampstart-nav-item"><a href="#">Link2</a></li>
+        <li class="ampstart-nav-item"><a href="#">Link3</a></li>
+        <li class="ampstart-nav-item"><a href="#">Link4</a></li>
+        <li class="ampstart-nav-item ampstart-nav-dropdown">
+          <amp-accordion layout="container">
             <section>
-              <header>Dropdown</header>
+              <header  class="">Dropdown ↓</header>
               <ul>
-                <li><a href="">Link5</a></li>
-                <li><a href="">Link6</a></li>
-                <li><a href="">Link7</a></li>
+                <li class="ampstart-nav-item"><a href="#">Link5</a></li>
+                <li class="ampstart-nav-item"><a href="#">Link6</a></li>
+                <li class="ampstart-nav-item"><a href="#">Link7</a></li>
               </ul>
             </section>
           </amp-accordion>
+        </li>
+        <li  class="ampstart-nav-item ampstart-nav-search"><input type="text" placeholder="Search"></input></li>
+      </ul>
+    </nav>
+  </header>
+  <amp-sidebar id="header-sidebar" class="ampstart-sidebar md-hide lg-hide" layout="nodisplay">
+    <nav class="ampstart-sidebar-nav ampstart-nav">
+      <ul>
+        <li class="ampstart-nav-item"><a href="#">Link1</a></li>
+        <li class="ampstart-nav-item"><a href="#">Link2</a></li>
+        <li class="ampstart-nav-item"><a href="#">Link3</a></li>
+        <li class="ampstart-nav-item"><a href="#">Link4</a></li>
+        <li class="ampstart-nav-item ampstart-nav-dropdown">
+          <amp-accordion layout="container">
+            <section>
+              <header class="">Dropdown ↓</header>
+              <ul>
+                <li class="ampstart-nav-item"><a href="#">Link5</a></li>
+                <li class="ampstart-nav-item"><a href="#">Link6</a></li>
+                <li class="ampstart-nav-item"><a href="#">Link7</a></li>
+              </ul>
+            </section>
+          </amp-accordion>
+          <li class="ampstart-nav-item ampstart-nav-search"><input type="text" placeholder="Search"></input></li>
         </li>
       </ul>
     </nav>
