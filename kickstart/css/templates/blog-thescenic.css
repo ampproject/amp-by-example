@@ -1,0 +1,13 @@
+@import '../core';
+@import '../ampstart-base/base-elements';
+@import '../../components/navbar/navbar';
+
+
+:root {
+  --color-primary: #9013fe;
+  --color-font-primary: #fff;
+
+  --color-secondary: #fff;
+  --color-font-secondary: #9013fe;
+  /*--color-disabled: #9b9b9b;*/
+}

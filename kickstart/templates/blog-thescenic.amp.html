@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>The Scenic</title>
-  <link rel="canonical" href="amps.html" >
+  <link rel="canonical" href="www.ampbyexample.com" >
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
@@ -11,60 +11,18 @@
    <script custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js" async></script>
     <script custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js" async></script>
     <script custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js" async></script>
-  <link href="dist/css/core.css" rel="stylesheet" amp-custom>
+    <script custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js" async></script>
+
+  <link href="dist/css/templates/blog-thescenic.css" rel="stylesheet" amp-custom>
+
   <script async src="https://cdn.ampproject.org/v0.js"></script>
 </head>
 <body>
-  <header class="ampstart-header">
-    <button class="ampstart-header-navtrigger">☰</button>
-    <amp-img src="img/header-logo.png" alt="Logo of the scenic times" width="147" height="44" layout="fixed" class="" alt="Scenic Times"></amp-img>
-  </header>
-  <nav class="ampstart-header-nav">
-    <ul>
-      <li><a href="">Link1</a></li>
-      <li><a href="">Link2</a></li>
-      <li><a href="">Link3</a></li>
-      <li><a href="">Link4</a></li>
-      <li><button href="">Button</button></li>
-      <li>
-        <amp-accordion>
-          <section>
-            <header>Dropdown</header>
-            <ul>
-              <li><a href="">Link5</a></li>
-              <li><a href="">Link6</a></li>
-              <li><a href="">Link7</a></li>
-            </ul>
-          </section>
-        </amp-accordion>
-      </li>
-    </ul>
-  </nav>
-  <amp-sidebar>
-    <nav class="ampstart-header-nav">
-      <ul>
-        <li><a href="">Link1</a></li>
-        <li><a href="">Link2</a></li>
-        <li><a href="">Link3</a></li>
-        <li><a href="">Link4</a></li>
-        <li><button href="">Button</button></li>
-        <li>
-          <amp-accordion>
-            <section>
-              <header>Dropdown</header>
-              <ul>
-                <li><a href="">Link5</a></li>
-                <li><a href="">Link6</a></li>
-                <li><a href="">Link7</a></li>
-              </ul>
-            </section>
-          </amp-accordion>
-        </li>
-      </ul>
-    </nav>
-  </amp-sidebar>
+  {{#blog-thescenic}}
+    {{> ../components/navbar/navbar.snip.mustache}}
+
   <figure class="ampstart-image-fullpage-hero">
-    <amp-img src="../img/header-logo.png" alt="Logo of the scenic times" width="640" height="960" layout="responsive" class=""></amp-img>
+    <amp-img src="../img/rectangle1.png" alt="Logo of the scenic times" width="640" height="960" layout="responsive" class=""></amp-img>
     <figcaption>
       <h1>Most Beautiful Hikes in Alaska</h1>
       <a class="ampstart-readmore" href="#content">Read more <span aria-hidden="true">v</span></button>
@@ -101,22 +59,22 @@
         <p>
           <amp-carousel type="slides" layout="fixed" width="360" height="242">
             <figure class="ampstart-image-with-caption">
-              <amp-img src="../img/rectangle.png" width="360" height="242" layout="responsive"></amp-img>
+              <amp-img src="../img/rectangle1.png" width="360" height="242" layout="responsive"></amp-img>
               <figcaption>My Little Cupcakes1</figcaption>
             </figure>
 
             <figure class="ampstart-image-with-caption">
-              <amp-img src="../img/rectangle.png" width="360" height="242" layout="responsive"></amp-img>
+              <amp-img src="../img/rectangle1.png" width="360" height="242" layout="responsive"></amp-img>
               <figcaption>My Little Cupcakes2</figcaption>
             </figure>
 
             <figure class="ampstart-image-with-caption">
-              <amp-img src="../img/rectangle.png" width="360" height="242" layout="responsive"></amp-img>
+              <amp-img src="../img/rectangle1.png" width="360" height="242" layout="responsive"></amp-img>
               <figcaption>My Little Cupcakes3</figcaption>
             </figure>
 
             <figure class="ampstart-image-with-caption">
-              <amp-img src="../img/rectangle.png" width="360" height="242" layout="responsive"></amp-img>
+              <amp-img src="../img/rectangle1.png" width="360" height="242" layout="responsive"></amp-img>
               <figcaption>My Little Cupcakes4</figcaption>
             </figure>
           </amp-carousel>
@@ -135,7 +93,7 @@
         </p>
 
         <figure class="image-with-caption-credit">
-          <amp-img src="../img/rectangle.png" width="360" height="242" layout="responsive"></amp-img>
+          <amp-img src="../img/rectangle1.png" width="360" height="242" layout="responsive"></amp-img>
           <figcaption>
             Description of the photograph.
             <span class="credit">Taken By <a href="#" role="author">James Victore</a></span>
@@ -144,7 +102,7 @@
 
 
         <figure class="image-with-caption-credit">
-          <amp-img src="../img/rectangle.png" width="304" height="311" layout="responsive"></amp-img>
+          <amp-img src="../img/rectangle1.png" width="304" height="311" layout="responsive"></amp-img>
           <figcaption>
             Description of the photograph.
             <span class="credit">Taken By <a href="#" role="author">James Victore</a></span>
@@ -152,7 +110,7 @@
         </figure>
 
         <figure class="image-with-caption-credit">
-          <amp-img src="../img/rectangle.png" width="360" height="242" layout="responsive"></amp-img>
+          <amp-img src="../img/rectangle1.png" width="360" height="242" layout="responsive"></amp-img>
           <figcaption>
             Description of the photograph.
             <span class="credit">Taken By <a href="#" role="author">James Victore</a></span>
@@ -168,7 +126,7 @@
         <h2>Related article</h2>
 
         <figure class="image-with-caption-credit">
-          <amp-img src="../img/rectangle.png" width="360" height="242" layout="responsive"></amp-img>
+          <amp-img src="../img/rectangle1.png" width="360" height="242" layout="responsive"></amp-img>
           <figcaption>
             The Best Road Trips in Alaska
           </figcaption>
@@ -181,7 +139,7 @@
         <ul id="article-list"class="list-reset flex flex-wrap h4">
           <li>
             <figure class="image-with-caption-credit">
-              <amp-img src="../img/rectangle.png" width="800" height="528" layout="responsive"></amp-img>
+              <amp-img src="../img/rectangle1.png" width="800" height="528" layout="responsive"></amp-img>
               <figcaption>
                 The most scenic vacation adventures
               </figcaption>
@@ -189,7 +147,7 @@
           </li>
           <li>
             <figure class="image-with-caption-credit">
-              <amp-img src="../img/rectangle.png" width="800" height="528" layout="responsive"></amp-img>
+              <amp-img src="../img/rectangle1.png" width="800" height="528" layout="responsive"></amp-img>
               <figcaption>
                 The worlds best beaches
               </figcaption>
@@ -197,7 +155,7 @@
           </li>
           <li>
             <figure class="image-with-caption-credit">
-              <amp-img src="../img/rectangle.png" width="800" height="528" layout="responsive"></amp-img>
+              <amp-img src="../img/rectangle1.png" width="800" height="528" layout="responsive"></amp-img>
               <figcaption>
                 Must have gear for your next trip
               </figcaption>
@@ -230,5 +188,6 @@
 
     <small>© Your Company, 2016</small>
   </footer>
+  {{/blog-thescenic}}
 </body>
 </html>

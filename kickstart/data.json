@@ -1,5 +1,46 @@
 {
   "index": {
     "message": "hello world"
+  },
+  "blog-thescenic": {
+    "navbar": {
+      "logo": "../img/blog-thescenic/header-logo.png",
+      "name": "Scenic Times",
+      "sidebar-id": "header-sidebar",
+      "nav": [
+        {
+          "link": {"url": "#", "text": "Link1"}
+        },
+        {
+          "link": {"url": "#", "text": "Link2"}
+        },
+        {
+          "link": {"url": "#", "text": "Link3"}
+        },
+        {
+          "link": {"url": "#", "text": "Link4"}
+        },
+        {
+          "dropdown": {
+            "heading": "Dropdown ↓",
+            "options": [
+              {
+                "link": {"url": "#", "text": "Link5"}
+              },
+              {
+                "link": {"url": "#", "text": "Link6"}
+              },
+              {
+                "link": {"url": "#", "text": "Link7"}
+              }
+            ]
+          }
+        },
+        {
+          "search": {"text": "Search"}
+        }
+
+      ]
+    }
   }
 }
