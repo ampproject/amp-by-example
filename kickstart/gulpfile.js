@@ -30,20 +30,26 @@ const config = {
     templates: '{templates,components}/**/*.html',
     css: '{css,components}/**/*.css',
     data: 'data.json',
+    img: 'img/**',
   },
   dest: {
     default: 'dist',
     templates: 'dist',
     css: 'dist',
+    img: 'dist/img/',
   },
 };
 
 gulp.task('build', 'build', function(cb) {
-  runSequence('clean', 'postcss', 'posthtml', cb);
+  runSequence('clean', 'img', 'postcss', 'posthtml', cb);
 });
 
 gulp.task('clean', function() {
   return del(['dist']);
+});
+
+gulp.task('img', function() {
+  return gulp.src(config.src.img).pipe(gulp.dest(config.dest.img));
 });
 
 gulp.task('watch', 'watch stuff', ['build'], function() {
@@ -81,9 +87,11 @@ gulp.task('postcss', 'build postcss files', function() {
     require('postcss-custom-media')(),
     require('cssnano')(),
   ];
+  const replace = require('gulp-replace');
   const options = {};
   return gulp.src(config.src.css)
     .pipe(postcss(plugins, options))
+    .pipe(replace('!important', ''))
     .pipe(gulp.dest(config.dest.css))
 });
 

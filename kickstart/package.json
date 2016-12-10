@@ -12,6 +12,7 @@
     "gulp-mustache": "^2.3.0",
     "gulp-postcss": "^6.2.0",
     "gulp-posthtml": "^2.0.0",
+    "gulp-replace": "^0.5.4",
     "gulp-webserver": "^0.9.1",
     "postcss": "5.0.14",
     "postcss-calc": "^5.3.1",

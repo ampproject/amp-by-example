@@ -1,3 +1,22 @@
 @import '../core';
 @import '../ampstart-base/base-elements';
 
+.ampstart-headerbar {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.ampstart-headerbar-navtrigger {
+  cursor: pointer;
+}
+
+.ampstart-headerbar ul {
+  list-style: none;
+}
+
+
+:root {
+  --color-primary: #9013fe;
+/*  --color-secondary: #4a4a4a;
+  --color-disabled: #9b9b9b;*/
+}

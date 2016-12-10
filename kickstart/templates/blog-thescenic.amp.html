@@ -12,16 +12,16 @@
     <script custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js" async></script>
     <script custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js" async></script>
 
-  <link href="css/templates/blog-thescenic.css" rel="stylesheet" amp-custom>
+  <link href="dist/css/templates/blog-thescenic.css" rel="stylesheet" amp-custom>
 
   <script async src="https://cdn.ampproject.org/v0.js"></script>
 </head>
 <body>
-  <header class="ampstart-header">
-    <button class="ampstart-header-navtrigger">☰</button>
-    <amp-img src="img/header-logo.png" alt="Logo of the scenic times" width="147" height="44" layout="fixed" class="" alt="Scenic Times"></amp-img>
+  <header class="ampstart-headerbar fixed top-0 left-0 right-0 center px4">
+    <a class="ampstart-headerbar-navtrigger lg-hide absolute left-0 top-0 p1">☰</a>
+    <amp-img src="../img/blog-thescenic/header-logo.png" alt="Logo of the scenic times" width="147" height="44" layout="fixed" class="" alt="Scenic Times"></amp-img>
   </header>
-  <nav class="ampstart-header-nav">
+  <nav class="ampstart-headerbar-nav sm-hide md-hide">
     <ul>
       <li><a href="">Link1</a></li>
       <li><a href="">Link2</a></li>
@@ -42,8 +42,8 @@
       </li>
     </ul>
   </nav>
-  <amp-sidebar>
-    <nav class="ampstart-header-nav">
+  <amp-sidebar id="" class="lg-hide">
+    <nav class="ampstart-sidebar-nav">
       <ul>
         <li><a href="">Link1</a></li>
         <li><a href="">Link2</a></li>
@@ -66,7 +66,7 @@
     </nav>
   </amp-sidebar>
   <figure class="ampstart-image-fullpage-hero">
-    <amp-img src="../img/header-logo.png" alt="Logo of the scenic times" width="640" height="960" layout="responsive" class=""></amp-img>
+    <amp-img src="../img/rectangle1.png" alt="Logo of the scenic times" width="640" height="960" layout="responsive" class=""></amp-img>
     <figcaption>
       <h1>Most Beautiful Hikes in Alaska</h1>
       <a class="ampstart-readmore" href="#content">Read more <span aria-hidden="true">v</span></button>
@@ -103,22 +103,22 @@
         <p>
           <amp-carousel type="slides" layout="fixed" width="360" height="242">
             <figure class="ampstart-image-with-caption">
-              <amp-img src="../img/rectangle.png" width="360" height="242" layout="responsive"></amp-img>
+              <amp-img src="../img/rectangle1.png" width="360" height="242" layout="responsive"></amp-img>
               <figcaption>My Little Cupcakes1</figcaption>
             </figure>
 
             <figure class="ampstart-image-with-caption">
-              <amp-img src="../img/rectangle.png" width="360" height="242" layout="responsive"></amp-img>
+              <amp-img src="../img/rectangle1.png" width="360" height="242" layout="responsive"></amp-img>
               <figcaption>My Little Cupcakes2</figcaption>
             </figure>
 
             <figure class="ampstart-image-with-caption">
-              <amp-img src="../img/rectangle.png" width="360" height="242" layout="responsive"></amp-img>
+              <amp-img src="../img/rectangle1.png" width="360" height="242" layout="responsive"></amp-img>
               <figcaption>My Little Cupcakes3</figcaption>
             </figure>
 
             <figure class="ampstart-image-with-caption">
-              <amp-img src="../img/rectangle.png" width="360" height="242" layout="responsive"></amp-img>
+              <amp-img src="../img/rectangle1.png" width="360" height="242" layout="responsive"></amp-img>
               <figcaption>My Little Cupcakes4</figcaption>
             </figure>
           </amp-carousel>
@@ -137,7 +137,7 @@
         </p>
 
         <figure class="image-with-caption-credit">
-          <amp-img src="../img/rectangle.png" width="360" height="242" layout="responsive"></amp-img>
+          <amp-img src="../img/rectangle1.png" width="360" height="242" layout="responsive"></amp-img>
           <figcaption>
             Description of the photograph.
             <span class="credit">Taken By <a href="#" role="author">James Victore</a></span>
@@ -146,7 +146,7 @@
 
 
         <figure class="image-with-caption-credit">
-          <amp-img src="../img/rectangle.png" width="304" height="311" layout="responsive"></amp-img>
+          <amp-img src="../img/rectangle1.png" width="304" height="311" layout="responsive"></amp-img>
           <figcaption>
             Description of the photograph.
             <span class="credit">Taken By <a href="#" role="author">James Victore</a></span>
@@ -154,7 +154,7 @@
         </figure>
 
         <figure class="image-with-caption-credit">
-          <amp-img src="../img/rectangle.png" width="360" height="242" layout="responsive"></amp-img>
+          <amp-img src="../img/rectangle1.png" width="360" height="242" layout="responsive"></amp-img>
           <figcaption>
             Description of the photograph.
             <span class="credit">Taken By <a href="#" role="author">James Victore</a></span>
@@ -170,7 +170,7 @@
         <h2>Related article</h2>
 
         <figure class="image-with-caption-credit">
-          <amp-img src="../img/rectangle.png" width="360" height="242" layout="responsive"></amp-img>
+          <amp-img src="../img/rectangle1.png" width="360" height="242" layout="responsive"></amp-img>
           <figcaption>
             The Best Road Trips in Alaska
           </figcaption>
@@ -183,7 +183,7 @@
         <ul id="article-list"class="list-reset flex flex-wrap h4">
           <li>
             <figure class="image-with-caption-credit">
-              <amp-img src="../img/rectangle.png" width="800" height="528" layout="responsive"></amp-img>
+              <amp-img src="../img/rectangle1.png" width="800" height="528" layout="responsive"></amp-img>
               <figcaption>
                 The most scenic vacation adventures
               </figcaption>
@@ -191,7 +191,7 @@
           </li>
           <li>
             <figure class="image-with-caption-credit">
-              <amp-img src="../img/rectangle.png" width="800" height="528" layout="responsive"></amp-img>
+              <amp-img src="../img/rectangle1.png" width="800" height="528" layout="responsive"></amp-img>
               <figcaption>
                 The worlds best beaches
               </figcaption>
@@ -199,7 +199,7 @@
           </li>
           <li>
             <figure class="image-with-caption-credit">
-              <amp-img src="../img/rectangle.png" width="800" height="528" layout="responsive"></amp-img>
+              <amp-img src="../img/rectangle1.png" width="800" height="528" layout="responsive"></amp-img>
               <figcaption>
                 Must have gear for your next trip
               </figcaption>
