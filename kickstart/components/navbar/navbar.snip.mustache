@@ -1,6 +1,7 @@
+{{#navbar}}
   <header class="ampstart-headerbar fixed top-0 left-0 right-0 pl3 pr4">
     <a href="#" on="tap:{{sidebar-id}}.toggle"class="ampstart-headerbar-trigger md-hide lg-hide p1">☰</a>
-    <amp-img src="{{logo}}" alt="Logo of the scenic times" width="147" height="44" layout="fixed" class="" alt="{{name}}"></amp-img>
+    <amp-img src="{{logo}}" width="147" height="44" layout="fixed" class="" alt="{{name}}"></amp-img>
     <nav class="ampstart-headerbar-nav ampstart-nav xs-hide sm-hide">
       <ul>
         {{#nav}}
@@ -14,21 +15,19 @@
                   <header  class="">{{heading}}</header>
                   <ul>
                     {{#options}}
-                      <li class="ampstart-nav-item"><a href="{{url}}">{{text}}</a></li>
-                      <li class="ampstart-nav-item"><a href="{{url}}">{{text}}</a></li>
-                      <li class="ampstart-nav-item"><a href="{{url}}">{{text}}</a></li>
+                      <li class="ampstart-nav-item"><a href="{{link.url}}">{{link.text}}</a></li>
                     {{/options}}
                   </ul>
                 </section>
               </amp-accordion>
             </li>
           {{/dropdown}}
+          {{#search}}
+            <li  class="ampstart-nav-item ampstart-nav-search">
+              <input type="text" placeholder="{{text}}"></input>
+            </li>
+          {{/search}}
         {{/nav}}
-        {{#search}}
-          <li  class="ampstart-nav-item ampstart-nav-search">
-            <input type="text" placeholder="{{text}}"></input>
-          </li>
-        {{/search}}
       </ul>
     </nav>
   </header>
@@ -46,21 +45,20 @@
                   <header  class="">{{heading}}</header>
                   <ul>
                     {{#options}}
-                      <li class="ampstart-nav-item"><a href="{{url}}">{{text}}</a></li>
-                      <li class="ampstart-nav-item"><a href="{{url}}">{{text}}</a></li>
-                      <li class="ampstart-nav-item"><a href="{{url}}">{{text}}</a></li>
+                      <li class="ampstart-nav-item"><a href="{{link.url}}">{{link.text}}</a></li>
                     {{/options}}
                   </ul>
                 </section>
               </amp-accordion>
             </li>
           {{/dropdown}}
+          {{#search}}
+            <li  class="ampstart-nav-item ampstart-nav-search">
+              <input type="text" placeholder="{{text}}"></input>
+            </li>
+          {{/search}}
         {{/nav}}
-        {{#search}}
-          <li  class="ampstart-nav-item ampstart-nav-search">
-            <input type="text" placeholder="{{text}}"></input>
-          </li>
-        {{/search}}
       </ul>
     </nav>
   </amp-sidebar>
+{{/navbar}}

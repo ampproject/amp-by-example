@@ -28,14 +28,14 @@ function getData() {
 const config = {
   src: {
     templates: '{templates,components}/**/*.html',
-    css: '{css,components}/**/*.css',
+    css: 'css/**/*.css',
     data: 'data.json',
     img: 'img/**',
   },
   dest: {
     default: 'dist',
     templates: 'dist',
-    css: 'dist',
+    css: 'dist/css/',
     img: 'dist/img/',
   },
 };
@@ -71,8 +71,8 @@ gulp.task('posthtml', 'build kickstart files', function() {
   ];
   const options = {};
   return gulp.src(config.src.templates)
-    .pipe(mustache(getData()))
     .pipe(posthtml(plugins, options))
+    .pipe(mustache(getData()))
     .pipe(gulp.dest(config.dest.templates))
 });
 

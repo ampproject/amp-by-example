@@ -18,54 +18,9 @@
   <script async src="https://cdn.ampproject.org/v0.js"></script>
 </head>
 <body>
-  <header class="ampstart-headerbar fixed top-0 left-0 right-0 pl3 pr4">
-    <a href="#" on="tap:header-sidebar.toggle"class="ampstart-headerbar-trigger md-hide lg-hide p1">☰</a>
-    <amp-img src="../img/blog-thescenic/header-logo.png" alt="Logo of the scenic times" width="147" height="44" layout="fixed" class="" alt="Scenic Times"></amp-img>
-    <nav class="ampstart-headerbar-nav ampstart-nav xs-hide sm-hide">
-      <ul>
-        <li class="ampstart-nav-item"><a href="#">Link1</a></li>
-        <li class="ampstart-nav-item"><a href="#">Link2</a></li>
-        <li class="ampstart-nav-item"><a href="#">Link3</a></li>
-        <li class="ampstart-nav-item"><a href="#">Link4</a></li>
-        <li class="ampstart-nav-item ampstart-nav-dropdown">
-          <amp-accordion layout="container">
-            <section>
-              <header  class="">Dropdown ↓</header>
-              <ul>
-                <li class="ampstart-nav-item"><a href="#">Link5</a></li>
-                <li class="ampstart-nav-item"><a href="#">Link6</a></li>
-                <li class="ampstart-nav-item"><a href="#">Link7</a></li>
-              </ul>
-            </section>
-          </amp-accordion>
-        </li>
-        <li  class="ampstart-nav-item ampstart-nav-search"><input type="text" placeholder="Search"></input></li>
-      </ul>
-    </nav>
-  </header>
-  <amp-sidebar id="header-sidebar" class="ampstart-sidebar md-hide lg-hide" layout="nodisplay">
-    <nav class="ampstart-sidebar-nav ampstart-nav">
-      <ul>
-        <li class="ampstart-nav-item"><a href="#">Link1</a></li>
-        <li class="ampstart-nav-item"><a href="#">Link2</a></li>
-        <li class="ampstart-nav-item"><a href="#">Link3</a></li>
-        <li class="ampstart-nav-item"><a href="#">Link4</a></li>
-        <li class="ampstart-nav-item ampstart-nav-dropdown">
-          <amp-accordion layout="container">
-            <section>
-              <header class="">Dropdown ↓</header>
-              <ul>
-                <li class="ampstart-nav-item"><a href="#">Link5</a></li>
-                <li class="ampstart-nav-item"><a href="#">Link6</a></li>
-                <li class="ampstart-nav-item"><a href="#">Link7</a></li>
-              </ul>
-            </section>
-          </amp-accordion>
-          <li class="ampstart-nav-item ampstart-nav-search"><input type="text" placeholder="Search"></input></li>
-        </li>
-      </ul>
-    </nav>
-  </amp-sidebar>
+  {{#blog-thescenic}}
+    {{> ../components/navbar/navbar.snip.mustache}}
+
   <figure class="ampstart-image-fullpage-hero">
     <amp-img src="../img/rectangle1.png" alt="Logo of the scenic times" width="640" height="960" layout="responsive" class=""></amp-img>
     <figcaption>
@@ -233,5 +188,6 @@
 
     <small>© Your Company, 2016</small>
   </footer>
+  {{/blog-thescenic}}
 </body>
 </html>

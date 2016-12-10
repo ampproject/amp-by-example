@@ -9,38 +9,38 @@
       "sidebar-id": "header-sidebar",
       "nav": [
         {
-          "link": {"url": "#", "text": "Link1"},
+          "link": {"url": "#", "text": "Link1"}
         },
         {
-          "link": {"url": "#", "text": "Link2"},
+          "link": {"url": "#", "text": "Link2"}
         },
         {
-          "link": {"url": "#", "text": "Link3"},
+          "link": {"url": "#", "text": "Link3"}
         },
         {
-          "link": {"url": "#", "text": "Link4"},
+          "link": {"url": "#", "text": "Link4"}
         },
         {
-          "accordion": {
+          "dropdown": {
             "heading": "Dropdown ↓",
             "options": [
               {
-                "link": {"url": "#", "text": "Link5"},
+                "link": {"url": "#", "text": "Link5"}
               },
               {
-                "link": {"url": "#", "text": "Link6"},
+                "link": {"url": "#", "text": "Link6"}
               },
               {
-                "link": {"url": "#", "text": "Link7"},
-              },
-            ],
-          },
+                "link": {"url": "#", "text": "Link7"}
+              }
+            ]
+          }
         },
         {
-          "search": {"text": "Search"},
+          "search": {"text": "Search"}
         }
 
-      ],
+      ]
     }
-  },
+  }
 }
