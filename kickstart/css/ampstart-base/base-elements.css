@@ -1,5 +1,9 @@
 @import '../bass-variables';
 
+a, a:active, a:visited {
+  color: inherit;
+}
+
 .ampstart-btn {
   box-sizing: border-box;
   font-size: var(--h5);
@@ -37,6 +41,7 @@
 
   --color-disabled: #9b9b9b;
   --color-white: #fff;
+  --color-grey: #4f4f4f;
   --color-black: #000;
 
   --zindex-sidebar: 9999;

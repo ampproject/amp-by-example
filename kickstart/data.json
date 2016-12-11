@@ -50,6 +50,11 @@
         "text": "Read more",
         "content-id": "content"
       }
+    },
+    "byline": {
+      "image": "../img/oval.png",
+      "author": {"text": "Jazz B", "url": "#"},
+      "time": {"text": "Sept 10, 2016 @12:15 pm", "value":"2016-09-18T12:15"}
     }
   }
 }

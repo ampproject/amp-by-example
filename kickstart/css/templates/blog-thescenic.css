@@ -2,6 +2,7 @@
 @import '../ampstart-base/base-elements';
 @import '../../components/navbar/navbar';
 @import '../../components/images/fullpage-hero';
+@import '../../components/byline/byline';
 
 /**
   * All positioning padding and layout to use HTML-bass -display,z-index etc
@@ -16,6 +17,15 @@
   box-decoration-break: clone;
   background: linear-gradient(to bottom, transparent 50%,var(--color-primary) 50%);
   padding: 0 var(--space-2);
+}
+
+.scenic-article-category {
+  color: var(--color-font-secondary);
+  display: block;
+}
+
+.scenic-article-subtitle {
+  color: var(--color-grey);
 }
 
 :root {
