@@ -2,30 +2,39 @@
 @import '../ampstart-base/base-elements';
 @import '../../components/navbar/navbar';
 
+/**
+  * All positioning padding and layout to use HTML-bass -display,z-index etc
+    will use css.
+  * If a style needs to be applied to a larger group it makes more sense to put
+    it in css.
+  * Styles for individual elements should be done in HTML-bass.
+  * If we end up writing css , try and use bass-variables as much as possible.
+*/
+
+.scenic-hero-heading-text {
+  box-decoration-break: clone;
+  background: linear-gradient(to bottom, transparent 50%,var(--color-primary) 50%);
+  padding: 0 1rem;
+}
 
 .ampstart-image-fullpage-hero {
-  margin: 0;
-  position: relative;
+  color: var(--color-font-primary);
 }
 
-.ampstart-image-fullpage-hero figcaption {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-.ampstart-image-fullpage-hero figcaption > .ampstart-image-heading {
+.ampstart-image-heading {
+  color: var(--color-font-primary);
+  line-height: 2.5rem;
 }
 
-.ampstart-image-fullpage-hero figcaption > .ampstart-readmore {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+.ampstart-readmore {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
+  color: var(--color-font-primary);
+  display: block;
+}
 
-  background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=0 );
+.ampstart-readmore::after {
+  display: block;
+  content: 'v';
 }
 
 :root {
