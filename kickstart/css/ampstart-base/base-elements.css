@@ -39,4 +39,7 @@
   --color-white: #fff;
   --color-black: #000;
 
+  --zindex-sidebar: 9999;
+  --zindex-highest: 999;
+
 }

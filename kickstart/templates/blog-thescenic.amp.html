@@ -19,15 +19,8 @@
 </head>
 <body>
   {{#blog-thescenic}}
-    {{> ../components/navbar/navbar.snip.mustache}}
-
-  <figure class="ampstart-image-fullpage-hero">
-    <amp-img src="../img/rectangle1.png" alt="Logo of the scenic times" width="640" height="960" layout="responsive" class=""></amp-img>
-    <figcaption>
-      <h1>Most Beautiful Hikes in Alaska</h1>
-      <a class="ampstart-readmore" href="#content">Read more <span aria-hidden="true">v</span></button>
-    </figcaption>
-  </figure>
+    {{> ../components/navbar/navbar.snip.html}}
+    {{> ../components/images/fullpage-hero.snip.html}}
   <main id="content" role="main" class="">
     <article class="scenic-article">
       <header>
@@ -37,7 +30,7 @@
         <address class="ampstart-byline">
           <amp-img src="../img/oval.png" layout="fixed" height="60" width="60"></amp-img>
           <a href="#" role="author">Jazzy B</a>
-          <time datetime="2016-09-18T12:15" pubdate>Sept 10, 2016 @12:15 pm</time>
+          <time datetime="2016-09-18T12:15">Sept 10, 2016 @12:15 pm</time>
         </address>
         <div class="ampstart-social-box">
           <amp-social-share type="twitter"></amp-social-share>

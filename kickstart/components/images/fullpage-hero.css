@@ -1,0 +1,21 @@
+.ampstart-headerbar ~ .ampstart-image-fullpage-hero {
+  margin-top: var(--navbar-height);
+}
+.ampstart-image-fullpage-hero {
+  color: var(--color-font-primary);
+}
+
+.ampstart-image-heading {
+  line-height: 2.5rem;
+}
+
+.ampstart-readmore {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
+  color: var(--color-font-primary);
+  display: block;
+}
+
+.ampstart-readmore::after {
+  display: block;
+  content: 'v';
+}

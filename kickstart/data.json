@@ -41,6 +41,15 @@
         }
 
       ]
+    },
+    "fullpage-hero": {
+      "heading": "<span class=\"scenic-hero-heading-text\">Most Beautiful<br> Hikes in Alaska<span>",
+      "narrow-img": "../img/blog-thescenic/cropped_hero.jpg",
+      "wide-img": "../img/blog-thescenic/hero.jpg",
+      "readmore": {
+        "text": "Read more",
+        "content-id": "content"
+      }
     }
   }
 }

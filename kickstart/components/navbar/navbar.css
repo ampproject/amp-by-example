@@ -3,10 +3,7 @@
 .ampstart-headerbar {
   background-color: var(--color-primary);
   color: var(--color-font-primary);
-  z-index: 99999;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  z-index: var(--zindex-highest);
 }
 
 .ampstart-sidebar {
@@ -16,11 +13,10 @@
 
 .ampstart-nav-item {
   box-sizing: border-box;
-  padding: 0 1rem;
+  padding: 0 var(--space-2);
   opacity: 0.9;
   border: solid var(--border-width) var(--color-primary);
 }
-
 
 .ampstart-nav-item:focus,
 .ampstart-nav-item:hover,
@@ -31,7 +27,7 @@
 }
 
 .ampstart-nav-item > * {
-  line-height: 2.75rem;
+  line-height: var(--navbar-height);
 }
 
 .ampstart-headerbar-trigger,
@@ -43,17 +39,6 @@
 
 .ampstart-headerbar-nav {
   flex: 1;
-}
-
-.ampstart-nav ul{
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.ampstart-headerbar-nav ul {
-  display: flex;
-  justify-content: space-around;
 }
 
 .ampstart-nav-search {
@@ -73,16 +58,7 @@
 }
 
 .ampstart-nav-dropdown {
-  position: relative;
   flex: 1;
-}
-
-.ampstart-headerbar-nav .ampstart-nav-dropdown amp-accordion {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
 }
 
 .ampstart-nav-dropdown amp-accordion header {
@@ -97,4 +73,8 @@
 ampstart-nav-item:hover amp-accordion ul,
 .ampstart-nav-item:active amp-accordion ul {
   opacity: 0.9;
+}
+
+:root {
+  --navbar-height: 2.75rem;;
 }
