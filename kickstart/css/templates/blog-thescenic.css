@@ -1,6 +1,7 @@
 @import '../core';
 @import '../ampstart-base/base-elements';
 @import '../../components/navbar/navbar';
+@import '../../components/images/fullpage-hero';
 
 /**
   * All positioning padding and layout to use HTML-bass -display,z-index etc
@@ -14,27 +15,7 @@
 .scenic-hero-heading-text {
   box-decoration-break: clone;
   background: linear-gradient(to bottom, transparent 50%,var(--color-primary) 50%);
-  padding: 0 1rem;
-}
-
-.ampstart-image-fullpage-hero {
-  color: var(--color-font-primary);
-}
-
-.ampstart-image-heading {
-  color: var(--color-font-primary);
-  line-height: 2.5rem;
-}
-
-.ampstart-readmore {
-  background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
-  color: var(--color-font-primary);
-  display: block;
-}
-
-.ampstart-readmore::after {
-  display: block;
-  content: 'v';
+  padding: 0 var(--space-2);
 }
 
 :root {
