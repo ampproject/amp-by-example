@@ -93,7 +93,7 @@ function ampByExampleHandler(request, values) {
   // for samples show offline page if offline and samples are not cached
   if (requestAccepts(request, 'text/html')) {
     // never use cached version for AMP CORS requests (e.g. amp-live-list) or pages that shouldn't be cached
-    if (request.url.indexOf("__amp_source_origin") != -1 || shouldNotCache(request.url)) {
+    if (request.url.indexOf("__amp_source_origin") != -1 || shouldNotCache(request)) {
       return toolbox.networkOnly(request, values);
     }
     // cache or network - whatever is fastest
@@ -124,7 +124,7 @@ function ampByExampleHandler(request, values) {
   }
 }
 
-function shouldNotCache(url) {
+function shouldNotCache(request) {
   return IGNORED_URLS.some(url => request.url.indexOf(url) != -1);
 }
 
