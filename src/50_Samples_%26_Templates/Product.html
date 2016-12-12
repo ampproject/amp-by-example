@@ -1,7 +1,8 @@
 <!---{
   "preview": "default",
   "skipValidation": "true",
-  "default": "preview"
+  "default": "preview",
+  "experiments": ["amp-form-var-sub"]
   }--->
 <!--
 #### Introduction
@@ -30,9 +31,10 @@ This sample showcases how to build a product page in AMP HTML.
     <style amp-custom>
     <%>css/product.css%>
     .call-to-action {
-        float: right;
-        margin: 0 16px;
         display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
     }
     #product-description {
         clear: both;
@@ -62,7 +64,7 @@ This sample showcases how to build a product page in AMP HTML.
         width: 100%;
         height: 100%;
     }
-    #video-container, #social, #add-to-cart {
+    #video-container, #social, form .button {
         margin: 16px;
     }
     .video {
@@ -72,16 +74,18 @@ This sample showcases how to build a product page in AMP HTML.
         color: grey;
         font-weight: 400;
     }
-    #product-header {
-        margin-bottom: 24px;
-        margin-top: 24px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
     form {
         flex-wrap: nowrap;
+    }
+    form.amp-form-submit-success > #add-to-cart {
+        display: none;
+    }
+    form .button {
+        min-width: 110px;
+        padding: 0px;
+    }
+    .quantity {
+        margin: 16px 0;
     }
     </style>
 
@@ -124,36 +128,52 @@ This sample showcases how to build a product page in AMP HTML.
     <body>
     <%>product/header.html%>
 
-        <!-- #### Product Quantity -->
-        <!-- This dropdown is realized using [amp-form](/components/amp-form/) and allows to select how many items to be added to the shopping cart. Pressing the `ADD TO CART` button leads to a shopping cart page page. -->
-        <div id="product-header">
-            <h2>Apple</h2>
+    <h2>Apple</h2>
+    <p id="product-description">Lorem ipsum dolor sit amet, ut sed non vel mattis. Et nulla suscipit ante ligula nisl in. Ut venenatis et mauris, mauris porta vulputate tellus mauris integer facilisis.</p>
+    <h5 class="price-description">From $1.99</h5>
+
+     <!-- #### Image Gallery -->
+    <!-- The `amp-carousel` works very well for product image galleries. Learn more about `amp-carousel` [here](/advanced/image_galleries_with_amp-carousel/). -->
+    <amp-carousel width="512" height="384" layout="responsive" type="slides">
+        <amp-img src="/img/product1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
+        <amp-img src="/img/product1_alt1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
+        <amp-img src="/img/product1_alt2_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
+    </amp-carousel>
+
+
+    <!-- #### Product Quantity -->
+    <!-- The add to cart action is implemented using  [amp-form](/components/amp-form/). In our sample we show a dropdown menu to select the item quantity. Pressing the `ADD TO CART` button adds the product to a shopping cart page using the quantity you have selected. This is realized by using a POST action which enables the button `VIEW CART` if there is no error.
+
+    Pressing the `VIEW CART` button leads to a shopping cart page. [amp-form](/components/amp-form/) doesn't support automatic redirect after post (yet). Instead, we use a button to redirect the user to a shopping cart. Notice that the button URL contains the query `clientId={{ClientId}}`
+
+    We are using the `CLIENT_ID` variable to identify the user, this enables storing a shopping cart between repeated visits of an AMP page (either via the AMP Cache or the original host). This variable can be used inside an amp-form by declaring an hidden input value with `default-value="CLIENT_ID(cart)`. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
+
             <div class="call-to-action">
-                <form method="get"                 
-                  action="<%host%>/shopping_cart/"
+                <form method="POST"
+                  action-xhr="<%host%>/samples_templates/product/add_to_cart"
                   target="_top">
-                  <select name="quantity" class="data-input">
+                  <select name="quantity" class="data-input quantity">
                       <option>1</option>
                       <option>2</option>
                       <option>3</option>
                   </select>
-                   <input type="submit" class="button button-primary" id="add-to-cart"value="ADD TO CART">
+                   <input type="submit" class="button button-primary" id="add-to-cart" value="ADD TO CART">
                    <input type="hidden" name="name" value="Apple">
                    <input type="hidden" name="price" value="$1.99">
                    <input type="hidden" name="img" value="/img/product1_1024x682.jpg">
+                   <input name="clientId" type="hidden" default-value="CLIENT_ID(cart)">
+                   <div class="submit-success" submit-success>
+                        <template type="amp-mustache">
+                            <a class="button button-primary" href="<%host%>/shopping_cart/?clientId={{ClientId}}">view cart</a>
+                        </template>
+                    </div>
+                    <div submit-error>
+                        <template type="amp-mustache">
+                            Error! Looks like something went wrong with your shopping cart, please try to add an item again. {{error}}
+                        </template>
+                    </div>
                 </form>
-            </div>                              
-        </div>
-        <p id="product-description">Lorem ipsum dolor sit amet, ut sed non vel mattis. Et nulla suscipit ante ligula nisl in. Ut venenatis et mauris, mauris porta vulputate tellus mauris integer facilisis.</p>
-        <h5 class="price-description">From $1.99</h5>
-
-        <!-- #### Image Gallery -->
-        <!-- The `amp-carousel` works very well for product image galleries. Learn more about `amp-carousel` [here](/advanced/image_galleries_with_amp-carousel/). -->
-        <amp-carousel width="512" height="384" layout="responsive" type="slides">
-            <amp-img src="/img/product1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
-            <amp-img src="/img/product1_alt1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
-            <amp-img src="/img/product1_alt2_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
-        </amp-carousel>
+            </div>
 
         <!-- #### Video -->
         <!--

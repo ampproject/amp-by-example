@@ -20,6 +20,8 @@ const config = {
   offlinePage: '/youre_offline/'
 }
 
+const IGNORED_URLS = ['shopping_cart']
+
 config.filesToCache = [
     '/',
     '/components/amp-img/',
@@ -90,8 +92,8 @@ function requestAccepts(request, contentType) {
 function ampByExampleHandler(request, values) {
   // for samples show offline page if offline and samples are not cached
   if (requestAccepts(request, 'text/html')) {
-    // never use cached version for AMP CORS requests (e.g. amp-live-list)
-    if (request.url.indexOf("__amp_source_origin") != -1) {
+    // never use cached version for AMP CORS requests (e.g. amp-live-list) or pages that shouldn't be cached
+    if (request.url.indexOf("__amp_source_origin") != -1 || shouldNotCache(request.url)) {
       return toolbox.networkOnly(request, values);
     }
     // cache or network - whatever is fastest
@@ -120,6 +122,10 @@ function ampByExampleHandler(request, values) {
     // cache all other requests
     return toolbox.fastest(request, values);
   }
+}
+
+function shouldNotCache(url) {
+  return IGNORED_URLS.some(url => request.url.indexOf(url) != -1);
 }
 
 toolbox.options.debug = true;

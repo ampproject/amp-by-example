@@ -16,18 +16,21 @@ package backend
 
 import (
 	"encoding/json"
-	"html"
+	"fmt"
 	"html/template"
 	"io/ioutil"
 	"net/http"
 	"path"
 	"strings"
+	"time"
+	"strconv"
 )
 
 const (
-	SEARCH        = "search"
-	ADD_TO_CART   = "add_to_cart"
-	SHOPPING_CART = "shopping_cart"
+	SEARCH           = "search"
+	SHOPPING_CART    = "shopping_cart"
+	ADD_TO_CART_PATH = "/samples_templates/product/add_to_cart"
+	ABE_CLIENT_ID    = "ABE_CLIENT_ID"
 )
 
 type ProductListingPage struct {
@@ -58,6 +61,10 @@ type ShoppingCartItem struct {
 	Quantity string `json:"quantity"`
 }
 
+type ShoppingCart struct {
+	ShoppingCart []ShoppingCartItem
+}
+
 func (p *Product) StarsAsHtml() template.HTML {
 	return template.HTML(p.Stars)
 }
@@ -67,13 +74,45 @@ type JsonRoot struct {
 }
 
 var products []Product
+var cache *LRUCache
 
 func InitProductListing() {
 	initProducts(DIST_FOLDER + "/json/related_products.json")
-	RegisterSample(SHOPPING_CART, renderShoppingCart)
+	RegisterSample(SHOPPING_CART, gotToShoppingCart)
 	RegisterSample("samples_templates/product_listing", renderProductListing)
 	RegisterSample("samples_templates/product", renderProduct)
 	RegisterSampleEndpoint("samples_templates/product_listing", SEARCH, handleSearchRequest)
+	http.HandleFunc(ADD_TO_CART_PATH, func(w http.ResponseWriter, r *http.Request) {
+		handlePost(w, r, addToCart)
+	})
+	cache = NewLRUCache(100)
+}
+
+func addToCart(w http.ResponseWriter, r *http.Request) {
+	EnableCors(w, r)
+	response := ""
+	name := r.FormValue("name")
+	quantity := r.FormValue("quantity")
+	clientId := r.FormValue("clientId")
+	img := r.FormValue("img")
+	price := r.FormValue("price")
+
+	shoppingCartFromCache, shoppingCartIsInCache := cache.Get(clientId)
+	if shoppingCartIsInCache {
+		quantityNumber, _ := strconv.Atoi(quantity)
+		quantityFromCacheNumber, _ := strconv.Atoi(shoppingCartFromCache.(ShoppingCart).ShoppingCart[0].Quantity)
+		quantity = strconv.Itoa(quantityFromCacheNumber + quantityNumber)
+	}
+	shoppingCartItem := ShoppingCartItem{img, name, price, quantity}
+	shoppingCartItems := []ShoppingCartItem{shoppingCartItem}
+	cache.Add(clientId, ShoppingCart{ShoppingCart: shoppingCartItems})
+
+	if clientId != "" {
+		response = fmt.Sprintf("{\"ClientId\":\"%s\"}", clientId)
+		w.Write([]byte(response))
+	} else {
+		w.WriteHeader(http.StatusBadRequest)
+	}
 }
 
 func initProducts(path string) {
@@ -89,15 +128,40 @@ func initProducts(path string) {
 	products = root.Products
 }
 
-func renderShoppingCart(w http.ResponseWriter, r *http.Request, page Page) {
-	page.Render(w,
-		ShoppingCartItem{
-			Img:      html.UnescapeString(r.URL.Query().Get("img")),
-			Name:     r.URL.Query().Get("name"),
-			Price:    r.URL.Query().Get("price"),
-			Quantity: r.URL.Query().Get("quantity"),
-		},
-	)
+func redirectToShoppingCart(w http.ResponseWriter, r *http.Request, page Page, clientId string) {
+	expireInOneDay := time.Now().AddDate(0, 0, 1)
+	cookie := &http.Cookie{
+		Name:    ABE_CLIENT_ID,
+		Expires: expireInOneDay,
+		Value:   clientId,
+	}
+	http.SetCookie(w, cookie)
+	route := page.Route
+	// remove CLIENT_ID from URL
+	route = strings.Split(route, "?")[0]
+
+	http.Redirect(w, r, route, http.StatusFound)
+}
+
+func renderShoppingCart(w http.ResponseWriter, r *http.Request, page Page, clientId string){
+	cookie, err := r.Cookie(ABE_CLIENT_ID)
+	if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			response := fmt.Sprintf("{\"error\":\"%s\"}", err)
+			w.Write([]byte(response))
+	}
+	shoppingCart, _ := cache.Get(cookie.Value)
+	shoppingCartItem := shoppingCart.(ShoppingCart).ShoppingCart[0]
+	page.Render(w, shoppingCartItem)
+}
+
+func gotToShoppingCart(w http.ResponseWriter, r *http.Request, page Page) {
+	clientId := r.FormValue("clientId")
+	if clientId != "" {
+		redirectToShoppingCart(w, r, page, clientId)
+	} else {
+		renderShoppingCart(w, r, page, clientId)
+	}
 }
 
 func renderProduct(w http.ResponseWriter, r *http.Request, page Page) {
