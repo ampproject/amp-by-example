@@ -145,7 +145,11 @@ This sample showcases how to build a product page in AMP HTML.
 
 
     <!-- #### Product Quantity -->
-    <!-- This dropdown is realized using [amp-form](/components/amp-form/) and allows to select how many items to be added to the shopping cart. Pressing the `ADD TO CART` button leads to a shopping cart page. We are using the `CLIENT_ID` variable to identify the user. This variable can be used inside an amp-form by declaring an input hidden value with `default-value="CLIENT_ID(cart)`.  In this sample, the server is using it to map the user to a shopping cart. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md)-->
+    <!-- The add to cart action is implemented using  [amp-form](/components/amp-form/). In our sample we show a dropdown menu to select the item quantity. Pressing the `ADD TO CART` button adds the product to a shopping cart page using the quantity you have selected. This is realized by using a POST action which enables the button `VIEW CART` if there is no error.
+
+    Pressing the `VIEW CART` button leads to a shopping cart page. [amp-form](/components/amp-form/) doesn't support automatic redirect after post (yet). Instead, we use a button to redirect the user to a shopping cart. Notice that the button URL contains the query `clientId={{ClientId}}`
+
+    We are using the `CLIENT_ID` variable to identify the user, this enables storing a shopping cart between repeated visits of an AMP page (either via the AMP Cache or the original host). This variable can be used inside an amp-form by declaring an hidden input value with `default-value="CLIENT_ID(cart)`. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
 
             <div class="call-to-action">
                 <form method="POST"
