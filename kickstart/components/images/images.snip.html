@@ -1,8 +1,21 @@
-{{#with-heading}}
-  <figure class="ampstart-image-with-heading  m0 relative">
+{{#image-with-heading}}
+  <figure class="ampstart-image-with-heading  m0 relative py1">
     <amp-img src="{{url}}" width="{{width}}" height="{{height}}" layout="responsive"></amp-img>
     <figcaption class="absolute right-0 bottom-0 left-0">
       <header class="ampstart-image-heading px2 py2 line-height-4">{{{heading-html}}}</header>
     </figcaption>
   </figure>
-{{/with-heading}}
+{{/image-with-heading}}
+
+{{#image-with-caption-credit}}
+  <figure class="image-with-caption-credit m0 relative py1">
+    <amp-img src="{{url}}" width="{{width}}" height="{{height}}" layout="responsive"></amp-img>
+    <figcaption class="h5">
+      {{caption}}
+      <span class="image-credit">{{credit-prefix}}
+        {{#author}}
+        <a href="{{url}}" role="author">{{text}}</a></span>
+        {{/author}}
+    </figcaption>
+  </figure>
+{{/image-with-caption-credit}}

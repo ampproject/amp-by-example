@@ -64,7 +64,7 @@
       "caption": "Marshmallow pudding chupa chups gummies cake chocolate bar cake jelly-o. Pie ice cream halvah.",
       "images": [
         {
-          "with-heading": {
+          "image-with-heading": {
             "width": "1280",
             "height": "857",
             "url": "../img/blog-thescenic/carousel1.jpg",
@@ -72,7 +72,7 @@
           }
         },
         {
-          "with-heading": {
+          "image-with-heading": {
             "width": "1280",
             "height": "857",
             "url": "../img/blog-thescenic/carousel2.jpg",
@@ -80,7 +80,7 @@
           }
         },
         {
-          "with-heading": {
+          "image-with-heading": {
             "width": "1280",
             "height": "857",
             "url": "../img/blog-thescenic/carousel3.jpg",
@@ -88,6 +88,38 @@
           }
         }
       ]
-    }
+    },
+    "article-images": [
+      {
+        "image-with-caption-credit": {
+          "width": "1280",
+          "height": "745",
+          "url": "../img/blog-thescenic/castle.jpg",
+          "caption": "Description of the photograph.",
+          "credit-prefix": "Taken by ",
+          "author": {"text": "James Victore", "url": "#"}
+        }
+      },
+      {
+        "image-with-caption-credit": {
+          "width": "683",
+          "height": "1024",
+          "url": "../img/blog-thescenic/waterfall.jpg",
+          "caption": "Description of the photograph.",
+          "credit-prefix": "Taken by ",
+          "author": {"text": "James Victore", "url": "#"}
+        }
+      },
+      {
+        "image-with-caption-credit": {
+          "width": "1280",
+          "height": "853",
+          "url": "../img/blog-thescenic/bear.jpg",
+          "caption": "Description of the photograph.",
+          "credit-prefix": "Taken by ",
+          "author": {"text": "James Victore", "url": "#"}
+        }
+      }
+    ]
   }
 }
