@@ -50,6 +50,76 @@
         "text": "Read more",
         "content-id": "content"
       }
-    }
+    },
+    "byline": {
+      "image": "../img/oval.png",
+      "author": {"text": "Jazz B", "url": "#"},
+      "time": {"text": "Sept 10, 2016 @12:15 pm", "value":"2016-09-18T12:15"}
+    },
+    "carousel": {
+      "type": "slides",
+      "layout": "responsive",
+      "width": "1280",
+      "height": "857",
+      "caption": "Marshmallow pudding chupa chups gummies cake chocolate bar cake jelly-o. Pie ice cream halvah.",
+      "images": [
+        {
+          "image-with-heading": {
+            "width": "1280",
+            "height": "857",
+            "url": "../img/blog-thescenic/carousel1.jpg",
+            "heading-html": "<h3>Somewhere in Alaska</h3>"
+          }
+        },
+        {
+          "image-with-heading": {
+            "width": "1280",
+            "height": "857",
+            "url": "../img/blog-thescenic/carousel2.jpg",
+            "heading-html": "<h3>Somewhere in Alaska</h3>"
+          }
+        },
+        {
+          "image-with-heading": {
+            "width": "1280",
+            "height": "857",
+            "url": "../img/blog-thescenic/carousel3.jpg",
+            "heading-html": "<h3>Somewhere in Alaska</h3>"
+          }
+        }
+      ]
+    },
+    "article-images": [
+      {
+        "image-with-caption-credit": {
+          "width": "1280",
+          "height": "745",
+          "url": "../img/blog-thescenic/castle.jpg",
+          "caption": "Description of the photograph.",
+          "credit-prefix": "Taken by ",
+          "author": {"text": "James Victore", "url": "#"}
+        }
+      },
+      {
+        "image-with-caption-credit": {
+          "width": "683",
+          "height": "1024",
+          "url": "../img/blog-thescenic/waterfall.jpg",
+          "caption": "Description of the photograph.",
+          "credit-prefix": "Taken by ",
+          "author": {"text": "James Victore", "url": "#"}
+        }
+      },
+      {
+        "image-with-caption-credit": {
+          "width": "1280",
+          "height": "853",
+          "url": "../img/blog-thescenic/bear.jpg",
+          "caption": "Description of the photograph.",
+          "credit-prefix": "Taken by ",
+          "author": {"text": "James Victore", "url": "#"}
+        }
+      }
+    ]
   }
 }

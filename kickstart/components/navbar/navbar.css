@@ -9,6 +9,7 @@
 .ampstart-sidebar {
   background-color: var(--color-primary);
   color: var(--color-font-primary);
+  width: 80vw;
 }
 
 .ampstart-nav-item {
@@ -30,20 +31,20 @@
   line-height: var(--navbar-height);
 }
 
-.ampstart-headerbar-trigger,
+.ampstart-navbar-trigger,
 .ampstart-nav a {
   cursor: pointer;
-  color: var(--color-font-primary);
   text-decoration: none;
 }
 
-.ampstart-headerbar-nav {
-  flex: 1;
+.ampstart-navbar-trigger {
+  line-height: var(--navbar-height);
 }
 
+.ampstart-sidebar-nav,
+.ampstart-headerbar-nav,
 .ampstart-nav-search {
   flex: 1;
-  text-align: right;
 }
 
 .ampstart-nav-search:focus,
@@ -58,7 +59,7 @@
 }
 
 .ampstart-nav-dropdown {
-  flex: 1;
+  flex: 0.5;
 }
 
 .ampstart-nav-dropdown amp-accordion header {

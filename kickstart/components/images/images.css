@@ -1,9 +1,20 @@
-.ampstart-image-with-heading {
-  position: relative;
+/* Image with heading */
+.ampstart-image-heading {
+  color: var(--color-font-primary);
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
 }
-.ampstart-image-with-heading h1 {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+
+.ampstart-image-heading > * {
+  margin: 0;
+}
+
+/* Image with caption and credit */
+.image-with-caption-credit figcaption {
+  color: var(--color-font-subtitle);
+  line-height: var(--line-height-2)rem;
+}
+
+.image-with-caption-credit figcaption > .image-credit {
+  display: block;
+  font-weight: bold;
 }
