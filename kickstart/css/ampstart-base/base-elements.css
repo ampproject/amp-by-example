@@ -1,9 +1,11 @@
 @import '../bass-variables';
 
+/* Anchors */
 a, a:active, a:visited {
   color: inherit;
 }
 
+/* Buttons */
 .ampstart-btn {
   box-sizing: border-box;
   font-size: var(--h5);
@@ -30,6 +32,36 @@ a, a:active, a:visited {
   border: solid var(--border-width) var(--color-black);
 }
 
+/* Dropcap */
+.ampstart-dropcap {
+  padding-top: var(--space-2);
+  /** Adding rem just in this place as, not having the rem gives a weird gap
+      between the first and second line*/
+  line-height: var(--line-height-3)rem;
+  margin-top: var(--space-3);
+}
+
+.ampstart-dropcap:first-child:first-letter {
+  border-top: solid var(border-width) var(--color-primary);
+  color: var(--color-font-secondary);
+  font-size: var(--h1);
+  font-weight: bold;
+  padding-top: var(--space-2);
+}
+
+/* Subtitle */
+.ampstart-subtitle {
+  color: var(--color-font-subtitle);
+  font-size: var(--h5);
+}
+
+/* Pull quote*/
+.ampstart-pullquote {
+  border: none;
+  border-left: solid 4px var(--color-primary);
+  margin-left: 0;
+  padding-left: var(--space-2);
+}
 :root {
   --color-primary: #000;
   --color-font-secondary: #000;
@@ -39,9 +71,11 @@ a, a:active, a:visited {
 
   --color-font-default: #000;
 
+  --color-font-subtitle: #4f4f4f;
+
   --color-disabled: #9b9b9b;
   --color-white: #fff;
-  --color-grey: #4f4f4f;
+  --color-grey: #4a4a4a;
   --color-black: #000;
 
   --zindex-sidebar: 9999;

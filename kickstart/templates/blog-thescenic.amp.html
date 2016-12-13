@@ -18,15 +18,17 @@
   <script async src="https://cdn.ampproject.org/v0.js"></script>
 </head>
 <body>
+
   {{#blog-thescenic}}
     {{> ../components/navbar/navbar.snip.html}}
     {{> ../components/images/fullpage-hero.snip.html}}
+
   <main id="content" role="main" class="px2">
     <article class="scenic-article">
       <header>
         <span class="scenic-article-category my1">Entertainment</span>
         <h1 class="my2">Most Beautiful Hikes in Alaska</h1>
-        <p class="scenic-article-subtitle">Marshmallow pudding chupa chups gummies cake chocolate bar cake jelly-o. Pie ice cream halvah.</p>
+        <p class="ampstart-subtitle scenic-article-subtitle">Marshmallow pudding chupa chups gummies cake chocolate bar cake jelly-o. Pie ice cream halvah.</p>
 
         {{> ../components/byline/byline.snip.html}}
 
@@ -42,42 +44,22 @@
           <amp-social-share type="email" data-param-subject="Hello World" data-param-body="What's up?"></amp-social-share>
         </div>
       </header>
+
       <section>
 <!--style the drop cap with https://css-tricks.com/snippets/css/drop-caps/ and use border/ :before to draw the line on top -->
         <p class="ampstart-dropcap">
           Marshmallow pudding chupa chups gummies cake chocolate bar cake jelly-o. Pie ice cream halvah. Fruitcake chocolate cake tootsie roll wafer tootsie roll chocolate bar pudding tart danish. Tootsie roll dragée sweet roll cotton candy tart.
         </p>
-        <p>
-          <amp-carousel type="slides" layout="fixed" width="360" height="242">
-            <figure class="ampstart-image-with-caption">
-              <amp-img src="../img/rectangle1.png" width="360" height="242" layout="responsive"></amp-img>
-              <figcaption>My Little Cupcakes1</figcaption>
-            </figure>
-
-            <figure class="ampstart-image-with-caption">
-              <amp-img src="../img/rectangle1.png" width="360" height="242" layout="responsive"></amp-img>
-              <figcaption>My Little Cupcakes2</figcaption>
-            </figure>
-
-            <figure class="ampstart-image-with-caption">
-              <amp-img src="../img/rectangle1.png" width="360" height="242" layout="responsive"></amp-img>
-              <figcaption>My Little Cupcakes3</figcaption>
-            </figure>
-
-            <figure class="ampstart-image-with-caption">
-              <amp-img src="../img/rectangle1.png" width="360" height="242" layout="responsive"></amp-img>
-              <figcaption>My Little Cupcakes4</figcaption>
-            </figure>
-          </amp-carousel>
-          <p class="scenic-article-carousel-title">Marshmallow pudding chupa chups gummies cake chocolate bar cake jelly-o. Pie ice cream halvah.</p>
-        </p>
+        <div>
+          {{> ../components/carousel/carousel.snip.html}}
+        </div>
 
         <p>
           Liquorice brownie biscuit powder jelly-o candy toffee. Oat cake tootsie roll toffee cake gummi bears sweet roll candy chocolate. Jelly beans jelly chocolate bar gingerbread bear claw cake. Toffee jelly-o gummi bears biscuit gummi bears cake soufflé jelly-o. Soufflé halvah wafer soufflé jujubes tart chocolate cake. Pie cupcake lemon drops chupa chups gummies sweet gingerbread. Powder ice cream cheesecake cookie oat cake bear claw cookie jujubes. Carrot cake tart jelly beans bonbon muffin. Sesame snaps tart soufflé bear claw cotton candy jujubes pudding cookie powder.
         </p>
 
         <blockquote class="ampstart-pullquote" cite="http://example.org">
-          Cupcake apple pie sugar plum dragée cotton candy. Marshmallow carrot cake cheesecake. Soufflé lemon drops soufflé apple pie cake wafer donut chocolate.
+          "Cupcake apple pie sugar plum dragée cotton candy. Marshmallow carrot cake cheesecake. Soufflé lemon drops soufflé apple pie cake wafer donut chocolate."
         </blockquote>
         <p>
           Liquorice brownie biscuit powder jelly-o candy toffee. Oat cake tootsie roll toffee cake gummi bears sweet roll candy chocolate. Jelly beans jelly chocolate bar gingerbread bear claw cake. Toffee jelly-o gummi bears biscuit gummi bears cake soufflé jelly-o. Soufflé halvah wafer soufflé jujubes tart chocolate cake. Pie cupcake lemon drops chupa chups gummies sweet gingerbread. Powder ice cream cheesecake cookie oat cake bear claw cookie jujubes. Carrot cake tart jelly beans bonbon muffin. Sesame snaps tart soufflé bear claw cotton candy jujubes pudding cookie powder.

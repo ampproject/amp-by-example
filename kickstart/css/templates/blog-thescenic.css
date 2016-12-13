@@ -1,5 +1,5 @@
 @import '../core';
-@import '../ampstart-base/base-elements';
+@import '../../components/images/images';
 @import '../../components/navbar/navbar';
 @import '../../components/images/fullpage-hero';
 @import '../../components/byline/byline';
@@ -12,6 +12,10 @@
   * Styles for individual elements should be done in HTML-bass.
   * If we end up writing css , try and use bass-variables as much as possible.
 */
+body {
+  line-height: var(--line-height-3);
+  color: var(--color-grey);
+}
 
 .scenic-hero-heading-text {
   box-decoration-break: clone;
@@ -25,7 +29,7 @@
 }
 
 .scenic-article-subtitle {
-  color: var(--color-grey);
+  font-size: 1rem;
 }
 
 :root {
