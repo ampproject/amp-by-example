@@ -1,0 +1,27 @@
+.ampstart-related-section-items .ampstart-image-with-caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border-bottom: solid var(--border-width) var(--color-border);
+}
+
+.ampstart-related-section-items .ampstart-image-with-caption > amp-img,
+.ampstart-related-section-items .ampstart-image-with-caption > figcaption  {
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.ampstart-related-section-items .ampstart-image-with-caption > figcaption {
+  padding: var(--space-2);
+}
+
+@media (--breakpoint-md-lg) {
+
+  .ampstart-related-section-items .ampstart-image-with-caption {
+    border: none;
+  }
+  .ampstart-related-section-items .ampstart-image-with-caption > amp-img,
+  .ampstart-related-section-items .ampstart-image-with-caption > figcaption  {
+    flex-basis: 100%;
+  }
+}
