@@ -3,6 +3,7 @@
 @import '../../components/navbar/navbar';
 @import '../../components/images/fullpage-hero';
 @import '../../components/images/images';
+@import '../../components/related-section/related-section';
 @import '../../components/byline/byline';
 
 /**
@@ -15,7 +16,10 @@
 */
 body {
   line-height: var(--line-height-3);
-  color: var(--color-grey);
+}
+
+#content h1 {
+  color: var(--color-black);
 }
 
 .scenic-hero-heading-text {
@@ -33,11 +37,24 @@ body {
   font-size: 1rem;
 }
 
+.scenic-related-article h2,
+.scenic-related-article h3 {
+  color: var(--color-font-default);
+  font-weight: normal;
+}
+
+a.scenic-article-readmore {
+  color: var(--color-font-secondary);
+  letter-spacing: 0;
+}
+
 :root {
   --color-primary: #9013fe;
   --color-font-primary: #fff;
 
   --color-secondary: #fff;
   --color-font-secondary: #9013fe;
+
+  --color-font-default: var(--color-grey);
   /*--color-disabled: #9b9b9b;*/
 }

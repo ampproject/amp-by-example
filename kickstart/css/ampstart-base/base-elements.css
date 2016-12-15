@@ -1,5 +1,10 @@
 @import '../bass-variables';
 
+/* Body */
+body {
+  color: var(--color-font-default);
+}
+
 /* Anchors */
 a, a:active, a:visited {
   color: inherit;
@@ -29,7 +34,7 @@ a, a:active, a:visited {
 .ampstart-btn-secondary {
   background-color: var(--color-white);
   color: var(--color-font-primary);
-  border: solid var(--border-width) var(--color-black);
+  border: solid var(--border-width) var(--color-border);
 }
 
 /* Dropcap */
@@ -42,7 +47,7 @@ a, a:active, a:visited {
 }
 
 .ampstart-dropcap:first-child:first-letter {
-  border-top: solid var(border-width) var(--color-primary);
+  border-top: solid var(--border-width) var(--color-primary);
   color: var(--color-font-secondary);
   font-size: var(--h1);
   font-weight: bold;
@@ -59,10 +64,15 @@ a, a:active, a:visited {
 .ampstart-pullquote {
   border: none;
   border-left: solid 4px var(--color-primary);
+  font-size: var(--h3);
   margin-left: 0;
   padding-left: var(--space-2);
 }
 :root {
+  --color-white: #fff;
+  --color-grey: #4a4a4a;
+  --color-black: #000;
+
   --color-primary: #000;
   --color-font-secondary: #000;
 
@@ -74,9 +84,8 @@ a, a:active, a:visited {
   --color-font-subtitle: #4f4f4f;
 
   --color-disabled: #9b9b9b;
-  --color-white: #fff;
-  --color-grey: #4a4a4a;
-  --color-black: #000;
+
+  --color-border: var(--color-black);
 
   --zindex-sidebar: 9999;
   --zindex-highest: 999;

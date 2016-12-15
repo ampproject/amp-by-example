@@ -1,0 +1,19 @@
+{{#related-section}}
+<section class="ampstart-related-section my1">
+  {{#heading}}
+    {{#level}}
+      <h{{.}} class="{{classes}}">{{text}}</h{{.}}>
+    {{/level}}
+    {{^level}}
+      <header class="{{classes}}">{{text}}</header>
+    {{/level}}
+  {{/heading}}
+  <ul class="ampstart-related-section-items list-reset flex flex-wrap">
+    {{#images-with-caption}}
+      <li class="col-12 md-col-4 lg-col-4 border-box px2">
+        {{> ../images/images.snip.html}}
+      </li>
+    {{/images-with-caption}}
+  </ul>
+</section>
+{{/related-section}}

@@ -9,12 +9,12 @@
 }
 
 /* Image with caption and credit */
-.image-with-caption-credit figcaption {
+.ampstart-image-with-caption figcaption {
   color: var(--color-font-subtitle);
   line-height: var(--line-height-2)rem;
 }
 
-.image-with-caption-credit figcaption > .image-credit {
+.ampstart-image-with-caption figcaption > .ampstart-image-credit {
   display: block;
   font-weight: bold;
 }

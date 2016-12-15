@@ -66,60 +66,98 @@
         {
           "image-with-heading": {
             "width": "1280",
+            "height": "853",
+            "url": "../img/blog-thescenic/carousel2.jpg",
+            "heading-html": "<h2>Somewhere in Alaska</h2>"
+          }
+        },
+        {
+          "image-with-heading": {
+            "width": "1280",
             "height": "857",
             "url": "../img/blog-thescenic/carousel1.jpg",
-            "heading-html": "<h3>Somewhere in Alaska</h3>"
+            "heading-html": "<h2>Somewhere in Alaska</h2>"
           }
         },
         {
           "image-with-heading": {
             "width": "1280",
-            "height": "857",
-            "url": "../img/blog-thescenic/carousel2.jpg",
-            "heading-html": "<h3>Somewhere in Alaska</h3>"
-          }
-        },
-        {
-          "image-with-heading": {
-            "width": "1280",
-            "height": "857",
+            "height": "720",
             "url": "../img/blog-thescenic/carousel3.jpg",
-            "heading-html": "<h3>Somewhere in Alaska</h3>"
+            "heading-html": "<h2>Somewhere in Alaska</h2>"
           }
         }
       ]
     },
     "article-images": [
       {
-        "image-with-caption-credit": {
+        "image-with-caption": {
           "width": "1280",
           "height": "745",
           "url": "../img/blog-thescenic/castle.jpg",
           "caption": "Description of the photograph.",
-          "credit-prefix": "Taken by ",
-          "author": {"text": "James Victore", "url": "#"}
+          "credit": {
+            "credit-prefix": "Taken by ",
+            "author": {"text": "James Victore", "url": "#"}
+          }
         }
       },
       {
-        "image-with-caption-credit": {
+        "image-with-caption": {
           "width": "683",
           "height": "1024",
           "url": "../img/blog-thescenic/waterfall.jpg",
           "caption": "Description of the photograph.",
-          "credit-prefix": "Taken by ",
-          "author": {"text": "James Victore", "url": "#"}
+          "credit": {
+            "credit-prefix": "Taken by ",
+            "author": {"text": "James Victore", "url": "#"}
+          }
         }
       },
       {
-        "image-with-caption-credit": {
+        "image-with-caption": {
           "width": "1280",
           "height": "853",
           "url": "../img/blog-thescenic/bear.jpg",
           "caption": "Description of the photograph.",
-          "credit-prefix": "Taken by ",
-          "author": {"text": "James Victore", "url": "#"}
+          "credit": {
+            "credit-prefix": "Taken by ",
+            "author": {"text": "James Victore", "url": "#"}
+          }
         }
       }
-    ]
+    ],
+    "related-section": {
+      "heading": {
+        "level": "2",
+        "text": "Featured"
+      },
+      "images-with-caption": [
+        {
+          "image-with-caption": {
+            "width": "1280",
+            "height": "720",
+            "url": "../img/blog-thescenic/mushrooms.jpg",
+            "caption": "Description of the photograph."
+          }
+        },
+        {
+          "image-with-caption": {
+            "width": "1280",
+            "height": "720",
+            "url": "../img/blog-thescenic/house.jpg",
+            "caption": "Description of the photograph."
+          }
+        },
+        {
+          "image-with-caption": {
+            "width": "1280",
+            "height": "720",
+            "url": "../img/blog-thescenic/fish.jpg",
+            "caption": "Description of the photograph."
+          }
+        }
+      ]
+    }
   }
 }
