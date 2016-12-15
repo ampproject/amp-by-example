@@ -5,6 +5,7 @@
 @import '../../components/images/images';
 @import '../../components/related-section/related-section';
 @import '../../components/byline/byline';
+@import '../../components/footer/footer';
 
 /**
   * All positioning padding and layout to use HTML-bass -display,z-index etc
