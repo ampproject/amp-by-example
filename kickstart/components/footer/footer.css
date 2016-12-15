@@ -1,0 +1,13 @@
+.ampstart-footer {
+  background-color: var(--color-footer-background);
+  color: var(--color-font-footer);
+}
+
+.ampstart-footer .ampstart-social-box > amp-social-share {
+  background-color: var(--color-footer-background);
+}
+
+:root {
+  --color-footer-background: var(--color-black);
+  --color-font-footer: var(--color-white);
+}
