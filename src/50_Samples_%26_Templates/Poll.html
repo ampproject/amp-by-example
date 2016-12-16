@@ -51,23 +51,13 @@ Import the additional AMP components. This sample uses a amp-form and mustache t
             left: 0;
             right: 0;
             bottom: 0;
+            font-size: 0;
         }
         .one-pc {
             width: 1%;
             height: 100%;
             display: inline-block;
-        }
-        .Wekas .one-pc {
-            background: #dc4e41;
-        }
-        .Penguins .one-pc {
-            background: #3f51b5;
-        }
-        .Ostriches .one-pc {
-            background: #4CAF50;
-        }
-        .Kiwis .one-pc {
-            background: #00ffff;
+            background: #ccc;
         }
         .poll1-results .title {
             z-index: 1;
@@ -82,58 +72,49 @@ Import the additional AMP components. This sample uses a amp-form and mustache t
 <h4 id="header1">Flightless bird poll</h4>
 <!-- #### Poll -->
 <!--
-We use `amp-form` to realize a poll.
-We use the `CLIENT_ID` variable to identify the user, this enables storing answers between repeated visits of an AMP page. This variable can be used inside an amp-form by declaring an hidden input value with `default-value="CLIENT_ID(cart)`. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
+We use `amp-form` to realize a poll and the `CLIENT_ID` variable to identify the user,
+this enables us to know if the user has already submitted an answer.
+The `CLIENT_ID` variable can be used inside an amp-form by declaring an hidden input value with `default-value="CLIENT_ID(cart)`. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
 
-<form method="post" action-xhr="<%host%>/samples_templates/poll/submit-xhr" target="_blank"
+<form method="post" action-xhr="<%host%>/samples_templates/poll/submit" target="_blank"
       id="poll1"
       custom-validation-reporting="as-you-go">
     <input name="clientId" type="hidden" default-value="CLIENT_ID(poll)">
     <fieldset>
         <p>What is your favorite flightless bird?</p>
-        <p>Choose your favourite flightless bird and you will be redirected to a page showing what other users have chosen.
+        <p>Choose your favourite flightless bird and you will discover what other users have chosen.
         If you have already voted, your answer will be overwritten.</p>
         <ul>
-            <li>
-                <label>
-                    <input name="answer" value="Penguins" type="radio" on="change:poll1.submit">
-                    Penguins
-                </label>
-            </li>
-            <li>
-                <label>
-                    <input name="answer" value="Ostriches" type="radio" on="change:poll1.submit">
-                    Ostriches
-                </label>
-            </li>
-            <li>
-                <label>
-                    <input name="answer" value="Kiwis" type="radio" on="change:poll1.submit">
-                    Kiwis
-                </label>
-            </li>
-            <li>
-                <label>
-                    <input name="answer" value="Wekas" type="radio" on="change:poll1.submit">
-                    Wekas
-                </label>
-            </li>
+          [[range .Questions]]
+          <li>
+              <label>
+                  <input name="answer" value="[[.]]" type="radio" on="change:poll1.submit">
+                  [[.]]
+              </label>
+          </li>
+          [[end]]
         </ul>
     </fieldset>
     <div submit-success>
         <template type="amp-mustache">
-            Thanks for answering the poll! Here are the results!
+            <p>{{Message}}</p>
+            <p>Here are the results!</p>
             <ul class="poll1-results">
-            {{#result}}
+            {{#PollResults}}
                 <li>
                     <div class="percentage-container {{Answer}}">
                         {{#Percentage}}<span class="one-pc"></span>{{/Percentage}}
                     </div>
                     <span class="title">{{Answer}}</span>
                 </li>
-            {{/result}}
+            {{/PollResults}}
             </ul>
         </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error! Looks like something went wrong with your comment, please try to submit it again. {{error}}
+      </template>
     </div>
 </form>
 </body>

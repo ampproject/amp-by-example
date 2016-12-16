@@ -27,6 +27,7 @@ import (
 const (
 	ERROR_CASE_POLL  = "error"
 	POLL_SAMPLE_PATH = "/" + CATEGORY_SAMPLE_TEMPLATES + "/poll/"
+	POLL_ANSWER = "PollAnswer"
 )
 
 type PollForm struct {
@@ -34,47 +35,63 @@ type PollForm struct {
 	Answer   string
 }
 
-type Result struct {
+type PollResult struct {
 	Percentage []int
 	Answer     string
 }
-
-type Answer struct {
-	AnswerText string
+type PollResultNew struct {
+	PollResults []PollResult
+	Message			string
+}
+type PollAnswer struct {
+	Answer string
 	Votes      int
 }
 
-func InitPollSample() {
-	http.HandleFunc(POLL_SAMPLE_PATH+"submit-xhr", submitXHR)
+type PollSample struct {
+	Questions     []string
 }
 
-func getAnswersFromDatastore(context context.Context) ([]Answer, error) {
-	query := datastore.NewQuery("Answer")
-	answers := make([]Answer, 0, 4)
+type User struct {
+	ClientId string
+}
+
+var questions []string
+
+func InitPollSample() {
+	questions = []string{"Penguins", "Ostriches", "Kiwis", "Wekas"}
+	http.HandleFunc(POLL_SAMPLE_PATH+"submit", submitPoll)
+	RegisterSample(CATEGORY_SAMPLE_TEMPLATES+"/poll", handlePoll)
+}
+
+func handlePoll(w http.ResponseWriter, r *http.Request, page Page) {
+	page.Render(w, PollSample{questions})
+}
+
+func getAnswersFromDatastore(context context.Context) ([]PollAnswer, error) {
+	query := datastore.NewQuery(POLL_ANSWER)
+	answers := make([]PollAnswer, 0, len(questions))
 	if _, err := query.GetAll(context, &answers); err != nil {
-		return answers, err
+		return nil, err
 	}
 	return answers, nil
 }
 
-func saveAnswerIntoDatastore(context context.Context, answerText string, voteCount int) error {
-	answer := &Answer{
-		AnswerText: answerText,
+func saveAnswerIntoDatastore(context context.Context, answer string, voteCount int) error {
+	pollAnswer := &PollAnswer{
+		Answer: answer,
 		Votes:      voteCount,
 	}
-	answerKey := datastore.NewKey(context, "Answer", answerText, 0, nil)
-	_, error := datastore.Put(context, answerKey, answer)
-	if error != nil {
-		return error
-	}
-	return nil
+	answerKey := datastore.NewKey(context, POLL_ANSWER, answer, 0, nil)
+	_, error := datastore.Put(context, answerKey, pollAnswer)
+	return error
 }
 
-func updateAnswerCount(answers []Answer, answerText string) int {
+func updateAnswerCount(answers []PollAnswer, answer string) int {
 	voteCount := 1
 	found := false
 	for i := 0; i < len(answers); i++ {
-		if answers[i].AnswerText == answerText {
+		if answers[i].Answer == answer {
 			voteCount = answers[i].Votes + 1
 			answers[i].Votes = voteCount
 			found = true
@@ -82,40 +99,41 @@ func updateAnswerCount(answers []Answer, answerText string) int {
 		}
 	}
 	if !found {
-		answers = append(answers, Answer{
-			AnswerText: answerText,
+		answers = append(answers, PollAnswer{
+			Answer: answer,
 			Votes:      voteCount,
 		})
 	}
 	return voteCount
 }
 
-func calculatePollResults(w http.ResponseWriter, ctx context.Context, pollForm PollForm) ([]Result, error) {
-	var results []Result
+func calculatePollResults(w http.ResponseWriter, ctx context.Context, pollForm PollForm) (PollResultNew, error) {
+	var results []PollResult
+	var message string
+	clientId := pollForm.ClientId
+	user := User{clientId}
 	err := datastore.RunInTransaction(ctx, func(ctx context.Context) error {
 		//create keys
-		clientIdKey := datastore.NewKey(ctx, "PollForm", pollForm.ClientId, 0, nil)
-		answerKey := datastore.NewKey(ctx, "Answer", pollForm.Answer, 0, nil)
+		answerKey := datastore.NewKey(ctx, POLL_ANSWER, pollForm.Answer, 0, nil)
 		//check if the user has already answered
-		var existingPollForm PollForm
-		err := datastore.Get(ctx, clientIdKey, &existingPollForm)
+		var users []User
+		var query = datastore.NewQuery("User").Filter("ClientId = ", clientId)
+		_, err := query.GetAll(ctx, &users)
+		panic(err)
 		//error is nil if the user has answered
 		if err == nil {
-			//decrement the vote for the existing answer
-			var answer Answer
-			existingPollFormKey := datastore.NewKey(ctx, "Answer", existingPollForm.Answer, 0, nil)
-			err = datastore.Get(ctx, existingPollFormKey, &answer)
-			//decrement the vote for the answer
-			answer.Votes--
-			//update the existing answer
-			_, err = datastore.Put(ctx, existingPollFormKey, &answer)
+			//return an error to let the user know that has already voted
+			message = "You have already answered this poll. If you want to run this sample again, use an incognito window."
+		} else {
+			message = "Thanks for answering the poll!"
+			//persist the clientId and answer
+			userKey := datastore.NewIncompleteKey(ctx, "User", nil)
+			_, err = datastore.Put(ctx, userKey, &user)
 		}
-		//persist association between clientId and answer
-		_, err = datastore.Put(ctx, clientIdKey, &pollForm)
 		//get the lastest vote count for the answer
-		var answer Answer
+		var answer PollAnswer
 		err = datastore.Get(ctx, answerKey, &answer)
-		answer.AnswerText = pollForm.Answer
+		answer.Answer = pollForm.Answer
 		//increment the vote for the answer
 		answer.Votes++
 		//persist the answer
@@ -123,25 +141,24 @@ func calculatePollResults(w http.ResponseWriter, ctx context.Context, pollForm P
 		return err
 	}, &datastore.TransactionOptions{XG: true})
 	if err != nil {
-		http.Error(w, err.Error(), 500)
-		return results, err
+		return PollResultNew{}, err
 	}
 
 	answers, error := getAnswersFromDatastore(ctx)
 	if error != nil {
-		return results, error
+		return PollResultNew{results, message}, error
 	}
 	for _, value := range answers {
-		results = append(results, Result{Answer: value.AnswerText, Percentage: make([]int, value.Votes)})
+		results = append(results, PollResult{make([]int, value.Votes), value.Answer})
 	}
-	return results, nil
+	return PollResultNew{results, message}, nil
 }
 
 func parsePollForm(w http.ResponseWriter, r *http.Request, context context.Context) (PollForm, error) {
-	answerText, answerErr := parseNotEmptyFormValue(r, "answer")
+	answer, answerErr := parseNotEmptyFormValue(r, "answer")
 	clientId, clientIdErr := parseNotEmptyFormValue(r, "clientId")
 
-	pollForm := PollForm{clientId, answerText}
+	pollForm := PollForm{clientId, answer}
 
 	error := parseFormErrors([]error{answerErr, clientIdErr})
 	if error != nil {
@@ -158,23 +175,20 @@ func parseNotEmptyFormValue(r *http.Request, input string) (string, error) {
 	return value, nil
 }
 
-func submitXHR(w http.ResponseWriter, r *http.Request) {
+func submitPoll(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
 	SetContentTypeJson(w)
-	response := ""
 	context := appengine.NewContext(r)
 	pollForm, error := parsePollForm(w, r, context)
 
 	if error != nil {
 		handleError(error, w)
 	}
-	result, error := calculatePollResults(w, context, pollForm)
+	pollResultNew, error := calculatePollResults(w, context, pollForm)
 	if error != nil {
 		handleError(error, w)
 	}
-	pollResult, _ := json.Marshal(result)
-	response = fmt.Sprintf("{\"result\":%s}", pollResult)
-	w.Write([]byte(response))
+	json.NewEncoder(w).Encode(pollResultNew)
 }
 
 func handleError(error error, w http.ResponseWriter) {
