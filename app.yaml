@@ -61,7 +61,6 @@ handlers:
 
 skip_files:
 - node_modules
-- kickstart
 - scripts
 - src
 - spec
