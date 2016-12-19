@@ -55,13 +55,8 @@ func parseForm(r *http.Request) (MortgageForm, error) {
 
 	// can't return nil in place of a struct, so creating one in case there are errors
 	mortgageForm := MortgageForm{price, deposit, interest, period}
-
 	err := parseFormErrors([]error{priceErr, depositErr, interestErr, periodErr})
-	if err != nil {
-		return mortgageForm, err
-	}
-
-	return mortgageForm, nil
+	return mortgageForm, err
 }
 
 func calculateMortgageXHR(w http.ResponseWriter, r *http.Request) {
