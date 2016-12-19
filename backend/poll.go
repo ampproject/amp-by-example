@@ -22,6 +22,7 @@ import (
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/datastore"
 	"net/http"
+	"strconv"
 )
 
 const (
@@ -33,7 +34,7 @@ const (
 //holds the answer chosen by the user and the client id, used for storing data coming from the UI
 type PollForm struct {
 	ClientId string
-	Answer   string
+	Answer   int
 }
 
 //holds an answers and votes represented as an array, used for displaying
@@ -44,41 +45,39 @@ type PollEntryResult struct {
 
 //holds the poll results and a message, used for displaying
 type PollResult struct {
-	PollResults []PollEntryResult
-	Message     string
+	PollEntryResults []PollEntryResult
+	Message          string
 }
 
 //holds an answer and votes, used for storing
 type PollAnswer struct {
-	Answer string
+	Answer int
 	Votes  int
 }
 
 //holds the questions
 type PollQuestions struct {
-	Questions  map[string]string
+	Questions []string
 }
 
-//holds stored data
+//holds stored Poll
 type Poll struct {
 	ClientIds   []string
 	PollAnswers []PollAnswer
 }
 
-var questions map[string]string
+var questions []string
+var pollQuestions PollQuestions
 
 func InitPollSample() {
-	questions = make(map[string]string)
-	questions["question1"] = "Penguins"
-	questions["question2"] = "Ostriches"
-	questions["question3"] = "Kiwis"
-	questions["question4"] = "Wekas"
+	questions = []string{"Penguins", "Ostriches", "Kiwis", "Wekas"}
+	pollQuestions = PollQuestions{questions}
 	http.HandleFunc(POLL_SAMPLE_PATH+"submit", submitPoll)
 	RegisterSample(CATEGORY_SAMPLE_TEMPLATES+"/poll", handlePoll)
 }
 
 func handlePoll(w http.ResponseWriter, r *http.Request, page Page) {
-	page.Render(w, PollQuestions{questions})
+	page.Render(w, pollQuestions)
 }
 
 func createPollResult(answers []PollAnswer, message string) PollResult {
@@ -89,6 +88,34 @@ func createPollResult(answers []PollAnswer, message string) PollResult {
 	return PollResult{results, message}
 }
 
+func submitPoll(w http.ResponseWriter, r *http.Request) {
+	EnableCors(w, r)
+	SetContentTypeJson(w)
+	context := appengine.NewContext(r)
+	pollForm, error := parsePollForm(w, r, context)
+	if error != nil {
+		handleError(error, w)
+		return
+	}
+	pollResult, error := calculatePollResults(w, context, pollForm)
+	if error != nil {
+		handleError(error, w)
+		return
+	}
+	json.NewEncoder(w).Encode(pollResult)
+}
+
+func parsePollForm(w http.ResponseWriter, r *http.Request, context context.Context) (PollForm, error) {
+	answer, answerErr := parseNotEmptyFormValue(r, "answer")
+	answerId, _ := strconv.Atoi(answer)
+	clientId, clientIdErr := parseNotEmptyFormValue(r, "clientId")
+
+	pollForm := PollForm{clientId, answerId}
+
+	error := parseFormErrors([]error{answerErr, clientIdErr})
+	return pollForm, error
+}
+
 func calculatePollResults(w http.ResponseWriter, ctx context.Context, pollForm PollForm) (PollResult, error) {
 	var message string
 	clientId := pollForm.ClientId
@@ -96,16 +123,13 @@ func calculatePollResults(w http.ResponseWriter, ctx context.Context, pollForm P
 	//get the poll
 	pollKey := datastore.NewKey(ctx, "Poll", "poll", 0, nil)
 	var poll Poll
-	err := datastore.Get(ctx, pollKey, &poll)
-
-	if err != nil {
-		return PollResult{}, err
-	}
+	//if it's the first time executing, there will be no poll yet
+	datastore.Get(ctx, pollKey, &poll)
 
 	//check if the user has already voted
 	existingClientIds := poll.ClientIds
-	for i := 0; i < len(existingClientIds); i++ {
-		if existingClientIds[i] == clientId {
+	for _, existingClientId := range existingClientIds {
+		if existingClientId == clientId {
 			//return a message to let the user know that has already voted
 			message = "You have already answered this poll. If you want to run this sample again, use an incognito window."
 			//return the existing poll answers and a message
@@ -121,10 +145,10 @@ func calculatePollResults(w http.ResponseWriter, ctx context.Context, pollForm P
 	pollExistingAnswers := poll.PollAnswers
 	//get the lastest vote count for the answer
 	answerFound := false
-	for i := 0; i < len(pollExistingAnswers); i++ {
-		if pollExistingAnswers[i].Answer == pollForm.Answer {
+	for _, pollExistingAnswer := range pollExistingAnswers {
+		if pollExistingAnswer.Answer == pollForm.Answer {
 			//increment the vote for the answer
-			pollExistingAnswers[i].Votes = pollExistingAnswers[i].Votes + 1
+			pollExistingAnswer.Votes = pollExistingAnswer.Votes + 1
 			answerFound = true
 		}
 	}
@@ -132,27 +156,13 @@ func calculatePollResults(w http.ResponseWriter, ctx context.Context, pollForm P
 		pollExistingAnswers = append(pollExistingAnswers, PollAnswer{pollForm.Answer, 1})
 		poll.PollAnswers = pollExistingAnswers
 	}
-
 	//persist the answer
-	_, err = datastore.Put(ctx, pollKey, &poll)
+	_, err := datastore.Put(ctx, pollKey, &poll)
 
 	if err != nil {
 		return PollResult{}, err
 	}
 	return createPollResult(pollExistingAnswers, message), nil
-}
-
-func parsePollForm(w http.ResponseWriter, r *http.Request, context context.Context) (PollForm, error) {
-	answer, answerErr := parseNotEmptyFormValue(r, "answer")
-	clientId, clientIdErr := parseNotEmptyFormValue(r, "clientId")
-
-	pollForm := PollForm{clientId, answer}
-
-	error := parseFormErrors([]error{answerErr, clientIdErr})
-	if error != nil {
-		return pollForm, error
-	}
-	return pollForm, nil
 }
 
 func parseNotEmptyFormValue(r *http.Request, input string) (string, error) {
@@ -161,22 +171,6 @@ func parseNotEmptyFormValue(r *http.Request, input string) (string, error) {
 		return "", errors.New(input + "has empty value")
 	}
 	return value, nil
-}
-
-func submitPoll(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	SetContentTypeJson(w)
-	context := appengine.NewContext(r)
-	pollForm, error := parsePollForm(w, r, context)
-
-	if error != nil {
-		handleError(error, w)
-	}
-	pollResult, error := calculatePollResults(w, context, pollForm)
-	if error != nil {
-		handleError(error, w)
-	}
-	json.NewEncoder(w).Encode(pollResult)
 }
 
 func handleError(error error, w http.ResponseWriter) {

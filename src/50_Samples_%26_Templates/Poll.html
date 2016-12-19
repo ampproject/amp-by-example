@@ -100,20 +100,20 @@ The `CLIENT_ID` variable can be used inside an amp-form by declaring an hidden i
             <p>{{Message}}</p>
             <p>Here are the results!</p>
             <ul class="poll1-results">
-            {{#PollResults}}
+            {{#PollEntryResults}}
                 <li>
                     <div class="percentage-container {{Answer}}">
                         {{#Percentage}}<span class="one-pc"></span>{{/Percentage}}
                     </div>
                     <span class="title">{{Answer}}</span>
                 </li>
-            {{/PollResults}}
+            {{/PollEntryResults}}
             </ul>
         </template>
     </div>
     <div submit-error>
       <template type="amp-mustache">
-        Error! Looks like something went wrong with your comment, please try to submit it again. {{error}}
+        Error! Looks like something went wrong with your vote, please try to submit it again. {{error}}
       </template>
     </div>
 </form>
