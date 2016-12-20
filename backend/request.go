@@ -15,7 +15,6 @@
 package backend
 
 import (
-	"bytes"
 	"fmt"
 	"net/http"
 	"strings"
@@ -32,17 +31,6 @@ func IsInsecureRequest(r *http.Request) bool {
 	return r.TLS == nil && !strings.HasPrefix(r.Host, "localhost")
 }
 
-func buildSourceOrigin(host string) string {
-	var sourceOrigin bytes.Buffer
-	if strings.HasPrefix(host, "localhost") {
-		sourceOrigin.WriteString("http://")
-	} else {
-		sourceOrigin.WriteString("https://")
-	}
-	sourceOrigin.WriteString(host)
-	return sourceOrigin.String()
-}
-
 func isFormPostRequest(method string, w http.ResponseWriter) bool {
 	if method != "POST" {
 		http.Error(w, "post only", http.StatusMethodNotAllowed)
@@ -51,12 +39,22 @@ func isFormPostRequest(method string, w http.ResponseWriter) bool {
 	return true
 }
 
+func buildSourceOrigin(host string) string {
+	if strings.HasPrefix(host, "localhost") {
+		return "http://" + host
+	} else {
+		return "https://" + host
+	}
+}
+
 func EnableCors(w http.ResponseWriter, r *http.Request) {
-	sourceOrigin := buildSourceOrigin(r.Host)
-	w.Header().Set("Access-Control-Allow-Origin", sourceOrigin)
-	w.Header().Set("Access-Control-Expose-Headers", "AMP-Access-Control-Allow-Source-Origin")
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", sourceOrigin)
-	w.Header().Set("Access-Control-Allow-Credentials", "true")
+	if origin := r.Header.Get("Origin"); origin != "" {
+		w.Header().Set("Access-Control-Allow-Origin", origin)
+		w.Header().Set("Access-Control-Allow-Methods", "POST, GET")
+		w.Header().Set("Access-Control-Expose-Headers", "AMP-Access-Control-Allow-Source-Origin")
+		w.Header().Set("AMP-Access-Control-Allow-Source-Origin", origin)
+		w.Header().Set("Access-Control-Allow-Credentials", "true")
+	}
 }
 
 func SetContentTypeJson(w http.ResponseWriter) {
