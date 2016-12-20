@@ -52,9 +52,10 @@ func isFormPostRequest(method string, w http.ResponseWriter) bool {
 }
 
 func EnableCors(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "https://cdn.ampproject.org")
+	sourceOrigin := buildSourceOrigin(r.Host)
+	w.Header().Set("Access-Control-Allow-Origin", sourceOrigin)
 	w.Header().Set("Access-Control-Expose-Headers", "AMP-Access-Control-Allow-Source-Origin")
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
+	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", sourceOrigin)
 	w.Header().Set("Access-Control-Allow-Credentials", "true")
 }
 

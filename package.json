@@ -46,7 +46,7 @@
     "gulp-jasmine": "^2.2.1",
     "gulp-live-server": "0.0.29",
     "gulp-rename": "^1.2.2",
-    "gulp-shell": "^0.5.2",
+    "gulp-run": "^1.7.1",
     "gulp-util": "^3.0.7",
     "highlight.js": "^9.7.0",
     "hogan.js": "^3.0.2",

@@ -22,7 +22,6 @@ const file = require('gulp-file');
 const rename = require('gulp-rename');
 const del = require('del');
 const cache = require('gulp-cached');
-const shell = require('gulp-shell');
 const jasmine = require('gulp-jasmine');
 const eslint = require('gulp-eslint');
 const gutil = require('gulp-util');
@@ -35,6 +34,7 @@ const path = require('path');
 const diff = require('gulp-diff');
 const change = require('gulp-change');
 const bower = require('gulp-bower');
+const grun = require('gulp-run');
 
 const compileExample = require('./tasks/compile-example');
 const sitemap = require('./tasks/compile-sitemap');
@@ -134,27 +134,27 @@ gulp.task('deploy:staging', 'deploy to staging server', function(callback) {
               callback);
 });
 
-gulp.task('conf:encode', 'encode the config file', shell.task([
-  'openssl aes-256-cbc -e -in ' + paths.api.conf + ' -out ' +
-    paths.api.conf + '.enc -pass env:AMP_BY_EXAMPLE_DEPLOY_KEY'
-]));
+gulp.task('conf:encode', 'encode the config file', function(){
+  return run('openssl aes-256-cbc -e -in ' + paths.api.conf + ' -out ' +
+    paths.api.conf + '.enc -pass env:AMP_BY_EXAMPLE_DEPLOY_KEY').exec();
+});
 
-gulp.task('conf:decode', 'decode the config file', shell.task([
-  'openssl aes-256-cbc -d -in ' + paths.api.conf + '.enc -out ' +
-    paths.api.conf + ' -pass env:AMP_BY_EXAMPLE_DEPLOY_KEY'
-]));
+gulp.task('conf:decode', 'decode the config file', function(){
+  return run('openssl aes-256-cbc -d -in ' + paths.api.conf + '.enc -out ' +
+    paths.api.conf + ' -pass env:AMP_BY_EXAMPLE_DEPLOY_KEY').exec();
+});
 
-gulp.task('deploy:site:prod', 'deploy to production site', shell.task([
-  'goapp deploy -application  amp-by-example -version 1'
-]));
+gulp.task('deploy:site:prod', 'deploy to production site', function(){
+  return run('goapp deploy -application  amp-by-example -version 1').exec();
+});
 
-gulp.task('deploy:api:prod', 'deploy to production api app engine', shell.task([
-  'cd api && goapp deploy -application  amp-by-example-api -version 1'
-]));
+gulp.task('deploy:api:prod', 'deploy to production api app engine', function(){
+  return run('cd api && goapp deploy -application  amp-by-example-api -version 1').exec();
+});
 
-gulp.task('deploy:site:staging', 'deploy to staging app engine', shell.task([
-  'goapp deploy -application  amp-by-example-staging -version 1'
-]));
+gulp.task('deploy:site:staging', 'deploy to staging app engine', function(){
+  return run('goapp deploy -application  amp-by-example-staging -version 1').exec();
+});
 
 gulp.task('copy:images', 'copy example images', function() {
   return gulp.src(paths.images)
@@ -358,7 +358,6 @@ gulp.task('default', 'Run a webserver and watch for changes', [
   'serve']);
 
 gulp.task('backend:watch', 'run the go backend and watch for changes', function(callback) {
-  config.host = 'http://localhost:8080';
   runSequence(
     'build',
     'watch',
@@ -366,13 +365,14 @@ gulp.task('backend:watch', 'run the go backend and watch for changes', function(
     callback);
 });
 
-gulp.task('backend:serve', 'Run the go backend', shell.task([
-  'goapp serve'
-]));
+gulp.task('backend:serve', 'Run the go backend', function(){
+  config.host = 'http://localhost:8080';
+  return run('goapp serve').exec();
+});
 
-gulp.task('api:serve', 'Run the go api backend', shell.task([
-  'cd api && goapp serve -admin_port=8100'
-]));
+gulp.task('api:serve', 'Run the go api backend', function(){
+  return run('cd api && goapp serve -admin_port=8100').exec();
+});
 
 gulp.task('validate', 'runs all checks', ['lint', 'test', 'validate:example']);
 
@@ -449,6 +449,10 @@ gulp.task('build', 'build all resources', [
   'compile:example',
   'copy:well-known'
 ]);
+
+function run(command) {
+  return grun(command, {verbosity: 3});
+}
 
 function isFixed(file) {
   return file.eslint.fixed;
