@@ -41,6 +41,7 @@ type PollForm struct {
 
 //holds an answers and votes represented as an array, used for displaying
 type PollEntryResult struct {
+	Votes int
 	Percentage []int
 	Answer     string
 }
@@ -88,8 +89,13 @@ func handlePoll(w http.ResponseWriter, r *http.Request, page Page) {
 
 func createPollResult(answers []int, message string) PollResult {
 	results := make([]PollEntryResult, len(questions))
+	totalAnswers := 0
+	 for _, num := range answers {
+			 totalAnswers += num
+	 }
+	hundredDividedByTotalVotes := float64(100)/float64(totalAnswers)
 	for questionIndex, votes := range answers {
-		results[questionIndex] = PollEntryResult{make([]int, votes), questions[questionIndex]}
+		results[questionIndex] = PollEntryResult{votes, make([]int, int(hundredDividedByTotalVotes * float64(votes))), questions[questionIndex]}
 	}
 	return PollResult{results, message}
 }
