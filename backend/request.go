@@ -39,22 +39,13 @@ func isFormPostRequest(method string, w http.ResponseWriter) bool {
 	return true
 }
 
-func buildSourceOrigin(host string) string {
-	if strings.HasPrefix(host, "localhost") {
-		return "http://" + host
-	} else {
-		return "https://" + host
-	}
-}
-
 func EnableCors(w http.ResponseWriter, r *http.Request) {
 	if origin := r.Header.Get("Origin"); origin != "" {
-		sourceOrigin := buildSourceOrigin(r.Host)
 		w.Header().Set("Access-Control-Allow-Origin", origin)
 		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
 		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token")
 		w.Header().Set("Access-Control-Expose-Headers", "AMP-Access-Control-Allow-Source-Origin")
-		w.Header().Set("AMP-Access-Control-Allow-Source-Origin", sourceOrigin)
+		w.Header().Set("AMP-Access-Control-Allow-Source-Origin", origin)
 		w.Header().Set("Access-Control-Allow-Credentials", "true")
 	}
 }
