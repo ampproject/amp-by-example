@@ -142,7 +142,11 @@ func initBlogPosts() {
 func handleLiveList(w http.ResponseWriter, r *http.Request, page Page) {
 	newStatus := updateStatus(w, r)
 	firstBlogID := strings.TrimPrefix(r.URL.Query().Get("from"), BLOG_ID_PREFIX)
-	page.Render(w, createLiveBlogSample(newStatus, time.Now(), firstBlogID, buildSourceOrigin(r.Host), page))
+	if origin := r.Header.Get("Origin"); origin != "" {
+		page.Render(w, createLiveBlogSample(newStatus, time.Now(), firstBlogID, origin, page))
+	} else {
+		w.WriteHeader(http.StatusBadRequest)
+	}
 }
 
 func updateStatus(w http.ResponseWriter, r *http.Request) int {
@@ -178,7 +182,7 @@ func createMetadata(sourceOrigin string) []BlogPosting {
 	return result
 }
 
-func createLiveBlogSample(newStatus int, timestamp time.Time, firstBlogID string, originSource string, page Page) LiveBlogSample {
+func createLiveBlogSample(newStatus int, timestamp time.Time, firstBlogID string, origin string, page Page) LiveBlogSample {
 	if newStatus > len(blogs) {
 		newStatus = len(blogs)
 	}
@@ -187,7 +191,7 @@ func createLiveBlogSample(newStatus int, timestamp time.Time, firstBlogID string
 	firstItemIndex := getBlogEntryIndexFromID(firstBlogID, blogItems)
 	lenghtCurrentPageBlog := int(math.Min(float64(len(blogItems)), float64(firstItemIndex+MAX_BLOG_ITEMS_NUMBER_PER_PAGE)))
 
-	urlPrefix := buildPrefixPaginationURL(originSource, page)
+	urlPrefix := buildPrefixPaginationURL(origin, page)
 	nextPageId := getNextPageId(blogItems, firstItemIndex+MAX_BLOG_ITEMS_NUMBER_PER_PAGE)
 	previousPageId := getPrevPageId(firstItemIndex)
 	nextPageUrl := buildPaginationURL(urlPrefix, nextPageId)
@@ -196,7 +200,7 @@ func createLiveBlogSample(newStatus int, timestamp time.Time, firstBlogID string
 	if prevPageUrl != "" {
 		disabled = "disabled"
 	}
-	blogMetadata, _ := json.MarshalIndent(createMetadata(originSource), "        ", "  ")
+	blogMetadata, _ := json.MarshalIndent(createMetadata(origin), "        ", "  ")
 
 	return LiveBlogSample{BlogItems: blogItems[firstItemIndex:lenghtCurrentPageBlog],
 		FootballScore: score,
@@ -221,8 +225,8 @@ func getPrevPageId(firstItemIndex int) string {
 	return ""
 }
 
-func buildPrefixPaginationURL(originSource string, page Page) string {
-	return originSource + page.Route + "?from="
+func buildPrefixPaginationURL(origin string, page Page) string {
+	return origin + page.Route + "?from="
 }
 
 func buildPaginationURL(urlPrefix string, pageId string) string {
