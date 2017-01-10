@@ -40,13 +40,14 @@
     `amp-social-share` with `type="facebook"` requires to specify the [facebook app id](https://developers.facebook.com/apps) via `data-attribution`.
   -->
   <div>
-    <amp-social-share type="twitter"></amp-social-share>
-    <amp-social-share type="gplus"></amp-social-share>
     <amp-social-share type="email"></amp-social-share>
-    <amp-social-share type="pinterest"></amp-social-share>
-    <amp-social-share type="linkedin"></amp-social-share>
     <amp-social-share type="facebook" data-param-app_id="254325784911610"></amp-social-share>
+    <amp-social-share type="gplus"></amp-social-share>
+    <amp-social-share type="linkedin"></amp-social-share>
+    <amp-social-share type="pinterest"></amp-social-share>
     <amp-social-share type="tumblr"></amp-social-share>
+    <amp-social-share type="twitter"></amp-social-share>
+    <amp-social-share type="whatsapp"></amp-social-share>
   </div>
 
   <!-- #### Configuration -->
@@ -83,6 +84,11 @@
   <amp-social-share type="linkedin"
     class="custom-style">
   </amp-social-share>
+
+  <!-- #### Sharing Media via Pinterest -->
+  <!-- Use `data-param-media` to share media via Pinterest. -->
+
+  <amp-social-share type="pinterest" data-param-media="https://ampbyexample.com/img/amp.jpg"></amp-social-share>
 
 </body>
 </html>
