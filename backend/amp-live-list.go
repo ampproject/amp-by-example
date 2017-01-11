@@ -142,11 +142,8 @@ func initBlogPosts() {
 func handleLiveList(w http.ResponseWriter, r *http.Request, page Page) {
 	newStatus := updateStatus(w, r)
 	firstBlogID := strings.TrimPrefix(r.URL.Query().Get("from"), BLOG_ID_PREFIX)
-	if origin := r.Header.Get("Origin"); origin != "" {
-		page.Render(w, createLiveBlogSample(newStatus, time.Now(), firstBlogID, origin, page))
-	} else {
-		w.WriteHeader(http.StatusBadRequest)
-	}
+	origin := GetOrigin(r)
+	page.Render(w, createLiveBlogSample(newStatus, time.Now(), firstBlogID, origin, page))
 }
 
 func updateStatus(w http.ResponseWriter, r *http.Request) int {
