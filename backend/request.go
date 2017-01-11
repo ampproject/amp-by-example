@@ -40,14 +40,24 @@ func isFormPostRequest(method string, w http.ResponseWriter) bool {
 }
 
 func EnableCors(w http.ResponseWriter, r *http.Request) {
-	if origin := r.Header.Get("Origin"); origin != "" {
-		w.Header().Set("Access-Control-Allow-Origin", origin)
-		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token")
-		w.Header().Set("Access-Control-Expose-Headers", "AMP-Access-Control-Allow-Source-Origin")
-		w.Header().Set("AMP-Access-Control-Allow-Source-Origin", origin)
-		w.Header().Set("Access-Control-Allow-Credentials", "true")
+	origin := GetOrigin(r)
+	w.Header().Set("Access-Control-Allow-Origin", origin)
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token")
+	w.Header().Set("Access-Control-Expose-Headers", "AMP-Access-Control-Allow-Source-Origin")
+	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", origin)
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
+}
+
+func GetOrigin(r *http.Request) string {
+	origin := r.Header.Get("Origin")
+	if origin != "" {
+		return origin
 	}
+	if r.TLS == nil {
+		return "http://" + r.Host
+	}
+	return "https://" + r.Host
 }
 
 func SetContentTypeJson(w http.ResponseWriter) {
