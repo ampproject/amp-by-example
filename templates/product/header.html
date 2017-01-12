@@ -2,7 +2,7 @@
 <!--
 Use the [amp-sidebar](/components/amp-sidebar/) component to give customers the chance to quickly jump to any of your product categories.  
 -->
-<amp-sidebar id='drawermenu' layout="nodisplay">
+<amp-sidebar id="drawermenu" layout="nodisplay">
   <div class="topheader">
     <a href="/" class="home">Products by Example</a>
   </div>
@@ -18,7 +18,7 @@ AMP supports forms, which means you can directly integrate a product search into
 AMP doesn't support custom Javascript, but you can use CSS3 animations to enrich your page. The expanding text field when the search box is focused is implemented with CSS only.
 -->
 <div class="header">
-  <a id="hamburger" on='tap:drawermenu.toggle'>
+  <a id="hamburger" on="tap:drawermenu.toggle">
     <amp-img srcset="/img/ic_menu_white_1x_web_24dp.png 1x, /img/ic_menu_white_2x_web_24dp.png 2x" width="24" height="24" alt="navigation"></amp-img>
   </a>
   <form  method="GET" action="<%host%>/samples_templates/product_listing[[.Mode]]/search" target="_top">
