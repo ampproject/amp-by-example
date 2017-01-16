@@ -27,7 +27,7 @@ Import the additional AMP components. This sample uses a amp-form and mustache t
 <style amp-custom>
   #poll1 li {
             position: relative;
-            padding: 1em;
+            padding: 1em 0;
             list-style: none;
             margin: 0;
             display: block;
@@ -38,28 +38,43 @@ Import the additional AMP components. This sample uses a amp-form and mustache t
         }
         .percentage-container {
             font-size: 0;
+            display: flex;
         }
-        .one-pc {
-            width: 1%;
-            height: 80%;
-            display: inline-block;
-            background: #eb407a;
+        .percentage-container-fixed {
+          height: 100%;
+          position: absolute;
+          font-size: 0;
+          right: 80px;
+          left: 160px;
         }
-        .results-table {
-          display: flex;
-          flex-wrap: wrap;
-          margin: 0 0 3em 0;
-          padding: 0;
+        .one-pc-fixed {
+           width: 1%;
+           display: inline-block;
+           background: #eb407a;
+           height: 100%;
+       }
+        #header1 {
+          padding-left: 32px;
         }
-        .results-table-cell {
-          box-sizing: border-box;
-          flex-grow: 1;
-          width: 100%;
-          overflow: hidden;
-          list-style: none;
-          width: 25%;
-        }
-
+        form.amp-form-submit-success [submit-success] {
+        flex: 0 0 100%;
+      }
+      .fixed-size-cell {
+        width: 90px;
+        display: inline-block;
+        max-width: 90px;
+      }
+      .votes-cell {
+        float: right;
+        width: 60px;
+      }
+      .table-row {
+        position: relative;
+        margin-top: 16px;
+      }
+      .table {
+        margin: 16px;
+      }
 
 </style>
 </head>
@@ -95,32 +110,29 @@ The `CLIENT_ID` variable can be used inside an amp-form by declaring an hidden i
         <template type="amp-mustache">
             <p>{{Message}}</p>
             <p>Here are the results!</p>
-            <div class="results-table">
-              <div class="results-table-cell">
-                <h5>Answer</h5>
-              </div>
-              <div class="results-table-cell">
-                <h5>&nbsp;</h5>
-              </div>
-              <div class="results-table-cell">
-                  <h5>&nbsp;</h5>
-              </div>
-              <div class="results-table-cell">
-                <h5>Votes</h5>
-              </div>
+            <!--Currently, HTML tables are not supported in form responses. -->
+          <div class="table">
+            <span class="fixed-sixe-cell">Answer</span>
+            <span class="fixed-size-cell">&nbsp;</span>
+            <span>&nbsp;</span>
+            <span class="fixed-size-cell votes-cell">Votes</span>
             {{#PollEntryResults}}
-                <div class="results-table-cell">
-                  <h5>{{Answer}}</h5>
-                </div>
-                <div class="results-table-cell">
-                  <h5>{{Percentage.length}}%</h5>
-                </div>
-                <div class="percentage-container results-table-cell">
-                    {{#Percentage}}<span class="one-pc"></span>{{/Percentage}}
-                </div>
-                <div class="results-table-cell">
-                  <h5>{{Votes}}</h5>
-                </div>
+            <div class="table-row">
+                <span class="fixed-size-cell">
+                  {{Answer}}
+                </span>
+                <span class="fixed-size-cell">
+                  {{Percentage.length}}%
+                </span>
+
+                <span class="percentage-container-fixed">
+                    {{#Percentage}}<span class="one-pc-fixed"></span>{{/Percentage}}
+                </span>
+
+                <span class="fixed-size-cell votes-cell">
+                  {{Votes}}
+                </span>
+              </div>
             {{/PollEntryResults}}
 
           </div>
