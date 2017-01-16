@@ -12,49 +12,50 @@ This sample showcases how to build a product listing page in AMP HTML.
 <!doctype html>
 <html ⚡>
 <head>
-    <meta charset="utf-8">
-<script async src="https://cdn.ampproject.org/v0.js"></script>
-<!--
-Additionally used AMP components must be imported in the header.
--->
-<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
-<script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
-<script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
-<script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
-<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+  <meta charset="utf-8">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!--
+  Additionally used AMP components must be imported in the header.
+  -->
+  <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+  <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+  <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+  <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
 
-    <link rel="canonical" href="<%host%>/samples_templates/product_listing/">
-    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-<style amp-custom>
-  article#preview {
-    background: #ECEFF1;
-  }
-  <%>css/product.css%>
-  .product-carousel {
-    margin: 16px;
-  }
-  .product-carousel .tile {
-    margin: 8px 0;
-  }
-  #hero-images {
-      object-fit: contain;
-  }
-  #hero-images .caption {
-    text-align: center;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 24px;
-    background: rgba(200, 200, 200, 0.8);
-    color: #333;
-    font-size: 36px;
-    max-height: 30%;
-    font-weight: 300;
-  }
-</style>
+  <link rel="canonical" href="<%host%>/samples_templates/product_listing/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style amp-custom>
+    article#preview {
+      background: #ECEFF1;
+    }
+    <%>css/product.css%>
+    .product-carousel {
+      margin: 16px;
+    }
+    .product-carousel .tile {
+      margin: 8px 0;
+    }
+    #hero-images {
+        object-fit: contain;
+    }
+    #hero-images .caption {
+      text-align: center;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px;
+      background: rgba(200, 200, 200, 0.8);
+      color: #333;
+      font-size: 36px;
+      max-height: 30%;
+      font-weight: 300;
+    }
+  </style>
 
-<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 </head>
 <body>
   <%>product/header.html%>
