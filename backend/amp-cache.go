@@ -15,26 +15,23 @@
 package backend
 
 import (
-	"html/template"
 	"net/http"
+	"time"
 )
 
 func InitAmpCache() {
-	http.HandleFunc("/g", getParameterDemoHandler)
+	RegisterTemplate("/g", "", TEMPLATE_FOLDER+"/get-example.html", parameterDemoHandler)
 	http.HandleFunc("/error", returnCode500)
 }
 
-func getParameterDemoHandler(w http.ResponseWriter, r *http.Request) {
-	value := r.URL.Query().Get("value")
-	renderTemplate(w, "get-example", value)
+func parameterDemoHandler(w http.ResponseWriter, r *http.Request, page Page) {
+	SetMaxAge(w, 0)
+	timestamp := time.Now().Format("Mon Jan _2 15:04:05 2006")
+	s := timestamp + ": '" + r.URL.Query().Get("value") + "'"
+	page.Render(w, s)
 }
 
 func returnCode500(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusInternalServerError)
 	w.Write([]byte("Internal Server Error"))
-}
-
-func renderTemplate(w http.ResponseWriter, templateName string, value string) {
-	t, _ := template.ParseFiles("templates/" + templateName + ".html")
-	t.Execute(w, value)
 }

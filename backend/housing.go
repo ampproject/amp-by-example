@@ -24,7 +24,7 @@ import (
 
 const (
 	ERROR_CASE_HOUSING  = "error"
-	HOUSING_SAMPLE_PATH = "/samples_templates/housing/"
+	HOUSING_SAMPLE_PATH = "/" + CATEGORY_SAMPLE_TEMPLATES + "/housing/"
 )
 
 type MortgageForm struct {
@@ -35,16 +35,11 @@ type MortgageForm struct {
 }
 
 func InitHousingForm() {
-	http.HandleFunc(HOUSING_SAMPLE_PATH+"calculate-mortgage-xhr", func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, calculateMortgageXHR)
-	})
-	http.HandleFunc(HOUSING_SAMPLE_PATH+"calculate-mortgage", func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, calculateMortgage)
-	})
+	http.HandleFunc(HOUSING_SAMPLE_PATH+"calculate-mortgage-xhr", calculateMortgageXHR)
+	http.HandleFunc(HOUSING_SAMPLE_PATH+"calculate-mortgage", calculateMortgage)
 }
 
 func calculateMonthlyPayment(mortgageForm MortgageForm) float64 {
-
 	monthlyInterestRateDecimal := (mortgageForm.Interest / 12) / 100
 	numberOfMonthlyPayments := float64(mortgageForm.Period * 12)
 	amountBorrowed := float64(mortgageForm.Price - mortgageForm.Deposit)
@@ -54,7 +49,6 @@ func calculateMonthlyPayment(mortgageForm MortgageForm) float64 {
 }
 
 func parseForm(r *http.Request) (MortgageForm, error) {
-
 	price, priceErr := strconv.Atoi(r.FormValue("price"))
 	deposit, depositErr := strconv.Atoi(r.FormValue("deposit"))
 	interest, interestErr := strconv.ParseFloat(r.FormValue("annual_interest"), 64)
@@ -91,8 +85,8 @@ func appendError(anError error, errors []string) {
 }
 
 func calculateMortgageXHR(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
-	w.Header().Set("Content-Type", "application/json")
+	EnableCors(w, r)
+	SetContentTypeJson(w)
 	response := ""
 	mortgageForm, err := parseForm(r)
 	if err != nil {

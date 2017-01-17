@@ -19,25 +19,11 @@ import (
 	"net/http"
 )
 
-const (
-	ACCESS_SAMPLE_PATH = "/components/amp-access/"
-)
-
-type AuthorizationResponse struct {
-	User       string `json:"username"`
-	Status     string `json:"status"`
-	Freenights int    `json:"freenights"`
+type AuthorizationResponse interface {
+	CreateAuthorizationResponse() AuthorizationResponse
 }
 
-func InitAmpAccess() {
-	http.HandleFunc(ACCESS_SAMPLE_PATH+"authorization", handleAuthorization)
-	http.HandleFunc(ACCESS_SAMPLE_PATH+"pingback", handlePingback)
-	http.HandleFunc(ACCESS_SAMPLE_PATH+"login", handleLogin)
-}
-
-func handleAuthorization(w http.ResponseWriter, r *http.Request) {
-
-	authedUser := AuthorizationResponse{"test-user", "Gold", 2}
+func handleAuthorization(w http.ResponseWriter, r *http.Request, authedUser AuthorizationResponse) {
 	js, err := json.Marshal(authedUser)
 
 	if err != nil {
@@ -45,14 +31,15 @@ func handleAuthorization(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
-	w.Header().Set("Content-Type", "application/json")
+	EnableCors(w, r)
+	SetContentTypeJson(w)
 	w.Write(js)
 }
 
 func handlePingback(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
+	EnableCors(w, r)
 }
 
 func handleLogin(w http.ResponseWriter, r *http.Request) {
+	// nothing to do
 }

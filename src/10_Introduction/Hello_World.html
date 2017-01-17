@@ -10,19 +10,15 @@ An AMP HTML tutorial - learn the different building blocks of an AMP HTML file. 
 <!-- #### Head -->
 <!-- -->
 <head>
-  <!-- The charset definition must be the first child of the head tag. -->
+  <!-- The charset definition must be the first child of the `<head>` tag. -->
   <meta charset="utf-8">
-
+  <!-- The AMP runtime must be loaded as the second child of the `<head>` tag.-->
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
   <!--
-    AMP HTML files require a canonical link pointing to the regular HTML. If no HTML version
-    exists, it should point to itself.
+    AMP HTML files require a canonical link pointing to the regular HTML. If no HTML version exists, it should point to itself.
   -->
   <link rel="canonical" href="<%host%>/Introduction/Hello_World">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-  <!--
-    The AMP boilerplate.
-  -->
-  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <!--
     CSS must be embedded inline.
   -->
@@ -31,8 +27,10 @@ An AMP HTML tutorial - learn the different building blocks of an AMP HTML file. 
       color: red;
     }
   </style>
-  <!-- The AMP runtime must be loaded from the last element in the head. -->
-  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!--
+    The AMP boilerplate.
+  -->
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 </head>
 <!-- #### Body -->
 <!-- -->

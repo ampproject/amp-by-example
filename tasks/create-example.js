@@ -47,7 +47,7 @@ module.exports = function(config) {
   return through.obj(function(file, encoding, callback) {
     if (file.isNull()) {
       // nothing to do
-      return callback(null, file);
+      return callback();
     }
     if (file.isStream()) {
       this.emit('error', new PluginError('create-example',

@@ -12,7 +12,7 @@ This is a sample template for a news article in AMP. It demonstrates the usage o
 <html ⚡>
   <head>
     <meta charset="utf-8">
-    <link rel="canonical" href="<%host%>/samples_templates/news_article/">
+      <script async src="https://cdn.ampproject.org/v0.js"></script>
     <!-- #### Setup -->
     <!--
       All additionally used AMP components must be imported in the header.
@@ -23,6 +23,7 @@ This is a sample template for a news article in AMP. It demonstrates the usage o
     <script async custom-element="amp-user-notification" src="https://cdn.ampproject.org/v0/amp-user-notification-0.1.js"></script>
     <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+    <link rel="canonical" href="<%host%>/samples_templates/news_article/">
 
     <!--
     #### Metadata
@@ -55,15 +56,14 @@ This is a sample template for a news article in AMP. It demonstrates the usage o
       },
       "image": {
         "@type": "ImageObject",
-        "url": "<%host%>/img/landscape_lake_1280x853.jpg",
-        "height": 2000,
-        "width": 800
+        "url": "<%host%>/img/landscape_lake_1280x857.jpg",
+        "height": 1280,
+        "width": 857
       }
     }
     </script>
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-      <script async src="https://cdn.ampproject.org/v0.js"></script>
       <style amp-custom>
   .carousel .slide > amp-img > img {
     object-fit: contain;
@@ -159,7 +159,7 @@ This is a sample template for a news article in AMP. It demonstrates the usage o
     </p>
 
     <figure>
-      <amp-img src="/img/landscape_village_1280x720.jpg" width=1280 height=768 layout=responsive></amp-img>
+      <amp-img src="/img/landscape_village_1280x853.jpg" width=1280 height=768 layout=responsive></amp-img>
       <figcaption>Here is a responsive image.</figcaption>
     </figure>
 
@@ -196,23 +196,23 @@ This is a sample template for a news article in AMP. It demonstrates the usage o
     -->
     <amp-carousel width="1280" height="970" layout="responsive" type="slides"> 
       <figure>
-        <amp-img src="/img/landscape_trees_1280x823.jpg" width=1280 height=853 layout=responsive></amp-img>
+        <amp-img src="/img/landscape_trees_1280x960.jpg" width=1280 height=960 layout=responsive></amp-img>
         <figcaption>This is an image gallery.</figcaption>
       </figure>
       <figure>
-        <amp-img src="/img/landscape_lake_1280x853.jpg" width=1280 height=853 layout=responsive></amp-img>
+        <amp-img src="/img/landscape_lake_1280x857.jpg" width=1280 height=857 layout=responsive></amp-img>
         <figcaption>Each image has a different caption.</figcaption>
       </figure>
       <figure>
-        <amp-img src="/img/landscape_canyon_1280x853.jpg" width=1280 height=853 layout=responsive></amp-img>
+        <amp-img src="/img/landscape_village_1280x853.jpg" width=1280 height=853 layout=responsive></amp-img>
         <figcaption>Each image has a different caption.</figcaption>
       </figure>
       <figure>
-        <amp-img src="/img/landscape_hills_1280x853.jpg" width=1280 height=853 layout=responsive></amp-img>
+        <amp-img src="/img/landscape_trees_1280x960.jpg" width=1280 height=960 layout=responsive></amp-img>
         <figcaption>Each image has a different caption.</figcaption>
       </figure>
       <figure>
-        <amp-img src="/img/landscape_mountains_1280x853.jpg" width=1280 height=853 layout=responsive></amp-img>
+        <amp-img src="/img/landscape_desert_1280x853.jpg" width=1280 height=853 layout=responsive></amp-img>
         <figcaption>Each image has a different caption.</figcaption>
       </figure>
     </amp-carousel>

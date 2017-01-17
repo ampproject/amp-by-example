@@ -2,18 +2,18 @@
   <a id="hamburger" class="button" on='tap:drawermenu.toggle'>
     <amp-img srcset="/img/ic_menu_white_1x_web_24dp.png 1x, /img/ic_menu_white_2x_web_24dp.png 2x" width="24" height="24" alt="navigation"></amp-img>
   </a>
-  <a id="logo" href="/">AMP by Example</a>
+  <a id="logo" href="/"></a>
   <div id="actions">
     {{#metadata.preview}}
-    <a href="preview/" class="button hide-on-mobile"> 
-      <amp-img srcset="/img/ic_play_circle_filled_white_24dp_1x 1x, /img/ic_play_circle_filled_white_24dp_2x.png 2x" width="24" height="24" alt="preview"></amp-img>
-      <span>Show Preview</span>
+    <a href="{{urlPreview}}" class="button hide-on-mobile"> 
+      <amp-img srcset="/img/ic_play_circle_filled_white_24dp_1x.png 1x, /img/ic_play_circle_filled_white_24dp_2x.png 2x" width="24" height="24" alt="preview"></amp-img>
+      <span>View Demo</span>
     </a>
     {{/metadata.preview}}
     {{#github}}
     <a href="{{github}}" class="button" target="_blank">
       <amp-img srcset="/img/GitHub-Mark-Light-32px.png 1x, /img/GitHub-Mark-Light-64px.png 2x" width="24" height="24" alt="Github" attribution="github" ></amp-img>
-      <span class="hide-on-mobile">View on Github</span>
+      <span class="hide-on-mobile">View Source</span>
     </a>
     {{/github}}
   </div>

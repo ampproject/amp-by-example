@@ -22,17 +22,26 @@ import (
 	"net/http"
 	"path"
 	"strings"
+	"time"
+	"strconv"
 )
 
 const (
-	SAMPLE_TEMPLATE_FOLDER = "/samples_templates"
-	SEARCH                 = "search"
+	SEARCH           = "search"
+	SHOPPING_CART    = "shopping_cart"
+	ADD_TO_CART_PATH = "/samples_templates/product/add_to_cart"
+	ABE_CLIENT_ID    = "ABE_CLIENT_ID"
 )
 
 type ProductListingPage struct {
 	Title        string
 	Products     []Product
 	SearchAction string
+	Mode         string
+}
+
+type ProductPage struct {
+	Mode string
 }
 
 type Product struct {
@@ -45,6 +54,17 @@ type Product struct {
 	Url         string `json:"url"`
 }
 
+type ShoppingCartItem struct {
+	Img      string `json:"img"`
+	Name     string `json:"name"`
+	Price    string `json:"price"`
+	Quantity string `json:"quantity"`
+}
+
+type ShoppingCart struct {
+	ShoppingCart []ShoppingCartItem
+}
+
 func (p *Product) StarsAsHtml() template.HTML {
 	return template.HTML(p.Stars)
 }
@@ -54,12 +74,45 @@ type JsonRoot struct {
 }
 
 var products []Product
-var productListingTemplate template.Template
+var cache *LRUCache
 
 func InitProductListing() {
 	initProducts(DIST_FOLDER + "/json/related_products.json")
-	registerProductListingHandler("product_listing")
-	registerProductListingHandler("product_listing/preview")
+	RegisterSample(SHOPPING_CART, gotToShoppingCart)
+	RegisterSample("samples_templates/product_listing", renderProductListing)
+	RegisterSample("samples_templates/product", renderProduct)
+	RegisterSampleEndpoint("samples_templates/product_listing", SEARCH, handleSearchRequest)
+	http.HandleFunc(ADD_TO_CART_PATH, func(w http.ResponseWriter, r *http.Request) {
+		handlePost(w, r, addToCart)
+	})
+	cache = NewLRUCache(100)
+}
+
+func addToCart(w http.ResponseWriter, r *http.Request) {
+	EnableCors(w, r)
+	response := ""
+	name := r.FormValue("name")
+	quantity := r.FormValue("quantity")
+	clientId := r.FormValue("clientId")
+	img := r.FormValue("img")
+	price := r.FormValue("price")
+
+	shoppingCartFromCache, shoppingCartIsInCache := cache.Get(clientId)
+	if shoppingCartIsInCache {
+		quantityNumber, _ := strconv.Atoi(quantity)
+		quantityFromCacheNumber, _ := strconv.Atoi(shoppingCartFromCache.(ShoppingCart).ShoppingCart[0].Quantity)
+		quantity = strconv.Itoa(quantityFromCacheNumber + quantityNumber)
+	}
+	shoppingCartItem := ShoppingCartItem{img, name, price, quantity}
+	shoppingCartItems := []ShoppingCartItem{shoppingCartItem}
+	cache.Add(clientId, ShoppingCart{ShoppingCart: shoppingCartItems})
+
+	if clientId != "" {
+		response = fmt.Sprintf("{\"ClientId\":\"%s\"}", clientId)
+		w.Write([]byte(response))
+	} else {
+		w.WriteHeader(http.StatusBadRequest)
+	}
 }
 
 func initProducts(path string) {
@@ -75,28 +128,52 @@ func initProducts(path string) {
 	products = root.Products
 }
 
-func registerProductListingHandler(sampleName string) {
-	filePath := path.Join(DIST_FOLDER, SAMPLE_TEMPLATE_FOLDER, sampleName, "index.html")
-	template, err := template.New("index.html").Delims("[[", "]]").ParseFiles(filePath)
-	if err != nil {
-		panic(err)
+func redirectToShoppingCart(w http.ResponseWriter, r *http.Request, page Page, clientId string) {
+	expireInOneDay := time.Now().AddDate(0, 0, 1)
+	cookie := &http.Cookie{
+		Name:    ABE_CLIENT_ID,
+		Expires: expireInOneDay,
+		Value:   clientId,
 	}
-	route := path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName) + "/"
-	http.HandleFunc(route, func(w http.ResponseWriter, r *http.Request) {
-		renderProductListing(w, r, sampleName, *template)
-	})
-	http.HandleFunc(route+SEARCH, func(w http.ResponseWriter, r *http.Request) {
-		handleSearchRequest(w, r, sampleName)
-	})
+	http.SetCookie(w, cookie)
+	route := page.Route
+	// remove CLIENT_ID from URL
+	route = strings.Split(route, "?")[0]
+
+	http.Redirect(w, r, route, http.StatusFound)
 }
 
-func renderProductListing(w http.ResponseWriter, r *http.Request, sampleName string, t template.Template) {
-	productListing := searchProducts(sampleName, r.URL.Query().Get(SEARCH))
-	w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d, public, must-revalidate", MAX_AGE_IN_SECONDS))
-	t.Execute(w, productListing)
+func renderShoppingCart(w http.ResponseWriter, r *http.Request, page Page, clientId string){
+	cookie, err := r.Cookie(ABE_CLIENT_ID)
+	if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			response := fmt.Sprintf("{\"error\":\"%s\"}", err)
+			w.Write([]byte(response))
+	}
+	shoppingCart, _ := cache.Get(cookie.Value)
+	shoppingCartItem := shoppingCart.(ShoppingCart).ShoppingCart[0]
+	page.Render(w, shoppingCartItem)
 }
 
-func searchProducts(sampleName string, query string) ProductListingPage {
+func gotToShoppingCart(w http.ResponseWriter, r *http.Request, page Page) {
+	clientId := r.FormValue("clientId")
+	if clientId != "" {
+		redirectToShoppingCart(w, r, page, clientId)
+	} else {
+		renderShoppingCart(w, r, page, clientId)
+	}
+}
+
+func renderProduct(w http.ResponseWriter, r *http.Request, page Page) {
+	page.Render(w, ProductPage{Mode: page.Mode})
+}
+
+func renderProductListing(w http.ResponseWriter, r *http.Request, page Page) {
+	productListing := searchProducts(page, r.URL.Query().Get(SEARCH))
+	page.Render(w, productListing)
+}
+
+func searchProducts(page Page, query string) ProductListingPage {
 	var title string
 	var result []Product
 	if query == "" {
@@ -104,23 +181,30 @@ func searchProducts(sampleName string, query string) ProductListingPage {
 		result = products
 	} else {
 		title = "Search Results for '" + query + "'"
-		query = strings.ToLower(query)
-		for _, product := range products {
-			productName := strings.ToLower(product.Name)
-			if strings.Contains(productName, query) {
-				result = append(result, product)
-			}
-		}
+		result = findProducts(query)
 	}
-	searchAction := path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName, query)
-	return ProductListingPage{Title: title, Products: result, SearchAction: searchAction}
+	searchAction := path.Join(page.Route, query)
+	return ProductListingPage{
+		Title:        title,
+		Products:     result,
+		SearchAction: searchAction,
+		Mode:         page.Mode,
+	}
 }
 
-func handleSearchRequest(w http.ResponseWriter, r *http.Request, sampleName string) {
-	if r.Method != "POST" {
-		http.Error(w, "post only", http.StatusMethodNotAllowed)
-		return
+func findProducts(query string) []Product {
+	query = strings.ToLower(query)
+	var result []Product
+	for _, product := range products {
+		productName := strings.ToLower(product.Name)
+		if strings.Contains(productName, query) {
+			result = append(result, product)
+		}
 	}
-	route := path.Join(SAMPLE_TEMPLATE_FOLDER, sampleName, "?"+SEARCH+"=") + r.FormValue(SEARCH)
+	return result
+}
+
+func handleSearchRequest(w http.ResponseWriter, r *http.Request, page Page) {
+	route := page.Route + "?" + SEARCH + "=" + r.FormValue(SEARCH)
 	http.Redirect(w, r, route, http.StatusSeeOther)
 }

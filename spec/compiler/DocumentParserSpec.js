@@ -189,6 +189,24 @@ describe("DocumentParser", function() {
     });
   });
 
+  describe('extracts body tag', function() {
+    it("no body", function() {
+      const noBody = '<notBody>';
+      expect(parse('something').body).toEqual('');
+    });
+    it("body only", function() {
+      expect(parse(BODY).body).toEqual(BODY);
+    });
+    it("body with attributes", function() {
+      const bodyWithAttributes = '<body attr="hello" attr2="world">';
+      expect(parse(bodyWithAttributes).body).toEqual(bodyWithAttributes);
+    });
+    it("incomplete body", function() {
+      const noBody = '<body';
+      expect(parse('something').body).toEqual('');
+    });
+  });
+
   function newSection(comment, doc, preview, isFirstSection, isLastSection) {
     const section = new CodeSection(comment, doc, preview);
     section.isLastSection = isLastSection;
