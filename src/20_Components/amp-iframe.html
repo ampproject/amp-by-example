@@ -1,26 +1,26 @@
 <!--
   #### Introduction
 
-  Embed iframes into AMP files.
+  Embed iframes into AMP files. Useful for displaying content otherwise not (yet) supported by AMP.
 -->
 <!-- -->
 <!doctype html>
 <html ⚡>
 <head>
   <meta charset="utf-8">
-  <link rel="canonical" href="<%host%>/components/amp-iframe/">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
   <!--  Import the amp-iframe component in the header. -->
   <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+  <link rel="canonical" href="<%host%>/components/amp-iframe/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-  <script async src="https://cdn.ampproject.org/v0.js"></script>
 </head>
 <body>
 
   <!--
     Iframes must be either 600px away from the top or not within the first 75% of the viewport when
     scrolled to the top – whichever is smaller. This example might not work depending on your screen
-    width. In this case it will  only show an loading indicator.
+    width. In that case it will only show a loading indicator.
   -->
   <amp-iframe width="500" height="281"
                           layout="responsive"
@@ -53,7 +53,7 @@
   </amp-iframe>
 
   <!-- #### Giphy -->
-  <!-- -->
+  <!-- Here is another iframe sample embedding an animated GIF from [Giphy](https://giphy.com). -->
   <amp-iframe width="600" height="400"
                           layout="responsive"
                           sandbox="allow-scripts allow-same-origin allow-popups"

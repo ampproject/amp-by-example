@@ -19,6 +19,8 @@
 const S = require('string');
 const highlight = require('highlight.js').highlight;
 const marked = require('marked');
+const encodedTemplateRegexp = /\[\[\s*<.*?>([A-Za-z]*?)\s*(<.*?>)?(\.[A-Za-z]*)?\s*<\/span>\s*\]\]/g
+
 marked.setOptions({
   highlight: function(code, lang) {
     if (lang) {
@@ -30,7 +32,7 @@ marked.setOptions({
 });
 const COMMENT_START = '<!--';
 const COMMENT_END = '-->';
-
+const HIDDEN_LINE_COUNT_THRESHOLD = 4;
 
 module.exports = class CodeSection {
 
@@ -66,7 +68,7 @@ module.exports = class CodeSection {
 
   escapedCode() {
     const result = S(this.code).trimRight().s;
-    return highlight('html', result).value;
+    return this.cleanUpCode(highlight('html', result).value);
   }
 
   markedDoc() {
@@ -88,7 +90,19 @@ module.exports = class CodeSection {
     return this.hideDocOnMobile() || !this.code.trim();
   }
 
+  hideColumns() {
+    return !this.doc.trim() && this.shouldHideSection(this.code);
+  }
+
   /* PRIVATE */
+  shouldHideSection(str) {
+    const lines = str.trim().split(/\r\n|\r|\n/);
+    return lines.length > HIDDEN_LINE_COUNT_THRESHOLD || lines.some(this.isBoilerplate);
+  }
+
+  isBoilerplate(str) {
+    return str.trim().startsWith('<style amp-boilerplate>')
+  }
 
   /**
    * Normalizes a string based on the indentation of the comment tag.
@@ -119,6 +133,10 @@ module.exports = class CodeSection {
       }
     }
     return startIndex;
+  }
+
+  cleanUpCode(input) {
+    return input.replace(encodedTemplateRegexp,"[[$1 $3]]");
   }
 };
 

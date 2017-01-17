@@ -18,6 +18,13 @@ threadsafe: yes
 default_expiration: 1d
 
 handlers:
+- url: /sw\.js$
+  secure: always
+  static_files: static/sw.js
+  upload: static/sw\.js$
+  expiration: 0
+  http_headers:
+    Access-Control-Allow-Origin: "*"
 
 - url: /favicons
   static_dir: dist/favicons
@@ -56,9 +63,9 @@ skip_files:
 - node_modules
 - scripts
 - src
-- static
 - spec
 - tasks
+- android
 - ^(.*/)?.*\.DS_Store$
 - ^(.*/)?.*\.swp$
 - api

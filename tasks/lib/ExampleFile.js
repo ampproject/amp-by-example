@@ -101,11 +101,26 @@ class ExampleFile {
     return path.join(this.targetParentDir(), this.targetName(), 'index.html');
   }
 
+  targetEmbedPath() {
+    return path.join(this.targetParentDir(), 
+      this.targetName(), 
+      'embed', 
+      'index.html');
+  }
+
   targetPreviewPath() {
     return path.join(this.targetParentDir(),
         this.targetName(),
         'preview',
         'index.html');
+  }
+
+  targetPreviewEmbedPath() {
+    return path.join(this.targetParentDir(), 
+      this.targetName(), 
+      'preview',
+      'embed', 
+      'index.html');
   }
 
   title() {
@@ -118,6 +133,18 @@ class ExampleFile {
       '/' +
       this.targetName() +
       '/';
+  }
+
+  urlPreview() {
+    return this.url() + 'preview/'; 
+  }
+
+  urlPreviewEmbed() {
+    return this.urlPreview() + 'embed/'; 
+  }
+
+  urlEmbed() {
+    return this.url() + 'embed/'; 
   }
 
   /** private **/

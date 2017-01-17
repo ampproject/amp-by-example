@@ -16,7 +16,6 @@ package main
 
 import (
 	"backend"
-	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -25,7 +24,6 @@ import (
 const (
 	MAX_AGE_IN_SECONDS = 180 // three minutes
 	OLD_ADDRESS        = "amp-by-example.appspot.com"
-	NEW_ADDRESS        = "https://ampbyexample.com"
 	DIST_DIR           = "dist"
 )
 
@@ -36,12 +34,13 @@ func init() {
 	backend.InitAmpCache()
 	backend.InitProductListing()
 	backend.InitHousingForm()
-	backend.InitAmpAccess()
 	backend.InitAmpAnalytics()
-	http.Handle("/", RedirectDomain(NoDirListing(http.FileServer(http.Dir(DIST_DIR)))))
+	backend.InitCommentSection()
+	backend.InitHotelSample()
+	http.Handle("/", ServeStaticFiles(HandleNotFound(http.FileServer(http.Dir(DIST_DIR)))))
 }
 
-func NoDirListing(h http.Handler) http.HandlerFunc {
+func HandleNotFound(h http.Handler) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if strings.HasSuffix(r.URL.Path, "/") && !exists(DIST_DIR+r.URL.Path+"index.html") {
 			http.NotFound(w, r)
@@ -51,15 +50,14 @@ func NoDirListing(h http.Handler) http.HandlerFunc {
 	})
 }
 
-func RedirectDomain(h http.Handler) http.Handler {
+func ServeStaticFiles(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.Host == OLD_ADDRESS ||
-			(r.TLS == nil && !strings.HasPrefix(r.Host, "localhost")) {
-			http.Redirect(w, r, NEW_ADDRESS+r.URL.Path, http.StatusMovedPermanently)
+		if r.Host == OLD_ADDRESS || backend.IsInsecureRequest(r) {
+			backend.RedirectToSecureVersion(w, r)
 			return
 		}
-		w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d, public", MAX_AGE_IN_SECONDS))
-		w.Header().Set("Access-Control-Allow-Origin", "*")
+		backend.EnableCors(w, r)
+		backend.SetDefaultMaxAge(w)
 		h.ServeHTTP(w, r)
 	})
 }

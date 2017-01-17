@@ -22,6 +22,9 @@ handlers:
 - url: /img
   static_dir: img
   secure: always
+- url: /scripts
+  static_dir: scripts
+  secure: always
 - url: /third_party
   static_dir: third_party
   secure: always

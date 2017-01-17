@@ -29,7 +29,9 @@ module.exports = class Document {
     this.head = '';
     this.styles = '';
     this.title = '';
-    this.metadata = '';
+    this.metadata = {};
+    this.body = '';
+    this.elementsAfterBody = '';
   }
 
   addSection(section) {
@@ -85,6 +87,10 @@ module.exports = class Document {
    */
   importsComponent(componentName) {
     return this.head.indexOf('custom-element="' + componentName + '"') > -1;
+  }
+
+  includesLink(relType) {
+    return this.head.indexOf('rel="' + relType + '"') > -1;
   }
 
   /* private */

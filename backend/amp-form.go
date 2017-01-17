@@ -21,28 +21,25 @@ import (
 
 const (
 	ERROR_CASE_AMP_FORM = "error"
-	FORM_SAMPLE_PATH    = "/components/amp-form/"
+	SAMPLE_NAME         = "/" + CATEGORY_COMPONENTS + "/amp-form/"
 )
 
 func InitAmpForm() {
-	http.HandleFunc(FORM_SAMPLE_PATH+"submit-form-input-text-xhr", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc(SAMPLE_NAME+"submit-form-input-text-xhr", func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitFormXHRInputText)
 	})
-	http.HandleFunc(FORM_SAMPLE_PATH+"submit-form-input-text", func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, submitFormInputText)
-	})
-	http.HandleFunc(FORM_SAMPLE_PATH+"submit-form-xhr", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc(SAMPLE_NAME+"submit-form-xhr", func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitFormXHR)
 	})
-	http.HandleFunc(FORM_SAMPLE_PATH+"submit-form", func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, submitForm)
+	http.HandleFunc(SAMPLE_NAME+"submit-form", func(w http.ResponseWriter, r *http.Request) {
+		submitForm(w, r)
 	})
 
 }
 
 func submitFormXHRInputText(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
-	w.Header().Set("Content-Type", "application/json")
+	EnableCors(w, r)
+	SetContentTypeJson(w)
 	response := ""
 	name := r.FormValue("name")
 	if isUserTryingTheInputTextErrorDemo(name) {
@@ -53,24 +50,15 @@ func submitFormXHRInputText(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(response))
 }
 
-func submitFormInputText(w http.ResponseWriter, r *http.Request) {
-	name := r.FormValue("name")
-	if isUserTryingTheInputTextErrorDemo(name) {
-		http.Redirect(w, r, fmt.Sprintf("%s/amp-form-input-text-error/", buildSourceOrigin(r.Host)), http.StatusSeeOther)
-	} else {
-		http.Redirect(w, r, fmt.Sprintf("%s/amp-form-input-text-success/", buildSourceOrigin(r.Host)), http.StatusSeeOther)
-	}
-}
-
 func submitFormXHR(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
-	w.Header().Set("Content-Type", "application/json")
+	EnableCors(w, r)
+	SetContentTypeJson(w)
 	response := "{\"result\":\"ok\"}"
 	w.Write([]byte(response))
 }
 
 func submitForm(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, fmt.Sprintf("%s/amp-form-success/", buildSourceOrigin(r.Host)), http.StatusSeeOther)
+	http.Redirect(w, r, "/amp-form-success/", http.StatusSeeOther)
 }
 
 func isUserTryingInpuTextDemo(name string) bool {

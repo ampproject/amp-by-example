@@ -110,16 +110,17 @@ module.exports = function(config, updateTimestamp) {
     }
 
     const stream = this;
-    compileIndex(stream);
+    const categories = mapToCategories(examples);
+    compileIndex(stream, categories);
+    compileSitemap(stream, categories);
     compileExamples(stream);
-
     cb();
   }
 
-  function compileIndex(stream) {
+  function compileIndex(stream, categories) {
     const args = {
       config: config,
-      categories: mapToCategories(examples),
+      categories: categories,
       title: 'AMP by Example',
       desc: 'A hands-on introduction to Accelerated Mobile Pages (AMP) ' +
         'focusing on code and live samples. Learn how to create AMP pages ' +
@@ -139,13 +140,21 @@ module.exports = function(config, updateTimestamp) {
     stream.push(indexFile);
   }
 
+  function compileSitemap(stream, categories) {
+    const indexFile = latestFile.clone({contents: false});
+    indexFile.path = path.join(latestFile.base, "sitemap.json");
+    indexFile.contents = new Buffer(JSON.stringify(categories, null, 2));
+    gutil.log('Generated ' + indexFile.relative);
+    stream.push(indexFile);
+  }
+
   function findNextExample(examples, index) {
       const next = examples[index];
       if (!next) {
         return null;
       }
       const metadata = next.document.metadata;
-      if (metadata && metadata.draft) {
+      if (!next.category() || (metadata && metadata.draft)) {
         return findNextExample(examples, index+1);
       }
       return next;
@@ -166,29 +175,39 @@ module.exports = function(config, updateTimestamp) {
         desc: document.description(),
         timestamp: timestamp,
         fileName: example.url(),
+        urlPreview: example.urlPreview(),
         github: example.githubUrl(),
         subHeading: example.title(),
         exampleStyles: document.styles,
         categories: mapToCategories(examples, example),
         component: document.metadata.component,
+        bodyTag: document.body,
+        elementsAfterBody: document.elementsAfterBody,
         sections: document.sections,
         metadata: document.metadata,
         nextExample: nextExample,
         skipCanonical: document.hasCanonical(),
+        includesManifest: document.includesLink('manifest'),
         includesAnalytics: document.importsComponent('amp-analytics'),
         includesAccordion: document.importsComponent('amp-accordion'),
         includesSidebar: document.importsComponent('amp-sidebar'),
-        includesServiceWorker: document.importsComponent('amp-install-serviceworker')
+        includesServiceWorker: document.importsComponent('amp-install-serviceworker') || document.metadata.skipServiceWorker
       };
       Metadata.add(args);
 
       // compile example
-      const sampleHtml = pageTemplates.render(config.templates.example, args);
-      file.path = path.join(file.base, example.targetPath());
-      file.metadata = document.metadata;
-      file.contents = new Buffer(sampleHtml);
-      gutil.log('Generated ' + file.relative);
-      stream.push(file);
+      compileTemplate(stream, example, args, {
+        template: config.templates.example,
+        targetPath: example.targetPath(),
+        isEmbed: false
+      });
+
+      // compile embed
+      compileTemplate(stream, example, args, {
+        template: config.templates.example,
+        targetPath: example.targetEmbedPath(),
+        isEmbed: true
+      });
 
       // compile example preview
       if (document.metadata.preview) {
@@ -210,17 +229,23 @@ module.exports = function(config, updateTimestamp) {
           args.a4aEmbedUrl = config.api.host + '/' + example.targetPath();
         }
 
-        // generate preview
         args.title = example.title() + ' (Preview) - ' + 'AMP by Example';
         args.desc = "This is a live preview of the '" + example.title() + "' sample. " + args.desc;
         args.canonical = config.host + example.url() + 'preview/';
-        const previewFile = file.clone({contents: false});
-        const previewHtml = pageTemplates.render(previewTemplate, args);
-        previewFile.path = path.join(file.base, example.targetPreviewPath());
-        previewFile.metadata = document.metadata;
-        previewFile.contents = new Buffer(previewHtml);
-        gutil.log('Generated ' + previewFile.relative);
-        stream.push(previewFile);
+
+        // generate preview
+        compileTemplate(stream, example, args, {
+          template: previewTemplate,
+          targetPath: example.targetPreviewPath(),
+          isEmbed: false
+        });
+
+        // generate preview embed
+        compileTemplate(stream, example, args, {
+          template: previewTemplate,
+          targetPath: example.targetPreviewEmbedPath(),
+          isEmbed: true
+        });
       }
     });
   }
@@ -249,22 +274,38 @@ module.exports = function(config, updateTimestamp) {
         const selected = currentExample &&
           exampleFile.title() == currentExample.title();
 
-        let exampleUrl = exampleFile.url();
-        if(exampleFile.document.metadata.default == 'preview') {
-          exampleUrl += "preview/";
-        }
+        const experiments = exampleFile.document.metadata.experiments;
 
         currentCategory.examples.push({
           title: exampleFile.title(),
           name: exampleFile.name(),
           description: exampleFile.document.description(),
-          url: exampleUrl,
+          url: exampleFile.url(),
+          urlPreview: exampleFile.urlPreview(),
+          urlPreviewEmbed: exampleFile.urlPreviewEmbed(),
+          urlEmbed: exampleFile.urlEmbed(),
           selected: selected,
-          experiments: exampleFile.document.metadata.experiments,
+          metadata: exampleFile.document.metadata,
+          experiments: experiments,
+          experiment: experiments && experiments.length > 0,
           highlight: exampleFile.document.metadata.highlight
         });
       });
     return categories;
+  }
+
+  function compileTemplate(stream, example, args, options) {
+    const document = example.document;
+    const inputFile = example.file;
+    args.isEmbed = options.isEmbed;
+    const sampleHtml = pageTemplates.render(options.template, args);
+    args.isEmbed = false;
+    const sampleFile = inputFile.clone({contents: false});
+    sampleFile.path = path.join(inputFile.base, options.targetPath);
+    sampleFile.metadata = document.metadata;
+    sampleFile.contents = new Buffer(sampleHtml);
+    gutil.log('Generated ' + sampleFile.relative);
+    stream.push(sampleFile);
   }
 
   function sort(examples) {
@@ -272,6 +313,10 @@ module.exports = function(config, updateTimestamp) {
       return a.filePath.localeCompare(b.filePath);
     });
     return examples;
+  }
+
+  function clone(obj) {
+    return JSON.parse(JSON.stringify(obj));
   }
 
   return through.obj(bufferContents, endStream);
