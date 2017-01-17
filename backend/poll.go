@@ -23,6 +23,7 @@ import (
 	"google.golang.org/appengine/datastore"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 const (
@@ -31,6 +32,7 @@ const (
 	POLL_ANSWER           = "PollAnswer"
 	ALREADY_VOTED_MESSAGE = "You have already answered this poll. If you want to run this sample again, use an incognito window."
 	THANKS_MESSAGE        = "Thanks for answering the poll!"
+	POLL_COOKIE_NAME      = "POLL_USER_ID"
 )
 
 //holds the answer chosen by the user and the client id, used for storing data coming from the UI
@@ -95,7 +97,9 @@ func createPollResult(answers []int, message string) PollResult {
 	 }
 	hundredDividedByTotalVotes := float64(100)/float64(totalAnswers)
 	for questionIndex, votes := range answers {
-		results[questionIndex] = PollEntryResult{votes, make([]int, int(hundredDividedByTotalVotes * float64(votes))), questions[questionIndex]}
+		results[questionIndex] = PollEntryResult{votes,
+			make([]int, int(hundredDividedByTotalVotes * float64(votes))),
+			questions[questionIndex]}
 	}
 	return PollResult{results, message}
 }
@@ -109,7 +113,7 @@ func submitPoll(w http.ResponseWriter, r *http.Request) {
 		handleError(error, w)
 		return
 	}
-	pollResult, error := calculatePollResults(w, context, pollForm)
+	pollResult, error := calculatePollResults(w, r, context, pollForm)
 	if error != nil {
 		handleError(error, w)
 		return
@@ -128,7 +132,7 @@ func parsePollForm(w http.ResponseWriter, r *http.Request, context context.Conte
 	return pollForm, error
 }
 
-func calculatePollResults(w http.ResponseWriter, ctx context.Context, pollForm PollForm) (PollResult, error) {
+func calculatePollResults(w http.ResponseWriter, r *http.Request, ctx context.Context, pollForm PollForm) (PollResult, error) {
 	//get the poll
 	pollKey := datastore.NewKey(ctx, "Poll", "poll", 0, nil)
 	var poll Poll
@@ -138,28 +142,42 @@ func calculatePollResults(w http.ResponseWriter, ctx context.Context, pollForm P
 	if err == nil && (len(poll.PollAnswers) == len(questions)) {
 		pollExistingAnswers = poll.PollAnswers
 	}
-	//check if the user has already voted
-	clientId := pollForm.ClientId
-	clientIdKey := datastore.NewKey(ctx, "ClientId", clientId, 0, nil)
-	var existingClientId ClientId
-	err = datastore.Get(ctx, clientIdKey, &existingClientId)
+	//check if the user has already voted by checking the user id cookie existance,
+	cookie, err := r.Cookie(POLL_COOKIE_NAME)
 	if err == nil {
 		//return the existing poll answers and message to let the user know that has already voted
 		return createPollResult(pollExistingAnswers, ALREADY_VOTED_MESSAGE), nil
 	}
+		//cookies don't work on Safari when accessing the cdn, check if the user has already
+		//voted by checking the client id
+		clientId := pollForm.ClientId
+		clientIdKey := datastore.NewKey(ctx, "ClientId", clientId, 0, nil)
+		var existingClientId ClientId
+		err = datastore.Get(ctx, clientIdKey, &existingClientId)
+		if err == nil {
+			//return the existing poll answers and message to let the user know that has already voted
+			return createPollResult(pollExistingAnswers, ALREADY_VOTED_MESSAGE), nil
+		}
+		expireInOneYear := time.Now().AddDate(1, 0, 0)
+		cookie = &http.Cookie{
+			Name:    POLL_COOKIE_NAME,
+			Expires: expireInOneYear,
+			Value:   clientId,
+		}
+		http.SetCookie(w, cookie)
 
-	//add the clientId
-	answer := pollForm.Answer
-	_, err = datastore.Put(ctx, clientIdKey, &ClientId{true})
-	//increment the vote for the answer
-	pollExistingAnswers[answer] = pollExistingAnswers[answer] + 1
-	//persist the answer
-	_, err = datastore.Put(ctx, pollKey, &Poll{pollExistingAnswers})
+		//add the clientId
+		answer := pollForm.Answer
+		_, err = datastore.Put(ctx, clientIdKey, &ClientId{true})
+		//increment the vote for the answer
+		pollExistingAnswers[answer] = pollExistingAnswers[answer] + 1
+		//persist the answer
+		_, err = datastore.Put(ctx, pollKey, &Poll{pollExistingAnswers})
 
-	if err != nil {
-		return PollResult{}, err
-	}
-	return createPollResult(pollExistingAnswers, THANKS_MESSAGE), nil
+		if err != nil {
+			return PollResult{}, err
+		}
+		return createPollResult(pollExistingAnswers, THANKS_MESSAGE), nil
 }
 
 func parseNotEmptyFormValue(r *http.Request, input string) (string, error) {
