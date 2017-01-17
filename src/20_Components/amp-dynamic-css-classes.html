@@ -21,7 +21,8 @@
     body:not(.amp-referrer-pinterest-com) .if-pinterest, 
     body:not(.amp-referrer-ampbyexample-com) .if-ampbyexample, 
     body:not(.amp-referrer-google-com) .if-google,
-    body:not(.amp-referrer-twitter-com) .if-twitter {
+    body:not(.amp-referrer-twitter-com) .if-twitter,
+    body:not(.amp-referrer-localhost) .if-localhost {
       display: none;
     }
     body:not(.amp-viewer) .if-viewer,
@@ -52,6 +53,7 @@
   <span class="if-twitter">You were referred here or embedded by Twitter!  I'll add a few extra Tweet buttons</span>
   <span class="if-google">You were referred here or embedded by Google!  I'll add a few extra Google+ buttons</span>
   <span class="if-ampbyexample">You came here directly!  Cool :)</span>
+  <span class="if-localhost">You came here directly!  Cool :)</span>
 
   <!-- You can also use the referrer classes to reconfigure styling in a way that modifies user behavior -->
    <div class="social-share">
