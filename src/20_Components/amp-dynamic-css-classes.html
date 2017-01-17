@@ -29,16 +29,6 @@
     body.amp-viewer .if-not-viewer {
       display: none;
     }
-    div.social-share {
-      display: flex;
-      flex-flow: row wrap;
-    }
-    
-    body.amp-referrer-pinterest-com .social-share-pinterest, 
-    body.amp-referrer-google-com .social-share-gplus,
-    body.amp-referrer-twitter-com .social-share-twitter {
-      order: -1;
-    }
   </style>
 </head>
 <body>
@@ -55,14 +45,10 @@
   <span class="if-ampbyexample">You came here directly!  Cool :)</span>
   <span class="if-localhost">You came here directly!  Cool :)</span>
 
-  <!-- You can also use the referrer classes to reconfigure styling in a way that modifies user behavior -->
-   <div class="social-share">
-      <amp-social-share type="email" layout="flex-item" class="social-share-email"></amp-social-share>
-      <amp-social-share type="gplus" layout="flex-item" class="social-share-gplus"></amp-social-share>
-      <amp-social-share type="twitter" layout="flex-item" class="social-share-twitter"></amp-social-share>
-      <amp-social-share type="pinterest" layout="flex-item" class="social-share-pinterest"></amp-social-share>
-      <amp-social-share type="linkedin" layout="flex-item" class="social-share-linkedin"></amp-social-share>
-   </div>
+  <amp-social-share type="email" layout="relative"></amp-social-share>
+  <amp-social-share type="twitter" layout="relative" class="if-twitter"></amp-social-share>
+  <amp-social-share type="pinterest" layout="relative" class="if-pinterest"></amp-social-share>
+  <amp-social-share type="linkedin" layout="relative" class="if-linkedin"></amp-social-share>
 
   <!-- #### Viewer -->
   <span class="if-not-viewer">Hey!  You're not visiting within the context of an AMP Viewer!</span>
