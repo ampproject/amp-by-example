@@ -83,9 +83,15 @@ Import the additional AMP components. This sample uses a amp-form and mustache t
 <h4 id="header1">Flightless bird poll</h4>
 <!-- #### Poll -->
 <!--
-We use `amp-form` to realize a poll and the `CLIENT_ID` variable to identify the user,
-this enables us to know if the user has already submitted an answer.
-The `CLIENT_ID` variable can be used inside an amp-form by declaring an hidden input value with `default-value="CLIENT_ID(cart)`. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
+We use `amp-form` to implement a poll. To avoid multiple votes by the same user, we need to identify which users already voted.
+We use a cookie called `POLL_USER_ID` to identify the user.
+Given in Safari the default behavior is to block third-party cookies from sites that have not been previously visited, this approach may not work if the page is visited via the AMP Cache. In this case we fallback to checking for duplicate entries via the `CLIENT_ID`.
+The `CLIENT_ID` is an unique identifier for the user when
+accessing a specific origin, for example the original page or the cached version of it, this means that the same user will generate two different
+values when accessing different origins.
+The `CLIENT_ID` variable can be passed via an amp-form by declaring an hidden input
+value with `default-value="CLIENT_ID(poll)`.
+Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
 
 <form method="post" action-xhr="<%host%>/samples_templates/poll/submit" target="_blank"
       id="poll1"
