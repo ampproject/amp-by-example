@@ -165,7 +165,7 @@ This sample showcases how to build a product page in AMP HTML.
                    <input type="hidden" name="name" value="Apple">
                    <input type="hidden" name="price" value="$1.99">
                    <input type="hidden" name="img" value="/img/product1_1024x682.jpg">
-                   <input name="clientId" type="hidden" default-value="CLIENT_ID(cart)">
+                   <input name="clientId" type="hidden" value="CLIENT_ID(cart)" data-amp-replace="CLIENT_ID">
                    <div class="submit-success" submit-success>
                         <template type="amp-mustache">
                             <a class="button button-primary" href="<%host%>/shopping_cart/?clientId={{ClientId}}">view cart</a>
