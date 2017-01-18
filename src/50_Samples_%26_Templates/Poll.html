@@ -88,10 +88,10 @@ We use a cookie called `POLL_USER_ID` to identify the user.
 Given in Safari the default behavior is to block third-party cookies from sites that have not been previously visited, this approach may not work if the page is visited via the AMP Cache. In this case we fallback to checking for duplicate entries via the `CLIENT_ID`.
 The `CLIENT_ID` is an unique identifier for the user when
 accessing a specific origin, for example the original page or the cached version of it, this means that the same user will generate two different
-values when accessing different origins.
+values when accessing different origins. That's why we use a custom cookie to track cross origin access to the poll page.
 The `CLIENT_ID` variable can be passed via an amp-form by declaring an hidden input
 value with `default-value="CLIENT_ID(poll)`.
-Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
+Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/ab78ba87cbf0408ca0ddcfcba7e666e1c1152051/extensions/amp-form/amp-form.md#variable-substitutions). -->
 
 <form method="post" action-xhr="<%host%>/samples_templates/poll/submit" target="_blank"
       id="poll1"
