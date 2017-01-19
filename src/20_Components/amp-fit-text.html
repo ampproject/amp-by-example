@@ -1,8 +1,6 @@
+<!-- #### Introduction -->
 <!--
-  #### Introduction
--->
-<!--
-  `amp-fit-text` enables you to manage the size and fit of text within a given area
+  [amp-fit-text](https://www.ampproject.org/docs/reference/components/amp-fit-text) enables you to manage the size and fit of text within a given area.
 -->
 <!-- -->
 <!doctype html>
@@ -11,7 +9,7 @@
   <meta charset="utf-8">
   <!-- #### Setup -->
   <!--
-    Include the `amp-fit-text` component
+    Include the `amp-fit-text` component.
   -->
   <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
   <link rel="canonical" href="<%host%>/components/amp-fit-text/" >
@@ -36,10 +34,12 @@
   <!--
     When `amp-fit-text` is used with a given `height`, `width`, and `layout="responsive"` attribute, the text will scale responsively in the ratio provided but not exceed the size of its parent.
   -->
-  <div class="fixedblock"><amp-fit-text width="300" height="200" layout="responsive">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
-  <div class="fixedblock"><amp-fit-text width="200" height="200" layout="responsive">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
-  <div class="fixedblock"><amp-fit-text width="100" height="200" layout="responsive">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
-  <div class="fixedblock"><amp-fit-text width="100" height="100" layout="responsive">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
+  <div>
+    <div class="fixedblock"><amp-fit-text width="300" height="200" layout="responsive">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
+    <div class="fixedblock"><amp-fit-text width="200" height="200" layout="responsive">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
+    <div class="fixedblock"><amp-fit-text width="100" height="200" layout="responsive">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
+    <div class="fixedblock"><amp-fit-text width="100" height="100" layout="responsive">Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
+  </div>
   <!--
     The `min-font-size` attribute dictates a minimum size for the text.  In this case, we've dictated a minimum of 30, which will cause it to exceed the size of its fixed block parent and be truncated to fit as appropriate.
   -->
