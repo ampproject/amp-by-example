@@ -92,7 +92,7 @@ values when accessing different origins. That's why we use a custom cookie to tr
 The `CLIENT_ID` variable can be passed via an amp-form by declaring an hidden input
 value with `default-value="CLIENT_ID(poll)`.
 Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/ab78ba87cbf0408ca0ddcfcba7e666e1c1152051/extensions/amp-form/amp-form.md#variable-substitutions).
-Currently, HTML tables are not supported in form responses. -->
+Currently, HTML tables are not supported in form responses, that's why we use CSS to layout the result data.. -->
 
 <form method="post" action-xhr="<%host%>/samples_templates/poll/submit" target="_blank"
       id="poll1"
