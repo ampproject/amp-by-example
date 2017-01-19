@@ -91,7 +91,8 @@ accessing a specific origin, for example the original page or the cached version
 values when accessing different origins. That's why we use a custom cookie to track cross origin access to the poll page.
 The `CLIENT_ID` variable can be passed via an amp-form by declaring an hidden input
 value with `default-value="CLIENT_ID(poll)`.
-Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/ab78ba87cbf0408ca0ddcfcba7e666e1c1152051/extensions/amp-form/amp-form.md#variable-substitutions). -->
+Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/ab78ba87cbf0408ca0ddcfcba7e666e1c1152051/extensions/amp-form/amp-form.md#variable-substitutions).
+Currently, HTML tables are not supported in form responses, that's why we use CSS to layout the result data.. -->
 
 <form method="post" action-xhr="<%host%>/samples_templates/poll/submit" target="_blank"
       id="poll1"
@@ -116,7 +117,6 @@ Read more about variable substitution [here](https://github.com/ampproject/ampht
         <template type="amp-mustache">
             <p>{{Message}}</p>
             <p>Here are the results!</p>
-            <!--Currently, HTML tables are not supported in form responses. -->
           <div class="table">
             <span class="fixed-sixe-cell">Answer</span>
             <span class="fixed-size-cell">&nbsp;</span>
