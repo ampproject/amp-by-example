@@ -26,70 +26,112 @@ This sample showcases how to build a product page in AMP HTML.
     <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
     <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+    <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
 
     <link rel="canonical" href="<%host%>/samples_templates/product/">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <style amp-custom>
     <%>css/product.css%>
-    .call-to-action {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
     #product-description {
-        clear: both;
+      clear: both;
     }
     amp-lightbox {
-        background: rgba(0,0,0,0.8);
-        width: 100%;
-        height: 100%;
-        position: absolute;
+      background: rgba(0,0,0,0.8);
+      width: 100%;
+      height: 100%;
+      position: absolute;
     }
     amp-accordion p, amp-accordion h4 {
-        padding: 16px;
+      padding: 16px;
     }
     amp-accordion h4 {
-        font-size: 18px;
+      font-size: 18px;
     }
     .play {
-        padding-left: 28px;
-        background-position: left center;
-        background-repeat: no-repeat;
-        background-image: -webkit-image-set(url(/img/ic_play_circle_filled_black_1x_web_24dp.png) 1x,url(/img/ic_play_circle_filled_black_2x_web_24dp.png) 2x);
+      padding-left: 28px;
+      background-position: left center;
+      background-repeat: no-repeat;
+      background-image: -webkit-image-set(url(/img/ic_play_circle_filled_black_1x_web_24dp.png) 1x,url(/img/ic_play_circle_filled_black_2x_web_24dp.png) 2x);
     }
     .amp-youtube-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
     }
     #video-container, #social, form .button {
-        margin: 16px;
+      margin: 16px;
     }
     .video {
-        flex: 1;
+      flex: 1;
     }
     .price-description {
-        color: grey;
-        font-weight: 400;
-    }
-    form {
-        flex-wrap: nowrap;
-    }
-    form.amp-form-submit-success > #add-to-cart {
-        display: none;
-    }
-    form.amp-form-submitting > #add-to-cart {
-        color: #919191;
-    }
-    form .button {
-        min-width: 110px;
-        padding: 0px;
+      color: grey;
+      font-weight: 400;
     }
     .quantity {
-        margin: 16px 0;
+      margin: 16px 0;
+    }
+    #product-carousel {
+      margin: 16px 0;
+    }
+    form#order .submit-success ,
+    form#order {
+      display: flex;
+      flex-direction: column;
+    }
+    form#order label {
+      display: inline;
+      font-weight: 500;
+      font-size: 16px;
+    }
+    form#order .button {
+      width: 100%;
+      max-width: 400px;
+      align-self: center;
+      margin: 16px;
+      box-sizing: border-box;
+    }
+    form#order.amp-form-submit-success [name=add-to-cart] {
+      display: none;
+    }
+    form#order.amp-form-submitting [name=add-to-cart] {
+      color: #919191;
+    }
+    form#order amp-selector > * {
+      margin: 16px 16px 16px 0;
+      list-style: none;
+      display: flex;
+    }
+    form#order amp-selector > ul > li {
+      margin-right: 8px;
+      background: white;
+      min-width: 40px;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    form#order amp-selector > *:focus {
+      outline: none;
+    }
+    form#order amp-selector:not([disabled]) [option][selected]:not([disabled]) {
+      outline: none;
+      will-change: box-shadow;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+      color: #fff;
+      background-color: #eb407a;
+    }
+    form#order amp-selector:not([disabled]) [option]:not([selected]):not([disabled]) {
+      will-change: box-shadow;
+      will-change: opacity;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+    form#order amp-selector:not([disabled]) [option]:not([selected]):not([disabled]) amp-img {
+      opacity: 0.5;
     }
     </style>
 
@@ -133,121 +175,145 @@ This sample showcases how to build a product page in AMP HTML.
     <%>product/header.html%>
 
     <h2>Apple</h2>
-    <p id="product-description">Lorem ipsum dolor sit amet, ut sed non vel mattis. Et nulla suscipit ante ligula nisl in. Ut venenatis et mauris, mauris porta vulputate tellus mauris integer facilisis.</p>
-    <h5 class="price-description">From $1.99</h5>
-
-     <!-- #### Image Gallery -->
-    <!-- The `amp-carousel` works very well for product image galleries. Learn more about `amp-carousel` [here](/advanced/image_galleries_with_amp-carousel/). -->
-    <amp-carousel width="512" height="384" layout="responsive" type="slides">
-        <amp-img src="/img/product1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
-        <amp-img src="/img/product1_alt1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
-        <amp-img src="/img/product1_alt2_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
-    </amp-carousel>
-
-
-    <!-- #### Product Quantity -->
-    <!-- The add to cart action is implemented using  [amp-form](/components/amp-form/). In our sample we show a dropdown menu to select the item quantity. Pressing the `ADD TO CART` button adds the product to a shopping cart page using the quantity you have selected. This is realized by using a POST action which enables the button `VIEW CART` if there is no error.
-
-    Pressing the `VIEW CART` button leads to a shopping cart page. [amp-form](/components/amp-form/) doesn't support automatic redirect after post (yet). Instead, we use a button to redirect the user to a shopping cart. Notice that the button URL contains the query `clientId={{ClientId}}`
-
-    We are using the `CLIENT_ID` variable to identify the user, this enables storing a shopping cart between repeated visits of an AMP page (either via the AMP Cache or the original host). This variable can be used inside an amp-form by declaring an hidden input value with `default-value="CLIENT_ID(cart)`. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
-
-            <div class="call-to-action">
-                <form method="POST"
-                  action-xhr="<%host%>/samples_templates/product/add_to_cart"
-                  target="_top">
-                  <select name="quantity" class="data-input quantity">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                  </select>
-                   <input type="submit" class="button button-primary" id="add-to-cart" value="ADD TO CART">
-                   <input type="hidden" name="name" value="Apple">
-                   <input type="hidden" name="price" value="$1.99">
-                   <input type="hidden" name="img" value="/img/product1_1024x682.jpg">
-                   <input name="clientId" type="hidden" value="CLIENT_ID(cart)" data-amp-replace="CLIENT_ID">
-                   <div class="submit-success" submit-success>
-                        <template type="amp-mustache">
-                            <a class="button button-primary" href="<%host%>/shopping_cart/?clientId={{ClientId}}">view cart</a>
-                        </template>
-                    </div>
-                    <div submit-error>
-                        <template type="amp-mustache">
-                            Error! Looks like something went wrong with your shopping cart, please try to add an item again. {{error}}
-                        </template>
-                    </div>
-                </form>
-            </div>
-
-        <!-- #### Video -->
-        <!--
-AMP supports a wide range of video platforms. Here we are using `amp-youtube` to show a product video. You can find an overview of all supported video platforms [here](/advanced/integrating_videos_in_amp_an_overview/).
-
-In this sample we don't embed the video directly into the page, but instead show it in a lightbox using the `amp-lightbox` component. Learn more about `amp-lightbox` [here](/components/amp-lightbox/).
-        -->
-        <div id="video-container">
-            <a on="tap:watch-video-lightbox" role="button" class="button button-secondary play" tabindex="0">
-            Show Video
-            </a>
-
-            <amp-lightbox id="watch-video-lightbox" layout="nodisplay">
-                <div class="amp-youtube-container">
-                    <div class="video">
-                        <a on="tap:watch-video-lightbox.close" role="button" tabindex="0">
-                            Close
-                        </a>
-                        <amp-youtube width="480"
-                            height="270"
-                            layout=responsive
-                            data-videoid="lBTCB7yLs8Y" >
-                        </amp-youtube>
-                    </div>
-                </div>
-            </amp-lightbox>
-        </div>
 
     <!-- #### Social -->
     <!-- The Social Share extension provides a common interface for share buttons. Learn more about `amp-social-share` [here](/components/amp-social-share/). </a> -->
     <div id="social">
-        <amp-social-share type="twitter"
-        width="30"
-        height="22"></amp-social-share>
-        <amp-social-share type="facebook"
-        width="30"
-        height="22"
-        data-attribution=254325784911610></amp-social-share>
-        <amp-social-share type="gplus"
-        width="30"
-        height="22"></amp-social-share>
-        <amp-social-share type="email"
-        width="30"
-        height="22"></amp-social-share>
-        <amp-social-share type="pinterest"
-        width="33"
-        height="22"></amp-social-share>
+      <amp-social-share type="twitter"
+                        width="30"
+                        height="22"></amp-social-share>
+      <amp-social-share type="facebook"
+                        width="30"
+                        height="22"
+                        data-attribution=254325784911610></amp-social-share>
+      <amp-social-share type="gplus"
+                        width="30"
+                        height="22"></amp-social-share>
+      <amp-social-share type="email"
+                        width="30"
+                        height="22"></amp-social-share>
+      <amp-social-share type="pinterest"
+                        width="33"
+                        height="22"></amp-social-share>
     </div>
+
+    <p id="product-description">Lorem ipsum dolor sit amet, ut sed non vel mattis. Et nulla suscipit ante ligula nisl in. Ut venenatis et mauris, mauris porta vulputate tellus mauris integer facilisis.</p>
+    <!-- #### Video -->
+    <!--
+      AMP supports a wide range of video platforms. Here we are using `amp-youtube` to show a product video. You can find an overview of all supported video platforms [here](/advanced/integrating_videos_in_amp_an_overview/).
+
+      In this sample we don't embed the video directly into the page, but instead show it in a lightbox using the `amp-lightbox` component. Learn more about `amp-lightbox` [here](/components/amp-lightbox/).
+    -->
+    <div id="video-container">
+      <a on="tap:watch-video-lightbox" role="button" class="button button-secondary play" tabindex="0">
+        Show Video
+      </a>
+
+      <amp-lightbox id="watch-video-lightbox" layout="nodisplay">
+        <div class="amp-youtube-container">
+          <div class="video">
+            <a on="tap:watch-video-lightbox.close" role="button" tabindex="0">
+              Close
+            </a>
+            <amp-youtube width="480"
+                         height="270"
+                         layout=responsive
+                         data-videoid="lBTCB7yLs8Y" >
+            </amp-youtube>
+          </div>
+        </div>
+      </amp-lightbox>
+    </div>
+
+     <!-- #### Image Gallery -->
+    <!-- The `amp-carousel` component works very well for product image galleries. We use the [amp-selector component](/components/amp-selector/) to implement a film strip like slide preview. Clicking on a preview image will reveal the image in the carousel via the tap action `on="tap:product-carousel-preview.goToSlide(index=0)"`.   -->
+  <!-- The actual carousel. Learn how the `amp-carousel` component works [here](/advanced/image_galleries_with_amp-carousel/). -->
+    <amp-carousel id="product-carousel" width="1024" height="682" layout="responsive" type="slides">
+        <amp-img src="/img/product1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
+        <amp-img src="/img/product1_alt1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
+        <amp-img src="/img/product1_alt2_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
+    </amp-carousel>
+    <h5 class="price-description">$1.99</h5>
+
+    <!-- #### Product Quantity -->
+    <!-- The add to cart action is implemented using  [amp-form](/components/amp-form/). In our sample we use the [amp-selector](/components/amp-selector/) for selecting different product properties. Pressing the `ADD TO CART` button adds the product to a shopping cart page using the properties you have selected. As AMP doesn't support redirect after post (yet), we use a button to redirect the user to a shopping cart which is shown after the form has been submitted successfully. Notice that the button URL contains the query `clientId={{ClientId}}`
+
+    We are using the `CLIENT_ID` variable to identify the user, this enables storing a shopping cart between repeated visits of an AMP page (either via the AMP Cache or the original host). This variable can be used inside an amp-form by declaring an hidden input value with `default-value="CLIENT_ID(cart)`. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
+
+      <form id="order" method="POST"
+            action-xhr="<%host%>/samples_templates/product/add_to_cart"
+            target="_top">
+        <label>Color:
+          <amp-selector name="color" layout="container">
+            <ul>
+            <li on="tap:product-carousel.goToSlide(index=0)" tabindex="0" role="button" option="green" selected> 
+              <amp-img src="/img/product1_60x40.jpg" width="60" height="40"></amp-img>
+            </li>
+            <li on="tap:product-carousel.goToSlide(index=1)" tabindex="1" role="button" option="golden"> 
+              <amp-img src="/img/product1_alt1_60x40.jpg" width="60" height="40"></amp-img>
+            </li>
+            <li on="tap:product-carousel.goToSlide(index=2)" tabindex="2" role="button" option="red"> 
+              <amp-img src="/img/product1_alt2_60x40.jpg" width="60" height="40"></amp-img>
+            </li>
+            </ul>
+          </amp-selector>
+        </label>
+        <label>Quantity:
+          <amp-selector name="quantity" layout="container">
+            <ul>
+              <li option="1" selected>1</li>
+              <li option="2">2</li>
+              <li option="3">3</li>
+              </li>
+            </ul>
+          </amp-selector>
+        </label>
+        <label>Size:
+          <amp-selector name="size" layout="container">
+            <ul>
+              <li option="S">S</li>
+              <li option="M" selected>M</li>
+              <li option="L">L</li>
+            </ul>
+          </amp-selector>
+        </label>
+        <input type="submit" class="button button-primary" name="add-to-cart" value="add to cart">
+        <input type="hidden" name="name" value="Apple">
+        <input type="hidden" name="price" value="$1.99">
+        <input name="clientId" type="hidden" value="CLIENT_ID(cart)" data-amp-replace="CLIENT_ID">
+        <div class="submit-success" submit-success>
+          <template type="amp-mustache">
+            <a class="button button-primary" href="<%host%>/shopping_cart/?clientId={{ClientId}}">view cart</a>
+          </template>
+        </div>
+        <div submit-error>
+          <template type="amp-mustache">
+            Error! Looks like something went wrong with your shopping cart, please try to add an item again. {{error}}
+          </template>
+        </div>
+      </form>
 
     <!-- #### Collapsibles/Accordion -->
     <!-- Use `amp-accordion` to hide and show additional data about your product. Learn more about `amp-accordion` [here](/components/amp-accordion/). -->
     <div>
-        <amp-accordion>
-            <section>
-                <h4>Description</h4>
-                <p>Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
-            </section>
-            <section>
-                <h4>Specification</h4>
-                <p>Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
-            </section>
-            <section>
-                <h4>Measurements</h4>
-                <p>Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
-            </section>
-            <section>
-                <h4>Other</h4>
-                <p>Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
-            </section>
-        </amp-accordion>
+      <amp-accordion>
+        <section>
+          <h4>Description</h4>
+          <p>Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
+        </section>
+        <section>
+          <h4>Specification</h4>
+          <p>Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
+        </section>
+        <section>
+          <h4>Measurements</h4>
+          <p>Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
+        </section>
+        <section>
+          <h4>Other</h4>
+          <p>Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
+        </section>
+      </amp-accordion>
     </div>
 
     <!-- #### Dynamic Related Product Lists -->
@@ -256,14 +322,14 @@ In this sample we don't embed the video directly into the page, but instead show
     <%>product/related.html%>
 
     <!--
-    #### Analytics
+      #### Analytics
     -->
     <!--
-    Analytics must be configured in the body. Here we use Google Analytics to track pageviews.
+      Analytics must be configured in the body. Here we use Google Analytics to track pageviews.
     -->
     <amp-analytics type="googleanalytics">
-        <script type="application/json">
-        {
+      <script type="application/json">
+{
             "vars": {
                 "account": "UA-73836974-1"
             },
@@ -277,7 +343,7 @@ In this sample we don't embed the video directly into the page, but instead show
                 }
             }
         }
-        </script>
+      </script>
     </amp-analytics>
-</body>
+    </body>
 </html>

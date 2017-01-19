@@ -21,9 +21,9 @@ import (
 	"io/ioutil"
 	"net/http"
 	"path"
+	"strconv"
 	"strings"
 	"time"
-	"strconv"
 )
 
 const (
@@ -55,10 +55,10 @@ type Product struct {
 }
 
 type ShoppingCartItem struct {
-	Img      string `json:"img"`
 	Name     string `json:"name"`
 	Price    string `json:"price"`
 	Quantity string `json:"quantity"`
+	Color    string `json:"color"`
 }
 
 type ShoppingCart struct {
@@ -93,8 +93,8 @@ func addToCart(w http.ResponseWriter, r *http.Request) {
 	response := ""
 	name := r.FormValue("name")
 	quantity := r.FormValue("quantity")
+	color := r.FormValue("color")
 	clientId := r.FormValue("clientId")
-	img := r.FormValue("img")
 	price := r.FormValue("price")
 
 	shoppingCartFromCache, shoppingCartIsInCache := cache.Get(clientId)
@@ -103,7 +103,7 @@ func addToCart(w http.ResponseWriter, r *http.Request) {
 		quantityFromCacheNumber, _ := strconv.Atoi(shoppingCartFromCache.(ShoppingCart).ShoppingCart[0].Quantity)
 		quantity = strconv.Itoa(quantityFromCacheNumber + quantityNumber)
 	}
-	shoppingCartItem := ShoppingCartItem{img, name, price, quantity}
+	shoppingCartItem := ShoppingCartItem{name, price, quantity, color}
 	shoppingCartItems := []ShoppingCartItem{shoppingCartItem}
 	cache.Add(clientId, ShoppingCart{ShoppingCart: shoppingCartItems})
 
@@ -143,14 +143,18 @@ func redirectToShoppingCart(w http.ResponseWriter, r *http.Request, page Page, c
 	http.Redirect(w, r, route, http.StatusFound)
 }
 
-func renderShoppingCart(w http.ResponseWriter, r *http.Request, page Page, clientId string){
+func renderShoppingCart(w http.ResponseWriter, r *http.Request, page Page, clientId string) {
 	cookie, err := r.Cookie(ABE_CLIENT_ID)
 	if err != nil {
-			w.WriteHeader(http.StatusBadRequest)
-			response := fmt.Sprintf("{\"error\":\"%s\"}", err)
-			w.Write([]byte(response))
+		w.WriteHeader(http.StatusBadRequest)
+		response := fmt.Sprintf("{\"error\":\"%s\"}", err)
+		w.Write([]byte(response))
 	}
-	shoppingCart, _ := cache.Get(cookie.Value)
+	shoppingCart, exists := cache.Get(cookie.Value)
+	if !exists {
+		http.Error(w, http.StatusText(404), 404)
+		return
+	}
 	shoppingCartItem := shoppingCart.(ShoppingCart).ShoppingCart[0]
 	page.Render(w, shoppingCartItem)
 }
