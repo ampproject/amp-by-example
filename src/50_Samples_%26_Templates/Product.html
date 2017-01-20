@@ -73,62 +73,87 @@ This sample showcases how to build a product page in AMP HTML.
     .quantity {
       margin: 16px 0;
     }
-    #product-carousel {
-      margin: 16px 0;
+    .product-gallery > ul {
+      margin: 0;
+      padding: 0;
+      float: left;
+      list-style: none;
+      line-height: 0;
     }
-    form#order .submit-success ,
+    .product-gallery > ul > li {
+      cursor: pointer;
+      margin: 0 8px 8px 8px;
+      opacity: 1;
+      will-change: opacity;
+      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+    .product-gallery > ul > li:active {
+      opacity: 0.5;
+    }
+    .product-gallery > ul > li:focus {
+      outline: none;
+    }
     form#order {
       display: flex;
-      flex-direction: column;
     }
     form#order label {
       display: inline;
       font-weight: 500;
       font-size: 16px;
+      margin: 0;
+    }
+    form#order div {
+      display: flex;
+      align-items: center;
     }
     form#order .button {
       width: 100%;
       max-width: 400px;
       align-self: center;
-      margin: 16px;
+      margin: 16px 20%;
       box-sizing: border-box;
     }
-    form#order.amp-form-submit-success [name=add-to-cart] {
-      display: none;
-    }
     form#order.amp-form-submitting [name=add-to-cart] {
-      color: #919191;
+      color: #666;
+      background-color: #aaa;
+      cursor: default;
     }
-    form#order amp-selector > * {
-      margin: 16px 16px 16px 0;
+    form#order amp-selector > ul {
       list-style: none;
       display: flex;
+      align-items: flex-end;
+      justify-content: end;
     }
     form#order amp-selector > ul > li {
-      margin-right: 8px;
-      background: white;
-      min-width: 40px;
-      min-height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-right: 8px;
+      background: white;
+      height: 40px;
+      min-width: 40px;
+      width: auto;
     }
-    form#order amp-selector > *:focus {
+    form#order amp-selector [option] {
       outline: none;
+    }
+    form#order amp-selector amp-img[option][selected] {
+      outline-width: 1px;
+      outline-style: solid;
+      outline-color: #eb407a;
+      background: none;
     }
     form#order amp-selector:not([disabled]) [option][selected]:not([disabled]) {
-      outline: none;
       will-change: box-shadow;
       box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+      transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
       color: #fff;
       background-color: #eb407a;
     }
     form#order amp-selector:not([disabled]) [option]:not([selected]):not([disabled]) {
       will-change: box-shadow;
-      will-change: opacity;
       box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+      transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
     }
     form#order amp-selector:not([disabled]) [option]:not([selected]):not([disabled]) amp-img {
       opacity: 0.5;
@@ -226,39 +251,57 @@ This sample showcases how to build a product page in AMP HTML.
     </div>
 
      <!-- #### Image Gallery -->
-    <!-- The `amp-carousel` component works very well for product image galleries. We use the [amp-selector component](/components/amp-selector/) to implement a film strip like slide preview. Clicking on a preview image will reveal the image in the carousel via the tap action `on="tap:product-carousel-preview.goToSlide(index=0)"`.   -->
+    <!-- The `amp-carousel` component works very well for product image galleries. We use the [amp-selector component](/components/amp-selector/) to implement a film strip like slide preview. Clicking on a preview image will reveal the image in the carousel via the tap action `on="tap:product-carousel-preview.goToSlide(index=0)"`. Note: the preview is only visible on desktops.  -->
   <!-- The actual carousel. Learn how the `amp-carousel` component works [here](/advanced/image_galleries_with_amp-carousel/). -->
+  <div class="product-gallery"> 
+     <ul class="hide-on-mobile">
+       <li on="tap:product-carousel.goToSlide(index=0)" tabindex="0" role="button" option="green" selected> 
+         <amp-img src="/img/product1_60x40.jpg" width="60" height="40"></amp-img>
+       </li>
+       <li on="tap:product-carousel.goToSlide(index=1)" tabindex="1" role="button" option="golden"> 
+         <amp-img src="/img/product1_alt1_60x40.jpg" width="60" height="40"></amp-img>
+       </li>
+       <li on="tap:product-carousel.goToSlide(index=2)" tabindex="2" role="button" option="red"> 
+         <amp-img src="/img/product1_alt2_60x40.jpg" width="60" height="40"></amp-img>
+       </li>
+     </ul>
     <amp-carousel id="product-carousel" width="1024" height="682" layout="responsive" type="slides">
         <amp-img src="/img/product1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
         <amp-img src="/img/product1_alt1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
         <amp-img src="/img/product1_alt2_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
     </amp-carousel>
-    <h5 class="price-description">$1.99</h5>
+  </div>
 
-    <!-- #### Product Quantity -->
-    <!-- The add to cart action is implemented using  [amp-form](/components/amp-form/). In our sample we use the [amp-selector](/components/amp-selector/) for selecting different product properties. Pressing the `ADD TO CART` button adds the product to a shopping cart page using the properties you have selected. As AMP doesn't support redirect after post (yet), we use a button to redirect the user to a shopping cart which is shown after the form has been submitted successfully. Notice that the button URL contains the query `clientId={{ClientId}}`
+    <h5 class="price-description">Price: $1.99</h5>
+    <!-- #### Product Configuration -->
+    <!-- The add to cart action is implemented using  [amp-form](/components/amp-form/). In our sample we use the [amp-selector](/components/amp-selector/) for selecting different product properties. Pressing the `ADD TO CART` button adds the product to a shopping cart page using the properties you have selected. Notice that the button URL contains the query `clientId={{ClientId}}`. If an item is successfully added to the shopping cart, we redirect the user to the shopping cart page. The redirect target is configured via a header in the server's form response ([redirecting after submission](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md#redirecting-after-a-submission)):
+
+      access-control-expose-headers:AMP-Access-Control-Allow-Source-Origin,AMP-Redirect-To
+      amp-redirect-to:http://ampbyexample.com/shopping_cart/?clientid=amp-123456789
 
     We are using the `CLIENT_ID` variable to identify the user, this enables storing a shopping cart between repeated visits of an AMP page (either via the AMP Cache or the original host). This variable can be used inside an amp-form by declaring an hidden input value with `default-value="CLIENT_ID(cart)`. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
 
       <form id="order" method="POST"
             action-xhr="<%host%>/samples_templates/product/add_to_cart"
             target="_top">
-        <label>Color:
+        <div>
+          <label for="color">Color:</label>
           <amp-selector name="color" layout="container">
             <ul>
-            <li on="tap:product-carousel.goToSlide(index=0)" tabindex="0" role="button" option="green" selected> 
-              <amp-img src="/img/product1_60x40.jpg" width="60" height="40"></amp-img>
-            </li>
-            <li on="tap:product-carousel.goToSlide(index=1)" tabindex="1" role="button" option="golden"> 
-              <amp-img src="/img/product1_alt1_60x40.jpg" width="60" height="40"></amp-img>
-            </li>
-            <li on="tap:product-carousel.goToSlide(index=2)" tabindex="2" role="button" option="red"> 
-              <amp-img src="/img/product1_alt2_60x40.jpg" width="60" height="40"></amp-img>
-            </li>
+              <li> 
+                <amp-img option="green" selected src="/img/product1_60x40.jpg" width="60" height="40"></amp-img>
+              </li>
+              <li> 
+                <amp-img option="golden" src="/img/product1_alt1_60x40.jpg" width="60" height="40"></amp-img>
+              </li>
+              <li> 
+                <amp-img option="red" src="/img/product1_alt2_60x40.jpg" width="60" height="40"></amp-img>
+              </li>
             </ul>
           </amp-selector>
-        </label>
-        <label>Quantity:
+        </div>
+        <div>
+          <label for="quantity">Quantity:</label>
           <amp-selector name="quantity" layout="container">
             <ul>
               <li option="1" selected>1</li>
@@ -267,8 +310,9 @@ This sample showcases how to build a product page in AMP HTML.
               </li>
             </ul>
           </amp-selector>
-        </label>
-        <label>Size:
+        </div>
+        <div>
+          <label for="size">Size:</label>
           <amp-selector name="size" layout="container">
             <ul>
               <li option="S">S</li>
@@ -277,15 +321,11 @@ This sample showcases how to build a product page in AMP HTML.
             </ul>
           </amp-selector>
         </label>
+        </div>
         <input type="submit" class="button button-primary" name="add-to-cart" value="add to cart">
         <input type="hidden" name="name" value="Apple">
         <input type="hidden" name="price" value="$1.99">
         <input name="clientId" type="hidden" value="CLIENT_ID(cart)" data-amp-replace="CLIENT_ID">
-        <div class="submit-success" submit-success>
-          <template type="amp-mustache">
-            <a class="button button-primary" href="<%host%>/shopping_cart/?clientId={{ClientId}}">view cart</a>
-          </template>
-        </div>
         <div submit-error>
           <template type="amp-mustache">
             Error! Looks like something went wrong with your shopping cart, please try to add an item again. {{error}}
@@ -329,7 +369,7 @@ This sample showcases how to build a product page in AMP HTML.
     -->
     <amp-analytics type="googleanalytics">
       <script type="application/json">
-{
+          {
             "vars": {
                 "account": "UA-73836974-1"
             },

@@ -90,12 +90,17 @@ func InitProductListing() {
 
 func addToCart(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
+
 	response := ""
 	name := r.FormValue("name")
 	quantity := r.FormValue("quantity")
 	color := r.FormValue("color")
 	clientId := r.FormValue("clientId")
 	price := r.FormValue("price")
+
+	// configure post form redirect
+	w.Header().Set("Access-Control-Expose-Headers", "AMP-Access-Control-Allow-Source-Origin,AMP-Redirect-To")
+	w.Header().Set("AMP-Redirect-To", GetHost(r)+"/shopping_cart/?clientid="+clientId)
 
 	shoppingCartFromCache, shoppingCartIsInCache := cache.Get(clientId)
 	if shoppingCartIsInCache {
@@ -160,7 +165,8 @@ func renderShoppingCart(w http.ResponseWriter, r *http.Request, page Page, clien
 }
 
 func gotToShoppingCart(w http.ResponseWriter, r *http.Request, page Page) {
-	clientId := r.FormValue("clientId")
+	// remove the clientid from the URL to avoid accidental sharing
+	clientId := r.URL.Query().Get("clientid")
 	if clientId != "" {
 		redirectToShoppingCart(w, r, page, clientId)
 	} else {
