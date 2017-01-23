@@ -1,0 +1,65 @@
+<!---{
+    "experiments": ["amp-bind"],
+    "preview": "default"
+}--->
+<!--
+  #### Introduction
+
+  Allows elements to mutate in response to user actions via data binding and simple JS-like expressions
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <link rel="canonical" href="<%host%>/components/amp-bind/" >
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!-- #### Setup -->
+  <!-- Import the bind component in the header. -->
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+  <style amp-custom>
+    .redText {
+      color: red;
+    }
+  </style>
+
+  <!-- #### Basic Usage -->
+  <!-- Add initial state in an amp-state component in the document `<head>`. -->
+  <amp-state id="myState">
+    <script type="application/json">
+      {
+        "dog": "/img/Border_Collie.jpg",
+        "cat": "/img/cat-looking-up-300x200.jpg"
+      }
+    </script>
+  </amp-state>
+</head>
+<body>
+
+  <!--
+  Create attribute bindings in elements via `[attribute]="expression"`.
+  Here, the `src` attribute is bound to the expression `myState[animal]`.
+
+  - Only whitelisted elements and attributes can be bound, see the [full list](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md#bindable-attributes).
+  - The expression syntax is a subset of JavaScript's, see the [details here](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md#expressions).
+  -->
+  <amp-img src="/img/Border_Collie.jpg" [src]="myState[animal || 'dog']" width=200 height=100></amp-img>
+
+  <!--
+  Local state updates will trigger elements to reevaluate expressions in bound attributes.
+  Therefore, mutate elements by updating local state.
+  -->
+  <button on="tap:AMP.setState(animal='cat')">Set 'animal' variable to 'cat'</button>
+
+  <!--
+  In addition to element-specific attributes, most elements support binding to
+  `textContent` and CSS classes via `[text]` and `[class]`, respectively.
+  -->
+  <p [text]="welcomeMessage || 'Something to say?'" [class]="welcomeMessageClass">Something to say?</p>
+
+  <button on="tap:AMP.setState(welcomeMessage='Hello World!', welcomeMessageClass='redText')">Say 'Hello world'</button>
+</body>
+</html>
