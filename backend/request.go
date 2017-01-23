@@ -54,6 +54,10 @@ func GetOrigin(r *http.Request) string {
 	if origin != "" {
 		return origin
 	}
+	return GetHost(r)
+}
+
+func GetHost(r *http.Request) string {
 	if r.TLS == nil {
 		return "http://" + r.Host
 	}

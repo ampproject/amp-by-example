@@ -21,9 +21,9 @@ import (
 	"io/ioutil"
 	"net/http"
 	"path"
+	"strconv"
 	"strings"
 	"time"
-	"strconv"
 )
 
 const (
@@ -55,10 +55,10 @@ type Product struct {
 }
 
 type ShoppingCartItem struct {
-	Img      string `json:"img"`
 	Name     string `json:"name"`
 	Price    string `json:"price"`
 	Quantity string `json:"quantity"`
+	Color    string `json:"color"`
 }
 
 type ShoppingCart struct {
@@ -90,12 +90,17 @@ func InitProductListing() {
 
 func addToCart(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
+
 	response := ""
 	name := r.FormValue("name")
 	quantity := r.FormValue("quantity")
+	color := r.FormValue("color")
 	clientId := r.FormValue("clientId")
-	img := r.FormValue("img")
 	price := r.FormValue("price")
+
+	// configure post form redirect
+	w.Header().Set("Access-Control-Expose-Headers", "AMP-Access-Control-Allow-Source-Origin,AMP-Redirect-To")
+	w.Header().Set("AMP-Redirect-To", GetHost(r)+"/shopping_cart/?clientid="+clientId)
 
 	shoppingCartFromCache, shoppingCartIsInCache := cache.Get(clientId)
 	if shoppingCartIsInCache {
@@ -103,7 +108,7 @@ func addToCart(w http.ResponseWriter, r *http.Request) {
 		quantityFromCacheNumber, _ := strconv.Atoi(shoppingCartFromCache.(ShoppingCart).ShoppingCart[0].Quantity)
 		quantity = strconv.Itoa(quantityFromCacheNumber + quantityNumber)
 	}
-	shoppingCartItem := ShoppingCartItem{img, name, price, quantity}
+	shoppingCartItem := ShoppingCartItem{name, price, quantity, color}
 	shoppingCartItems := []ShoppingCartItem{shoppingCartItem}
 	cache.Add(clientId, ShoppingCart{ShoppingCart: shoppingCartItems})
 
@@ -143,20 +148,25 @@ func redirectToShoppingCart(w http.ResponseWriter, r *http.Request, page Page, c
 	http.Redirect(w, r, route, http.StatusFound)
 }
 
-func renderShoppingCart(w http.ResponseWriter, r *http.Request, page Page, clientId string){
+func renderShoppingCart(w http.ResponseWriter, r *http.Request, page Page, clientId string) {
 	cookie, err := r.Cookie(ABE_CLIENT_ID)
 	if err != nil {
-			w.WriteHeader(http.StatusBadRequest)
-			response := fmt.Sprintf("{\"error\":\"%s\"}", err)
-			w.Write([]byte(response))
+		w.WriteHeader(http.StatusBadRequest)
+		response := fmt.Sprintf("{\"error\":\"%s\"}", err)
+		w.Write([]byte(response))
 	}
-	shoppingCart, _ := cache.Get(cookie.Value)
+	shoppingCart, exists := cache.Get(cookie.Value)
+	if !exists {
+		http.Error(w, http.StatusText(404), 404)
+		return
+	}
 	shoppingCartItem := shoppingCart.(ShoppingCart).ShoppingCart[0]
 	page.Render(w, shoppingCartItem)
 }
 
 func gotToShoppingCart(w http.ResponseWriter, r *http.Request, page Page) {
-	clientId := r.FormValue("clientId")
+	// remove the clientid from the URL to avoid accidental sharing
+	clientId := r.URL.Query().Get("clientid")
 	if clientId != "" {
 		redirectToShoppingCart(w, r, page, clientId)
 	} else {
