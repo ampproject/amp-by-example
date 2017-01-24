@@ -18,6 +18,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"path"
@@ -55,14 +56,10 @@ type Product struct {
 }
 
 type ShoppingCartItem struct {
-	Name     string `json:"name"`
-	Price    string `json:"price"`
-	Quantity string `json:"quantity"`
-	Color    string `json:"color"`
-}
-
-type ShoppingCart struct {
-	ShoppingCart []ShoppingCartItem
+	Name  string `json:"name"`
+	Price string `json:"price"`
+	Color string `json:"color"`
+	Size  string `json:"size"`
 }
 
 func (p *Product) StarsAsHtml() template.HTML {
@@ -90,34 +87,40 @@ func InitProductListing() {
 
 func addToCart(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
-
-	response := ""
-	name := r.FormValue("name")
-	quantity := r.FormValue("quantity")
-	color := r.FormValue("color")
 	clientId := r.FormValue("clientId")
-	price := r.FormValue("price")
+	if clientId == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
 
 	// configure post form redirect
 	w.Header().Set("Access-Control-Expose-Headers", "AMP-Access-Control-Allow-Source-Origin,AMP-Redirect-To")
 	w.Header().Set("AMP-Redirect-To", GetHost(r)+"/shopping_cart/?clientid="+clientId)
 
-	shoppingCartFromCache, shoppingCartIsInCache := cache.Get(clientId)
+	// create a new shopping cart if one doesn't exist yet
+	value, shoppingCartIsInCache := cache.Get(clientId)
+	var shoppingCart map[ShoppingCartItem]int
 	if shoppingCartIsInCache {
-		quantityNumber, _ := strconv.Atoi(quantity)
-		quantityFromCacheNumber, _ := strconv.Atoi(shoppingCartFromCache.(ShoppingCart).ShoppingCart[0].Quantity)
-		quantity = strconv.Itoa(quantityFromCacheNumber + quantityNumber)
-	}
-	shoppingCartItem := ShoppingCartItem{name, price, quantity, color}
-	shoppingCartItems := []ShoppingCartItem{shoppingCartItem}
-	cache.Add(clientId, ShoppingCart{ShoppingCart: shoppingCartItems})
-
-	if clientId != "" {
-		response = fmt.Sprintf("{\"ClientId\":\"%s\"}", clientId)
-		w.Write([]byte(response))
+		shoppingCart, _ = value.(map[ShoppingCartItem]int)
 	} else {
-		w.WriteHeader(http.StatusBadRequest)
+		shoppingCart = make(map[ShoppingCartItem]int)
+		cache.Add(clientId, shoppingCart)
 	}
+	// extract item values (these are usually stored in your db)
+	name := r.FormValue("name")
+	color := r.FormValue("color")
+	price := r.FormValue("price")
+	size := r.FormValue("size")
+	// update the quantity
+	quantity, err := strconv.Atoi(r.FormValue("quantity"))
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	shoppingCartItem := ShoppingCartItem{name, price, size, color}
+	shoppingCart[shoppingCartItem] = shoppingCart[shoppingCartItem] + quantity
+	// amp-form requires a json result
+	io.WriteString(w, "{}")
 }
 
 func initProducts(path string) {
@@ -160,8 +163,7 @@ func renderShoppingCart(w http.ResponseWriter, r *http.Request, page Page, clien
 		http.Error(w, http.StatusText(404), 404)
 		return
 	}
-	shoppingCartItem := shoppingCart.(ShoppingCart).ShoppingCart[0]
-	page.Render(w, shoppingCartItem)
+	page.Render(w, shoppingCart)
 }
 
 func gotToShoppingCart(w http.ResponseWriter, r *http.Request, page Page) {

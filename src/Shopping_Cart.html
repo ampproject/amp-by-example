@@ -15,12 +15,15 @@
       display: flex;
       flex-wrap: wrap;
     }
-    .shopping-cart-item {
-      width: 25%;
+    .shopping-cart > * {
+      width: 20%;
       box-sizing: border-box;
       flex-grow: 1;
       overflow: hidden;
       padding: 16px;
+    }
+    .shopping-cart > *:nth-child(-n+5) {
+      font-weight: 600;
     }
   </style> 
 </head>
@@ -28,19 +31,19 @@
   <!-- #### Shopping Cart -->
   <!-- An implementation of a Shopping Cart -->
     <div class="shopping-cart">
-    <div class="shopping-cart-item"></div>
-    <div class="shopping-cart-item">Color</div>
-    <div class="shopping-cart-item">Price</div>
-    <div class="shopping-cart-item">Quantity</div>
-
-    <div class="shopping-cart-item">[[.Name]]</div>
-    <div class="shopping-cart-item">[[.Color]]</div>
-    <div class="shopping-cart-item">[[.Price]]</div>
-    <div class="shopping-cart-item">[[.Quantity]]</div>
+      <div></div>
+      <div>Color</div>
+      <div>Price</div>
+      <div>Size</div>
+      <div>Quantity</div>
+      [[ range $item, $quantity := . ]]
+        <div>[[$item.Name]]</div>
+        <div>[[$item.Color]]</div>
+        <div>[[$item.Price]]</div>
+        <div>[[$item.Size]]</div>
+        <div>[[$quantity]]</div>
+      [[ end ]]
     </div>
-    
-
-  <p>Back to <a href="/samples_templates/product/preview/">product</a> sample.</p>
-
+    <p>Back to <a href="/samples_templates/product/preview/">product</a> sample.</p>
 </body>
 </html>
