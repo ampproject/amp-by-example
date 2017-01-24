@@ -18,8 +18,8 @@ import "container/list"
 
 type LRUCache struct {
 	MaxEntries int
-	ll    *list.List
-	cache map[interface{}]*list.Element
+	ll         *list.List
+	cache      map[interface{}]*list.Element
 }
 
 type Key interface{}
