@@ -90,7 +90,7 @@ The `CLIENT_ID` is an unique identifier for the user when
 accessing a specific origin, for example the original page or the cached version of it, this means that the same user will generate two different
 values when accessing different origins. That's why we use a custom cookie to track cross origin access to the poll page.
 The `CLIENT_ID` variable can be passed via an amp-form by declaring an hidden input
-value with `default-value="CLIENT_ID(POLL_USER_ID)`. We are using the `CLIENT_ID` as the value of the `POLL_USER_ID` cookie, but in our implementation the value of this cookie doesn't really matter, in fact it could also be a random number.
+value with `default-value="CLIENT_ID(POLL_USER_ID)`. In our implementation, the backend sets `POLL_USER_ID` to the value of `CLIENT_ID`, but the value of this cookie doesn't really matter.
 Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/ab78ba87cbf0408ca0ddcfcba7e666e1c1152051/extensions/amp-form/amp-form.md#variable-substitutions).
 Currently, HTML tables are not supported in form responses, that's why we use CSS to layout the result data.. -->
 
