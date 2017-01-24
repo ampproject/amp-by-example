@@ -43,7 +43,7 @@ type PollForm struct {
 
 //holds an answers and votes represented as an array, used for displaying
 type PollEntryResult struct {
-	Votes int
+	Votes      int
 	Percentage []int
 	Answer     string
 }
@@ -92,13 +92,13 @@ func handlePoll(w http.ResponseWriter, r *http.Request, page Page) {
 func createPollResult(answers []int, message string) PollResult {
 	results := make([]PollEntryResult, len(questions))
 	totalAnswers := 0
-	 for _, num := range answers {
-			 totalAnswers += num
-	 }
-	hundredDividedByTotalVotes := float64(100)/float64(totalAnswers)
+	for _, num := range answers {
+		totalAnswers += num
+	}
+	hundredDividedByTotalVotes := float64(100) / float64(totalAnswers)
 	for questionIndex, votes := range answers {
 		results[questionIndex] = PollEntryResult{votes,
-			make([]int, int(hundredDividedByTotalVotes * float64(votes))),
+			make([]int, int(hundredDividedByTotalVotes*float64(votes))),
 			questions[questionIndex]}
 	}
 	return PollResult{results, message}
@@ -148,36 +148,36 @@ func calculatePollResults(w http.ResponseWriter, r *http.Request, ctx context.Co
 		//return the existing poll answers and message to let the user know that has already voted
 		return createPollResult(pollExistingAnswers, ALREADY_VOTED_MESSAGE), nil
 	}
-		//cookies don't work on Safari when accessing the cdn, check if the user has already
-		//voted by checking the client id
-		clientId := pollForm.ClientId
-		clientIdKey := datastore.NewKey(ctx, "ClientId", clientId, 0, nil)
-		var existingClientId ClientId
-		err = datastore.Get(ctx, clientIdKey, &existingClientId)
-		if err == nil {
-			//return the existing poll answers and message to let the user know that has already voted
-			return createPollResult(pollExistingAnswers, ALREADY_VOTED_MESSAGE), nil
-		}
-		expireInOneYear := time.Now().AddDate(1, 0, 0)
-		cookie = &http.Cookie{
-			Name:    POLL_COOKIE_NAME,
-			Expires: expireInOneYear,
-			Value:   clientId,
-		}
-		http.SetCookie(w, cookie)
+	//cookies don't work on Safari when accessing the cdn, check if the user has already
+	//voted by checking the client id
+	clientId := pollForm.ClientId
+	clientIdKey := datastore.NewKey(ctx, "ClientId", clientId, 0, nil)
+	var existingClientId ClientId
+	err = datastore.Get(ctx, clientIdKey, &existingClientId)
+	if err == nil {
+		//return the existing poll answers and message to let the user know that has already voted
+		return createPollResult(pollExistingAnswers, ALREADY_VOTED_MESSAGE), nil
+	}
+	expireInOneYear := time.Now().AddDate(1, 0, 0)
+	cookie = &http.Cookie{
+		Name:    POLL_COOKIE_NAME,
+		Expires: expireInOneYear,
+		Value:   clientId,
+	}
+	http.SetCookie(w, cookie)
 
-		//add the clientId
-		answer := pollForm.Answer
-		_, err = datastore.Put(ctx, clientIdKey, &ClientId{true})
-		//increment the vote for the answer
-		pollExistingAnswers[answer] = pollExistingAnswers[answer] + 1
-		//persist the answer
-		_, err = datastore.Put(ctx, pollKey, &Poll{pollExistingAnswers})
+	//add the clientId
+	answer := pollForm.Answer
+	_, err = datastore.Put(ctx, clientIdKey, &ClientId{true})
+	//increment the vote for the answer
+	pollExistingAnswers[answer] = pollExistingAnswers[answer] + 1
+	//persist the answer
+	_, err = datastore.Put(ctx, pollKey, &Poll{pollExistingAnswers})
 
-		if err != nil {
-			return PollResult{}, err
-		}
-		return createPollResult(pollExistingAnswers, THANKS_MESSAGE), nil
+	if err != nil {
+		return PollResult{}, err
+	}
+	return createPollResult(pollExistingAnswers, THANKS_MESSAGE), nil
 }
 
 func parseNotEmptyFormValue(r *http.Request, input string) (string, error) {

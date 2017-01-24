@@ -87,7 +87,7 @@ const config = {
     example: 'example.html',
     newExample: 'new-example.html',
     preview: 'preview.html',
-  }, 
+  },
   api: {
     host: 'https://amp-by-example-api.appspot.com',
     dist: 'api/dist'
@@ -254,13 +254,13 @@ gulp.task('validate:example', 'validate example html files', function() {
   return gulp.src(paths.samples)
     .pipe(compileExample(config))
     .pipe(gulpIgnore.exclude(shouldIgnoreSample))
-    // Valide the input and attach the validation result to the "amp" property 
-    // of the file object.  
+    // Valide the input and attach the validation result to the "amp" property
+    // of the file object.
     .pipe(gulpAmpValidator.validate())
-    // Print the validation results to the console. 
+    // Print the validation results to the console.
     .pipe(gulpAmpValidator.format())
-    // Exit the process with error code (1) if an AMP validation error 
-    // occurred. 
+    // Exit the process with error code (1) if an AMP validation error
+    // occurred.
     .pipe(gulpAmpValidator.failAfterError());
 });
 
@@ -352,6 +352,11 @@ gulp.task('lint', function() {
       });
 });
 
+gulp.task('lint:backend', 'lint go backend code', function() {
+  /* gofmt only returns non zero status on syntax error */
+  return run('test -z $(gofmt -l $(find . -name \'*.go\'))').exec();
+});
+
 gulp.task('default', 'Run a webserver and watch for changes', [
   'build',
   'watch',
@@ -374,7 +379,7 @@ gulp.task('api:serve', 'Run the go api backend', function(){
   return run('cd api && goapp serve -admin_port=8100').exec();
 });
 
-gulp.task('validate', 'runs all checks', ['lint', 'test', 'validate:example']);
+gulp.task('validate', 'runs all checks', ['lint', 'lint:backend', 'test', 'validate:example']);
 
 gulp.task('snapshot',
     'Saves a snapshot of the generated sample files',
@@ -403,7 +408,7 @@ Disallow: /
 
 gulp.task('robots:allow', 'generate robots.txt allowing robots to access', function() {
   return generateRobotsTxt(`User-Agent: *
-Disallow: 
+Disallow:
 `);
 });
 
