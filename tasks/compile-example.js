@@ -175,7 +175,9 @@ module.exports = function(config, updateTimestamp) {
         desc: document.description(),
         timestamp: timestamp,
         fileName: example.url(),
+        host: config.host,
         urlPreview: example.urlPreview(),
+        urlSource: example.urlSource(),
         github: example.githubUrl(),
         subHeading: example.title(),
         exampleStyles: document.styles,
@@ -194,6 +196,13 @@ module.exports = function(config, updateTimestamp) {
         includesServiceWorker: document.importsComponent('amp-install-serviceworker') || document.metadata.skipServiceWorker
       };
       Metadata.add(args);
+
+      // compile example
+      const inputFile = example.file; 
+      inputFile.path = path.join(inputFile.base, example.targetSourcePath());
+      inputFile.contents = new Buffer(example.contents);
+      gutil.log('Generated ' + inputFile.relative);
+      stream.push(inputFile);
 
       // compile example
       compileTemplate(stream, example, args, {

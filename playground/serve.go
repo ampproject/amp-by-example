@@ -42,7 +42,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// only allow URLs from ampbyexample
-	if u.Host != "ampbyexample.com" {
+	if u.Host != "ampbyexample.com" &&
+		u.Host != "amp-by-example-staging.appspot.com" &&
+		u.Host != "localhost:8080" {
 		http.Error(w, "Bad request.", http.StatusBadRequest)
 		return
 	}

@@ -32,7 +32,7 @@ func (self Page) Render(wr io.Writer, data interface{}) {
 	self.template.Execute(wr, data)
 }
 
-var MODES = [...]string{"", "/embed", "/preview", "/preview/embed"}
+var MODES = [...]string{"", "/embed", "/source", "/preview", "/preview/embed"}
 
 // RegisterSample adds routes for different sample modes, e.g. (my_sample/embed, my_sample/preview,..).
 // Use it whenever a sample requires a custom backend logic.

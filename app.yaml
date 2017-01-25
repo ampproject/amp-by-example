@@ -62,10 +62,15 @@ handlers:
 skip_files:
 - node_modules
 - scripts
+- playground/node_modules
+- playground/src
+- playground/dist
 - src
 - spec
+- static
 - tasks
 - android
+- tmp
 - ^(.*/)?.*\.DS_Store$
 - ^(.*/)?.*\.swp$
 - api
