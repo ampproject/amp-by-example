@@ -237,10 +237,10 @@ gulp.task("compile:favicons", function() {
 });
 
 const shouldIgnoreSample = function (file) {
-  const metadata = file.metadata;
   if (!file.path.endsWith('.html')) {
     return true;
   }
+  const metadata = file.metadata;
   if (!metadata) {
     return false;
   }

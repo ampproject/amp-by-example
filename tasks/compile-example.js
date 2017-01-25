@@ -197,10 +197,11 @@ module.exports = function(config, updateTimestamp) {
       };
       Metadata.add(args);
 
-      // compile example
+      // compile source file
       const inputFile = example.file; 
       inputFile.path = path.join(inputFile.base, example.targetSourcePath());
       inputFile.contents = new Buffer(example.contents);
+      inputFile.metadata = document.metadata;
       gutil.log('Generated ' + inputFile.relative);
       stream.push(inputFile);
 
