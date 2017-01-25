@@ -56,30 +56,6 @@ handlers:
   secure: always
   http_headers:
 
-- url: /playground/@polymer
-  static_dir: playground/node_modules/@polymer
-  secure: always
-  http_headers:
-    Access-Control-Allow-Origin: "*"
-
-- url: /playground/codemirror
-  static_dir: playground/node_modules/codemirror
-  secure: always
-  http_headers:
-    Access-Control-Allow-Origin: "*"
-
-- url: /playground/webcomponents.js
-  static_dir: playground/node_modules/webcomponents.js
-  secure: always
-  http_headers:
-    Access-Control-Allow-Origin: "*"
-
-- url: /playground
-  static_dir: playground
-  secure: always
-  http_headers:
-    Access-Control-Allow-Origin: "*"
-
 - url: /.*
   script: _go_app
 

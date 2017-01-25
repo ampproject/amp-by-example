@@ -26,12 +26,12 @@ import (
 )
 
 func InitPlayground() {
-	http.HandleFunc("/api/fetch", handler)
+	http.HandleFunc("/playground/fetch", handler)
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" ||
-		r.Header.Get("X-Requested-By") != "validator webui" {
+		r.Header.Get("X-Requested-By") != "playground" {
 		http.Error(w, "Bad request.", http.StatusBadRequest)
 		return
 	}
@@ -41,6 +41,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Bad request.", http.StatusBadRequest)
 		return
 	}
+	// only allow URLs from ampbyexample
 	if u.Host != "ampbyexample.com" {
 		http.Error(w, "Bad request.", http.StatusBadRequest)
 		return

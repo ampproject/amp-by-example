@@ -60,6 +60,7 @@ const paths = {
   favicon: 'src/img/favicon.png',
   samples: 'src/**/*.html',
   metadata: 'src/**/*.json',
+  playground: 'playground',
   src: 'src',
   scripts: ['tasks/**/*.js', 'gulpfile.js'],
   static: 'static/*.*',
@@ -412,6 +413,16 @@ Disallow:
 `);
 });
 
+gulp.task('build:playground', 'Build the playground', function(){
+  return run(
+    'cd ' + paths.playground + ' && ' +
+    'npm i && ' +
+    'gulp build && ' +
+    'mkdir -p ../dist && ' +
+    'cp -R dist ../dist/' + paths.playground
+  ).exec();
+});
+
 function generateRobotsTxt(contents) {
   return file('robots.txt', contents, { src: true })
     .pipe(gulp.dest('dist'));
@@ -437,7 +448,7 @@ gulp.task('change', 'use this task to batch change samples', function() {
 });
 
 gulp.task('bower', function() {
-  return bower()
+  return bower();
 });
 
 gulp.task('build', 'build all resources', [
@@ -452,7 +463,8 @@ gulp.task('build', 'build all resources', [
   'compile:favicons',
   'compile:sitemap',
   'compile:example',
-  'copy:well-known'
+  'copy:well-known',
+  'build:playground'
 ]);
 
 function run(command) {
