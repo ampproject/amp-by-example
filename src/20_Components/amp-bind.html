@@ -37,16 +37,8 @@
 <body>
   <!-- #### Configuring initial state -->
   <!--
-  amp-bind works by binding elements to local JSON "state". This state can be
-  initialized with one or more &lt;amp-state&gt; components.
-
-  Referencing local state in binding expressions is done by dot or bracket
-  syntax, starting with the element's `id`, e.g. `myAnimals.dog.url` or
-  `myAnimals['cat']['url']`.
-
-  - The contents of &lt;amp-state&gt; must be a single JSON script.
-  - Similar to the &lt;amp-analytics&gt; config, placing metadata at the
-    end of the document helps the page display more quickly.
+  `amp-bind` works by binding elements to implicit JSON "state". This state can
+  be initialized with one or more &lt;amp-state&gt; components.
   -->
   <amp-state id="myAnimals">
     <script type="application/json">
@@ -61,25 +53,38 @@
     </script>
   </amp-state>
 
+  <!--
+  Referencing implicit state in binding expressions is done by dot or bracket
+  syntax, starting with the &lt;amp-state&gt; element's `id`, e.g.
+  `myAnimals.dog.url` or `myAnimals['cat']['url']`.
+
+  - The contents of &lt;amp-state&gt; must be a single JSON script.
+  - Similar to the &lt;amp-analytics&gt; config, placing metadata at the
+    end of the document helps the page display more quickly.
+  -->
+
   <!-- #### Creating data bindings -->
   <!--
-  A data binding is a link between an element and an [expression](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md#expressions).
+  A data binding is a link between an HTML element and an
+  [expression](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md#expressions).
   When the expression's value changes, the element is updated with that value.
 
   Three types of element state can be bound:
   1. `text` for [textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent)
   2. `class` for [CSS classes](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class)
-  3. [Element-specific attributes](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md#bindable-attributes)
+  3. [Element-specific attributes](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md#bindable-attributes),
+    for example, the `src` attribute for &lt;amp-img&gt; or &lt;amp-video&gt;.
 
   To create a binding, create a new attribute on an element with the form:
 
   `[property]="expression"`
 
   In this example, the `src` of this &lt;amp-img&gt; element will change when
-  either the `myAnimals` or `animal` local state variables change.
+  either the `myAnimals` or `animal` implicit state variables change.
 
   - `myAnimals` is the `id` of the &lt;amp-state&gt; component above.
-  - `animal` is an uninitialized local state reference (see below).
+  - `animal` is an uninitialized implicit state variable, which will be set
+     when a state change is triggered (see below).
   -->
   <amp-img src="/img/Border_Collie.jpg" width=300 height=200
       [src]="myAnimals[animal].url">
@@ -94,13 +99,14 @@
 
   <!-- #### Triggering updates -->
   <!--
-  Data bindings are re-evaluated when local state changes. Local state can be
-  updated via the `AMP.setState` [action](https://github.com/ampproject/amphtml/blob/master/spec/amp-actions-and-events.md).
+  Data bindings are re-evaluated when implicit state changes. Implicit state can
+  be updated via the `AMP.setState` [action](https://github.com/ampproject/amphtml/blob/master/spec/amp-actions-and-events.md).
 
-  - `AMP.setState` merges new state into existing local state
+  - `AMP.setState` merges new state into existing implicit state
   - Existing state can be overwritten, including state initialized by
     &lt;amp-state&gt; components
   -->
-  <button on="tap:AMP.setState(animal='cat')">Set 'animal' variable to 'cat'</button>
+  <button class="button-primary"
+      on="tap:AMP.setState(animal='cat')">Set to Cat</button>
 </body>
 </html>
