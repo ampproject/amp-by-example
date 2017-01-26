@@ -54,6 +54,7 @@
     "gulp-minify-inline": "^0.2.1",
     "gulp-uglify": "^2.0.1",
     "gulp-util": "^3.0.8",
+    "gulp-vulcanize": "^6.1.0",
     "vulcanize": "^1.15.3"
   }
 }
