@@ -31,11 +31,16 @@
 <script src="../../.cache/codemirror/mode/xml/xml.js"></script>
 <link rel="stylesheet" href="../../node_modules/codemirror/lib/codemirror.css">
 <dom-module id="amphtml-editor">
-  <style scope="amphtml-editor">
+  <style>
+    :host ::content .CodeMirror-cursor,
     .CodeMirror-cursor {
       border-left: 3px solid black;
       border-right: none;
       width: 3;
+    }
+    :host ::content .CodeMirror,
+    .CodeMirror {
+      font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
     }
   </style>
   <template>
