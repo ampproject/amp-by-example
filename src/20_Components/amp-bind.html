@@ -40,7 +40,7 @@
   `amp-bind` works by binding elements to implicit JSON "state". This state can
   be initialized with one or more &lt;amp-state&gt; components.
   -->
-  <amp-state id="myAnimals">
+  <amp-state id="allAnimals">
     <script type="application/json">
       {
         "dog": {
@@ -56,7 +56,7 @@
   <!--
   Referencing implicit state in binding expressions is done by dot or bracket
   syntax, starting with the &lt;amp-state&gt; element's `id`, e.g.
-  `myAnimals.dog.url` or `myAnimals['cat']['url']`.
+  `allAnimals.dog.url` or `allAnimals['cat']['url']`.
 
   - The contents of &lt;amp-state&gt; must be a single JSON script.
   - Similar to the &lt;amp-analytics&gt; config, placing metadata at the
@@ -80,20 +80,21 @@
   `[property]="expression"`
 
   In this example, the `src` of this &lt;amp-img&gt; element will change when
-  either the `myAnimals` or `animal` implicit state variables change.
+  either the `allAnimals` or `currentAnimal` implicit state variables change.
 
-  - `myAnimals` is the `id` of the &lt;amp-state&gt; component above.
-  - `animal` is an uninitialized implicit state variable, which will be set
-     when a state change is triggered (see below).
+  - `allAnimals` is the `id` of the &lt;amp-state&gt; component above.
+  - `currentAnimal` is an uninitialized implicit state variable, which will be
+     set when a state change is triggered (see below).
   -->
   <amp-img src="/img/Border_Collie.jpg" width=300 height=200
-      [src]="myAnimals[animal].url">
+      [src]="allAnimals[currentAnimal].url">
   </amp-img>
 
   <!--
-  The text of this &lt;p&gt; will change when the `animal` variable changes.
+  The text of this &lt;p&gt; will change when the `currentAnimal` variable
+  changes.
   -->
-  <p [text]="'This is a ' + animal + '.'">
+  <p [text]="'This is a ' + currentAnimal + '.'">
   This is a dog.
   </p>
 
@@ -107,6 +108,6 @@
     &lt;amp-state&gt; components
   -->
   <button class="button-primary"
-      on="tap:AMP.setState(animal='cat')">Set to Cat</button>
+      on="tap:AMP.setState(currentAnimal='cat')">Set to Cat</button>
 </body>
 </html>
