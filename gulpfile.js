@@ -414,12 +414,15 @@ Disallow:
 });
 
 gulp.task('build:playground', 'Build the playground', function(){
+  const playgroundDist = '../dist/' + paths.playground;
   return run(
+    'npm i && ' +
     'cd ' + paths.playground + ' && ' +
     'npm i && ' +
     'gulp build && ' +
     'mkdir -p ../dist && ' +
-    'cp -R dist ../dist/' + paths.playground
+    'rm -rf ' + playgroundDist + ' && ' +
+    'cp -R dist ' + playgroundDist 
   ).exec();
 });
 
