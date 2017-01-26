@@ -25,8 +25,15 @@ import (
 	"net/url"
 )
 
+var validRequestUrlOrigins map[string]bool
+
 func InitPlayground() {
 	http.HandleFunc("/playground/fetch", handler)
+	validRequestUrlOrigins = map[string]bool{
+		"ampbyexample.com":                   true,
+		"localhost:8080":                     true,
+		"amp-by-example-staging.appspot.com": true,
+	}
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -41,10 +48,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Bad request.", http.StatusBadRequest)
 		return
 	}
-	// only allow URLs from ampbyexample
-	if u.Host != "ampbyexample.com" &&
-		u.Host != "amp-by-example-staging.appspot.com" &&
-		u.Host != "localhost:8080" {
+	// only allow URLs from trusted domains
+	if !validRequestUrlOrigins[u.Host] {
 		http.Error(w, "Bad request.", http.StatusBadRequest)
 		return
 	}
