@@ -20,8 +20,8 @@ default_expiration: 1d
 handlers:
 - url: /sw\.js$
   secure: always
-  static_files: static/sw.js
-  upload: static/sw\.js$
+  static_files: dist/sw.js
+  upload: dist/sw\.js$
   expiration: 0
   http_headers:
     Access-Control-Allow-Origin: "*"
@@ -62,10 +62,15 @@ handlers:
 skip_files:
 - node_modules
 - scripts
+- playground/node_modules
+- playground/src
+- playground/dist
 - src
 - spec
+- static
 - tasks
 - android
+- tmp
 - ^(.*/)?.*\.DS_Store$
 - ^(.*/)?.*\.swp$
 - api

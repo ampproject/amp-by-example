@@ -39,7 +39,7 @@ class ExampleFile {
     this.filePath = filePath;
   }
 
-  // TODO: cache categories across all samples in a dir 
+  // TODO: cache categories across all samples in a dir
   category() {
     if (this._category) {
       return this._category;
@@ -101,10 +101,17 @@ class ExampleFile {
     return path.join(this.targetParentDir(), this.targetName(), 'index.html');
   }
 
+  targetSourcePath() {
+    return path.join(this.targetParentDir(),
+      this.targetName(),
+      'source',
+      'index.html');
+  }
+
   targetEmbedPath() {
-    return path.join(this.targetParentDir(), 
-      this.targetName(), 
-      'embed', 
+    return path.join(this.targetParentDir(),
+      this.targetName(),
+      'embed',
       'index.html');
   }
 
@@ -116,10 +123,10 @@ class ExampleFile {
   }
 
   targetPreviewEmbedPath() {
-    return path.join(this.targetParentDir(), 
-      this.targetName(), 
+    return path.join(this.targetParentDir(),
+      this.targetName(),
       'preview',
-      'embed', 
+      'embed',
       'index.html');
   }
 
@@ -136,15 +143,19 @@ class ExampleFile {
   }
 
   urlPreview() {
-    return this.url() + 'preview/'; 
+    return this.url() + 'preview/';
   }
 
   urlPreviewEmbed() {
-    return this.urlPreview() + 'embed/'; 
+    return this.urlPreview() + 'embed/';
   }
 
   urlEmbed() {
-    return this.url() + 'embed/'; 
+    return this.url() + 'embed/';
+  }
+
+  urlSource() {
+    return this.url() + 'source/';
   }
 
   /** private **/

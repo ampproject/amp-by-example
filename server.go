@@ -18,6 +18,7 @@ import (
 	"backend"
 	"net/http"
 	"os"
+	"playground"
 	"strings"
 )
 
@@ -38,6 +39,7 @@ func init() {
 	backend.InitCommentSection()
 	backend.InitHotelSample()
 	backend.InitPollSample()
+	playground.InitPlayground()
 	http.Handle("/", ServeStaticFiles(HandleNotFound(http.FileServer(http.Dir(DIST_DIR)))))
 }
 
