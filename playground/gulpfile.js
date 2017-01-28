@@ -32,6 +32,7 @@ const paths = {
     cache: '.cache'
   },
   src: 'src',
+  sw: 'src/sw.js',
   img: 'src/img/**/*.{svg,png,jpg}',
   codemirror: 'node_modules/codemirror',
 };
@@ -81,7 +82,13 @@ gulp.task('build:img', 'copy images', function() {
     .pipe(gulp.dest(paths.dist.img));
 });
 
+gulp.task('build:sw', 'copy sw.js', function() {
+  return gulp.src(paths.sw)
+    .pipe(gulp.dest(paths.dist.root));
+});
+
 gulp.task('build', 'Build the playground', [
+  'build:sw',
   'build:img',
   'build:vulcanize'
 ]);
