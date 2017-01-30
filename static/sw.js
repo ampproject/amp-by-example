@@ -56,8 +56,6 @@ config.filesToCache = [
     '/img/ic_mode_edit_white_24dp_2x.png',
     '/img/GitHub-Mark-Light-32px.png',
     '/img/GitHub-Mark-Light-64px.png',
-    '/img/abe_device_screenshot_1x.png',
-    '/img/abe_device_screenshot_2x.png',
     '/playground/img/playground-logo.svg',
     '/playground/'
 ];
