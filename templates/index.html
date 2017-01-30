@@ -46,6 +46,19 @@
       }
       .category.intro .screenshot {
         margin-left: auto;
+        background: #ff4081;
+        border-radius: 50%;
+        height: 320px;
+        max-width: 320px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .category.intro .screenshot > div {
+        color: white;
+        font-weight: 400;
+        font-size: 24px;
       }
       .category.intro .text, .category.intro .screenshot {
         flex: 1 1 auto;
@@ -184,9 +197,10 @@
             {{/categories}}
           </ul>
         </section>
-        <section class="screenshot">
-          <amp-img srcset="/img/abe_device_screenshot_1x.png 1x, /img/abe_device_screenshot_2x.png 2x" width="360" height="617" layout="fixed" alt="screenshot"></amp-img>
-        </section>
+        <a class="screenshot" href="/playground/">
+          <div>Try the new</div>
+          <amp-img src="/playground/img/playground-logo.svg" width="280" height="80"></amp-img></div>
+        </a>
       </section>
     </div>
     {{#categories}}
