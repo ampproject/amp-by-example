@@ -37,17 +37,35 @@
   </style>
   <template>
     <paper-material elevation="1">
-        <iframe id="previewIframe" frameBorder="0" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+      <iframe id="previewIframe" 
+        frameBorder="0" 
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
     </paper-material>
   </template>
   <script>
+    var PREVIEW_REQUEST_URL = 'playground/preview/';
     Polymer({
       is: 'webui-preview',
       refresh: function(documentString) {
-        var previewIframe = this.$.previewIframe
+        var previewIframe = this.$.previewIframe;
         previewIframe.classList.toggle('loading');
         setTimeout(function() {
-          previewIframe.srcdoc = documentString;
+          if ('serviceWorker' in navigator && 
+              navigator.serviceWorker.controller) {
+            // store preview doc in the cache to return it via the serviceworker
+            caches.open('previews').then(function(cache) {
+              const data = { headers: {'Content-Type': 'text/html'} };
+              cache.put(
+                  new Request(PREVIEW_REQUEST_URL), 
+                  new Response(documentString, data));
+              previewIframe.src = PREVIEW_REQUEST_URL;
+            });
+          } else {
+            console.log('[preview] No serviceworker detected. Falling back to ' +
+                'srcdoc. This might cause some samples to not work in the ' +
+                'playground.');
+            previewIframe.srcdoc = documentString;
+          }
           previewIframe.classList.toggle('loading');
         }, 150);
       },
