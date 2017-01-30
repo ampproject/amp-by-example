@@ -368,6 +368,7 @@ header #actions .button:active:before {
   background-color: white;
 }
 #drawermenu amp-accordion {
+  margin-top: 16px;
   padding-bottom: 24px;
 }
 #drawermenu amp-accordion > * {
@@ -425,17 +426,28 @@ header #actions .button:active:before {
   line-height: 40px;
 }
 #drawermenu .topheader {
-  margin-top: 16px;
-  margin-left: 16px;
 }
-#drawermenu .home {
-  text-align: left;
+#drawermenu .home, .playground {
+  display: block;
+  width: 100%;
+  height: 36px;
+  text-align:x left;
   font-weight: 500;
   font-size: 16px;
   text-transform: uppercase;
   line-height: 36px;
   color: rgba(0,0,0,.87);
-  padding-left: 0px;
+  padding-left: 16px;
+  padding: 16px;
+  border-bottom-style: solid;
+  border-bottom-color: #ccc;
+  border-bottom-width: 1px;
+}
+#drawermenu .home:active, .playground:active {
+  background-color: #ccc;
+}
+#drawermenu .playground {
+  color: #eb407a;
 }
 #drawermenu section[expanded] .show-more {
   display: none;
@@ -562,6 +574,9 @@ a.card:active {
   }
   article {
     padding: 0;
+  }
+  #drawermenu .category, #drawermenu .item a {
+    font-size: 14px;
   }
 }
 @media (max-width: 1024px) {
