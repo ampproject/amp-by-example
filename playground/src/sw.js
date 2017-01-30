@@ -1,4 +1,4 @@
-// Claim all clients and delete old caches that are no longer needed.
+// Claim all clients
 self.addEventListener('activate', event => {
   self.clients.claim();
 });
@@ -6,10 +6,13 @@ self.addEventListener('activate', event => {
 // Make sure the SW the page we register() is the service we use.
 self.addEventListener('install', () => self.skipWaiting());
 
+const PREVIEW_REQUEST_URL = 'playground/preview/';
+
+// Returned cached preview requests
 self.addEventListener('fetch', function(event) {
   const request = event.request;
-  if (!request.url.endsWith('/playground/preview/')) {
-    return;
+  if (request.method === 'GET' &&
+    request.url.endsWith(PREVIEW_REQUEST_URL)) {
+    event.respondWith(caches.match(event.request));
   }
-  event.respondWith(caches.match(event.request));
 });

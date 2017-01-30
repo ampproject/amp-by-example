@@ -43,22 +43,22 @@
     </paper-material>
   </template>
   <script>
+    var PREVIEW_REQUEST_URL = 'playground/preview/';
     Polymer({
       is: 'webui-preview',
       refresh: function(documentString) {
         var previewIframe = this.$.previewIframe;
         previewIframe.classList.toggle('loading');
         setTimeout(function() {
-          const previewUrl = 'playground/preview/';
           if ('serviceWorker' in navigator && 
               navigator.serviceWorker.controller) {
             // store preview doc in the cache to return it via the serviceworker
             caches.open('previews').then(function(cache) {
               const data = { headers: {'Content-Type': 'text/html'} };
               cache.put(
-                  new Request(previewUrl), 
+                  new Request(PREVIEW_REQUEST_URL), 
                   new Response(documentString, data));
-              previewIframe.src = previewUrl;
+              previewIframe.src = PREVIEW_REQUEST_URL;
             });
           } else {
             console.log('[preview] No serviceworker detected. Falling back to ' +

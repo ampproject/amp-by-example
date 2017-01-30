@@ -58,8 +58,8 @@ config.filesToCache = [
     '/img/GitHub-Mark-Light-64px.png',
     '/img/abe_device_screenshot_1x.png',
     '/img/abe_device_screenshot_2x.png',
-    '/img/playground-logo.svg',
-    '/playground'
+    '/playground/img/playground-logo.svg',
+    '/playground/'
 ];
 
 /**
