@@ -5,10 +5,12 @@
   <a id="logo" href="/"></a>
   <div id="actions">
     {{#urlSource}}
+    {{^metadata.hideCode}}
     <a href="/playground/#url={{host}}{{urlSource}}" class="button"> 
       <amp-img srcset="/img/ic_mode_edit_white_24dp_1x.png 1x, /img/ic_mode_edit_white_24dp_2x.png 2x" width="24" height="24" alt="edit"></amp-img>
       <span>Edit in Playground</span>
     </a>
+    {{/metadata.hideCode}}
     {{/urlSource}}
     {{#metadata.preview}}
     <a href="{{urlPreview}}" class="button hide-on-mobile"> 
