@@ -30,7 +30,7 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
         width: 100%;
         color: black;
     }
-    form.amp-form-submit-success > div.comment-user, 
+    form.amp-form-submit-success > div.comment-user,
     form.amp-form-submit-success .button{
         display: none;
     }
@@ -84,10 +84,10 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     <body>
     <!-- #### Add a Comment Section -->
     <!-- -->
-    <h5>Comments</h5>   
+    <h5>Comments</h5>
 
-    <!-- Use `amp-list` to render existing comments to make sure that the latest comments appear if the page is loaded via AMP Cache.  --> 
-      <amp-list width=auto height=200 layout=fixed-height src="<%host%>/json/comments.json">
+    <!-- Use `amp-list` to render existing comments to make sure that the latest comments appear if the page is loaded via AMP Cache.  -->
+      <amp-list width="auto" height="200" layout="fixed-height" src="<%host%>/json/comments.json">
         <template type="amp-mustache">
           <div class="comment-user comments-container">
             <amp-img width="44" height="44" class="user-avatar" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
@@ -99,16 +99,16 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
         </template>
       </amp-list>
 
-    <!-- In order to add comments users need to be logged in. We use `amp-access` to integrate login and to show and hide the login button depending on whether the user is logged in. `on="tap:amp-access.login-sign-in"` specifies which 
+    <!-- In order to add comments users need to be logged in. We use `amp-access` to integrate login and to show and hide the login button depending on whether the user is logged in. `on="tap:amp-access.login-sign-in"` specifies which
     action should be taken when clicking on the login button: `login` defines the property inside the `amp-access` json configuration, while `sign-in` defines
-    the endpoint. --> 
+    the endpoint. -->
     <span amp-access="NOT loggedIn" role="button" tabindex="0" amp-access-hide>
           <h5>Please login to comment</h5>
-          <button on="tap:amp-access.login-sign-in" class="button-primary comment-button">Login</button>  
-    </span>    
-      <!-- We specify the logout via a login endpoint to be able to use the `return URL` environment variable. --> 
+          <button on="tap:amp-access.login-sign-in" class="button-primary comment-button">Login</button>
+    </span>
+      <!-- We specify the logout via a login endpoint to be able to use the `return URL` environment variable. -->
       <button amp-access="loggedIn" amp-access-hide tabindex="0" on="tap:amp-access.login-sign-out" class="button-primary comment-button">Logout</button>
-      <!-- Use amp-form to submit the comment. In this sample, only a single comment can be added as comments are not persisted in the backend.  --> 
+      <!-- Use amp-form to submit the comment. In this sample, only a single comment can be added as comments are not persisted in the backend.  -->
       <form amp-access="loggedIn" amp-access-hide method="post" action-xhr="<%host%>/samples_templates/comment_section/submit-comment-xhr" target="_top">
         <div class="comment-user">
           <amp-img width="44" class="user-avatar" height="44" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>

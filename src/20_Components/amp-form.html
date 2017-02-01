@@ -60,7 +60,7 @@
     The following sample uses `type="search"` to emulate a search. The search button will trigger a page reload.
 
     Please find [security considerations](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md#security-considerations) to check best practices when choosing `GET` or `POST` methods.
-    
+
     You can find the code for the server endpoint used in this demo at [/backend/amp-form.go](https://github.com/ampproject/amp-by-example/blob/master/backend/amp-form.go).
   -->
   <form method="GET" action="<%host%>/components/amp-form/submit-form" target="_top">
@@ -303,7 +303,7 @@
     Use `type="range"` for input fields that should contain a value within a range.
   -->
   <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
-    <input type="range" name="points" min="0" max="10" />
+    <input type="range" name="points" min="0" max="10">
     <input type="submit" value="OK" class="button button-primary other-input">
     <div submit-success>
       <template type="amp-mustache">

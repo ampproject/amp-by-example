@@ -54,7 +54,7 @@ function sendAmpUrlRequest() {
   resultView.innerHTML = '';
   const loader = document.getElementById('loader');
   loader.style.display = 'inline';
-  const urls = document.getElementById('input').value; 
+  const urls = document.getElementById('input').value;
   sendApiRequest(urls, function(result) {
     loader.style.display = 'none';
     resultView.innerHTML = result;
@@ -103,8 +103,8 @@ function createRequest(method, url) {
     </script>
   </head>
   <body>
-    <textarea type="text" id="input" >{  
-  "urls":[  
+    <textarea type="text" id="input">{
+  "urls":[
     "https://ampbyexample.com",
     "https://www.example.org/article-without-amp-version",
     "https://www.theguardian.com/membership/2016/feb/24/todays-release-of-accelerated-mobile-pages-amp",
