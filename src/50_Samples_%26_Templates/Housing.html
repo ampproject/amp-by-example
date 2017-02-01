@@ -186,7 +186,7 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
         <amp-social-share type="facebook"
         width="60"
         height="44"
-        data-attribution=254325784911610></amp-social-share>
+        data-attribution="254325784911610"></amp-social-share>
         <amp-social-share type="gplus"
         width="60"
         height="44"></amp-social-share>
@@ -281,9 +281,9 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
 
     <!-- #### Properties sold nearby -->
     <!-- Use `amp-list` to show a list of properties sold nearby. Learn more about `amp-list` [here](/components/amp-list/) -->
-    <amp-list width=auto
-              height=150
-              layout=fixed-height
+    <amp-list width="auto"
+              height="150"
+              layout="fixed-height"
               src="/json/other_properties.json">
       <template type="amp-mustache">
         <a href="#" class="card related">
@@ -297,7 +297,7 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
                  <p class= "price-other">{{price}}</p>
         </a>
       </template>
-      <div overflow role=button aria-label="Show more" class="list-overflow">
+      <div overflow role="button" aria-label="Show more" class="list-overflow">
         Show more
       </div>
     </amp-list>

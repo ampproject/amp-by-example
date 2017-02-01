@@ -1,11 +1,11 @@
 <!--
 With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
- Learn more about `amp-list` [here](/components/amp-list/) 
+ Learn more about `amp-list` [here](/components/amp-list/)
 -->
 <amp-list class="items"
-          width=200
-          height=100
-          layout=responsive
+          width="200"
+          height="100"
+          layout="responsive"
           src="/json/related_products.json">
   <template type="amp-mustache">
     <a class="tile item" href="/samples_templates/product/preview/">

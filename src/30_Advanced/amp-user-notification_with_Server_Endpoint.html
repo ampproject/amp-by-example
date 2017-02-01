@@ -2,7 +2,7 @@
   #### Introduction
 
   Use `amp-user-notification` to display a dismissable notification to the user.
-  Combine it with a server endpoint if you want to store the dismissal 
+  Combine it with a server endpoint if you want to store the dismissal
   state across your AMP articles and your normal articles.
 -->
 <!-- -->
@@ -40,18 +40,18 @@
     When using a backend solution, two parameters are available: `data-show-if-href` and
     `data-dismiss-if-href`. They can be used together or separatively.
 
-    `data-show-if-href` needs to point to a server-endpoint returning 
-    `{ "showNotification": true|false }`. 
+    `data-show-if-href` needs to point to a server-endpoint returning
+    `{ "showNotification": true|false }`.
 
     The URL defined by `data-dismiss-href` will be called when the notification is dismissed.
 
     You can find a sample implementation [here](https://github.com/ampproject/amp-publisher-sample/blob/master/controllers/amp-user-notification/api.js).
 
     If the notification has already been dismissed and the related item has been added to
-    the localstorage, the notification will not appear even if you have configured 
+    the localstorage, the notification will not appear even if you have configured
     `data-show-if-href` and `data-dismiss-href`.
   -->
-  <amp-user-notification layout=nodisplay id="amp-user-notification1"
+  <amp-user-notification layout="nodisplay" id="amp-user-notification1"
       data-show-if-href="https://rocky-sierra-1919.herokuapp.com/amp-user-notification/api/show?timestamp=TIMESTAMP"
       data-dismiss-href=
       "https://rocky-sierra-1919.herokuapp.com/amp-user-notification/api/echo/post">

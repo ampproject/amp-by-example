@@ -211,7 +211,7 @@ This sample showcases how to build a product page in AMP HTML.
       <amp-social-share type="facebook"
                         width="30"
                         height="22"
-                        data-attribution=254325784911610></amp-social-share>
+                        data-attribution="254325784911610"></amp-social-share>
       <amp-social-share type="gplus"
                         width="30"
                         height="22"></amp-social-share>
@@ -243,8 +243,8 @@ This sample showcases how to build a product page in AMP HTML.
             </a>
             <amp-youtube width="480"
                          height="270"
-                         layout=responsive
-                         data-videoid="lBTCB7yLs8Y" >
+                         layout="responsive"
+                         data-videoid="lBTCB7yLs8Y">
             </amp-youtube>
           </div>
         </div>
@@ -254,15 +254,15 @@ This sample showcases how to build a product page in AMP HTML.
      <!-- #### Image Gallery -->
     <!-- The `amp-carousel` component works very well for product image galleries. On desktop we've added a film strip like slide preview. Clicking on a preview image will reveal the image in the carousel via the tap action `on="tap:product-carousel-preview.goToSlide(index=0)"`. -->
   <!-- The actual carousel. Learn how the `amp-carousel` component works [here](/advanced/image_galleries_with_amp-carousel/). -->
-  <div class="product-gallery"> 
+  <div class="product-gallery">
      <ul class="hide-on-mobile">
-       <li on="tap:product-carousel.goToSlide(index=0)" tabindex="0" role="button" option="green" selected> 
+       <li on="tap:product-carousel.goToSlide(index=0)" tabindex="0" role="button" option="green" selected>
          <amp-img src="/img/product1_60x40.jpg" width="60" height="40"></amp-img>
        </li>
-       <li on="tap:product-carousel.goToSlide(index=1)" tabindex="1" role="button" option="golden"> 
+       <li on="tap:product-carousel.goToSlide(index=1)" tabindex="1" role="button" option="golden">
          <amp-img src="/img/product1_alt1_60x40.jpg" width="60" height="40"></amp-img>
        </li>
-       <li on="tap:product-carousel.goToSlide(index=2)" tabindex="2" role="button" option="red"> 
+       <li on="tap:product-carousel.goToSlide(index=2)" tabindex="2" role="button" option="red">
          <amp-img src="/img/product1_alt2_60x40.jpg" width="60" height="40"></amp-img>
        </li>
      </ul>
@@ -289,13 +289,13 @@ This sample showcases how to build a product page in AMP HTML.
           <label for="color">Color:</label>
           <amp-selector name="color" layout="container">
             <ul>
-              <li> 
+              <li>
                 <amp-img option="green" selected src="/img/product1_60x40.jpg" width="60" height="40"></amp-img>
               </li>
-              <li> 
+              <li>
                 <amp-img option="golden" src="/img/product1_alt1_60x40.jpg" width="60" height="40"></amp-img>
               </li>
-              <li> 
+              <li>
                 <amp-img option="red" src="/img/product1_alt2_60x40.jpg" width="60" height="40"></amp-img>
               </li>
             </ul>

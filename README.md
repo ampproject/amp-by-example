@@ -83,7 +83,7 @@ Use HTML comments (`<!-- ... -->`) to document your sample code:
 
 ```html
 <!-- Look! Images in AMP. -->
-<amp-img src="img/image1.jpg" width=200 height=100 layout=responsive></amp-img>
+<amp-img src="img/image1.jpg" width="200" height="100" layout="responsive"></amp-img>
 ```
 
 This works for elements in the header as well:
@@ -101,8 +101,8 @@ Every HTML comment creates a separate example section spanning the following HTM
 ```html
 <!-- This comment spans the whole following div including the two images -->
 <div>
-  <amp-img src="img/image1.jpg" width=200 height=100 layout=responsive></amp-img>
-  <amp-img src="img/image2.jpg" width=200 height=100 layout=responsive></amp-img>
+  <amp-img src="img/image1.jpg" width="200" height="100" layout="responsive"></amp-img>
+  <amp-img src="img/image2.jpg" width="200" height="100" layout="responsive"></amp-img>
 </div>
 ```
 
@@ -112,7 +112,7 @@ Nested comments are not supported:
 <!-- A comment -->
 <div>
   <!-- This does not work -->
-  <amp-img src="img/image1.jpg" width=200 height=100 layout=responsive></amp-img>
+  <amp-img src="img/image1.jpg" width="200" height="100" layout="responsive"></amp-img>
 </div>
 ```
 
@@ -125,7 +125,7 @@ You can use [markdown](https://help.github.com/articles/github-flavored-markdown
   A simple [responsive](https://www.ampproject.org/docs/guides/responsive/control_layout.html)
   image - *width* and *height* are used to determine the aspect ratio.
 -->
-<amp-img src="img/image1.jpg" width=200 height=100 layout=responsive></amp-img>
+<amp-img src="img/image1.jpg" width="200" height="100" layout="responsive"></amp-img>
 ```
 
 #### Drafts
