@@ -138,6 +138,7 @@ code {
 }
 
 button, .button {
+  -webkit-appearance: none;
   background: 0 0;
   border: none;
   border-radius: 2px;
@@ -673,7 +674,9 @@ form {
   color: rgb(97, 97, 97);
 }
 
-input[type=text], input[type=email], input[type=date] {
+input[type=text], input[type=search], input[type=email], input[type=date] {
+  -webkit-appearance: none;
+  border-radius: 0;
   display: block;
   margin: 0;
   margin-bottom: 16px;
