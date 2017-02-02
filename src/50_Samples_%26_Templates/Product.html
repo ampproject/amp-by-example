@@ -2,7 +2,7 @@
   "preview": "default",
   "skipValidation": "true",
   "default": "preview",
-  "experiments": ["amp-form-var-sub"]
+  "experiments": ["amp-form-var-sub", "amp-bind"]
   }--->
 <!--
 #### Introduction
@@ -28,6 +28,7 @@ This sample showcases how to build a product page in AMP HTML.
     <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
     <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
     <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
 
     <link rel="canonical" href="<%host%>/samples_templates/product/">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -47,6 +48,12 @@ This sample showcases how to build a product page in AMP HTML.
     }
     amp-accordion h4 {
       font-size: 18px;
+    }
+    amp-carousel .selected {
+      border: solid 2px red;
+    }
+    amp-img.selected {
+      border: solid 2px green;
     }
     .play {
       padding-left: 28px;
@@ -125,7 +132,7 @@ This sample showcases how to build a product page in AMP HTML.
       align-items: flex-end;
       justify-content: end;
     }
-    form#order amp-selector > ul > li {
+    form#order amp-selector > ul li {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -159,6 +166,34 @@ This sample showcases how to build a product page in AMP HTML.
     form#order amp-selector:not([disabled]) [option]:not([selected]):not([disabled]) amp-img {
       opacity: 0.5;
     }
+    .hide{
+      display: none;
+    }
+    .show{
+      display: block;
+    }
+    .show-size-unavailable{
+      display: flex;
+    }
+
+    .size-container {
+      width: 40px;
+      margin-right: 8px;
+    }
+
+    .size-container > span {
+      align-items: center;
+      justify-content: center;
+      font-size: 4em;
+      color: grey;
+      opacity: 0.3;
+      height: 40px;
+      min-width: 40px;
+      width: auto;
+      position: absolute;
+      filter: alpha(opacity=30); /* For IE8 and earlier */
+    }
+
     </style>
 
     <!-- #### Metadata -->
@@ -196,11 +231,19 @@ This sample showcases how to build a product page in AMP HTML.
     </script>
 
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <amp-state id="product">
+      <script type="application/json">
+      {
+        "selectedSlide": "0",
+        "selectedCarousel": "0"
+      }
+      </script>
+    </amp-state>
     </head>
     <body>
       <!-- #### Navigation -->
       <!--
-        Use the [amp-sidebar](/components/amp-sidebar/) component to give customers the chance to quickly jump to any of your product categories.  
+        Use the [amp-sidebar](/components/amp-sidebar/) component to give customers the chance to quickly jump to any of your product categories.
       -->
       <amp-sidebar id="drawermenu" layout="nodisplay">
         <div class="topheader">
@@ -278,27 +321,51 @@ This sample showcases how to build a product page in AMP HTML.
         </div>
       </amp-lightbox>
     </div>
-
+    <p [text]="'Selected slide: ' + selectedSlide">Selected slide: None<p>
+    <p [text]="'Selected carousel: ' + selectedCarousel">Selected Carousel: None<p>
      <!-- #### Image Gallery -->
-    <!-- The `amp-carousel` component works very well for product image galleries. On desktop we've added a film strip like slide preview. Clicking on a preview image will reveal the image in the carousel via the tap action `on="tap:product-carousel-preview.goToSlide(index=0)"`. -->
-  <!-- The actual carousel. Learn how the `amp-carousel` component works [here](/advanced/image_galleries_with_amp-carousel/). -->
-  <div class="product-gallery">
-     <ul class="hide-on-mobile">
-       <li on="tap:product-carousel.goToSlide(index=0)" tabindex="0" role="button" option="green" selected>
-         <amp-img src="/img/product1_60x40.jpg" width="60" height="40"></amp-img>
-       </li>
-       <li on="tap:product-carousel.goToSlide(index=1)" tabindex="1" role="button" option="golden">
-         <amp-img src="/img/product1_alt1_60x40.jpg" width="60" height="40"></amp-img>
-       </li>
-       <li on="tap:product-carousel.goToSlide(index=2)" tabindex="2" role="button" option="red">
-         <amp-img src="/img/product1_alt2_60x40.jpg" width="60" height="40"></amp-img>
+    <!-- The `amp-carousel` component works very well for product image galleries.
+    On desktop we've added a film strip like slide preview. Each product colour has its own image gallery ans we use `amp-bind`
+    to select the gallery corresponding to the selected colour. The green colour is the default color for the carousel,
+    so when the page load, we always show the image gallery for the green colour. See below for more informations on how we are
+    using `amp-bind`.
+    Clicking on a preview image will reveal the image in the carousel via the tap action `on="tap:product-carousel-preview.goToSlide(index=0)"`. -->
+  <!-- The actual carousel. Learn how the `amp-carousel` component works [here](/advanced/image_galleries_with_amp-carousel/).-->
+  <div class="product-gallery hide-on-mobile">
+    <ul class="show" [class]="selectedCarousel == 'green' ? 'show' : 'hide'">
+      <li tabindex="0" role="button">
+        <amp-img on="tap:AMP.setState(selectedSlide=0)" src="/img/green_apple_1_60x40.jpg" width="60" height="40" class="selected" [class]="selectedSlide == 0 ? 'selected' : ''"></amp-img>
+      </li>
+      <li tabindex="1" role="button">
+        <amp-img on="tap:AMP.setState(selectedSlide=1, selectedCarousel=green)" src="/img/green_apple_2_60x40.jpg" width="60" height="40" [class]="selectedSlide == 1 ? 'selected' : ''"></amp-img>
+      </li>
+    </ul>
+     <ul class="hide" [class]="selectedCarousel == 'golden' ? 'show' : 'hide'">
+       <li tabindex="0" role="button">
+         <amp-img on="tap:AMP.setState(selectedSlide=0)" src="/img/product1_alt1_60x40.jpg" width="60" height="40" [class]="selectedSlide == 0 ? 'selected' : ''"></amp-img>
        </li>
      </ul>
-    <amp-carousel id="product-carousel" width="1024" height="682" layout="responsive" type="slides">
-        <amp-img src="/img/product1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
-        <amp-img src="/img/product1_alt1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
-        <amp-img src="/img/product1_alt2_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
+     <ul class="hide" [class]="selectedCarousel == 'red' ? 'show' : 'hide'">
+       <li tabindex="0" role="button">
+         <amp-img on="tap:AMP.setState(selectedSlide=0)" src="/img/red_apple_1_60x40.jpg" width="60" height="40" [class]="selectedSlide == 0 ? 'selected' : ''"></amp-img>
+       </li>
+       <li tabindex="1" role="button">
+         <amp-img on="tap:AMP.setState(selectedSlide=1, selectedCarousel=red)" src="/img/red_apple_2_60x46.jpg" width="60" height="40" [class]="selectedSlide == 1 ? 'selected' : ''"></amp-img>
+       </li>
+     </ul>
+
+    <amp-carousel id="green-apple-carousel" width="1024" height="682" layout="responsive" type="slides" [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index, selectedCarousel=green)" [class]="selectedCarousel == 'green' ? 'show' : 'hide'">
+         <amp-img src="/img/green_apple_1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
+         <amp-img src="/img/green_apple_2_1024x685.jpg" width="1024" height="682" layout="responsive"></amp-img>
     </amp-carousel>
+    <amp-carousel id="golden-apple-carousel" width="1024" height="682" layout="responsive" type="slides" [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index, selectedCarousel=golden)" class="hide" [class]="selectedCarousel == 'golden' ? 'show' : 'hide'">
+        <amp-img src="/img/product1_alt1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
+    </amp-carousel>
+    <amp-carousel id="red-apple-carousel" width="1024" height="682" layout="responsive" type="slides" [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index, selectedCarousel=red)" class="hide" [class]="selectedCarousel == 'red' ? 'show' : 'hide'">
+        <amp-img src="/img/red_apple_1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
+        <amp-img src="/img/red_apple_2_1024x793.jpg" width="1024" height="682" layout="responsive"></amp-img>
+    </amp-carousel>
+
   </div>
 
     <h5 class="price-description">Price: $1.99</h5>
@@ -315,16 +382,16 @@ This sample showcases how to build a product page in AMP HTML.
             target="_top">
         <div>
           <label for="color">Color:</label>
-          <amp-selector name="color" layout="container">
+          <amp-selector name="color" layout="container" [selected]="selectedCarousel" on="select:AMP.setState(selectedCarousel=event.targetOption, selectedSlide=0)">
             <ul>
               <li>
-                <amp-img option="green" selected src="/img/product1_60x40.jpg" width="60" height="40"></amp-img>
+                <amp-img option="green" selected src="/img/green_apple_1_60x40.jpg" width="60" height="40" on="tap:AMP.setState(sizeUnavailable='S')"></amp-img>
               </li>
               <li>
-                <amp-img option="golden" src="/img/product1_alt1_60x40.jpg" width="60" height="40"></amp-img>
+                <amp-img option="golden" src="/img/product1_alt1_60x40.jpg" width="60" height="40" on="tap:AMP.setState(sizeUnavailable='M', selectedSize='M')"></amp-img>
               </li>
               <li>
-                <amp-img option="red" src="/img/product1_alt2_60x40.jpg" width="60" height="40"></amp-img>
+                <amp-img option="red" src="/img/red_apple_1_60x40.jpg" width="60" height="40" on="tap:AMP.setState(sizeUnavailable='')"></amp-img>
               </li>
             </ul>
           </amp-selector>
@@ -341,11 +408,19 @@ This sample showcases how to build a product page in AMP HTML.
         </div>
         <div>
           <label for="size">Size:</label>
-          <amp-selector name="size" layout="container">
+          <amp-selector name="size" layout="container" on="select:AMP.setState(selectedSize=event.targetOption)" [selected]="selectedSize != sizeUnavailable ? selectedSize : null">
             <ul>
-              <li option="S">S</li>
-              <li option="M" selected>M</li>
+              <div class="size-container">
+                <li option="S">S</li>
+                <span class="show-size-unavailable" [class]="sizeUnavailable == 'S' ? 'show-size-unavailable' : 'hide'">X</span>
+              </div>
+              <div class="size-container">
+                <li option="M" selected>M</li>
+                <span class="hide" [class]="sizeUnavailable == 'M' ? 'show-size-unavailable' : 'hide'">X</span>
+              </div>
+              <div class="size-container">
               <li option="L">L</li>
+            </div>
             </ul>
           </amp-selector>
         </div>
