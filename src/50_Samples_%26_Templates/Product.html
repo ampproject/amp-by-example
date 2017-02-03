@@ -241,6 +241,7 @@ This sample showcases how to build a product page in AMP HTML.
     </amp-state>
     </head>
     <body>
+
       <!-- #### Navigation -->
       <!--
         Use the [amp-sidebar](/components/amp-sidebar/) component to give customers the chance to quickly jump to any of your product categories.
@@ -385,13 +386,13 @@ This sample showcases how to build a product page in AMP HTML.
           <amp-selector name="color" layout="container" [selected]="selectedCarousel" on="select:AMP.setState(selectedCarousel=event.targetOption, selectedSlide=0)">
             <ul>
               <li>
-                <amp-img option="green" selected src="/img/green_apple_1_60x40.jpg" width="60" height="40" on="tap:AMP.setState(sizeUnavailable='S')"></amp-img>
+                <amp-img option="green" selected src="/img/green_apple_1_60x40.jpg" width="60" height="40"></amp-img>
               </li>
               <li>
-                <amp-img option="golden" src="/img/product1_alt1_60x40.jpg" width="60" height="40" on="tap:AMP.setState(sizeUnavailable='M', selectedSize='M')"></amp-img>
+                <amp-img option="golden" src="/img/product1_alt1_60x40.jpg" width="60" height="40"></amp-img>
               </li>
               <li>
-                <amp-img option="red" src="/img/red_apple_1_60x40.jpg" width="60" height="40" on="tap:AMP.setState(sizeUnavailable='')"></amp-img>
+                <amp-img option="red" src="/img/red_apple_1_60x40.jpg" width="60" height="40"></amp-img>
               </li>
             </ul>
           </amp-selector>
@@ -408,18 +409,19 @@ This sample showcases how to build a product page in AMP HTML.
         </div>
         <div>
           <label for="size">Size:</label>
-          <amp-selector name="size" layout="container" on="select:AMP.setState(selectedSize=event.targetOption)" [selected]="selectedSize != sizeUnavailable ? selectedSize : null">
+          <amp-selector name="size" layout="container" on="select:AMP.setState(selectedSize=event.targetOption)" [selected]="allColors[selectedCarousel].availableSizes.indexOf(selectedSize) >= 0 ? selectedSize : allColors[selectedCarousel].availableSizes[0]">
             <ul>
               <div class="size-container">
                 <li option="S">S</li>
-                <span class="show-size-unavailable" [class]="sizeUnavailable == 'S' ? 'show-size-unavailable' : 'hide'">X</span>
+                <span class="show-size-unavailable" [class]="allColors[selectedCarousel].availableSizes.indexOf('S') >= 0 ? 'hide' : 'show-size-unavailable'">X</span>
               </div>
               <div class="size-container">
                 <li option="M" selected>M</li>
-                <span class="hide" [class]="sizeUnavailable == 'M' ? 'show-size-unavailable' : 'hide'">X</span>
+                <span class="hide" [class]="allColors[selectedCarousel].availableSizes.indexOf('M') >= 0 ? 'hide' : 'show-size-unavailable'">X</span>
               </div>
               <div class="size-container">
               <li option="L">L</li>
+              <span class="hide" [class]="allColors[selectedCarousel].availableSizes.indexOf('L') >= 0 ? 'hide' : 'show-size-unavailable'">X</span>
             </div>
             </ul>
           </amp-selector>
