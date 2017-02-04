@@ -16,6 +16,12 @@
   <link rel="canonical" href="<%host%>/components/amp-list/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <!--
+    #### CSS for the amp-list loader
+
+    While the runtime fetches the JSON content from the endpoint, it will display a loading indicator. It consists of three `div`s with the class `i-amphtml-loader-dot`, all within a `div.i-amphtml-loader`, which lastly is placed in a `div.i-amphtml-loading-container`.
+
+    We'll set up a 3D spinner instead (inspired by http://tobiasahlin.com/spinkit/), by hiding the dots and styling the `.i-amphtml-loader`. The background of the loader's container was styled so we can check that the spinner is vertically centered. -->
   <style amp-custom>
   amp-list {
     margin-left: 16px;
@@ -25,16 +31,10 @@
     bottom: 0;
     right: 0;
   }
-  <!--
-    #### CSS for the amp-list loader
 
-    While the runtime fetches the JSON content from the endpoint, it will display a loading indicator. It consists of three `div`s with the class `i-amphtml-loader-dot`, all within a `div.i-amphtml-loader`, which lastly is placed in a `div.i-amphtml-loading-container`.
-
-    We'll set up a 3D spinner instead (inspired by http://tobiasahlin.com/spinkit/), by hiding the dots and styling the `.i-amphtml-loader`. The background of the loader's container was styled so we can check that the spinner is vertically centered. -->
   .i-amphtml-loading-container {
     background: #DFE8EC;
   }
-
   .i-amphtml-loader.amp-active {
     max-width: 10%;
     max-height: 50%;
@@ -45,14 +45,12 @@
     margin: -1em auto;
     animation: sk-rotateplane 1.2s infinite ease-in-out;
   }
-
   @keyframes sk-rotateplane {
     0% { transform: perspective(120px); }
     50% { transform: perspective(120px) rotateX(-180deg); }
     100% { transform: perspective(120px) rotateX(-180deg) rotateY(-180deg); }
   }
-
-  <!-- Hide the three default dots -->
+  /* Hide the three default dots */
   .i-amphtml-loader-dot {
     display: none;
   }
@@ -99,7 +97,7 @@
   <!--
     The `slow-response` endpoint returns a basic JSON response, with a delay of 10 seconds. If the spinner is not visible, reload the page and scroll to this section if necessary.
   -->
-  <amp-list width="auto" height="100" layout="fixed-height" src="<%host%>/samples_templates/slow-response/rates">
+  <amp-list width="auto" height="250" layout="fixed-height" src="<%host%>/samples_templates/slow-response/?delay=10000">
     <template type="amp-mustache">
       <div>
         <p>{{title}}</p>

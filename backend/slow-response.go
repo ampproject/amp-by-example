@@ -18,6 +18,8 @@ package backend
 
 import (
 	"net/http"
+	"strconv"
+	"fmt"
 	"time"
 )
 
@@ -26,14 +28,15 @@ const (
 )
 
 func InitSlowResponseSample() {
-	http.HandleFunc(SLOW_RESPONSE_SAMPLE_PATH +"rates", roomRates)
+	http.HandleFunc(SLOW_RESPONSE_SAMPLE_PATH +"", sleep)
 }
 
-func roomRates(w http.ResponseWriter, r *http.Request) {
+func sleep(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
 	SetContentTypeJson(w)
-	response := "{\"items\":[{\"title\": \"This response was delayed. Reload the page if you didn't see the spinner.\"}]}"
-	duration := time.Duration(10)*time.Second
+	delay, _ := strconv.ParseUint(r.URL.Query().Get("delay"), 0, 64)
+	response := fmt.Sprintf("{\"items\":[{\"title\": \"This response was delayed %v milliseconds. Reload the page if you didn't see the spinner.\"}]}", delay)
+	duration := time.Duration(delay)*time.Millisecond
 	time.Sleep(duration)
 	w.Write([]byte(response))
 }
