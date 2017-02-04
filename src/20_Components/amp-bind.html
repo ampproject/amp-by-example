@@ -33,6 +33,7 @@
   -->
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
   <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
+  <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 </head>
 <body>
@@ -45,10 +46,12 @@
     <script type="application/json">
       {
         "dog": {
-          "url": "/img/Border_Collie.jpg"
+          "url": "/img/Border_Collie.jpg",
+          "videoUrl": "/video/dog-video.mp4"
         },
         "cat": {
-          "url": "/img/cat-looking-up-300x200.jpg"
+          "url": "/img/cat-looking-up-300x200.jpg",
+          "videoUrl": "/video/cat-video.mp4"
         }
       }
     </script>
@@ -80,6 +83,9 @@
 
   `[property]="expression"`
 
+-->
+<!-- #### Attributes data bindings -->
+<!--
   In this example, the `src` of this &lt;amp-img&gt; element will change when
   either the `allAnimals` or `currentAnimal` implicit state variables change.
 
@@ -92,19 +98,18 @@
   </amp-img>
 
   <!--
+  The src of the video will change when the `currentAnimal` variable
+  changes.
+  -->
+  <amp-video src="/video/dog-video.mp4" [src]="allAnimals[currentAnimal].videoUrl" width=480 height=270 autoplay controls=true></amp-video>
+
+  <!--
   The text of this &lt;p&gt; will change when the `currentAnimal` variable
   changes.
   -->
   <p [text]="'This is a ' + currentAnimal + '.'">
   This is a dog.
   </p>
-
-  <!--
-  The src of the vide will change when the button is clicked ad the `videoSrc` variable
-  changes.
-  -->
-  <amp-video src="https://ampbyexample.com/video/tokyo.mp4" [src]="videoSrc" width=480 height=270 autoplay [controls]="videoControls"></amp-video>
-
 
   <!-- #### Triggering updates -->
   <!--
@@ -116,6 +121,6 @@
     &lt;amp-state&gt; components
   -->
   <button class="button-primary"
-      on="tap:AMP.setState(currentAnimal='cat', videoSrc='https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4')">Set to Cat</button>
+      on="tap:AMP.setState(currentAnimal='cat')">Set to Cat</button>
 </body>
 </html>
