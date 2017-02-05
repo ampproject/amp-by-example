@@ -34,6 +34,11 @@
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
   <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <style amp-custom>
+    .redBackground {
+      background-color: red;
+    }
+  </style>
 </head>
 <body>
   <!-- #### Configuring initial state -->
@@ -50,7 +55,8 @@
         },
         "cat": {
           "imageUrl": "/img/cat-looking-up-300x200.jpg",
-          "videoUrl": "/video/cat-video.mp4"
+          "videoUrl": "/video/cat-video.mp4",
+          "styleClass": "redBackground"
         }
       }
     </script>
@@ -83,7 +89,23 @@
   `[property]="expression"`
 
 -->
-<!-- #### Attributes data bindings -->
+
+<!-- #### Text for textContent -->
+<!--
+The text of this &lt;p&gt; will change when the `currentAnimal` variable
+changes.
+-->
+<p [text]="'This is a ' + currentAnimal + '.'">This is a dog.</p>
+
+<!-- #### class for CSS classes -->
+<!--
+The class of this &lt;p&gt; will change when
+either the `allAnimals` or `currentAnimal` implicit state variables change.
+-->
+
+<p [class]="allAnimals[currentAnimal].styleClass">This text will have have a red background color when cat is selected.</p>
+
+<!-- #### Element-specific attributes -->
 <!--
   In this example, the `src` of this &lt;amp-img&gt; element will change when
   either the `allAnimals` or `currentAnimal` implicit state variables change.
@@ -98,18 +120,9 @@
 
   <!--
   The src of the video will change when
-  either the `allAnimals` or `currentAnimal` implicit state variables change.
+  either the `allAnimals` or `currentAnimal` implicit state variables change. At the moment, among all the AMP video components, only amp-video supports amp-bind.
   -->
-  <amp-video src="/video/dog-video.mp4" [src]="allAnimals[currentAnimal].videoUrl" width=480 height=270 autoplay controls=true></amp-video>
-
-  <!-- #### Text data bindings -->
-  <!--
-  The text of this &lt;p&gt; will change when the `currentAnimal` variable
-  changes.
-  -->
-  <p [text]="'This is a ' + currentAnimal + '.'">
-  This is a dog.
-  </p>
+  <amp-video src="/video/dog-video.mp4" [src]="allAnimals[currentAnimal].videoUrl" width="300" height="200" autoplay controls=true></amp-video>
 
   <!-- #### Triggering updates -->
   <!--
