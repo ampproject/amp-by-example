@@ -117,7 +117,7 @@ func addToCart(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	shoppingCartItem := ShoppingCartItem{name, price, size, color}
+	shoppingCartItem := ShoppingCartItem{name, price, color, size}
 	shoppingCart[shoppingCartItem] = shoppingCart[shoppingCartItem] + quantity
 	// amp-form requires a json result
 	io.WriteString(w, "{}")
