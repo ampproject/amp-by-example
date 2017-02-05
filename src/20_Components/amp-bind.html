@@ -45,11 +45,11 @@
     <script type="application/json">
       {
         "dog": {
-          "url": "/img/Border_Collie.jpg",
+          "imageUrl": "/img/Border_Collie.jpg",
           "videoUrl": "/video/dog-video.mp4"
         },
         "cat": {
-          "url": "/img/cat-looking-up-300x200.jpg",
+          "imageUrl": "/img/cat-looking-up-300x200.jpg",
           "videoUrl": "/video/cat-video.mp4"
         }
       }
@@ -59,7 +59,7 @@
   <!--
   Referencing implicit state in binding expressions is done by dot or bracket
   syntax, starting with the &lt;amp-state&gt; element's `id`, e.g.
-  `allAnimals.dog.url` or `allAnimals['cat']['url']`.
+  `allAnimals.dog.imageUrl` or `allAnimals['cat']['imageUrl']`.
 
   - The contents of &lt;amp-state&gt; must be a single JSON script.
   - Similar to the &lt;amp-analytics&gt; config, placing metadata at the
@@ -93,12 +93,12 @@
      set when a state change is triggered (see below).
   -->
   <amp-img src="/img/Border_Collie.jpg" width="300" height="200"
-      [src]="allAnimals[currentAnimal].url">
+      [src]="allAnimals[currentAnimal].imageUrl">
   </amp-img>
 
   <!--
-  The src of the video will change when the `currentAnimal` variable
-  changes.
+  The src of the video will change when
+  either the `allAnimals` or `currentAnimal` implicit state variables change.
   -->
   <amp-video src="/video/dog-video.mp4" [src]="allAnimals[currentAnimal].videoUrl" width=480 height=270 autoplay controls=true></amp-video>
 
