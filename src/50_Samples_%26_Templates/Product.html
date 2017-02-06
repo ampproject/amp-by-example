@@ -77,6 +77,9 @@ This sample showcases how to build a product page in AMP HTML.
     .price-description {
       color: grey;
       font-weight: 400;
+      margin-top: 24px;
+      margin-bottom: 16px;
+      padding: 0 16px;
     }
     .quantity {
       margin: 16px 0;
@@ -380,7 +383,7 @@ This sample showcases how to build a product page in AMP HTML.
       As soon as the state of this variable changes, the expression will be evaluated.
       See below to understand how we change the state of the variable. -->
 
-    <h5 class="price-description" [text]="'Price: ' + allColors[selectedCarousel].price">Price: $1.99</h5>
+    <span class="price-description" [text]="'Price: ' + allColors[selectedCarousel].price">Price: $1.99</span>
 
     <!--
     The add to cart action is implemented using  [amp-form](/components/amp-form/). In our sample we use the [amp-selector](/components/amp-selector/) for selecting different product properties.
