@@ -141,7 +141,7 @@ first described in text and paintings in medieval times.
   attribute in the `<p>` tag above the carousel to update as well.
   -->
   <div>
-    <p [text]="'Selected slide: ' + selectedSlide">Selected slide: None<p>
+    <p [text]="'Selected slide: ' + selectedSlide + '/2'">Selected slide: None<p>
 
     <amp-carousel controls type=slides width=400 height=300
     [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index)">
