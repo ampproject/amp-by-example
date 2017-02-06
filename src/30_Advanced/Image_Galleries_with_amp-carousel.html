@@ -1,5 +1,6 @@
 <!---{
-    "highlight": true
+    "highlight": true,
+    "experiments": ["amp-bind"]
 }--->
 <!--
   #### Introduction
@@ -152,9 +153,9 @@ first described in text and paintings in medieval times.
   <!--
   These two carousels are linked to each other and to the large carousel above. Notice how
   selecting an image on either of these two carousels changes the image on the top carousel.
-  
+
   In the first example, the CSS class for the selected image on the carousel is
-  set by bind when `selectedSlide` changes. 
+  set by bind when `selectedSlide` changes.
   -->
   <div>
     <p>Without &lt;amp-selector&gt;</p>
@@ -168,7 +169,7 @@ first described in text and paintings in medieval times.
     </amp-carousel>
   </div>
 
-  <!-- 
+  <!--
   In the second example, an [amp-selector](https://github.com/ampproject/amphtml/blob/master/extensions/amp-selector/amp-selector.md) eliminates redundant code, but functions in the same way as the carousel above.
    -->
   <div>
