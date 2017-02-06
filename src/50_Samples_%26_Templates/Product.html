@@ -151,7 +151,7 @@ This sample showcases how to build a product page in AMP HTML.
       outline-color: #eb407a;
       background: none;
     }
-    form#order amp-selector:not([disabled]) [option][selected]:not([disabled]) {
+    form#order amp-selector:not([disabled]) [option][selected]:not([disabled]):not(.container) {
       will-change: box-shadow;
       box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
       transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
@@ -166,33 +166,42 @@ This sample showcases how to build a product page in AMP HTML.
     form#order amp-selector:not([disabled]) [option]:not([selected]):not([disabled]) amp-img {
       opacity: 0.5;
     }
-    .hide{
+    .hide {
       display: none;
     }
-    .show{
+    .show {
       display: block;
     }
-    .show-size-unavailable{
+    .show-size-unavailable {
       display: flex;
     }
-
     .size-container {
-      width: 40px;
-      margin-right: 8px;
+    position: relative;
+    background: gray;
+    overflow: hidden; //hide overflow of pseudo elements
     }
 
-    .size-container > span {
-      align-items: center;
-      justify-content: center;
-      font-size: 4em;
-      color: grey;
-      opacity: 0.3;
-      height: 40px;
-      min-width: 40px;
-      width: auto;
-      position: absolute;
-      filter: alpha(opacity=30); /* For IE8 and earlier */
-    }
+.size-container:before, .size-container:after {
+    position: absolute;
+    content: '';
+    background: grey;
+    display: block;
+    width: auto;
+    height: 3px;
+    min-width: 56px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    left: -8px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.size-container:after {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
 
     </style>
 
@@ -231,14 +240,6 @@ This sample showcases how to build a product page in AMP HTML.
     </script>
 
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-    <amp-state id="product">
-      <script type="application/json">
-      {
-        "selectedSlide": "0",
-        "selectedCarousel": "0"
-      }
-      </script>
-    </amp-state>
     </head>
     <body>
 
@@ -353,7 +354,7 @@ This sample showcases how to build a product page in AMP HTML.
        </li>
      </ul>
 
-    <amp-carousel id="green-apple-carousel" width="1024" height="682" layout="responsive" type="slides" [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index, selectedCarousel=green)" [class]="selectedCarousel == 'green' ? 'show' : 'hide'">
+    <amp-carousel id="green-apple-carousel" width="1024" height="682" layout="responsive" type="slides" [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index, selectedCarousel=green)" class="show" [class]="selectedCarousel == 'green' ? 'show' : 'hide'">
          <amp-img src="/img/green_apple_1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
          <amp-img src="/img/green_apple_2_1024x685.jpg" width="1024" height="682" layout="responsive"></amp-img>
     </amp-carousel>
@@ -427,22 +428,12 @@ This sample showcases how to build a product page in AMP HTML.
             </ul>
           </amp-selector>
         </div>
-        <div>
           <label for="size">Size:</label>
-          <amp-selector name="size" layout="container" on="select:AMP.setState(selectedSize=event.targetOption)" [selected]="allColors[selectedCarousel].availableSizes.indexOf(selectedSize) >= 0 ? selectedSize : allColors[selectedCarousel].availableSizes[0]">
+          <amp-selector name="size" layout="container" on="select:AMP.setState(selectedSize=event.targetOption)" [selected]="selectedCarousel != null && allColors[selectedCarousel].availableSizes.indexOf(selectedSize)>= 0 ? selectedSize : allColors[selectedCarousel].availableSizes[0]">
             <ul>
-              <div class="size-container">
-                <li option="S">S</li>
-                <span class="show-size-unavailable" [class]="allColors[selectedCarousel].availableSizes.indexOf('S') >= 0 ? 'hide' : 'show-size-unavailable'">X</span>
-              </div>
-              <div class="size-container">
-                <li option="M" selected>M</li>
-                <span class="hide" [class]="allColors[selectedCarousel].availableSizes.indexOf('M') >= 0 ? 'hide' : 'show-size-unavailable'">X</span>
-              </div>
-              <div class="size-container">
-              <li option="L">L</li>
-              <span class="hide" [class]="allColors[selectedCarousel].availableSizes.indexOf('L') >= 0 ? 'hide' : 'show-size-unavailable'">X</span>
-            </div>
+                <li option="S" class='' [class]="selectedCarousel == null || allColors[selectedCarousel].availableSizes.indexOf('S') >= 0 ? '' : 'size-container'">S</li>
+                <li option="M" class='' selected [class]="selectedCarousel == null || allColors[selectedCarousel].availableSizes.indexOf('M') >= 0 ? '' : 'size-container'">M</li>
+              <li option="L" class="size-container" [class]="selectedCarousel != null && allColors[selectedCarousel].availableSizes.indexOf('L') >= 0 ? '' : 'size-container'">L</li>
             </ul>
           </amp-selector>
         </div>
