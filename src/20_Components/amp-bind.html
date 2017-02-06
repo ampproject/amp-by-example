@@ -105,14 +105,14 @@ changes. `currentAnimal` is an uninitialized implicit state variable, which will
 
 <!-- #### Binding Styles -->
 <!--
-  Style class can be changed. It will override the existing element style class. `allAnimals` is the `id` of the &lt;amp-state&gt; component above.
+  Styling can be changed by applying css classes. It will override all the element's style classes. `allAnimals` is the `id` of the &lt;amp-state&gt; component above.
 -->
 
 <p [class]="allAnimals[currentAnimal].style" class="greenBackground">Each animal has a different background color.</p>
 
 <!-- #### Binding Attribute Values -->
 <!--
-Various AMP components support binding attribute values with amp-bind. `amp-img` URLs can be changed.
+Various AMP components support binding attribute values with amp-bind. For example, `amp-img` URLs can be changed.
 -->
   <amp-img src="/img/Border_Collie.jpg" width="300" height="200"
       [src]="allAnimals[currentAnimal].imageUrl">
