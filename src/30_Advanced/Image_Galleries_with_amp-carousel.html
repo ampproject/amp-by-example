@@ -135,53 +135,50 @@ first described in text and paintings in medieval times.
       </div>
     </div>
   </amp-carousel>
-  <!-- #### Linked Carousels with Bind -->
+  <!-- #### Linking Carousels with amp-bind -->
   <!--
+
+  With [amp-bind](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md) it's possible to link carousel state across multiple amp-carousels.
+
   Whenever the carousel slide changes, it updates `selectedSlide`. This causes the `text`
   attribute in the `<p>` tag above the carousel to update as well.
   -->
   <div>
-    <p [text]="'Selected slide: ' + selectedSlide + '/2'">Selected slide: None<p>
+    <p> Selected slide: <span [text]="(selectedSlide + 1) + '/3'">1/3</span></p>
 
-    <amp-carousel controls type=slides width=400 height=300
-    [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index)">
-      <amp-img src="https://ampbyexample.com/img/image1.jpg" width=400 height=300></amp-img>
-      <amp-img src="https://ampbyexample.com/img/image2.jpg" width=400 height=300></amp-img>
-      <amp-img src="https://ampbyexample.com/img/image3.jpg" width=400 height=300></amp-img>
+    <amp-carousel controls type="slides" width="400" height="300"
+    [slide]="selectedSlide" on="slideChange:AMP.setState(selectedSlide=event.index)">
+      <amp-img src="/img/image1.jpg" width="400" height="300"></amp-img>
+      <amp-img src="/img/image2.jpg" width="400" height="300"></amp-img>
+      <amp-img src="/img/image3.jpg" width="400" height="300"></amp-img>
     </amp-carousel>
   </div>
   <!--
-  These two carousels are linked to each other and to the large carousel above. Notice how
+  This and the following carousel are linked to each other and to the large carousel above. Notice how
   selecting an image on either of these two carousels changes the image on the top carousel.
 
   In the first example, the CSS class for the selected image on the carousel is
   set by bind when `selectedSlide` changes.
   -->
-  <div>
-    <p>Without &lt;amp-selector&gt;</p>
-    <amp-carousel controls width=400 height=100>
-      <amp-img src="https://ampbyexample.com/img/image1.jpg" width=100 height=75
-          [class]="selectedSlide == 0 ? 'selected' : ''" on="tap:AMP.setState(selectedSlide=0)"></amp-img>
-      <amp-img src="https://ampbyexample.com/img/image2.jpg" width=100 height=75
-          [class]="selectedSlide == 1 ? 'selected' : ''" on="tap:AMP.setState(selectedSlide=1)"></amp-img>
-      <amp-img src="https://ampbyexample.com/img/image3.jpg" width=100 height=75
-          [class]="selectedSlide == 2 ? 'selected' : ''" on="tap:AMP.setState(selectedSlide=2)"></amp-img>
-    </amp-carousel>
-  </div>
+  <amp-carousel controls width="400" height="100">
+    <amp-img src="/img/image1.jpg" width="100" height="75"
+        [class]="selectedSlide == 0 ? 'selected' : ''" on="tap:AMP.setState(selectedSlide=0)"></amp-img>
+    <amp-img src="/img/image2.jpg" width="100" height="75"
+        [class]="selectedSlide == 1 ? 'selected' : ''" on="tap:AMP.setState(selectedSlide=1)"></amp-img>
+    <amp-img src="/img/image3.jpg" width="100" height="75"
+        [class]="selectedSlide == 2 ? 'selected' : ''" on="tap:AMP.setState(selectedSlide=2)"></amp-img>
+  </amp-carousel>
 
   <!--
   In the second example, an [amp-selector](https://github.com/ampproject/amphtml/blob/master/extensions/amp-selector/amp-selector.md) eliminates redundant code, but functions in the same way as the carousel above.
    -->
-  <div>
-    <p>With &lt;amp-selector&gt;</p>
-    <amp-selector layout=container name="carousel-selector" [selected]="selectedSlide" on="select:AMP.setState(selectedSlide=event.targetOption)">
-      <amp-carousel controls width=400 height=100>
-          <amp-img src="https://ampbyexample.com/img/image1.jpg" width=100 height=75 option=0></amp-img>
-          <amp-img src="https://ampbyexample.com/img/image2.jpg" width=100 height=75 option=1></amp-img>
-          <amp-img src="https://ampbyexample.com/img/image3.jpg" width=100 height=75 option=2></amp-img>
-      </amp-carousel>
-    </amp-selector>
-  </div>
+  <amp-selector layout="container" name="carousel-selector" [selected]="selectedSlide" on="select:AMP.setState(selectedSlide=event.targetOption)">
+    <amp-carousel controls width="400" height="100">
+        <amp-img src="/img/image1.jpg" width="100" height="75" option="0"></amp-img>
+        <amp-img src="/img/image2.jpg" width="100" height="75" option="1"></amp-img>
+        <amp-img src="/img/image3.jpg" width="100" height="75" option="2"></amp-img>
+    </amp-carousel>
+  </amp-selector>
 
   <!-- #### Image Galleries with Previews -->
   <!-- You can reveal specific slides in carousel using an on tap action `on="tap:my-carousel.goToSlide(index=0)"`. Slides are identified by the carousel id and index (starting at 0). 
