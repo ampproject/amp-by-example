@@ -82,3 +82,4 @@ skip_files:
 - ^(.*/)?.*\.DS_Store$
 - ^(.*/)?.*\.swp$
 - api
+- .git
