@@ -23,9 +23,12 @@
     {{/isEmbed}}
     <article>
       {{^isEmbed}}
-      <h3 id="title">
+      <h1 id="title">
         {{subHeading}} {{#metadata.experiments.length}}<i class="amp-experiment-large"></i>{{/metadata.experiments.length}}
-      </h3>
+      </h1>
+      {{#github}}
+      <a id="github" href="{{github}}">Edit on Github</a>
+      {{/github}}
       {{#metadata.experiments.length}}
       <div class="box">
         <div class="column doc">
