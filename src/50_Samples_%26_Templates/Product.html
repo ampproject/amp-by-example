@@ -180,6 +180,7 @@ This sample showcases how to build a product page in AMP HTML.
       background: gray;
       overflow: hidden;
       opacity: 0.6;
+      pointer-events: none;
     }
 
 .unavailable:before, .unavailable:after {
@@ -202,6 +203,12 @@ This sample showcases how to build a product page in AMP HTML.
 .unavailable:after {
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+@media (max-width: 1024px) {
+  .product-gallery > ul {
+    display: none;
+  }
 }
 
     </style>
@@ -252,7 +259,7 @@ This sample showcases how to build a product page in AMP HTML.
         			"M": "$5.99",
               "L": "unavailable"
         		},
-        		"defaultSize": "M"
+        		"defaultSize": "S"
         },
         "golden": {
           "sizes": {
@@ -363,7 +370,7 @@ This sample showcases how to build a product page in AMP HTML.
     using `amp-bind`.
     Clicking on a preview image will reveal the image in the carousel via the tap action `on="tap:product-carousel-preview.goToSlide(index=0)"`. -->
   <!-- The actual carousel. Learn how the `amp-carousel` component works [here](/advanced/image_galleries_with_amp-carousel/).-->
-  <div class="product-gallery hide-on-mobile">
+  <div class="product-gallery">
     <ul class="show" [class]="selectedColor == 'green' ? 'show' : 'hide'">
       <li tabindex="0" role="button">
         <amp-img on="tap:AMP.setState(selectedSlide=0)" src="/img/green_apple_1_60x40.jpg" width="60" height="40" class="selected" [class]="selectedSlide == 0 ? 'selected' : ''"></amp-img>
@@ -411,7 +418,7 @@ This sample showcases how to build a product page in AMP HTML.
       whose state is null at default.
       As soon as the state of this variable changes, the expression will be evaluated.
       See below to understand how we change the state of the variable. -->
-      <p>Price: <span class="price-description" [text]="product[selectedColor || 'green'].sizes[selectedSize || 'M']">$1.99</span>
+      <p class="price-description">Price: <span [text]="product[selectedColor || 'green'].sizes[selectedSize || 'S']">$1.99</span>
     </p>
     <!--
     The add to cart action is implemented using  [amp-form](/components/amp-form/). In our sample we use the [amp-selector](/components/amp-selector/) for selecting different product properties.
@@ -435,7 +442,7 @@ This sample showcases how to build a product page in AMP HTML.
             target="_top">
         <div>
           <label for="color">Color:</label>
-          <amp-selector name="color" layout="container" [selected]="selectedColor" on="select:AMP.setState(selectedColor=event.targetOption, selectedSlide=0, selectedSize=product[selectedColor].defaultSize)">
+          <amp-selector name="color" layout="container" [selected]="selectedColor" on="select:AMP.setState(selectedColor=event.targetOption, selectedSlide=0, selectedSize = 'S')")>
             <ul>
               <li>
                 <amp-img option="green" selected src="/img/green_apple_1_60x40.jpg" width="60" height="40"></amp-img>
@@ -460,8 +467,7 @@ This sample showcases how to build a product page in AMP HTML.
           </amp-selector>
         </div>
           <label for="size">Size:</label>
-          <span class="price-description" [text]="selectedSize">default size</span>
-          <amp-selector name="size" layout="container" on="select:AMP.setState(selectedSize=event.targetOption)" [selected]="product[selectedColor || 'green'].sizes[selectedSize || 'M'] != 'unavailable' ? selectedSize : product[selectedColor || 'green'].defaultSize">
+          <amp-selector name="size" layout="container" on="select:AMP.setState(selectedSize=event.targetOption)" [selected]="product[selectedColor || 'green'].sizes[selectedSize || 'S'] != 'unavailable' ? selectedSize : product[selectedColor || 'green'].defaultSize">
             <ul>
               <li option="S" class='' [class]="product[selectedColor || 'green'].sizes['S'] != 'unavailable' ? '' : 'unavailable'">S</li>
               <li option="M" class='' selected [class]="product[selectedColor || 'green'].sizes['M'] != 'unavailable' ? '' : 'unavailable'">M</li>
