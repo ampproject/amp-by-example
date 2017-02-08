@@ -154,7 +154,7 @@ This sample showcases how to build a product page in AMP HTML.
       outline-color: #eb407a;
       background: none;
     }
-    form#order amp-selector:not([disabled]) [option][selected]:not([disabled]):not(.container) {
+    form#order amp-selector:not([disabled]) [option][selected]:not([disabled]):not(.unavailable) {
       will-change: box-shadow;
       box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
       transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
@@ -175,22 +175,20 @@ This sample showcases how to build a product page in AMP HTML.
     .show {
       display: block;
     }
-    .show-size-unavailable {
-      display: flex;
-    }
-    .size-container {
-    position: relative;
-    background: gray;
-    overflow: hidden; //hide overflow of pseudo elements
+    .unavailable {
+      position: relative;
+      background: gray;
+      overflow: hidden;
+      opacity: 0.6;
     }
 
-.size-container:before, .size-container:after {
+.unavailable:before, .unavailable:after {
     position: absolute;
     content: '';
     background: grey;
     display: block;
     width: auto;
-    height: 3px;
+    height: 1px;
     min-width: 56px;
     -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
@@ -201,7 +199,7 @@ This sample showcases how to build a product page in AMP HTML.
     margin: auto;
 }
 
-.size-container:after {
+.unavailable:after {
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 }
@@ -245,6 +243,37 @@ This sample showcases how to build a product page in AMP HTML.
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     </head>
     <body>
+    <amp-state id="product">
+      <script type="application/json">
+      {
+          "green": {
+            "sizes": {
+        			"S": "$5.99",
+        			"M": "$5.99",
+              "L": "unavailable"
+        		},
+        		"defaultSize": "M"
+        },
+        "golden": {
+          "sizes": {
+            "S": "$9.99",
+            "M": "unavailable",
+            "L": "$9.99"
+          },
+          "defaultSize": "S"
+        },
+        "red": {
+          "sizes": {
+            "S": "$7.99",
+            "M": "$7.99",
+            "L": "$7.99"
+          },
+          "defaultSize": "S"
+        }
+      }
+    </script>
+  </amp-state>
+    <%>product/header.html%>
 
       <!-- #### Navigation -->
       <!--
@@ -335,36 +364,36 @@ This sample showcases how to build a product page in AMP HTML.
     Clicking on a preview image will reveal the image in the carousel via the tap action `on="tap:product-carousel-preview.goToSlide(index=0)"`. -->
   <!-- The actual carousel. Learn how the `amp-carousel` component works [here](/advanced/image_galleries_with_amp-carousel/).-->
   <div class="product-gallery hide-on-mobile">
-    <ul class="show" [class]="selectedCarousel == 'green' ? 'show' : 'hide'">
+    <ul class="show" [class]="selectedColor == 'green' ? 'show' : 'hide'">
       <li tabindex="0" role="button">
         <amp-img on="tap:AMP.setState(selectedSlide=0)" src="/img/green_apple_1_60x40.jpg" width="60" height="40" class="selected" [class]="selectedSlide == 0 ? 'selected' : ''"></amp-img>
       </li>
       <li tabindex="1" role="button">
-        <amp-img on="tap:AMP.setState(selectedSlide=1, selectedCarousel=green)" src="/img/green_apple_2_60x40.jpg" width="60" height="40" [class]="selectedSlide == 1 ? 'selected' : ''"></amp-img>
+        <amp-img on="tap:AMP.setState(selectedSlide=1, selectedColor=green)" src="/img/green_apple_2_60x40.jpg" width="60" height="40" [class]="selectedSlide == 1 ? 'selected' : ''"></amp-img>
       </li>
     </ul>
-     <ul class="hide" [class]="selectedCarousel == 'golden' ? 'show' : 'hide'">
+     <ul class="hide" [class]="selectedColor == 'golden' ? 'show' : 'hide'">
        <li tabindex="0" role="button">
          <amp-img on="tap:AMP.setState(selectedSlide=0)" src="/img/product1_alt1_60x40.jpg" width="60" height="40" [class]="selectedSlide == 0 ? 'selected' : ''"></amp-img>
        </li>
      </ul>
-     <ul class="hide" [class]="selectedCarousel == 'red' ? 'show' : 'hide'">
+     <ul class="hide" [class]="selectedColor == 'red' ? 'show' : 'hide'">
        <li tabindex="0" role="button">
          <amp-img on="tap:AMP.setState(selectedSlide=0)" src="/img/red_apple_1_60x40.jpg" width="60" height="40" [class]="selectedSlide == 0 ? 'selected' : ''"></amp-img>
        </li>
        <li tabindex="1" role="button">
-         <amp-img on="tap:AMP.setState(selectedSlide=1, selectedCarousel=red)" src="/img/red_apple_2_60x46.jpg" width="60" height="40" [class]="selectedSlide == 1 ? 'selected' : ''"></amp-img>
+         <amp-img on="tap:AMP.setState(selectedSlide=1, selectedColor=red)" src="/img/red_apple_2_60x46.jpg" width="60" height="40" [class]="selectedSlide == 1 ? 'selected' : ''"></amp-img>
        </li>
      </ul>
 
-    <amp-carousel id="green-apple-carousel" width="1024" height="682" layout="responsive" type="slides" [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index, selectedCarousel=green)" class="show" [class]="selectedCarousel == 'green' ? 'show' : 'hide'">
+    <amp-carousel id="green-apple-carousel" width="1024" height="682" layout="responsive" type="slides" [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index, selectedColor=green)" class="show" [class]="selectedColor == 'green' ? 'show' : 'hide'">
          <amp-img src="/img/green_apple_1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
          <amp-img src="/img/green_apple_2_1024x685.jpg" width="1024" height="682" layout="responsive"></amp-img>
     </amp-carousel>
-    <amp-carousel id="golden-apple-carousel" width="1024" height="682" layout="responsive" type="slides" [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index, selectedCarousel=golden)" class="hide" [class]="selectedCarousel == 'golden' ? 'show' : 'hide'">
+    <amp-carousel id="golden-apple-carousel" width="1024" height="682" layout="responsive" type="slides" [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index, selectedColor=golden)" class="hide" [class]="selectedColor == 'golden' ? 'show' : 'hide'">
         <amp-img src="/img/product1_alt1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
     </amp-carousel>
-    <amp-carousel id="red-apple-carousel" width="1024" height="682" layout="responsive" type="slides" [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index, selectedCarousel=red)" class="hide" [class]="selectedCarousel == 'red' ? 'show' : 'hide'">
+    <amp-carousel id="red-apple-carousel" width="1024" height="682" layout="responsive" type="slides" [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index, selectedColor=red)" class="hide" [class]="selectedColor == 'red' ? 'show' : 'hide'">
         <amp-img src="/img/red_apple_1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
         <amp-img src="/img/red_apple_2_1024x793.jpg" width="1024" height="682" layout="responsive"></amp-img>
     </amp-carousel>
@@ -372,19 +401,18 @@ This sample showcases how to build a product page in AMP HTML.
   </div>
 
     <!-- #### Product Configuration -->
-    <!-- We are using [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind) to update the price of the product depending on the colour
-      selected. We configure the price for each colour in the `amp-state` component.
+    <!-- We are using [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind) to update the price of the product
+      depending on the selected colour. We configure the price for each colour in the `amp-state` component.
       We bind to the `text` attribute: we specify that the value of text is "Price:"" concatented with the
-      value of expression `allColors[selectedCarousel].price`. When this expression will be evaluated,
+      value of expression `product[selectedColor].price`. When this expression will be evaluated,
       it will read the price value from the json inside the `amp-state`.
       Notice how we set a default value for the price: this is because the value defined inside `amp-state`
-      will not be accessed at the page load, but only after a mutation in the bind expression:
-      the bind expression contains the variable `selectedCarousel` whose state is null at default.
+      will not be accessed at the page load and the bind expression contains the variable `selectedColor`
+      whose state is null at default.
       As soon as the state of this variable changes, the expression will be evaluated.
       See below to understand how we change the state of the variable. -->
-
-    <span class="price-description" [text]="'Price: ' + allColors[selectedCarousel].price">Price: $1.99</span>
-
+      <p>Price: <span class="price-description" [text]="product[selectedColor || 'green'].sizes[selectedSize || 'M']">$1.99</span>
+    </p>
     <!--
     The add to cart action is implemented using  [amp-form](/components/amp-form/). In our sample we use the [amp-selector](/components/amp-selector/) for selecting different product properties.
     Pressing the `ADD TO CART` button adds the product to a shopping cart page using the properties you have selected. Notice that the button URL contains the query `clientId={{ClientId}}`.
@@ -396,18 +424,18 @@ This sample showcases how to build a product page in AMP HTML.
 
       <!--We are using the `CLIENT_ID` variable to identify the user, this enables storing a shopping cart between repeated visits of an AMP page (either via the AMP Cache or the original host). This variable can be used inside an amp-form by declaring an hidden input value with `default-value="CLIENT_ID(cart)`. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md).-->
       <!--We are using `amp-selector` together with `amp-bind` to update the page for showing the price, the size availability and a carousel of images.
-      Every time you select a color, we set the expression `selectedCarousel=event.targetOption`. This is triggering
-      all the attributes and elements binded to selectedCarousel to update, this way we can:
+      Every time you select a color, we set the expression `selectedColor=event.targetOption`. This is triggering
+      all the attributes and elements binded to selectedColor to update, this way we can:
 
-      * show a specific carousel of images for each colour by `[class]="selectedCarousel == 'green' ? 'show' : 'hide'"`
-      * style the size selector  the unavailable sizes by `[class]="allColors[selectedCarousel].availableSizes.indexOf('S') >= 0 ? 'hide' : 'show-size-unavailable'"`-->
+      * show a specific carousel of images for each colour by `[class]="selectedColor == 'green' ? 'show' : 'hide'"`
+      * style the size by adding a class when we want to disable the unavailable sizes, selectedColor == null || product[selectedColor].availableSizes.indexOf('S') >= 0 ? '' : 'unavailable'-->
 
       <form id="order" method="POST"
             action-xhr="/samples_templates/product/add_to_cart"
             target="_top">
         <div>
           <label for="color">Color:</label>
-          <amp-selector name="color" layout="container" [selected]="selectedCarousel" on="select:AMP.setState(selectedCarousel=event.targetOption, selectedSlide=0)">
+          <amp-selector name="color" layout="container" [selected]="selectedColor" on="select:AMP.setState(selectedColor=event.targetOption, selectedSlide=0, selectedSize=product[selectedColor].defaultSize)">
             <ul>
               <li>
                 <amp-img option="green" selected src="/img/green_apple_1_60x40.jpg" width="60" height="40"></amp-img>
@@ -432,11 +460,12 @@ This sample showcases how to build a product page in AMP HTML.
           </amp-selector>
         </div>
           <label for="size">Size:</label>
-          <amp-selector name="size" layout="container" on="select:AMP.setState(selectedSize=event.targetOption)" [selected]="selectedCarousel != null && allColors[selectedCarousel].availableSizes.indexOf(selectedSize)>= 0 ? selectedSize : allColors[selectedCarousel].availableSizes[0]">
+          <span class="price-description" [text]="selectedSize">default size</span>
+          <amp-selector name="size" layout="container" on="select:AMP.setState(selectedSize=event.targetOption)" [selected]="product[selectedColor || 'green'].sizes[selectedSize || 'M'] != 'unavailable' ? selectedSize : product[selectedColor || 'green'].defaultSize">
             <ul>
-                <li option="S" class='' [class]="selectedCarousel == null || allColors[selectedCarousel].availableSizes.indexOf('S') >= 0 ? '' : 'size-container'">S</li>
-                <li option="M" class='' selected [class]="selectedCarousel == null || allColors[selectedCarousel].availableSizes.indexOf('M') >= 0 ? '' : 'size-container'">M</li>
-              <li option="L" class="size-container" [class]="selectedCarousel != null && allColors[selectedCarousel].availableSizes.indexOf('L') >= 0 ? '' : 'size-container'">L</li>
+              <li option="S" class='' [class]="product[selectedColor || 'green'].sizes['S'] != 'unavailable' ? '' : 'unavailable'">S</li>
+              <li option="M" class='' selected [class]="product[selectedColor || 'green'].sizes['M'] != 'unavailable' ? '' : 'unavailable'">M</li>
+              <li option="L" class="unavailable" [class]="product[selectedColor || 'green'].sizes['L'] != 'unavailable' ? '' : 'unavailable'">L</li>
             </ul>
           </amp-selector>
         </div>
