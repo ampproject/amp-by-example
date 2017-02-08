@@ -193,9 +193,19 @@ If you need to run or write a sample that depends on the backend server, you can
 1. Install the [Google App Engine SDK](https://cloud.google.com/appengine/downloads) for Go and follow the instructions for adding `goapp` to your `PATH`.
 2. Run the backend server in watch mode so it will recompile on change.
 
-   ```none
-   $ gulp backend:watch
-   ```
+    ```none
+    $ gulp backend:watch
+    ```
+
+    If you get an error message `can't find import: "golang.org/x/net/context"`, you have to manually install and configure the GO appengine environment:
+
+    ```none
+    # install the google.goland.org/appengine package
+    $ go get google.golang.org/appengine
+    # explicitly set the GOROOT and APPENGINE_DEV_APPSERVER env vars
+    $ export GOROOT=$HOME/local/google-cloud-sdk/platform/google_appengine/goroot 
+    $ export APPENGINE_DEV_APPSERVER=$(which dev_appserver.py) 
+    ```
 
 3. If everything went well, the full site should now be running on <http://localhost:8080/>
 
