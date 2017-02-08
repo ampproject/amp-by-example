@@ -36,7 +36,7 @@ const change = require('gulp-change');
 const bower = require('gulp-bower');
 const grun = require('gulp-run');
 const htmlmin = require('gulp-htmlmin');
-
+const htmlhint = require("gulp-htmlhint");
 const compileExample = require('./tasks/compile-example');
 const sitemap = require('./tasks/compile-sitemap');
 const createExample = require('./tasks/create-example');
@@ -364,6 +364,12 @@ gulp.task('lint:backend', 'lint go backend code', function() {
   return run('test -z $(gofmt -l $(find . -name \'*.go\'))').exec();
 });
 
+gulp.task('lint:html', 'checks the hmtl source', function() {
+  return gulp.src("./src/**/*.html")
+      .pipe(htmlhint({'doctype-first': false, 'title-require': false, 'attr-lowercase': false}))
+      .pipe(htmlhint.failReporter());
+});
+
 gulp.task('default', 'Run a webserver and watch for changes', [
   'build',
   'watch',
@@ -386,7 +392,7 @@ gulp.task('api:serve', 'Run the go api backend', function(){
   return run('cd api && goapp serve -admin_port=8100').exec();
 });
 
-gulp.task('validate', 'runs all checks', ['lint', 'lint:backend', 'test', 'validate:example']);
+gulp.task('validate', 'runs all checks', ['lint', 'lint:backend', 'lint:html', 'test', 'validate:example']);
 
 gulp.task('snapshot',
     'Saves a snapshot of the generated sample files',

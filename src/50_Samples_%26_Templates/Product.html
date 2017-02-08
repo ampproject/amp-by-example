@@ -198,51 +198,79 @@ This sample showcases how to build a product page in AMP HTML.
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     </head>
     <body>
-    <%>product/header.html%>
+      <!-- #### Navigation -->
+      <!--
+        Use the [amp-sidebar](/components/amp-sidebar/) component to give customers the chance to quickly jump to any of your product categories.  
+      -->
+      <amp-sidebar id="drawermenu" layout="nodisplay">
+        <div class="topheader">
+          <a href="/" class="home">Products by Example</a>
+        </div>
+        <hr/>
+        <h4 class="category expanded"><a href="/samples_templates/product_listing/preview/">Fruit</a></h4>
+        <h4 class="category"><a href="/samples_templates/product_listing/preview/">Vegetable</a></h4>
+        <h4 class="category"><a href="/samples_templates/product_listing/preview/">More</a></h4>
+      </amp-sidebar>
+      <!-- #### Header with Search -->
+      <!--
+        AMP supports forms, which means you can directly integrate a product search into your AMPs. Try searching for "Apple".
 
-    <h2>Apple</h2>
+        AMP doesn't support custom Javascript, but you can use CSS3 animations to enrich your page. The expanding text field when the search box is focused is implemented with CSS only.
+      -->
+      <div class="header">
+        <a id="hamburger" on="tap:drawermenu.toggle">
+          <amp-img srcset="/img/ic_menu_white_1x_web_24dp.png 1x, /img/ic_menu_white_2x_web_24dp.png 2x" width="24" height="24" alt="navigation"></amp-img>
+        </a>
+        <form  method="GET" action="<%host%>/samples_templates/product_listing[[.Mode]]/search" target="_top">
+          <input name="search" type="search" placeholder="Search">
+          <a id="logo" href="/">Products by Example</a>
+          <input type="submit" value="">
+        </form>
+      </div>
 
-    <!-- #### Social -->
-    <!-- The Social Share extension provides a common interface for share buttons. Learn more about `amp-social-share` [here](/components/amp-social-share/). </a> -->
-    <div id="social">
-      <amp-social-share type="twitter"
-                        width="30"
-                        height="22"></amp-social-share>
-      <amp-social-share type="facebook"
-                        width="30"
-                        height="22"
-                        data-attribution="254325784911610"></amp-social-share>
-      <amp-social-share type="gplus"
-                        width="30"
-                        height="22"></amp-social-share>
-      <amp-social-share type="email"
-                        width="30"
-                        height="22"></amp-social-share>
-      <amp-social-share type="pinterest"
-                        width="33"
-                        height="22"></amp-social-share>
-    </div>
+      <h2>Apple</h2>
 
-    <p id="product-description">Lorem ipsum dolor sit amet, ut sed non vel mattis. Et nulla suscipit ante ligula nisl in. Ut venenatis et mauris, mauris porta vulputate tellus mauris integer facilisis.</p>
-    <!-- #### Video -->
-    <!--
-      AMP supports a wide range of video platforms. Here we are using `amp-youtube` to show a product video. You can find an overview of all supported video platforms [here](/advanced/integrating_videos_in_amp_an_overview/).
+      <!-- #### Social -->
+      <!-- The Social Share extension provides a common interface for share buttons. Learn more about `amp-social-share` [here](/components/amp-social-share/). </a> -->
+      <div id="social">
+        <amp-social-share type="twitter"
+                          width="30"
+                          height="22"></amp-social-share>
+        <amp-social-share type="facebook"
+                          width="30"
+                          height="22"
+                          data-attribution="254325784911610"></amp-social-share>
+        <amp-social-share type="gplus"
+                          width="30"
+                          height="22"></amp-social-share>
+        <amp-social-share type="email"
+                          width="30"
+                          height="22"></amp-social-share>
+        <amp-social-share type="pinterest"
+                          width="33"
+                          height="22"></amp-social-share>
+      </div>
 
-      In this sample we don't embed the video directly into the page, but instead show it in a lightbox using the `amp-lightbox` component. Learn more about `amp-lightbox` [here](/components/amp-lightbox/).
-    -->
-    <div id="video-container">
-      <a on="tap:watch-video-lightbox" role="button" class="button button-secondary play" tabindex="0">
-        Show Video
-      </a>
+      <p id="product-description">Lorem ipsum dolor sit amet, ut sed non vel mattis. Et nulla suscipit ante ligula nisl in. Ut venenatis et mauris, mauris porta vulputate tellus mauris integer facilisis.</p>
+      <!-- #### Video -->
+      <!--
+        AMP supports a wide range of video platforms. Here we are using `amp-youtube` to show a product video. You can find an overview of all supported video platforms [here](/advanced/integrating_videos_in_amp_an_overview/).
 
-      <amp-lightbox id="watch-video-lightbox" layout="nodisplay">
-        <div class="amp-youtube-container">
-          <div class="video">
-            <a on="tap:watch-video-lightbox.close" role="button" tabindex="0">
-              Close
-            </a>
-            <amp-youtube width="480"
-                         height="270"
+        In this sample we don't embed the video directly into the page, but instead show it in a lightbox using the `amp-lightbox` component. Learn more about `amp-lightbox` [here](/components/amp-lightbox/).
+      -->
+      <div id="video-container">
+        <a on="tap:watch-video-lightbox" role="button" class="button button-secondary play" tabindex="0">
+          Show Video
+        </a>
+
+        <amp-lightbox id="watch-video-lightbox" layout="nodisplay">
+          <div class="amp-youtube-container">
+            <div class="video">
+              <a on="tap:watch-video-lightbox.close" role="button" tabindex="0">
+                Close
+              </a>
+              <amp-youtube width="480"
+                           height="270"
                          layout="responsive"
                          data-videoid="lBTCB7yLs8Y">
             </amp-youtube>
@@ -308,7 +336,6 @@ This sample showcases how to build a product page in AMP HTML.
               <li option="1" selected>1</li>
               <li option="2">2</li>
               <li option="3">3</li>
-              </li>
             </ul>
           </amp-selector>
         </div>
@@ -321,7 +348,6 @@ This sample showcases how to build a product page in AMP HTML.
               <li option="L">L</li>
             </ul>
           </amp-selector>
-        </label>
         </div>
         <input type="submit" class="button button-primary" name="add-to-cart" value="add to cart">
         <input type="hidden" name="name" value="Apple">
@@ -360,7 +386,28 @@ This sample showcases how to build a product page in AMP HTML.
     <!-- #### Dynamic Related Product Lists -->
     <!--  -->
     <h5 id="related-products">Related products</h5>
-    <%>product/related.html%>
+    <!--
+    With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
+     Learn more about `amp-list` [here](/components/amp-list/)
+    -->
+    <amp-list class="items"
+              width="200"
+              height="100"
+              layout="responsive"
+              src="/json/related_products.json">
+      <template type="amp-mustache">
+    <a class="tile item" href="/samples_templates/product/preview/">
+      <amp-img width="640"
+               height="426"
+               layout="responsive"
+               alt="{{name}}"
+               src="{{img}}"></amp-img>
+             <p class="name">{{name}}</p>
+             <p class="star">{{{stars}}}</p>
+             <p class="price">${{price}}</p>
+    </a>
+  </template>
+</amp-list>
 
     <!--
       #### Analytics
