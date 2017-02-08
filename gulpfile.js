@@ -51,6 +51,7 @@ const paths = {
   dist: {
     dir: 'dist',
     html: 'dist/**/*.html',
+    samples: ['dist/**/*.html', '!dist/bower_components/'],
     img: 'dist/img',
     video: 'dist/video',
     json: 'dist/json',
@@ -69,7 +70,8 @@ const paths = {
   static: 'static/*.*',
   templates: {
     dir: 'templates',
-    files: ['templates/**/*.css', 'templates/**/*.html']
+    files: ['templates/**/*.css', 'templates/**/*.html'],
+    html: 'templates/**/*.html'
   },
   api: {
     conf: 'api/conf.json'
@@ -365,7 +367,7 @@ gulp.task('lint:backend', 'lint go backend code', function() {
 });
 
 gulp.task('lint:html', 'checks the hmtl source', function() {
-  return gulp.src("./src/**/*.html")
+  return gulp.src([paths.samples].join(paths.dist.samples))
       .pipe(htmlhint({'doctype-first': false, 'title-require': false, 'attr-lowercase': false}))
       .pipe(htmlhint.failReporter());
 });
@@ -392,7 +394,16 @@ gulp.task('api:serve', 'Run the go api backend', function(){
   return run('cd api && goapp serve -admin_port=8100').exec();
 });
 
-gulp.task('validate', 'runs all checks', ['lint', 'lint:backend', 'lint:html', 'test', 'validate:example']);
+gulp.task('validate', 'runs all checks', function(callback) {
+  runSequence('test',
+              'validate:example',
+              'lint',
+              'lint:backend',
+              'lint:html',
+              'test',
+              callback);
+});
+
 
 gulp.task('snapshot',
     'Saves a snapshot of the generated sample files',

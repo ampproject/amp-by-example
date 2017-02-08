@@ -97,8 +97,11 @@ The `CLIENT_ID` variable can be passed via an amp-form by declaring a hidden inp
 but the value of this cookie is not relevant and you could re-use your own session id.
 
 Read more about [variable substitution](https://www.ampproject.org/docs/reference/components/amp-form#variable-substitutions).
-Currently, HTML tables are not supported in form responses, so we'll use CSS to layout the result data. -->
+Currently, HTML tables are not supported in form responses, so we'll use CSS to layout the result data. 
 
+In order to submit the form as soon as the user picks an option, we will add an
+[`on` attribute](https://www.ampproject.org/docs/reference/spec#on) to each `<input>`, that will submit the poll on change.
+-->
 <form method="post" action-xhr="<%host%>/samples_templates/poll/submit" target="_blank"
       id="poll1"
       custom-validation-reporting="as-you-go">
@@ -108,11 +111,6 @@ Currently, HTML tables are not supported in form responses, so we'll use CSS to 
         <p>Choose your favourite flightless bird and you will discover what other users have chosen.
         If you have already voted, your answer will be overwritten.</p>
 
-<!-- #### Submit form on input change -->
-<!--
-In order to submit the form as soon as the user picks an option, we will add an
-[`on` attribute](https://www.ampproject.org/docs/reference/spec#on) to each `<input>`, that will submit the poll on change.
--->
         <ul>
           [[range $key, $value := .Questions]]
           <li>

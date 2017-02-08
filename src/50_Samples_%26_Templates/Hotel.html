@@ -79,10 +79,10 @@ Specify the endpoints required for `amp-access` to detect a signed-user. This wi
       border: solid 2px #ffd700;
       border-radius: 3px;
   }
-  #hero-images {
+  #hero-images-carousel {
       object-fit: contain;
   }
-  #hero-images .caption {
+  #hero-images-carousel .caption {
       position: absolute;
       bottom: 0;
       left: 0;
@@ -137,14 +137,14 @@ Specify the endpoints required for `amp-access` to detect a signed-user. This wi
 </style>
 </head>
 <body>
-<!-- #### Hero images -->
+<!-- #### Hero Images -->
 <!--
   The heading resizes to the available space using `amp-fit-text`. The `amp-carousel` element is used to add hero images for the property. To learn more about configuring these elements look at the [advanced carousel demo here](/advanced/image_galleries_with_amp-carousel/).
 -->
 <div>
     <h5><amp-fit-text layout="responsive" min-font-size="20px" max-font-size="80px" height="80" width="600">Buckingham Palace Guest Rooms</amp-fit-text></h5>
     <div class="star-rating"><span>★★★★☆</span> 4.3 stars from 250 reviews</div>
-    <amp-carousel id="hero-images" width="640" height="383" layout="responsive" type="slides">
+    <amp-carousel id="hero-images-carousel" width="640" height="383" layout="responsive" type="slides">
         <div>
             <amp-img src="/img/hotel01_2benny_640x383.jpg" layout="fill" alt="Buckingham Palace exterior" attribution="2benny on Flickr - CC BY 2.0"></amp-img>
             <div class="caption">Photo by <a href="https://flic.kr/p/rAGfoE">2benny</a> / <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a></div>

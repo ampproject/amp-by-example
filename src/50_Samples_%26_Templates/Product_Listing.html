@@ -78,12 +78,12 @@ This sample showcases how to build a product listing page in AMP HTML.
     AMP doesn't support custom Javascript, but you can use CSS3 animations to enrich your page. The expanding text field when the search box is focused is implemented with CSS only.
   -->
   <div class="header">
-    <a id="hamburger" on="tap:drawermenu.toggle">
+    <a id="sample-menu" on="tap:drawermenu.toggle">
       <amp-img srcset="/img/ic_menu_white_1x_web_24dp.png 1x, /img/ic_menu_white_2x_web_24dp.png 2x" width="24" height="24" alt="navigation"></amp-img>
     </a>
     <form  method="GET" action="<%host%>/samples_templates/product_listing[[.Mode]]/search" target="_top">
       <input name="search" type="search" placeholder="Search">
-      <a id="logo" href="/">Products by Example</a>
+      <a id="sample-logo" href="/">Products by Example</a>
       <input type="submit" value="">
     </form>
   </div>
@@ -199,7 +199,7 @@ With AMP, you can easily pull in different latest offers or highlights without c
 </amp-list>
 
 <!--
-  #### Analytics
+  #### User Analytics
 -->
 <!--
   Analytics must be configured in the body. Here we use Google Analytics to track pageviews.

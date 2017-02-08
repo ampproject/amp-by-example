@@ -218,20 +218,20 @@ This sample showcases how to build a product page in AMP HTML.
         AMP doesn't support custom Javascript, but you can use CSS3 animations to enrich your page. The expanding text field when the search box is focused is implemented with CSS only.
       -->
       <div class="header">
-        <a id="hamburger" on="tap:drawermenu.toggle">
+        <a id="sample-menu" on="tap:drawermenu.toggle">
           <amp-img srcset="/img/ic_menu_white_1x_web_24dp.png 1x, /img/ic_menu_white_2x_web_24dp.png 2x" width="24" height="24" alt="navigation"></amp-img>
         </a>
         <form  method="GET" action="<%host%>/samples_templates/product_listing[[.Mode]]/search" target="_top">
           <input name="search" type="search" placeholder="Search">
-          <a id="logo" href="/">Products by Example</a>
+          <a id="sample-logo" href="/">Products by Example</a>
           <input type="submit" value="">
         </form>
       </div>
 
       <h2>Apple</h2>
 
-      <!-- #### Social -->
-      <!-- The Social Share extension provides a common interface for share buttons. Learn more about `amp-social-share` [here](/components/amp-social-share/). </a> -->
+      <!-- #### Social Sharing -->
+      <!-- The Social Share extension provides a common interface for share buttons. Learn more about `amp-social-share` [here](/components/amp-social-share/). -->
       <div id="social">
         <amp-social-share type="twitter"
                           width="30"
@@ -409,29 +409,29 @@ This sample showcases how to build a product page in AMP HTML.
   </template>
 </amp-list>
 
-    <!--
-      #### Analytics
-    -->
-    <!--
-      Analytics must be configured in the body. Here we use Google Analytics to track pageviews.
-    -->
-    <amp-analytics type="googleanalytics">
-      <script type="application/json">
-          {
-            "vars": {
-                "account": "UA-73836974-1"
-            },
-            "triggers": {
-                "default pageview": {
-                    "on": "visible",
-                    "request": "pageview",
-                    "vars": {
-                        "title": "Product"
-                    }
-                }
-            }
-        }
-      </script>
-    </amp-analytics>
+  <!--
+    #### User Analytics
+  -->
+  <!--
+    Analytics must be configured in the body. Here we use Google Analytics to track pageviews.
+  -->
+  <amp-analytics type="googleanalytics">
+    <script type="application/json">
+        {
+          "vars": {
+              "account": "UA-73836974-1"
+          },
+          "triggers": {
+              "default pageview": {
+                  "on": "visible",
+                  "request": "pageview",
+                  "vars": {
+                      "title": "Product"
+                  }
+              }
+          }
+      }
+    </script>
+  </amp-analytics>
     </body>
 </html>
