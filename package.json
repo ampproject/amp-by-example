@@ -40,6 +40,7 @@
     "gulp-favicons": "^2.2.6",
     "gulp-file": "^0.2.0",
     "gulp-help": "^1.6.1",
+    "gulp-htmlmin": "^3.0.0",
     "gulp-if": "^2.0.0",
     "gulp-ignore": "^2.0.2",
     "gulp-jasmine": "^2.2.1",
