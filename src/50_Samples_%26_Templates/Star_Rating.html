@@ -1,0 +1,98 @@
+<!--
+  #### Introduction
+
+  Star rating widget. Given AMP's restriction on custom JavaScript, this sample is implemented purely with CSS, by
+  overlaying "star" Unicode characters over radio buttons.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <link rel="canonical" href="<%host%>/samples_templates/star_rating/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+  <!-- #### Setup -->
+  <!--
+    Import additional AMP components: amp-form and mustache templates.
+  -->
+  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+  <style amp-custom>
+    .rating {
+      padding: 0;  /* to prevent flicker when mousing over padding */
+      border: none;  /* to prevent flicker when mousing over border */
+      unicode-bidi: bidi-override; direction: rtl;  /* for CSS-only style change on hover */
+      text-align: left;  /* revert the RTL direction */
+      user-select: none;  /* disable mouse/touch selection */
+      font-size: 3em;
+      cursor: pointer;
+      /* disable touch feedback on cursor: pointer - http://stackoverflow.com/q/25704650/1269037 */
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      -webkit-tap-highlight-color: transparent;
+      /* border: 1px solid red;  /* debug */
+    }
+
+    /* the stars */
+    .rating > span {
+      display: inline-block;
+      position: relative;
+      width: 1.1em;  /* magic number to overlap the radio buttons on top of the stars */
+      /* border: 1px solid green;  /* debug */
+    }
+    .rating > *:hover,
+    .rating > *:hover ~ span,
+    .rating:not(:hover) > input:checked ~ span {
+      color: transparent;  /* reveal the contour/white star from the HTML markup */
+      cursor: inherit;  /* avoid a cursor transition from arrow/pointer to text selection */
+    }
+    .rating > *:hover:before,
+    .rating > *:hover ~ span:before,
+    .rating:not(:hover) > input:checked ~ span:before {
+      content: "★";
+      position: absolute;
+      left: 0;
+      color: gold;
+    }
+
+    .rating > input {
+      position: relative;
+      transform: scale(3);  /* make the radio buttons big; they don't inherit font-size */
+      /* the magic numbers below correlate with the font-size */
+      top: -0.5em;  /* margin-top doesn't work */
+      margin-left: -2.5em;  /* overlap the radio buttons exactly under the stars */
+
+      z-index: 2;  /* bring the button above the stars so it captures touches/clicks */
+      opacity: 0;  /* comment to see where the radio buttons are */
+    }
+  </style>
+
+
+</head>
+<body>
+
+  <!-- #### Basic Usage -->
+  <!--
+  TODO: Describe your example here
+  -->
+  <h1>CSS-only keyboard-accessible rating widget</h1>
+  <h2>
+    Press Tab twice, then arrows. Unfortunately, in Firefox and Safari, keyboard arrows work backwards.
+    This issue appears to be <a href="https://github.com/LunarLogic/starability/issues/15">impossible to fix</a>
+    on non-Chrome-based browsers without using JavaScript, so stay tuned for the amp-rating component.
+  </h2>
+
+  <fieldset class="rating">
+    <input name="myrating" type="radio" value="5" /><span>☆</span>
+    <input name="myrating" type="radio" value="4" /><span>☆</span>
+    <input name="myrating" type="radio" value="3" /><span>☆</span>
+    <input name="myrating" type="radio" value="2" /><span>☆</span>
+    <input name="myrating" type="radio" value="1" /><span>☆</span>
+  </fieldset>
+
+</body>
+</html>
