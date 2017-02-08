@@ -39,6 +39,7 @@ func init() {
 	backend.InitCommentSection()
 	backend.InitHotelSample()
 	backend.InitPollSample()
+	backend.InitRatingSample()
 	playground.InitPlayground()
 	http.Handle("/", ServeStaticFiles(HandleNotFound(http.FileServer(http.Dir(DIST_DIR)))))
 }
