@@ -35,6 +35,7 @@ const diff = require('gulp-diff');
 const change = require('gulp-change');
 const bower = require('gulp-bower');
 const grun = require('gulp-run');
+const htmlmin = require('gulp-htmlmin');
 
 const compileExample = require('./tasks/compile-example');
 const sitemap = require('./tasks/compile-sitemap');
@@ -43,6 +44,8 @@ const FileName = require('./tasks/lib/FileName');
 const Metadata = require('./tasks/lib/Metadata');
 const ExampleFile = require('./tasks/lib/ExampleFile');
 const gulpAmpValidator = require('gulp-amphtml-validator');
+
+const PROD = 'prod';
 
 const paths = {
   dist: {
@@ -118,6 +121,7 @@ gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
   });
 
 gulp.task('deploy:prod', 'deploy to production server', function(callback) {
+  config.env = PROD;
   runSequence('clean',
               'robots:allow',
               'build',
@@ -127,6 +131,7 @@ gulp.task('deploy:prod', 'deploy to production server', function(callback) {
 });
 
 gulp.task('deploy:staging', 'deploy to staging server', function(callback) {
+  config.env = PROD;
   config.host = 'https://amp-by-example-staging.appspot.com';
   runSequence('clean',
               'robots:disallow',
@@ -268,6 +273,7 @@ gulp.task('validate:example', 'validate example html files', function() {
 gulp.task('compile:example', 'generate index.html and examples', function() {
   return gulp.src(paths.samples)
       .pipe(compileExample(config))
+      .pipe(gulpIf(config.env === PROD, htmlmin({collapseWhitespace: true})))
       .pipe(gulp.dest(paths.dist.dir));
 });
 
