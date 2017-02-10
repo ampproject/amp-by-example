@@ -79,10 +79,10 @@ Specify the endpoints required for `amp-access` to detect a signed-user. This wi
       border: solid 2px #ffd700;
       border-radius: 3px;
   }
-  #hero-images {
+  #hero-images-carousel {
       object-fit: contain;
   }
-  #hero-images .caption {
+  #hero-images-carousel .caption {
       position: absolute;
       bottom: 0;
       left: 0;
@@ -137,14 +137,14 @@ Specify the endpoints required for `amp-access` to detect a signed-user. This wi
 </style>
 </head>
 <body>
-<!-- #### Hero images -->
+<!-- #### Hero Images -->
 <!--
   The heading resizes to the available space using `amp-fit-text`. The `amp-carousel` element is used to add hero images for the property. To learn more about configuring these elements look at the [advanced carousel demo here](/advanced/image_galleries_with_amp-carousel/).
 -->
 <div>
     <h5><amp-fit-text layout="responsive" min-font-size="20px" max-font-size="80px" height="80" width="600">Buckingham Palace Guest Rooms</amp-fit-text></h5>
     <div class="star-rating"><span>★★★★☆</span> 4.3 stars from 250 reviews</div>
-    <amp-carousel id="hero-images" width="640" height="383" layout="responsive" type="slides">
+    <amp-carousel id="hero-images-carousel" width="640" height="383" layout="responsive" type="slides">
         <div>
             <amp-img src="/img/hotel01_2benny_640x383.jpg" layout="fill" alt="Buckingham Palace exterior" attribution="2benny on Flickr - CC BY 2.0"></amp-img>
             <div class="caption">Photo by <a href="https://flic.kr/p/rAGfoE">2benny</a> / <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a></div>
@@ -188,7 +188,7 @@ Specify the endpoints required for `amp-access` to detect a signed-user. This wi
   An amp-form is used to allow the user to change the dates of their stay. The `type="date"` is used to allow the browser to display a native date picker. Learn more about handling the result of a form submission in the [form example](/components/amp-form).
 -->
 <div>
-<h6>Your stay</h2>
+  <h6>Your stay</h6>
   <p>7 nights, from 12 Dec 2020 to 06 Jan 2021</p>
   <form method="GET" action="/samples_templates/hotel/check-available" action-xhr="/samples_templates/hotel/check-available" target="_top">
     <fieldset id="stay-input">
@@ -214,7 +214,7 @@ Specify the endpoints required for `amp-access` to detect a signed-user. This wi
   Another `amp-form` around the table allows for booking buttons.
 -->
 <div>
-    <h6>Rooms</h2>
+    <h6>Rooms</h6>
   <form method="POST" action-xhr="<%host%>/samples_templates/hotel/book" target="_top">
     <table>
       <thead>
@@ -253,7 +253,7 @@ Specify the endpoints required for `amp-access` to detect a signed-user. This wi
   A standard `amp-iframe` is used to embed a Google Map. Learn more about other iframe embeds [here](/components/amp-iframe).
 -->
 <div>
-    <h6>Location</h2>
+    <h6>Location</h6>
   <amp-iframe width="600" height="400"
               layout="responsive" frameborder="0"
               sandbox="allow-scripts allow-same-origin allow-popups"
@@ -264,14 +264,13 @@ Specify the endpoints required for `amp-access` to detect a signed-user. This wi
   An `amp-list` is used to pull in the interesting attractions nearby. Learn more about the element [here](/components/amp-list).
 -->
 <div>
-  <h6>Nearby attractions</h2>
+  <h6>Nearby attractions</h6>
   <amp-list id="nearby-attractions"
             width="auto"
             height="100"
             layout="fixed-height"
             src="/json/nearby_attractions.json">
-    <template type="amp-mustache"
-              id="nearby-attractions">
+    <template type="amp-mustache">
       <div class="{{type}}">
         <a href="{{url}}">{{attraction}}</a>
       </div>
