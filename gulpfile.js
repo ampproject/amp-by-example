@@ -395,7 +395,8 @@ gulp.task('api:serve', 'Run the go api backend', function(){
 });
 
 gulp.task('validate', 'runs all checks', function(callback) {
-  runSequence('test',
+  runSequence('build',
+              'test',
               'validate:example',
               'lint',
               'lint:backend',
