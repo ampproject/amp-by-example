@@ -370,6 +370,8 @@ This sample showcases how to build a product page in AMP HTML.
     using `amp-bind`.
     Clicking on a preview image will reveal the image in the carousel via the tap action `on="tap:product-carousel-preview.goToSlide(index=0)"`. -->
   <!-- The actual carousel. Learn how the `amp-carousel` component works [here](/advanced/image_galleries_with_amp-carousel/).-->
+<span [text]="selectedColor">selectedColor</span>
+<span [text]="selectedSlide">selectedSlide</span>
   <div class="product-gallery">
     <ul class="show" [class]="selectedColor == 'green' ? 'show' : 'hide'">
       <li tabindex="0" role="button">
