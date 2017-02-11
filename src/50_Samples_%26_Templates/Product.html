@@ -279,34 +279,33 @@ div.square.golden{
     <amp-state id="product">
       <script type="application/json">
       {
-          "green": {
-            "sizes": {
-        			"S": "$5.99",
-        			"M": "$5.99",
-              "L": "unavailable"
-        		},
-        		"defaultSize": "S"
-        },
-        "golden": {
-          "sizes": {
-            "S": "$9.99",
-            "M": "unavailable",
-            "L": "$9.99"
-          },
-          "defaultSize": "S"
-        },
-        "red": {
-          "sizes": {
-            "S": "$7.99",
-            "M": "$7.99",
-            "L": "$7.99"
-          },
-          "defaultSize": "S"
-        }
-      }
+         "green":{
+            "sizes":{
+               "S":"$5.99",
+               "M":"$5.99",
+               "L":"unavailable"
+            },
+            "defaultSize":"S"
+         },
+         "golden":{
+            "sizes":{
+               "S":"$9.99",
+               "M":"unavailable",
+               "L":"$9.99"
+            },
+            "defaultSize":"S"
+         },
+         "red":{
+            "sizes":{
+               "S":"$7.99",
+               "M":"$7.99",
+               "L":"$7.99"
+            },
+            "defaultSize":"S"
+         }
+       }
     </script>
   </amp-state>
-    <%>product/header.html%>
 
       <!-- #### Navigation -->
       <!-- Use the [amp-sidebar](/components/amp-sidebar/) component to give customers the chance to quickly jump to any of your product categories.-->
@@ -457,7 +456,7 @@ div.square.golden{
             target="_top">
         <div>
           <label for="color">Color:</label>
-          <amp-selector name="color" layout="container" [selected]="selectedColor" on="select:AMP.setState(selectedColor=event.targetOption, selectedSlide=0, selectedSize = 'S')")>
+          <amp-selector name="color" layout="container" [selected]="selectedColor" on="select:AMP.setState(selectedColor=event.targetOption, selectedSlide=0, selectedSize='S')">
             <ul>
               <li>
                 <div option="green" selected class="square green" width="40" height="40"></div>
@@ -485,8 +484,8 @@ div.square.golden{
           <label for="size">Size:</label>
           <amp-selector name="size" layout="container" on="select:AMP.setState(selectedSize=event.targetOption)" [selected]="product[selectedColor || 'green'].sizes[selectedSize || 'S'] != 'unavailable' ? selectedSize : product[selectedColor || 'green'].defaultSize">
             <ul>
-              <li option="S" class='' [class]="product[selectedColor || 'green'].sizes['S'] != 'unavailable' ? '' : 'unavailable'">S</li>
-              <li option="M" class='' selected [class]="product[selectedColor || 'green'].sizes['M'] != 'unavailable' ? '' : 'unavailable'">M</li>
+              <li option="S" class="" [class]="product[selectedColor || 'green'].sizes['S'] != 'unavailable' ? '' : 'unavailable'">S</li>
+              <li option="M" class="" selected [class]="product[selectedColor || 'green'].sizes['M'] != 'unavailable' ? '' : 'unavailable'">M</li>
               <li option="L" class="unavailable" [class]="product[selectedColor || 'green'].sizes['L'] != 'unavailable' ? '' : 'unavailable'">L</li>
             </ul>
           </amp-selector>
