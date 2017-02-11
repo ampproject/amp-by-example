@@ -12,14 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 // Provide a simple JSON response with a customizable delay
 package backend
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
-	"fmt"
 	"time"
 )
 
@@ -28,7 +27,7 @@ const (
 )
 
 func InitSlowResponseSample() {
-	http.HandleFunc(SLOW_RESPONSE_SAMPLE_PATH +"", sleep)
+	http.HandleFunc(SLOW_RESPONSE_SAMPLE_PATH+"", sleep)
 }
 
 func sleep(w http.ResponseWriter, r *http.Request) {
@@ -36,7 +35,7 @@ func sleep(w http.ResponseWriter, r *http.Request) {
 	SetContentTypeJson(w)
 	delay, _ := strconv.ParseUint(r.URL.Query().Get("delay"), 0, 64)
 	response := fmt.Sprintf("{\"items\":[{\"title\": \"This response was delayed %v milliseconds. Reload the page if you didn't see the spinner.\"}]}", delay)
-	duration := time.Duration(delay)*time.Millisecond
+	duration := time.Duration(delay) * time.Millisecond
 	time.Sleep(duration)
 	w.Write([]byte(response))
 }
