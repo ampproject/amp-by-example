@@ -13,7 +13,7 @@
 // limitations under the License.
 
 
-// Provide a simple JSON response with a noticeable delay
+// Provide a simple JSON response with a customizable delay
 package backend
 
 import (
