@@ -50,6 +50,9 @@
   form {
     margin: 16px;
   }
+  form > select {
+    margin: 0 16px 0 0;
+  }
   </style>
 </head>
 <body>
@@ -368,6 +371,29 @@
         Error!
       </template>
     </div>
+  </form>
+    
+  <!--
+    Use `select` element to realize a dropdown.
+  -->
+    <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+      <select name="cars">
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+        <option value="fiat">Fiat</option>
+        <option value="audi">Audi</option>
+      </select>
+      <input type="submit" value="OK" class="button button-primary ">
+      <div submit-success>
+        <template type="amp-mustache">
+          Success! Thanks for trying the <code>amp-form</code> demo!
+        </template>
+      </div>
+      <div submit-error>
+        <template type="amp-mustache">
+          Error!
+        </template>
+      </div>
   </form>
 </body>
 </html>
