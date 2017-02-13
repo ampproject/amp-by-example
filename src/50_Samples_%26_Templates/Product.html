@@ -391,36 +391,83 @@ div.square.golden{
   <div class="product-gallery">
     <ul class="show" [class]="selectedColor == 'green' ? 'show' : 'hide'">
       <li tabindex="0" role="button">
-        <amp-img on="tap:AMP.setState(selectedSlide=0)" src="/img/green_apple_1_60x40.jpg" width="60" height="40" class="selected" [class]="selectedSlide == 0 ? 'selected' : ''"></amp-img>
+        <amp-img on="tap:AMP.setState(selectedSlide=0)"
+                  src="/img/green_apple_1_60x40.jpg"
+                  width="60" height="40"
+                  class="selected" [class]="selectedSlide == 0 ? 'selected' : '' ">
+        </amp-img>
       </li>
       <li tabindex="1" role="button">
-        <amp-img on="tap:AMP.setState(selectedSlide=1, selectedColor=green)" src="/img/green_apple_2_60x40.jpg" width="60" height="40" [class]="selectedSlide == 1 ? 'selected' : ''"></amp-img>
+        <amp-img on="tap:AMP.setState(selectedSlide=1, selectedColor=green)"
+                  src="/img/green_apple_2_60x40.jpg" \
+                  width="60" height="40"
+                  [class]="selectedSlide == 1 ? 'selected' : '' ">
+        </amp-img>
       </li>
     </ul>
+
      <ul class="hide" [class]="selectedColor == 'golden' ? 'show' : 'hide'">
        <li tabindex="0" role="button">
-         <amp-img on="tap:AMP.setState(selectedSlide=0)" src="/img/product1_alt1_60x40.jpg" width="60" height="40" [class]="selectedSlide == 0 ? 'selected' : ''"></amp-img>
-       </li>
-     </ul>
-     <ul class="hide" [class]="selectedColor == 'red' ? 'show' : 'hide'">
-       <li tabindex="0" role="button">
-         <amp-img on="tap:AMP.setState(selectedSlide=0)" src="/img/red_apple_1_60x40.jpg" width="60" height="40" [class]="selectedSlide == 0 ? 'selected' : ''"></amp-img>
-       </li>
-       <li tabindex="1" role="button">
-         <amp-img on="tap:AMP.setState(selectedSlide=1, selectedColor=red)" src="/img/red_apple_2_60x46.jpg" width="60" height="40" [class]="selectedSlide == 1 ? 'selected' : ''"></amp-img>
+         <amp-img on="tap:AMP.setState(selectedSlide=0)"
+                  src="/img/product1_alt1_60x40.jpg"
+                  width="60" height="40"
+                  [class]="selectedSlide == 0 ? 'selected' : '' ">
+        </amp-img>
        </li>
      </ul>
 
-    <amp-carousel id="green-apple-carousel" width="1024" height="682" layout="responsive" type="slides" [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index, selectedColor=green)" class="show" [class]="selectedColor == 'green' ? 'show' : 'hide'">
-         <amp-img src="/img/green_apple_1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
-         <amp-img src="/img/green_apple_2_1024x685.jpg" width="1024" height="682" layout="responsive"></amp-img>
+     <ul class="hide" [class]="selectedColor == 'red' ? 'show' : 'hide'">
+       <li tabindex="0" role="button">
+         <amp-img on="tap:AMP.setState(selectedSlide=0)"
+                  src="/img/red_apple_1_60x40.jpg"
+                  width="60" height="40" \
+                  [class]="selectedSlide == 0 ? 'selected' : '' ">
+         </amp-img>
+       </li>
+       <li tabindex="1" role="button">
+         <amp-img on="tap:AMP.setState(selectedSlide=1, selectedColor=red)"
+                  src="/img/red_apple_2_60x46.jpg"
+                  width="60" height="40"
+                  [class]="selectedSlide == 1 ? 'selected' : '' "></amp-img>
+       </li>
+     </ul>
+
+    <amp-carousel id="green-apple-carousel" width="1024" height="682"
+            layout="responsive" type="slides" [slide]="selectedSlide"
+            on="goToSlide:AMP.setState(selectedSlide=event.index, selectedColor=green)"
+            class="show" [class]="selectedColor == 'green' ? 'show' : 'hide'">
+      <amp-img src="/img/green_apple_1_1024x682.jpg"
+                width="1024" height="682"
+                layout="responsive">
+      </amp-img>
+      <amp-img src="/img/green_apple_2_1024x685.jpg"
+                width="1024" height="682"
+                layout="responsive">
+      </amp-img>
     </amp-carousel>
-    <amp-carousel id="golden-apple-carousel" width="1024" height="682" layout="responsive" type="slides" [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index, selectedColor=golden)" class="hide" [class]="selectedColor == 'golden' ? 'show' : 'hide'">
-        <amp-img src="/img/product1_alt1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
+
+    <amp-carousel id="golden-apple-carousel" width="1024" height="682"
+            layout="responsive" type="slides" [slide]="selectedSlide"
+            on="goToSlide:AMP.setState(selectedSlide=event.index, selectedColor=golden)"
+            class="hide" [class]="selectedColor == 'golden' ? 'show' : 'hide'">
+        <amp-img src="/img/product1_alt1_1024x682.jpg"
+                width="1024" height="682"
+                layout="responsive">
+        </amp-img>
     </amp-carousel>
-    <amp-carousel id="red-apple-carousel" width="1024" height="682" layout="responsive" type="slides" [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index, selectedColor=red)" class="hide" [class]="selectedColor == 'red' ? 'show' : 'hide'">
-        <amp-img src="/img/red_apple_1_1024x682.jpg" width="1024" height="682" layout="responsive"></amp-img>
-        <amp-img src="/img/red_apple_2_1024x793.jpg" width="1024" height="682" layout="responsive"></amp-img>
+
+    <amp-carousel id="red-apple-carousel" width="1024" height="682"
+            layout="responsive" type="slides" [slide]="selectedSlide"
+            on="goToSlide:AMP.setState(selectedSlide=event.index, selectedColor=red)"
+            class="hide" [class]="selectedColor == 'red' ? 'show' : 'hide'">
+        <amp-img src="/img/red_apple_1_1024x682.jpg"
+                width="1024" height="682"
+                layout="responsive">
+        </amp-img>
+        <amp-img src="/img/red_apple_2_1024x793.jpg"
+                width="1024" height="682"
+                layout="responsive">
+        </amp-img>
     </amp-carousel>
 
   </div>
@@ -456,7 +503,8 @@ div.square.golden{
             target="_top">
         <div>
           <label for="color">Color:</label>
-          <amp-selector name="color" layout="container" [selected]="selectedColor" on="select:AMP.setState(selectedColor=event.targetOption, selectedSlide=0, selectedSize='S')">
+          <amp-selector name="color" layout="container" [selected]="selectedColor"
+                  on="select:AMP.setState(selectedColor=event.targetOption, selectedSlide=0, selectedSize='S')">
             <ul>
               <li>
                 <div option="green" selected class="square green" width="40" height="40"></div>
@@ -482,7 +530,9 @@ div.square.golden{
         </div>
         <div>
           <label for="size">Size:</label>
-          <amp-selector name="size" layout="container" on="select:AMP.setState(selectedSize=event.targetOption)" [selected]="product[selectedColor || 'green'].sizes[selectedSize || 'S'] != 'unavailable' ? selectedSize : product[selectedColor || 'green'].defaultSize">
+          <amp-selector name="size" layout="container"
+                  on="select:AMP.setState(selectedSize=event.targetOption)"
+                  [selected]="product[selectedColor || 'green'].sizes[selectedSize || 'S'] != 'unavailable' ? selectedSize : product[selectedColor || 'green'].defaultSize">
             <ul>
               <li option="S" class="" [class]="product[selectedColor || 'green'].sizes['S'] != 'unavailable' ? '' : 'unavailable'">S</li>
               <li option="M" class="" selected [class]="product[selectedColor || 'green'].sizes['M'] != 'unavailable' ? '' : 'unavailable'">M</li>
