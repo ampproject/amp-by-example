@@ -167,7 +167,7 @@ It is possible to make the preview mode the default version via:
 }--->
 ```
 
-There is a special preview mode for AMP for Ads (A4A) samples:
+There is a special preview mode for AMP Ad samples:
 
 ```json
 <!---{

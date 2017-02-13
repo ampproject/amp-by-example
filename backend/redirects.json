@@ -70,5 +70,21 @@
   {
     "source": "/Hello_World.html",
     "target": "/introduction/hello_world/"
+  },
+  {
+    "source": "/amp_for_ads_a4a/a4a_banner_ad/",
+    "target": "/amp_ads/banner_ad/"
+  },
+  {
+    "source": "/amp_for_ads_a4a/a4a_banner_ad/preview/",
+    "target": "/amp_ads/banner_ad/preview/"
+  },
+  {
+    "source": "/amp_for_ads_a4a/a4a_carousel/",
+    "target": "/amp_ads/carousel_ad/"
+  },
+  {
+    "source": "/amp_for_ads_a4a/a4a_carousel/preview/",
+    "target": "/amp_ads/carousel_ad/preview/"
   }
 ]
