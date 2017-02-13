@@ -44,14 +44,18 @@
     display: flex;
     align-items: center;
   }
-  .other-input {
+  form > input {
     margin: 0 16px;
   }
-  form {
-    margin: 16px;
+  form label {
+    margin: 8px;
   }
-  form > select {
-    margin: 0 16px 0 0;
+  form {
+    margin: 0;
+    padding: 16px;
+  }
+  form select {
+    margin: 0 16px;
   }
   </style>
 </head>
@@ -286,8 +290,8 @@
   -->
   <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
     <div class="horizontal-display">
-      <input type="radio" name="favourite animal" value="cat" checked> Cat<br>
-      <input type="radio" name="favourite animal" value="dog"> Dog<br>
+      <input type="radio" name="favourite animal" value="cat" checked> Cat
+      <input type="radio" name="favourite animal" value="dog"> Dog
       <input type="radio" name="favourite animal" value="other"> Other
       <input type="submit" value="OK" class="button button-primary other-input">
     </div>
@@ -372,9 +376,9 @@
       </template>
     </div>
   </form>
-    
+
   <!--
-    Use `select` element to realize a dropdown.
+    Use `select` element for dropdowns.
   -->
     <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
       <select name="cars">
