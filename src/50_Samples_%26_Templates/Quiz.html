@@ -78,6 +78,27 @@ Import the additional AMP components. This sample uses a amp-form and mustache t
       .table {
         margin: 16px;
       }
+      ul.answer-container {
+        padding: 0;
+      }
+      ul.answer-container > li {
+        width: 50%;
+        font-size: 56px;
+        line-height: 100px;
+        float:left;
+        width: 47%;
+        float: left;
+        margin: 0 16px 16px 0;
+        background-color: green;
+        color: black;
+        text-align: center;
+      }
+      form#quiz-form amp-selector > ul {
+        list-style: none;
+      }
+      .button {
+        margin-left: 16px;
+      }
 
 </style>
 </head>
@@ -90,14 +111,14 @@ We use `amp-form` to implement a quiz.
 Questions are presented inside a carousel so that the user can answer one at a time.
  -->
  <form method="post" action-xhr="<%host%>/samples_templates/quiz/submit" target="_blank"
-       id="quizForm"
+       id="quiz-form"
        custom-validation-reporting="as-you-go">
-       <amp-carousel id="quizCarousel" width="1024" height="682" layout="responsive" type="slides" [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index, selectedCarousel=green)" [class]="selectedCarousel == 'green' ? 'show' : 'hide'">
+      <h3>Answer the following mathematical questions:</h3>
+       <amp-carousel id="quizCarousel" width="1024" height="682" layout="fixed" type="slides" [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index, selectedCarousel=green)" [class]="selectedCarousel == 'green' ? 'show' : 'hide'">
       <div>
-        <p>2+2</p>
+        <h1>2+2</h1>
         <amp-selector name="expression1" layout="container">
-          <ul>
-            <div class="answer-container" on="tap:product-carousel.goToSlide(index=1)">
+          <ul class="answer-container" on="tap:quizCarousel.goToSlide(index=1)">
               <li option="4">4</li>
               <li option="5">5</li>
               <li option="8">8</li>
@@ -106,10 +127,9 @@ Questions are presented inside a carousel so that the user can answer one at a t
         </amp-selector>
       </div>
       <div>
-        <p>4:2</p>
+        <h1>4:2</h1>
         <amp-selector name="expression2" layout="container">
-          <ul>
-            <div class="answer-container" on="tap:product-carousel.goToSlide(index=2)">
+          <ul class="answer-container" on="tap:quizCarousel.goToSlide(index=2)">
               <li option="4">4</li>
               <li option="5">2</li>
               <li option="8">8</li>
@@ -118,10 +138,9 @@ Questions are presented inside a carousel so that the user can answer one at a t
         </amp-selector>
       </div>
       <div>
-        <p>4*4</p>
+        <h1>4*4</h1>
         <amp-selector name="expression3" layout="container">
-          <ul>
-            <div class="answer-container" on="tap:product-carousel.goToSlide(index=3)">
+          <ul class="answer-container" on="tap:quizCarousel.goToSlide(index=3)">
               <li option="4">24</li>
               <li option="5">16</li>
               <li option="8">8</li>
@@ -130,10 +149,9 @@ Questions are presented inside a carousel so that the user can answer one at a t
         </amp-selector>
       </div>
       <div>
-        <p>1*0</p>
+        <h1>1*0</h1>
         <amp-selector name="expression4" layout="container">
-          <ul>
-            <div class="answer-container" >
+          <ul class="answer-container" >
               <li option="4">1</li>
               <li option="5">-1</li>
               <li option="8">8</li>
