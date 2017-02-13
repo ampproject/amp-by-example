@@ -14,9 +14,7 @@ This sample showcases how to build a product page in AMP HTML.
 <head>
     <meta charset="utf-8">
     <script async src="https://cdn.ampproject.org/v0.js"></script>
-    <!--
-    Additionally used AMP components must be imported in the header.
-    -->
+
     <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
     <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
     <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
@@ -51,9 +49,6 @@ This sample showcases how to build a product page in AMP HTML.
     }
     amp-carousel .selected {
       border: solid 2px red;
-    }
-    amp-img.selected {
-      border: solid 2px green;
     }
     .play {
       padding-left: 28px;
@@ -154,7 +149,7 @@ This sample showcases how to build a product page in AMP HTML.
       outline-color: #eb407a;
       background: none;
     }
-    form#order amp-selector:not([disabled]) [option][selected]:not([disabled]):not(.unavailable) {
+    form#order amp-selector:not([disabled]) [option][selected]:not([disabled]):not(.unavailable), amp-img.selected {
       will-change: box-shadow;
       box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
       transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
@@ -166,17 +161,17 @@ This sample showcases how to build a product page in AMP HTML.
     }
 
     form#order amp-selector:not([disabled]) [option][selected]:not([disabled]):not(.unavailable).square {
-      border: solid 2px;
-      border-color: #eb407a;
+      outline: 1px solid #eb407a;
     }
 
-    form#order amp-selector:not([disabled]) [option]:not([selected]):not([disabled]) {
+    form#order amp-selector:not([disabled]) [option]:not([selected]):not([disabled]), amp-img:not([.selected]) {
       will-change: box-shadow;
       box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
       transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
     }
-    form#order amp-selector:not([disabled]) [option]:not([selected]):not([disabled]) amp-img {
-      opacity: 0.5;
+
+    form#order amp-selector[name=color] div:not([selected]):not([disabled]) {
+      opacity: 0.6;
     }
     .hide {
       display: none;
@@ -190,6 +185,7 @@ This sample showcases how to build a product page in AMP HTML.
       overflow: hidden;
       opacity: 0.6;
       pointer-events: none;
+      user-select: none;
     }
 
 .unavailable:before, .unavailable:after {
@@ -276,36 +272,6 @@ div.square.golden{
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     </head>
     <body>
-    <amp-state id="product">
-      <script type="application/json">
-      {
-         "green":{
-            "sizes":{
-               "S":"$5.99",
-               "M":"$5.99",
-               "L":"unavailable"
-            },
-            "defaultSize":"S"
-         },
-         "golden":{
-            "sizes":{
-               "S":"$9.99",
-               "M":"unavailable",
-               "L":"$9.99"
-            },
-            "defaultSize":"S"
-         },
-         "red":{
-            "sizes":{
-               "S":"$7.99",
-               "M":"$7.99",
-               "L":"$7.99"
-            },
-            "defaultSize":"S"
-         }
-       }
-    </script>
-  </amp-state>
 
       <!-- #### Navigation -->
       <!-- Use the [amp-sidebar](/components/amp-sidebar/) component to give customers the chance to quickly jump to any of your product categories.-->
@@ -380,15 +346,14 @@ div.square.golden{
         </div>
       </amp-lightbox>
     </div>
-     <!-- #### Image Gallery -->
-    <!-- The `amp-carousel` component works very well for product image galleries. Learn how the `amp-carousel` component works [here](/advanced/image_galleries_with_amp-carousel/).-->
+    <!-- #### Slides preview Gallery -->
     <!--On desktop we've added a film strip like slide preview. Each product colour has its own image gallery and slide preview.
     We use [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind) to select the gallery and image preview
-    corresponding to the selected colour, which can be selected by using amp-selector.
-    The green colour is the default color for the gallery when the page loads.
-    See below for more informations on how we are using `amp-bind`.
+    corresponding to the selected colour, which can be selected by using amp-selector.-->
+    <!--The green colour is the default color for the gallery when the page loads.-->
+    <!--See below for more informations on how we are using `amp-bind`.
     Clicking on a preview image will reveal the image in the gallery via the tap action `on="tap:product-carousel-preview.goToSlide(index=0)"`. -->
-  <div class="product-gallery">
+   <div class="product-gallery">
     <ul class="show" [class]="selectedColor == 'green' ? 'show' : 'hide'">
       <li tabindex="0" role="button">
         <amp-img on="tap:AMP.setState(selectedSlide=0)"
@@ -431,6 +396,10 @@ div.square.golden{
                   [class]="selectedSlide == 1 ? 'selected' : '' "></amp-img>
        </li>
      </ul>
+   </div>
+   <!-- #### Image Gallery -->
+  <!-- The `amp-carousel` component works very well for product image galleries. Learn how the `amp-carousel` component works [here](/advanced/image_galleries_with_amp-carousel/).-->
+    <div class="product-gallery">
 
     <amp-carousel id="green-apple-carousel" width="1024" height="682"
             layout="responsive" type="slides" [slide]="selectedSlide"
@@ -471,17 +440,51 @@ div.square.golden{
     </amp-carousel>
 
   </div>
+  <!-- #### Product Configuration -->
+  <!-- We use the `amp-state` component (part of [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind))
+      to configure the product price depending on the color and the size. We also configure the defaultSize
+      for each product when you switch between colours -->
+  <amp-state id="product">
+    <script type="application/json">
+    {
+       "green":{
+          "sizes":{
+             "S":"$5.99",
+             "M":"$5.99",
+             "L":"unavailable"
+          },
+          "defaultSize":"S"
+       },
+       "golden":{
+          "sizes":{
+             "S":"$9.99",
+             "M":"unavailable",
+             "L":"$9.99"
+          },
+          "defaultSize":"S"
+       },
+       "red":{
+          "sizes":{
+             "S":"$7.99",
+             "M":"$7.99",
+             "L":"$7.99"
+          },
+          "defaultSize":"S"
+       }
+     }
+  </script>
+</amp-state>
 
     <!-- #### Product Configuration -->
     <!-- We are using [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind) to update the price of the product
-      depending on the selected colour. We configure the price for each colour in the `amp-state` component.
-      We bind to the `text` attribute: the value of text is the
+      depending on the selected colour. -->
+    <!--We bind to the `text` attribute: the value of text is the
       value of expression `product[selectedColor].price`. When this expression is evaluated,
-      it gets the price value from the json inside the `amp-state`.
-      Notice how we set a default value for the price: this is because the value defined inside `amp-state`
+      it gets the price value from the json inside the `amp-state`.-->
+    <!--Notice how we set a default value for the price: this is because the value defined inside `amp-state`
       will not be accessed at the page load. We set `green` and `S` as default color and default size
-      as the correspondent variables have null value at default.
-      As soon as the state of this variable changes, the expression is evaluated.
+      as the correspondent variables have null value at default.-->
+    <!--As soon as the state of this variable changes, the expression is evaluated.
       See below to understand how we change the state of the 2 variables `selectedColor` and `selectedSize`. -->
       <p class="price-description">Price: <span [text]="product[selectedColor || 'green'].sizes[selectedSize || 'S']">$1.99</span>
     </p>
@@ -493,10 +496,10 @@ div.square.golden{
       access-control-expose-headers:AMP-Access-Control-Allow-Source-Origin,AMP-Redirect-To
       amp-redirect-to:http://ampbyexample.com/shopping_cart/?clientid=amp-123456789 -->
 
-    <!-- We are using the `CLIENT_ID` variable to identify the user, this enables storing a shopping cart between repeated visits of an AMP page (either via the AMP Cache or the original host). This variable can be used inside an amp-form by declaring an hidden input value with `default-value="CLIENT_ID(cart)`. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
-    <!-- We are using `amp-selector` together with `amp-bind` to update the page for showing the price, the size availability, the gallery and preview of images.
+      <!-- We are using `amp-selector` together with `amp-bind` to update the page for showing the price, the size availability, the gallery and preview of images.
     Every time you select a color, we set the expression `selectedColor=event.targetOption`. This is triggering
     all the attributes and elements binded to selectedColor to update: the price (binded with the attribute `[text]`), the gallery, the image preview and the size selector (all binded with `[class]`). -->
+    <!-- We are using the `CLIENT_ID` variable to identify the user, this enables storing a shopping cart between repeated visits of an AMP page (either via the AMP Cache or the original host). This variable can be used inside an amp-form by declaring an hidden input value with `default-value="CLIENT_ID(cart)`. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
 
       <form id="order" method="POST"
             action-xhr="/samples_templates/product/add_to_cart"
