@@ -513,7 +513,7 @@ div.square {
 
      We use `amp-selector` together with `amp-bind` to update the page for showing the price, the size availability, the gallery and preview of images.
     Every time you select a color, we set the expression `selectedColor=event.targetOption`. This is triggering
-    all the attributes and elements binded to `selectedColor` to update: the price (binded with the attribute `[text]`), the gallery, the image preview and the size selector (all binded with `[class]`). -->
+    all the attributes and elements bound to `selectedColor` to update: the price (bound with the attribute `[text]`), the gallery, the image preview and the size selector (all bound with `[class]`). -->
       <p class="price-description">Price:
         <span [text]="product[selectedColor || 'green'].sizes[selectedSize || 'S']">$1.99</span>
     </p>
