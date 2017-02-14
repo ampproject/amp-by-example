@@ -2,7 +2,8 @@
   "preview": "default",
   "skipValidation": "true",
   "default": "preview",
-  "experiments": ["amp-form-var-sub", "amp-bind"]
+  "experiments": ["amp-form-var-sub", "amp-bind"],
+  "hideCode": "true"
   }--->
 <!--
 #### Introduction
@@ -165,7 +166,7 @@ This sample showcases how to build a product page in AMP HTML.
       outline: 1px solid #eb407a;
     }
 
-    form#order amp-selector:not([disabled]) [option]:not([selected]):not([disabled]), amp-img:not([.selected]) {
+    form#order amp-selector:not([disabled]) [option]:not([selected]):not([disabled]), amp-img:not(.selected) {
       will-change: box-shadow;
       box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
       transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
@@ -352,10 +353,10 @@ div.square {
         </div>
       </amp-lightbox>
     </div>
-    <!-- #### Slides preview Gallery -->
+    <!-- #### Gallery Thumbnail Preview -->
     <!--On desktop we've added a film strip like slide preview. Each product colour has its own image gallery and slide preview.
     We use [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind) to update the page selecting the gallery and image preview
-    corresponding to the selected colour. We realized the color selection by using `amp-selector`. Find more the doc and info in The Product Page section below.
+    corresponding to the selected colour. We realized the color selection by using `amp-selector`. Find more the doc and info in [The Product Page section](#product-page-anchor).
 
     The green colour is the default color for the gallery when the page loads.
     Clicking on a preview image will reveal the image in the gallery via the tap action `on="tap:product-carousel-preview.goToSlide(index=0)"`.
@@ -499,12 +500,12 @@ div.square {
   </script>
 </amp-state>
 
-    <!-- #### Product price -->
+    <!-- #### Product Price -->
     <!-- We use [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind) to update the price of the product
       depending on the selected colour.
 
     We bind the `text` attribute to the
-      value of expression `product[selectedColor].price`. `product` is the id `amp-state` json described in the Product Configuration section.
+      value of expression `product[selectedColor].price`. `product` is the id  of the `amp-state` json described in the Product Configuration section.
 
     Notice how we set a default value for the price: values defined inside `amp-state`
       will not be accessed at the page load. We set `green` and `S` as default color and default size
@@ -516,6 +517,8 @@ div.square {
       <p class="price-description">Price:
         <span [text]="product[selectedColor || 'green'].sizes[selectedSize || 'S']">$1.99</span>
     </p>
+    <!-- -->
+    <a name="product-page-anchor"></a>
 
     <!-- #### Product page -->
     <!-- The add-to-cart action action is implemented using  [amp-form](/components/amp-form/). In our sample we use the [amp-selector](/components/amp-selector/) for selecting different product properties.
@@ -527,11 +530,9 @@ div.square {
       amp-redirect-to:http://ampbyexample.com/shopping_cart/?clientid=amp-123456789 -->
 
     <!-- We use the `CLIENT_ID` variable to identify the user, this enables storing a shopping cart between repeated visits of an AMP page (either via the AMP Cache or the original host). This variable can be used inside an amp-form by declaring an hidden input value with `default-value="CLIENT_ID(cart)`. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
-
       <form id="order" method="POST"
             action-xhr="/samples_templates/product/add_to_cart"
             target="_top">
-        <div>
           <label for="color">Color:</label>
           <amp-selector name="color"
                   layout="container"
@@ -549,8 +550,6 @@ div.square {
               </li>
             </ul>
           </amp-selector>
-        </div>
-        <div>
           <label for="quantity">Quantity:</label>
           <amp-selector name="quantity" layout="container">
             <ul>
@@ -559,8 +558,6 @@ div.square {
               <li option="3">3</li>
             </ul>
           </amp-selector>
-        </div>
-        <div>
           <label for="size">Size:</label>
           <amp-selector name="size" layout="container"
                   on="select:AMP.setState(selectedSize=event.targetOption)"
@@ -571,7 +568,6 @@ div.square {
               <li option="L" class="unavailable" [class]="product[selectedColor || 'green'].sizes['L'] != 'unavailable' ? '' : 'unavailable'">L</li>
             </ul>
           </amp-selector>
-        </div>
         <input type="submit" class="button button-primary" name="add-to-cart" value="add to cart">
         <input type="hidden" name="name" value="Apple">
         <input type="hidden" name="price" value="$1.99">
