@@ -38,6 +38,7 @@ func init() {
 	backend.InitAmpAnalytics()
 	backend.InitCommentSection()
 	backend.InitHotelSample()
+	backend.InitSlowResponseSample()
 	backend.InitPollSample()
 	playground.InitPlayground()
 	http.Handle("/", ServeStaticFiles(HandleNotFound(http.FileServer(http.Dir(DIST_DIR)))))
