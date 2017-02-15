@@ -97,8 +97,9 @@ In this sample, we're using Google Analytics to track the experiment. Google Ana
       </script>
     </amp-analytics>
   <!--
-    ... or amp-analytics configured by Google Tag Manager. After linking Google Tag manager and Google Analytics,
-    you would need to create 2 custom dimensions: "exp" with value "W4kYemYmQBSTIYNpoezCmg" and "variant" with value "VARIANT(button-color-experiment)".
+    ... or amp-analytics configured by Google Tag Manager. After [linking Google Tag manager and Google Analytics](https://support.google.com/analytics/answer/6163791?hl=en),
+    you need to create two custom dimensions: "exp" with value "W4kYemYmQBSTIYNpoezCmg" and "variant" with value "VARIANT(button-color-experiment)". Google Tag Manager will inject
+    those 2 variables in the Google Analytics request allowing to collect those informations.
 
   -->
   <amp-analytics config="https://www.googletagmanager.com/amp.json?id=GTM-K3GPZD5&amp;gtm.url=SOURCE_URL"
