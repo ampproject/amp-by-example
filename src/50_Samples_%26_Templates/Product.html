@@ -237,9 +237,7 @@ div.square {
 
     </style>
 
-    <!-- #### Metadata -->
-    <!-- The page indexing requires schema.org markup for one of the following types: Type, AggregateRating, Offers. [Learn more](https://developers.google.com/structured-data/carousels/top-stories#markup_specification). -->
-    <script type="application/ld+json">
+      <script type="application/ld+json">
     {
         "@context": "http://schema.org/",
         "@type": "Product",
@@ -353,15 +351,21 @@ div.square {
         </div>
       </amp-lightbox>
     </div>
+    <!-- -->
+    <a name="gallery-thumbnail-anchor"></a>
     <!-- #### Gallery Thumbnail Preview -->
-    <!--On desktop we've added a film strip like slide preview. Each product colour has its own image gallery and slide preview.
-    We use [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind) to update the page selecting the gallery and image preview
-    corresponding to the selected colour. We realized the color selection by using `amp-selector`. Find more the doc and info in [The Product Page section](#product-page-anchor).
+    <!--On desktop we've added a film strip like slide preview.
+    Clicking on a preview image will reveal the image in the gallery via the tap action
+        `on="tap:product-carousel-preview.goToSlide(index=0)"`.
 
-    The green colour is the default color for the gallery when the page loads.
-    Clicking on a preview image will reveal the image in the gallery via the tap action `on="tap:product-carousel-preview.goToSlide(index=0)"`.
+    Each product colour has its own image gallery and slide preview.
+    We use [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind)
+    to update the page selecting the gallery and image preview
+    corresponding to the selected colour.
 
-    See below for more informations on how we use`amp-bind`. -->
+    We use the `amp-selector` for selecting different colors.
+    Find more in [The Product Configuration section](#product-configuration-anchor).
+    -->
        <div class="product-gallery">
     <ul class="show" [class]="selectedColor == 'green' ? 'show' : 'hide'">
       <li tabindex="0" role="button">
@@ -411,7 +415,14 @@ div.square {
    <!-- #### Image Gallery -->
   <!-- The `amp-carousel` component works very well for product image galleries. Learn how the `amp-carousel` component works [here](/advanced/image_galleries_with_amp-carousel/).
 
-  Notice how we are binding to the `slide` and `class` by using to the values of the variables `selectedSlide` and `selectedColor`. -->
+  Clicking on an image will reveal in the gallery thumbnail preview via the `slideChange` action `on="slideChange:AMP.setState(selectedSlide=event.index, selectedColor=green)"`.
+
+  We bind the `slide` attribute to the value of `selectedSlide` by `[slide]="selectedSlide"`
+  to update the slide in the gallery when a thumbnail is tap, as described in the section [Gallery Thumbnail Preview](#gallery-thumbnail-anchor).
+
+  We bind the `class` to the value of `selectedColor` by `[class]="selectedColor == 'green' ? 'show' : 'hide'"`
+  to show the carousel corresponding to the selected color.     Find more in [The Product Configuration section](#product-configuration-anchor).
+ -->
     <div class="product-gallery">
 
     <amp-carousel id="green-apple-carousel"
@@ -419,7 +430,7 @@ div.square {
             layout="responsive"
             type="slides"
             [slide]="selectedSlide"
-            on="goToSlide:AMP.setState(selectedSlide=event.index, selectedColor=green)"
+            on="slideChange:AMP.setState(selectedSlide=event.index, selectedColor=green)"
             class="show"
             [class]="selectedColor == 'green' ? 'show' : 'hide'">
       <amp-img src="/img/green_apple_1_1024x682.jpg"
@@ -465,10 +476,7 @@ div.square {
     </amp-carousel>
 
   </div>
-  <!-- #### Product Configuration -->
-  <!-- We use the `amp-state` component (part of [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind))
-      to configure the product price depending on the color and the size. We also configure the `defaultSize`
-      for each product when you switch between colours -->
+
   <amp-state id="product">
     <script type="application/json">
     {
@@ -502,26 +510,33 @@ div.square {
 
     <!-- #### Product Price -->
     <!-- We use [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind) to update the price of the product
-      depending on the selected colour.
+      depending on the selected colour. We use the `amp-state` component (part of [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind))
+          to configure the product price and the default size for each product when you switch between colours
 
     We bind the `text` attribute to the
-      value of expression `product[selectedColor].price`. `product` is the id  of the `amp-state` json described in the Product Configuration section.
+      value of expression `[text]="product[selectedColor || 'green'].sizes[selectedSize || 'S']"`.
+      `product` is the id  of the `amp-state` json. We use green and S as default values for the
+      variables `selectedColor` and `selectedSize`.
 
     Notice how we set a default value for the price: values defined inside `amp-state`
-      will not be accessed at the page load. We set `green` and `S` as default color and default size
-      as the correspondent variables have `null` value at default.
-
-     We use `amp-selector` together with `amp-bind` to update the page for showing the price, the size availability, the gallery and preview of images.
-    Every time you select a color, we set the expression `selectedColor=event.targetOption`. This is triggering
-    all the attributes and elements bound to `selectedColor` to update: the price (bound with the attribute `[text]`), the gallery, the image preview and the size selector (all bound with `[class]`). -->
+      will not be accessed at the page load.
+ -->
       <p class="price-description">Price:
         <span [text]="product[selectedColor || 'green'].sizes[selectedSize || 'S']">$1.99</span>
     </p>
     <!-- -->
-    <a name="product-page-anchor"></a>
+    <a name="product-configuration-anchor"></a>
 
-    <!-- #### Product page -->
-    <!-- The add-to-cart action action is implemented using  [amp-form](/components/amp-form/). In our sample we use the [amp-selector](/components/amp-selector/) for selecting different product properties.
+    <!-- #### Product Configuration -->
+    <!--
+    We use [amp-selector](/components/amp-selector/) together with [amp-bind](/components/amp-bind/) for selecting different product properties and to update the page for showing the price, the size availability, the gallery and preview of images.
+
+    Every time you select a color, we set the expression `selectedColor=event.targetOption`.
+    This is triggering all the attributes and elements bound to `selectedColor` to update:
+    the price (bound with the attribute `[text]`), the gallery, the image preview and
+    the size selector (all bound with `[class]`).
+
+    The add-to-cart action action is implemented using  [amp-form](/components/amp-form/).
     Pressing the `ADD TO CART` button adds the product to a shopping cart page using the properties you have selected. Notice that the button URL contains the query `clientId={{ClientId}}`.
     If an item is successfully added to the shopping cart, we redirect the user to the shopping cart page.
     The redirect target is configured via a header in the server's form response ([redirecting after submission](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md#redirecting-after-a-submission)):
@@ -533,6 +548,7 @@ div.square {
       <form id="order" method="POST"
             action-xhr="/samples_templates/product/add_to_cart"
             target="_top">
+          <div>
           <label for="color">Color:</label>
           <amp-selector name="color"
                   layout="container"
@@ -550,6 +566,8 @@ div.square {
               </li>
             </ul>
           </amp-selector>
+        </div>
+        <div>
           <label for="quantity">Quantity:</label>
           <amp-selector name="quantity" layout="container">
             <ul>
@@ -558,6 +576,8 @@ div.square {
               <li option="3">3</li>
             </ul>
           </amp-selector>
+        </div>
+        <div>
           <label for="size">Size:</label>
           <amp-selector name="size" layout="container"
                   on="select:AMP.setState(selectedSize=event.targetOption)"
@@ -568,6 +588,7 @@ div.square {
               <li option="L" class="unavailable" [class]="product[selectedColor || 'green'].sizes['L'] != 'unavailable' ? '' : 'unavailable'">L</li>
             </ul>
           </amp-selector>
+        </div>
         <input type="submit" class="button button-primary" name="add-to-cart" value="add to cart">
         <input type="hidden" name="name" value="Apple">
         <input type="hidden" name="price" value="$1.99">
@@ -628,12 +649,6 @@ div.square {
   </template>
 </amp-list>
 
-  <!--
-    #### User Analytics
-  -->
-  <!--
-    Analytics must be configured in the body. Here we use Google Analytics to track pageviews.
-  -->
   <amp-analytics type="googleanalytics">
     <script type="application/json">
         {
