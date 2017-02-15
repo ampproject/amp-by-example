@@ -509,13 +509,16 @@ div.square {
 </amp-state>
 
     <!-- #### Product Price -->
-    <!-- We use [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind) to update the price of the product
-      depending on the selected colour. We use the `amp-state` component (part of [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind))
-          to configure the product price and the default size for each product when you switch between colours
+    <!-- We use [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind)
+    to update the price of the product
+      depending on the selected colour. The `amp-state` component
+      (part of [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind))
+          allows to configure the product price and the default size for each product
+          when you switch between colours.
 
     We bind the `text` attribute to the
       value of expression `[text]="product[selectedColor || 'green'].sizes[selectedSize || 'S']"`.
-      `product` is the id  of the `amp-state` json. We use green and S as default values for the
+      `product` is the id  of the `amp-state` json. We set green and S as default values for the
       variables `selectedColor` and `selectedSize`.
 
     Notice how we set a default value for the price: values defined inside `amp-state`
@@ -529,22 +532,28 @@ div.square {
 
     <!-- #### Product Configuration -->
     <!--
-    We use [amp-selector](/components/amp-selector/) together with [amp-bind](/components/amp-bind/) for selecting different product properties and to update the page for showing the price, the size availability, the gallery and preview of images.
+    We use [amp-selector](/components/amp-selector/) together with [amp-bind](/components/amp-bind/)
+    for selecting different product properties and to update the page for showing the price,
+    the size availability, the gallery and preview of images.
 
     Every time you select a color, we set the expression `selectedColor=event.targetOption`.
-    This is triggering all the attributes and elements bound to `selectedColor` to update:
+    This triggers all the attributes and elements bound to `selectedColor` to update:
     the price (bound with the attribute `[text]`), the gallery, the image preview and
     the size selector (all bound with `[class]`).
 
     The add-to-cart action action is implemented using  [amp-form](/components/amp-form/).
-    Pressing the `ADD TO CART` button adds the product to a shopping cart page using the properties you have selected. Notice that the button URL contains the query `clientId={{ClientId}}`.
+    Pressing the `ADD TO CART` button adds the product to a shopping cart page using the properties you have selected.
     If an item is successfully added to the shopping cart, we redirect the user to the shopping cart page.
     The redirect target is configured via a header in the server's form response ([redirecting after submission](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md#redirecting-after-a-submission)):
 
       access-control-expose-headers:AMP-Access-Control-Allow-Source-Origin,AMP-Redirect-To
-      amp-redirect-to:http://ampbyexample.com/shopping_cart/?clientid=amp-123456789 -->
+      amp-redirect-to:http://ampbyexample.com/shopping_cart/?clientid=amp-123456789
 
-    <!-- We use the `CLIENT_ID` variable to identify the user, this enables storing a shopping cart between repeated visits of an AMP page (either via the AMP Cache or the original host). This variable can be used inside an amp-form by declaring an hidden input value with `default-value="CLIENT_ID(cart)`. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
+     We use the `CLIENT_ID` variable to identify the user, this enables storing a shopping cart between repeated
+     visits of an AMP page (either via the AMP Cache or the original host).
+     This variable can be used inside an amp-form by declaring an hidden input value with
+     `default-value="CLIENT_ID(cart)`.
+     Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
       <form id="order" method="POST"
             action-xhr="/samples_templates/product/add_to_cart"
             target="_top">
