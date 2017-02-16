@@ -14,7 +14,7 @@ amp-carousel {
 .header {
   background-color: #607D8B;
 }
-.header #hamburger {
+.header #sample-menu {
   position:absolute;
   top:0;
   left: 0;
@@ -24,7 +24,7 @@ amp-carousel {
   text-transform: uppercase;
   padding: 13px;
 }
-.header #logo {
+.header #sample-logo {
   position:absolute;
   top:0;
   left:36px;
@@ -107,12 +107,12 @@ amp-carousel {
 .header input::-webkit-input-placeholder {
   color: #999;
 }
-.header input:focus + #logo {
+.header input:focus + #sample-logo {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s 0.7s, opacity 0.7s ease;
 }
-.header input + #logo {
+.header input + #sample-logo {
   visibility: visible;
   opacity: 1;
   transition: opacity 1.5s ease;

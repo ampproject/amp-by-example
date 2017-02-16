@@ -96,8 +96,8 @@ function ampByExampleHandler(request, values) {
     if (request.url.indexOf("__amp_source_origin") != -1 || shouldNotCache(request)) {
       return toolbox.networkOnly(request, values);
     }
-    // cache or network - whatever is fastest
-    return toolbox.fastest(request, values).catch(function() {
+    // network first, we always want to get the latest 
+    return toolbox.networkFirst(request, values).catch(function() {
       return toolbox.cacheOnly(new Request(config.offlinePage), values)
         .then(function(response) {
           return response || new Response('You\'re offline. Sorry.', {
@@ -119,8 +119,8 @@ function ampByExampleHandler(request, values) {
       );
     });
   } else {
-    // cache all other requests
-    return toolbox.fastest(request, values);
+    // cache first for all other requests
+    return toolbox.cacheFirst(request, values);
   }
 }
 
@@ -128,13 +128,11 @@ function shouldNotCache(request) {
   return IGNORED_URLS.some(url => request.url.indexOf(url) != -1);
 }
 
-toolbox.options.debug = true;
-toolbox.router.default = toolbox.networkOnly;
+toolbox.options.debug = false;
+toolbox.router.default = toolbox.networkFirst;
 toolbox.router.get('/(.*)', ampByExampleHandler, {origin: self.location.origin});
-// cache first amp runtime 
-toolbox.router.get('/(.*)', toolbox.cacheFirst, {origin: 'https://cdn.ampproject.org'});
-// cache first google fonts
-toolbox.router.get('/(.+)', toolbox.cacheFirst, {origin: /https?:\/\/fonts.+/});
+// network first amp runtime 
+toolbox.router.get('/(.*)', toolbox.networkFirst, {origin: 'https://cdn.ampproject.org'});
 
 toolbox.precache(config.filesToCache);
 

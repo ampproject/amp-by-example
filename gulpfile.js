@@ -35,7 +35,8 @@ const diff = require('gulp-diff');
 const change = require('gulp-change');
 const bower = require('gulp-bower');
 const grun = require('gulp-run');
-
+const htmlmin = require('gulp-htmlmin');
+const htmlhint = require("gulp-htmlhint");
 const compileExample = require('./tasks/compile-example');
 const sitemap = require('./tasks/compile-sitemap');
 const createExample = require('./tasks/create-example');
@@ -44,10 +45,13 @@ const Metadata = require('./tasks/lib/Metadata');
 const ExampleFile = require('./tasks/lib/ExampleFile');
 const gulpAmpValidator = require('gulp-amphtml-validator');
 
+const PROD = 'prod';
+
 const paths = {
   dist: {
     dir: 'dist',
     html: 'dist/**/*.html',
+    samples: ['dist/**/*.html', '!dist/bower_components/'],
     img: 'dist/img',
     video: 'dist/video',
     json: 'dist/json',
@@ -66,7 +70,8 @@ const paths = {
   static: 'static/*.*',
   templates: {
     dir: 'templates',
-    files: ['templates/**/*.css', 'templates/**/*.html']
+    files: ['templates/**/*.css', 'templates/**/*.html'],
+    html: 'templates/**/*.html'
   },
   api: {
     conf: 'api/conf.json'
@@ -118,6 +123,7 @@ gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
   });
 
 gulp.task('deploy:prod', 'deploy to production server', function(callback) {
+  config.env = PROD;
   runSequence('clean',
               'robots:allow',
               'build',
@@ -127,6 +133,7 @@ gulp.task('deploy:prod', 'deploy to production server', function(callback) {
 });
 
 gulp.task('deploy:staging', 'deploy to staging server', function(callback) {
+  config.env = PROD;
   config.host = 'https://amp-by-example-staging.appspot.com';
   runSequence('clean',
               'robots:disallow',
@@ -268,6 +275,7 @@ gulp.task('validate:example', 'validate example html files', function() {
 gulp.task('compile:example', 'generate index.html and examples', function() {
   return gulp.src(paths.samples)
       .pipe(compileExample(config))
+      .pipe(gulpIf(config.env === PROD, htmlmin({collapseWhitespace: true})))
       .pipe(gulp.dest(paths.dist.dir));
 });
 
@@ -358,6 +366,12 @@ gulp.task('lint:backend', 'lint go backend code', function() {
   return run('test -z $(gofmt -l $(find . -name \'*.go\'))').exec();
 });
 
+gulp.task('lint:html', 'checks the hmtl source', function() {
+  return gulp.src([paths.samples].join(paths.dist.samples))
+      .pipe(htmlhint({'doctype-first': false, 'title-require': false, 'attr-lowercase': false}))
+      .pipe(htmlhint.failReporter());
+});
+
 gulp.task('default', 'Run a webserver and watch for changes', [
   'build',
   'watch',
@@ -380,7 +394,18 @@ gulp.task('api:serve', 'Run the go api backend', function(){
   return run('cd api && goapp serve -admin_port=8100').exec();
 });
 
-gulp.task('validate', 'runs all checks', ['lint', 'lint:backend', 'test', 'validate:example']);
+gulp.task('validate', 'runs all checks', function(callback) {
+  runSequence('clean',
+              'build',
+              'test',
+              'validate:example',
+              'lint',
+              'lint:backend',
+              'lint:html',
+              'test',
+              callback);
+});
+
 
 gulp.task('snapshot',
     'Saves a snapshot of the generated sample files',

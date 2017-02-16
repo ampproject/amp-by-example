@@ -24,6 +24,7 @@ This is a sample template for a news article in AMP. It demonstrates the usage o
     <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
     <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
 
     <link rel="canonical" href="<%host%>/samples_templates/news_article/">
 
@@ -270,7 +271,7 @@ This is a sample template for a news article in AMP. It demonstrates the usage o
     -->
     <amp-list width="300" height="75" layout="responsive" src="/json/related_articles.json">
       <template type="amp-mustache">
-        <a class="card related" href={{url}}><amp-img width="101" height="75" src="{{thumbnail}}"></amp-img><span>{{title}}</span></a>
+        <a class="card related" href="{{url}}"><amp-img width="101" height="75" src="{{thumbnail}}"></amp-img><span>{{title}}</span></a>
       </template>
     </amp-list>
 
@@ -285,9 +286,7 @@ This is a sample template for a news article in AMP. It demonstrates the usage o
       <a on="tap:amp-user-notification1.dismiss">Accept</a>
     </amp-user-notification>
 
-    <!--
-    #### Analytics
-    -->
+    <!-- #### User Analytics -->
     <!--
     Analytics must be configured in the body. Here we use Google Analytics to track pageviews.
     -->

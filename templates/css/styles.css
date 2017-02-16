@@ -37,8 +37,15 @@ article {
 article #title {
   text-align: center;
   margin: 0;
-  padding-top: 24px;
-  padding-bottom: 24px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+article #github {
+  text-align: center;
+  display: block;
+  color: #616161;
+  text-transform: uppercase;
+  padding-bottom: 16px;
 }
 code, pre {
   background: #ECEFF1;
@@ -586,6 +593,9 @@ a.card:active {
   }
   article #title {
     margin-top: 56px;
+    padding-bottom: 0px;
+  }
+  article #github {
     padding-bottom: 0px;
   }
   header {

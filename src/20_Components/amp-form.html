@@ -44,11 +44,18 @@
     display: flex;
     align-items: center;
   }
-  .other-input {
+  form > input {
     margin: 0 16px;
   }
+  form label {
+    margin: 8px;
+  }
   form {
-    margin: 16px;
+    margin: 0;
+    padding: 16px;
+  }
+  form select {
+    margin-top: 0;
   }
   </style>
 </head>
@@ -283,8 +290,8 @@
   -->
   <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <div class="horizontal-display">
-      <input type="radio" name="favourite animal" value="cat" checked> Cat<br>
-      <input type="radio" name="favourite animal" value="dog"> Dog<br>
+      <input type="radio" name="favourite animal" value="cat" checked> Cat
+      <input type="radio" name="favourite animal" value="dog"> Dog
       <input type="radio" name="favourite animal" value="other"> Other
       <input type="submit" value="OK" class="button button-primary other-input">
     </div>
@@ -317,7 +324,7 @@
     </div>
   </form>
    <!--
-    Use `type="telephone"` for input fields that should contain a telephone number.
+    Use `type="tel"` for input fields that should contain a telephone number.
   -->
   <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <input type="tel" name="my_tel" class="data-input" placeholder="Telephone...">
@@ -368,6 +375,29 @@
         Error!
       </template>
     </div>
+  </form>
+
+  <!--
+    Use `select` element for dropdowns.
+  -->
+    <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+      <select name="cars">
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+        <option value="fiat">Fiat</option>
+        <option value="audi">Audi</option>
+      </select>
+      <input type="submit" value="OK" class="button button-primary ">
+      <div submit-success>
+        <template type="amp-mustache">
+          Success! Thanks for trying the <code>amp-form</code> demo!
+        </template>
+      </div>
+      <div submit-error>
+        <template type="amp-mustache">
+          Error!
+        </template>
+      </div>
   </form>
 </body>
 </html>

@@ -58,35 +58,63 @@ This sample showcases how to build a product listing page in AMP HTML.
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 </head>
 <body>
-  <%>product/header.html%>
+  <!-- #### Navigation -->
+  <!--
+    Use the [amp-sidebar](/components/amp-sidebar/) component to give customers the chance to quickly jump to any of your product categories.  
+  -->
+  <amp-sidebar id="drawermenu" layout="nodisplay">
+    <div class="topheader">
+      <a href="/" class="home">Products by Example</a>
+    </div>
+    <hr/>
+    <h4 class="category expanded"><a href="/samples_templates/product_listing/preview/">Fruit</a></h4>
+    <h4 class="category"><a href="/samples_templates/product_listing/preview/">Vegetable</a></h4>
+    <h4 class="category"><a href="/samples_templates/product_listing/preview/">More</a></h4>
+  </amp-sidebar>
+  <!-- #### Header with Search -->
+  <!--
+    AMP supports forms, which means you can directly integrate a product search into your AMPs. Try searching for "Apple".
+
+    AMP doesn't support custom Javascript, but you can use CSS3 animations to enrich your page. The expanding text field when the search box is focused is implemented with CSS only.
+  -->
+  <div class="header">
+    <a id="sample-menu" on="tap:drawermenu.toggle">
+      <amp-img srcset="/img/ic_menu_white_1x_web_24dp.png 1x, /img/ic_menu_white_2x_web_24dp.png 2x" width="24" height="24" alt="navigation"></amp-img>
+    </a>
+    <form  method="GET" action="<%host%>/samples_templates/product_listing[[.Mode]]/search" target="_top">
+      <input name="search" type="search" placeholder="Search">
+      <a id="sample-logo" href="/">Products by Example</a>
+      <input type="submit" value="">
+    </form>
+  </div>
 
   <!-- #### A Hero Slider -->
   <!-- The `amp-carousel` component can be used to quickly create full-bleed, auto-advancing slideshows showcasing your latest promotions.   -->
   <amp-carousel id="hero-images" width="1024" height="480" layout="responsive" type="slides" autoplay>
     <a href="#">
-       <amp-img src="/img/product_hero1_1024x683.jpg" layout="fill" alt="product hero 1" attribution="visualhunt"></amp-img>
-       <div class="caption">The 10 best Apples</div>
+      <amp-img src="/img/product_hero1_1024x683.jpg" layout="fill" alt="product hero 1" attribution="visualhunt"></amp-img>
+      <div class="caption">The 10 best Apples</div>
     </a>
     <a href="#">
-        <amp-img src="/img/product_hero2_1024x683.jpg" layout="fill" alt="product hero 2" attribution="visualhunt"></amp-img>
-       <div class="caption">So much orange!</div>
+      <amp-img src="/img/product_hero2_1024x683.jpg" layout="fill" alt="product hero 2" attribution="visualhunt"></amp-img>
+      <div class="caption">So much orange!</div>
     </a>
     <a href="#">
-        <amp-img src="/img/product_hero3_1024x683.jpg" layout="fill" alt="product hero 3" attribution="visualhunt"></amp-img>
-       <div class="caption">So healthy.</div>
+      <amp-img src="/img/product_hero3_1024x683.jpg" layout="fill" alt="product hero 3" attribution="visualhunt"></amp-img>
+      <div class="caption">So healthy.</div>
     </a>
   </amp-carousel>
 
-<h5>[[.Title]]</h5>
+  <h5>[[.Title]]</h5>
 
-<div class="items">
-  [[range .Products]]
-  <a class="tile item" href="/samples_templates/product/[[$.Mode]]">
-    <amp-img width="640"
-             height="426"
-             layout="responsive"
-             alt="[[.Name]]"
-             src="[[.Img]]"></amp-img>
+  <div class="items">
+    [[range .Products]]
+    <a class="tile item" href="/samples_templates/product/[[$.Mode]]">
+      <amp-img width="640"
+               height="426"
+               layout="responsive"
+               alt="[[.Name]]"
+               src="[[.Img]]"></amp-img>
            <p class="name">[[.Name]]</p>
            <p class="star">[[.StarsAsHtml]]</p>
            <p class="price">$[[.Price]]</p>
@@ -147,10 +175,31 @@ This sample showcases how to build a product listing page in AMP HTML.
 
 <!-- -->
 <h5 class="deals">Bestsellers</h5>
-<%>product/related.html%>
+<!--
+With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
+ Learn more about `amp-list` [here](/components/amp-list/)
+-->
+<amp-list class="items"
+          width="200"
+          height="100"
+          layout="responsive"
+          src="/json/related_products.json">
+  <template type="amp-mustache">
+    <a class="tile item" href="/samples_templates/product/preview/">
+      <amp-img width="640"
+               height="426"
+               layout="responsive"
+               alt="{{name}}"
+               src="{{img}}"></amp-img>
+             <p class="name">{{name}}</p>
+             <p class="star">{{{stars}}}</p>
+             <p class="price">${{price}}</p>
+    </a>
+  </template>
+</amp-list>
 
 <!--
-  #### Analytics
+  #### User Analytics
 -->
 <!--
   Analytics must be configured in the body. Here we use Google Analytics to track pageviews.

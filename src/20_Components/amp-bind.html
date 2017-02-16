@@ -32,7 +32,16 @@
   Import the amp-bind component in the header.
   -->
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+  <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <style amp-custom>
+    .redBackground {
+      background-color: red;
+    }
+    .greenBackground {
+      background-color: green;
+    }
+  </style>
 </head>
 <body>
   <!-- #### Configuring initial state -->
@@ -44,10 +53,14 @@
     <script type="application/json">
       {
         "dog": {
-          "url": "/img/Border_Collie.jpg"
+          "imageUrl": "/img/Border_Collie.jpg",
+          "videoUrl": "/video/dog-video.mp4",
+          "style": "greenBackground"
         },
         "cat": {
-          "url": "/img/cat-looking-up-300x200.jpg"
+          "imageUrl": "/img/cat-looking-up-300x200.jpg",
+          "videoUrl": "/video/cat-video.mp4",
+          "style": "redBackground"
         }
       }
     </script>
@@ -56,7 +69,7 @@
   <!--
   Referencing implicit state in binding expressions is done by dot or bracket
   syntax, starting with the &lt;amp-state&gt; element's `id`, e.g.
-  `allAnimals.dog.url` or `allAnimals['cat']['url']`.
+  `allAnimals.dog.imageUrl` or `allAnimals['cat']['imageUrl']`.
 
   - The contents of &lt;amp-state&gt; must be a single JSON script.
   - Similar to the &lt;amp-analytics&gt; config, placing metadata at the
@@ -79,24 +92,36 @@
 
   `[property]="expression"`
 
-  In this example, the `src` of this &lt;amp-img&gt; element will change when
-  either the `allAnimals` or `currentAnimal` implicit state variables change.
+-->
 
-  - `allAnimals` is the `id` of the &lt;amp-state&gt; component above.
-  - `currentAnimal` is an uninitialized implicit state variable, which will be
-     set when a state change is triggered (see below).
-  -->
+<!-- #### Binding Text -->
+<!--
+The text of this &lt;p&gt; will change when the `currentAnimal` variable
+changes. `currentAnimal` is an uninitialized implicit state variable, which will be
+   set when a state change is triggered (see below).
+
+-->
+<p [text]="'This is a ' + currentAnimal + '.'">This is a dog.</p>
+
+<!-- #### Binding Styles -->
+<!--
+  Styling can be changed by applying css classes. It will override all the element's style classes. `allAnimals` is the `id` of the &lt;amp-state&gt; component above.
+-->
+
+<p [class]="allAnimals[currentAnimal].style" class="greenBackground">Each animal has a different background color.</p>
+
+<!-- #### Binding Attribute Values -->
+<!--
+Various AMP components support binding attribute values with amp-bind. For example, `amp-img` URLs can be changed.
+-->
   <amp-img src="/img/Border_Collie.jpg" width="300" height="200"
-      [src]="allAnimals[currentAnimal].url">
+      [src]="allAnimals[currentAnimal].imageUrl">
   </amp-img>
 
   <!--
-  The text of this &lt;p&gt; will change when the `currentAnimal` variable
-  changes.
+    The src URL for videos embedded with `amp-video` can be changed. At the moment, among all the AMP video components, only amp-video supports amp-bind.
   -->
-  <p [text]="'This is a ' + currentAnimal + '.'">
-  This is a dog.
-  </p>
+  <amp-video src="/video/dog-video.mp4" [src]="allAnimals[currentAnimal].videoUrl" width="300" height="200" autoplay controls="true"></amp-video>
 
   <!-- #### Triggering updates -->
   <!--
