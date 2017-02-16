@@ -102,7 +102,7 @@ Currently, HTML tables are not supported in form responses, so we'll use CSS to 
 In order to submit the form as soon as the user picks an option, we will add an
 [`on` attribute](https://www.ampproject.org/docs/reference/spec#on) to each `<input>`, that will submit the poll on change.
 -->
-<form method="post" action-xhr="<%host%>/samples_templates/poll/submit" target="_blank"
+<form method="post" action-xhr="/samples_templates/poll/submit" target="_blank"
       id="poll1"
       custom-validation-reporting="as-you-go">
     <input name="clientId" type="hidden" value="CLIENT_ID(POLL_USER_ID)" data-amp-replace="CLIENT_ID">

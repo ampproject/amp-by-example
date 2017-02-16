@@ -20,7 +20,7 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
     <script async custom-element="amp-access" src="https://cdn.ampproject.org/v0/amp-access-0.1.js"></script>
     <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
-    <link rel="canonical" href="<%host%>/samples_templates/comment_section/">
+    <link rel="canonical" href="/samples_templates/comment_section/">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <style amp-custom>
     form {
@@ -68,11 +68,11 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     <!-- [amp-access](/components/amp-access) requires the definition of 3 endpoints as documented [here](https://www.ampproject.org/docs/reference/components/amp-access). This sample allows an user to login and logout: this is realized by specifying two different endpoints in the login property, `sign-in` and `sign-out`, find more [here](https://www.ampproject.org/docs/reference/components/amp-access#login-page)-->
     <script id="amp-access" type="application/json">
     {
-        "authorization": "<%host%>/samples_templates/comment_section/authorization?rid=READER_ID&url=CANONICAL_URL&ref=DOCUMENT_REFERRER&_=RANDOM",
+        "authorization": "/samples_templates/comment_section/authorization?rid=READER_ID&url=CANONICAL_URL&ref=DOCUMENT_REFERRER&_=RANDOM",
         "noPingback": "true",
         "login": {
-          "sign-in": "<%host%>/samples_templates/comment_section/login?rid=READER_ID&url=CANONICAL_URL",
-          "sign-out": "<%host%>/samples_templates/comment_section/logout"
+          "sign-in": "/samples_templates/comment_section/login?rid=READER_ID&url=CANONICAL_URL",
+          "sign-out": "/samples_templates/comment_section/logout"
         },
         "authorizationFallbackResponse": {
             "error": true,
@@ -87,7 +87,7 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     <h5>Comments</h5>
 
     <!-- Use `amp-list` to render existing comments to make sure that the latest comments appear if the page is loaded via AMP Cache.  -->
-      <amp-list width="auto" height="200" layout="fixed-height" src="<%host%>/json/comments.json">
+      <amp-list width="auto" height="200" layout="fixed-height" src="/json/comments.json">
         <template type="amp-mustache">
           <div class="comment-user comments-container">
             <amp-img width="44" height="44" class="user-avatar" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
@@ -109,7 +109,7 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
       <!-- We specify the logout via a login endpoint to be able to use the `return URL` environment variable. -->
       <button amp-access="loggedIn" amp-access-hide tabindex="0" on="tap:amp-access.login-sign-out" class="button-primary comment-button">Logout</button>
       <!-- Use amp-form to submit the comment. In this sample, only a single comment can be added as comments are not persisted in the backend.  -->
-      <form amp-access="loggedIn" amp-access-hide method="post" action-xhr="<%host%>/samples_templates/comment_section/submit-comment-xhr" target="_top">
+      <form amp-access="loggedIn" amp-access-hide method="post" action-xhr="/samples_templates/comment_section/submit-comment-xhr" target="_top">
         <div class="comment-user">
           <amp-img width="44" class="user-avatar" height="44" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
           <input type="text" class="data-input" name="text" placeholder="Your comment..." required>
