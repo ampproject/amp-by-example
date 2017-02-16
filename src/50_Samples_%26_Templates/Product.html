@@ -367,7 +367,7 @@ div.square {
     Find more in [The Product Configuration section](#product-configuration-anchor).
     -->
        <div class="product-gallery">
-    <ul class="show" [class]="selectedColor == 'green' ? 'show' : 'hide'">
+    <ul class="show" [class]="selectedColor == 'green' || selectedColor == null ? 'show' : 'hide'">
       <li tabindex="0" role="button">
         <amp-img on="tap:AMP.setState(selectedSlide=0)"
                   src="/img/green_apple_1_60x40.jpg"
@@ -432,7 +432,7 @@ div.square {
             [slide]="selectedSlide"
             on="slideChange:AMP.setState(selectedSlide=event.index, selectedColor=green)"
             class="show"
-            [class]="selectedColor == 'green' ? 'show' : 'hide'">
+            [class]="selectedColor == 'green' || selectedColor == null ? 'show' : 'hide'">
       <amp-img src="/img/green_apple_1_1024x682.jpg"
                 width="1024" height="682"
                 layout="responsive">
