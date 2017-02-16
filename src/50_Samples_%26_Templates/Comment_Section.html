@@ -20,7 +20,7 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
     <script async custom-element="amp-access" src="https://cdn.ampproject.org/v0/amp-access-0.1.js"></script>
     <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
-    <link rel="canonical" href="/samples_templates/comment_section/">
+    <link rel="canonical" href="<%host%>/samples_templates/comment_section/">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <style amp-custom>
     form {
@@ -68,11 +68,11 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     <!-- [amp-access](/components/amp-access) requires the definition of 3 endpoints as documented [here](https://www.ampproject.org/docs/reference/components/amp-access). This sample allows an user to login and logout: this is realized by specifying two different endpoints in the login property, `sign-in` and `sign-out`, find more [here](https://www.ampproject.org/docs/reference/components/amp-access#login-page)-->
     <script id="amp-access" type="application/json">
     {
-        "authorization": "/samples_templates/comment_section/authorization?rid=READER_ID&url=CANONICAL_URL&ref=DOCUMENT_REFERRER&_=RANDOM",
+        "authorization": "<%host%>/samples_templates/comment_section/authorization?rid=READER_ID&url=CANONICAL_URL&ref=DOCUMENT_REFERRER&_=RANDOM",
         "noPingback": "true",
         "login": {
-          "sign-in": "/samples_templates/comment_section/login?rid=READER_ID&url=CANONICAL_URL",
-          "sign-out": "/samples_templates/comment_section/logout"
+          "sign-in": "<%host%>/samples_templates/comment_section/login?rid=READER_ID&url=CANONICAL_URL",
+          "sign-out": "<%host%>/samples_templates/comment_section/logout"
         },
         "authorizationFallbackResponse": {
             "error": true,
