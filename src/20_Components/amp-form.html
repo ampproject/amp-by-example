@@ -70,7 +70,7 @@
 
     You can find the code for the server endpoint used in this demo at [/backend/amp-form.go](https://github.com/ampproject/amp-by-example/blob/master/backend/amp-form.go).
   -->
-  <form method="GET" action="<%host%>/components/amp-form/submit-form" target="_top">
+  <form method="GET" action="/components/amp-form/submit-form" target="_top">
     <input type="search" class="data-input" placeholder="Search..." name="googlesearch">
     <input type="submit" value="OK" class="button button-primary other-input">
   </form>
@@ -86,7 +86,7 @@
     renders the template data inside these two elements. The `submit-success` and `submit-error` elements
     must be direct children of `form`.
   -->
-  <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-input-text-xhr" target="_top">
+  <form method="post" action-xhr="/components/amp-form/submit-form-input-text-xhr" target="_top">
     <input type="text" class="data-input" name="name" placeholder="Name..." required>
     <input type="email" class="data-input" name="email" placeholder="Email..." required>
     <input type="submit" value="Subscribe" class="button button-primary">
@@ -113,7 +113,7 @@
   }
   ```
 -->
-<form class="hide-inputs" method="post" action-xhr="<%host%>/components/amp-form/submit-form-input-text-xhr" target="_top">
+<form class="hide-inputs" method="post" action-xhr="/components/amp-form/submit-form-input-text-xhr" target="_top">
   <input type="text" class="data-input" name="name" placeholder="Name..." required>
   <input type="submit" value="Subscribe" class="button button-primary">
   <div submit-success>
@@ -132,7 +132,7 @@
     `amp-form` supports all HTML5 form types with the exception of file, password and image.
     Use `type="date"` for input fields that should contain a date.
   -->
-  <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+  <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <input name="select-date" type="date" value="2020-12-30" class="data-input">
     <input type="submit" value="OK" class="button button-primary">
     <div submit-success>
@@ -149,7 +149,7 @@
   <!--
     Use `type="month"` for input fields that should contain a month.
   -->
-  <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+  <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <input name="select-month" type="month" value="2020-12" class="data-input">
     <input type="submit" value="OK" class="button button-primary other-input">
     <div submit-success>
@@ -166,7 +166,7 @@
   <!--
     Use `type="week"` for input fields that should contain a week.
   -->
-  <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+  <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <input type="week" name="week_year" class="data-input">
     <input type="submit" value="OK" class="button button-primary other-input">
     <div submit-success>
@@ -183,7 +183,7 @@
   <!--
     Use `type="datetime-local"` for input fields that should contain a date and time.
   -->
-  <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+  <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <input name="select-datetime" type="datetime-local" value="2020-12-30T12:34:56" class="data-input">
     <input type="submit" value="OK" class="button button-primary other-input">
     <div submit-success>
@@ -200,7 +200,7 @@
   <!--
     Use `type="time"` for input fields that should contain a time.
   -->
-  <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+  <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <input type="time" name="time_now" class="data-input">
     <input type="submit" value="OK" class="button button-primary other-input">
     <div submit-success>
@@ -217,7 +217,7 @@
   <!--
     Use `type="checkbox"` to let the user select ZERO or MORE options of a limited number of choices.
   -->
-  <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+  <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <div class="horizontal-display">
       <label><input type="checkbox" name="animal1" value="Cats"> I like cats</label>
       <label><input type="checkbox" name="animal2" value="Dogs"> I like dogs </label>
@@ -237,7 +237,7 @@
    <!--
     Use `type="email"` for input fields that should contain an e-mail address.
   -->
-  <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+  <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <input type="email" name="email" placeholder="Email..." class="data-input">
     <input type="submit" value="OK" class="button button-primary">
     <div submit-success>
@@ -254,7 +254,7 @@
   <!--
     Use `type="hidden"` to define a field not visible to a user.
   -->
-  <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+  <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <input type="hidden" name="city" value="London">
     <input type="submit" value="OK" class="button button-primary">
     <div submit-success>
@@ -271,7 +271,7 @@
    <!--
     Use `type="number"` for input fields that should contain a numeric value.
   -->
-  <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+  <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <input type="number" name="quantity" min="1" max="5" class="data-input">
     <input type="submit" value="OK" class="button button-primary other-input">
     <div submit-success>
@@ -288,7 +288,7 @@
    <!--
     Use `type="radio"` to let a user select ONLY ONE of a limited number of choices.
   -->
-  <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+  <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <div class="horizontal-display">
       <input type="radio" name="favourite animal" value="cat" checked> Cat
       <input type="radio" name="favourite animal" value="dog"> Dog
@@ -309,7 +309,7 @@
    <!--
     Use `type="range"` for input fields that should contain a value within a range.
   -->
-  <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+  <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <input type="range" name="points" min="0" max="10">
     <input type="submit" value="OK" class="button button-primary other-input">
     <div submit-success>
@@ -326,7 +326,7 @@
    <!--
     Use `type="tel"` for input fields that should contain a telephone number.
   -->
-  <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+  <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <input type="tel" name="my_tel" class="data-input" placeholder="Telephone...">
     <input type="submit" value="OK" class="button button-primary other-input">
     <div submit-success>
@@ -343,7 +343,7 @@
    <!--
     Use `type="url"` for input fields that should contain a URL address.
   -->
-  <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+  <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <input type="url" class="data-input" placeholder="URL..." name="website">
     <input type="submit" value="OK" class="button button-primary other-input">
     <div submit-success>
@@ -361,7 +361,7 @@
   <!--
     Use `type="reset"` to clear input fields.
   -->
-  <form method="post" action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top">
+  <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <input type="text" class="data-input" placeholder="Some text...">
     <input type="submit" value="OK" class="button button-primary ">
     <input type="reset" value="Reset" class="button button-primary other-input">

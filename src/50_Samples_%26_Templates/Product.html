@@ -221,7 +221,7 @@ This sample showcases how to build a product page in AMP HTML.
         <a id="sample-menu" on="tap:drawermenu.toggle">
           <amp-img srcset="/img/ic_menu_white_1x_web_24dp.png 1x, /img/ic_menu_white_2x_web_24dp.png 2x" width="24" height="24" alt="navigation"></amp-img>
         </a>
-        <form  method="GET" action="<%host%>/samples_templates/product_listing[[.Mode]]/search" target="_top">
+        <form  method="GET" action="/samples_templates/product_listing[[.Mode]]/search" target="_top">
           <input name="search" type="search" placeholder="Search">
           <a id="sample-logo" href="/">Products by Example</a>
           <input type="submit" value="">
@@ -311,7 +311,7 @@ This sample showcases how to build a product page in AMP HTML.
     We are using the `CLIENT_ID` variable to identify the user, this enables storing a shopping cart between repeated visits of an AMP page (either via the AMP Cache or the original host). This variable can be used inside an amp-form by declaring an hidden input value with `default-value="CLIENT_ID(cart)`. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
 
       <form id="order" method="POST"
-            action-xhr="<%host%>/samples_templates/product/add_to_cart"
+            action-xhr="/samples_templates/product/add_to_cart"
             target="_top">
         <div>
           <label for="color">Color:</label>
