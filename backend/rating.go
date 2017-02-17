@@ -15,12 +15,12 @@
 package backend
 
 import (
-	"encoding/json"
+	//	"encoding/json"
 	"fmt"
-	"golang.org/x/net/context"
-	"google.golang.org/appengine"
+	//"golang.org/x/net/context"
+	//"google.golang.org/appengine"
 	"net/http"
-	"strconv"
+	//"strconv"
 )
 
 const (
@@ -34,16 +34,17 @@ const (
 
 func InitRatingSample() {
 	http.HandleFunc(RATING_SAMPLE_PATH+"submit", handleRating)
-	RegisterSample(CATEGORY_SAMPLE_TEMPLATES+"/rating", handleRating)
+	//RegisterSample(CATEGORY_SAMPLE_TEMPLATES+"/rating", handleRating)
 }
 
-func handleRating(w http.ResponseWriter, r *http.Request, page Page) {
+func handleRating(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
 	SetContentTypeJson(w)
 	response := fmt.Sprintf("{\"items\":[{\"title\": \"This response was delayed 10 milliseconds. Reload the page if you didn't see the spinner.\"}]}")
 	w.Write([]byte(response))
 }
 
+/*
 func parseRatingForm(w http.ResponseWriter, r *http.Request, context context.Context) (PollForm, error) {
 	answer, answerErr := parseNotEmptyFormValue(r, "answer")
 	answerId, _ := strconv.Atoi(answer)
@@ -55,3 +56,4 @@ func parseRatingForm(w http.ResponseWriter, r *http.Request, context context.Con
 	return pollForm, error
 }
 
+*/
