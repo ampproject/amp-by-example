@@ -221,43 +221,41 @@ module.exports = function(config, updateTimestamp) {
       });
 
       // compile example preview
-      if (document.metadata.preview) {
-        // the default preview template
-        let previewTemplate = config.templates.preview;
+      // the default preview template
+      let previewTemplate = config.templates.preview;
 
-        // a4a preview embeds the original sample via iframe
-        if (document.metadata.preview.toLowerCase() == "a4a") {
-          previewTemplate = config.a4a.template;
-          // copy ad sample to api app engine folder
-          const previewPath = path.join(config.api.dist, example.targetPath());
-          mkdirp.sync(path.dirname(previewPath));
-          fs.writeFileSync(previewPath, example.contents);
-          gutil.log('Generated ' + previewPath);
-          // configure a4a preview
-          args.width = document.metadata.width || config.a4a.defaultWidth;
-          args.height = document.metadata.height || config.a4a.defaultHeight;
-          args.adContainerHeight = args.height + config.a4a.adContainerLabelHeight;
-          args.a4aEmbedUrl = config.api.host + '/' + example.targetPath();
-        }
-
-        args.title = example.title() + ' (Preview) - ' + 'AMP by Example';
-        args.desc = "This is a live preview of the '" + example.title() + "' sample. " + args.desc;
-        args.canonical = config.host + example.url() + 'preview/';
-
-        // generate preview
-        compileTemplate(stream, example, args, {
-          template: previewTemplate,
-          targetPath: example.targetPreviewPath(),
-          isEmbed: false
-        });
-
-        // generate preview embed
-        compileTemplate(stream, example, args, {
-          template: previewTemplate,
-          targetPath: example.targetPreviewEmbedPath(),
-          isEmbed: true
-        });
+      // a4a preview embeds the original sample via iframe
+      if (document.metadata.preview && document.metadata.preview.toLowerCase() == "a4a") {
+        previewTemplate = config.a4a.template;
+        // copy ad sample to api app engine folder
+        const previewPath = path.join(config.api.dist, example.targetPath());
+        mkdirp.sync(path.dirname(previewPath));
+        fs.writeFileSync(previewPath, example.contents);
+        gutil.log('Generated ' + previewPath);
+        // configure a4a preview
+        args.width = document.metadata.width || config.a4a.defaultWidth;
+        args.height = document.metadata.height || config.a4a.defaultHeight;
+        args.adContainerHeight = args.height + config.a4a.adContainerLabelHeight;
+        args.a4aEmbedUrl = config.api.host + '/' + example.targetPath();
       }
+
+      args.title = example.title() + ' (Preview) - ' + 'AMP by Example';
+      args.desc = "This is a live preview of the '" + example.title() + "' sample. " + args.desc;
+      args.canonical = config.host + example.url() + 'preview/';
+
+      // generate preview
+      compileTemplate(stream, example, args, {
+        template: previewTemplate,
+        targetPath: example.targetPreviewPath(),
+        isEmbed: false
+      });
+
+      // generate preview embed
+      compileTemplate(stream, example, args, {
+        template: previewTemplate,
+        targetPath: example.targetPreviewEmbedPath(),
+        isEmbed: true
+      });
     });
   }
 
