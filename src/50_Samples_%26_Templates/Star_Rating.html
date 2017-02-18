@@ -38,21 +38,21 @@
     }
 
     /* the stars */
-    .rating > span {
+    .rating > label {
       display: inline-block;
       position: relative;
       width: 1.1em;  /* magic number to overlap the radio buttons on top of the stars */
       /* border: 1px solid green;  /* debug */
     }
     .rating > *:hover,
-    .rating > *:hover ~ span,
-    .rating:not(:hover) > input:checked ~ span {
+    .rating > *:hover ~ label,
+    .rating:not(:hover) > input:checked ~ label {
       color: transparent;  /* reveal the contour/white star from the HTML markup */
       cursor: inherit;  /* avoid a cursor transition from arrow/pointer to text selection */
     }
     .rating > *:hover:before,
-    .rating > *:hover ~ span:before,
-    .rating:not(:hover) > input:checked ~ span:before {
+    .rating > *:hover ~ label:before,
+    .rating:not(:hover) > input:checked ~ label:before {
       content: "★";
       position: absolute;
       left: 0;
@@ -75,10 +75,6 @@
 </head>
 <body>
 
-  <!-- #### Basic Usage -->
-  <!--
-  TODO: Describe your example here
-  -->
   <h1>CSS-only keyboard-accessible rating widget</h1>
   <h2>
     Press Tab twice, then arrows. Unfortunately, in Firefox and Safari, keyboard arrows work backwards.
@@ -86,12 +82,25 @@
     on non-Chrome-based browsers without using JavaScript, so stay tuned for the amp-rating component.
   </h2>
 
+  <!--
+  We'll use a set of radio buttons to take user input for the star ratings, because they are keyboard-accessible.
+  For desktop, it's nice to change the style of the previous stars when the user hovers their mouse over them. The [only](https://github.com/dandv/comparisons/blob/master/star-rating-widgets.md) pure-CSS way to affect the style of previous elements onmouseover is to list them in reverse DOM order, which is why the `<input>` elements below run from 5 to 1.11
+  -->
   <fieldset class="rating">
-    <input name="myrating" type="radio" value="5" /><span>☆</span>
-    <input name="myrating" type="radio" value="4" /><span>☆</span>
-    <input name="myrating" type="radio" value="3" /><span>☆</span>
-    <input name="myrating" type="radio" value="2" /><span>☆</span>
-    <input name="myrating" type="radio" value="1" /><span>☆</span>
+    <input name="rating" type="radio" id="rating5" value="5" />
+    <label for="rating5" title="5 stars">☆</label>
+
+    <input name="rating" type="radio" id="rating4" value="4" />
+    <label for="rating4" title="4 stars">☆</label>
+
+    <input name="rating" type="radio" id="rating3" value="3" />
+    <label for="rating3" title="3 stars">☆</label>
+
+    <input name="rating" type="radio" id="rating2" value="2" />
+    <label for="rating2" title="2 stars">☆</label>
+
+    <input name="rating" type="radio" id="rating1" value="1" />
+    <label for="rating1" title="1 stars">☆</label>
   </fieldset>
 
 </body>
