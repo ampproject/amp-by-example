@@ -15,45 +15,24 @@
 package backend
 
 import (
-	//	"encoding/json"
 	"fmt"
-	//"golang.org/x/net/context"
-	//"google.golang.org/appengine"
 	"net/http"
-	//"strconv"
 )
 
 const (
-	ERROR_CASE_RATING     = "error"
-	RATING_SAMPLE_PATH    = "/" + CATEGORY_SAMPLE_TEMPLATES + "/rating/"
-	RATING_ANSWER         = "Average Rating: 4.5"
-	ALREADY_RATED_MESSAGE = "You have already left a rating. If you want to run this sample again, use an incognito window."
-	RATING_THANKS_MESSAGE = "Thanks for your rating!"
-	RATING_COOKIE_NAME    = "RATING_USER_ID"
+	RATING_SAMPLE_PATH = "/" + CATEGORY_SAMPLE_TEMPLATES + "/rating/"
 )
 
 func InitRatingSample() {
-	http.HandleFunc(RATING_SAMPLE_PATH+"submit", handleRating)
-	//RegisterSample(CATEGORY_SAMPLE_TEMPLATES+"/rating", handleRating)
+	http.HandleFunc(RATING_SAMPLE_PATH+"set", func(w http.ResponseWriter, r *http.Request) {
+		handlePost(w, r, submitRatingXHR)
+	})
 }
 
-func handleRating(w http.ResponseWriter, r *http.Request) {
+func submitRatingXHR(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
 	SetContentTypeJson(w)
-	response := fmt.Sprintf("{\"items\":[{\"title\": \"This response was delayed 10 milliseconds. Reload the page if you didn't see the spinner.\"}]}")
+	rating := r.FormValue("rating")
+	response := fmt.Sprintf("{\"rating\":\"%s\"}", rating)
 	w.Write([]byte(response))
 }
-
-/*
-func parseRatingForm(w http.ResponseWriter, r *http.Request, context context.Context) (PollForm, error) {
-	answer, answerErr := parseNotEmptyFormValue(r, "answer")
-	answerId, _ := strconv.Atoi(answer)
-	clientId, clientIdErr := parseNotEmptyFormValue(r, "clientId")
-
-	pollForm := PollForm{clientId, answerId}
-
-	error := parseFormErrors([]error{answerErr, clientIdErr})
-	return pollForm, error
-}
-
-*/
