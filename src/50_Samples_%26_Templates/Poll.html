@@ -93,7 +93,7 @@ the cached version of it. This means that the same user will generate two differ
 That's why we use a custom cookie to track cross origin access to the poll page.
 
 The `CLIENT_ID` variable can be passed via an amp-form by declaring a hidden input value with
-`default-value="CLIENT_ID(POLL_USER_ID)`. In our implementation, the backend sets `POLL_USER_ID` to the value of `CLIENT_ID`,
+`default-value="CLIENT_ID(POLL_USER_ID)`. In our implementation, [the backend](https://github.com/ampproject/amp-by-example/blob/master/backend/poll.go) sets `POLL_USER_ID` to the value of `CLIENT_ID`,
 but the value of this cookie is not relevant and you could re-use your own session id.
 
 Read more about [variable substitution](https://www.ampproject.org/docs/reference/components/amp-form#variable-substitutions).
