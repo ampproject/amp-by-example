@@ -14,7 +14,7 @@
  * limitations under the License.
  **/
 
-importScripts('/bower_components/sw-toolbox/sw-toolbox.js');
+importScripts('/sw-toolbox/sw-toolbox.js');
 
 const config = {
   offlinePage: '/youre_offline/'

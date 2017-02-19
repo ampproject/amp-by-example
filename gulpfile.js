@@ -33,7 +33,6 @@ const argv = require('yargs').argv;
 const path = require('path');
 const diff = require('gulp-diff');
 const change = require('gulp-change');
-const bower = require('gulp-bower');
 const grun = require('gulp-run');
 const htmlmin = require('gulp-htmlmin');
 const htmlhint = require("gulp-htmlhint");
@@ -51,7 +50,7 @@ const paths = {
   dist: {
     dir: 'dist',
     html: 'dist/**/*.html',
-    samples: ['dist/**/*.html', '!dist/bower_components/'],
+    samples: ['dist/**/*.html'],
     img: 'dist/img',
     video: 'dist/video',
     json: 'dist/json',
@@ -60,6 +59,7 @@ const paths = {
     fonts: 'dist/fonts',
     wellknown: 'dist/.well-known'
   },
+  nodeModules: ['sw-toolbox'],
   images: 'src/img/*.{png,jpg,gif,svg}',
   favicon: 'src/img/favicon.png',
   samples: 'src/**/*.html',
@@ -180,6 +180,15 @@ gulp.task('copy:json', 'copy example json', function() {
   return gulp.src(paths.json)
       .pipe(cache('json'))
       .pipe(gulp.dest(paths.dist.json));
+});
+
+gulp.task('copy:node-modules', function() {
+  const modules = paths.nodeModules.map(
+    module => 'node_modules/' + module + '/**/*'
+  );
+  return gulp.src(modules, {
+    base: 'node_modules'
+  }).pipe(gulp.dest(paths.dist.dir));
 });
 
 gulp.task('copy:fonts', 'copy example fonts', function() {
@@ -475,16 +484,12 @@ gulp.task('change', 'use this task to batch change samples', function() {
         .pipe(gulp.dest('src/'));
 });
 
-gulp.task('bower', function() {
-  return bower();
-});
-
 gulp.task('build', 'build all resources', [
-  'bower',
   'copy:images',
   'copy:videos',
   'copy:json',
   'copy:fonts',
+  'copy:node-modules',
   'copy:scripts',
   'copy:license',
   'copy:static',
