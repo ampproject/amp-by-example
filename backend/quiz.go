@@ -36,21 +36,21 @@ func InitQuiz() {
 func submitQuiz(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
 	actualAnswers := [4]int{
-  	intValue("expression1", r),
-  	intValue("expression2", r),
-  	intValue("expression3", r),
-  	intValue("expression4", r),
+		intValue("expression1", r),
+		intValue("expression2", r),
+		intValue("expression3", r),
+		intValue("expression4", r),
 	}
 	if actualAnswers == correctAnswers {
-  	w.WriteHeader(http.StatusOK)
+		w.WriteHeader(http.StatusOK)
 	} else {
-  	w.WriteHeader(http.StatusBadRequest)
+		w.WriteHeader(http.StatusBadRequest)
 	}
 	response := "{\"result\":\"ok\"}"
 	w.Write([]byte(response))
 }
 
-func intValue(stringValue string, r *http.Request) int{
+func intValue(stringValue string, r *http.Request) int {
 	intValue, _ := strconv.Atoi(r.FormValue(stringValue))
 	return intValue
 }
