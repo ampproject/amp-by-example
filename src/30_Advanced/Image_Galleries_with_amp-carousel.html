@@ -142,9 +142,12 @@ first described in text and paintings in medieval times.
 
   Whenever the carousel slide changes, it updates `selectedSlide`. This causes the `text`
   attribute in the `<p>` tag above the carousel to update as well.
+
+  Only [whitelisted functions](https://www.ampproject.org/es/docs/reference/components/amp-bind)
+  are allowed when using `amp-bind`. We use the unary plus operator before `selectedSlide` to cast it into an integer.
   -->
   <div>
-    <p> Selected slide: <span [text]="(selectedSlide + 1)">1</span>/3</p>
+    <p> Selected slide: <span [text]="+ selectedSlide + 1">1</span>/3</p>
 
     <amp-carousel controls type="slides" width="400" height="300"
     [slide]="selectedSlide" on="slideChange:AMP.setState(selectedSlide=event.index)">
