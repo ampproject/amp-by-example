@@ -15,7 +15,6 @@
 package backend
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 )
@@ -24,11 +23,10 @@ const (
 	QUIZ_SAMPLE_NAME = "/" + CATEGORY_SAMPLE_TEMPLATES + "/quiz/"
 )
 
-var rightAnswers []int
+var correctAnswers [4]int
 
 func InitQuiz() {
-	rightAnswers = make([]int, 0)
-	rightAnswers = append(rightAnswers, 4, 2, 16, 1)
+	correctAnswers = [4]int{4, 2, 16, 1}
 	http.HandleFunc(QUIZ_SAMPLE_NAME+"submit", func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitQuiz)
 	})
@@ -37,18 +35,22 @@ func InitQuiz() {
 
 func submitQuiz(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
-	SetContentTypeJson(w)
-	response := ""
-	answer1, _ := strconv.Atoi(r.FormValue("expression1"))
-	answer2, _ := strconv.Atoi(r.FormValue("expression2"))
-	answer3, _ := strconv.Atoi(r.FormValue("expression3"))
-	answer4, _ := strconv.Atoi(r.FormValue("expression4"))
-	quizAnswers := []int{answer1, answer2, answer3, answer4}
-	for i := 0; i < len(quizAnswers); i++ {
-		if rightAnswers[i] != quizAnswers[i] {
-			w.WriteHeader(http.StatusBadRequest)
-		}
+	actualAnswers := [4]int{
+  	intValue("expression1", r),
+  	intValue("expression2", r),
+  	intValue("expression3", r),
+  	intValue("expression4", r),
 	}
-	response = fmt.Sprintf("{\"result\":\"ok\"}")
+	if actualAnswers == correctAnswers {
+  	w.WriteHeader(http.StatusOK)
+	} else {
+  	w.WriteHeader(http.StatusBadRequest)
+	}
+	response := "{\"result\":\"ok\"}"
 	w.Write([]byte(response))
+}
+
+func intValue(stringValue string, r *http.Request) int{
+	intValue, _ := strconv.Atoi(r.FormValue(stringValue))
+	return intValue
 }

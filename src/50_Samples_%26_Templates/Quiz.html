@@ -5,7 +5,7 @@
 <!--
 #### Introduction
 
-This is a sample template for a quiz in AMP. There are 4 questions in total.
+This is a sample template for a quiz in AMP consisting of four questions.
 After selecting one of the answers, you will be asked to answer the following question until all are answered and you can submit your answers.
 
 -->
@@ -26,9 +26,7 @@ After selecting one of the answers, you will be asked to answer the following qu
 <link rel="canonical" href="https://ampbyexample.com/samples_templates/quiz/">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-
 <style amp-custom>
-
   .hide {
     display: none;
   }
@@ -55,8 +53,8 @@ After selecting one of the answers, you will be asked to answer the following qu
   form#quiz-form amp-selector > ul {
     list-style: none;
   }
-  form.amp-form-submit-success  input {
-  display: none
+  form.amp-form-submit-success input {
+    display: none
   }
   form input{
     margin-left: 16px;
@@ -155,7 +153,7 @@ After selecting one of the answers, you will be asked to answer the following qu
     </div>
     <div submit-error>
       <template type="amp-mustache">
-        Error! One or more questions were not correct, try again!
+        Error! One or more questions were not correct, reload the page and try again!
       </template>
     </div>
   </div>
