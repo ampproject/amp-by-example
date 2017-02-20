@@ -41,6 +41,7 @@ func init() {
 	backend.InitSlowResponseSample()
 	backend.InitPollSample()
 	backend.InitRatingSample()
+	backend.InitQuiz()
 	playground.InitPlayground()
 	http.Handle("/", ServeStaticFiles(HandleNotFound(http.FileServer(http.Dir(DIST_DIR)))))
 }

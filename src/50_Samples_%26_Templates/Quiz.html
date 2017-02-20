@@ -1,166 +1,161 @@
 <!---{
-  "preview": "default",
-  "experiments": ["amp-form-var-sub"]
-  }--->
-  <!--
-  #### Introduction
+"preview": "default",
+"experiments": ["amp-bind"]
+}--->
+<!--
+#### Introduction
 
-  This is a sample template for a quiz in AMP. There are 4 questions in total.
-  After selecting one of the answers, you will be asked to answer the following question until all are answered.
+This is a sample template for a quiz in AMP. There are 4 questions in total.
+After selecting one of the answers, you will be asked to answer the following question until all are answered and you can submit your answers.
 
 -->
 <!-- -->
 <!doctype html>
 <html ⚡>
 <head>
-<meta charset="utf-8">
-<script async src="https://cdn.ampproject.org/v0.js"></script>
-<!-- #### Setup -->
-<!--
-Import the additional AMP components. This sample uses a amp-form and mustache templates.
+  <meta charset="utf-8">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!-- #### Setup -->
+  <!--
+  Import the additional AMP components. This sample uses a amp-form and mustache templates.
 -->
 <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
 <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
-<script async custom-template="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+<script async custom-template="amp-carousel" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
 <script async custom-template="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
-<link rel="canonical" href="https://ampbyexample.com/samples_templates/poll/">
+<link rel="canonical" href="https://ampbyexample.com/samples_templates/quiz/">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
 <style amp-custom>
-  #poll1 li {
-            position: relative;
-            padding: 1em 0;
-            list-style: none;
-            margin: 0;
-            display: block;
-            height: 20px;
-        }
-        #poll1.amp-form-submit-success fieldset {
-            display: none;
-        }
-        .percentage-container {
-            font-size: 0;
-            display: flex;
-        }
-        .percentage-container-fixed {
-          height: 100%;
-          position: absolute;
-          font-size: 0;
-          right: 80px;
-          left: 160px;
-        }
-        .one-pc-fixed {
-           width: 1%;
-           display: inline-block;
-           background: #eb407a;
-           height: 100%;
-       }
-        #header1 {
-          padding-left: 32px;
-        }
-        form.amp-form-submit-success [submit-success] {
-        flex: 0 0 100%;
-      }
-      .fixed-size-cell {
-        width: 90px;
-        display: inline-block;
-        max-width: 90px;
-      }
-      .votes-cell {
-        float: right;
-        width: 60px;
-      }
-      .table-row {
-        position: relative;
-        margin-top: 16px;
-      }
-      .table {
-        margin: 16px;
-      }
-      ul.answer-container {
-        padding: 0;
-      }
-      ul.answer-container > li {
-        width: 50%;
-        font-size: 56px;
-        line-height: 100px;
-        float:left;
-        width: 47%;
-        float: left;
-        margin: 0 16px 16px 0;
-        background-color: green;
-        color: black;
-        text-align: center;
-      }
-      form#quiz-form amp-selector > ul {
-        list-style: none;
-      }
-      .button {
-        margin-left: 16px;
-      }
+
+  .hide {
+    display: none;
+  }
+  .show {
+    display: block;
+  }
+  form.amp-form-submit-success [submit-success],
+  form.amp-form-submit-error [submit-error]{
+    margin: 16px;
+  }
+  ul.answer-container {
+    padding: 0;
+  }
+  ul.answer-container > li {
+    font-size: 56px;
+    line-height: 70px;
+    min-width: 70px;
+    float:left;
+    margin: 0 16px 16px 0;
+    background-color: green;
+    color: black;
+    text-align: center;
+  }
+  form#quiz-form amp-selector > ul {
+    list-style: none;
+  }
+  form input{
+    margin-left: 16px;
+    -webkit-appearance: none;
+    background: 0 0;
+    border: none;
+    border-radius: 2px;
+    position: relative;
+    height: 36px;
+    min-width: 64px;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    will-change: box-shadow;
+    transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);
+    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    line-height: 36px;
+    vertical-align: middle;
+    color: #fff;
+    background-color: #eb407a;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+  }
 
 </style>
 </head>
 <body>
+  <!-- #### Arithmetical Quiz -->
+  <!--
+  We use [amp-form](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md) to implement a quiz.
 
-<h4 id="header1">Quiz</h4>
-<!-- #### Arithmetical Quiz -->
-<!--
-We use `amp-form` to implement a quiz.
-Questions are presented inside a carousel so that the user can answer one at a time.
- -->
- <form method="post" action-xhr="<%host%>/samples_templates/quiz/submit" target="_blank"
-       id="quiz-form"
-       custom-validation-reporting="as-you-go">
-      <h3>Answer the following mathematical questions:</h3>
-       <amp-carousel id="quizCarousel" width="1024" height="682" layout="fixed" type="slides" [slide]="selectedSlide" on="goToSlide:AMP.setState(selectedSlide=event.index, selectedCarousel=green)" [class]="selectedCarousel == 'green' ? 'show' : 'hide'">
-      <div>
-        <h1>2+2</h1>
-        <amp-selector name="expression1" layout="container">
-          <ul class="answer-container" on="tap:quizCarousel.goToSlide(index=1)">
-              <li option="4">4</li>
-              <li option="5">5</li>
-              <li option="8">8</li>
-              <li option="0">0</li>
-          </ul>
-        </amp-selector>
-      </div>
-      <div>
-        <h1>4:2</h1>
-        <amp-selector name="expression2" layout="container">
-          <ul class="answer-container" on="tap:quizCarousel.goToSlide(index=2)">
-              <li option="4">4</li>
-              <li option="5">2</li>
-              <li option="8">8</li>
-              <li option="0">0</li>
-          </ul>
-        </amp-selector>
-      </div>
-      <div>
-        <h1>4*4</h1>
-        <amp-selector name="expression3" layout="container">
-          <ul class="answer-container" on="tap:quizCarousel.goToSlide(index=3)">
-              <li option="4">24</li>
-              <li option="5">16</li>
-              <li option="8">8</li>
-              <li option="0">0</li>
-          </ul>
-        </amp-selector>
-      </div>
-      <div>
-        <h1>1*0</h1>
-        <amp-selector name="expression4" layout="container">
-          <ul class="answer-container" >
-              <li option="4">1</li>
-              <li option="5">-1</li>
-              <li option="8">8</li>
-              <li option="0">0</li>
-          </ul>
-        </amp-selector>
-      <input type="submit" value="SubmitPoll" class="button button-primary">
-      </div>
- </amp-carousel>
- </form>
+  Questions are shown one at the time using [amp-bind](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md).
+
+  The global variable `currentQuestion` keeps the current question index and it's used to show the question using the
+  following binding: `[class]="currentQuestion == 1 ? 'show' : 'hide'"`.
+
+  The global variable `quizDone` is initialized to true after the last question is answered and it's used to show the submit button using the
+  following binding: `[class]="quizDone == true ? 'show' : 'hide'"`
+
+-->
+<form method="post" action-xhr="<%host%>/samples_templates/quiz/submit" target="_blank"
+  id="quiz-form">
+  <h3>Answer the following mathematical questions:</h3>
+  <div class="show" [class]="currentQuestion == 1 ? 'show' : 'hide'">
+    <h1>2+2</h1>
+    <amp-selector name="expression1" layout="container">
+      <ul class="answer-container" on="tap:AMP.setState(currentQuestion=2)" >
+        <li option="4">4</li>
+        <li option="5">5</li>
+        <li option="8">8</li>
+        <li option="0">0</li>
+      </ul>
+    </amp-selector>
+  </div>
+  <div class="hide" [class]="currentQuestion == 2 ? 'show' : 'hide'">
+    <h1>4:2</h1>
+    <amp-selector name="expression2" layout="container">
+      <ul class="answer-container" on="tap:AMP.setState(currentQuestion=3)" >
+        <li option="4">4</li>
+        <li option="2">2</li>
+        <li option="8">8</li>
+        <li option="0">0</li>
+      </ul>
+    </amp-selector>
+  </div>
+  <div class="hide" [class]="currentQuestion == 3 ? 'show' : 'hide'">
+    <h1>4*4</h1>
+    <amp-selector name="expression3" layout="container">
+      <ul class="answer-container" on="tap:AMP.setState(currentQuestion=4)" >
+        <li option="24">24</li>
+        <li option="16">16</li>
+        <li option="8">8</li>
+        <li option="0">0</li>
+      </ul>
+    </amp-selector>
+  </div>
+  <div class="hide" [class]="currentQuestion == 4 ? 'show' : 'hide'">
+    <h1>1*1</h1>
+    <amp-selector name="expression4" layout="container">
+      <ul class="answer-container" on="tap:AMP.setState(quizDone=true)">
+        <li option="1">1</li>
+        <li option="-1">-1</li>
+        <li option="8">8</li>
+        <li option="0">0</li>
+      </ul>
+    </amp-selector>
+    <input class="hide" [class]="quizDone == true ? 'show' : 'hide'" type="submit" value="SubmitQuiz">
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! You answered all the right questions!
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error! One or more questions were not correct, try again!
+      </template>
+    </div>
+  </div>
+</form>
 </body>
 </html>

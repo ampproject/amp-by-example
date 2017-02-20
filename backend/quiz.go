@@ -15,82 +15,40 @@
 package backend
 
 import (
-  "encoding/json"
 	"net/http"
   "strconv"
-  "golang.org/x/net/context"
-  "google.golang.org/appengine"
+  "fmt"
 )
 
 const (
-	QUIZ_SAMPLE_PATH = "/" + CATEGORY_SAMPLE_TEMPLATES + "/quiz/"
+	QUIZ_SAMPLE_NAME  = "/" + CATEGORY_SAMPLE_TEMPLATES + "/quiz/"
 )
 
-//holds the questions
-type QuizQuestions struct {
-	Questions []string
-}
+var rightAnswers []int
 
-//holds the answer chosen by the user used for storing data coming from the UI
-type QuizForm struct {
-	Answer   int
-}
+func InitQuiz() {
+  rightAnswers = make([]int, 0)
+	rightAnswers = append(rightAnswers, 4, 2, 16, 1)
+	http.HandleFunc(QUIZ_SAMPLE_NAME+"submit", func(w http.ResponseWriter, r *http.Request) {
+		handlePost(w, r, submitQuiz)
+	})
 
-//holds the quiz results and a message, used for displaying
-type QuizResult struct {
-	QuizEntryResults []QuizEntryResult
-	Message          string
-}
-
-//holds an answers and a percentage of right answers represented as an array, used for displaying
-type QuizEntryResult struct {
-	Votes      int
-	Percentage []int
-	Answer     string
-}
-
-var quizQuestions QuizQuestions
-
-func InitQuizForm() {
-  questions = []string{"2+2", "4/0", "8*2", "3-1"}
-  quizQuestions = QuizQuestions{questions}
-  http.HandleFunc(QUIZ_SAMPLE_PATH+"submit", submitQuiz)
-  RegisterSample(CATEGORY_SAMPLE_TEMPLATES+"/quiz", handleQuiz)
-}
-
-func handleQuiz(w http.ResponseWriter, r *http.Request, page Page) {
-	page.Render(w, quizQuestions)
 }
 
 func submitQuiz(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
 	SetContentTypeJson(w)
-	context := appengine.NewContext(r)
-	quizForm, error := parseQuizForm(w, r, context)
-	if error != nil {
-		handleError(error, w)
-		return
-	}
-	quizResult, error := calculateQuizResults(w, r, context, quizForm)
-	if error != nil {
-		handleError(error, w)
-		return
-	}
-	json.NewEncoder(w).Encode(quizResult)
-}
-
-func parseQuizForm(w http.ResponseWriter, r *http.Request, context context.Context) (QuizForm, error) {
-	answer, _ := parseNotEmptyFormValue(r, "expression1")
-	answerNumber, _ := strconv.Atoi(answer)
-
-	quizForm := QuizForm{answerNumber}
-	return quizForm, nil
-}
-
-func calculateQuizResults(w http.ResponseWriter, r *http.Request, ctx context.Context, quizForm QuizForm) (QuizResult, error) {
-
-  quizEntryResult := QuizEntryResult{1, make([]int, 1), ""}
-  quizEntryResults := make([]QuizEntryResult, 1)
-  quizEntryResults[0] = quizEntryResult
-	return QuizResult{quizEntryResults, ""}, nil
+	response := ""
+  answer1, _ := strconv.Atoi(r.FormValue("expression1"))
+  answer2, _ := strconv.Atoi(r.FormValue("expression2"))
+  answer3, _ := strconv.Atoi(r.FormValue("expression3"))
+  answer4, _ := strconv.Atoi(r.FormValue("expression4"))
+  quizAnswers := []int{answer1, answer2, answer3, answer4}
+  for i := 0; i < len(quizAnswers); i++ {
+    if (rightAnswers[i] != quizAnswers[i]) {
+      w.WriteHeader(http.StatusBadRequest)
+    }
+  }
+  response = fmt.Sprintf("{\"result\":\"ok\"}")
+	w.Write([]byte(response))
 }
