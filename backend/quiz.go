@@ -15,19 +15,19 @@
 package backend
 
 import (
+	"fmt"
 	"net/http"
-  "strconv"
-  "fmt"
+	"strconv"
 )
 
 const (
-	QUIZ_SAMPLE_NAME  = "/" + CATEGORY_SAMPLE_TEMPLATES + "/quiz/"
+	QUIZ_SAMPLE_NAME = "/" + CATEGORY_SAMPLE_TEMPLATES + "/quiz/"
 )
 
 var rightAnswers []int
 
 func InitQuiz() {
-  rightAnswers = make([]int, 0)
+	rightAnswers = make([]int, 0)
 	rightAnswers = append(rightAnswers, 4, 2, 16, 1)
 	http.HandleFunc(QUIZ_SAMPLE_NAME+"submit", func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitQuiz)
@@ -39,16 +39,16 @@ func submitQuiz(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
 	SetContentTypeJson(w)
 	response := ""
-  answer1, _ := strconv.Atoi(r.FormValue("expression1"))
-  answer2, _ := strconv.Atoi(r.FormValue("expression2"))
-  answer3, _ := strconv.Atoi(r.FormValue("expression3"))
-  answer4, _ := strconv.Atoi(r.FormValue("expression4"))
-  quizAnswers := []int{answer1, answer2, answer3, answer4}
-  for i := 0; i < len(quizAnswers); i++ {
-    if (rightAnswers[i] != quizAnswers[i]) {
-      w.WriteHeader(http.StatusBadRequest)
-    }
-  }
-  response = fmt.Sprintf("{\"result\":\"ok\"}")
+	answer1, _ := strconv.Atoi(r.FormValue("expression1"))
+	answer2, _ := strconv.Atoi(r.FormValue("expression2"))
+	answer3, _ := strconv.Atoi(r.FormValue("expression3"))
+	answer4, _ := strconv.Atoi(r.FormValue("expression4"))
+	quizAnswers := []int{answer1, answer2, answer3, answer4}
+	for i := 0; i < len(quizAnswers); i++ {
+		if rightAnswers[i] != quizAnswers[i] {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	}
+	response = fmt.Sprintf("{\"result\":\"ok\"}")
 	w.Write([]byte(response))
 }
