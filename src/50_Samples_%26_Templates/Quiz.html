@@ -57,8 +57,7 @@ In case one or more answers are not correct, you will be redirected to the first
   form.amp-form-submit-success input {
     display: none
   }
-  form input{
-    margin-left: 16px;
+  form button{
     -webkit-appearance: none;
     background: 0 0;
     border: none;
@@ -146,11 +145,13 @@ In case one or more answers are not correct, you will be redirected to the first
         <li option="0">0</li>
       </ul>
     </amp-selector>
-    <button class="hide" [class]="quizStatus == 'error' ? 'show' : 'hide'" on="tap:AMP.setState(currentQuestion=1)" value="Try again">
     <div submit-success>
       <template type="amp-mustache">
         Success! You answered all the right questions!
       </template>
+    </div>
+    <div submit-error>
+      <button on="tap:AMP.setState(currentQuestion=1)">Try again</button>
     </div>
   </div>
 </form>
