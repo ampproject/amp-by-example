@@ -5,7 +5,7 @@
   }
 --->
 <!--
-  #### Introduction
+  ## Introduction
 
   [amp-app-banner](https://www.ampproject.org/docs/reference/components/amp-app-banner) provides a minimal UI for a cross-platform, fixed-position banner showing a call-to-action to install an app. In particular, `amp-app-banner` works inside an AMP viewer such as the Top Stories carousel in Google Search. Outside of the AMP viewer, the native app banners will be displayed instead of `amp-app-banner` in Safari on iOS and in Chrome on Android.
 -->
@@ -15,7 +15,7 @@
 <head>
   <meta charset="utf-8">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
-  <!-- #### Setup -->
+  <!-- ## Setup -->
   <!--
   Import the `amp-app-banner` component.
   -->
@@ -72,7 +72,7 @@ button {
 </head>
 <body>
 
-  <!-- #### Basic Usage -->
+  <!-- ## Basic Usage -->
   <!--
 The `amp-app-banner` can be fully customized by the developer as long as the height doesn't exceed 100px.  One required UI element is a button with the attribute `[open-button]`, which triggers the app install, or opens the deep-link if the app is already installed.
   -->
@@ -86,7 +86,7 @@ The `amp-app-banner` can be fully customized by the developer as long as the hei
     </div>
   </amp-app-banner>
 
-  <!-- #### Demo -->
+  <!-- ## Demo -->
 
   <!--
   The custom app banner shows up in AMP Viewers. The banner action opens the document's canonical URL as deep-link inside the app:
@@ -106,7 +106,7 @@ The `amp-app-banner` can be fully customized by the developer as long as the hei
   </amp-video>
   -->
 
-  <!-- #### Testing -->
+  <!-- ## Testing -->
   <!--
     The amp-app-banner will only show in browsers that don't provide their own app install banner. This means Chrome on Android or Safari on iOS will not show the amp-app-banner, but the native install banner. For testing amp-app-banner you can open this page:
 
