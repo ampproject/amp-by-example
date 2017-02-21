@@ -281,10 +281,20 @@ gulp.task('validate:example', 'validate example html files', function() {
     .pipe(gulpAmpValidator.failAfterError());
 });
 
+function shouldMinifyHtml(file) {
+  if (config.env !== PROD) {
+    return false;
+  }
+  if (file.path.endsWith('/source/index.html')) {
+    return false;
+  }
+  return true;
+}
+
 gulp.task('compile:example', 'generate index.html and examples', function() {
   return gulp.src(paths.samples)
       .pipe(compileExample(config))
-      .pipe(gulpIf(config.env === PROD, htmlmin({collapseWhitespace: true})))
+      .pipe(gulpIf(shouldMinifyHtml, htmlmin({collapseWhitespace: true})))
       .pipe(gulp.dest(paths.dist.dir));
 });
 
