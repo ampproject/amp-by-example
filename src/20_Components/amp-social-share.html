@@ -18,6 +18,11 @@
     Ensure you've configured your canonical URL.
   -->
   <link rel="canonical" href="<%host%>/components/amp-social-share/">
+  <!--
+    Origin trial tokens for `ampbyexample.com` and `*.cdn.ampproject.org`. (Needed for `type=system`; [see below](#native-share-dialog-some-browsers-).)
+  -->
+  <meta http-equiv="origin-trial" data-feature="Web Share" data-expires="2017-03-06" content="AtEHR9Ke52xpgqsGbRi+U1kDOYSDQTfzeITL+Q/nvBiOx/qCW/vMWQxyt1y8+6688/9pjfdnCc0sJBqgkwQkjwsAAABLeyJvcmlnaW4iOiJodHRwczovL2JlZWJvLnJlZDo0NDMiLCJmZWF0dXJlIjoiV2ViU2hhcmUiLCJleHBpcnkiOjE0ODg4MTA2NjR9">
+  <meta http-equiv="origin-trial" data-feature="Web Share" data-expires="2017-03-06" content="AjQkyiCgG5iPFdJnbc/BHOxiJXzCd8tS1qO2BPNmUcjPhqTAlpCqguyW04T5U5JUik+rrEV/zE5+dMa+k3KT5gYAAABneyJvcmlnaW4iOiJodHRwczovL2Nkbi5hbXBwcm9qZWN0Lm9yZzo0NDMiLCJmZWF0dXJlIjoiV2ViU2hhcmUiLCJleHBpcnkiOjE0ODg4MTA2NjQsImlzU3ViZG9tYWluIjp0cnVlfQ==">
 
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
@@ -89,6 +94,28 @@
   <!-- Use `data-param-media` to share media via Pinterest. -->
 
   <amp-social-share type="pinterest" data-param-media="https://ampbyexample.com/img/amp.jpg"></amp-social-share>
+
+  <!-- #### Native Share Dialog (some browsers) -->
+  <!--
+  If a couple of conditions are satisfied, the `system` type will display a native share
+  UI. (That is, exactly the same UI that's available to native applications, reflecting
+  the user's sharing preferences, the applications they have installed, and so on.)
+  
+  The conditions are:
+  
+    * The user must be viewing the AMP using Chrome on Android. (The only supported browser as of February 2017.)
+    * An appropriate token (origin-specific) must be embedded on the site to activate the feature. ([Apply for a token](https://goo.gl/GR5YLI); [more information about the process](https://developers.google.com/web/updates/2016/10/navigator-share).)
+    
+  For this example, we've embedded the tokens via `<meta>` elements [in the document `<head>`](#setup).
+  -->
+
+  <amp-social-share type="system"></amp-social-share>
+
+  <!--
+  This type supports one option: if `data-mode="replace"` is specified, then all
+  other share icons will be suppressed. (That is, the only share icon the user
+  will see is the system share icon.)
+  -->
 
 </body>
 </html>
