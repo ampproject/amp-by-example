@@ -37,6 +37,7 @@ In case one or more answers are not correct, you will be redirected to the first
   form.amp-form-submit-success [submit-success],
   form.amp-form-submit-error [submit-error]{
     margin: 16px;
+    width: 100%;
   }
   ul.answer-container {
     padding: 0;
@@ -57,7 +58,7 @@ In case one or more answers are not correct, you will be redirected to the first
   form.amp-form-submit-success input {
     display: none
   }
-  form button {
+  form input {
     -webkit-appearance: none;
     background: 0 0;
     border: none;
@@ -141,16 +142,16 @@ In case one or more answers are not correct, you will be redirected to the first
         <li option="0">0</li>
       </ul>
     </amp-selector>
-    <div submit-success>
-      <template type="amp-mustache">
-        Success! You answered all the right questions!
-      </template>
-    </div>
-    <div submit-error>
-      <template type="amp-mustache">
-        <button on="tap:AMP.setState(currentQuestion=1)">Try again</button>
-      </template>
-    </div>
+  </div>
+  <div submit-success>
+    <template type="amp-mustache">
+      Success! You answered all the right questions!
+    </template>
+  </div>
+  <div submit-error>
+    <template type="amp-mustache">
+      <input type="reset" value="Try again" on="tap:AMP.setState(currentQuestion=1)">
+    </template>
   </div>
 </form>
 </body>
