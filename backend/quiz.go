@@ -17,6 +17,7 @@ package backend
 import (
 	"net/http"
 	"strconv"
+	"io"
 )
 
 const (
@@ -46,8 +47,7 @@ func submitQuiz(w http.ResponseWriter, r *http.Request) {
 	} else {
 		w.WriteHeader(http.StatusBadRequest)
 	}
-	response := "{\"result\":\"ok\"}"
-	w.Write([]byte(response))
+	io.WriteString(w, "{}")
 }
 
 func intValue(stringValue string, r *http.Request) int {
