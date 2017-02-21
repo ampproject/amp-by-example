@@ -3,7 +3,7 @@
   "hidePreview": true
 }--->
 <!--
-  #### Introduction
+  ## Introduction
 
   The [Google AMP Cache](https://developers.google.com/amp/cache/overview) stores valid AMPs and provides a consistently fast access to AMPs. It is available for anyone to use. 
 
@@ -45,7 +45,7 @@ This article describes the new AMP URL Cache format which will go live in Q1 201
 </head>
 <body>
   <!--
-#### AMP Cache URL Format
+## AMP Cache URL Format
 
 When possible, the Google AMP Cache will create a subdomain for each AMP document's domain by first converting it from [IDN (punycode)](https://en.wikipedia.org/wiki/Punycode) to UTF-8. The caches replaces every `-` (dash) with `--` (2 dashes) and replace every `.` (dot) with `-` (dash). For example, `pub.com` will map to `pub-com.cdn.ampproject.org`. 
 
@@ -67,7 +67,7 @@ It is OK for URLs to include parameters in the query string, simply include thes
 
 Example: [https://ampbyexample-com.cdn.ampproject.org/ampbyexample.com/g?value=Hello%20World](https://ampbyexample-com.cdn.ampproject.org/ampbyexample.com/g?value=Hello%20World).
 
-#### Redirect & Error Handling
+## Redirect & Error Handling
 
 Here are some examples for how the AMP Cache handles redirects and errors:
 

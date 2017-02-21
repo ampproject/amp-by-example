@@ -1,5 +1,5 @@
 <!--
-  #### Introduction
+  ## Introduction
 
 The `amp-analytics` element can be used to measure activity on an AMP document. Currently, `amp-analytics` supports four different kind of events:
 
@@ -17,7 +17,7 @@ This sample demonstrates which events can be measured and how they can be config
 <head>
   <meta charset="utf-8">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
-  <!-- #### Setup -->
+  <!-- ## Setup -->
   <!--  Import the amp-analytics component in the header. -->
   <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
   <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
@@ -65,7 +65,7 @@ This sample demonstrates which events can be measured and how they can be config
                  placeholder></amp-img>
   </amp-iframe>
   <!--
-    #### Pageview
+    ## Pageview
   -->
   <!--
     This is a simple `amp-analytics` configuration to fire a single request when the page becomes visible. Note how we declare a variable `eventId` in the request and define the concrete value in the `vars` block.
@@ -124,7 +124,7 @@ This sample demonstrates which events can be measured and how they can be config
   -->
   <amp-img id="cat-image-id" src="/img/cat-looking-up-300x200.jpg" width="300" height="200" attribution="visualhunt" alt="a cat" layout="responsive"></amp-img>
 
-  <!-- #### Anchor Clicks -->
+  <!-- ## Anchor Clicks -->
   <!--
     User interactions can be tracked as well. This configuration will track clicks on any anchor links in the page.
   -->
@@ -182,7 +182,7 @@ This sample demonstrates which events can be measured and how they can be config
     <li><a id="another-anchor-id">a not so special link</a>.</li>
   </ul>
 
-  <!-- #### Scroll Events -->
+  <!-- ## Scroll Events -->
   <!-- Use scroll events to fire a request under certain conditions when the page is scrolled. -->
   <amp-analytics>
   <script type="application/json">
@@ -205,7 +205,7 @@ This sample demonstrates which events can be measured and how they can be config
   }
   </script>
   </amp-analytics>
-  <!-- #### Timer -->
+  <!-- ## Timer -->
   <!--
   Timer events fire in the specified interval.
   -->
@@ -231,7 +231,7 @@ This sample demonstrates which events can be measured and how they can be config
   }
   </script>
   </amp-analytics>
-  <!-- #### AMP Carousel Tracking-->
+  <!-- ## AMP Carousel Tracking-->
   <!--
  It is possible to track [amp-carousel](https://www.ampproject.org/docs/reference/components/amp-carousel) events with amp-analytics (this works only for  `type="slides"`). Here is a sample carousel:
   -->
