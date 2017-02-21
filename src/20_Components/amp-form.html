@@ -2,7 +2,7 @@
     "preview": "default"
   }--->
 <!--
-  #### Introduction
+  ## Introduction
 
   The [amp-form](https://www.ampproject.org/docs/reference/components/amp-form) extension allows
   the usage of forms and input fields in an AMP document. `amp-form` allows HTTP and XHR (XMLHttpRequest) form
@@ -14,7 +14,7 @@
 <head>
   <meta charset="utf-8">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
-  <!-- #### Setup -->
+  <!-- ## Setup -->
   <!--
     Import the library.
   -->
@@ -61,7 +61,7 @@
 </head>
 <body>
 
-  <!-- #### Form Submission with Page Reload -->
+  <!-- ## Form Submission with Page Reload -->
   <!--
     Use the `action` attribute to specify a server-endpoint which should handle the form input. This works only for `GET` requests. The URL must be HTTPS.
     The following sample uses `type="search"` to emulate a search. The search button will trigger a page reload.
@@ -75,7 +75,7 @@
     <input type="submit" value="OK" class="button button-primary other-input">
   </form>
 
-  <!-- #### Form Submission with Page Update -->
+  <!-- ## Form Submission with Page Update -->
   <!--
     Use the `action-xhr` attribute to submit the form via XMLHttpRequest (XHR). You can use
     [amp-mustache](https://www.ampproject.org/docs/reference/components/amp-mustache)
@@ -102,7 +102,7 @@
     </div>
   </form>
 
-  <!-- #### Hiding input fields after success -->
+  <!-- ## Hiding input fields after success -->
   <!--
   Use the `amp-form-submit-success` class to hide input fields after a successful submission.
   The following CSS rule hides all form input fields after successful form submission:
@@ -127,7 +127,7 @@
     </template>
   </div>
 </form>
-<!-- #### Other form input samples -->
+<!-- ## Other form input samples -->
   <!--
     `amp-form` supports all HTML5 form types with the exception of file, password and image.
     Use `type="date"` for input fields that should contain a date.

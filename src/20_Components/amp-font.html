@@ -1,5 +1,5 @@
 <!--
-  #### Introduction
+  ## Introduction
 
   Learn how to use the `amp-font` component to trigger and monitor the loading of custom fonts on AMP pages.
 
@@ -9,7 +9,7 @@
 <html ⚡>
 <head>
   <meta charset="utf-8">
-  <!-- #### Setup -->
+  <!-- ## Setup -->
   <!--
     `amp-font` is builtin element and is automatically imported via the AMP runtime.
   -->
@@ -67,7 +67,7 @@
   </style>
 </head>
 <body>
-  <!-- #### Sample for a non existing font -->
+  <!-- ## Sample for a non existing font -->
   <!--
     Embed amp-font inside the body or the head of the document.
     Use the attribute `timeout` to specify the time in milliseconds to wait until the font becomes available. This attribute is optional and it's default value is 3000.
@@ -103,7 +103,7 @@
   <p class="unavailable-font">
     This text is displayed in red if the chosen font is not supported.
   </p>
-  <!-- #### Using only cached fonts -->
+  <!-- ## Using only cached fonts -->
   <!--
   Set `timeout="0"` to load the font only if already in cache.
   -->

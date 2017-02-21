@@ -17,7 +17,7 @@
 "use strict";
 
 const S = require('string');
-const PARAGRAPH = /\<p\>([\s\S]*)\<\/p\>/;
+const PARAGRAPH = /\<p(\s[^\>]+)?\>([\s\S]*?)\<\/p\>/;
 
 /**
  * Contains the content of an example.
@@ -108,7 +108,7 @@ module.exports = class Document {
     if (!paragraphs) {
       return '';
     }
-    return paragraphs[1];
+    return paragraphs[2];
   }
 
   extractFirstSentence(str) {

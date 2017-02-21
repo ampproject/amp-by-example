@@ -3,7 +3,7 @@
     "preview": "default"
 }--->
 <!--
-  #### Introduction
+  ## Introduction
 
   [amp-bind](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md)
   allows you to add custom interactivity to your pages beyond
@@ -27,7 +27,7 @@
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
 
-  <!-- #### Setup -->
+  <!-- ## Setup -->
   <!--
   Import the amp-bind component in the header.
   -->
@@ -44,7 +44,7 @@
   </style>
 </head>
 <body>
-  <!-- #### Configuring initial state -->
+  <!-- ## Configuring initial state -->
   <!--
   `amp-bind` works by binding elements to implicit JSON "state". This state can
   be initialized with one or more &lt;amp-state&gt; components.
@@ -76,7 +76,7 @@
     end of the document helps the page display more quickly.
   -->
 
-  <!-- #### Creating data bindings -->
+  <!-- ## Creating data bindings -->
   <!--
   A data binding is a link between an HTML element and an
   [expression](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md#expressions).
@@ -94,7 +94,7 @@
 
 -->
 
-<!-- #### Binding Text -->
+<!-- ## Binding Text -->
 <!--
 The text of this &lt;p&gt; will change when the `currentAnimal` variable
 changes. `currentAnimal` is an uninitialized implicit state variable, which will be
@@ -103,14 +103,14 @@ changes. `currentAnimal` is an uninitialized implicit state variable, which will
 -->
 <p [text]="'This is a ' + currentAnimal + '.'">This is a dog.</p>
 
-<!-- #### Binding Styles -->
+<!-- ## Binding Styles -->
 <!--
   Styling can be changed by applying css classes. It will override all the element's style classes. `allAnimals` is the `id` of the &lt;amp-state&gt; component above.
 -->
 
 <p [class]="allAnimals[currentAnimal].style" class="greenBackground">Each animal has a different background color.</p>
 
-<!-- #### Binding Attribute Values -->
+<!-- ## Binding Attribute Values -->
 <!--
 Various AMP components support binding attribute values with amp-bind. For example, `amp-img` URLs can be changed.
 -->
@@ -123,7 +123,7 @@ Various AMP components support binding attribute values with amp-bind. For examp
   -->
   <amp-video src="/video/dog-video.mp4" [src]="allAnimals[currentAnimal].videoUrl" width="300" height="200" autoplay controls="true"></amp-video>
 
-  <!-- #### Triggering updates -->
+  <!-- ## Triggering updates -->
   <!--
   Data bindings are re-evaluated when implicit state changes. Implicit state can
   be updated via the `AMP.setState` [action](https://github.com/ampproject/amphtml/blob/master/spec/amp-actions-and-events.md).

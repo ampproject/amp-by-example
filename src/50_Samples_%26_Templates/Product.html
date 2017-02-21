@@ -6,7 +6,7 @@
   "experiments": ["amp-form-var-sub", "amp-bind"]
   }--->
 <!--
-#### Introduction
+## Introduction
 
 This sample showcases how to build a product page in AMP HTML.
 -->
@@ -237,7 +237,7 @@ div.square {
 
     </style>
 
-    <!-- #### Metadata -->
+    <!-- ## Metadata -->
     <!-- The page indexing requires schema.org markup for one of the following types: Type, AggregateRating, Offers. [Learn more](https://developers.google.com/structured-data/carousels/top-stories#markup_specification). -->
     <script type="application/ld+json">
     {
@@ -275,7 +275,7 @@ div.square {
     </head>
     <body>
 
-      <!-- #### Navigation -->
+      <!-- ## Navigation -->
       <!-- Use the [amp-sidebar](/components/amp-sidebar/) component to give customers the chance to quickly jump to any of your product categories.-->
       <amp-sidebar id="drawermenu" layout="nodisplay">
         <div class="topheader">
@@ -286,7 +286,7 @@ div.square {
         <h4 class="category"><a href="/samples_templates/product_listing/preview/">Vegetable</a></h4>
         <h4 class="category"><a href="/samples_templates/product_listing/preview/">More</a></h4>
       </amp-sidebar>
-      <!-- #### Header with Search -->
+      <!-- ## Header with Search -->
       <!-- AMP supports forms, which means you can directly integrate a product search into your AMPs. Try searching for "Apple".-->
       <!-- AMP doesn't support custom Javascript, but you can use CSS3 animations to enrich your page. The expanding text field when the search box is focused is implemented with CSS only.-->
       <div class="header">
@@ -304,7 +304,7 @@ div.square {
 
       <h2>Apple</h2>
 
-      <!-- #### Social Sharing -->
+      <!-- ## Social Sharing -->
       <!-- The Social Share extension provides a common interface for share buttons. Learn more about `amp-social-share` [here](/components/amp-social-share/). -->
       <div id="social">
         <amp-social-share type="twitter"
@@ -326,7 +326,7 @@ div.square {
       </div>
 
       <p id="product-description">Lorem ipsum dolor sit amet, ut sed non vel mattis. Et nulla suscipit ante ligula nisl in. Ut venenatis et mauris, mauris porta vulputate tellus mauris integer facilisis.</p>
-      <!-- #### Video -->
+      <!-- ## Video -->
       <!-- AMP supports a wide range of video platforms. Here we are using `amp-youtube` to show a product video. You can find an overview of all supported video platforms [here](/advanced/integrating_videos_in_amp_an_overview/).-->
       <!-- In this sample we don't embed the video directly into the page, but instead show it in a lightbox using the `amp-lightbox` component. Learn more about `amp-lightbox` [here](/components/amp-lightbox/).-->
 
@@ -349,7 +349,7 @@ div.square {
         </div>
       </amp-lightbox>
     </div>
-    <!-- #### Slides preview Gallery -->
+    <!-- ## Slides preview Gallery -->
     <!--On desktop we've added a film strip like slide preview. Each product colour has its own image gallery and slide preview.
     We use [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind) to update the page selecting the gallery and image preview
     corresponding to the selected colour. We realized the color selection by using `amp-selector`. Find more the doc and info in The Product Page section below.
@@ -404,7 +404,7 @@ div.square {
        </li>
      </ul>
    </div>
-   <!-- #### Image Gallery -->
+   <!-- ## Image Gallery -->
   <!-- The `amp-carousel` component works very well for product image galleries. Learn how the `amp-carousel` component works [here](/advanced/image_galleries_with_amp-carousel/).
 
   Notice how we are binding to the `slide` and `class` by using to the values of the variables `selectedSlide` and `selectedColor`. -->
@@ -461,7 +461,7 @@ div.square {
     </amp-carousel>
 
   </div>
-  <!-- #### Product Configuration -->
+  <!-- ## Product Configuration -->
   <!-- We use the `amp-state` component (part of [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind))
       to configure the product price depending on the color and the size. We also configure the `defaultSize`
       for each product when you switch between colours -->
@@ -496,7 +496,7 @@ div.square {
   </script>
 </amp-state>
 
-    <!-- #### Product price -->
+    <!-- ## Product price -->
     <!-- We use [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind) to update the price of the product
       depending on the selected colour.
 
@@ -514,7 +514,7 @@ div.square {
         <span [text]="product[selectedColor || 'green'].sizes[selectedSize || 'S']">$1.99</span>
     </p>
 
-    <!-- #### Product page -->
+    <!-- ## Product page -->
     <!-- The add-to-cart action action is implemented using  [amp-form](/components/amp-form/). In our sample we use the [amp-selector](/components/amp-selector/) for selecting different product properties.
     Pressing the `ADD TO CART` button adds the product to a shopping cart page using the properties you have selected. Notice that the button URL contains the query `clientId={{ClientId}}`.
     If an item is successfully added to the shopping cart, we redirect the user to the shopping cart page.
@@ -580,7 +580,7 @@ div.square {
         </div>
       </form>
 
-    <!-- #### Collapsibles/Accordion -->
+    <!-- ## Collapsibles/Accordion -->
     <!-- Use `amp-accordion` to hide and show additional data about your product. Learn more about `amp-accordion` [here](/components/amp-accordion/). -->
     <div>
       <amp-accordion>
@@ -603,7 +603,7 @@ div.square {
       </amp-accordion>
     </div>
 
-    <!-- #### Dynamic Related Product Lists -->
+    <!-- ## Dynamic Related Product Lists -->
     <!--  -->
     <h5 id="related-products">Related products</h5>
     <!--
@@ -630,7 +630,7 @@ div.square {
 </amp-list>
 
   <!--
-    #### User Analytics
+    ## User Analytics
   -->
   <!--
     Analytics must be configured in the body. Here we use Google Analytics to track pageviews.

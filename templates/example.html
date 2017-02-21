@@ -5,7 +5,7 @@
     {{> head.html}}
     <style amp-custom>
       {{> css/code.css}}
-      {{> css/material.css}}
+      {{> css/ampstart.css}}
       {{> css/styles.css}}
       {{{exampleStyles}}}
    </style>
@@ -23,11 +23,11 @@
     {{/isEmbed}}
     <article>
       {{^isEmbed}}
-      <h1 id="title">
+      <h1 id="title" class="h2 www-heading caps" >
         {{subHeading}} {{#metadata.experiments.length}}<i class="amp-experiment-large"></i>{{/metadata.experiments.length}}
       </h1>
       {{#github}}
-      <a id="github" href="{{github}}">Edit on Github</a>
+      <a id="github" href="{{github}}" class="mb3">Edit on Github</a>
       {{/github}}
       {{#metadata.experiments.length}}
       <div class="box">

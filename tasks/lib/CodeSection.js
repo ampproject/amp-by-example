@@ -19,6 +19,17 @@
 const S = require('string');
 const highlight = require('highlight.js').highlight;
 const marked = require('marked');
+const renderer = new marked.Renderer();
+renderer.heading = function (text, level) {
+  const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
+  return '<h' + level + ' id="' + escapedText +
+    '" class="www-heading pb2 caps mb3 h3 relative">' + text + '</h' + level +
+    '>';
+};
+renderer.paragraph = function (text) {
+  return '<p class="mb2 px1">' + text + '</p>';
+};
+
 const encodedTemplateRegexp = /\[\[\s*<.*?>([A-Za-z]*?)\s*(<.*?>)?(\.[A-Za-z]*)?\s*<\/span>\s*\]\]/g
 
 marked.setOptions({
@@ -73,7 +84,9 @@ module.exports = class CodeSection {
 
   markedDoc() {
     if (!this.cachedMarkedDoc) {
-      this.cachedMarkedDoc = marked(this.doc);
+      this.cachedMarkedDoc = marked(this.doc, {
+        renderer: renderer
+      });
     }
     return this.cachedMarkedDoc;
   }
