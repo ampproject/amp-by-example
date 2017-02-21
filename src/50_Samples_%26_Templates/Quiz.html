@@ -94,13 +94,9 @@ In case one or more answers are not correct, you will be redirected to the first
 
   The global variable `currentQuestion` keeps the current question index and it's used to show the question using the
   following binding: `[class]="currentQuestion == 1 ? 'show' : 'hide'"`.
-
-  The `global quizStatus` variable is set to `error` when the form return an error by `on="submit-error:AMP.setState(quizStatus='error')"`
-  The variable `quizStatus` is used to show a "Try again" button by the following binding [class]="quizStatus == 'error' ? 'show' : 'hide'".
-
 -->
 <form method="post" action-xhr="/samples_templates/quiz/submit" target="_blank"
-  id="quiz-form" on="submit-error:AMP.setState(quizStatus='error')">
+  id="quiz-form">
   <h3>Answer the following mathematical questions:</h3>
   <div class="show" [class]="currentQuestion == 1 ? 'show' : 'hide'">
     <h1>2+2</h1>
@@ -151,7 +147,9 @@ In case one or more answers are not correct, you will be redirected to the first
       </template>
     </div>
     <div submit-error>
-      <button on="tap:AMP.setState(currentQuestion=1)">Try again</button>
+      <template type="amp-mustache">
+        <button on="tap:AMP.setState(currentQuestion=1)">Try again</button>
+      </template>
     </div>
   </div>
 </form>
