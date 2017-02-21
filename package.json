@@ -31,7 +31,6 @@
     "eslint-plugin-google-camelcase": "0.0.2",
     "gulp": "^3.9.1",
     "gulp-amphtml-validator": "^1.0.0",
-    "gulp-bower": "0.0.13",
     "gulp-cached": "^1.1.0",
     "gulp-change": "^1.0.0",
     "gulp-clean": "^0.3.1",
@@ -40,8 +39,8 @@
     "gulp-favicons": "^2.2.6",
     "gulp-file": "^0.2.0",
     "gulp-help": "^1.6.1",
-    "gulp-htmlmin": "^3.0.0",
     "gulp-htmlhint": "^0.3.1",
+    "gulp-htmlmin": "^3.0.0",
     "gulp-if": "^2.0.0",
     "gulp-ignore": "^2.0.2",
     "gulp-jasmine": "^2.2.1",
@@ -59,6 +58,7 @@
     "run-sequence": "^1.1.5",
     "sitemap": "^1.5.0",
     "string": "^3.3.1",
+    "sw-toolbox": "^3.5.1",
     "through2": "^2.0.1",
     "yargs": "^3.10.0"
   }
