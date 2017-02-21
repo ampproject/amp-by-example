@@ -99,7 +99,7 @@ After selecting one of the answers, you will be asked to answer the following qu
   following binding: `[class]="quizDone == true ? 'show' : 'hide'"`
 
 -->
-<form method="post" action-xhr="<%host%>/samples_templates/quiz/submit" target="_blank"
+<form method="post" action-xhr="/samples_templates/quiz/submit" target="_blank"
   id="quiz-form">
   <h3>Answer the following mathematical questions:</h3>
   <div class="show" [class]="currentQuestion == 1 ? 'show' : 'hide'">
@@ -138,14 +138,13 @@ After selecting one of the answers, you will be asked to answer the following qu
   <div class="hide" [class]="currentQuestion == 4 ? 'show' : 'hide'">
     <h1>1*1</h1>
     <amp-selector name="expression4" layout="container">
-      <ul class="answer-container" on="tap:AMP.setState(quizDone=true)">
+      <ul class="answer-container" on="tap:quiz-form.submit">
         <li option="1">1</li>
         <li option="-1">-1</li>
         <li option="8">8</li>
         <li option="0">0</li>
       </ul>
     </amp-selector>
-    <input class="hide" [class]="quizDone == true ? 'show' : 'hide'" type="submit" value="SubmitQuiz">
     <div submit-success>
       <template type="amp-mustache">
         Success! You answered all the right questions!
@@ -153,7 +152,7 @@ After selecting one of the answers, you will be asked to answer the following qu
     </div>
     <div submit-error>
       <template type="amp-mustache">
-        Error! One or more questions were not correct, reload the page and try again!
+          <a class="button button-primary" href="/samples_templates/quiz">Try again</a>
       </template>
     </div>
   </div>
