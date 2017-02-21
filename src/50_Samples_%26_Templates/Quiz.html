@@ -100,7 +100,7 @@ After selecting one of the answers, you will be asked to answer the following qu
 
 -->
 <form method="post" action-xhr="/samples_templates/quiz/submit" target="_blank"
-  id="quiz-form">
+  id="quiz-form" on="submit-error:AMP.setState(quizStatus='error')">
   <h3>Answer the following mathematical questions:</h3>
   <div class="show" [class]="currentQuestion == 1 ? 'show' : 'hide'">
     <h1>2+2</h1>
@@ -145,14 +145,10 @@ After selecting one of the answers, you will be asked to answer the following qu
         <li option="0">0</li>
       </ul>
     </amp-selector>
+    <input class="hide" [class]="quizStatus == 'error' ? 'show' : 'hide'" on="tap:AMP.setState(currentQuestion=1)" value="Try again">
     <div submit-success>
       <template type="amp-mustache">
         Success! You answered all the right questions!
-      </template>
-    </div>
-    <div submit-error>
-      <template type="amp-mustache">
-          <a class="button button-primary" href="/samples_templates/quiz">Try again</a>
       </template>
     </div>
   </div>
