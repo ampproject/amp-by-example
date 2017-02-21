@@ -3,7 +3,7 @@
     "experiments": ["amp-bind"]
 }--->
 <!--
-  #### Introduction
+  ## Introduction
 
   The `amp-carousel` component works great for image galleries. The carousel requires the `height` attribute to be specified in advance. This can be tricky if the displayed images and captions vary in size. Here are two approaches to solve this problem.
 -->
@@ -13,7 +13,7 @@
 <head>
   <meta charset="utf-8">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
-  <!-- #### Setup -->
+  <!-- ## Setup -->
   <!-- Import the carousel component in the header. -->
   <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
   <!-- We will also be using the amp-fit-text component. -->
@@ -78,7 +78,7 @@
 </head>
 <body>
 
-  <!-- #### Dynamic Text Size -->
+  <!-- ## Dynamic Text Size -->
   <!--
     The first image gallery uses
     [amp-fit-text](https://www.ampproject.org/docs/reference/extended/amp-fit-text.html) to fit the text to the available space. This works well if captions vary not too much in length.
@@ -105,7 +105,7 @@ region and was first described in text and paintings in medieval times.
     </div>
   </amp-carousel>
 
-  <!-- #### Text Overlay -->
+  <!-- ## Text Overlay -->
   <!-- Another carousel with caption, this time the caption overlays the image. -->
   <amp-carousel class="carousel2" layout="responsive" height="400" width="500" type="slides">
     <div class="slide">
@@ -135,7 +135,7 @@ first described in text and paintings in medieval times.
       </div>
     </div>
   </amp-carousel>
-  <!-- #### Linking Carousels with amp-bind -->
+  <!-- ## Linking Carousels with amp-bind -->
   <!--
 
   With [amp-bind](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md) it's possible to link carousel state across multiple amp-carousels.
@@ -183,7 +183,7 @@ first described in text and paintings in medieval times.
     </amp-carousel>
   </amp-selector>
 
-  <!-- #### Image Galleries with Previews -->
+  <!-- ## Image Galleries with Previews -->
   <!-- You can reveal specific slides in carousel using an on tap action `on="tap:my-carousel.goToSlide(index=0)"`. Slides are identified by the carousel id and index (starting at 0).
   -->
   <div>
