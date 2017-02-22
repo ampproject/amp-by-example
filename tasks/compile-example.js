@@ -118,7 +118,8 @@ module.exports = function(config, updateTimestamp) {
   }
 
   function compileIndex(stream, categories) {
-    const args = {
+    const args = require('../data/index.json');
+    const indexArgs = {
       config: config,
       categories: categories,
       title: 'AMP by Example',
@@ -129,6 +130,7 @@ module.exports = function(config, updateTimestamp) {
       github: "https://github.com/ampproject/amp-by-example/",
       fileName: '/'
     };
+    Object.assign(args, indexArgs);
 
     Metadata.add(args);
     args.fileName = '';
@@ -168,7 +170,8 @@ module.exports = function(config, updateTimestamp) {
       if (example.category()) {
         nextExample = findNextExample(examples, index + 1);
       }
-      const args = {
+      const args = require('../data/index.json');
+      const sampleArgs = {
         config: config,
         head: document.head,
         title: example.title() + ' - ' + 'AMP by Example',
@@ -195,10 +198,11 @@ module.exports = function(config, updateTimestamp) {
         includesSidebar: document.importsComponent('amp-sidebar'),
         includesServiceWorker: document.importsComponent('amp-install-serviceworker') || document.metadata.skipServiceWorker
       };
+      Object.assign(args, sampleArgs);
       Metadata.add(args);
 
       // compile source file
-      const inputFile = example.file; 
+      const inputFile = example.file;
       inputFile.path = path.join(inputFile.base, example.targetSourcePath());
       inputFile.contents = new Buffer(
         example.contents.replace(/\<\!\-\-\-\{(.|[\n\r])*\}\-\-\-\>/, '').trim());
@@ -272,7 +276,7 @@ module.exports = function(config, updateTimestamp) {
         // add example to categories instance
         if (!currentCategory ||
           currentCategory.name != exampleFile.category().name) {
-          currentCategory =  exampleFile.category();
+          currentCategory = exampleFile.category();
           currentCategory.examples = [];
           if (currentExample) {
             currentCategory.selected =

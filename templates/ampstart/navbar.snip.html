@@ -1,0 +1,50 @@
+{{!
+<!---
+Copyright 2016 The AMPStart Authors. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+}}
+
+{{#navbar}}
+  <!-- Start Navbar -->
+  <header class="ampstart-headerbar fixed flex justify-start items-center top-0 left-0 right-0 pl2 pr4">
+    <a href="#" on="tap:{{sidebar-id}}.toggle"class="ampstart-navbar-trigger {{^sidebaronly}}md-hide lg-hide{{/sidebaronly}} pr2">☰</a>
+    {{#logo}}
+      <amp-img src="{{url}}" width="{{width}}" height="{{height}}" layout="fixed" class="my0 mx-auto {{classes}}" alt="{{name}}"></amp-img>
+    {{/logo}}
+    {{^sidebaronly}}
+      <nav class="ampstart-headerbar-nav ampstart-nav xs-hide sm-hide">
+        <ul class="list-reset center m0 p0 flex justify-center">
+          {{#nav}}
+            {{#link}}
+              <li class="ampstart-nav-item"><a href="{{url}}" class="text-decoration-none">{{text}}</a></li>
+            {{/link}}
+            {{#dropdown}}
+              <li class="ampstart-nav-item ampstart-nav-dropdown relative text-decoration-none">
+                {{> ampstart/dropdown.snip.html}}
+              </li>
+            {{/dropdown}}
+            {{#search}}
+              <li  class="ampstart-nav-item ampstart-nav-search right-align">
+                <input type="text" placeholder="{{text}}"></input>
+              </li>
+            {{/search}}
+          {{/nav}}
+        </ul>
+      </nav>
+    {{/sidebaronly}}
+  </header>
+  {{> ampstart/sidebar.snip.html}}
+  <!-- End Navbar -->
+{{/navbar}}
