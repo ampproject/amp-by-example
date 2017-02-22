@@ -58,9 +58,6 @@
       padding-top: 8px;
       padding-bottom: 8px;
     }
-    .button-update {
-      margin: 16px;
-    }
   </style>
 </head>
 <body>
@@ -92,7 +89,7 @@
     data-poll-interval="15000"
     data-max-items-per-page="5"
     id="amp-live-list-insert-blog">
-    <button update on="tap:amp-live-list-insert-blog.update" class="ampstart-btn button-update">You have updates</button>
+    <button update on="tap:amp-live-list-insert-blog.update" class="ampstart-btn ml1 caps">You have updates</button>
     <div items>
       [[range .BlogItems]]
           <div id="[[.Text]]" data-sort-time="[[.Timestamp]]">
@@ -118,7 +115,7 @@
     data-poll-interval="15000"
     data-max-items-per-page="5"
     id="amp-live-list-update">
-    <button update on="tap:amp-live-list-update.update" class="ampstart-btn">You have updates</button>
+    <button update on="tap:amp-live-list-update.update" class="ampstart-btn caps">You have updates</button>
     <div items>
         <div id="list-item-1" data-sort-time="1234567" data-update-time="[[.FootballScore.Timestamp]]">
           <div class="card match">
