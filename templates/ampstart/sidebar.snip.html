@@ -1,0 +1,38 @@
+<!-- Start Sidebar -->
+<amp-sidebar id="{{sidebar-id}}" class="ampstart-sidebar px3 flex flex-column {{^sidebaronly}}md-hide lg-hide{{/sidebaronly}}" layout="nodisplay">
+  <div class="flex justify-start items-center ampstart-sidebar-header">
+    <a href="#" on="tap:{{sidebar-id}}.toggle"class="ampstart-navbar-trigger items-start">✕</a>
+  </div>
+  <nav class="ampstart-sidebar-nav ampstart-nav">
+    <ul class="list-reset m0 p0 caps h5">
+      {{#nav}}
+        {{#link}}
+          <li class="ampstart-nav-item"><a href="{{url}}">{{text}}</a></li>
+        {{/link}}
+        {{#dropdown}}
+          <li class="ampstart-nav-item ampstart-nav-dropdown relative">
+            {{> ampstart/dropdown-inline.snip.html}}
+          </li>
+        {{/dropdown}}
+        {{#search}}
+          <li  class="ampstart-nav-item ampstart-nav-search">
+            <input type="text" placeholder="{{text}}"></input>
+          </li>
+        {{/search}}
+      {{/nav}}
+    </ul>
+  </nav>
+
+  {{> ampstart/social-follow.snip.html}}
+
+  {{#faq}}
+    <ul class="ampstart-sidebar-faq list-reset m0">
+      {{#links}}
+        <li class="ampstart-faq-item"><a href="{{link.url}}" class="text-decoration-none">{{link.text}}</a></li>
+      {{/links}}
+    </ul>
+  {{/faq}}
+
+  </ul>
+</amp-sidebar>
+<!-- End Sidebar -->
