@@ -4,184 +4,24 @@
     <meta charset="utf-8">
     <style amp-custom>
       {{> css/ampstart.css}}
-      {{> css/styles.css}}
-      {{{styles}}}
-      html, body {
-         margin: 0;
-         height: 100%;
-         width: 100%;
+      .abe-sample-card {
+        background: #f9f7f7;
+        min-width: 280px;
+        width: 1px;
       }
-      body {
-        background: #ECEFF1;
-      }
-      main {
-        padding-top: 16px;
-        margin: 0 auto;
-      }
-      .category-container {
-        padding: 16px 0;
-      }
-      .category-container:nth-of-type(even) {
-        background-color: #CFD8DC;
-      }
-      .category {
-        margin: 0 auto;
-        padding: 0;
-      }
-      .category h4 {
-        font-size: 24px;
-        line-height: 32px;
-        margin-bottom: 42px;
-        padding: 0 16px;
-        letter-spacing: .1px;
-      }
-      .category.intro {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-direction: row;
-      }
-      .category.intro .text {
-        width: 50%;
-      }
-      .category.intro .screenshot {
-        margin-left: auto;
-        background: #ff4081;
-        border-radius: 50%;
-        height: 260px;
-        max-width: 260px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-      }
-      .category.intro .screenshot > div {
-        color: white;
-        font-weight: 400;
-        font-size: 24px;
-        margin: 4px 0;
-      }
-      .category.intro .screenshot .title {
-        font-weight: 600;
-      }
-      .category.intro .screenshot .sub-title {
-        opacity: 0.8;
-      }
-      .category.intro .text, .category.intro .screenshot {
-        flex: 1 1 auto;
-      }
-      .category.intro ul {
-        list-style: none;
-        border-left: solid 4px #ff4081;
-        padding: 0 8px;
-        margin: 24px 16px;
-      }
-      .category.intro ul li a {
-        display: block;
-        padding: 8px;
-      }
-      .category.intro p, .category.intro a {
-        font-size: 20px;
-        line-height: 32px;
-        -webkit-font-smoothing: antialiased;
-      }
-      .samples {
-        padding-bottom: 16px;
-        display: flex; 
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        flex-grow: 0
-      }
-      .samples .card {
-        background: white;
-        flex: 1 1 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        margin: 8px;
-        padding: 0;
-        min-width: 300px;
-        max-width: 300px;
-        width: 300px;
-      }
-      .samples .card h4 {
-        font-size: 24px;
-        padding: 0;
-        margin: 24px 16px 12px 16px;
-        border: none;
-        color: #333;
-        line-height: 32px;
-        background-position: right; 
-      }
-      .samples .card h5 {
-        font-size: 14px;
-        margin: 0px 16px 12px 16px;
-        padding: 0;
-        margin: 0;
-        padding: 0 16px 16px 16px;
-        border: none;
-        font-weight: 300;
-        color: #555;
-        line-height: 14px;
-      }
-      .samples .card p {
-        margin: 0 16px 16px 16px;
-        padding: 0;
-        flex-grow: 1;
-      }
-      .samples .card .buttons {
-        display: flex;
-        border-top: solid 1px #ccc;
-        width: 100%;
-        padding: 8px;
+      .abe-sample-card-actions {
         margin-top: auto;
       }
-      .samples .card .buttons .button {
-        text-align: left;
-        color: #eb407a;
-        font-weight: 700;
-        -webkit-tap-highlight-color: #eee;
-
-        letter-spacing: .1px;
-        padding: 0 16px;
+      .abe-experiment {
+        position: absolute;
+        display: inline-block;
+        margin: 0 4px;
+        width: 24px;
+        height: 24px;
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzAwMDAwMCI+PHBhdGggZmlsbD0ibm9uZSIgZD0iTS02MTgtMTA4MEg3ODJ2MzYwMEgtNjE4ek0wIDBoMjR2MjRIMHoiLz48cGF0aCBkPSJNMjAuNzIgMTcuNzFMMTUgOS44MlY1LjA4aDJ2LTJIN3YyaDJ2NC43M0wzLjE0IDE3LjljLS40NC42MS0uNSAxLjQxLS4xNiAyLjA4LjM0LjY3IDEuMDMgMS4wOSAxLjc4IDEuMDloMTQuNWMxLjEgMCAyLS45IDItMiAwLS41Mi0uMjEtMS0uNTQtMS4zNnoiLz48L3N2Zz4=");
       }
-      .samples .card a:hover {
-        background-color: #eee;
-      }
-      .samples .card a:active {
-        background-color: #eee;
-      }
-      @media (min-width: 960px) {
-        .samples .card {
-          min-width: 300px;
-          max-width: 300px;
-          width: 300px;
-        }
-        .category {
-          max-width: 960px;
-        }
-      }
-      @media (max-width: 960px) {
-        .samples .card {
-          min-width: 300px;
-          max-width: 400px;
-        }
-        .category {
-          max-width: 840px;
-        }
-        main {
-          margin-top: 40px;
-        }
-      }
-      @media (max-width: 840px) {
-        .samples {
-          justify-content: center;
-        }
-        .category.intro .screenshot {
-          display: none;
-        }
+      .ampstart-card {
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
       }
     </style>
     {{> head.html}}
@@ -191,44 +31,47 @@
   </head>
   <body>
     {{> ampstart/navbar.snip.html}}
-    <main class="categories">
     <header class="www-header center">
       <amp-img src="/img/amp_logo_white.svg" width="80" height="80" layout="fixed" class="mb4" alt="AMP logo"></amp-img>
       <h1 class="mb4">Learn AMP by Examples</h1>
       <span class="block mb4">AMP by Example gives a hands-on introduction to Accelerated Mobile Pages based on code and live samples. Learn how to create web pages with AMP and and how to effectively use AMP components.</span>
-      <div class="www-index-header-action mx-auto mb4">
-        <button class="ampstart-btn ampstart-btn-secondary caps mb3 mx2">Examples</button>
-        <button href="/playground" class="ampstart-btn ampstart-btn-secondary caps mb3 mx2">
-          <a href="/playground" >Playground</a>
-        </button>
-
-      </div>
     </header>
-    {{#categories}}
-    <div class="category-container">
-      <section id="{{url}}" class="category">
-        <h4>{{name}}</h4> 
-        {{#description}} <p class="description">{{{description}}}</p> {{/description}}
-        <div class="samples">
+  <amp-selector layout="container">
+  <main class="flex px2">
+    <aside class="www-components-sec-nav col-3 xs-hide sm-hide relative">
+      <ul class="www-component-anchors list-reset m0 p0 px1 caps">
+        {{#categories}}
+          <li class="clearfix"><a href="#{{url}}" class="www-component-anchor text-decoration-none left" option="">{{name}}</a></li>
+        {{/categories}}
+      </ul>
+    </aside>
+    <article class="www-components flex-auto col-9">
+      {{#categories}}
+        <section class="www-component-desc" id="{{url}}">
+          <h2 class="www-heading  pb4 mb2 relative">{{name}}</h2>
+          <p class="mb4">{{description}}</p>
+          <div class="flex flex-row flex-wrap flex-start">
           {{#examples}}
-          <div class="card{{#experiment}} experiment{{/experiment}}{{#highlight}} highlight{{/highlight}}">
-            <h4 class="{{#experiment}}amp-experiment-medium{{/experiment}}">
-              {{title}}
+          <div class="ampstart-card abe-sample-card flex flex-column flex-start flex-auto flex-start px1 pt1 mr1 mb1">
+            <h4 class="mb1">
+              {{title}}<i class="{{#experiment}}abe-experiment{{/experiment}}"></i>
             </h4> 
-            {{#description}} <p class="description">{{{ description }}}</p> {{/description}}
-            <div class="buttons">
-              <a class="button" href="{{url}}">View Sample</a>
+            {{#description}} <p class="mb1">{{{ description }}}</p> {{/description}}
+            <div class="abe-sample-card-actions">
+              <button class="ampstart-btn caps mb1"><a class="text-decoration-none inline-block" href="{{url}}">View Sample</a></button>
               {{#metadata.preview}}
-              <a class="button" href="{{urlPreview}}">View Demo</a>
+              <button class="ampstart-btn ampstart-btn-secondary caps mb1"><a class="text-decoration-none inline-block" href="{{urlPreview}}">View Demo</a></button>
               {{/metadata.preview}}
             </div>
           </div>
           {{/examples}}
-      </section>
-        </div>
-        {{/categories}}
-    </main>
-    {{> footer.html}}
+          </div>
+        </section>
+      {{/categories}}
+    </article>
+    <aside class="col-2 xs-hide"></aside>
+  </main>
+  </amp-selector>
     {{> analytics.html}}
     {{> serviceworker.html}}
   </body>
