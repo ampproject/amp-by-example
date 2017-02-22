@@ -145,7 +145,7 @@ code {
   background-color: #CFD8DC;
 }
 
-button, .button {
+.button {
   -webkit-appearance: none;
   background: 0 0;
   border: none;
