@@ -102,15 +102,6 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
         padding: 0 16px;
       }
     }
-    .call-to-action {
-      margin: 0 16px;
-    }
-    @media (max-width: 744px) {
-      .call-to-action {
-        margin: 0 auto;
-        justify-content: space-between;
-      }
-    }
     .social-share {
       line-height: 36px;
       display: flex;
@@ -171,8 +162,8 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
         <div class="contact-section">
             <h4 class="contact-heading"> Do you like this property?</h4>
             <div class="contact">
-                <a href="tel:012 3456789" class="button button-primary call-to-action">Call agent</a>
-                <a href="mailto:someone@example.com" class="button button-primary call-to-action">Email agent</a>
+                <a href="tel:012 3456789" class="ampstart-btn caps ml1">Call agent</a>
+                <a href="mailto:someone@example.com" class="ampstart-btn caps ml1">Email agent</a>
             </div>
         </div>
 
@@ -260,7 +251,7 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
               </div>
             </div>
             <div class="form-field">
-              <input type="submit" value="Calculate" class="button button-primary">
+              <input type="submit" value="Calculate" class="ampstart-btn caps">
             </div>
             <div submit-success>
               <template type="amp-mustache">

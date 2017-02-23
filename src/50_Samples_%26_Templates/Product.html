@@ -52,12 +52,6 @@ This sample showcases how to build a product page in AMP HTML.
     amp-carousel .selected {
       border: solid 2px red;
     }
-    .play {
-      padding-left: 28px;
-      background-position: left center;
-      background-repeat: no-repeat;
-      background-image: -webkit-image-set(url(/img/ic_play_circle_filled_black_1x_web_24dp.png) 1x,url(/img/ic_play_circle_filled_black_2x_web_24dp.png) 2x);
-    }
     .amp-youtube-container {
       display: flex;
       align-items: center;
@@ -331,8 +325,10 @@ div.square {
       <!-- In this sample we don't embed the video directly into the page, but instead show it in a lightbox using the `amp-lightbox` component. Learn more about `amp-lightbox` [here](/components/amp-lightbox/).-->
 
       <div id="video-container">
-        <a on="tap:watch-video-lightbox" role="button" class="button button-secondary play" tabindex="0">
-          Show Video
+        <a on="tap:watch-video-lightbox" role="button"  tabindex="0">
+          <button class="ampstart-btn caps">
+            Show Video
+          </button>
         </a>
 
         <amp-lightbox id="watch-video-lightbox" layout="nodisplay">
@@ -569,7 +565,7 @@ div.square {
             </ul>
           </amp-selector>
         </div>
-        <input type="submit" class="button button-primary" name="add-to-cart" value="add to cart">
+        <input type="submit" class="ampstart-btn caps" name="add-to-cart" value="add to cart">
         <input type="hidden" name="name" value="Apple">
         <input type="hidden" name="price" value="$1.99">
         <input name="clientId" type="hidden" value="CLIENT_ID(cart)" data-amp-replace="CLIENT_ID">
