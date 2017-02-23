@@ -5,10 +5,11 @@ figure, ul, ol {
 }
 * {
  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+ box-sizing: border-box; 
 }
 /* layout */
 body {
-  background: #fafafa;
+  background: #fff;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -58,17 +59,18 @@ code, pre {
   min-height: -moz-min-content;
   min-height: min-content;
   display: flex;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
 }
 .column {
   flex: 1;
   max-width: 800px;
   margin: 0 auto;
   width: 0;
+  box-shadow: 5px 0 5px -5px rgba(0,0,0,.4);
+  min-width: 160px;
 }
 /* doc column */
 .doc {
-  background-color: #fff;
 }
 .doc code {
   padding: 1px 5px;
@@ -78,7 +80,7 @@ code, pre {
 }
 .doc pre > code, .doc pre {
   padding: 0;
-  background-color: #f9f9f9;
+  background-color: #fff;
 }
 .doc pre {
   padding: 16px;
@@ -121,13 +123,13 @@ code, pre {
 
 /* code column */
 .code {
-  background-color: #ECEFF1;
   padding-left: 8px;
   padding-right: 8px;
   padding-bottom: 8px;
 }
 
-pre {
+.code pre, .code code {
+  background: #fff;
   white-space: pre-wrap;
   margin: 0;
   width: auto;
@@ -142,13 +144,16 @@ code {
 
 /* preview column */
 .preview {
-  background-color: #CFD8DC;
 }
 
 .button-inactive {
   color: #666;
   background-color: #aaa;
   cursor: default;
+}
+
+.hidden-section-accordion {
+  display: none;
 }
 
 /* hidden section */
