@@ -437,10 +437,6 @@ a.card:active {
     display: block;
   }
 }
-/* form */
-form {
-  flex-direction: column;
-}
 
 input[type=text], input[type=search], input[type=email], input[type=date] {
   -webkit-appearance: none;
