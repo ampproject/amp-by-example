@@ -44,9 +44,6 @@
     display: flex;
     align-items: center;
   }
-  form > input {
-    margin: 0 16px;
-  }
   form label {
     margin: 8px;
   }
@@ -70,9 +67,9 @@
 
     You can find the code for the server endpoint used in this demo at [/backend/amp-form.go](https://github.com/ampproject/amp-by-example/blob/master/backend/amp-form.go).
   -->
-  <form method="GET" action="/components/amp-form/submit-form" target="_top">
+  <form method="GET" class="flex-column" action="/components/amp-form/submit-form" target="_top">
     <input type="search" class="data-input" placeholder="Search..." name="googlesearch">
-    <input type="submit" value="OK" class="button button-primary other-input">
+    <input type="submit" value="OK" class="ampstart-btn caps">
   </form>
 
   <!-- ## Form Submission with Page Update -->
@@ -89,7 +86,7 @@
   <form method="post" action-xhr="/components/amp-form/submit-form-input-text-xhr" target="_top">
     <input type="text" class="data-input" name="name" placeholder="Name..." required>
     <input type="email" class="data-input" name="email" placeholder="Email..." required>
-    <input type="submit" value="Subscribe" class="button button-primary">
+    <input type="submit" value="Subscribe" class="ampstart-btn caps">
     <div submit-success>
       <template type="amp-mustache">
         Success! Thanks {{name}} for trying the <code>amp-form</code> demo! Try to insert the word "error" as a name input in the form to see how <code>amp-form</code> handles errors.
@@ -115,7 +112,7 @@
 -->
 <form class="hide-inputs" method="post" action-xhr="/components/amp-form/submit-form-input-text-xhr" target="_top">
   <input type="text" class="data-input" name="name" placeholder="Name..." required>
-  <input type="submit" value="Subscribe" class="button button-primary">
+  <input type="submit" value="Subscribe" class="ampstart-btn caps">
   <div submit-success>
     <template type="amp-mustache">
       Success! Thanks {{name}} for trying the <code>amp-form</code> demo! Try to insert the word "error" as a name input in the form to see how <code>amp-form</code> handles errors.
@@ -134,7 +131,7 @@
   -->
   <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <input name="select-date" type="date" value="2020-12-30" class="data-input">
-    <input type="submit" value="OK" class="button button-primary">
+    <input type="submit" value="OK" class="ampstart-btn caps">
     <div submit-success>
       <template type="amp-mustache">
         Success! Thanks for trying the <code>amp-form</code> demo!
@@ -150,8 +147,8 @@
     Use `type="month"` for input fields that should contain a month.
   -->
   <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
-    <input name="select-month" type="month" value="2020-12" class="data-input">
-    <input type="submit" value="OK" class="button button-primary other-input">
+    <input name="select-month" type="month" value="2020-12" class="data-input mr1">
+    <input type="submit" value="OK" class="ampstart-btn caps">
     <div submit-success>
       <template type="amp-mustache">
         Success! Thanks for trying the <code>amp-form</code> demo!
@@ -167,8 +164,8 @@
     Use `type="week"` for input fields that should contain a week.
   -->
   <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
-    <input type="week" name="week_year" class="data-input">
-    <input type="submit" value="OK" class="button button-primary other-input">
+    <input type="week" name="week_year" class="data-input mr1">
+    <input type="submit" value="OK" class="ampstart-btn caps">
     <div submit-success>
       <template type="amp-mustache">
         Success! Thanks for trying the <code>amp-form</code> demo!
@@ -184,8 +181,8 @@
     Use `type="datetime-local"` for input fields that should contain a date and time.
   -->
   <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
-    <input name="select-datetime" type="datetime-local" value="2020-12-30T12:34:56" class="data-input">
-    <input type="submit" value="OK" class="button button-primary other-input">
+    <input name="select-datetime" type="datetime-local" value="2020-12-30T12:34:56" class="data-input mr1">
+    <input type="submit" value="OK" class="ampstart-btn caps">
     <div submit-success>
       <template type="amp-mustache">
         Success! Thanks for trying the <code>amp-form</code> demo!
@@ -201,8 +198,8 @@
     Use `type="time"` for input fields that should contain a time.
   -->
   <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
-    <input type="time" name="time_now" class="data-input">
-    <input type="submit" value="OK" class="button button-primary other-input">
+    <input type="time" name="time_now" class="data-input mr1">
+    <input type="submit" value="OK" class="ampstart-btn caps">
     <div submit-success>
       <template type="amp-mustache">
         Success! Thanks for trying the <code>amp-form</code> demo!
@@ -221,7 +218,7 @@
     <div class="horizontal-display">
       <label><input type="checkbox" name="animal1" value="Cats"> I like cats</label>
       <label><input type="checkbox" name="animal2" value="Dogs"> I like dogs </label>
-      <input type="submit" value="OK" class="button button-primary other-input">
+      <input type="submit" value="OK" class="ampstart-btn caps">
     </div>
     <div submit-success>
       <template type="amp-mustache">
@@ -239,7 +236,7 @@
   -->
   <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <input type="email" name="email" placeholder="Email..." class="data-input">
-    <input type="submit" value="OK" class="button button-primary">
+    <input type="submit" value="OK" class="ampstart-btn caps">
     <div submit-success>
       <template type="amp-mustache">
         Success! Thanks for trying the <code>amp-form</code> demo!
@@ -256,7 +253,7 @@
   -->
   <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <input type="hidden" name="city" value="London">
-    <input type="submit" value="OK" class="button button-primary">
+    <input type="submit" value="OK" class="ampstart-btn caps">
     <div submit-success>
       <template type="amp-mustache">
         Success! Thanks for trying the <code>amp-form</code> demo!
@@ -272,8 +269,8 @@
     Use `type="number"` for input fields that should contain a numeric value.
   -->
   <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
-    <input type="number" name="quantity" min="1" max="5" class="data-input">
-    <input type="submit" value="OK" class="button button-primary other-input">
+    <input type="number" name="quantity" min="1" max="5" class="data-input mr1">
+    <input type="submit" value="OK" class="ampstart-btn caps">
     <div submit-success>
       <template type="amp-mustache">
         Success! Thanks for trying the <code>amp-form</code> demo!
@@ -291,9 +288,9 @@
   <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <div class="horizontal-display">
       <input type="radio" name="favourite animal" value="cat" checked> Cat
-      <input type="radio" name="favourite animal" value="dog"> Dog
-      <input type="radio" name="favourite animal" value="other"> Other
-      <input type="submit" value="OK" class="button button-primary other-input">
+      <input type="radio" name="favourite animal" value="dog" class="ml1"> Dog
+      <input type="radio" name="favourite animal" value="other" class="ml1"> Other
+      <input type="submit" value="OK" class="ampstart-btn caps ml1">
     </div>
     <div submit-success>
       <template type="amp-mustache">
@@ -311,7 +308,7 @@
   -->
   <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <input type="range" name="points" min="0" max="10">
-    <input type="submit" value="OK" class="button button-primary other-input">
+    <input type="submit" value="OK" class="ampstart-btn caps">
     <div submit-success>
       <template type="amp-mustache">
         Success! Thanks for trying the <code>amp-form</code> demo!
@@ -327,8 +324,8 @@
     Use `type="tel"` for input fields that should contain a telephone number.
   -->
   <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
-    <input type="tel" name="my_tel" class="data-input" placeholder="Telephone...">
-    <input type="submit" value="OK" class="button button-primary other-input">
+    <input type="tel" name="my_tel" class="data-input mr1" placeholder="Telephone...">
+    <input type="submit" value="OK" class="ampstart-btn caps">
     <div submit-success>
       <template type="amp-mustache">
         Success! Thanks for trying the <code>amp-form</code> demo!
@@ -344,8 +341,8 @@
     Use `type="url"` for input fields that should contain a URL address.
   -->
   <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
-    <input type="url" class="data-input" placeholder="URL..." name="website">
-    <input type="submit" value="OK" class="button button-primary other-input">
+    <input type="url" class="data-input mr1" placeholder="URL..." name="website">
+    <input type="submit" value="OK" class="ampstart-btn caps">
     <div submit-success>
       <template type="amp-mustache">
         Success! Thanks for trying the <code>amp-form</code> demo!
@@ -363,8 +360,8 @@
   -->
   <form method="post" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
     <input type="text" class="data-input" placeholder="Some text...">
-    <input type="submit" value="OK" class="button button-primary ">
-    <input type="reset" value="Reset" class="button button-primary other-input">
+    <input type="submit" value="OK" class="ampstart-btn caps ">
+    <input type="reset" value="Reset" class="ampstart-btn caps">
     <div submit-success>
       <template type="amp-mustache">
         Success! Thanks for trying the <code>amp-form</code> demo!
@@ -387,7 +384,7 @@
         <option value="fiat">Fiat</option>
         <option value="audi">Audi</option>
       </select>
-      <input type="submit" value="OK" class="button button-primary ">
+      <input type="submit" value="OK" class="ampstart-btn caps">
       <div submit-success>
         <template type="amp-mustache">
           Success! Thanks for trying the <code>amp-form</code> demo!

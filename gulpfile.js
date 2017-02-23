@@ -49,6 +49,7 @@ const PROD = 'prod';
 const paths = {
   dist: {
     dir: 'dist',
+    css: 'dist/css',
     html: 'dist/**/*.html',
     samples: ['dist/**/*.html'],
     img: 'dist/img',
@@ -81,6 +82,7 @@ const paths = {
   },
   videos: 'src/video/*.{mp4,webm}',
   json: 'src/json/*.json',
+  css: 'templates/css/*.css',
   scripts: 'src/scripts/*.js',
   fonts: 'src/fonts/*.ttf',
   wellknown: '.well-known/assetlinks.json'
@@ -180,6 +182,12 @@ gulp.task('copy:json', 'copy example json', function() {
   return gulp.src(paths.json)
       .pipe(cache('json'))
       .pipe(gulp.dest(paths.dist.json));
+});
+
+gulp.task('copy:css', 'copy css', function() {
+  return gulp.src(paths.css)
+      .pipe(cache('css'))
+      .pipe(gulp.dest(paths.dist.css));
 });
 
 gulp.task('copy:node-modules', function() {
@@ -498,6 +506,7 @@ gulp.task('build', 'build all resources', [
   'copy:images',
   'copy:videos',
   'copy:json',
+  'copy:css',
   'copy:fonts',
   'copy:node-modules',
   'copy:scripts',
