@@ -133,6 +133,9 @@ describe("Document", function() {
     });
   });
 
+  describe("parses outline", function() {
+  });
+
   function descriptionOf(text) {
     const section = new CodeSection();
     section.appendDoc(text);

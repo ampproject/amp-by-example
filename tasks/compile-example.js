@@ -189,6 +189,7 @@ module.exports = function(config, updateTimestamp) {
         bodyTag: document.body,
         elementsAfterBody: document.elementsAfterBody,
         sections: document.sections,
+        headings: document.headings(),
         metadata: document.metadata,
         nextExample: nextExample,
         skipCanonical: document.hasCanonical(),

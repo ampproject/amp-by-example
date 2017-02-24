@@ -62,10 +62,13 @@ module.exports = class CodeSection {
     this.isLastSection = true;
     this.isFirstSection = false;
     this.commentOffset = 0;
+    this.headings = [];
   }
 
   appendDoc(doc) {
-    this.doc += this.normalizeDoc(doc) + '\n';
+    const normalizedDoc = this.normalizeDoc(doc);
+    this.extractHeadings(normalizedDoc);
+    this.doc += normalizedDoc + '\n';
     this.cachedMarkedDoc = false;
   }
 
@@ -159,5 +162,18 @@ module.exports = class CodeSection {
   cleanUpCode(input) {
     return input.replace(encodedTemplateRegexp,"[[$1 $3]]");
   }
+
+  extractHeadings(line) {
+    const matches = line.match(/^\s*#+\s*(.+)$/m);
+    if (!matches) {
+      return;
+    }
+    const name = matches[1].trim();
+    const heading = {
+      id: name.toLowerCase().replace(/[^\w]+/g, '-'),
+      name: name
+    };
+    this.headings.push(heading);
+  };
 };
 

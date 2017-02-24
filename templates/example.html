@@ -14,9 +14,6 @@
   {{{elementsAfterBody}}}
     {{^isEmbed}}
     {{> ampstart/navbar.snip.html}}
-
-    <article>
-      {{^isEmbed}}
       <header class="www-header center">
         <h1 class="mb1">
           {{subHeading}} {{#metadata.experiments.length}}<i class="amp-experiment-large"></i>{{/metadata.experiments.length}}
@@ -37,6 +34,17 @@
       </div>
     </header>
     {{/isEmbed}}
+  <amp-selector layout="container">
+  <main class="flex px2">
+    <aside class="www-components-sec-nav col-3 xs-hide sm-hide relative">
+      <ul class="www-component-anchors list-reset m0 p0 px1 caps">
+        {{#headings}}
+          <li class="clearfix"><a href="#{{id}}" class="www-component-anchor text-decoration-none left" option="">{{name}}</a></li>
+        {{/headings}}
+      </ul>
+    </aside>
+    <article class="www-components flex-auto col-9">
+      {{^isEmbed}}
       {{#metadata.experiments.length}}
       <div class="box">
         <div class="column doc">
@@ -49,16 +57,14 @@
       {{/isEmbed}}
       {{#sections}}
       {{#hideColumns}}
-      <amp-accordion class="hidden-section-accordion" disable-session-states="">
+      <amp-accordion class="box hidden-section-accordion" disable-session-states="">
         <section class="hidden-section hide-on-mobile {{#metadata.hideCode}}hide{{/metadata.hideCode}}"> 
           <header class="hidden-section-header">
             <div class="box">
-              <div class="column doc"></div>
               <div class="column code">
                 <span class="hidden-section-show-more">Show Hidden Code</span>
                 <span class="hidden-section-show-less">Hide Code</span>
               </div>
-              <div class="column preview {{#metadata.hidePreview}}hide{{/metadata.hidePreview}}"></div>
             </div>
           </header>
           <div>
@@ -84,13 +90,13 @@
           <pre class="hljs"><code class="html">{{{escapedCode}}}</code></pre>
           {{/isEmptyCodeSection}}
         </div>
-        <div class="column preview {{#hidePreviewOnMobile}}hide-on-mobile{{/hidePreviewOnMobile}} {{#metadata.hidePreview}}hide{{/metadata.hidePreview}}">
           {{#showPreview}}
+        <div class="column preview {{#hidePreviewOnMobile}}hide-on-mobile{{/hidePreviewOnMobile}} {{#metadata.hidePreview}}hide{{/metadata.hidePreview}}">
           <div class="content">
           {{{preview}}}
           </div>
-          {{/showPreview}}
         </div>
+          {{/showPreview}}
       </div>
       {{#hideColumns}}
       </div>
@@ -99,6 +105,10 @@
       {{/hideColumns}}
       {{/sections}}
     </article>
+    <aside class="col-2 xs-hide"></aside>
+  </main>
+  </amp-selector>
+
     {{^isEmbed}}
     {{> ampstart/footer.snip.html}}
     {{/isEmbed}}
