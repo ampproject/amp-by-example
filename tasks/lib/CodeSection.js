@@ -99,8 +99,16 @@ module.exports = class CodeSection {
     return this.hideCodeOnMobile() || !this.preview.trim();
   }
 
+  isEmptyCodeSection() {
+    return this.code.trim().length === 0;
+  }
+
+  showPreview() {
+    return !this.isEmptyCodeSection() && this.inBody;
+  }
+
   hideCodeOnMobile() {
-    return this.hideDocOnMobile() || !this.code.trim();
+    return this.hideDocOnMobile() || this.isEmptyCodeSection();
   }
 
   hideColumns() {

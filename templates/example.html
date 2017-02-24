@@ -36,7 +36,7 @@
           {{/metadata.preview}}
       </div>
     </header>
-          {{/isEmbed}}
+    {{/isEmbed}}
       {{#metadata.experiments.length}}
       <div class="box">
         <div class="column doc">
@@ -48,10 +48,9 @@
       {{/metadata.experiments.length}}
       {{/isEmbed}}
       {{#sections}}
-      <!--
       {{#hideColumns}}
-      <amp-accordion class="hidden-section-accordion">
-        <section class="hidden-section hide-on-mobile {{#metadata.hideCode}}hide{{/metadata.hideCode}}">
+      <amp-accordion class="hidden-section-accordion" disable-session-states="">
+        <section class="hidden-section hide-on-mobile {{#metadata.hideCode}}hide{{/metadata.hideCode}}"> 
           <header class="hidden-section-header">
             <div class="box">
               <div class="column doc"></div>
@@ -64,7 +63,6 @@
           </header>
           <div>
      {{/hideColumns}}
-     -->
       <div class="box">
         <div class="column doc {{#hideDocOnMobile}}hide-on-mobile{{/hideDocOnMobile}} {{#metadata.hideDoc}}hide{{/metadata.hideDoc}}">
           {{{markedDoc}}}
@@ -79,11 +77,19 @@
           {{/isLastSection}}
           {{/isEmbed}}
         </div>
+      </div>
+      <div class="box">
         <div class="column code {{#hideCodeOnMobile}}hide-on-mobile{{/hideCodeOnMobile}} {{#metadata.hideCode}}hide{{/metadata.hideCode}}">
+          {{^isEmptyCodeSection}}
           <pre class="hljs"><code class="html">{{{escapedCode}}}</code></pre>
+          {{/isEmptyCodeSection}}
         </div>
         <div class="column preview {{#hidePreviewOnMobile}}hide-on-mobile{{/hidePreviewOnMobile}} {{#metadata.hidePreview}}hide{{/metadata.hidePreview}}">
+          {{#showPreview}}
+          <div class="content">
           {{{preview}}}
+          </div>
+          {{/showPreview}}
         </div>
       </div>
       {{#hideColumns}}
