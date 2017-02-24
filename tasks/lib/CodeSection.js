@@ -23,7 +23,7 @@ const renderer = new marked.Renderer();
 renderer.heading = function (text, level) {
   const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
   return '<h' + level + ' id="' + escapedText +
-    '" class="www-heading pb2 caps mb3 h3 relative">' + text + '</h' + level +
+    '" class="www-heading pb4 mb2 relative h3">' + text + '</h' + level +
     '>';
 };
 renderer.paragraph = function (text) {
@@ -43,7 +43,7 @@ marked.setOptions({
 });
 const COMMENT_START = '<!--';
 const COMMENT_END = '-->';
-const HIDDEN_LINE_COUNT_THRESHOLD = 4;
+const HIDDEN_LINE_COUNT_THRESHOLD = 1;
 
 module.exports = class CodeSection {
 
