@@ -1,16 +1,24 @@
-
+pre, code {
+  font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
+  font-size: 0.9rem;
+}
+code {
+  background: #f9f7f7;
+  padding: 8px;
+}
 .www-header h1 {
   color: #fff;
 }
 .abe-code pre {
-}
-.abe-code pre {
-  width: 100%;
   overflow-x: auto;
   white-space: pre;
 }
 .www-component-desc {
   margin-bottom: 0rem;
+}
+.www-component-desc a {
+  text-decoration: none;
+  color: #b60845;
 }
 .www-component-desc:first-child h2 {
   margin-top: 0rem;

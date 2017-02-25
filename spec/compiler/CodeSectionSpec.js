@@ -134,6 +134,7 @@ describe("CodeSection", function() {
     });
   });
   describe('hide columns if code section', function() {
+    /*
     it('is longer than 4 lines', function() {
       section.appendCode("line1");
       expect(section.hideColumns()).toEqual(false);
@@ -146,6 +147,7 @@ describe("CodeSection", function() {
       section.appendCode("line5");
       expect(section.hideColumns()).toEqual(true);
     });
+    */
     it('has no doc', function() {
       section.appendDoc("some doc");
       section.appendCode("line1");
