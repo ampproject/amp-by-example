@@ -36,10 +36,6 @@ Import the additional AMP components. This sample uses a amp-form and mustache t
         #poll1.amp-form-submit-success fieldset {
             display: none;
         }
-        .percentage-container {
-            font-size: 0;
-            display: flex;
-        }
         .percentage-container-fixed {
           height: 100%;
           position: absolute;
@@ -53,10 +49,10 @@ Import the additional AMP components. This sample uses a amp-form and mustache t
            background: #eb407a;
            height: 100%;
        }
-        #header1 {
+      #header1 {
           padding-left: 32px;
         }
-        form.amp-form-submit-success [submit-success] {
+      form.amp-form-submit-success [submit-success] {
         flex: 0 0 100%;
       }
       .fixed-size-cell {
@@ -67,13 +63,6 @@ Import the additional AMP components. This sample uses a amp-form and mustache t
       .votes-cell {
         float: right;
         width: 60px;
-      }
-      .table-row {
-        position: relative;
-        margin-top: 16px;
-      }
-      .table {
-        margin: 16px;
       }
 
 </style>
@@ -97,7 +86,7 @@ The `CLIENT_ID` variable can be passed via an amp-form by declaring a hidden inp
 but the value of this cookie is not relevant and you could re-use your own session id.
 
 Read more about [variable substitution](https://www.ampproject.org/docs/reference/components/amp-form#variable-substitutions).
-Currently, HTML tables are not supported in form responses, so we'll use CSS to layout the result data. 
+Currently, HTML tables are not supported in form responses, so we'll use CSS to layout the result data.
 
 In order to submit the form as soon as the user picks an option, we will add an
 [`on` attribute](https://www.ampproject.org/docs/reference/spec#on) to each `<input>`, that will submit the poll on change.
@@ -114,25 +103,26 @@ In order to submit the form as soon as the user picks an option, we will add an
         <ul>
           [[range $key, $value := .Questions]]
           <li>
+              <input id="[[$key]]" name="answer" value="[[$key]]" type="radio" on="change:poll1.submit">
               <label>
-                  <input name="answer" value="[[$key]]" type="radio" on="change:poll1.submit">
                   [[$value]]
               </label>
           </li>
           [[end]]
         </ul>
+      </div>
     </fieldset>
     <div submit-success>
         <template type="amp-mustache">
             <p>{{Message}}</p>
             <p>Here are the results!</p>
-          <div class="table">
+          <div class="m1">
             <span class="fixed-sixe-cell">Answer</span>
             <span class="fixed-size-cell">&nbsp;</span>
             <span>&nbsp;</span>
             <span class="fixed-size-cell votes-cell">Votes</span>
             {{#PollEntryResults}}
-            <div class="table-row">
+            <div class="mt1 relative">
                 <span class="fixed-size-cell">
                   {{Answer}}
                 </span>

@@ -462,7 +462,6 @@ input[type=text], input[type=search], input[type=email], input[type=date] {
   border-radius: 0;
   display: block;
   margin: 0;
-  margin-bottom: 16px;
   width: 100%;
   text-align: left;
   color: inherit;

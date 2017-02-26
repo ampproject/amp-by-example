@@ -117,20 +117,14 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
     }
     .form-field-right {
       border: 1px solid #dfdfdf;
-      position: relative;
       background: white;
       width: 200px;
-      width: 179px;
     }
     .form-field-right input {
       border: none;
     }
     .form-field-left {
       width: 200px;
-    }
-    .form-field {
-      display: flex;
-      margin-bottom: 16px;
     }
     .description {
       padding: 16px;
@@ -217,40 +211,40 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
         </section>
         <section>
           <h4>Mortgage Calculator</h4>
-          <form method="GET" action="/samples_templates/housing/calculate-mortgage" action-xhr="/samples_templates/housing/calculate-mortgage-xhr"  target="_top">
-            <div class="form-field">
+          <form class="px1 pt1" method="GET" action="/samples_templates/housing/calculate-mortgage" action-xhr="/samples_templates/housing/calculate-mortgage-xhr"  target="_top">
+            <div class="flex mb1">
               <span class="form-field-left">
                 Price
               </span>
-              <div class="form-field-right">
+              <div class="form-field-right relative">
                 <span>&#163</span><input type="number" name="price" maxlength="10" value="2000000" required>
               </div>
             </div>
-            <div class="form-field">
+            <div class="flex mb1">
               <span class="form-field-left">
                 Deposit
               </span>
-              <div class="form-field-right">
+              <div class="form-field-right relative">
                 <span>&#163</span><input type="number" name="deposit" maxlength="10" value="100000" required>
               </div>
             </div>
-            <div class="form-field">
+            <div class="flex mb1">
               <span class="form-field-left">
                 Annual interest
               </span>
-              <div class="form-field-right">
+              <div class="form-field-right relative">
                 <span>&#37;</span><input type="number" name="annual_interest" maxlength="10" value="2.5" step="0.01" required>
               </div>
             </div>
-            <div class="form-field">
+            <div class="flex mb1">
               <span class="form-field-left">
                 Repayment period (years)
               </span>
-              <div class="form-field-right">
+              <div class="form-field-right relative">
                 <span> </span><input type="number" name="repayment_period" value="25" required>
               </div>
             </div>
-            <div class="form-field">
+            <div class="flex mb1">
               <input type="submit" value="Calculate" class="ampstart-btn caps">
             </div>
             <div submit-success>
