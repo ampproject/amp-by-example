@@ -45,7 +45,9 @@
     </aside>
     <article class="www-components flex-auto col-9">
       {{^isEmbed}} {{#metadata.experiments.length}}
-      {{> experiment.html}}
+      <section class="www-component-desc">
+        <div> {{> experiment.html}} </div>
+      </section>
       {{/metadata.experiments.length}} {{/isEmbed}}
 
       {{#sections}}
@@ -60,7 +62,7 @@
           {{/isEmptyCodeSection}}
           {{^metadata.hidePreview}}
           {{#showPreview}}
-        <div class="ampstart-card abe-preview fit ml1 {{#hidePreviewOnMobile}}sm-hide{{/hidePreviewOnMobile}}">
+        <div class="abe-preview fit ml1 {{#hidePreviewOnMobile}}sm-hide{{/hidePreviewOnMobile}}">
           {{{preview}}}
         </div>
           {{/showPreview}}
