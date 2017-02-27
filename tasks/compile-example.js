@@ -195,11 +195,13 @@ module.exports = function(config, updateTimestamp) {
         skipCanonical: document.hasCanonical(),
         includesManifest: document.includesLink('manifest'),
         includesAnalytics: document.importsComponent('amp-analytics'),
+        includesLiveList: document.importsComponent('amp-live-list'),
         includesAccordion: document.importsComponent('amp-accordion'),
         includesSelector: document.importsComponent('amp-selector'),
         includesSidebar: document.importsComponent('amp-sidebar'),
         includesServiceWorker: document.importsComponent('amp-install-serviceworker') || document.metadata.skipServiceWorker
       };
+      sampleArgs.supportsAmpSelector = !sampleArgs.includesLiveList && !sampleArgs.includesSelector;
       Object.assign(args, sampleArgs);
       Metadata.add(args);
 
