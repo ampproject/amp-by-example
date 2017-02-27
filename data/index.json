@@ -10,7 +10,7 @@
     "sidebar-id": "header-sidebar",
     "nav": [{
       "link": {
-        "url": "#",
+        "url": "https://www.ampproject.org/learn/about-amp/",
         "text": "What is AMP?"
       }
     }, {

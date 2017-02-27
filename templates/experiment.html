@@ -1,10 +1,12 @@
-<div id="experimental-mode" class="card info">
-  <h4>Experimental Mode</h4>
-  <p>This example uses the following experimental feature{{#metadata.experiments.1}}s{{/metadata.experiments.1}}: <code class="amp-experiment-list">[{{#metadata.experiments}}<span>{{.}}</span>{{/metadata.experiments}}]</code><br>Enable them below and <a href="https://www.ampproject.org/docs/reference/experimental.html">learn more here</a>.</p>
+<div class="abe-experiment-warning ampstart-card p1 mb2 ">
+  <h4 class="mb1">Experimental Mode</h4>
+  <p class="mb1">This example uses the following experimental feature{{#metadata.experiments.1}}s{{/metadata.experiments.1}}: <code class="amp-experiment-list">[{{#metadata.experiments}}<span>{{.}}</span>{{/metadata.experiments}}]</code>. Enable the experiment via the button below. Some components require the AMP Dev Channel to be enabled as well. <a href="https://www.ampproject.org/docs/reference/experimental.html">Learn more here</a>.</p>
 
-  <div id="experiment-container">
-    <button id="experiment-toggle" class="ampstart-btn caps mx-auto mt0 mb0 button-inactive">Enable Experiment{{#metadata.experiments.1}}s{{/metadata.experiments.1}}</button>
-    <a id="canary-toggle" class="ampstart-btn caps mx-auto mt0 mb0 button-inactive" href="https://cdn.ampproject.org/experiments.html" target="_blank">Enable Dev Channel</a>
+  <div class="abe-experiment-warning-buttons mx1 flex flex-center">
+    <button id="experiment-toggle" class="ampstart-btn ampstart-btn-secondary caps mx2" disabled>Enable Experiment{{#metadata.experiments.1}}s{{/metadata.experiments.1}}</button>
+    <button id="canary-toggle" class="ampstart-btn ampstart-btn-secondary caps mx2" disabled>
+      <a class="caps inline-block white text-decoration-none" href="https://cdn.ampproject.org/experiments.html" target="_blank">Enable Dev Channel</a>
+    </button>
   </div>
 </div>
 <!-- BEGIN INVALID AMP - don't try at home -->
@@ -56,5 +58,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
   });
 });
 
-  </script>
+</script>
 <!-- END INVALID AMP -->

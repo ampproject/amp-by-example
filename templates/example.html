@@ -6,7 +6,7 @@
     <style amp-custom>
       {{> css/code.css}}
       {{> css/ampstart.css}}
-      {{> css/styles.css}}
+      {{> css/example.css}}
       {{{exampleStyles}}}
    </style>
   </head>
@@ -14,83 +14,69 @@
   {{{elementsAfterBody}}}
     {{^isEmbed}}
     {{> ampstart/navbar.snip.html}}
-
-    <article>
-      {{^isEmbed}}
       <header class="www-header center">
         <h1 class="mb1">
           {{subHeading}} {{#metadata.experiments.length}}<i class="amp-experiment-large"></i>{{/metadata.experiments.length}}
         </h1>
         {{#github}}
-        <a href="{{github}}" class="block mb4 caps">Edit on Github</a>
+        <a href="{{github}}" class="block mb4 caps text-decoration-none">Edit on Github</a>
         {{/github}}
 
         <div class="www-index-header-action mx-auto ">
           <button class="ampstart-btn ampstart-btn-secondary caps mb1 mx2">
-            <a href="/playground/#url={{host}}{{urlSource}}" >Open in Playground</a>
+            <a class="text-decoration-none block" href="/playground/#url={{host}}{{urlSource}}" >Open in Playground</a>
           </button>
           {{#metadata.preview}}
           <button class="ampstart-btn ampstart-btn-secondary caps mb1 mx2">
-            <a href="preview" >View Demo</a>
+            <a class="text-decoration-none block" href="preview" >View Demo</a>
           </button>
           {{/metadata.preview}}
       </div>
     </header>
-          {{/isEmbed}}
-      {{#metadata.experiments.length}}
-      <div class="box">
-        <div class="column doc">
-          {{> experiment.html}}
-        </div>
-        <div class="column code hide-on-mobile {{#metadata.hideCode}}hide{{/metadata.hideCode}}"></div>
-        <div class="column preview hide-on-mobile {{#metadata.hidePreview}}hide{{/metadata.hidePreview}}"></div>
-      </div>
-      {{/metadata.experiments.length}}
-      {{/isEmbed}}
+    {{/isEmbed}}
+  <amp-selector layout="container">
+  <main class="flex px2">
+    <aside class="www-components-sec-nav col-3 xs-hide sm-hide relative">
+      <ul class="www-component-anchors list-reset m0 p0 px1 caps">
+        {{#headings}}
+          <li class="clearfix"><a href="#{{id}}" class="www-component-anchor text-decoration-none left" option="">{{name}}</a></li>
+        {{/headings}}
+      </ul>
+    </aside>
+    <article class="www-components flex-auto col-9">
+      {{^isEmbed}} {{#metadata.experiments.length}}
+      <section class="www-component-desc">
+        <div> {{> experiment.html}} </div>
+      </section>
+      {{/metadata.experiments.length}} {{/isEmbed}}
+
       {{#sections}}
-      {{#hideColumns}}
-      <amp-accordion class="hidden-section-accordion">
-        <section class="hidden-section hide-on-mobile {{#metadata.hideCode}}hide{{/metadata.hideCode}}">
-          <header class="hidden-section-header">
-            <div class="box">
-              <div class="column doc"></div>
-              <div class="column code">
-                <span class="hidden-section-show-more">Show Hidden Code</span>
-                <span class="hidden-section-show-less">Hide Code</span>
-              </div>
-              <div class="column preview {{#metadata.hidePreview}}hide{{/metadata.hidePreview}}"></div>
-            </div>
-          </header>
-          <div>
-     {{/hideColumns}}
-      <div class="box">
-        <div class="column doc {{#hideDocOnMobile}}hide-on-mobile{{/hideDocOnMobile}} {{#metadata.hideDoc}}hide{{/metadata.hideDoc}}">
+      {{^metadata.hideDoc}} {{#markedDoc}}
+        <section class="www-component-desc">
           {{{markedDoc}}}
-          {{^isEmbed}}
-          {{#isLastSection}}
-          {{#nextExample}}
-          <p>
-            Next up:
-            <a id="nextArticle" href="{{url}}">{{title}}</a>
-          </p>
-          {{/nextExample}}
-          {{/isLastSection}}
-          {{/isEmbed}}
+      <div class="abe-code-preview flex">
+          {{^isEmptyCodeSection}}
+        <div class="abe-code fit">
+          <pre class="hljs html">{{{escapedCode}}}</pre>
         </div>
-        <div class="column code {{#hideCodeOnMobile}}hide-on-mobile{{/hideCodeOnMobile}} {{#metadata.hideCode}}hide{{/metadata.hideCode}}">
-          <pre class="hljs"><code class="html">{{{escapedCode}}}</code></pre>
-        </div>
-        <div class="column preview {{#hidePreviewOnMobile}}hide-on-mobile{{/hidePreviewOnMobile}} {{#metadata.hidePreview}}hide{{/metadata.hidePreview}}">
+          {{/isEmptyCodeSection}}
+          {{^metadata.hidePreview}}
+          {{#showPreview}}
+        <div class="abe-preview fit ml1 {{#hidePreviewOnMobile}}sm-hide{{/hidePreviewOnMobile}}">
           {{{preview}}}
         </div>
+          {{/showPreview}}
+          {{/metadata.hidePreview}}
       </div>
-      {{#hideColumns}}
-      </div>
-      </section>
-      </amp-accordion>
-      {{/hideColumns}}
+        </section>
+      {{/markedDoc}} {{/metadata.hideDoc}}
       {{/sections}}
+
     </article>
+    <aside class="col-2 xs-hide"></aside>
+  </main>
+  </amp-selector>
+
     {{^isEmbed}}
     {{> ampstart/footer.snip.html}}
     {{/isEmbed}}

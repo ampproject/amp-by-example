@@ -26,7 +26,7 @@ const SINGLE_LINE_TAGS = ['link', 'meta', '!doctype'];
 /* eslint-disable */
 const BEAUTIFY_OPTIONS = {
   indent_size: 2,
-  //"wrap_attributes": "force",
+  "wrap_attributes": "force",
   //"wrap_attributes_indent_size": 4,
   unformatted: ['noscript', 'style', 'head'],
   'indent-char': ' ',
