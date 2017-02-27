@@ -68,20 +68,21 @@
       {{^metadata.hideDoc}} {{#markedDoc}}
         <section class="www-component-desc">
           {{{markedDoc}}}
-      <div class="abe-code-preview flex">
           {{^isEmptyCodeSection}}
-        <div class="abe-code fit p1">
-          <pre class="hljs html">{{{escapedCode}}}</pre>
-        </div>
+          <div>
+            <div class="abe-code-preview ampstart-card">
+              {{^metadata.hidePreview}}{{#showPreview}}
+              <p class="abe-code p1">Example:</p>
+              <div class="abe-preview fit pb1">
+                {{{preview}}}
+              </div>
+              {{/showPreview}}{{/metadata.hidePreview}}
+              <div class="abe-code fit px1 pb1">
+                <pre class="hljs html">{{{escapedCode}}}</pre>
+              </div>
+            </div>
+          </div>
           {{/isEmptyCodeSection}}
-          {{^metadata.hidePreview}}
-          {{#showPreview}}
-        <div class="abe-preview fit ml1 {{#hidePreviewOnMobile}}sm-hide{{/hidePreviewOnMobile}}">
-          {{{preview}}}
-        </div>
-          {{/showPreview}}
-          {{/metadata.hidePreview}}
-      </div>
         </section>
       {{/markedDoc}} {{/metadata.hideDoc}}
       {{/sections}}
