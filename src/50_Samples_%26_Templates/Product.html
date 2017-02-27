@@ -84,7 +84,7 @@ This sample showcases how to build a product page in AMP HTML.
     }
     .product-gallery > ul > li {
       cursor: pointer;
-      margin: 0 8px 8px 8px;
+      margin: 0 1em 1em 1em;
       opacity: 1;
       will-change: opacity;
       transition: all 0.3s cubic-bezier(.25,.8,.25,1);
@@ -94,9 +94,6 @@ This sample showcases how to build a product page in AMP HTML.
     }
     .product-gallery > ul > li:focus {
       outline: none;
-    }
-    form#order {
-      display: flex;
     }
     form#order label {
       display: inline;
@@ -523,7 +520,7 @@ div.square {
 
       <form id="order" method="POST"
             action-xhr="/samples_templates/product/add_to_cart"
-            target="_top">
+            target="_top" class="flex flex-wrap m1">
         <div>
           <label for="color">Color:</label>
           <amp-selector name="color"
@@ -565,7 +562,9 @@ div.square {
             </ul>
           </amp-selector>
         </div>
-        <input type="submit" class="ampstart-btn caps" name="add-to-cart" value="add to cart">
+        <div class="items-center">
+          <input type="submit" class="ampstart-btn caps" name="add-to-cart" value="add to cart">
+        </div>
         <input type="hidden" name="name" value="Apple">
         <input type="hidden" name="price" value="$1.99">
         <input name="clientId" type="hidden" value="CLIENT_ID(cart)" data-amp-replace="CLIENT_ID">
