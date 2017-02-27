@@ -93,6 +93,14 @@ module.exports = class Document {
     return this.head.indexOf('rel="' + relType + '"') > -1;
   }
 
+  headings() {
+    let result = [];
+    this.sections.forEach(s => {
+      result = result.concat(s.headings);
+    });
+    return result;
+  }
+
   /* private */
   extractDescription(htmlString) {
     let desc = this.extractFirstParagraph(htmlString);

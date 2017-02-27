@@ -134,6 +134,7 @@ describe("CodeSection", function() {
     });
   });
   describe('hide columns if code section', function() {
+    /*
     it('is longer than 4 lines', function() {
       section.appendCode("line1");
       expect(section.hideColumns()).toEqual(false);
@@ -146,6 +147,7 @@ describe("CodeSection", function() {
       section.appendCode("line5");
       expect(section.hideColumns()).toEqual(true);
     });
+    */
     it('has no doc', function() {
       section.appendDoc("some doc");
       section.appendCode("line1");
@@ -171,18 +173,54 @@ describe("CodeSection", function() {
       expect(section.cleanUpCode("<span class=\"hljs-string\">\"[[.Timestamp]]\"</span>")).toEqual("<span class=\"hljs-string\">\"[[.Timestamp]]\"</span>")
     });
     it('contains an escaped template with range clause', function() {
-      expect(section.cleanUpCode("[[<span class=\"hljs-attr\">range</span><span class=\"hljs-attr\">.BlogItems</span>]]")).toEqual("[[range .BlogItems]]")   
+      expect(section.cleanUpCode("[[<span class=\"hljs-attr\">range</span><span class=\"hljs-attr\">.BlogItems</span>]]")).toEqual("[[range .BlogItems]]")
     });
     it('contains an escaped template with if clause', function() {
-      expect(section.cleanUpCode("[[<span class=\"hljs-attr\">if</span><span class=\"hljs-attr\">.BlogItems</span>]]")).toEqual("[[if .BlogItems]]")   
+      expect(section.cleanUpCode("[[<span class=\"hljs-attr\">if</span><span class=\"hljs-attr\">.BlogItems</span>]]")).toEqual("[[if .BlogItems]]")
     });
     it('contains an escaped template with if clause and spaces', function() {
-      expect(section.cleanUpCode("[[   <span class=\"hljs-attr\">if   </span><span class=\"hljs-attr\">.BlogItems</span>   ]]")).toEqual("[[if .BlogItems]]")   
+      expect(section.cleanUpCode("[[   <span class=\"hljs-attr\">if   </span><span class=\"hljs-attr\">.BlogItems</span>   ]]")).toEqual("[[if .BlogItems]]")
     });
     it('contains an escaped template with end clause', function() {
-      expect(section.cleanUpCode("[[<span class=\"hljs-attr\">end</span>]]")).toEqual("[[end ]]") 
+      expect(section.cleanUpCode("[[<span class=\"hljs-attr\">end</span>]]")).toEqual("[[end ]]")
     });
 
+  });
+
+  describe("parses outline", function() {
+    it('has no headings by default', function() {
+      section.appendDoc("Some Doc");
+      expect(section.headings).toEqual([]);
+    });
+    it('ignores # in text', function() {
+      section.appendDoc("asdfsafd ### Some Doc");
+      expect(section.headings).toEqual([]);
+    });
+    it('adds single heading', function() {
+      section.appendDoc("##Some Doc");
+      expect(section.headings).toEqual([{
+        id: 'some-doc',
+        name: 'Some Doc',
+      }]);
+    });
+    it('removes whitespace heading', function() {
+      section.appendDoc("##  Some Doc   ");
+      expect(section.headings).toEqual([{
+        id: 'some-doc',
+        name: 'Some Doc',
+      }]);
+    });
+    it('adds multiple headings', function() {
+      section.appendDoc("##Some Doc");
+      section.appendDoc("##Another Doc");
+      expect(section.headings).toEqual([{
+        id: 'some-doc',
+        name: 'Some Doc'
+      }, {
+        id: 'another-doc',
+        name: 'Another Doc'
+      }]);
+    });
   });
 
 });

@@ -23,7 +23,7 @@ const renderer = new marked.Renderer();
 renderer.heading = function (text, level) {
   const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
   return '<h' + level + ' id="' + escapedText +
-    '" class="www-heading pb2 caps mb3 h3 relative">' + text + '</h' + level +
+    '" class="www-heading pb4 mb2 relative h3">' + text + '</h' + level +
     '>';
 };
 renderer.paragraph = function (text) {
@@ -43,7 +43,7 @@ marked.setOptions({
 });
 const COMMENT_START = '<!--';
 const COMMENT_END = '-->';
-const HIDDEN_LINE_COUNT_THRESHOLD = 4;
+const HIDDEN_LINE_COUNT_THRESHOLD = 1;
 
 module.exports = class CodeSection {
 
@@ -62,10 +62,13 @@ module.exports = class CodeSection {
     this.isLastSection = true;
     this.isFirstSection = false;
     this.commentOffset = 0;
+    this.headings = [];
   }
 
   appendDoc(doc) {
-    this.doc += this.normalizeDoc(doc) + '\n';
+    const normalizedDoc = this.normalizeDoc(doc);
+    this.extractHeadings(normalizedDoc);
+    this.doc += normalizedDoc + '\n';
     this.cachedMarkedDoc = false;
   }
 
@@ -99,8 +102,16 @@ module.exports = class CodeSection {
     return this.hideCodeOnMobile() || !this.preview.trim();
   }
 
+  isEmptyCodeSection() {
+    return this.code.trim().length === 0;
+  }
+
+  showPreview() {
+    return !this.isEmptyCodeSection() && this.inBody;
+  }
+
   hideCodeOnMobile() {
-    return this.hideDocOnMobile() || !this.code.trim();
+    return this.hideDocOnMobile() || this.isEmptyCodeSection();
   }
 
   hideColumns() {
@@ -151,5 +162,18 @@ module.exports = class CodeSection {
   cleanUpCode(input) {
     return input.replace(encodedTemplateRegexp,"[[$1 $3]]");
   }
+
+  extractHeadings(line) {
+    const matches = line.match(/^\s*#+\s*(.+)$/m);
+    if (!matches) {
+      return;
+    }
+    const name = matches[1].trim();
+    const heading = {
+      id: name.toLowerCase().replace(/[^\w]+/g, '-'),
+      name: name
+    };
+    this.headings.push(heading);
+  };
 };
 
