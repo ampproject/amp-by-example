@@ -223,5 +223,34 @@ describe("CodeSection", function() {
     });
   });
 
+  describe('strips leading whitespace from codesections', function(){
+    it('keeps formatting without leading whitespace', function() {
+      section.appendCode("<h1>Hello</h1>");
+      expect(section.code).toEqual("<h1>Hello</h1>\n");
+    });
+    it('strips leading whitespace', function() {
+      section.appendCode("    <h1>Hello</h1>");
+      expect(section.code).toEqual("<h1>Hello</h1>\n");
+    });
+    it('strips leading whitespace from multiple lines', function() {
+      section.appendCode("  <h1>Hello</h1>");
+      section.appendCode("    <h1>Hello</h1>");
+      section.appendCode("  <h1>Hello</h1>");
+      expect(section.code).toEqual(
+        "<h1>Hello</h1>\n" +
+        "  <h1>Hello</h1>\n" +
+        "<h1>Hello</h1>\n"
+      );
+    });
+    it('strips only whitespace', function() {
+      section.appendCode("  <h1>Hello</h1>");
+      section.appendCode("xx<h1>Hello</h1>");
+      expect(section.code).toEqual(
+        "<h1>Hello</h1>\n" +
+        "xx<h1>Hello</h1>\n"
+      );
+    });
+  });
+
 });
 
