@@ -19,13 +19,8 @@
   <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 <style amp-custom>
-amp-selector {
-  padding: 8px;
-  width: 100%;
-  line-height: 0;
-}
 amp-selector:not([disabled]) [option][selected]:not([disabled]) {
-  outline-color: red;
+  outline-color: #b60845;
 }
 /* disables build-in browser highlights */
 amp-selector *:focus {
@@ -35,14 +30,8 @@ amp-selector[disabled],
 amp-selector [disabled] {
   opacity: 0.5;
 }
-amp-selector li {
-  line-height: 24px;
-  margin: 8px;
-}
 .divider {
-  display: inline-block;
   border-right: 2px solid #333;
-  margin: 0 16px;
   height: 40px;
 }
 </style>
@@ -56,7 +45,7 @@ amp-selector li {
   <amp-selector layout="container">
     <amp-img src="/img/landscape_sea_300x199.jpg"  width="60" height="40" option="1"></amp-img>
     <amp-img src="/img/landscape_desert_300x200.jpg" width="60" height="40" option="2"></amp-img>
-    <div class="divider"></div>
+    <div class="divider inline-block mx1"></div>
     <amp-img src="/img/landscape_ship_300x200.jpg" width="60" height="40" option="3"></amp-img>
     <amp-img src="/img/landscape_village_300x200.jpg" width="60" height="40" option="4"></amp-img>
   </amp-selector>
@@ -103,16 +92,16 @@ Inside a form, `amp-selector` behaves like a radio-button/checkbox group and sub
   -->
 <form action="#" method="get" target="_top">
   <amp-selector layout="container" name="form-select" multiple>
-    <ul>
-      <li option="a">Option A</li>
-      <li option="b">Option B</li>
-      <li option="c">Option C</li>
-      <li option="na" selected>N/A</li>
+    <ul class="m0 p0">
+      <li option="a" class="px1 mb1">Option A</li>
+      <li option="b" class="px1 mb1">Option B</li>
+      <li option="c" class="px1 mb1">Option C</li>
+      <li option="na" selected class="px1 mb1">N/A</li>
     </ul>
   </amp-selector>
   <input type="submit"
          value="Select"
-         class="ampstart-btn caps">
+         class="ampstart-btn ampstart-btn-secondary caps">
 </form>
 
 </body>

@@ -6,6 +6,11 @@ code {
   background: #f9f7f7;
   padding: 8px;
 }
+.www-component-anchors > li {
+  padding: 0;
+  margin: 0;
+  line-height: 24px;
+}
 .www-component-desc > p > amp-img {
   display: block;
   margin: 0 auto;
