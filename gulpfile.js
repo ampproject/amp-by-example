@@ -260,7 +260,7 @@ gulp.task("compile:favicons", function() {
       .pipe(gulp.dest(paths.dist.favicons));
 });
 
-const shouldIgnoreSample = function (file) {
+const shouldIgnoreSample = function(file) {
   if (!file.path.endsWith('.html')) {
     return true;
   }
@@ -422,9 +422,7 @@ gulp.task('api:serve', 'Run the go api backend', function(){
 });
 
 gulp.task('validate', 'runs all checks', function(callback) {
-  runSequence('clean',
-              'build',
-              'test',
+  runSequence('test',
               'validate:example',
               'lint',
               'lint:backend',
