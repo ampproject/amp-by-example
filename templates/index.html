@@ -7,7 +7,7 @@
       .abe-sample-card {
         background: #f9f7f7;
         min-width: 280px;
-        width: 1px;
+        width: 280px;
       }
       .abe-sample-card-actions {
         margin-top: auto;
@@ -20,8 +20,10 @@
         height: 24px;
         background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzAwMDAwMCI+PHBhdGggZmlsbD0ibm9uZSIgZD0iTS02MTgtMTA4MEg3ODJ2MzYwMEgtNjE4ek0wIDBoMjR2MjRIMHoiLz48cGF0aCBkPSJNMjAuNzIgMTcuNzFMMTUgOS44MlY1LjA4aDJ2LTJIN3YyaDJ2NC43M0wzLjE0IDE3LjljLS40NC42MS0uNSAxLjQxLS4xNiAyLjA4LjM0LjY3IDEuMDMgMS4wOSAxLjc4IDEuMDloMTQuNWMxLjEgMCAyLS45IDItMiAwLS41Mi0uMjEtMS0uNTQtMS4zNnoiLz48L3N2Zz4=");
       }
-      .ampstart-card {
-        box-shadow: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+      .www-header > span {
+        max-width: 960px;
+        margin-left: auto;
+        margin-right: auto;
       }
     </style>
     {{> head.html}}
@@ -33,7 +35,7 @@
     {{> ampstart/navbar.snip.html}}
     <header class="www-header center">
       <amp-img src="/img/amp_logo_white.svg" width="80" height="80" layout="fixed" class="mb4" alt="AMP logo"></amp-img>
-      <h1 class="mb4">Learn AMP by Examples</h1>
+      <h1 class="mb4">Learn AMP by Example</h1>
       <span class="block mb4">AMP by Example gives a hands-on introduction to Accelerated Mobile Pages based on code and live samples. Learn how to create web pages with AMP and and how to effectively use AMP components.</span>
     </header>
   <amp-selector layout="container">
@@ -58,10 +60,10 @@
             </h4>
             {{#description}} <p class="mb1">{{{ description }}}</p> {{/description}}
             <div class="abe-sample-card-actions">
-              <button class="ampstart-btn caps mb1"><a class="text-decoration-none inline-block" href="{{url}}">View Sample</a></button>
               {{#metadata.preview}}
               <button class="ampstart-btn ampstart-btn-secondary caps mb1"><a class="text-decoration-none inline-block" href="{{urlPreview}}">View Demo</a></button>
               {{/metadata.preview}}
+              <button class="ampstart-btn caps mb1"><a class="text-decoration-none inline-block" href="{{url}}">View Code</a></button>
             </div>
           </div>
           {{/examples}}

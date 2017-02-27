@@ -189,12 +189,14 @@ module.exports = function(config, updateTimestamp) {
         bodyTag: document.body,
         elementsAfterBody: document.elementsAfterBody,
         sections: document.sections,
+        headings: document.headings(),
         metadata: document.metadata,
         nextExample: nextExample,
         skipCanonical: document.hasCanonical(),
         includesManifest: document.includesLink('manifest'),
         includesAnalytics: document.importsComponent('amp-analytics'),
         includesAccordion: document.importsComponent('amp-accordion'),
+        includesSelector: document.importsComponent('amp-selector'),
         includesSidebar: document.importsComponent('amp-sidebar'),
         includesServiceWorker: document.importsComponent('amp-install-serviceworker') || document.metadata.skipServiceWorker
       };

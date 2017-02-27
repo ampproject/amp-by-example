@@ -21,15 +21,18 @@
     Use `section[expanded]` and `section:not([expanded])` to style the accordion header depending on whether it is expanded or not.
   -->
   <style amp-custom>
-  section[expanded] .show-more {
+  amp-accordion section[expanded] .show-more {
     display: none;
   }
-  section:not([expanded]) .show-less {
+  amp-accordion section:not([expanded]) .show-less {
     display: none;
   }
   .nested-accordion h4 {
     font-size: 14px;
     background-color: #ddd;
+  }
+  amp-accordion#hidden-header section[expanded] h4 {
+    border: none;
   }
 </style>
 </head>
@@ -37,7 +40,7 @@
 
   <!-- ## Basic Usage -->
   <!--
-    Each of the `amp-accordion` component’s immediate children is considered a section in the accordion. Each of these nodes must be a `<section>` tag. Each `<section>` must contain only two direct children. The first child (of the section) will be considered as the heading of the section. Clicking/tapping on this section will trigger the expand/collapse behaviour.
+    Each of the `amp-accordion` component’s immediate children is considered a section in the accordion. Each of these nodes must be a `<section>` tag. Each `<section>` must contain only two direct children. The first child (of the section) will be considered as the heading of the section. Clicking/tapping on this section will trigger the expand/collapse behaviour. Use the `disable-session-states` attribute to disable preserving the accordion state across a session. 
   -->
   <amp-accordion>
     <section expanded>
@@ -63,7 +66,7 @@
   <!--
     `amp-accordion` adds the `expanded` attribute to any expanded element. You can use [CSS attribute selectors](https://developer.mozilla.org/en/docs/Web/CSS/Attribute_selectors) to style an accordion section based on whether it's expanded or collapsed. Use `section[expanded]` to style the expanded state and `section:not([expanded])` to style the collapsed state. This example shows a different title based on whether the section is expanded or not.
   -->
-    <amp-accordion>
+    <amp-accordion disable-session-states>
       <section>
         <h4><span class="show-more">Show more</span> <span class="show-less">Show less</span></h4>
         <p>Id lacus amet. Aliquam eos nunc ut scelerisque lacinia, eu rutrum id, vestibulum aliqua vivamus luctus eu rhoncus ut, sodales id. Velit lacus, fermentum neque et sagittis, ac venenatis volutpat, dolore neque feugiat proin fermentum odio, odio arcu in eu wisi. </p>
@@ -72,7 +75,7 @@
 
     <p>Lorem ipsum dolor sit amet, mauris sed, vestibulum velit id, vivamus fermentum sed massa metus semper. Id lacus amet.</p>
     <!-- Here is another example, which hides the "Show more" button once it's been clicked. -->
-    <amp-accordion>
+    <amp-accordion id="hidden-header" disable-session-states>
       <section>
         <h4><span class="show-more">Show more</span></h4>
         <p>Id lacus amet. Aliquam eos nunc ut scelerisque lacinia, eu rutrum id, vestibulum aliqua vivamus luctus eu rhoncus ut, sodales id. Velit lacus, fermentum neque et sagittis, ac venenatis volutpat, dolore neque feugiat proin fermentum odio, odio arcu in eu wisi. </p>
@@ -97,8 +100,9 @@
     }
     ```
 
+    A nested accordion:
     -->
-    <amp-accordion>
+    <amp-accordion disable-session-states>
       <section>
         <h4>Section 1</h4>
         <p>Bunch of content.</p>
