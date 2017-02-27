@@ -1,15 +1,11 @@
 pre, code {
   font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
   font-size: 0.9rem;
+  white-space: pre-wrap;
 }
 code {
   background: #f9f7f7;
-  padding: 8px;
-}
-.www-component-anchors > li {
-  padding: 0;
-  margin: 0;
-  line-height: 24px;
+  padding: 4px;
 }
 .www-component-desc > p > amp-img {
   display: block;
@@ -23,6 +19,7 @@ code {
   margin-left: 5rem;
   padding: 1rem;
   font-size: 0.9rem;
+  white-space: pre-wrap;
 }
 .www-component-desc > pre > code {
   padding: 0;
@@ -37,7 +34,6 @@ pre > code {
 .www-component-desc > pre > code,
 .abe-code pre {
   overflow-x: auto;
-  white-space: pre;
   padding: 0;
   margin: 0;
 }
@@ -58,8 +54,8 @@ pre > code {
 .abe-code {
   background: #f9f7f7;
 }
-.abe-code-preview  {
-  margin-bottom: 1rem;
+.abe-code-preview {
+  background: #f9f7f7;
 }
 .abe-preview, .abe-code {
   flex: 1;
