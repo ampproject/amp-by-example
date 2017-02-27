@@ -12,6 +12,7 @@
     <style amp-custom>
       {{> css/code.css}}
       {{> css/ampstart.css}}
+      {{> css/shared.css }}
       {{> css/example.css}}
       {{{exampleStyles}}}
    </style>
@@ -48,7 +49,7 @@
     <aside class="www-components-sec-nav col-3 xs-hide sm-hide relative">
       <ul class="www-component-anchors list-reset m0 p0 px1 caps">
         {{#headings}}
-        <li class="clearfix">
+        <li class="clearfix mb3">
           <a href="#{{id}}"
              class="www-component-anchor text-decoration-none left"
              {{#supportsAmpSelector}}option="{{id}}"{{/supportsAmpSelector}}>
@@ -70,15 +71,15 @@
           {{{markedDoc}}}
           {{^isEmptyCodeSection}}
           <div>
-            <div class="abe-code-preview ampstart-card">
+            <div class="abe-code-preview ampstart-card mb1">
               {{^metadata.hidePreview}}{{#showPreview}}
-              <p class="abe-code p1">Example:</p>
-              <div class="abe-preview fit pb1">
+              <h3 class="abe-code px1 pt1 caps h4 mb1">Example</h3>
+              <div class="abe-preview fit mb1">
                 {{{preview}}}
               </div>
               {{/showPreview}}{{/metadata.hidePreview}}
-              <div class="abe-code fit px1 pb1">
-                <pre class="hljs html">{{{escapedCode}}}</pre>
+              <div class="abe-code fit px1 pb1 {{^showPreview}}p1{{/showPreview}}">
+                <pre class="hljs html p0 m0">{{{escapedCode}}}</pre>
               </div>
             </div>
           </div>
