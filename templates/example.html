@@ -2,6 +2,12 @@
 <html ⚡>
   <head>
     {{{head}}}
+    {{^includesSidebar}}
+    <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+    {{/includesSidebar}}
+    {{^includesSelector}}
+    <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+    {{/includesSelector}}
     {{> head.html}}
     <style amp-custom>
       {{> css/code.css}}
@@ -39,7 +45,7 @@
     <aside class="www-components-sec-nav col-3 xs-hide sm-hide relative">
       <ul class="www-component-anchors list-reset m0 p0 px1 caps">
         {{#headings}}
-          <li class="clearfix"><a href="#{{id}}" class="www-component-anchor text-decoration-none left" option="">{{name}}</a></li>
+          <li class="clearfix mb3"><a href="#{{id}}" class="www-component-anchor text-decoration-none left" option="">{{name}}</a></li>
         {{/headings}}
       </ul>
     </aside>

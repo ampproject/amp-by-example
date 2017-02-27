@@ -6,7 +6,7 @@
     <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
     <style amp-custom>
       {{> css/code.css}}
-      {{> css/material.css}}
+      {{> css/ampstart.css}}
       {{> css/styles.css}}
       {{> css/preview.css}}
       {{{exampleStyles}}}
@@ -46,32 +46,38 @@
     </style>
   </head>
   <body>
-    <div id="close-preview">
-      <a href=".." id="exit">
-        View annotated Source 
+    <div id="abe-preview-header" class="ampstart-headerbar fixed flex justify-start items-center top-0 left-0 right-0 pl2 pr4">
+      <a href=".." class="white caps text-decoration-none">
+        <i class="align-middle inline-block mr1"><svg fill="#FFFFFF" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+          </svg></i>
+          View annotated Source
       </a>
     </div>
-    <article id="preview">
-      <h1 id="title">{{subHeading}}</h1>
-<p class="card info">This example is to showcase the AMP ad creative format. Speed of actual ad delivery & rendering is not representative since this ad is not being delivered from an ad server.</p>
+    <div id="abe-preview" class="ampstart-card py1">
+      <h1>{{subHeading}}</h1>
+      <p class="card info">This example is to showcase the AMP ad creative format. Speed of actual ad delivery & rendering is not representative since this ad is not being delivered from an ad server.</p>
 
-      <p>
+      <p class="pb1">
       Lorem ipsum dolor sit amet, etiam mattis ullamcorper lacinia integer et, nec aliquam libero, vel duis pretium hendrerit eget lacus, nullam massa rhoncus vel congue luctus porta. Amet cursus integer lacus mi pede, turpis dictumst nunc dolor donec tortor, enim velit elementum, mollis elit purus vestibulum eget amet ipsum. Ipsum placerat neque voluptatem arcu in integer, dolor sem quisque, mattis nulla massa ipsum enim cursus ut, etiam per adipiscing mauris tellus tortor, sapien maecenas pharetra amet ut felis. </p>
       <div class="a4a-ad-container">
         <amp-iframe scrolling="no" width="{{width}}" height="250"
-                                sandbox="allow-scripts allow-same-origin allow-popups"
-                                frameborder="0"
-                                src="{{a4aEmbedUrl}}">
+                                                     sandbox="allow-scripts allow-same-origin allow-popups"
+                                                     frameborder="0"
+                                                     src="{{a4aEmbedUrl}}">
           <amp-img src="/img/pixel-f6f6f6.png" width="{{width}}" height="{{height}}" placeholder></amp-img>
         </amp-iframe>
       </div>
-      <p>
+      <p class="pb1">
       Tempor neque nisl in fermentum, nulla duis duis feugiat. Leo aenean sit, laudantium fermentum aliquet sagittis nec ac ac, donec ac tincidunt sollicitudin lacus neque. Morbi tellus autem pede bibendum, natoque maecenas justo ac, nec aliquam taciti, pellentesque nam iaculis eros nec at. Proin in orci. Et eu nec montes rutrum nullam, nunc pharetra gravida elit, consectetuer consequatur, eros dignissim, justo vel suspendisse. Ipsum quis metus ultricies nullam nullam. Quis at luctus sit pede etiam, tellus vitae, maecenas mauris nibh lacinia est augue. Aenean nec cursus aptent sit odio tempor, felis duis nulla vel varius mauris, risus duis ac.</p>
-<p>
+      <p class="pb1">
 Suspendisse duis dolor amet rutrum, dui vitae curabitur sed enim dictum amet, morbi ipsum wisi nibh recusandae ac, molestie donec sed malesuada duis morbi, felis lorem urna. Erat sed mollis nostrum massa et, elit sodales malesuada ut, nonummy dolor enim rutrum enim, volutpat eu neque amet tempor maecenas eu. Sed ut ut suscipit deserunt, velit et non in, eget adipiscing, sed suscipit et ut. Wisi arcu massa mauris tellus sodales erat, vitae sed donec, facilisis eros ante sed ipsum et malesuada, libero hymenaeos. Sit fermentum semper. Mauris mauris magna ut, vitae maecenas ut aliquet ante, ut proin lacus elit a donec, est eros. Vitae sem, a lacus egestas, sit molestie nonummy ut. Ante nunc imperdiet nisl curae, sed duis volutpat lorem ut non. Velit arcu magna imperdiet, placerat quis a diam donec ullamcorper tempus. Ante conubia fermentum, potenti nulla hendrerit, mauris libero augue, nonummy quam tellus fermentum ac mauris, dui ut. At montes, nisl elit nonummy integer turpis aliquam, amet nunc sapien praesent, sed metus quisque sit, iaculis wisi et aliquam nulla. A sollicitudin.</p>
-<p>
+      <p class="pb1">
 Nec morbi. Sed nunc nonummy ac, ipsum eu consequat in donec. Scelerisque amet ante sapiente. Gravida iaculis mauris eu pellentesque in, torquent eu tellus ultricies orci, pellentesque massa bibendum odio purus, ridiculus ullamcorper inceptos ante quis, condimentum fusce. Mollis nonummy arcu aliquet eget eu scelerisque, phasellus amet maecenas sollicitudin, sit mauris risus, pellentesque malesuada sit. Sem posuere vestibulum urna at sed est. Eaque leo nec nec eu ligula, mattis libero mauris eget euismod proin. Vel blandit duis nibh pellentesque qui justo, vestibulum lacinia congue neque, elementum pellentesque porta tempor, donec id sit ipsum mauris volutpat. Mauris suspendisse et. Lacus placerat curabitur pede, sit faucibus ut orci, eu nulla justo vel id vel vel, id augue amet eget vel maecenas pretium. Malesuada felis scelerisque vel ut, nec lobortis, erat donec lorem donec, volutpat duis non augue duis eget porttitor, turpis massa auctor viverra dui dolor aliquam. Lacinia sed urna.</p>
-    </article>
+    {{^isEmbed}}
+    </div>
+    {{/isEmbed}}
     {{> analytics.html}}
     {{> serviceworker.html}}
   </body>
