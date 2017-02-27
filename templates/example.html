@@ -5,9 +5,9 @@
     {{^includesSidebar}}
     <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
     {{/includesSidebar}}
-    {{^includesSelector}}
+    {{#supportsAmpSelector}}
     <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
-    {{/includesSelector}}
+    {{/supportsAmpSelector}}
     {{> head.html}}
     <style amp-custom>
       {{> css/code.css}}
@@ -40,12 +40,20 @@
       </div>
     </header>
     {{/isEmbed}}
+  {{#supportsAmpSelector}}
   <amp-selector layout="container">
+  {{/supportsAmpSelector}}
+
   <main class="flex px2">
     <aside class="www-components-sec-nav col-3 xs-hide sm-hide relative">
       <ul class="www-component-anchors list-reset m0 p0 px1 caps">
         {{#headings}}
-          <li class="clearfix mb3"><a href="#{{id}}" class="www-component-anchor text-decoration-none left" option="">{{name}}</a></li>
+        <li class="clearfix">
+          <a href="#{{id}}"
+             class="www-component-anchor text-decoration-none left"
+             {{#supportsAmpSelector}}option="{{id}}"{{/supportsAmpSelector}}>
+            {{name}}</a>
+        </li>
         {{/headings}}
       </ul>
     </aside>
@@ -81,7 +89,9 @@
     </article>
     <aside class="col-2 xs-hide"></aside>
   </main>
+  {{#supportsAmpSelector}}
   </amp-selector>
+  {{/supportsAmpSelector}}
 
     {{^isEmbed}}
     {{> ampstart/footer.snip.html}}
