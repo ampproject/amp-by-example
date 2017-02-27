@@ -62,6 +62,7 @@ module.exports = class CodeSection {
     this.isLastSection = true;
     this.isFirstSection = false;
     this.commentOffset = 0;
+    this.codeOffset = 0;
     this.headings = [];
   }
 
@@ -73,7 +74,11 @@ module.exports = class CodeSection {
   }
 
   appendCode(code) {
-    this.code += code + '\n';
+    if (!this.code) {
+      this.codeOffset = code.search(/\S|$/);
+    }
+    const startIndex = this.stripLeadingWhitespace(code, this.codeOffset);
+    this.code += code.substring(startIndex) + '\n';
   }
 
   appendPreview(code) {
@@ -135,7 +140,8 @@ module.exports = class CodeSection {
   normalizeDoc(string) {
     let startIndex = string.indexOf(COMMENT_START);
     if (startIndex == -1) {
-      startIndex = this.stripLeadingWhitespace(string);
+      startIndex = 
+        this.stripLeadingWhitespace(string, this.commentOffset);
     } else {
       this.commentOffset = startIndex;
       startIndex = startIndex + COMMENT_START.length;
@@ -147,10 +153,10 @@ module.exports = class CodeSection {
     return string.substring(startIndex, endIndex);
   }
 
-  stripLeadingWhitespace(string) {
+  stripLeadingWhitespace(string, offset) {
     let startIndex = 0;
-    for (let i = 0; i < this.commentOffset; i++) {
-      if (string.charAt(i) == ' ') {
+    for (let i = 0; i < offset; i++) {
+      if (string.charAt(i) === ' ') {
         startIndex++;
       } else {
         break;
