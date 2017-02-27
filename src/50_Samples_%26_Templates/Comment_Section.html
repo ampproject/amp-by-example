@@ -99,12 +99,12 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
       <!-- We specify the logout via a login endpoint to be able to use the `return URL` environment variable. -->
       <button amp-access="loggedIn" amp-access-hide tabindex="0" on="tap:amp-access.login-sign-out" class="ampstart-btn mx1 mt1 caps">Logout</button>
       <!-- Use amp-form to submit the comment. In this sample, only a single comment can be added as comments are not persisted in the backend.  -->
-      <form class="px1 pt1" amp-access="loggedIn" amp-access-hide method="post" action-xhr="/samples_templates/comment_section/submit-comment-xhr" target="_top">
+      <form class="px1 pt1 flex" amp-access="loggedIn" amp-access-hide method="post" action-xhr="/samples_templates/comment_section/submit-comment-xhr" target="_top">
         <amp-img width="44" height="44" class="user-avatar mr1" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
         <div class="ampstart-input inline-block mr1">
           <input type="text" name="text" placeholder="Your comment..." required>
         </div>
-        <input type="submit" value="Comment" class="ampstart-btn caps">
+        <input type="submit" value="Comment" class="ampstart-btn caps mt1">
         <div submit-success class="pt1">
           <template type="amp-mustache">
             <div class="comment-user">
