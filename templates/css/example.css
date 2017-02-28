@@ -3,6 +3,9 @@ pre, code {
   font-size: 0.9rem;
   white-space: pre-wrap;
 }
+pre > code {
+  padding: 0;
+}
 code {
   background: #f9f7f7;
   padding: 4px;
@@ -21,12 +24,14 @@ code {
   font-size: 0.9rem;
   white-space: pre-wrap;
 }
+@media (max-width: 40rem) {
+  .www-component-desc > pre {
+    margin-left: 0;
+  }
+}
 .www-component-desc > pre > code {
   padding: 0;
   font-size: 0.70rem;
-}
-pre > code {
-  padding: 0;
 }
 .www-header h1 {
   color: #fff;
@@ -52,16 +57,8 @@ pre > code {
   margin-top: 5rem;
   margin-bottom: 2rem;
 }
-.abe-code {
-  background: #f9f7f7;
-}
 .abe-code-preview {
   background: #f9f7f7;
-}
-.abe-preview, .abe-code {
-  flex: 1;
-  min-width: 0;
-  min-height: 0;
 }
 .abe-preview {
   background: #fff;
