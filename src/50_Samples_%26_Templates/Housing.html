@@ -54,7 +54,6 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
       color: #111;
       height: 100px;
       padding: 0;
-      line-height: 75px;
       padding-right: 8px;
     }
     .related amp-img {
@@ -130,14 +129,13 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
     <body>
             <!-- ## Heading -->
             <!--[amp-fit-text](https://www.ampproject.org/docs/reference/extended/amp-fit-text.html) can to fit the text to the available space. It works well for titles that vary not too much in length. -->
-        <h4>
+        <h4 class="mx1">
             <amp-fit-text width="300" height="45" layout="responsive" max-font-size="45">
                     Cosy House in Central London
             </amp-fit-text>
         </h4>
-        <h4 class="price-description">£430,000</h4>
-        <p id="housing-description">London SW1A 1AA</p>
-
+        <h4 class="price-description mx1">£430,000</h4>
+        <p id="housing-description" class="m1">London SW1A 1AA</p>
 
         <!-- ## Image Gallery -->
         <!-- The `amp-carousel` works very well for housing image galleries. Learn more about `amp-carousel` [here](/advanced/image_galleries_with_amp-carousel/). -->
@@ -146,7 +144,7 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
             <amp-img src="/img/buckingham_palace_entrance_1280x853.jpg" width="1280" height="853" layout="responsive" alt="Buckingham Palace entrance" attribution="https://pixabay.com"></amp-img>
         </amp-carousel>
         <!-- These buttons are used for requesting details on the property. -->
-        <div class="contact-section">
+        <div class="contact-section mx1">
             <h4 class="contact-heading"> Do you like this property?</h4>
             <div class="contact">
                 <a href="tel:012 3456789" class="ampstart-btn caps ml1">Call agent</a>
@@ -157,7 +155,7 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
 
     <!-- ## Social -->
     <!-- The Social Share extension provides a common interface for share buttons. Learn more about `amp-social-share` [here](/components/amp-social-share/). -->
-    <p class="social-share">
+    <p class="social-share mx1">
         <amp-social-share type="twitter"
         width="60"
         height="44"></amp-social-share>
@@ -255,7 +253,7 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
       </amp-accordion>
     </div>
 
-    <h4>Properties sold nearby</h4>
+    <h4 class="m1">Properties sold nearby</h4>
 
     <!-- ## Properties sold nearby -->
     <!-- Use `amp-list` to show a list of properties sold nearby. Learn more about `amp-list` [here](/components/amp-list/) -->
@@ -264,7 +262,7 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
               layout="fixed-height"
               src="/json/other_properties.json">
       <template type="amp-mustache">
-        <a href="#" class="card related">
+        <a href="#" class="ampstart-card related m1">
           <amp-img width="122"
                    height="100"
                    src="{{src}}"
