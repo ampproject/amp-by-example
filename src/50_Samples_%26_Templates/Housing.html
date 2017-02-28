@@ -101,8 +101,6 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
     .social-share {
       line-height: 36px;
       display: flex;
-      padding-bottom: 16px;
-      padding-top: 16px;
     }
     .list-overflow {
       position: absolute;
@@ -115,6 +113,9 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
     }
     .form-field-left {
       width: 200px;
+    }
+    .ampstart-card {
+      text-decoration: none;
     }
     </style>
 
@@ -138,7 +139,7 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
             <amp-img src="/img/buckingham_palace_entrance_1280x853.jpg" width="1280" height="853" layout="responsive" alt="Buckingham Palace entrance" attribution="https://pixabay.com"></amp-img>
         </amp-carousel>
         <!-- These buttons are used for requesting details on the property. -->
-        <div class="contact-section mx1">
+        <div class="contact-section p1">
             <h4 class="mt0"> Do you like this property?</h4>
             <div class="contact">
                 <a href="tel:012 3456789" class="ampstart-btn caps ml1">Call agent</a>
@@ -149,7 +150,7 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
 
     <!-- ## Social -->
     <!-- The Social Share extension provides a common interface for share buttons. Learn more about `amp-social-share` [here](/components/amp-social-share/). -->
-    <p class="social-share mx1">
+    <p class="social-share p1">
         <amp-social-share type="twitter"
         width="60"
         height="44" class="mr2"></amp-social-share>
@@ -174,7 +175,7 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
       <amp-accordion>
         <section>
           <h4>Description</h4>
-          <ul class="description">
+          <ul class="description p1">
             <li>Ideally located near tube station</li>
             <li>Open plan kitchen</li>
             <li>Bicycle storage, visitors parking, communal gardens and roof terraces</li>
