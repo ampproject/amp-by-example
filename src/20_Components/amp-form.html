@@ -226,13 +226,15 @@
     Use `type="checkbox"` to let the user select ZERO or MORE options of a limited number of choices.
   -->
   <form method="post" class="p2" action-xhr="/components/amp-form/submit-form-xhr" target="_top">
-    <div class="ampstart-input ampstart-input-chk inline-block relative mb3">
-      <input type="checkbox" id="animal1" name="animal1" value="Cats" >
+    <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mr1">
+      <input type="checkbox" id="animal1" name="animal1" class="relative" value="Cats" >
       <label for="animal1">I like cats</label>
-      <input type="checkbox" id="animal2" name="animal2" value="Dogs">
-      <label for="animal2"> I like dogs </label>
-      <button type="submit" value="OK" class="ampstart-btn caps">OK</button>
     </div>
+    <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mr1">
+      <input type="checkbox" id="animal2" name="animal2" class="relative" value="Dogs">
+      <label for="animal2"> I like dogs </label>
+    </div>
+      <button type="submit" value="OK" class="ampstart-btn caps">OK</button>
     <div submit-success>
       <template type="amp-mustache">
         Success! Thanks for trying the <code>amp-form</code> demo!
