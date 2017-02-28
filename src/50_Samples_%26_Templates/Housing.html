@@ -89,9 +89,6 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
         display: block;
       }
     }
-    .contact-heading {
-      margin-top: 0px
-    }
     @media (max-width: 744px) {
       .contact {
         display: flex;
@@ -106,9 +103,6 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
       display: flex;
       padding-bottom: 16px;
       padding-top: 16px;
-    }
-    amp-social-share {
-      margin-right: 8px;
     }
     .list-overflow {
       position: absolute;
@@ -145,7 +139,7 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
         </amp-carousel>
         <!-- These buttons are used for requesting details on the property. -->
         <div class="contact-section mx1">
-            <h4 class="contact-heading"> Do you like this property?</h4>
+            <h4 class="mt0"> Do you like this property?</h4>
             <div class="contact">
                 <a href="tel:012 3456789" class="ampstart-btn caps ml1">Call agent</a>
                 <a href="mailto:someone@example.com" class="ampstart-btn caps ml1">Email agent</a>
@@ -158,20 +152,20 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
     <p class="social-share mx1">
         <amp-social-share type="twitter"
         width="60"
-        height="44"></amp-social-share>
+        height="44" class="mr2"></amp-social-share>
         <amp-social-share type="facebook"
         width="60"
         height="44"
-        data-attribution="254325784911610"></amp-social-share>
+        data-attribution="254325784911610" class="mr2"> </amp-social-share>
         <amp-social-share type="gplus"
         width="60"
-        height="44"></amp-social-share>
+        height="44" class="mr2"></amp-social-share>
         <amp-social-share type="email"
         width="60"
-        height="44"></amp-social-share>
+        height="44" class="mr2"></amp-social-share>
         <amp-social-share type="pinterest"
         width="66"
-        height="44"></amp-social-share>
+        height="44" class="mr2"></amp-social-share>
     </p>
 
     <!-- ## Collapsibles/Accordion -->
