@@ -70,7 +70,7 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     <body>
     <!-- ## Add a Comment Section -->
     <!-- -->
-    <h5>Comments</h5>
+    <h5 class="m1">Comments</h5>
 
     <!-- Use `amp-list` to render existing comments to make sure that the latest comments appear if the page is loaded via AMP Cache.  -->
       <amp-list class="mt1" width="auto" height="125" layout="fixed-height" src="/json/comments.json">
@@ -89,7 +89,7 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     action should be taken when clicking on the login button: `login` defines the property inside the `amp-access` json configuration, while `sign-in` defines
     the endpoint. -->
     <span amp-access="NOT loggedIn" role="button" tabindex="0" amp-access-hide>
-          <h5>Please login to comment</h5>
+          <h5 class="m1">Please login to comment</h5>
           <button on="tap:amp-access.login-sign-in" class="ampstart-btn mx1 mt1 caps">Login</button>
     </span>
       <!-- We specify the logout via a login endpoint to be able to use the `return URL` environment variable. -->

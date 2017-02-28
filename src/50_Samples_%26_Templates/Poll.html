@@ -49,9 +49,6 @@ Import the additional AMP components. This sample uses a amp-form and mustache t
            background: #eb407a;
            height: 100%;
        }
-      #header1 {
-          padding-left: 32px;
-        }
       form.amp-form-submit-success [submit-success] {
         flex: 0 0 100%;
       }
@@ -69,7 +66,7 @@ Import the additional AMP components. This sample uses a amp-form and mustache t
 </head>
 <body>
 
-<h4 id="header1">Flightless bird poll</h4>
+<h4 class="ml1">Flightless bird poll</h4>
 <!-- ## Poll -->
 <!--
 We use `amp-form` to implement a poll. To avoid multiple votes by the same user, we need to identify which users have
@@ -113,8 +110,8 @@ In order to submit the form as soon as the user picks an option, we will add an
     </fieldset>
     <div submit-success>
         <template type="amp-mustache">
-            <p>{{Message}}</p>
-            <p>Here are the results!</p>
+            <p class="ml1">{{Message}}</p>
+            <p class="ml1">Here are the results!</p>
           <div class="m1">
             <span class="fixed-sixe-cell">Answer</span>
             <span class="fixed-size-cell">&nbsp;</span>
