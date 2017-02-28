@@ -18,46 +18,24 @@ importScripts('/sw-toolbox/sw-toolbox.js');
 
 const config = {
   offlinePage: '/youre_offline/'
-}
+};
 
-const IGNORED_URLS = ['shopping_cart']
+const IGNORED_URLS = ['shopping_cart'];
 
 config.filesToCache = [
-    '/',
-    '/components/amp-img/',
-    '/components/amp-install-serviceworker/',
-    config.offlinePage,
-    '/img/offline.png',
-    '/img/logo.svg',
-    '/favicons/favicon.ico',
-    '/favicons/favicon-230x230.png',
-    '/favicons/favicon-96x96.png',
-    '/favicons/android-chrome-36x36.png',
-    '/favicons/android-chrome-72x72.png',
-    '/img/ic_experiment_black_2x_web_18dp.png',
-    '/img/ic_experiment_black_1x_web_18dp.png',
-    '/img/ic_experiment_black_2x_web_24dp.png',
-    '/img/ic_experiment_black_1x_web_24dp.png',
-    '/img/ic_experiment_black_2x_web_36dp.png',
-    '/img/ic_experiment_black_1x_web_36dp.png',
-    '/img/ic_link_black_1x_web_18dp.png',
-    '/img/ic_link_black_2x_web_18dp.png',
-    '/img/ic_menu_white_1x_web_24dp.png',
-    '/img/ic_menu_white_2x_web_24dp.png',
-    '/img/ic_indeterminate_check_box_black_24dp_1x.png',
-    '/img/ic_indeterminate_check_box_black_24dp_2x.png',
-    '/img/ic_add_box_black_24dp_1x.png',
-    '/img/ic_add_box_black_24dp_2x.png',
-    '/img/ic_chevron_left_black_24dp_1x.png',
-    '/img/ic_chevron_left_black_24dp_2x.png',
-    '/img/ic_play_arrow_white_1x_web_24dp.png',
-    '/img/ic_play_arrow_white_2x_web_24dp.png',
-    '/img/ic_mode_edit_white_24dp_1x.png',
-    '/img/ic_mode_edit_white_24dp_2x.png',
-    '/img/GitHub-Mark-Light-32px.png',
-    '/img/GitHub-Mark-Light-64px.png',
-    '/playground/img/playground-logo.svg',
-    '/playground/'
+  '/',
+  '/components/amp-img/',
+  '/components/amp-install-serviceworker/',
+  config.offlinePage,
+  '/img/offline.png',
+  '/favicons/favicon.ico',
+  '/favicons/favicon-230x230.png',
+  '/favicons/favicon-96x96.png',
+  '/favicons/android-chrome-36x36.png',
+  '/favicons/android-chrome-72x72.png',
+  '/playground/img/playground-logo.svg',
+  '/playground/',
+  '/img/amp_logo_black.svg'
 ];
 
 /**
