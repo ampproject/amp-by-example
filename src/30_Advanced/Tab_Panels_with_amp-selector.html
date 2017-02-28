@@ -1,0 +1,82 @@
+<!--
+  #### Introduction
+
+  TODO: a quick intro
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <link rel="canonical" href="<%host%>/advanced/tab_panels_with_amp-selector/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!-- #### Setup -->
+  <!--
+  TODO: explain which components need to be imported. No need to explain the AMP boilerplate.
+  -->
+  <script async="" custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+  <style amp-custom="">
+
+      ul {
+          margin: 25px;
+          padding: 0;
+      }
+
+      .ampTabContainer {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-around;
+          width: 100%;
+      }
+
+      #ampTabs .tabButton[selected] {
+          outline: none;
+          background: #ccc;
+      }
+    
+      .tabButton {
+          list-style: none;
+          flex-grow: 1;
+          text-align: center;
+          cursor: pointer;
+      }
+
+      .tabContent {
+          display: none;
+          width: 100%;
+          order: 4;  /* number of tabs + 1 */
+          border: 1px solid #ccc;
+      }
+
+      .tabButton[selected] + .tabContent {
+          display: block;
+      }
+    
+
+
+  </style>
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+</head>
+<body>
+
+  <!-- #### Basic Usage -->
+  <!--
+  TODO: Describe your example here
+  -->
+  <h1>AMP Tabs</h1>
+    <div id="ampTabs">
+        <amp-selector role="tablist" layout="container" class="ampTabContainer">
+          <div role="tab" class="tabButton" selected option="a">Tab one</div>
+          <div role="tabpanel" class="tabContent">Tab one content... </div>
+          
+          <div role="tab" class="tabButton" option="b">Tab two</div>
+          <div role="tabpanel" class="tabContent">Tab two content... </div>
+          
+          <div role="tab" class="tabButton" option="c">Tab three</div>
+          <div role="tabpanel" class="tabContent">Tab three content... </div>
+        </amp-selector>
+    </div>
+
+</body>
+</html>
