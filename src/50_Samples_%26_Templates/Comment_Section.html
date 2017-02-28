@@ -27,7 +27,9 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
         width: 100%;
         color: black;
     }
-    form.amp-form-submit-success > div.comment-user,
+    form.amp-form-submit-success > amp-img,
+    form.amp-form-submit-success > .ampstart-input,
+    form.amp-form-submit-success > input,
     form.amp-form-submit-success .button{
         display: none;
     }
@@ -45,12 +47,6 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
         background: #f2f2f2;
         margin: 0 16px 16px 0;
         width: 100%;
-    }
-    .user-avatar {
-      flex-shrink: 0;
-    }
-    .comment-user {
-      display: flex;
     }
     </style>
 
@@ -77,10 +73,10 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     <h5>Comments</h5>
 
     <!-- Use `amp-list` to render existing comments to make sure that the latest comments appear if the page is loaded via AMP Cache.  -->
-      <amp-list class="mt1" width="auto" height="200" layout="fixed-height" src="/json/comments.json">
+      <amp-list class="mt1" width="auto" height="125" layout="fixed-height" src="/json/comments.json">
         <template type="amp-mustache">
-          <div class="comment-user px1">
-            <amp-img width="44" height="44" class="mr1 user-avatar" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
+          <div class="flex px1">
+            <amp-img width="44" height="44" class="mr1 flex-none" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
             <div class="card comment">
               <p><span class="user">{{user}}</span> <span class="date">{{datetime}}</span></p>
               <p>{{text}}</p>
@@ -100,15 +96,15 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
       <button amp-access="loggedIn" amp-access-hide tabindex="0" on="tap:amp-access.login-sign-out" class="ampstart-btn mx1 mt1 caps">Logout</button>
       <!-- Use amp-form to submit the comment. In this sample, only a single comment can be added as comments are not persisted in the backend.  -->
       <form class="px1 pt1 flex" amp-access="loggedIn" amp-access-hide method="post" action-xhr="/samples_templates/comment_section/submit-comment-xhr" target="_top">
-        <amp-img width="44" height="44" class="user-avatar mr1" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
+        <amp-img width="44" height="44" class="flex-none mr1" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
         <div class="ampstart-input inline-block mr1">
           <input type="text" name="text" placeholder="Your comment..." required>
         </div>
         <input type="submit" value="Comment" class="ampstart-btn caps mt1">
         <div submit-success class="pt1">
           <template type="amp-mustache">
-            <div class="comment-user">
-              <amp-img width="44" class="mr1 user-avatar" height="44" alt="user" src="{{UserImg}}"></amp-img>
+            <div class="flex">
+              <amp-img width="44" class="mr1 flex-none" height="44" alt="user" src="{{UserImg}}"></amp-img>
               <div class="card comment">
                <p><span class="user">{{User}}</span> <span class="date">{{Datetime}}</span></p>
                <p>{{Text}}</p>
