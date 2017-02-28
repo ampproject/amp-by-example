@@ -1,16 +1,17 @@
 body {
-  background: #444;
+  background: #f9f7f7;
+  opacity: .8;
 }
 #abe-preview-header {
-  background-image: linear-gradient(90deg,#94103e 0,#db004d);
+  background: #fff;
+  color: #000;
   height: 56px;
-}
-#abe-preview-header > a {
-  color: white;
+  width: 100vw;
 }
 #abe-preview {
   background: #fff;
   min-height: 100vh;
+  width: 100vw;
   margin: 0 auto; 
   max-width: 960px;
   margin-top: 56px;

@@ -33,6 +33,7 @@ pre > code {
 }
 .www-component-desc > pre > code,
 .abe-code pre {
+  white-space: pre-wrap;
   overflow-x: auto;
   padding: 0;
   margin: 0;
@@ -64,9 +65,6 @@ pre > code {
 }
 .abe-preview {
   background: #fff;
-}
-.abe-experiment-warning .abe-experiment-warning-buttons {
-  justify-content: center;
 }
 
 
