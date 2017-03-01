@@ -462,23 +462,10 @@ input[type=text], input[type=search], input[type=email], input[type=date] {
   border-radius: 0;
   display: block;
   margin: 0;
-  margin-bottom: 16px;
   width: 100%;
   text-align: left;
   color: inherit;
   outline: none;
-}
-
-.data-input {
-  border: none;
-  border-bottom: 1px solid rgba(0,0,0,.12);
-  font-size: 16px;
-  margin-bottom: 8px;
-  padding: 4px 0;
-  background: 0 0;
-  color: inherit;
-  outline: none;
-  background: 0 0;
 }
 
 .search-input {
@@ -497,11 +484,4 @@ input[type=text], input[type=search], input[type=email], input[type=date] {
   margin-top: 1px;
   background-color: rgb(66,133,244);
   height: 43px
-}
-
-select {
-  height: 36px;
-  line-height: 36px;
-  font-size: 14px;
-  margin: 16px;
 }
