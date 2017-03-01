@@ -59,9 +59,6 @@ This sample showcases how to build a product page in AMP HTML.
       width: 100%;
       height: 100%;
     }
-    #video-container, #social, form .button {
-      margin: 16px;
-    }
     .video {
       flex: 1;
     }
@@ -71,9 +68,6 @@ This sample showcases how to build a product page in AMP HTML.
       margin-top: 24px;
       margin-bottom: 16px;
       padding: 0 16px;
-    }
-    .quantity {
-      margin: 16px 0;
     }
     .product-gallery > ul {
       margin: 0;
@@ -226,6 +220,10 @@ div.square {
   }
 }
 
+a.item {
+  text-decoration: none;
+}
+
     </style>
 
     <!-- ## Metadata -->
@@ -293,11 +291,11 @@ div.square {
         </form>
       </div>
 
-      <h2>Apple</h2>
+      <h2 class="m1">Apple</h2>
 
       <!-- ## Social Sharing -->
       <!-- The Social Share extension provides a common interface for share buttons. Learn more about `amp-social-share` [here](/components/amp-social-share/). -->
-      <div id="social">
+      <div class="m1">
         <amp-social-share type="twitter"
                           width="30"
                           height="22"></amp-social-share>
@@ -316,12 +314,12 @@ div.square {
                           height="22"></amp-social-share>
       </div>
 
-      <p id="product-description">Lorem ipsum dolor sit amet, ut sed non vel mattis. Et nulla suscipit ante ligula nisl in. Ut venenatis et mauris, mauris porta vulputate tellus mauris integer facilisis.</p>
+      <p id="product-description" class="m1">Lorem ipsum dolor sit amet, ut sed non vel mattis. Et nulla suscipit ante ligula nisl in. Ut venenatis et mauris, mauris porta vulputate tellus mauris integer facilisis.</p>
       <!-- ## Video -->
       <!-- AMP supports a wide range of video platforms. Here we are using `amp-youtube` to show a product video. You can find an overview of all supported video platforms [here](/advanced/integrating_videos_in_amp_an_overview/).-->
       <!-- In this sample we don't embed the video directly into the page, but instead show it in a lightbox using the `amp-lightbox` component. Learn more about `amp-lightbox` [here](/components/amp-lightbox/).-->
 
-      <div id="video-container">
+      <div class="m1">
         <a on="tap:watch-video-lightbox" role="button"  tabindex="0">
           <button class="ampstart-btn caps">
             Show Video
@@ -600,7 +598,7 @@ div.square {
 
     <!-- ## Dynamic Related Product Lists -->
     <!--  -->
-    <h5 id="related-products">Related products</h5>
+    <h5 id="related-products" class="m1">Related products</h5>
     <!--
     With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
      Learn more about `amp-list` [here](/components/amp-list/)
