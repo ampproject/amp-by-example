@@ -101,9 +101,6 @@ Specify the endpoints required for `amp-access` to detect a signed-user. This wi
       border: solid 2px #5077bd;
       border-radius: 3px;
   }
-  #stay-input {
-    flex: 100%;
-  }
   td {
     padding-left: 5px;
     padding-right: 5px;
@@ -190,11 +187,27 @@ Specify the endpoints required for `amp-access` to detect a signed-user. This wi
 <div>
   <h6>Your stay</h6>
   <p>7 nights, from 12 Dec 2020 to 06 Jan 2021</p>
-  <form method="GET" action="/samples_templates/hotel/check-available" action-xhr="/samples_templates/hotel/check-available" target="_top">
-    <fieldset id="stay-input">
-      <label for="checkin">Check-in:</label> <input name="checkin" type="date" class="data-input" value="2020-12-30">
-      <label for="checkout">Check-out:</label> <input name="checkout" type="date" class="data-input" value="2021-01-06">
-      <label for="guests">Guests:</label> <select name="guests" class="data-input"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select>
+  <form method="GET" class="px3 mb4"
+    action="/samples_templates/hotel/check-available"
+    action-xhr="/samples_templates/hotel/check-available"
+    target="_top">
+    <fieldset id="stay-input" class="border-none p0 m0">
+    <div class="ampstart-input relative m0 p0 mb3">
+      <label for="checkin">Check-in:</label>
+      <input name="checkin" id="checkin" type="date" class="block border-none p0 m0" value="2020-12-30">
+    </div>
+    <div class="ampstart-input relative m0 p0 mb3">
+      <label for="checkout">Check-out:</label>
+      <input name="checkout" type="date" class="block border-none p0 m0" value="2021-01-06">
+    </div>
+    <div class="ampstart-input relative m0 p0 mb3 ">
+      <label for="guests">Guests:</label>
+      <select name="guests" class="block border-none p0 m0">
+        <option value="1">1</option>
+        <option value="2" selected>2</option>
+        <option value="3">3</option>
+      </select>
+    </div>
     </fieldset>
     <input type="submit" value="Check availability" class="ampstart-btn caps">
     <div submit-success>
