@@ -95,10 +95,6 @@ This sample showcases how to build a product page in AMP HTML.
       font-size: 16px;
       margin: 0;
     }
-    form#order div {
-      display: flex;
-      align-items: center;
-    }
     form#order .button {
       width: 100%;
       max-width: 400px;
@@ -349,7 +345,7 @@ a.item {
     Clicking on a preview image will reveal the image in the gallery via the tap action `on="tap:product-carousel-preview.goToSlide(index=0)"`.
 
     See below for more informations on how we use`amp-bind`. -->
-       <div class="product-gallery">
+  <div class="product-gallery">
     <ul class="show" [class]="selectedColor == 'green' ? 'show' : 'hide'">
       <li tabindex="0" role="button">
         <amp-img on="tap:AMP.setState(selectedSlide=0)"
@@ -519,13 +515,13 @@ a.item {
       <form id="order" method="POST"
             action-xhr="/samples_templates/product/add_to_cart"
             target="_top" class="flex flex-wrap m1">
-        <div>
+        <div class="items-center flex">
           <label for="color">Color:</label>
           <amp-selector name="color"
                   layout="container"
                   [selected]="selectedColor"
                   on="select:AMP.setState(selectedColor=event.targetOption, selectedSlide=0, selectedSize='S')">
-            <ul>
+            <ul class="p0 m1">
               <li>
                 <div option="green" selected class="square green" width="40" height="40"></div>
               </li>
@@ -538,29 +534,29 @@ a.item {
             </ul>
           </amp-selector>
         </div>
-        <div>
+        <div class="items-center flex">
           <label for="quantity">Quantity:</label>
           <amp-selector name="quantity" layout="container">
-            <ul>
+            <ul class="p0 m1">
               <li option="1" selected>1</li>
               <li option="2">2</li>
               <li option="3">3</li>
             </ul>
           </amp-selector>
         </div>
-        <div>
+        <div class="items-center flex">
           <label for="size">Size:</label>
           <amp-selector name="size" layout="container"
                   on="select:AMP.setState(selectedSize=event.targetOption)"
                   [selected]="product[selectedColor || 'green'].sizes[selectedSize || 'S'] != 'unavailable' ? selectedSize : product[selectedColor || 'green'].defaultSize">
-            <ul>
+            <ul class="p0 m1">
               <li option="S" class="" [class]="product[selectedColor || 'green'].sizes['S'] != 'unavailable' ? '' : 'unavailable'">S</li>
               <li option="M" class="" selected [class]="product[selectedColor || 'green'].sizes['M'] != 'unavailable' ? '' : 'unavailable'">M</li>
               <li option="L" class="unavailable" [class]="product[selectedColor || 'green'].sizes['L'] != 'unavailable' ? '' : 'unavailable'">L</li>
             </ul>
           </amp-selector>
         </div>
-        <div class="items-center">
+        <div class="items-center flex">
           <input type="submit" class="ampstart-btn caps" name="add-to-cart" value="add to cart">
         </div>
         <input type="hidden" name="name" value="Apple">
