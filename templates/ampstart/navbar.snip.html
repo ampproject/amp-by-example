@@ -19,19 +19,30 @@ limitations under the License.
 {{#navbar}}
   <!-- Start Navbar -->
   <header class="ampstart-headerbar fixed flex justify-start items-center top-0 left-0 right-0 pl2 pr4">
-    <a href="#" on="tap:{{sidebar-id}}.toggle"class="ampstart-navbar-trigger {{^sidebaronly}}md-hide lg-hide{{/sidebaronly}} pr2">☰</a>
+    <div role="button" on="tap:{{sidebar-id}}.toggle" tabindex="0" class="ampstart-navbar-trigger {{^sidebaronly}}md-hide lg-hide{{/sidebaronly}} pr2">☰</div>
     {{#logo}}
-      <amp-img src="{{url}}" width="{{width}}" height="{{height}}" layout="fixed" class="my0 mx-auto {{classes}}" alt="{{name}}"></amp-img>
+      {{#href}}
+      <a href="{{{.}}}" class="text-decoration-none inline-block mx-auto">
+      {{/href}}
+      {{#url}}
+        <amp-img src="{{{url}}}" width="{{width}}" height="{{height}}" layout="fixed" class="my0 mx-auto {{classes}}" alt="{{name}}"></amp-img>
+      {{/url}}
+      {{^url}}
+        <div class="h3 bold caps mx-auto {{classes}}">{{name}}</div>
+      {{/url}}
+      {{#href}}
+      </a>
+      {{/href}}
     {{/logo}}
     {{^sidebaronly}}
       <nav class="ampstart-headerbar-nav ampstart-nav xs-hide sm-hide">
-        <ul class="list-reset center m0 p0 flex justify-center">
+        <ul class="list-reset center m0 p0 flex justify-center nowrap">
           {{#nav}}
             {{#link}}
-              <li class="ampstart-nav-item"><a href="{{url}}" class="text-decoration-none">{{text}}</a></li>
+              <li class="ampstart-nav-item {{classes}}"><a href="{{{url}}}" class="text-decoration-none block" {{#target}}target="{{.}}"{{/target}}>{{text}}</a></li>
             {{/link}}
             {{#dropdown}}
-              <li class="ampstart-nav-item ampstart-nav-dropdown relative text-decoration-none">
+              <li class="ampstart-nav-item ampstart-nav-dropdown relative">
                 {{> ampstart/dropdown.snip.html}}
               </li>
             {{/dropdown}}

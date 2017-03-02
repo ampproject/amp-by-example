@@ -16,7 +16,8 @@
     }, {
       "link": {
         "url": "/",
-        "text": "Examples"
+        "text": "Examples",
+        "classes": "www-current-page"
       }
     }, {
       "link": {

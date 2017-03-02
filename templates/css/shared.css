@@ -1,3 +1,25 @@
 * {
- -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+.ampstart-nav-dropdown .ampstart-dropdown-item {
+  color: #B60845;
+  margin: 0;
+}
+.ampstart-icon, .ampstart-sidebar .ampstart-icon {
+  fill: #B60845;
+}
+.ampstart-dropdown-item a {
+  display: block;
+  padding: 8px;
+}
+.ampstart-sidebar .ampstart-dropdown header:active,
+.ampstart-dropdown-item a:active {
+  background: #f2f2f2;
+}
+.ampstart-sidebar .ampstart-dropdown header {
+  padding: 1rem 0;
+  margin: 0;
+}
+.ampstart-sidebar .ampstart-social-follow {
+  margin-top: 1rem;
 }
