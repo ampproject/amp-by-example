@@ -63,7 +63,6 @@
         .another-unavailable-font-missing .another-unavailable-font  {
           color: red;
     }
-
   </style>
 </head>
 <body>
@@ -94,13 +93,13 @@
     on-load-add-class="tangerine-loaded">
   </amp-font>
     <!-- and use an existing font. -->
-  <p class="tangerine">
+  <p class="tangerine p1">
     This text is displayed in red if the chosen font is not supported.
   </p>
   <!--
     This time the font is not available.
   -->
-  <p class="unavailable-font">
+  <p class="unavailable-font p1">
     This text is displayed in red if the chosen font is not supported.
   </p>
   <!-- ## Using only cached fonts -->
@@ -116,7 +115,7 @@
     on-load-remove-class="another-unavailable-font-loading"
     on-load-add-class="another-unavailable-font-loaded">
   </amp-font>
-  <p class="another-unavailable-font">
+  <p class="another-unavailable-font p1">
     This text is displayed in red if the chosen font is not cached.
   </p>
 
