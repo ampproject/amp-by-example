@@ -19,7 +19,6 @@
      the cursor around. See https://codemirror.net/doc/manual.html when
      adding additional features. -->
 <link rel="import" href="../../node_modules/@polymer/polymer/polymer.html">
-<link rel="import" href="../../node_modules/@polymer/paper-material/paper-material.html">
 <link rel="import" href="../../node_modules/@polymer/iron-resizable-behavior/iron-resizable-behavior.html">
 <link rel="import" href="../../node_modules/@polymer/iron-icon/iron-icon.html">
 <link rel="import" href="../../node_modules/@polymer/iron-icons/iron-icons.html">
@@ -41,12 +40,11 @@
     :host ::content .CodeMirror,
     .CodeMirror {
       font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
+      box-shadow: 5px 0 5px -5px rgba(0,0,0,.4);
     }
   </style>
   <template>
-    <paper-material elevation="1">
       <textarea id="code" name="code"></textarea>
-    </paper-material>
   </template>
   <script>
     Polymer({
@@ -99,7 +97,7 @@
         return this.editor.getDoc().addLineWidget(line, domElement);
       },
       _onIronResize: function() {
-        this.editor.setSize('100%', '' + (window.innerHeight - 136) + 'px');
+        this.editor.setSize('100%', '' + (window.innerHeight - 112) + 'px');
       }
     });
   </script>

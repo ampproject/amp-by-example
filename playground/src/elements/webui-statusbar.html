@@ -15,20 +15,14 @@
 -->
 <!-- Very simple status bar displaying PASS / FAIL
      below the editor window. -->
-<link rel="import" href="../../node_modules/@polymer/paper-material/paper-material.html">
 <link rel="import" href="../../node_modules/@polymer/polymer/polymer.html">
 <dom-module id="webui-statusbar">
   <style>
-    paper-material {
+    #status-container {
       transition: all 0.25s ease-in-out;
       background: #fff;
-      margin: 8px;
-    }
-    .ampproject-fail {
-      @apply(--shadow-elevation-8dp);
-    }
-    .ampproject-pass {
-      @apply(--shadow-elevation-2dp);
+      margin: 0;
+      border-top: 1px solid #ddd;
     }
     .ampproject-fail span {
       color: #F44336;
@@ -37,16 +31,16 @@
       color: #4CAF50;
     }
     .ampproject-result {
-      margin: 8px;
-      padding: 16px;
+      margin: 0;
+      padding: 1rem 1.5rem;
     }
   </style>
   <template>
-    <paper-material class$="{{getClass(status)}}">
+    <div id="status-container" class$="{{getClass(status)}}">
       <div class="ampproject-result">Validation Status:
         <span>{{status}}</span>
       </div>
-    </paper-material>
+    </div>
   </template>
   <script>
     Polymer({
