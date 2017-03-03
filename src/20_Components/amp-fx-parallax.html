@@ -24,11 +24,7 @@
 <html ⚡>
 <head>
   <meta charset="utf-8">
-  <script src="https://cdn.ampproject.org/rtv/001488494320004/v0.js"></script>
-  <script>
-    var global = window; // hack for https://github.com/ampproject/amphtml/pull/7942
-    AMP.toggleExperiment('amp-fx-parallax', true); // hack for enabling experiment
-  </script>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
   <!-- #### Setup -->
   <!--
     Import the `amp-fx-parallax` extension in the header.
@@ -40,31 +36,30 @@
 
   <style amp-custom>
     .spacer {
-        height: 2000px;
+      height: 2000px;
     }
 
     .header h1 {
-        color: white;
-        top: 0%;
-        position: absolute;
-        z-index: 1;
-        height: 2000px;
+      color: white;
+      top: 0%;
+      position: absolute;
+      z-index: 1;
+      height: 2000px;
     }
 
     .header {
-        position: relative;
-        overflow: hidden;
+      position: relative;
+      overflow: hidden;
     }
   </style>
 </head>
 <body>
-    <!-- #### Basic Usage -->
-    <!-- In the following example, we are allowing the page title to scroll faster than the page by adding `amp-fx-parallax` attribute and giving it a value greater than `1`. This creates a slide-out-of-sight visual effect. Title is repeated for demonstration purposes only. -->
-    <div class="header">
-        <amp-img  layout="responsive" width="1920" height="1280" src="https://unsplash.it/1920/1280?image=1003"></amp-img>
-        <h1 amp-fx-parallax="1.7"> Page Title <br/>Page Title <br/>Page Title <br/>Page Title <br/>Page Title <br/>Page Title <br/>Page Title <br/>Page Title <br/>Page Title <br/>Page Title <br/>Page Title <br/>Page Title<br/>Page Title<br/>Page Title<br/>Page Title<br/>Page Title<br/>Page Title<br/>Page Title<br/>Page Title<br/></h1>
-    </div>
-
-    <div class="spacer"></div>
+  <!-- #### Basic Usage -->
+  <!-- In the following example, we are allowing the page title to scroll faster than the page by adding `amp-fx-parallax` attribute and giving it a value greater than `1`. This creates a slide-out-of-sight visual effect. Title is repeated for demonstration purposes only. -->
+  <div class="header">
+    <amp-img  layout="responsive" width="1920" height="1280" src="https://unsplash.it/1920/1280?image=1003"></amp-img>
+    <h1 amp-fx-parallax="1.7"> Page Title <br/>Page Title <br/>Page Title <br/>Page Title <br/>Page Title <br/>Page Title <br/>Page Title <br/>Page Title <br/>Page Title <br/>Page Title <br/>Page Title <br/>Page Title<br/>Page Title<br/>Page Title<br/>Page Title<br/>Page Title<br/>Page Title<br/>Page Title<br/>Page Title<br/></h1>
+  </div>
+  <div class="spacer"></div>
 </body>
 </html>
