@@ -5,21 +5,16 @@
   </div>
   <nav class="ampstart-sidebar-nav ampstart-nav">
     <ul class="list-reset m0 p0 caps h5">
-      {{#nav}}
-        {{#link}}
-          <li class="ampstart-nav-item"><a href="{{url}}">{{text}}</a></li>
-        {{/link}}
-        {{#dropdown}}
-          <li class="ampstart-nav-item ampstart-nav-dropdown relative">
-            {{> ampstart/dropdown-inline.snip.html}}
-          </li>
-        {{/dropdown}}
+      {{#categories}}
+        <li class="ampstart-nav-item ampstart-nav-dropdown relative">
+          {{> ampstart/dropdown-inline.snip.html}}
+        </li>
         {{#search}}
           <li  class="ampstart-nav-item ampstart-nav-search">
             <input type="text" placeholder="{{text}}"></input>
           </li>
         {{/search}}
-      {{/nav}}
+      {{/categories}}
     </ul>
   </nav>
 
