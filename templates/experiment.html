@@ -16,11 +16,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     function enableButton(button) {
       const element = document.getElementById(button);
-      element.className = element.className.replace("inactive", "primary");
+      element.removeAttribute('disabled');
     }
 
     function areAllExperimentsEnabled() {
       {{#metadata.experiments}}
+      console.log('isExperimentOn {{.}}:' + AMP.isExperimentOn('{{.}}'));
       if (!AMP.isExperimentOn('{{.}}')) {
         return false;
       }
