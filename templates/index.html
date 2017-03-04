@@ -10,6 +10,12 @@
         min-width: 280px;
         width: 280px;
       }
+      .abe-sample-card .ampstart-btn {
+        padding: 8px;
+      }
+      .abe-sample-card .ampstart-btn:not(.ampstart-btn-secondary) {
+        background-color: transparent;
+      }
       .abe-sample-card-actions {
         margin-top: auto;
       }
@@ -39,14 +45,14 @@
     <header class="www-header center">
       <amp-img src="/img/amp_logo_white.svg" width="80" height="80" layout="fixed" class="mb4" alt="AMP logo"></amp-img>
       <h1 class="mb4">Learn AMP by Example</h1>
-      <span class="block mb4">AMP by Example gives a hands-on introduction to Accelerated Mobile Pages based on code and live samples. Learn how to create web pages with AMP and and how to effectively use AMP components.</span>
+      <span class="block mb4 h3">AMP by Example gives a hands-on introduction to Accelerated Mobile Pages based on code and live samples. <span class="xs-hide sm-hide">Learn how to create web pages with AMP and how to effectively use AMP components.</span></span>
     </header>
   <amp-selector layout="container">
   <main class="flex px2">
     <aside class="www-components-sec-nav col-3 xs-hide sm-hide relative">
-      <ul class="www-component-anchors list-reset m0 p0 px1 caps">
+      <ul class="www-component-anchors list-reset m0 pt0 pb3 px1 caps">
         {{#categories}}
-          <li class="clearfix mb3"><a href="#{{url}}" class="www-component-anchor text-decoration-none left" option="">{{name}}</a></li>
+        <li class="clearfix mb3"><a href="#{{url}}" class="www-component-anchor text-decoration-none left" option="">{{name}}</a></li>
         {{/categories}}
       </ul>
     </aside>

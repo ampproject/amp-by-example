@@ -1,6 +1,9 @@
 * {
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
+.ampstart-headerbar-nav .ampstart-nav-item.www-current-page {
+  color: #B60845;
+}
 .ampstart-nav-dropdown .ampstart-dropdown-item {
   color: #B60845;
   margin: 0;
