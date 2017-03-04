@@ -60,14 +60,14 @@
     </aside>
     <article class="www-components flex-auto col-9">
       {{^isEmbed}} {{#metadata.experiments.length}}
-      <section class="www-component-desc pb2">
+      <section class="www-component-desc pb4">
         <div> {{> experiment.html}} </div>
       </section>
       {{/metadata.experiments.length}} {{/isEmbed}}
 
       {{#sections}}
       {{^metadata.hideDoc}} {{#markedDoc}}
-        <section class="www-component-desc">
+      <section class="www-component-desc">
           {{{markedDoc}}}
           {{^isEmptyCodeSection}}
           <div>
