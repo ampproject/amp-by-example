@@ -31,5 +31,9 @@ body {
 }
 .ampstart-dropdown>section>header:after  {
   color: #B60845;
+  padding: 0 0 0 0.5rem;
+}
+.ampstart-sidebar {
+  width: 340px;
 }
 
