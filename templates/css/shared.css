@@ -29,3 +29,7 @@ body {
 .ampstart-sidebar .ampstart-social-follow {
   margin-top: 1rem;
 }
+.ampstart-dropdown>section>header:after  {
+  color: #B60845;
+}
+
