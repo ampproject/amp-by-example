@@ -68,5 +68,6 @@ code {
 .abe-preview {
   background: #fff;
 }
-
-
+.abe-preview p {
+  padding: 1rem;
+}
