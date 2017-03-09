@@ -7,8 +7,14 @@
       {{> css/shared.css }}
       .abe-sample-card {
         background: #f9f7f7;
-        min-width: 280px;
-        width: 280px;
+        min-width: 240px;
+        width: 0;
+        max-width: 380px;
+      }
+      @media (min-width: 600px) {
+        .abe-sample-card {
+          margin-right: 1rem;
+        }
       }
       .abe-sample-card .ampstart-btn {
         padding: 8px;
@@ -32,6 +38,10 @@
         margin-left: auto;
         margin-right: auto;
       }
+      .abe-sample-card-filler {
+        height: 0;
+        background: none;
+      }
     </style>
     <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
     <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
@@ -42,45 +52,49 @@
   </head>
   <body>
     {{> ampstart/navbar.snip.html}}
-    <header class="www-header center">
-      <amp-img src="/img/amp_logo_white.svg" width="80" height="80" layout="fixed" class="mb4" alt="AMP logo"></amp-img>
-      <h1 class="mb4">Learn AMP by Example</h1>
-      <span class="block mb4 h3">AMP by Example gives a hands-on introduction to Accelerated Mobile Pages based on code and live samples. <span class="xs-hide sm-hide">Learn how to create web pages with AMP and how to effectively use AMP components.</span></span>
+    <header class="www-header">
+      <h1 class="mb4 px2 col-12 sm-col-8 mx-auto">Learn AMP by Example</h1>
+      <span class="h3 block mb4 px2 col-12 sm-col-8 mx-auto">AMP by Example gives a hands-on introduction to Accelerated Mobile Pages based on code and live samples. <span class="xs-hide sm-hide">Learn how to create web pages with AMP and how to effectively use AMP components.</span></span>
     </header>
   <amp-selector layout="container">
   <main class="flex pl2">
-    <aside class="www-components-sec-nav col-3 xs-hide sm-hide relative">
+    <aside class="www-components-sec-nav col-2 xs-hide sm-hide relative">
       <ul class="www-component-anchors list-reset m0 pt0 pb3 px1 caps">
         {{#categories}}
         <li class="clearfix mb3"><a href="#{{url}}" class="www-component-anchor text-decoration-none left" option="">{{name}}</a></li>
         {{/categories}}
       </ul>
     </aside>
-    <article class="www-components flex-auto col-9">
+    <article class="www-components flex-auto col-8">
       {{#categories}}
         <section class="www-component-desc" id="{{url}}">
           <h2 class="www-heading  pb4 mb2 relative">{{name}}</h2>
           <p class="mb4">{{description}}</p>
-          <div class="flex flex-row flex-wrap flex-start">
+          <div class="abe-examples flex flex-wrap">
           {{#examples}}
-          <div class="ampstart-card abe-sample-card flex flex-column flex-start flex-auto px1 pt1 mb1">
+          <div class="ampstart-card abe-sample-card flex flex-column flex-auto p1 mb1">
             <h3 class="mb1">
               {{title}}<i class="{{#experiment}}abe-experiment{{/experiment}}"></i>
             </h3>
             {{#description}} <p class="mb1">{{{ description }}}</p> {{/description}}
             <div class="abe-sample-card-actions">
               {{#metadata.preview}}
-              <button class="ampstart-btn ampstart-btn-secondary caps mb1"><a class="text-decoration-none inline-block" href="{{urlPreview}}">View Demo</a></button>
+              <button class="ampstart-btn ampstart-btn-secondary caps"><a class="text-decoration-none inline-block" href="{{urlPreview}}">Demo</a></button>
               {{/metadata.preview}}
-              <button class="ampstart-btn caps mb1"><a class="text-decoration-none inline-block" href="{{url}}">View Code</a></button>
+              <button class="ampstart-btn caps"><a class="text-decoration-none inline-block" href="{{url}}">Code</a></button>
             </div>
           </div>
           {{/examples}}
+
+          <!-- hack to ensure that cards are aligned in the last line -->
+          <div class="abe-sample-card abe-sample-card-filler flex-auto px1 mr1"></div>
+          <div class="abe-sample-card abe-sample-card-filler flex-auto px1 mr1"></div>
+          <div class="abe-sample-card abe-sample-card-filler flex-auto px1 mr1"></div>
+
           </div>
         </section>
       {{/categories}}
     </article>
-    <aside class="col-2 xs-hide"></aside>
   </main>
   </amp-selector>
     {{> ampstart/footer.snip.html}}
