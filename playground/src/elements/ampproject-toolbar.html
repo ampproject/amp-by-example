@@ -16,55 +16,82 @@
 <!-- Toolbar displayed at the top of the page. This doesn't do much but has a
      lot of styling, so we isolate it to keep the source for other parts of
      the page easier to read. -->
-<link rel="import" href="../../node_modules/@polymer/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../../node_modules/@polymer/polymer/polymer.html">
 <link rel="import" href="../../node_modules/@polymer/iron-flex-layout/iron-flex-layout.html">
 <dom-module id="ampproject-toolbar">
   <style scope="ampproject-toolbar">
-    paper-toolbar {
-      --paper-toolbar-background: #607D8B;
-      --paper-toolbar-color: #f5f5f5;
-      --paper-toolbar: { font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif; };
-      --width: 100%
-      box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+    header {
+      display: flex;
+      -webkit-box-pack: start;
+      -ms-flex-pack: start;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      justify-content: flex-start;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: #fff;
+      color: #000;
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif; 
+      width: 100%;
+      height: 60px;
+      box-sizing: border-box;
+      box-shadow: 0 0 5px 2px rgba(0,0,0,.1);
+      padding-left: 1.5rem;
+      padding-right: 2.5rem;
     }
-    .ampproject-left {
-      @apply(--layout-flex);
-      width: auto;
-      text-transform: none;
+    .ampstart-headerbar-nav {
+      line-height: 3.5rem;
+      -webkit-box-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      padding: 0;
+      margin: 0;
+    }
+    .ampstart-headerbar-nav .ampstart-nav-item.www-current-page a {
+      color: #B60845;
+    }
+    .ampstart-headerbar-nav ul {
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      display: flex;
+      text-align: center;
       white-space: nowrap;
-      background-repeat: no-repeat;
-      background-size: 40px 40px;
-      background-position: center left;
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
-    .ampproject-right {
-      color: #0379C4;
-      margin: 10px 0;
+    .ampstart-headerbar-nav ul li {
+      border-bottom: 4px solid transparent;
+padding: 0 1.5rem;
+    background: 0 0;
+    opacity: .8;
     }
-    .ampproject-link a:link,
-    .ampproject-link a:visited,
-    .ampproject-link a:hover,
-    .ampproject-link a:active {
-      color: #0379C4;
+    .ampstart-headerbar-nav ul li a { 
+      font-size: 16px;
+      color: #000;
+      cursor: pointer;
       text-decoration: none;
-      font-size: 14px;
-      font-weight: 300;
-      letter-spacing: 0.04em;
     }
-    .flex-horizontal {
-      @apply(--layout-horizontal);
-      @apply(--layout-center);
-      margin-bottom: 10px;
+    .ampstart-headerbar-nav ul li.current-page {
+      border-bottom: 4px solid #b60845;
     }
   </style>
+
   <template>
-    <paper-toolbar>
-      <div class="ampproject-left ampproject-link">
-        <a href="https://ampbyexample.com/"
-           target="_blank"><img style="height: 40px; width: 280px"
-                                src="../img/playground-logo.svg"></a>
-      </div>
-    </paper-toolbar>
+    <header class="ampstart-headerbar">
+      <img src="/img/amp_by_example_logo.svg" width="172" height="33"></amp-img>
+      <nav class="ampstart-headerbar-nav ampstart-nav xs-hide sm-hide">
+        <ul class="list-reset center m0 p0 flex justify-center nowrap">
+          <li class="ampstart-nav-item"><a href="/" class="text-decoration-none block">Examples</a></li>
+          <li class="ampstart-nav-item www-current-page current-page"><a href="/playground/" class="text-decoration-none block">Playground</a></li>
+          <li class="ampstart-nav-item"><a href="https://github.com/ampproject/amp-by-example" class="text-decoration-none block">GitHub</a></li>
+          <li class="ampstart-nav-item"><a href="https://www.ampproject.org/learn/about-amp/" class="text-decoration-none block">What is AMP?</a></li>
+        </ul>
+      </nav>
+    </header>
   </template>
   <script>
     Polymer({

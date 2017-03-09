@@ -1,19 +1,19 @@
 <header>
-  <a id="hamburger" class="button" on="tap:drawermenu.toggle">
+  <a id="hamburger" class="ampstart-btn" on="tap:drawermenu.toggle">
     <amp-img srcset="/img/ic_menu_white_1x_web_24dp.png 1x, /img/ic_menu_white_2x_web_24dp.png 2x" width="24" height="24" alt="navigation"></amp-img>
   </a>
   <a id="logo" href="/"></a>
   <div id="actions">
     {{#urlSource}}
     {{^metadata.hideCode}}
-    <a href="/playground/#url={{host}}{{urlSource}}" class="button">
+    <a href="/playground/#url={{host}}{{urlSource}}" class="ampstart-btn">
       <amp-img srcset="/img/ic_mode_edit_white_24dp_1x.png 1x, /img/ic_mode_edit_white_24dp_2x.png 2x" width="24" height="24" alt="edit"></amp-img>
       <span>Edit in Playground</span>
     </a>
     {{/metadata.hideCode}}
     {{/urlSource}}
     {{#metadata.preview}}
-    <a href="{{urlPreview}}" class="button hide-on-mobile"> 
+    <a href="{{urlPreview}}" class="ampstart-btn hide-on-mobile">
       <amp-img srcset="/img/ic_play_arrow_white_2x_web_24dp.png 1x, /img/ic_play_arrow_white_2x_web_24dp.png 2x" width="24" height="24" alt="preview"></amp-img>
       <span>View Demo</span>
     </a>

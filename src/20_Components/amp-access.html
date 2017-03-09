@@ -1,4 +1,4 @@
-<!-- #### Introduction
+<!-- ## Introduction
   The [amp-access](https://www.ampproject.org/docs/reference/components/amp-access) component adds support for paywalls and subscriptions to AMP, allowing the publisher to control which content is accessible by the reader and with what restrictions.
 
   For sample `amp-access` server endpoints, see the [amp-publisher-sample](https://github.com/ampproject/amp-publisher-sample) project.
@@ -10,7 +10,7 @@
   <meta charset="utf-8">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
 
-  <!-- #### Setup -->
+  <!-- ## Setup -->
   <!-- Import the `amp-access` component in the header. -->
   <script async custom-element="amp-access" src="https://cdn.ampproject.org/v0/amp-access-0.1.js"></script>
   <!-- `amp-access` requires `amp-analytics` to be imported as well. -->
@@ -77,11 +77,11 @@
 
   `amp-access-hide` will default the component to be hidden and enabled later
   if the `amp-access` expression is evaluated to `TRUE` -->
-  <div amp-access="NOT subscriber" amp-access-hide role="button" tabindex="0">
-    <a on="tap:amp-access.login">Login</a>
+  <div class="p1" amp-access="NOT subscriber" amp-access-hide role="button" tabindex="0">
+    <a class="ampstart-btn caps" on="tap:amp-access.login">Login</a>
   </div>
   <!-- The logout link will only be shown for logged in subscribers. -->
-  <div amp-access="subscriber" amp-access-hide role="button" tabindex="0">
+  <div class="p1" amp-access="subscriber" amp-access-hide role="button" tabindex="0">
     <a href="https://rocky-sierra-1919.herokuapp.com/amp-access/login/logout">Logout</a>
   </div>
   <!-- Checkout the [official amp-access sample](https://rocky-sierra-1919.herokuapp.com/) for demos of first-click-free and view counting. -->

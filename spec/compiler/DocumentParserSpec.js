@@ -24,7 +24,7 @@ describe("DocumentParser", function() {
   var BODY = '<body>';
   var BODY_END = '</body>';
   var TAG = '<h1>hello</h1>';
-  var EMPTY_LINE = ' ';
+  var EMPTY_LINE = '';
   var WRAPPED_TAG = `<h1
     class="test">
     hello

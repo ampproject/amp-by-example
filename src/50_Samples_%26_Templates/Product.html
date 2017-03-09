@@ -6,7 +6,7 @@
   "experiments": ["amp-form-var-sub", "amp-bind"]
   }--->
 <!--
-#### Introduction
+## Introduction
 
 This sample showcases how to build a product page in AMP HTML.
 -->
@@ -43,20 +43,11 @@ This sample showcases how to build a product page in AMP HTML.
       height: 100%;
       position: absolute;
     }
-    amp-accordion p, amp-accordion h4 {
-      padding: 16px;
-    }
     amp-accordion h4 {
       font-size: 18px;
     }
     amp-carousel .selected {
       border: solid 2px red;
-    }
-    .play {
-      padding-left: 28px;
-      background-position: left center;
-      background-repeat: no-repeat;
-      background-image: -webkit-image-set(url(/img/ic_play_circle_filled_black_1x_web_24dp.png) 1x,url(/img/ic_play_circle_filled_black_2x_web_24dp.png) 2x);
     }
     .amp-youtube-container {
       display: flex;
@@ -64,9 +55,6 @@ This sample showcases how to build a product page in AMP HTML.
       justify-content: center;
       width: 100%;
       height: 100%;
-    }
-    #video-container, #social, form .button {
-      margin: 16px;
     }
     .video {
       flex: 1;
@@ -78,9 +66,6 @@ This sample showcases how to build a product page in AMP HTML.
       margin-bottom: 16px;
       padding: 0 16px;
     }
-    .quantity {
-      margin: 16px 0;
-    }
     .product-gallery > ul {
       margin: 0;
       padding: 0;
@@ -90,7 +75,7 @@ This sample showcases how to build a product page in AMP HTML.
     }
     .product-gallery > ul > li {
       cursor: pointer;
-      margin: 0 8px 8px 8px;
+      margin: 0 1em 1em 1em;
       opacity: 1;
       will-change: opacity;
       transition: all 0.3s cubic-bezier(.25,.8,.25,1);
@@ -101,18 +86,11 @@ This sample showcases how to build a product page in AMP HTML.
     .product-gallery > ul > li:focus {
       outline: none;
     }
-    form#order {
-      display: flex;
-    }
     form#order label {
       display: inline;
       font-weight: 500;
       font-size: 16px;
       margin: 0;
-    }
-    form#order div {
-      display: flex;
-      align-items: center;
     }
     form#order .button {
       width: 100%;
@@ -235,9 +213,13 @@ div.square {
   }
 }
 
+a.item {
+  text-decoration: none;
+}
+
     </style>
 
-    <!-- #### Metadata -->
+    <!-- ## Metadata -->
     <!-- The page indexing requires schema.org markup for one of the following types: Type, AggregateRating, Offers. [Learn more](https://developers.google.com/structured-data/carousels/top-stories#markup_specification). -->
     <script type="application/ld+json">
     {
@@ -275,7 +257,7 @@ div.square {
     </head>
     <body>
 
-      <!-- #### Navigation -->
+      <!-- ## Navigation -->
       <!-- Use the [amp-sidebar](/components/amp-sidebar/) component to give customers the chance to quickly jump to any of your product categories.-->
       <amp-sidebar id="drawermenu" layout="nodisplay">
         <div class="topheader">
@@ -286,7 +268,7 @@ div.square {
         <h4 class="category"><a href="/samples_templates/product_listing/preview/">Vegetable</a></h4>
         <h4 class="category"><a href="/samples_templates/product_listing/preview/">More</a></h4>
       </amp-sidebar>
-      <!-- #### Header with Search -->
+      <!-- ## Header with Search -->
       <!-- AMP supports forms, which means you can directly integrate a product search into your AMPs. Try searching for "Apple".-->
       <!-- AMP doesn't support custom Javascript, but you can use CSS3 animations to enrich your page. The expanding text field when the search box is focused is implemented with CSS only.-->
       <div class="header">
@@ -302,11 +284,11 @@ div.square {
         </form>
       </div>
 
-      <h2>Apple</h2>
+      <h2 class="m1">Apple</h2>
 
-      <!-- #### Social Sharing -->
+      <!-- ## Social Sharing -->
       <!-- The Social Share extension provides a common interface for share buttons. Learn more about `amp-social-share` [here](/components/amp-social-share/). -->
-      <div id="social">
+      <div class="m1">
         <amp-social-share type="twitter"
                           width="30"
                           height="22"></amp-social-share>
@@ -325,14 +307,16 @@ div.square {
                           height="22"></amp-social-share>
       </div>
 
-      <p id="product-description">Lorem ipsum dolor sit amet, ut sed non vel mattis. Et nulla suscipit ante ligula nisl in. Ut venenatis et mauris, mauris porta vulputate tellus mauris integer facilisis.</p>
-      <!-- #### Video -->
+      <p id="product-description" class="m1">Lorem ipsum dolor sit amet, ut sed non vel mattis. Et nulla suscipit ante ligula nisl in. Ut venenatis et mauris, mauris porta vulputate tellus mauris integer facilisis.</p>
+      <!-- ## Video -->
       <!-- AMP supports a wide range of video platforms. Here we are using `amp-youtube` to show a product video. You can find an overview of all supported video platforms [here](/advanced/integrating_videos_in_amp_an_overview/).-->
       <!-- In this sample we don't embed the video directly into the page, but instead show it in a lightbox using the `amp-lightbox` component. Learn more about `amp-lightbox` [here](/components/amp-lightbox/).-->
 
-      <div id="video-container">
-        <a on="tap:watch-video-lightbox" role="button" class="button button-secondary play" tabindex="0">
-          Show Video
+      <div class="m1">
+        <a on="tap:watch-video-lightbox" role="button"  tabindex="0">
+          <button class="ampstart-btn caps">
+            Show Video
+          </button>
         </a>
 
         <amp-lightbox id="watch-video-lightbox" layout="nodisplay">
@@ -349,7 +333,7 @@ div.square {
         </div>
       </amp-lightbox>
     </div>
-    <!-- #### Slides preview Gallery -->
+    <!-- ## Slides preview Gallery -->
     <!--On desktop we've added a film strip like slide preview. Each product colour has its own image gallery and slide preview.
     We use [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind) to update the page selecting the gallery and image preview
     corresponding to the selected colour. We realized the color selection by using `amp-selector`. Find more the doc and info in The Product Page section below.
@@ -358,7 +342,7 @@ div.square {
     Clicking on a preview image will reveal the image in the gallery via the tap action `on="tap:product-carousel-preview.goToSlide(index=0)"`.
 
     See below for more informations on how we use`amp-bind`. -->
-       <div class="product-gallery">
+  <div class="product-gallery">
     <ul class="show" [class]="selectedColor == 'green' ? 'show' : 'hide'">
       <li tabindex="0" role="button">
         <amp-img on="tap:AMP.setState(selectedSlide=0)"
@@ -404,7 +388,7 @@ div.square {
        </li>
      </ul>
    </div>
-   <!-- #### Image Gallery -->
+   <!-- ## Image Gallery -->
   <!-- The `amp-carousel` component works very well for product image galleries. Learn how the `amp-carousel` component works [here](/advanced/image_galleries_with_amp-carousel/).
 
   Notice how we are binding to the `slide` and `class` by using to the values of the variables `selectedSlide` and `selectedColor`. -->
@@ -461,7 +445,7 @@ div.square {
     </amp-carousel>
 
   </div>
-  <!-- #### Product Configuration -->
+  <!-- ## Product Configuration -->
   <!-- We use the `amp-state` component (part of [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind))
       to configure the product price depending on the color and the size. We also configure the `defaultSize`
       for each product when you switch between colours -->
@@ -496,7 +480,7 @@ div.square {
   </script>
 </amp-state>
 
-    <!-- #### Product price -->
+    <!-- ## Product price -->
     <!-- We use [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind) to update the price of the product
       depending on the selected colour.
 
@@ -514,7 +498,7 @@ div.square {
         <span [text]="product[selectedColor || 'green'].sizes[selectedSize || 'S']">$1.99</span>
     </p>
 
-    <!-- #### Product page -->
+    <!-- ## Product page -->
     <!-- The add-to-cart action action is implemented using  [amp-form](/components/amp-form/). In our sample we use the [amp-selector](/components/amp-selector/) for selecting different product properties.
     Pressing the `ADD TO CART` button adds the product to a shopping cart page using the properties you have selected. Notice that the button URL contains the query `clientId={{ClientId}}`.
     If an item is successfully added to the shopping cart, we redirect the user to the shopping cart page.
@@ -527,14 +511,14 @@ div.square {
 
       <form id="order" method="POST"
             action-xhr="/samples_templates/product/add_to_cart"
-            target="_top">
-        <div>
+            target="_top" class="flex flex-wrap m1">
+        <div class="items-center flex">
           <label for="color">Color:</label>
           <amp-selector name="color"
                   layout="container"
                   [selected]="selectedColor"
                   on="select:AMP.setState(selectedColor=event.targetOption, selectedSlide=0, selectedSize='S')">
-            <ul>
+            <ul class="p0 m1">
               <li>
                 <div option="green" selected class="square green" width="40" height="40"></div>
               </li>
@@ -547,29 +531,31 @@ div.square {
             </ul>
           </amp-selector>
         </div>
-        <div>
+        <div class="items-center flex">
           <label for="quantity">Quantity:</label>
           <amp-selector name="quantity" layout="container">
-            <ul>
+            <ul class="p0 m1">
               <li option="1" selected>1</li>
               <li option="2">2</li>
               <li option="3">3</li>
             </ul>
           </amp-selector>
         </div>
-        <div>
+        <div class="items-center flex">
           <label for="size">Size:</label>
           <amp-selector name="size" layout="container"
                   on="select:AMP.setState(selectedSize=event.targetOption)"
                   [selected]="product[selectedColor || 'green'].sizes[selectedSize || 'S'] != 'unavailable' ? selectedSize : product[selectedColor || 'green'].defaultSize">
-            <ul>
+            <ul class="p0 m1">
               <li option="S" class="" [class]="product[selectedColor || 'green'].sizes['S'] != 'unavailable' ? '' : 'unavailable'">S</li>
               <li option="M" class="" selected [class]="product[selectedColor || 'green'].sizes['M'] != 'unavailable' ? '' : 'unavailable'">M</li>
               <li option="L" class="unavailable" [class]="product[selectedColor || 'green'].sizes['L'] != 'unavailable' ? '' : 'unavailable'">L</li>
             </ul>
           </amp-selector>
         </div>
-        <input type="submit" class="button button-primary" name="add-to-cart" value="add to cart">
+        <div class="items-center flex">
+          <input type="submit" class="ampstart-btn caps" name="add-to-cart" value="add to cart">
+        </div>
         <input type="hidden" name="name" value="Apple">
         <input type="hidden" name="price" value="$1.99">
         <input name="clientId" type="hidden" value="CLIENT_ID(cart)" data-amp-replace="CLIENT_ID">
@@ -580,32 +566,32 @@ div.square {
         </div>
       </form>
 
-    <!-- #### Collapsibles/Accordion -->
+    <!-- ## Collapsibles / Accordion -->
     <!-- Use `amp-accordion` to hide and show additional data about your product. Learn more about `amp-accordion` [here](/components/amp-accordion/). -->
     <div>
       <amp-accordion>
         <section>
-          <h4>Description</h4>
-          <p>Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
+          <h4 class="p1">Description</h4>
+          <p class="p1">Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
         </section>
         <section>
-          <h4>Specification</h4>
-          <p>Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
+          <h4 class="p1">Specification</h4>
+          <p class="p1">Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
         </section>
         <section>
-          <h4>Measurements</h4>
-          <p>Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
+          <h4 class="p1">Measurements</h4>
+          <p class="p1">Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
         </section>
         <section>
-          <h4>Other</h4>
-          <p>Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
+          <h4 class="p1">Other</h4>
+          <p class="p1">Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
         </section>
       </amp-accordion>
     </div>
 
-    <!-- #### Dynamic Related Product Lists -->
+    <!-- ## Dynamic Related Product Lists -->
     <!--  -->
-    <h5 id="related-products">Related products</h5>
+    <h5 id="related-products" class="m1">Related products</h5>
     <!--
     With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
      Learn more about `amp-list` [here](/components/amp-list/)
@@ -630,7 +616,7 @@ div.square {
 </amp-list>
 
   <!--
-    #### User Analytics
+    ## User Analytics
   -->
   <!--
     Analytics must be configured in the body. Here we use Google Analytics to track pageviews.

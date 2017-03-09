@@ -19,6 +19,17 @@
 const S = require('string');
 const highlight = require('highlight.js').highlight;
 const marked = require('marked');
+const renderer = new marked.Renderer();
+renderer.heading = function (text, level) {
+  const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
+  return '<h' + level + ' id="' + escapedText +
+    '" class="www-heading pb4 mb2 relative h3">' + text + '</h' + level +
+    '>';
+};
+renderer.paragraph = function (text) {
+  return '<p class="mb2 px1">' + text + '</p>';
+};
+
 const encodedTemplateRegexp = /\[\[\s*<.*?>([A-Za-z]*?)\s*(<.*?>)?(\.[A-Za-z]*)?\s*<\/span>\s*\]\]/g
 
 marked.setOptions({
@@ -32,7 +43,7 @@ marked.setOptions({
 });
 const COMMENT_START = '<!--';
 const COMMENT_END = '-->';
-const HIDDEN_LINE_COUNT_THRESHOLD = 4;
+const HIDDEN_LINE_COUNT_THRESHOLD = 1;
 
 module.exports = class CodeSection {
 
@@ -51,15 +62,23 @@ module.exports = class CodeSection {
     this.isLastSection = true;
     this.isFirstSection = false;
     this.commentOffset = 0;
+    this.codeOffset = 0;
+    this.headings = [];
   }
 
   appendDoc(doc) {
-    this.doc += this.normalizeDoc(doc) + '\n';
+    const normalizedDoc = this.normalizeDoc(doc);
+    this.extractHeadings(normalizedDoc);
+    this.doc += normalizedDoc + '\n';
     this.cachedMarkedDoc = false;
   }
 
   appendCode(code) {
-    this.code += code + '\n';
+    if (!this.code) {
+      this.codeOffset = code.search(/\S|$/);
+    }
+    const startIndex = this.stripLeadingWhitespace(code, this.codeOffset);
+    this.code += code.substring(startIndex) + '\n';
   }
 
   appendPreview(code) {
@@ -73,7 +92,9 @@ module.exports = class CodeSection {
 
   markedDoc() {
     if (!this.cachedMarkedDoc) {
-      this.cachedMarkedDoc = marked(this.doc);
+      this.cachedMarkedDoc = marked(this.doc, {
+        renderer: renderer
+      });
     }
     return this.cachedMarkedDoc;
   }
@@ -86,8 +107,16 @@ module.exports = class CodeSection {
     return this.hideCodeOnMobile() || !this.preview.trim();
   }
 
+  isEmptyCodeSection() {
+    return this.code.trim().length === 0;
+  }
+
+  showPreview() {
+    return !this.isEmptyCodeSection() && this.inBody;
+  }
+
   hideCodeOnMobile() {
-    return this.hideDocOnMobile() || !this.code.trim();
+    return this.hideDocOnMobile() || this.isEmptyCodeSection();
   }
 
   hideColumns() {
@@ -111,7 +140,8 @@ module.exports = class CodeSection {
   normalizeDoc(string) {
     let startIndex = string.indexOf(COMMENT_START);
     if (startIndex == -1) {
-      startIndex = this.stripLeadingWhitespace(string);
+      startIndex = 
+        this.stripLeadingWhitespace(string, this.commentOffset);
     } else {
       this.commentOffset = startIndex;
       startIndex = startIndex + COMMENT_START.length;
@@ -123,10 +153,10 @@ module.exports = class CodeSection {
     return string.substring(startIndex, endIndex);
   }
 
-  stripLeadingWhitespace(string) {
+  stripLeadingWhitespace(string, offset) {
     let startIndex = 0;
-    for (let i = 0; i < this.commentOffset; i++) {
-      if (string.charAt(i) == ' ') {
+    for (let i = 0; i < offset; i++) {
+      if (string.charAt(i) === ' ') {
         startIndex++;
       } else {
         break;
@@ -138,5 +168,18 @@ module.exports = class CodeSection {
   cleanUpCode(input) {
     return input.replace(encodedTemplateRegexp,"[[$1 $3]]");
   }
+
+  extractHeadings(line) {
+    const matches = line.match(/^\s*#+\s*(.+)$/m);
+    if (!matches) {
+      return;
+    }
+    const name = matches[1].trim();
+    const heading = {
+      id: name.toLowerCase().replace(/[^\w]+/g, '-'),
+      name: name
+    };
+    this.headings.push(heading);
+  };
 };
 

@@ -17,12 +17,12 @@
   preview will be rendered inside an iframe. -->
 <dom-module id="webui-preview">
   <style scope="webui-preview">
-    paper-material {
+    #preview-container {
       overflow-y: scroll;
       background-color: white;
       position: relative;
       width: 100%;
-      height: calc(100vh - 136px)
+      height: calc(100vh - 112px)
     }
     #previewIframe {
       position: absolute;
@@ -36,11 +36,11 @@
     }
   </style>
   <template>
-    <paper-material elevation="1">
+    <div id="preview-container">
       <iframe id="previewIframe" 
         frameBorder="0" 
         sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
-    </paper-material>
+    </div>
   </template>
   <script>
     var PREVIEW_REQUEST_URL = 'playground/preview/';

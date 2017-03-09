@@ -49,6 +49,7 @@ const PROD = 'prod';
 const paths = {
   dist: {
     dir: 'dist',
+    css: 'dist/css',
     html: 'dist/**/*.html',
     samples: ['dist/**/*.html'],
     img: 'dist/img',
@@ -81,6 +82,7 @@ const paths = {
   },
   videos: 'src/video/*.{mp4,webm}',
   json: 'src/json/*.json',
+  css: 'templates/css/*.css',
   scripts: 'src/scripts/*.js',
   fonts: 'src/fonts/*.ttf',
   wellknown: '.well-known/assetlinks.json'
@@ -182,6 +184,12 @@ gulp.task('copy:json', 'copy example json', function() {
       .pipe(gulp.dest(paths.dist.json));
 });
 
+gulp.task('copy:css', 'copy css', function() {
+  return gulp.src(paths.css)
+      .pipe(cache('css'))
+      .pipe(gulp.dest(paths.dist.css));
+});
+
 gulp.task('copy:node-modules', function() {
   const modules = paths.nodeModules.map(
     module => 'node_modules/' + module + '/**/*'
@@ -252,7 +260,7 @@ gulp.task("compile:favicons", function() {
       .pipe(gulp.dest(paths.dist.favicons));
 });
 
-const shouldIgnoreSample = function (file) {
+const shouldIgnoreSample = function(file) {
   if (!file.path.endsWith('.html')) {
     return true;
   }
@@ -414,9 +422,7 @@ gulp.task('api:serve', 'Run the go api backend', function(){
 });
 
 gulp.task('validate', 'runs all checks', function(callback) {
-  runSequence('clean',
-              'build',
-              'test',
+  runSequence('test',
               'validate:example',
               'lint',
               'lint:backend',
@@ -498,6 +504,7 @@ gulp.task('build', 'build all resources', [
   'copy:images',
   'copy:videos',
   'copy:json',
+  'copy:css',
   'copy:fonts',
   'copy:node-modules',
   'copy:scripts',

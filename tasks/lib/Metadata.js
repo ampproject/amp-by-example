@@ -24,7 +24,7 @@ module.exports.add = function(args) {
   const fileName = args.fileName;
   const canonical = args.config.host + fileName;
   const logo = args.config.host + '/img/favicon.png';
-  const leader = args.config.host + '/img/abe_preview.png';
+  const leader = args.config.host + '/img/social.png';
   const metadata = {
     datePublished: timestamp,
     dateModified: timestamp,

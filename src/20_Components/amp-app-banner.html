@@ -5,7 +5,7 @@
   }
 --->
 <!--
-  #### Introduction
+  ## Introduction
 
   [amp-app-banner](https://www.ampproject.org/docs/reference/components/amp-app-banner) provides a minimal UI for a cross-platform, fixed-position banner showing a call-to-action to install an app. In particular, `amp-app-banner` works inside an AMP viewer such as the Top Stories carousel in Google Search. Outside of the AMP viewer, the native app banners will be displayed instead of `amp-app-banner` in Safari on iOS and in Chrome on Android.
 -->
@@ -15,7 +15,7 @@
 <head>
   <meta charset="utf-8">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
-  <!-- #### Setup -->
+  <!-- ## Setup -->
   <!--
   Import the `amp-app-banner` component.
   -->
@@ -37,9 +37,7 @@
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
 <style amp-custom>
-button {
-  min-width: 0;
-}
+
 #banner {
   display: flex;
   width: 100%;
@@ -61,18 +59,11 @@ button {
   padding: 0 8px;
 }
 
-#banner button[open-button] {
-  color: #00ab6b;
-  width: 120px;
-  height: 49px;
-  padding: 0;
-  margin: 0;
-}
 </style>
 </head>
 <body>
 
-  <!-- #### Basic Usage -->
+  <!-- ## Basic Usage -->
   <!--
 The `amp-app-banner` can be fully customized by the developer as long as the height doesn't exceed 100px.  One required UI element is a button with the attribute `[open-button]`, which triggers the app install, or opens the deep-link if the app is already installed.
   -->
@@ -82,11 +73,11 @@ The `amp-app-banner` can be fully customized by the developer as long as the hei
     </div>
     <div id="banner-text">Learn more about AMP in the Medium App.</div>
     <div id="banner-action">
-      <button open-button>View in app</button>
+      <button class="ampstart-btn mr1 caps" open-button>View in app</button>
     </div>
   </amp-app-banner>
 
-  <!-- #### Demo -->
+  <!-- ## Demo -->
 
   <!--
   The custom app banner shows up in AMP Viewers. The banner action opens the document's canonical URL as deep-link inside the app:
@@ -106,7 +97,7 @@ The `amp-app-banner` can be fully customized by the developer as long as the hei
   </amp-video>
   -->
 
-  <!-- #### Testing -->
+  <!-- ## Testing -->
   <!--
     The amp-app-banner will only show in browsers that don't provide their own app install banner. This means Chrome on Android or Safari on iOS will not show the amp-app-banner, but the native install banner. For testing amp-app-banner you can open this page:
 

@@ -3,7 +3,7 @@
   "default": "preview"
   }--->
 <!--
-#### Introduction
+## Introduction
 
 This sample showcases how to build a comment section in AMP HTML using the [amp-form](https://www.ampproject.org/docs/reference/components/amp-form) component after a successful login flow. Login, type a comment and press the COMMENT button; your comment will not be persisted, so reload the page if you want to start commenting again.
 -->
@@ -23,14 +23,13 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     <link rel="canonical" href="<%host%>/samples_templates/comment_section/">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <style amp-custom>
-    form {
-      padding-right: 0px;
-    }
     form.amp-form-submit-success [submit-success] {
         width: 100%;
         color: black;
     }
-    form.amp-form-submit-success > div.comment-user,
+    form.amp-form-submit-success > amp-img,
+    form.amp-form-submit-success > .ampstart-input,
+    form.amp-form-submit-success > input,
     form.amp-form-submit-success .button{
         display: none;
     }
@@ -49,23 +48,10 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
         margin: 0 16px 16px 0;
         width: 100%;
     }
-    .button-primary {
-      margin: 16px
-    }
-    .user-avatar {
-      margin-right: 16px;
-      flex-shrink: 0;
-    }
-    .comments-container {
-      padding-left: 16px;
-    }
-    .comment-user {
-      display: flex;
-    }
     </style>
 
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-    <!-- [amp-access](/components/amp-access) requires the definition of 3 endpoints as documented [here](https://www.ampproject.org/docs/reference/components/amp-access). This sample allows an user to login and logout: this is realized by specifying two different endpoints in the login property, `sign-in` and `sign-out`, find more [here](https://www.ampproject.org/docs/reference/components/amp-access#login-page)-->
+    <!-- [amp-access](/components/amp-access) requires the definition of 3 endpoints as documented [here](https://www.ampproject.org/docs/reference/components/amp-access). This sample allows an user to login and logout: this is realized by specifying two different endpoints in the login property, `sign-in` and `sign-out`, find more [here](https://www.ampproject.org/docs/reference/components/amp-access#login-page). -->
     <script id="amp-access" type="application/json">
     {
         "authorization": "<%host%>/samples_templates/comment_section/authorization?rid=READER_ID&url=CANONICAL_URL&ref=DOCUMENT_REFERRER&_=RANDOM",
@@ -82,16 +68,16 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     </script>
     </head>
     <body>
-    <!-- #### Add a Comment Section -->
+    <!-- ## Add a Comment Section -->
     <!-- -->
-    <h5>Comments</h5>
+    <h5 class="m1">Comments</h5>
 
     <!-- Use `amp-list` to render existing comments to make sure that the latest comments appear if the page is loaded via AMP Cache.  -->
-      <amp-list width="auto" height="200" layout="fixed-height" src="/json/comments.json">
+      <amp-list class="mt1" width="auto" height="125" layout="fixed-height" src="/json/comments.json">
         <template type="amp-mustache">
-          <div class="comment-user comments-container">
-            <amp-img width="44" height="44" class="user-avatar" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
-            <div class="card comment">
+          <div class="flex px1">
+            <amp-img width="44" height="44" class="mr1 flex-none" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
+            <div class="ampstart-card p1">
               <p><span class="user">{{user}}</span> <span class="date">{{datetime}}</span></p>
               <p>{{text}}</p>
             </div>
@@ -103,23 +89,23 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     action should be taken when clicking on the login button: `login` defines the property inside the `amp-access` json configuration, while `sign-in` defines
     the endpoint. -->
     <span amp-access="NOT loggedIn" role="button" tabindex="0" amp-access-hide>
-          <h5>Please login to comment</h5>
-          <button on="tap:amp-access.login-sign-in" class="button-primary comment-button">Login</button>
+          <h5 class="m1">Please login to comment</h5>
+          <button on="tap:amp-access.login-sign-in" class="ampstart-btn mx1 mt1 caps">Login</button>
     </span>
       <!-- We specify the logout via a login endpoint to be able to use the `return URL` environment variable. -->
-      <button amp-access="loggedIn" amp-access-hide tabindex="0" on="tap:amp-access.login-sign-out" class="button-primary comment-button">Logout</button>
+      <button amp-access="loggedIn" amp-access-hide tabindex="0" on="tap:amp-access.login-sign-out" class="ampstart-btn mx1 mt1 caps">Logout</button>
       <!-- Use amp-form to submit the comment. In this sample, only a single comment can be added as comments are not persisted in the backend.  -->
-      <form amp-access="loggedIn" amp-access-hide method="post" action-xhr="/samples_templates/comment_section/submit-comment-xhr" target="_top">
-        <div class="comment-user">
-          <amp-img width="44" class="user-avatar" height="44" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
-          <input type="text" class="data-input" name="text" placeholder="Your comment..." required>
+      <form class="px1 pt1 flex" amp-access="loggedIn" amp-access-hide method="post" action-xhr="/samples_templates/comment_section/submit-comment-xhr" target="_top">
+        <amp-img width="44" height="44" class="flex-none mr1" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
+        <div class="ampstart-input inline-block mr1">
+          <input type="text" name="text" placeholder="Your comment..." required>
         </div>
-        <input type="submit" value="Comment" class="button button-primary comment-button">
-        <div submit-success>
+        <input type="submit" value="Comment" class="ampstart-btn caps mt1">
+        <div submit-success class="pt1">
           <template type="amp-mustache">
-            <div class="comment-user">
-              <amp-img width="44" class="user-avatar" height="44" alt="user" src="{{UserImg}}"></amp-img>
-              <div class="card comment">
+            <div class="flex">
+              <amp-img width="44" class="mr1 flex-none" height="44" alt="user" src="{{UserImg}}"></amp-img>
+              <div class="ampstart-card p1 comment">
                <p><span class="user">{{User}}</span> <span class="date">{{Datetime}}</span></p>
                <p>{{Text}}</p>
               </div>
