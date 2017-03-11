@@ -4,9 +4,9 @@
 
   <div class="abe-experiment-warning-buttons flex flex-wrap">
     <button id="experiment-toggle" class="ampstart-btn ampstart-btn-secondary caps mr1 mt1" disabled>Enable Experiment{{#metadata.experiments.1}}s{{/metadata.experiments.1}}</button>
-    <button id="canary-toggle" class="ampstart-btn ampstart-btn-secondary caps mt1" disabled>
-      <a class="caps inline-block white text-decoration-none" href="https://cdn.ampproject.org/experiments.html" target="_blank">Enable Dev Channel</a>
-    </button>
+    <a id="canary-toggle"
+      class="ampstart-btn ampstart-btn-secondary caps mt1 disabled"
+      href="https://cdn.ampproject.org/experiments.html" target="_blank"><span class="caps inline-block white text-decoration-none">Enable Dev Channel</span></a>
   </div>
 </div>
 <!-- BEGIN INVALID AMP - don't try at home -->
@@ -14,9 +14,13 @@
 document.addEventListener("DOMContentLoaded", function(event) {
   (window.AMP = window.AMP || []).push(function(AMP) {
 
-    function enableButton(button) {
-      const element = document.getElementById(button);
-      element.removeAttribute('disabled');
+    function enableButton(elementId) {
+      const element = document.getElementById(elementId);
+      if (element.nodeName.toLowerCase() === 'button') {
+        element.removeAttribute('disabled');
+      } else {
+        element.classList.remove('disabled');
+      }
     }
 
     function areAllExperimentsEnabled() {

@@ -79,9 +79,11 @@
             {{#description}} <p class="mb1">{{{ description }}}</p> {{/description}}
             <div class="abe-sample-card-actions">
               {{#metadata.preview}}
-              <button class="ampstart-btn ampstart-btn-secondary caps"><a class="text-decoration-none inline-block" href="{{urlPreview}}">Demo</a></button>
+              <a class="ampstart-btn ampstart-btn-secondary caps"
+                href="{{urlPreview}}"><span class="text-decoration-none inline-block">Demo</span></a>
               {{/metadata.preview}}
-              <button class="ampstart-btn caps"><a class="text-decoration-none inline-block" href="{{url}}">Code</a></button>
+              <a class="ampstart-btn caps"
+                href="{{url}}"><span class="text-decoration-none inline-block">Code</span></a>
             </div>
           </div>
           {{/examples}}
