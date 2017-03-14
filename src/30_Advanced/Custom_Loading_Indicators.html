@@ -56,8 +56,8 @@
 
 <!-- ## Default loading indicator -->
 <!-- While loading content from an endpoint, the default loading indicator (three dots) will be displayed. This iframe takes 5 seconds to be returned by the slow-iframe endpoint. -->
-<amp-iframe width="500" height="400"
-            layout="responsive"
+<amp-iframe width="auto" height="250"
+            layout="fixed-height"
             frameborder="0"
             src="<%host%>/samples_templates/slow-iframe/?delay=5000">
 </amp-iframe>
@@ -67,15 +67,17 @@
   The `slow-json` endpoint returns a basic JSON response, with a configurable delay (10 seconds), in order to see the loading indicator.
   Our custom loading indicator has a class of `custom-loader`.
 -->
-<amp-list class="custom-loader" width="auto" height="250" layout="fixed-height" src="<%host%>/samples_templates/slow-json/?delay=10000">
-  <template type="amp-mustache">
-    <div>
-      <p>{{title}}</p>
-    </div>
-  </template>
+<amp-list class="custom-loader" 
+          width="auto" 
+          height="250" 
+          layout="fixed-height" 
+          src="<%host%>/samples_templates/slow-json/?delay=10000">
+          <template type="amp-mustache">
+            <div>
+              <p>{{title}}</p>
+            </div>
+          </template>
 </amp-list>
-
-
 
 </body>
 </html>
