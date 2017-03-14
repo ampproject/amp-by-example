@@ -31,6 +31,8 @@ func InitPlayground() {
 	http.HandleFunc("/playground/fetch", handler)
 	validRequestUrlOrigins = map[string]bool{
 		"ampbyexample.com":                   true,
+		"ampstart.com":                       true,
+		"ampstart-staging.firebaseapp.com":   true,
 		"localhost:8080":                     true,
 		"amp-by-example-staging.appspot.com": true,
 	}
