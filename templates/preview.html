@@ -24,11 +24,11 @@
         </a>
       </div>
     <div id="abe-preview" class="ampstart-card m1">
+      {{#metadata.experiments.length}}
       <div class="p1">
-        {{#metadata.experiments.length}}
         {{> experiment.html}}
-        {{/metadata.experiments.length}}
       </div>
+      {{/metadata.experiments.length}}
     {{/isEmbed}}
       {{#sections}}
       {{{preview}}}
