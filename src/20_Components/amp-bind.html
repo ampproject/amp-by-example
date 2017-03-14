@@ -86,7 +86,7 @@
   1. `text` for [textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent)
   2. `class` for [CSS classes](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class)
   3. [Element-specific attributes](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md#bindable-attributes),
-    for example, the `src` attribute for &lt;amp-img&gt; or &lt;amp-video&gt;.
+    for example, the `src` attribute for `amp-img` or `amp-video`.
 
   To create a binding, create a new attribute on an element with the form:
 
@@ -96,7 +96,7 @@
 
 <!-- ## Binding Text -->
 <!--
-The text of this &lt;p&gt; will change when the `currentAnimal` variable
+  The text of this `<p>` will change when the `currentAnimal` variable
 changes. `currentAnimal` is an uninitialized implicit state variable, which will be
    set when a state change is triggered (see below).
 
@@ -105,7 +105,7 @@ changes. `currentAnimal` is an uninitialized implicit state variable, which will
 
 <!-- ## Binding Styles -->
 <!--
-  Styling can be changed by applying css classes. It will override all the element's style classes. `allAnimals` is the `id` of the &lt;amp-state&gt; component above.
+  Styling can be changed by applying css classes. It will override all the element's style classes. `allAnimals` is the `id` of the `amp-state` component above.
 -->
   <p [class]="allAnimals[currentAnimal].style" class="greenBackground">Each animal has a different background color.</p>
 <!-- ## Binding Attribute Values -->
@@ -119,7 +119,7 @@ Various AMP components support binding attribute values with amp-bind. For examp
   <!--
     The src URL for videos embedded with `amp-video` can be changed. At the moment, among all the AMP video components, only amp-video supports amp-bind.
   -->
-  <amp-video src="/video/dog-video.mp4" layout="responsive" [src]="allAnimals[currentAnimal].videoUrl" width="300" height="200" autoplay controls="true"></amp-video>
+  <amp-video src="/video/dog-video.mp4" layout="responsive" [src]="allAnimals[currentAnimal].videoUrl" width="300" height="170" autoplay controls="true"></amp-video>
 
   <!-- ## Triggering updates -->
   <!--
@@ -128,7 +128,7 @@ Various AMP components support binding attribute values with amp-bind. For examp
 
   - `AMP.setState` merges new state into existing implicit state
   - Existing state can be overwritten, including state initialized by
-    &lt;amp-state&gt; components
+    `amp-state` components
   -->
   <button class="ampstart-btn caps m1"
       on="tap:AMP.setState(currentAnimal='cat')">Set to Cat</button>
