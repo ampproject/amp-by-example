@@ -8,7 +8,7 @@ pre > code {
 }
 code {
   background: #f9f7f7;
-  padding: 4px;
+  padding: 2px 4px;
 }
 .www-component-desc:last-child {
   padding-bottom: 4rem;
