@@ -22,6 +22,16 @@
       .abe-sample-card .ampstart-btn:not(.ampstart-btn-secondary) {
         background-color: transparent;
       }
+      .abe-sample-card a.ampstart-btn-secondary:active,
+      .abe-sample-card a.ampstart-btn-secondary:focus,
+      .abe-sample-card a.ampstart-btn-secondary:hover,
+      .abe-sample-card a.ampstart-btn-secondary, 
+      .abe-sample-card a.ampstart-btn-secondary.disabled, 
+      .abe-sample-card a.ampstart-btn-secondary.disabled:focus, 
+      .abe-sample-card a.ampstart-btn-secondary.disabled:hover,
+      .abe-sample-card a.ampstart-btn-secondary {
+        border: 1px solid #b60845;
+      }
       .abe-sample-card-actions {
         margin-top: auto;
       }
@@ -79,11 +89,11 @@
             {{#description}} <p class="mb1">{{{ description }}}</p> {{/description}}
             <div class="abe-sample-card-actions">
               {{#metadata.preview}}
-              <a class="ampstart-btn ampstart-btn-secondary caps"
-                href="{{urlPreview}}"><span class="text-decoration-none inline-block">Demo</span></a>
+              <a class="ampstart-btn ampstart-btn-secondary caps text-decoration-none inline-block"
+                 href="{{urlPreview}}">Demo</a>
               {{/metadata.preview}}
-              <a class="ampstart-btn caps"
-                href="{{url}}"><span class="text-decoration-none inline-block">Code</span></a>
+              <a class="ampstart-btn caps text-decoration-none inline-block"
+                 href="{{url}}">Code</a>
             </div>
           </div>
           {{/examples}}

@@ -43,10 +43,49 @@ body {
   pointer-events: none;
   opacity: 0.5;
 }
+a.ampstart-btn,
+a.ampstart-btn[disabled], 
+a.ampstart-btn[disabled]:focus, 
+a.ampstart-btn[disabled]:hover,
+.ampstart-btn[disabled], 
+.ampstart-btn[disabled]:focus, 
+.ampstart-btn[disabled]:hover,
 .ampstart-btn {
   color: #b60845;
   border: 1px solid #b60845;
 }
+
+a.ampstart-btn:active,
+a.ampstart-btn:focus,
+a.ampstart-btn:hover,
+.ampstart-btn:active,
+.ampstart-btn:focus,
+.ampstart-btn:hover {
+  color: #db004d;
+  border: 1px solid #db004d;
+}
+
+a.ampstart-btn-secondary:active,
+a.ampstart-btn-secondary:focus,
+a.ampstart-btn-secondary:hover,
+.ampstart-btn-secondary:active,
+.ampstart-btn-secondary:focus,
+.ampstart-btn-secondary:hover {
+  color: #fff;
+  background: #db004d;
+  border: 1px solid #fff;
+}
+
+.ampstart-btn-secondary[disabled], 
+.ampstart-btn-secondary[disabled]:focus, 
+.ampstart-btn-secondary[disabled]:hover,
+.ampstart-btn-secondary, 
+a.ampstart-btn-secondary, 
+a.ampstart-btn-secondary.disabled, 
+a.ampstart-btn-secondary.disabled:focus, 
+a.ampstart-btn-secondary.disabled:hover,
 a.ampstart-btn-secondary {
   color: #fff;
+  background: #b60845;
+  border: 1px solid #fff;
 }
