@@ -42,6 +42,13 @@ body {
 .ampstart-sidebar {
   width: 340px;
 }
+.ampstart-input>label {
+  color: #b60845;
+}
+.ampstart-input>label:after {
+  background: #b60845;
+}
+
 .ampstart-btn.disabled {
   pointer-events: none;
   opacity: 0.5;
