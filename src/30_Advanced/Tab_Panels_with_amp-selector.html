@@ -17,6 +17,7 @@
     <!-- Import `amp-selector` in the header -->
     <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
     <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+    <!-- There's just a bit of css that's needed -->
     <style amp-custom>       
         .ampTabContainer {
             display: flex;
@@ -46,6 +47,7 @@
             display: block;
         }
 
+        /* For example below (not required) */
         .itemCustom {
             border: 1px solid #000;
             height: 280px;
@@ -71,7 +73,7 @@
         <div role="tabpanel" class="tabContent">Tab three content... </div>
     </amp-selector>
     <!--
-    #### Tab panels including `amp-carousel` as the content.
+    #### Tab panels using `amp-carousel`.
     -->
     <amp-selector role="tablist" layout="container" class="ampTabContainer">
         <div role="tab" class="tabButton" selected option="a">Images</div>
@@ -88,7 +90,7 @@
         </amp-carousel>
     </amp-selector>
     <!--
-    #### Tab panels can also have varying heights
+    #### Tab panels with varying heights
     -->
     <amp-selector role="tablist" layout="container" class="ampTabContainer">
         <div role="tab" class="tabButton" selected option="a">Tall Container</div>
