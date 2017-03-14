@@ -43,3 +43,10 @@ body {
   pointer-events: none;
   opacity: 0.5;
 }
+.ampstart-btn {
+  color: #b60845;
+  border: 1px solid #b60845;
+}
+a.ampstart-btn-secondary {
+  color: #fff;
+}
