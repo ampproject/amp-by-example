@@ -47,7 +47,6 @@
       -webkit-tap-highlight-color: rgba(0,0,0,0);
       -webkit-tap-highlight-color: transparent;
       /* border: 1px solid red;  /* debug */
-      margin-bottom: 1em;
     }
 
     /* the stars */
@@ -121,7 +120,7 @@
   We want the form to submit as soon as the user makes a selection, without a Submit button. To do that, we'll set the [`on` attribute](https://github.com/ampproject/amphtml/blob/master/spec/amp-html-format.md#on) of the `input`s to submit the form on [`change`](https://www.ampproject.org/docs/reference/components/amp-form#input-events).
 
   The initial rating is determined by which radio button has the `checked` attribute set. This is optional. -->
-  <form id="rating" method="post" action-xhr="/samples_templates/rating/set" target="_blank">
+  <form id="rating" class="p2" method="post" action-xhr="/samples_templates/rating/set" target="_blank">
     <fieldset class="rating">
 
       <input name="rating" type="radio" class="ampstart-input ampstart-input-radio inline-block relative m0 p0 mb3" id="rating5" value="5" on="change:rating.submit"/>
