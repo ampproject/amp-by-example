@@ -42,12 +42,13 @@
       .input-container {
         display: flex;
       }
-      .input-container .responsive {
+      .input-container .responsive-input {
         flex: 1;
+        margin: auto 0;
       }
-      .input-container .fixed {
+      .input-container .fixed-input {
         flex: 0;
-        margin: 0 0 0 16px;
+        margin: auto 0 auto 1rem;
       }
       .input-container div input {
         font-size: 14px;
@@ -57,14 +58,20 @@
       .result-container {
         padding: 16px 0 0 0;
       }
+      .ampstart-input>label {
+        color: #b60845;
+      }
     </style>
   </head>
-  <body>
+  <body class="py1">
     <section class="input-container">
-      <div class="responsive">
-        <input id="input" type="text">
+      <div class="ampstart-input inline-block relative m0 p0 mb3 responsive-input">
+        <input type="text" value="" name="input" id="input" class="block border-none p0 m0" placeholder="Enter an URL">
+        <label for="ip1" class="absolute top-0 right-0 bottom-0 left-0">
+          Enter an URL
+        </label>
       </div>
-      <div class="fixed">
+      <div class="fixed-input">
         <button id="execute" class="ampstart-btn">Convert</button>
       </div>
     </section>
