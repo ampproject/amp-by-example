@@ -68,6 +68,12 @@ code {
 .abe-preview {
   background: #fff;
 }
-.abe-preview p {
+.abe-preview>h1,
+.abe-preview>h2,
+.abe-preview>h3,
+.abe-preview>h4,
+.abe-preview>figure,
+.abe-preview>section,
+.abe-preview>p {
   padding: 1rem;
 }
