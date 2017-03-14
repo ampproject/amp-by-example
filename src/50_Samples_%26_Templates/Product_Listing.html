@@ -61,9 +61,9 @@ This sample showcases how to build a product listing page in AMP HTML.
       <a href="/" class="home">Products by Example</a>
     </div>
     <hr/>
-    <h4 class="category expanded"><a href="/samples_templates/product_listing/preview/">Fruit</a></h4>
-    <h4 class="category"><a href="/samples_templates/product_listing/preview/">Vegetable</a></h4>
-    <h4 class="category"><a href="/samples_templates/product_listing/preview/">More</a></h4>
+    <h2 class="category expanded"><a href="/samples_templates/product_listing/preview/">Fruit</a></h2>
+    <h2 class="category"><a href="/samples_templates/product_listing/preview/">Vegetable</a></h2>
+    <h2 class="category"><a href="/samples_templates/product_listing/preview/">More</a></h2>
   </amp-sidebar>
   <!-- ## Header with Search -->
   <!--
@@ -75,7 +75,7 @@ This sample showcases how to build a product listing page in AMP HTML.
     <a id="sample-menu" on="tap:drawermenu.toggle">
       <amp-img srcset="/img/ic_menu_white_1x_web_24dp.png 1x, /img/ic_menu_white_2x_web_24dp.png 2x" width="24" height="24" alt="navigation"></amp-img>
     </a>
-    <form class="mb4" method="GET" action="<%host%>/samples_templates/product_listing[[.Mode]]/search" target="_top">
+    <form method="GET" action="<%host%>/samples_templates/product_listing[[.Mode]]/search" target="_top">
       <input type="search" placeholder="Search">
       <a id="sample-logo" href="/">Products by Example</a>
       <input type="submit" value="">
@@ -99,7 +99,7 @@ This sample showcases how to build a product listing page in AMP HTML.
     </a>
   </amp-carousel>
 
-  <h5>[[.Title]]</h5>
+  <h3>[[.Title]]</h3>
 
   <div class="items">
     [[range .Products]]
@@ -120,7 +120,7 @@ This sample showcases how to build a product listing page in AMP HTML.
 
 <!-- ## Offers & Highlights -->
 <!-- -->
-<h5 class="deals">Recommendations</h5>
+<h3 class="deals">Recommendations</h3>
   <!-- The `amp-carousel` supports also a more traditional carousel mode.   -->
   <amp-carousel class="m1" width="auto" height="160" layout="fixed-height" type="carousel" autoplay>
     <a class="m1" href="#" role="listitem">
@@ -168,7 +168,7 @@ This sample showcases how to build a product listing page in AMP HTML.
 </amp-carousel>
 
 <!-- -->
-<h5 class="deals">Bestsellers</h5>
+<h3 class="deals">Bestsellers</h3>
 <!--
 With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
  Learn more about `amp-list` [here](/components/amp-list/)
