@@ -48,7 +48,19 @@ body {
 .ampstart-input>label:after {
   background: #b60845;
 }
-
+.ampstart-input input[type=checkbox], .ampstart-input input[type=radio] {
+  border: 1px solid #b60845;
+}
+.ampstart-input input[type=checkbox]:checked:after,
+.ampstart-input input[type=checkbox]:after,
+.ampstart-input input[type=checkbox]:checked,
+.ampstart-input input[type=radio]:checked, 
+.ampstart-input input[type=radio]:after {
+  background: none;
+}
+.ampstart-input input[type=radio]:checked:after {
+  background: #b60845;
+}
 .ampstart-btn.disabled {
   pointer-events: none;
   opacity: 0.5;
