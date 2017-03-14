@@ -39,24 +39,24 @@
 </head>
 <body>
   <!-- This section is visible to all users. No special markup is needed in this case.-->
-  <div>
+  <section>
     <h3>The Article</h3>
     <p>
       This is a preview of the article.
     </p>
-  </div>
+  </section>
 
    <!-- Use the `amp-access` attribute to control the visibility of each component. The expression
    must evaluate to a boolean value. If it evaluates to `TRUE`, the section will be shown.  -->
-  <div amp-access="access">
+  <section amp-access="access">
     <p>This section is visible to users if the authorization response contains: <code>"access": true</code>. This is usually the main content of the article.</p>
-  </div>
+  </section>
 
   <!-- This section is only shown if the value of the `access` attribute on the response for
   the authorization requests evaluates to `FALSE`-->
-  <div amp-access="NOT access">
+  <section amp-access="NOT access">
     <p>This section is only visible to users if the authorization response does not contain <code>access</code> or contains <code>"access": false</code>.</p>
-  </div>
+  </section>
 
   <!-- It is possible to combine two values on the evaluation expression.
     Check the docs to find out more about the [Expression Grammar](https://www.ampproject.org/docs/reference/components/amp-access#appendix-a-amp-access-expression-grammar)
@@ -66,24 +66,24 @@
   </div>
 
   <!-- Combine `amp-access` and `amp-mustache` to show information returned from the authorization request. In this case we show the number of free views left for non-subscribers. -->
-  <div amp-access="access AND views">
+  <section amp-access="access AND views">
     <template amp-access-template type="amp-mustache">
       You are viewing article {{views}} of {{maxViews}} free articles this month!
     </template>
-  </div>
+  </section>
 
   <!-- Use `on="tap:amp-access.login"` to open the login dialog when the element is
   clicked.
 
   `amp-access-hide` will default the component to be hidden and enabled later
   if the `amp-access` expression is evaluated to `TRUE` -->
-  <div class="p1" amp-access="NOT subscriber" amp-access-hide role="button" tabindex="0">
+  <section class="p1" amp-access="NOT subscriber" amp-access-hide role="button" tabindex="0">
     <a class="ampstart-btn caps" on="tap:amp-access.login">Login</a>
-  </div>
+  </section>
   <!-- The logout link will only be shown for logged in subscribers. -->
-  <div class="p1" amp-access="subscriber" amp-access-hide role="button" tabindex="0">
+  <section class="p1" amp-access="subscriber" amp-access-hide role="button" tabindex="0">
     <a href="https://rocky-sierra-1919.herokuapp.com/amp-access/login/logout">Logout</a>
-  </div>
+  </section>
   <!-- Checkout the [official amp-access sample](https://rocky-sierra-1919.herokuapp.com/) for demos of first-click-free and view counting. -->
 </body>
 </html>
