@@ -99,7 +99,7 @@ This sample showcases how to build a product listing page in AMP HTML.
     </a>
   </amp-carousel>
 
-  <h3>[[.Title]]</h3>
+  <h3 class="pl1 pt2 pb2">[[.Title]]</h3>
 
   <div class="items">
     [[range .Products]]
@@ -120,7 +120,7 @@ This sample showcases how to build a product listing page in AMP HTML.
 
 <!-- ## Offers & Highlights -->
 <!-- -->
-<h3 class="deals">Recommendations</h3>
+<h3 class="pl1 pt2 pb2">Recommendations</h3>
   <!-- The `amp-carousel` supports also a more traditional carousel mode.   -->
   <amp-carousel class="m1" width="auto" height="160" layout="fixed-height" type="carousel" autoplay>
     <a class="m1" href="#" role="listitem">
@@ -168,7 +168,7 @@ This sample showcases how to build a product listing page in AMP HTML.
 </amp-carousel>
 
 <!-- -->
-<h3 class="deals">Bestsellers</h3>
+<h3 class="pl1 pt2 pb2">Bestsellers</h3>
 <!--
 With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
  Learn more about `amp-list` [here](/components/amp-list/)
