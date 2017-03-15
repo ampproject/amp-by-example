@@ -312,7 +312,7 @@ a.item {
       <!-- AMP supports a wide range of video platforms. Here we are using `amp-youtube` to show a product video. You can find an overview of all supported video platforms [here](/advanced/integrating_videos_in_amp_an_overview/).-->
       <!-- In this sample we don't embed the video directly into the page, but instead show it in a lightbox using the `amp-lightbox` component. Learn more about `amp-lightbox` [here](/components/amp-lightbox/).-->
 
-      <button class="ampstart-btn caps m1" on="tap:watch-video-lightbox" >
+      <button class="ampstart-btn caps m1 mb3" on="tap:watch-video-lightbox" >
         Show Video
       </button>
 
@@ -549,7 +549,7 @@ a.item {
             </ul>
           </amp-selector>
         </div>
-        <div class="items-center flex">
+        <div class="items-center flex my1">
           <input type="submit" class="ampstart-btn caps" name="add-to-cart" value="add to cart">
         </div>
         <input type="hidden" name="name" value="Apple">
@@ -592,24 +592,24 @@ a.item {
     With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
      Learn more about `amp-list` [here](/components/amp-list/)
     -->
-    <amp-list class="items"
+    <amp-list class="items p1"
               width="200"
               height="100"
               layout="responsive"
               src="/json/related_products.json">
       <template type="amp-mustache">
-    <a class="tile item" href="/samples_templates/product/preview/">
-      <amp-img width="640"
-               height="426"
-               layout="responsive"
-               alt="{{name}}"
-               src="{{img}}"></amp-img>
-             <p class="name">{{name}}</p>
-             <p class="star">{{{stars}}}</p>
-             <p class="price">${{price}}</p>
-    </a>
-  </template>
-</amp-list>
+        <a class="tile item" href="/samples_templates/product/preview/">
+          <amp-img width="640"
+                   height="426"
+                   layout="responsive"
+                   alt="{{name}}"
+                   src="{{img}}"></amp-img>
+                 <p class="name">{{name}}</p>
+                 <p class="star">{{{stars}}}</p>
+                 <p class="price">${{price}}</p>
+        </a>
+      </template>
+    </amp-list>
 
   <!--
     ## User Analytics
