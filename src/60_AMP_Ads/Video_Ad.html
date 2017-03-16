@@ -1,0 +1,196 @@
+<!---{
+ "preview": "a4a"
+}--->
+<!--
+  ## Introduction
+
+  Sample [AMP Ad](https://github.com/ampproject/amphtml/issues/3133) using `amp-video` to display a video ad with layers and playback control.
+
+  The code represents the body that should be returned as a response initiated through an [`amp-ad` component](/components/amp-ad/) or otherwise whenever we want to return an AMP Ad in any other context.
+
+  AMP provides a basic [action system](https://github.com/ampproject/amphtml/blob/master/spec/amp-actions-and-events.md) to control the page based on user events. This can be used to hide and show elements and to control the playback of the video.
+
+  For more information about the video component, see the [`amp-video` example page.](https://ampbyexample.com/components/amp-video/)
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <link rel="canonical" href="<%host%>/amp_for_ads_a4a/a4a_video_ad/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!-- ## Setup -->
+  <!--
+  Import the video component in the header.
+  -->
+  <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
+
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+  <!-- ## Styling -->
+  <!--
+  This is a relatively advanced example that requires some styling to make it
+  look and function properly.
+  -->
+  <style amp-custom>
+    #splash-container, #video-container {
+      /* Set to ad dimensions */
+      width: 300px;
+      height: 168px;
+
+      /* Set so children can position themselves in relation to the container */
+      position: relative;
+
+      /* Basic font styles */
+      font-family: sans-serif;
+      line-height: 1;
+      color: #fff;
+    }
+    .brand {
+      /* Place in top-left corner */
+      position: absolute;
+      z-index: 1;
+      top: 10px;
+      left: 10px;
+    }
+    .watch-video {
+      /* Position roughly in vertical center */
+      position: absolute;
+      z-index: 1;
+      top: 70px;
+      left: 10px;
+
+      /* Button styles */
+      padding: 7px;
+      border: gray solid 1px;
+      border-radius: 7px;
+      background-color: rgba(0, 0, 0, 0.8);
+      cursor: pointer;
+    }
+    .title {
+      /* Place beneath "Watch Video" button */
+      position: absolute;
+      z-index: 1;
+      top: 110px;
+      left: 10px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+
+      /* Font styles */
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .close {
+      /* Place in top-right corner */
+      position: absolute;
+      z-index: 1;
+      right: 10px;
+      top: 10px;
+
+      /* Button styles */
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 18px;
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+      text-align: center;
+    }
+    #pause, #play {
+      /* Place in bottom-right corner */
+      position: absolute;
+      z-index: 1;
+      right: 10px;
+      bottom: 10px;
+
+      /* Button styles */
+      border: 1px solid grey;
+      vertical-align: center;
+      text-align: center;
+      background-color: rgba(0,0,0, 0.8);
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ## Full Markup -->
+  <!--
+  Create the necessary markup to show two layers that represent the two ad
+  states.
+
+  **Splash layer**
+
+  A `<div>` that contains a static image, text, and a button to open the video
+  layer.
+
+  **Video layer**
+
+  A `<div>` that contains the video and buttons to play/pause and close the
+  video layer.
+
+  The video is embedded using the [`amp-video` component](https://developers.googleblog.com/2016/12/amp-cache-updates.html), which can be controlled by the `play` and `pause` actions.
+
+  **Action handlers**
+
+  The buttons contain action handlers that respond to the `tap` event. After tapping the "Watch Video" button, the splash layer will hide, the video layer will show and the video will play.
+
+  Note how the play and pause buttons are two different elements that are hidden and shown based on playback action.
+  -->
+  <div id="my-video-ad">
+    <div id="splash-container">
+      <span class="brand">
+        Best Hotels Corp
+      </span>
+      <span class="title">
+        Amazing views from our collection of luxury hotel rooms.
+      </span>
+      <div role="button"
+        class="watch-video"
+        on="tap:splash-container.hide,
+                video-container.show,
+                my-video.play,
+                play.hide,
+                pause.show">
+        Watch Video
+      </div>
+      <amp-img src="https://ampbyexample.com/img/tokyo.jpg"
+        width="300"
+        height="168">
+      </amp-img>
+    </div>
+    <div id="video-container"
+         hidden>
+      <amp-video id="my-video"
+        layout="fixed-height"
+        height="168"
+        src="https://ampbyexample.com/video/tokyo.mp4">
+      </amp-video>
+      <div role="button"
+        class="close"
+        on="tap:video-container.hide,
+                splash-container.show,
+                my-video.pause">
+        ×
+      </div>
+      <div role="button"
+        id="pause"
+        on="tap:my-video.pause,
+                play.show,
+                pause.hide">
+        ||
+      </div>
+      <div role="button"
+        id="play"
+        on="tap:my-video.play,
+                play.hide,
+                pause.show">
+        ▶
+      </div>
+    </div>
+  </div>
+</body>
+</html>
