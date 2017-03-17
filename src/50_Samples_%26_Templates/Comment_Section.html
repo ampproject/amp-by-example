@@ -70,7 +70,7 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     <body>
     <!-- ## Add a Comment Section -->
     <!-- -->
-    <h2 class="m1">Comments</h2>
+    <h2 class="p1">Comments</h2>
 
     <!-- Use `amp-list` to render existing comments to make sure that the latest comments appear if the page is loaded via AMP Cache.  -->
       <amp-list class="mt1" width="auto" height="230" layout="fixed-height" src="/json/comments.json">
@@ -96,13 +96,13 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
       <form class="px1 pt1 flex" amp-access="loggedIn" amp-access-hide method="post" action-xhr="/samples_templates/comment_section/submit-comment-xhr" target="_top">
         <amp-img width="44" height="44" class="flex-none mr1 mt1" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
         <div class="ampstart-input inline-block relative m0 p0 mb3">
-          <input type="text" value="" name="name1" id="ip1" class="block border-none p0 m0" placeholder="Your comment ...">
+          <input type="text" value="" name="text" id="ip1" class="block border-none p0 m0" placeholder="Your comment ...">
           <label for="ip1" class="absolute top-0 right-0 bottom-0 left-0">
             Your comment ...
           </label>
         </div>
         <input type="submit" value="Comment" class="ampstart-btn caps m1">
-        <div submit-success class="pt1">
+        <div submit-success>
           <template type="amp-mustache">
             <div class="flex">
               <amp-img width="44" class="mr1 flex-none" height="44" alt="user" src="{{UserImg}}"></amp-img>
