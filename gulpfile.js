@@ -127,67 +127,70 @@ gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
 gulp.task('deploy:prod', 'deploy to production server', function(callback) {
   config.env = PROD;
   runSequence('clean',
-              'robots:allow',
-              'build',
-              'deploy:site:prod',
-              'deploy:api:prod',
-              callback);
+    'robots:allow',
+    'build',
+    'deploy:site:prod',
+    'deploy:api:prod',
+    callback);
 });
 
 gulp.task('deploy:staging', 'deploy to staging server', function(callback) {
   config.env = PROD;
   config.host = 'https://amp-by-example-staging.appspot.com';
   runSequence('clean',
-              'robots:disallow',
-              'build',
-              'deploy:site:staging',
-              callback);
+    'robots:disallow',
+    'build',
+    'deploy:site:staging',
+    callback);
 });
 
-gulp.task('conf:encode', 'encode the config file', function(){
+gulp.task('conf:encode', 'encode the config file', function() {
   return run('openssl aes-256-cbc -e -in ' + paths.api.conf + ' -out ' +
     paths.api.conf + '.enc -pass env:AMP_BY_EXAMPLE_DEPLOY_KEY').exec();
 });
 
-gulp.task('conf:decode', 'decode the config file', function(){
+gulp.task('conf:decode', 'decode the config file', function() {
   return run('openssl aes-256-cbc -d -in ' + paths.api.conf + '.enc -out ' +
     paths.api.conf + ' -pass env:AMP_BY_EXAMPLE_DEPLOY_KEY').exec();
 });
 
-gulp.task('deploy:site:prod', 'deploy to production site', function(){
+gulp.task('deploy:site:prod', 'deploy to production site', function() {
   return run('goapp deploy -application  amp-by-example -version 1').exec();
 });
 
-gulp.task('deploy:api:prod', 'deploy to production api app engine', function(){
-  return run('cd api && goapp deploy -application  amp-by-example-api -version 1').exec();
+gulp.task('deploy:api:prod', 'deploy to production api app engine', function() {
+  return run(
+      'cd api && goapp deploy -application  amp-by-example-api -version 1')
+    .exec();
 });
 
-gulp.task('deploy:site:staging', 'deploy to staging app engine', function(){
-  return run('goapp deploy -application  amp-by-example-staging -version 1').exec();
+gulp.task('deploy:site:staging', 'deploy to staging app engine', function() {
+  return run('goapp deploy -application  amp-by-example-staging -version 1')
+    .exec();
 });
 
 gulp.task('copy:images', 'copy example images', function() {
   return gulp.src(paths.images)
-      .pipe(cache('img'))
-      .pipe(gulp.dest(paths.dist.img));
+    .pipe(cache('img'))
+    .pipe(gulp.dest(paths.dist.img));
 });
 
 gulp.task('copy:videos', 'copy example videos', function() {
   return gulp.src(paths.videos)
-      .pipe(cache('video'))
-      .pipe(gulp.dest(paths.dist.video));
+    .pipe(cache('video'))
+    .pipe(gulp.dest(paths.dist.video));
 });
 
 gulp.task('copy:json', 'copy example json', function() {
   return gulp.src(paths.json)
-      .pipe(cache('json'))
-      .pipe(gulp.dest(paths.dist.json));
+    .pipe(cache('json'))
+    .pipe(gulp.dest(paths.dist.json));
 });
 
 gulp.task('copy:css', 'copy css', function() {
   return gulp.src(paths.css)
-      .pipe(cache('css'))
-      .pipe(gulp.dest(paths.dist.css));
+    .pipe(cache('css'))
+    .pipe(gulp.dest(paths.dist.css));
 });
 
 gulp.task('copy:node-modules', function() {
@@ -201,63 +204,63 @@ gulp.task('copy:node-modules', function() {
 
 gulp.task('copy:fonts', 'copy example fonts', function() {
   return gulp.src(paths.fonts)
-      .pipe(cache('fonts'))
-      .pipe(gulp.dest(paths.dist.fonts));
+    .pipe(cache('fonts'))
+    .pipe(gulp.dest(paths.dist.fonts));
 });
 
 gulp.task('copy:well-known', 'copy well-known folder', function() {
   return gulp.src(paths.wellknown)
-      .pipe(cache('wellknown'))
-      .pipe(gulp.dest(paths.dist.wellknown));
+    .pipe(cache('wellknown'))
+    .pipe(gulp.dest(paths.dist.wellknown));
 });
 
 gulp.task('copy:scripts', 'copy scripts', function() {
   return gulp.src(paths.scripts)
-      .pipe(cache('scripts'))
-      .pipe(gulp.dest(paths.dist.scripts));
+    .pipe(cache('scripts'))
+    .pipe(gulp.dest(paths.dist.scripts));
 });
 
 gulp.task('copy:license', 'copy license', function() {
   return gulp.src('LICENSE')
-      .pipe(cache('static'))
-      .pipe(rename(function(path) {
-        path.extname = ".txt";
-      }))
-      .pipe(gulp.dest(paths.dist.dir));
+    .pipe(cache('static'))
+    .pipe(rename(function(path) {
+      path.extname = ".txt";
+    }))
+    .pipe(gulp.dest(paths.dist.dir));
 });
 
 gulp.task('copy:static', 'copy static files', function() {
   return gulp.src(paths.static)
-      .pipe(cache('static'))
-      .pipe(gulp.dest(paths.dist.dir));
+    .pipe(cache('static'))
+    .pipe(gulp.dest(paths.dist.dir));
 });
 
 gulp.task("compile:favicons", function() {
   return gulp.src(paths.favicon)
-      .pipe(cache('static'))
-      .pipe(favicons({
-        appName: "AMP by Example",
-        appDescription: "Accelerated Mobile Pages in Action",
-        developerName: "Sebastian Benz",
-        developerURL: "http://sebastianbenz.de/",
-        background: "#607D8B",
-        path: "/favicons/",
-        url: Metadata.HOST,
-        display: "standalone",
-        orientation: "none",
-        version: 1.0,
-        logging: false,
-        online: false,
-        html: "favicons.html",
-        pipeHTML: true,
-        replace: true,
-        "icons": {
-          "opengraph": false,
-          "twitter": false
-        }
-      }))
-      .on("error", gutil.log)
-      .pipe(gulp.dest(paths.dist.favicons));
+    .pipe(cache('static'))
+    .pipe(favicons({
+      appName: "AMP by Example",
+      appDescription: "Accelerated Mobile Pages in Action",
+      developerName: "Sebastian Benz",
+      developerURL: "http://sebastianbenz.de/",
+      background: "#607D8B",
+      path: "/favicons/",
+      url: Metadata.HOST,
+      display: "standalone",
+      orientation: "none",
+      version: 1.0,
+      logging: false,
+      online: false,
+      html: "favicons.html",
+      pipeHTML: true,
+      replace: true,
+      "icons": {
+        "opengraph": false,
+        "twitter": false
+      }
+    }))
+    .on("error", gutil.log)
+    .pipe(gulp.dest(paths.dist.favicons));
 });
 
 const shouldIgnoreSample = function(file) {
@@ -301,15 +304,18 @@ function shouldMinifyHtml(file) {
 
 gulp.task('compile:example', 'generate index.html and examples', function() {
   return gulp.src(paths.samples)
-      .pipe(compileExample(config))
-      .pipe(gulpIf(shouldMinifyHtml, htmlmin({collapseWhitespace: true})))
-      .pipe(gulp.dest(paths.dist.dir));
+    .pipe(compileExample(config))
+    .pipe(gulpIf(shouldMinifyHtml, htmlmin({
+      collapseWhitespace: true,
+      caseSensitive: true
+    })))
+    .pipe(gulp.dest(paths.dist.dir));
 });
 
 gulp.task('compile:sitemap', 'generate sitemap.xml', function() {
   return gulp.src(paths.samples)
-      .pipe(sitemap(config))
-      .pipe(gulp.dest(paths.dist.dir));
+    .pipe(sitemap(config))
+    .pipe(gulp.dest(paths.dist.dir));
 });
 
 gulp.task('create', 'create a new AMP example', function() {
@@ -328,19 +334,21 @@ gulp.task('create', 'create a new AMP example', function() {
   } else {
     throwInvalidArgumentError('example category or directory missing');
   }
-  return file(examplePath, '', {src: true})
-      .pipe(createExample(config))
-      .pipe(gulp.dest(paths.src));
+  return file(examplePath, '', {
+      src: true
+    })
+    .pipe(createExample(config))
+    .pipe(gulp.dest(paths.src));
 });
 
 function throwInvalidArgumentError(message) {
   throw new gutil.PluginError({
     plugin: 'create',
     message: gutil.colors.red('\nError: ' + message + '\n\n') +
-        gutil.colors.blue('create a new category:\n') +
-        'gulp create -n "The Name" -c "The Category"\n\n' +
-        gutil.colors.blue('add to existing category:\n') +
-        'gulp create -n "The Name" -d src/directory'
+      gutil.colors.blue('create a new category:\n') +
+      'gulp create -n "The Name" -c "The Category"\n\n' +
+      gutil.colors.blue('add to existing category:\n') +
+      'gulp create -n "The Name" -d src/directory'
   });
 }
 
@@ -350,7 +358,9 @@ gulp.task('clean', 'delete all generated resources', function() {
 });
 
 gulp.task('watch', 'watch for changes in the examples', function() {
-  gulp.watch([paths.samples, paths.templates.files, paths.metadata],['compile:example']);
+  gulp.watch([paths.samples, paths.templates.files, paths.metadata], [
+    'compile:example'
+  ]);
   gulp.watch(paths.images, ['copy:images']);
   gulp.watch(paths.videos, ['copy:videos']);
   gulp.watch(paths.scripts, ['copy:scripts']);
@@ -359,33 +369,39 @@ gulp.task('watch', 'watch for changes in the examples', function() {
 
 gulp.task('test', function() {
   return gulp.src('spec/**/*Spec.js')
-      .pipe(jasmine());
+    .pipe(jasmine());
 });
 
 gulp.task('test2', function() {
   return gulp.src('spec/**/*Spec.js')
-      .pipe(jasmine({includeStackTrace: true}));
+    .pipe(jasmine({
+      includeStackTrace: true
+    }));
 });
 
 gulp.task('lint', function() {
   const hasFixFlag = argv.fix;
   let errorsFound = false;
-  return gulp.src(paths.scripts, {base: './'})
-      .pipe(eslint({fix: hasFixFlag}))
-      .pipe(eslint.formatEach('stylish', function(msg) {
-        errorsFound = true;
-        gutil.log(gutil.colors.red(msg));
-      }))
-      .pipe(gulpIf(isFixed, gulp.dest('.')))
-      .on('end', function() {
-        if (errorsFound && !hasFixFlag) {
-          gutil.log(gutil.colors.blue('Run `gulp lint --fix` to ' +
+  return gulp.src(paths.scripts, {
+      base: './'
+    })
+    .pipe(eslint({
+      fix: hasFixFlag
+    }))
+    .pipe(eslint.formatEach('stylish', function(msg) {
+      errorsFound = true;
+      gutil.log(gutil.colors.red(msg));
+    }))
+    .pipe(gulpIf(isFixed, gulp.dest('.')))
+    .on('end', function() {
+      if (errorsFound && !hasFixFlag) {
+        gutil.log(gutil.colors.blue('Run `gulp lint --fix` to ' +
           'fix some of these lint warnings/errors. This is a destructive ' +
           'operation (operates on the file system) so please make sure ' +
           'you commit before running.'));
-          process.exit(1);
-        }
-      });
+        process.exit(1);
+      }
+    });
 });
 
 gulp.task('lint:backend', 'lint go backend code', function() {
@@ -395,16 +411,22 @@ gulp.task('lint:backend', 'lint go backend code', function() {
 
 gulp.task('lint:html', 'checks the hmtl source', function() {
   return gulp.src([paths.samples].join(paths.dist.samples))
-      .pipe(htmlhint({'doctype-first': false, 'title-require': false, 'attr-lowercase': false}))
-      .pipe(htmlhint.failReporter());
+    .pipe(htmlhint({
+      'doctype-first': false,
+      'title-require': false,
+      'attr-lowercase': false
+    }))
+    .pipe(htmlhint.failReporter());
 });
 
 gulp.task('default', 'Run a webserver and watch for changes', [
   'build',
   'watch',
-  'serve']);
+  'serve'
+]);
 
-gulp.task('backend:watch', 'run the go backend and watch for changes', function(callback) {
+gulp.task('backend:watch', 'run the go backend and watch for changes', function(
+  callback) {
   config.host = 'http://localhost:8080';
   runSequence(
     'build',
@@ -413,57 +435,61 @@ gulp.task('backend:watch', 'run the go backend and watch for changes', function(
     callback);
 });
 
-gulp.task('backend:serve', 'Run the go backend', function(){
+gulp.task('backend:serve', 'Run the go backend', function() {
   return run('goapp serve').exec();
 });
 
-gulp.task('api:serve', 'Run the go api backend', function(){
+gulp.task('api:serve', 'Run the go api backend', function() {
   return run('cd api && goapp serve -admin_port=8100').exec();
 });
 
 gulp.task('validate', 'runs all checks', function(callback) {
   runSequence('test',
-              'validate:example',
-              'lint',
-              'lint:backend',
-              'lint:html',
-              'test',
-              callback);
+    'validate:example',
+    'lint',
+    'lint:backend',
+    'lint:html',
+    'test',
+    callback);
 });
 
 
 gulp.task('snapshot',
-    'Saves a snapshot of the generated sample files',
-    function() {
-      return gulp.src(paths.samples)
-        .pipe(compileExample(config, false))
-        .pipe(gulp.dest(paths.tmp.dir));
-    }
+  'Saves a snapshot of the generated sample files',
+  function() {
+    return gulp.src(paths.samples)
+      .pipe(compileExample(config, false))
+      .pipe(gulp.dest(paths.tmp.dir));
+  }
 );
 
 gulp.task('snapshot:verify',
-    'Compares generated samples against snapshot',
-    function() {
-      return gulp.src(paths.samples)
-        .pipe(compileExample(config, false))
-        .pipe(diff(paths.tmp.dir))
-        .pipe(diff.reporter({fail: true}));
-    }
+  'Compares generated samples against snapshot',
+  function() {
+    return gulp.src(paths.samples)
+      .pipe(compileExample(config, false))
+      .pipe(diff(paths.tmp.dir))
+      .pipe(diff.reporter({
+        fail: true
+      }));
+  }
 );
 
-gulp.task('robots:disallow', 'generate robots.txt disallowing robots to access', function() {
-  return generateRobotsTxt(`User-Agent: *
+gulp.task('robots:disallow', 'generate robots.txt disallowing robots to access',
+  function() {
+    return generateRobotsTxt(`User-Agent: *
 Disallow: /
 `);
-});
+  });
 
-gulp.task('robots:allow', 'generate robots.txt allowing robots to access', function() {
-  return generateRobotsTxt(`User-Agent: *
+gulp.task('robots:allow', 'generate robots.txt allowing robots to access',
+  function() {
+    return generateRobotsTxt(`User-Agent: *
 Disallow:
 `);
-});
+  });
 
-gulp.task('build:playground', 'Build the playground', function(){
+gulp.task('build:playground', 'Build the playground', function() {
   const playgroundDist = '../dist/' + paths.playground;
   return run(
     'npm i && ' +
@@ -472,12 +498,14 @@ gulp.task('build:playground', 'Build the playground', function(){
     'gulp build && ' +
     'mkdir -p ../dist && ' +
     'rm -rf ' + playgroundDist + ' && ' +
-    'cp -R dist ' + playgroundDist 
+    'cp -R dist ' + playgroundDist
   ).exec();
 });
 
 function generateRobotsTxt(contents) {
-  return file('robots.txt', contents, { src: true })
+  return file('robots.txt', contents, {
+      src: true
+    })
     .pipe(gulp.dest('dist'));
 }
 
@@ -487,8 +515,8 @@ function performChange(content) {
   const canonical = config.host + exampleFile.url();
   if (!/<link rel="canonical"/.test(content)) {
     content = content.replace(/<meta charset="utf-8">/g,
-    '<meta charset="utf-8">\n  <link rel="canonical" href="'
-    + canonical + '">');
+      '<meta charset="utf-8">\n  <link rel="canonical" href="' + canonical +
+      '">');
     gutil.log("updating canonical: " + this.file.relative);
   }
   return content;
@@ -496,8 +524,8 @@ function performChange(content) {
 
 gulp.task('change', 'use this task to batch change samples', function() {
   return gulp.src('src/**/*.html')
-        .pipe(change(performChange))
-        .pipe(gulp.dest('src/'));
+    .pipe(change(performChange))
+    .pipe(gulp.dest('src/'));
 });
 
 gulp.task('build', 'build all resources', [
@@ -518,7 +546,9 @@ gulp.task('build', 'build all resources', [
 ]);
 
 function run(command) {
-  return grun(command, {verbosity: 3});
+  return grun(command, {
+    verbosity: 3
+  });
 }
 
 function isFixed(file) {
