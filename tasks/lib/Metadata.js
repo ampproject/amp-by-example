@@ -34,8 +34,8 @@ module.exports.add = function(args) {
     logoWidth: '512',
     logoHeight: '512',
     leader: leader,
-    leaderWidth: '2046',
-    leaderHeight: '1532'
+    leaderWidth: '748',
+    leaderHeight: '945'
   };
   addMissingMetadata(args, metadata);
 };
