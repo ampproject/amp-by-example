@@ -49,6 +49,9 @@
       line-height: 1;
       color: #fff;
     }
+    .main-link {
+      display: block;
+    }
     .brand {
       /* Place in top-left corner */
       position: absolute;
@@ -132,25 +135,29 @@
 
   -->
   <div id="splash-container">
-    <span class="brand">
-      Best Hotels Corp
-    </span>
-    <span class="title">
-      Amazing views from our collection of luxury hotel rooms.
-    </span>
-    <div role="button"
-      class="watch-video"
-      on="tap:splash-container.hide,
-              video-container.show,
-              my-video.play,
-              play.hide,
-              pause.show">
-      Watch Video
-    </div>
-    <amp-img src="https://ampbyexample.com/img/tokyo.jpg"
-      width="300"
-      height="168">
-    </amp-img>
+    <a href="http://ampbyexample.com"
+      target="_blank"
+      class="main-link">
+      <span class="brand">
+        Best Hotels Corp
+      </span>
+      <span class="title">
+        Amazing views from our collection of luxury hotel rooms.
+      </span>
+      <div role="button"
+        class="watch-video"
+        on="tap:splash-container.hide,
+                video-container.show,
+                my-video.play,
+                play.hide,
+                pause.show">
+        Watch Video
+      </div>
+      <amp-img src="https://ampbyexample.com/img/tokyo.jpg"
+        width="300"
+        height="168">
+      </amp-img>
+    </a>
   </div>
   <!--
   A `<div>` that contains the video and buttons to play/pause and close the
