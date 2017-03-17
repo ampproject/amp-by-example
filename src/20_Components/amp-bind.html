@@ -41,17 +41,25 @@
     .greenBackground {
       background-color: green;
     }
+    /* make the demo look better */
+    #amp-bind-sample > * {
+      padding: 1rem;
+    }
+    #amp-bind-sample > * + * {
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
-  <!-- ## Configuring initial state -->
-  <!--
-  `amp-bind` works by binding elements to implicit JSON "state". This state can
-  be initialized with one or more &lt;amp-state&gt; components.
-  -->
-  <amp-state id="allAnimals">
-    <script type="application/json">
-      {
+  <section id="amp-bind-sample">
+    <!-- ## Configuring initial state -->
+    <!--
+      `amp-bind` works by binding elements to implicit JSON "state". This state can
+      be initialized with one or more &lt;amp-state&gt; components.
+    -->
+    <amp-state id="allAnimals">
+      <script type="application/json">
+{
         "dog": {
           "imageUrl": "/img/Border_Collie.jpg",
           "videoUrl": "/video/dog-video.mp4",
@@ -63,74 +71,75 @@
           "style": "redBackground"
         }
       }
-    </script>
-  </amp-state>
+      </script>
+    </amp-state>
 
-  <!--
-  Referencing implicit state in binding expressions is done by dot or bracket
-  syntax, starting with the &lt;amp-state&gt; element's `id`, e.g.
-  `allAnimals.dog.imageUrl` or `allAnimals['cat']['imageUrl']`.
+    <!--
+      Referencing implicit state in binding expressions is done by dot or bracket
+      syntax, starting with the &lt;amp-state&gt; element's `id`, e.g.
+      `allAnimals.dog.imageUrl` or `allAnimals['cat']['imageUrl']`.
 
-  - The contents of &lt;amp-state&gt; must be a single JSON script.
-  - Similar to the &lt;amp-analytics&gt; config, placing metadata at the
-    end of the document helps the page display more quickly.
-  -->
+      - The contents of &lt;amp-state&gt; must be a single JSON script.
+      - Similar to the &lt;amp-analytics&gt; config, placing metadata at the
+      end of the document helps the page display more quickly.
+    -->
 
-  <!-- ## Creating data bindings -->
-  <!--
-  A data binding is a link between an HTML element and an
-  [expression](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md#expressions).
-  When the expression's value changes, the element is updated with that value.
+    <!-- ## Creating data bindings -->
+    <!--
+      A data binding is a link between an HTML element and an
+      [expression](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md#expressions).
+      When the expression's value changes, the element is updated with that value.
 
-  Three types of element state can be bound:
-  1. `text` for [textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent)
-  2. `class` for [CSS classes](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class)
-  3. [Element-specific attributes](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md#bindable-attributes),
-    for example, the `src` attribute for `amp-img` or `amp-video`.
+      Three types of element state can be bound:
+      1. `text` for [textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent)
+      2. `class` for [CSS classes](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class)
+      3. [Element-specific attributes](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md#bindable-attributes),
+      for example, the `src` attribute for `amp-img` or `amp-video`.
 
-  To create a binding, create a new attribute on an element with the form:
+      To create a binding, create a new attribute on an element with the form:
 
-  `[property]="expression"`
+      `[property]="expression"`
 
--->
+    -->
 
-<!-- ## Binding Text -->
-<!--
-  The text of this `<p>` will change when the `currentAnimal` variable
-changes. `currentAnimal` is an uninitialized implicit state variable, which will be
-   set when a state change is triggered (see below).
+    <!-- ## Binding Text -->
+    <!--
+      The text of this `<p>` will change when the `currentAnimal` variable
+      changes. `currentAnimal` is an uninitialized implicit state variable, which will be
+      set when a state change is triggered (see below).
 
--->
-<p [text]="'This is a ' + currentAnimal + '.'">This is a dog.</p>
+    -->
+    <p [text]="'This is a ' + currentAnimal + '.'">This is a dog.</p>
 
-<!-- ## Binding Styles -->
-<!--
-  Styling can be changed by applying css classes. It will override all the element's style classes. `allAnimals` is the `id` of the `amp-state` component above.
--->
-  <p [class]="allAnimals[currentAnimal].style" class="greenBackground">Each animal has a different background color.</p>
-<!-- ## Binding Attribute Values -->
-<!--
-Various AMP components support binding attribute values with amp-bind. For example, `amp-img` URLs can be changed.
--->
-  <amp-img src="/img/Border_Collie.jpg" layout="responsive" width="300" height="200"
-      [src]="allAnimals[currentAnimal].imageUrl">
-  </amp-img>
+    <!-- ## Binding Styles -->
+    <!--
+      Styling can be changed by applying css classes. It will override all the element's style classes. `allAnimals` is the `id` of the `amp-state` component above.
+    -->
+    <p [class]="allAnimals[currentAnimal].style" class="greenBackground">Each animal has a different background color.</p>
+    <!-- ## Binding Attribute Values -->
+    <!--
+      Various AMP components support binding attribute values with amp-bind. For example, `amp-img` URLs can be changed.
+    -->
+    <amp-img src="/img/Border_Collie.jpg" layout="responsive" width="300" height="200"
+                                                                          [src]="allAnimals[currentAnimal].imageUrl">
+    </amp-img>
 
-  <!--
-    The src URL for videos embedded with `amp-video` can be changed. At the moment, among all the AMP video components, only amp-video supports amp-bind.
-  -->
-  <amp-video src="/video/dog-video.mp4" layout="responsive" [src]="allAnimals[currentAnimal].videoUrl" width="300" height="170" autoplay controls="true"></amp-video>
+    <!--
+      The src URL for videos embedded with `amp-video` can be changed. At the moment, among all the AMP video components, only amp-video supports amp-bind.
+    -->
+    <amp-video src="/video/dog-video.mp4" layout="responsive" [src]="allAnimals[currentAnimal].videoUrl" width="300" height="170" autoplay controls="true"></amp-video>
 
-  <!-- ## Triggering updates -->
-  <!--
-  Data bindings are re-evaluated when implicit state changes. Implicit state can
-  be updated via the `AMP.setState` [action](https://github.com/ampproject/amphtml/blob/master/spec/amp-actions-and-events.md).
+    <!-- ## Triggering updates -->
+    <!--
+      Data bindings are re-evaluated when implicit state changes. Implicit state can
+      be updated via the `AMP.setState` [action](https://github.com/ampproject/amphtml/blob/master/spec/amp-actions-and-events.md).
 
-  - `AMP.setState` merges new state into existing implicit state
-  - Existing state can be overwritten, including state initialized by
-    `amp-state` components
-  -->
-  <button class="ampstart-btn caps m1"
-      on="tap:AMP.setState(currentAnimal='cat')">Set to Cat</button>
+      - `AMP.setState` merges new state into existing implicit state
+      - Existing state can be overwritten, including state initialized by
+      `amp-state` components
+    -->
+    <button class="ampstart-btn caps m1"
+            on="tap:AMP.setState(currentAnimal='cat')">Set to Cat</button>
+  </section>
 </body>
 </html>
