@@ -16,8 +16,8 @@
 
 describe("DocumentParser", function() {
 
-  var DocumentParser = require('../../tasks/lib/DocumentParser').DocumentParser;
-  var CodeSection = require('../../tasks/lib/CodeSection');
+  var DocumentParser = require('../../lib/DocumentParser').DocumentParser;
+  var CodeSection = require('../../lib/CodeSection');
 
   var HEAD = '<head>';
   var HEAD_END = '</head>';

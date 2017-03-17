@@ -16,7 +16,7 @@
 
 describe("CodeSection", function() {
 
-  var CodeSection = require('../../tasks/lib/CodeSection');
+  var CodeSection = require('../../lib/CodeSection');
 
   beforeEach(function() {
     section = new CodeSection();

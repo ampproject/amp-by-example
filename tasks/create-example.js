@@ -19,9 +19,9 @@
 const through = require('through2');
 const gutil = require('gulp-util');
 const PluginError = gutil.PluginError;
-const Templates = require('./lib/Templates');
-const Metadata = require('./lib/Metadata');
-const ExampleFile = require('./lib/ExampleFile');
+const Templates = require('../lib/Templates');
+const Metadata = require('../lib/Metadata');
+const ExampleFile = require('../lib/ExampleFile');
 
 /**
  * Create an empty example.

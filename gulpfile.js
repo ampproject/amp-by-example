@@ -39,9 +39,9 @@ const htmlhint = require("gulp-htmlhint");
 const compileExample = require('./tasks/compile-example');
 const sitemap = require('./tasks/compile-sitemap');
 const createExample = require('./tasks/create-example');
-const FileName = require('./tasks/lib/FileName');
-const Metadata = require('./tasks/lib/Metadata');
-const ExampleFile = require('./tasks/lib/ExampleFile');
+const FileName = require('./lib/FileName');
+const Metadata = require('./lib/Metadata');
+const ExampleFile = require('./lib/ExampleFile');
 const gulpAmpValidator = require('gulp-amphtml-validator');
 
 const PROD = 'prod';

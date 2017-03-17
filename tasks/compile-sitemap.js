@@ -21,9 +21,9 @@ const path = require('path');
 const gutil = require('gulp-util');
 const PluginError = gutil.PluginError;
 const sm = require('sitemap');
-const ExampleFile = require('./lib/ExampleFile');
-const DocumentParser = require('./lib/DocumentParser');
-const Metadata = require('./lib/Metadata');
+const ExampleFile = require('../lib/ExampleFile');
+const DocumentParser = require('../lib/DocumentParser');
+const Metadata = require('../lib/Metadata');
 
 /**
  * Collects a list of example files and generates a sitemap.xml file.
