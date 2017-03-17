@@ -10,7 +10,7 @@
 
   AMP provides a basic [action system](https://github.com/ampproject/amphtml/blob/master/spec/amp-actions-and-events.md) to control the page based on user events. This can be used to hide and show elements and to control the playback of the video.
 
-  For more information about the video component, see the [`amp-video` example page.](https://ampbyexample.com/components/amp-video/)
+  For more information about the video component, see the [`amp-video` example page.](/components/amp-video/)
 -->
 <!-- -->
 <!doctype html>
@@ -122,74 +122,69 @@
   Create the necessary markup to show two layers that represent the two ad
   states.
 
-  **Splash layer**
+  First, we need a `<div>` that contains a static image, text, and a button to open the video layer.
 
-  A `<div>` that contains a static image, text, and a button to open the video
-  layer.
+  The buttons contain action handlers that respond to the `tap` event. After tapping the "Watch Video" button, the splash layer will hide, the video layer will show and the video will play.
 
-  **Video layer**
+  Note that the splash layer will collapse on this page, but when [previewing the example by itself](/amp_ads/video_ad/preview) the layers will occupy the same position.
 
+  -->
+  <div id="splash-container">
+    <span class="brand">
+      Best Hotels Corp
+    </span>
+    <span class="title">
+      Amazing views from our collection of luxury hotel rooms.
+    </span>
+    <div role="button"
+      class="watch-video"
+      on="tap:splash-container.hide,
+              video-container.show,
+              my-video.play,
+              play.hide,
+              pause.show">
+      Watch Video
+    </div>
+    <amp-img src="https://ampbyexample.com/img/tokyo.jpg"
+      width="300"
+      height="168">
+    </amp-img>
+  </div>
+  <!--
   A `<div>` that contains the video and buttons to play/pause and close the
   video layer.
 
   The video is embedded using the [`amp-video` component](https://developers.googleblog.com/2016/12/amp-cache-updates.html), which can be controlled by the `play` and `pause` actions.
 
-  **Action handlers**
-
-  The buttons contain action handlers that respond to the `tap` event. After tapping the "Watch Video" button, the splash layer will hide, the video layer will show and the video will play.
-
   Note how the play and pause buttons are two different elements that are hidden and shown based on playback action.
   -->
-  <div id="my-video-ad">
-    <div id="splash-container">
-      <span class="brand">
-        Best Hotels Corp
-      </span>
-      <span class="title">
-        Amazing views from our collection of luxury hotel rooms.
-      </span>
-      <div role="button"
-        class="watch-video"
-        on="tap:splash-container.hide,
-                video-container.show,
-                my-video.play,
-                play.hide,
-                pause.show">
-        Watch Video
-      </div>
-      <amp-img src="https://ampbyexample.com/img/tokyo.jpg"
-        width="300"
-        height="168">
-      </amp-img>
+  <div id="video-container"
+       hidden>
+    <amp-video id="my-video"
+      layout="fixed-height"
+      height="168"
+      src="https://ampbyexample.com/video/tokyo.mp4">
+    </amp-video>
+    <div role="button"
+      class="close"
+      on="tap:video-container.hide,
+              splash-container.show,
+              my-video.pause">
+      ×
     </div>
-    <div id="video-container"
-         hidden>
-      <amp-video id="my-video"
-        layout="fixed-height"
-        height="168"
-        src="https://ampbyexample.com/video/tokyo.mp4">
-      </amp-video>
-      <div role="button"
-        class="close"
-        on="tap:video-container.hide,
-                splash-container.show,
-                my-video.pause">
-        ×
-      </div>
-      <div role="button"
-        id="pause"
-        on="tap:my-video.pause,
-                play.show,
-                pause.hide">
-        ||
-      </div>
-      <div role="button"
-        id="play"
-        on="tap:my-video.play,
-                play.hide,
-                pause.show">
-        ▶
-      </div>
+    <div role="button"
+      id="pause"
+      on="tap:my-video.pause,
+              play.show,
+              pause.hide">
+      ||
+    </div>
+    <div role="button"
+      id="play"
+      on="tap:my-video.play,
+              play.hide,
+              pause.show">
+      ▶
     </div>
   </div>
 </body>
