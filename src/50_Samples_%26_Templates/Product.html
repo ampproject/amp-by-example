@@ -444,7 +444,7 @@ a.item {
   <!-- ## Product Configuration -->
   <!-- We use the `amp-state` component (part of [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind))
       to configure the product price depending on the color and the size. We also configure the `defaultSize`
-      for each product when you switch between colours -->
+      for each product when you switch between colours and the size you previously selected is not available for the new color -->
   <amp-state id="product">
     <script type="application/json">
     {
@@ -462,7 +462,7 @@ a.item {
              "M":"unavailable",
              "L":"$9.99"
           },
-          "defaultSize":"S"
+          "defaultSize":"L"
        },
        "red":{
           "sizes":{
@@ -470,7 +470,7 @@ a.item {
              "M":"$7.99",
              "L":"$7.99"
           },
-          "defaultSize":"S"
+          "defaultSize":"M"
        }
      }
   </script>
@@ -514,7 +514,7 @@ a.item {
                   layout="container"
                   [selected]="selectedColor"
                   on="select:AMP.setState({selectedColor:event.targetOption, selectedSlide:0,
-                    selectedSize:product[event.targetOption].sizes.includes(selectedSize) ? selectedSize : product[event.targetOption].defaultSize})">
+                    selectedSize:product[event.targetOption].sizes[selectedSize] != null ? selectedSize : product[event.targetOption].defaultSize})">
             <ul class="p0 m1">
               <li>
                 <div option="green" selected class="square green" width="40" height="40"></div>
