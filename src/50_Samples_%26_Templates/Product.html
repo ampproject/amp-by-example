@@ -513,7 +513,8 @@ a.item {
           <amp-selector name="color"
                   layout="container"
                   [selected]="selectedColor"
-                  on="select:AMP.setState(selectedColor=event.targetOption, selectedSlide=0, selectedSize='S')">
+                  on="select:AMP.setState({selectedColor:event.targetOption, selectedSlide:0,
+                    selectedSize:product[event.targetOption].sizes.includes(selectedSize) ? selectedSize : product[event.targetOption].defaultSize})">
             <ul class="p0 m1">
               <li>
                 <div option="green" selected class="square green" width="40" height="40"></div>
