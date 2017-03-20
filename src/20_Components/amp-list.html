@@ -22,9 +22,8 @@
     margin-left: 16px;
   }
   .list-overflow {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    width: 160px;
+    margin-left: auto;
   }
   </style>
 </head>
@@ -68,11 +67,9 @@
   <!--
  If the `amp-list` content requires more space than available, the AMP runtime will display the overflow element (if specified).
   -->
-  <amp-list width="auto" height="10" layout="fixed-height" src="<%host%>/json/examples.json" template="amp-template-id">
-    <div>
-  <button overflow role="button" aria-label="Show more" class="list-overflow ampstart-btn caps">
-    Show more
-  </button>
+  <amp-list width="auto" height="48" layout="fixed-height" src="<%host%>/json/examples.json" template="amp-template-id">
+    <div overflow role="button" aria-label="Show more" class="list-overflow ampstart-btn caps">
+      Show more
     </div>
   </amp-list>
 </body>
