@@ -47,7 +47,7 @@
   ```
   The list content is rendered via an [amp-mustache template](https://www.ampproject.org/docs/reference/components/amp-mustache). The template can be specified either by id, or by using a nested element.
   -->
-  <amp-list width="auto" height="100" layout="fixed-height" src="<%host%>/json/examples.json">
+  <amp-list width="auto" height="100" layout="fixed-height" src="<%host%>/json/examples.json" class="m1">
     <template type="amp-mustache" id="amp-template-id">
       <div><a href="{{url}}">{{title}}</a></div>
     </template>
@@ -60,14 +60,14 @@
     previous sample.
   -->
   <amp-list width="auto" height="100" layout="fixed-height" src="<%host%>/json/examples.json"
-      template="amp-template-id">
+      template="amp-template-id" class="m1">
   </amp-list>
 
   <!-- ## Handling List Overflow -->
   <!--
  If the `amp-list` content requires more space than available, the AMP runtime will display the overflow element (if specified).
   -->
-  <amp-list width="auto" height="48" layout="fixed-height" src="<%host%>/json/examples.json" template="amp-template-id">
+  <amp-list width="auto" height="48" layout="fixed-height" src="<%host%>/json/examples.json" template="amp-template-id" class="m1">
     <div overflow role="button" aria-label="Show more" class="list-overflow ampstart-btn caps">
       Show more
     </div>
