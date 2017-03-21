@@ -8,6 +8,9 @@ body {
   height: 56px;
   width: 100vw;
 }
+#abe-preview-header > a {
+  line-height: 16px;
+}
 #abe-preview {
   background: #fff;
   min-height: 100vh;
