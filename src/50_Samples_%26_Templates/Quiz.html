@@ -22,7 +22,7 @@ In case one or more answers are not correct, you will be redirected to the first
 -->
 <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
 <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
-<script async custom-template="amp-carousel" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+<script async custom-template="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
 <script async custom-template="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
 <link rel="canonical" href="https://ampbyexample.com/samples_templates/quiz/">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -33,14 +33,6 @@ In case one or more answers are not correct, you will be redirected to the first
   }
   .show {
     display: block;
-  }
-  form.amp-form-submit-success [submit-success],
-  form.amp-form-submit-error [submit-error]{
-    margin: 16px;
-    width: 100%;
-  }
-  ul.answer-container {
-    padding: 0;
   }
   ul.answer-container > li {
     font-size: 56px;
@@ -58,31 +50,6 @@ In case one or more answers are not correct, you will be redirected to the first
   form.amp-form-submit-success input {
     display: none
   }
-  form input {
-    -webkit-appearance: none;
-    background: 0 0;
-    border: none;
-    border-radius: 2px;
-    position: relative;
-    height: 36px;
-    min-width: 64px;
-    padding: 0 16px;
-    font-size: 14px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0;
-    will-change: box-shadow;
-    transition: box-shadow .2s cubic-bezier(.4,0,1,1),background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);
-    outline: none;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-    line-height: 36px;
-    vertical-align: middle;
-    color: #fff;
-    background-color: #eb407a;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
-  }
 
 </style>
 </head>
@@ -97,12 +64,12 @@ In case one or more answers are not correct, you will be redirected to the first
   following binding: `[class]="currentQuestion == 1 ? 'show' : 'hide'"`.
 -->
 <form method="post" action-xhr="/samples_templates/quiz/submit" target="_blank"
-  id="quiz-form">
+  id="quiz-form" class="p2">
   <h3>Answer the following mathematical questions:</h3>
   <div class="show" [class]="currentQuestion == 1 ? 'show' : 'hide'">
     <h1>2+2</h1>
-    <amp-selector name="expression1" layout="container">
-      <ul class="answer-container" on="tap:AMP.setState(currentQuestion=2)" >
+    <amp-selector name="expression1" layout="container" class="inline-block">
+      <ul class="answer-container p0" on="tap:AMP.setState(currentQuestion=2)" >
         <li option="4">4</li>
         <li option="5">5</li>
         <li option="8">8</li>
@@ -112,8 +79,8 @@ In case one or more answers are not correct, you will be redirected to the first
   </div>
   <div class="hide" [class]="currentQuestion == 2 ? 'show' : 'hide'">
     <h1>4:2</h1>
-    <amp-selector name="expression2" layout="container">
-      <ul class="answer-container" on="tap:AMP.setState(currentQuestion=3)" >
+    <amp-selector name="expression2" layout="container" class="inline-block">
+      <ul class="answer-container p0" on="tap:AMP.setState(currentQuestion=3)" >
         <li option="4">4</li>
         <li option="2">2</li>
         <li option="8">8</li>
@@ -123,8 +90,8 @@ In case one or more answers are not correct, you will be redirected to the first
   </div>
   <div class="hide" [class]="currentQuestion == 3 ? 'show' : 'hide'">
     <h1>4*4</h1>
-    <amp-selector name="expression3" layout="container">
-      <ul class="answer-container" on="tap:AMP.setState(currentQuestion=4)" >
+    <amp-selector name="expression3" layout="container" class="inline-block">
+      <ul class="answer-container p0" on="tap:AMP.setState(currentQuestion=4)" >
         <li option="24">24</li>
         <li option="16">16</li>
         <li option="8">8</li>
@@ -134,8 +101,8 @@ In case one or more answers are not correct, you will be redirected to the first
   </div>
   <div class="hide" [class]="currentQuestion == 4 ? 'show' : 'hide'">
     <h1>1*1</h1>
-    <amp-selector name="expression4" layout="container">
-      <ul class="answer-container" on="tap:quiz-form.submit">
+    <amp-selector name="expression4" layout="container" class="inline-block">
+      <ul class="answer-container p0" on="tap:quiz-form.submit">
         <li option="1">1</li>
         <li option="-1">-1</li>
         <li option="8">8</li>
@@ -150,7 +117,7 @@ In case one or more answers are not correct, you will be redirected to the first
   </div>
   <div submit-error>
     <template type="amp-mustache">
-      <input type="reset" value="Try again" on="tap:AMP.setState(currentQuestion=1)">
+      <input class="ampstart-btn caps" type="reset" value="Try again" on="tap:AMP.setState(currentQuestion=1)">
     </template>
   </div>
 </form>
