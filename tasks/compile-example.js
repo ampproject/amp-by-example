@@ -22,10 +22,10 @@ const through = require('through2');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 const PluginError = gutil.PluginError;
-const DocumentParser = require('./lib/DocumentParser');
-const ExampleFile = require('./lib/ExampleFile');
-const Metadata = require('./lib/Metadata');
-const Templates = require('./lib/Templates');
+const DocumentParser = require('../lib/DocumentParser');
+const ExampleFile = require('../lib/ExampleFile');
+const Metadata = require('../lib/Metadata');
+const Templates = require('../lib/Templates');
 
 /**
  * Collects a list of example files, renders them (using templateExample) and
