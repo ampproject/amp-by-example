@@ -1,0 +1,125 @@
+<!---{
+"preview": "default",
+"experiments": ["amp-bind"]
+}--->
+<!--
+#### Introduction
+
+This is a sample template for a quiz in AMP consisting of four questions.
+After selecting one of the answers, you will be asked to answer the following question until all are answered.
+In case one or more answers are not correct, you will be redirected to the first question.
+
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!-- #### Setup -->
+  <!--
+  Import the additional AMP components. This sample uses a amp-form and mustache templates.
+-->
+<script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+<script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+<script async custom-template="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+<script async custom-template="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+<link rel="canonical" href="https://ampbyexample.com/samples_templates/quiz/">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+<style amp-custom>
+  .hide {
+    display: none;
+  }
+  .show {
+    display: block;
+  }
+  ul.answer-container > li {
+    font-size: 56px;
+    line-height: 70px;
+    min-width: 70px;
+    float:left;
+    margin: 0 16px 16px 0;
+    background-color: green;
+    color: black;
+    text-align: center;
+  }
+  form#quiz-form amp-selector > ul {
+    list-style: none;
+  }
+  form.amp-form-submit-success input {
+    display: none
+  }
+
+</style>
+</head>
+<body>
+  <!-- #### Arithmetical Quiz -->
+  <!--
+  We use [amp-form](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md) to implement a quiz.
+
+  Questions are shown one at the time using [amp-bind](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md).
+
+  The global variable `currentQuestion` keeps the current question index and it's used to show the question using the
+  following binding: `[class]="currentQuestion == 1 ? 'show' : 'hide'"`.
+-->
+<form method="post" action-xhr="/samples_templates/quiz/submit" target="_blank"
+  id="quiz-form" class="p2">
+  <h3>Answer the following mathematical questions:</h3>
+  <div class="show" [class]="currentQuestion == 1 ? 'show' : 'hide'">
+    <h1>2+2</h1>
+    <amp-selector name="expression1" layout="container" class="inline-block">
+      <ul class="answer-container p0" on="tap:AMP.setState(currentQuestion=2)" >
+        <li option="4">4</li>
+        <li option="5">5</li>
+        <li option="8">8</li>
+        <li option="0">0</li>
+      </ul>
+    </amp-selector>
+  </div>
+  <div class="hide" [class]="currentQuestion == 2 ? 'show' : 'hide'">
+    <h1>4:2</h1>
+    <amp-selector name="expression2" layout="container" class="inline-block">
+      <ul class="answer-container p0" on="tap:AMP.setState(currentQuestion=3)" >
+        <li option="4">4</li>
+        <li option="2">2</li>
+        <li option="8">8</li>
+        <li option="0">0</li>
+      </ul>
+    </amp-selector>
+  </div>
+  <div class="hide" [class]="currentQuestion == 3 ? 'show' : 'hide'">
+    <h1>4*4</h1>
+    <amp-selector name="expression3" layout="container" class="inline-block">
+      <ul class="answer-container p0" on="tap:AMP.setState(currentQuestion=4)" >
+        <li option="24">24</li>
+        <li option="16">16</li>
+        <li option="8">8</li>
+        <li option="0">0</li>
+      </ul>
+    </amp-selector>
+  </div>
+  <div class="hide" [class]="currentQuestion == 4 ? 'show' : 'hide'">
+    <h1>1*1</h1>
+    <amp-selector name="expression4" layout="container" class="inline-block">
+      <ul class="answer-container p0" on="tap:quiz-form.submit">
+        <li option="1">1</li>
+        <li option="-1">-1</li>
+        <li option="8">8</li>
+        <li option="0">0</li>
+      </ul>
+    </amp-selector>
+  </div>
+  <div submit-success>
+    <template type="amp-mustache">
+      Success! You answered all the right questions!
+    </template>
+  </div>
+  <div submit-error>
+    <template type="amp-mustache">
+      <input class="ampstart-btn caps" type="reset" value="Try again" on="tap:AMP.setState(currentQuestion=1)">
+    </template>
+  </div>
+</form>
+</body>
+</html>
