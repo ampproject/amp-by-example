@@ -16,15 +16,12 @@ package backend
 
 import (
 	"fmt"
-	"html/template"
 	"net/http"
-	"path"
 	"time"
 )
 
 const (
 	COMMENT_SAMPLE_PATH = "/" + CATEGORY_SAMPLE_TEMPLATES + "/comment_section/"
-	COMMENT_COOKIE_NAME = "ABE_LOGGED_IN"
 	USER                = "Charlie"
 )
 
@@ -47,19 +44,15 @@ type Comment struct {
 	UserImg  string
 }
 
-type AccessData struct {
-	ReturnURL string
-}
-
 func InitCommentSection() {
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"submit-comment-xhr", func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitCommentXHR)
 	})
 
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"authorization", handleCommentAuthorization)
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"login", handleCommentLogin)
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"logout", handleCommentLogout)
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"submit", handleCommentSubmit)
+	http.HandleFunc(COMMENT_SAMPLE_PATH+"login", handleLogin)
+	http.HandleFunc(COMMENT_SAMPLE_PATH+"logout", handleLogout)
+	http.HandleFunc(COMMENT_SAMPLE_PATH+"submit", handleSubmit)
 }
 
 func submitCommentXHR(w http.ResponseWriter, r *http.Request) {
@@ -82,43 +75,10 @@ func submitCommentXHR(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleCommentAuthorization(w http.ResponseWriter, r *http.Request) {
-	_, err := r.Cookie(COMMENT_COOKIE_NAME)
+	_, err := r.Cookie(AMP_ACCESS_COOKIE)
 	if err != nil {
 		handleAuthorization(w, r, new(CommentAuthorizationResponse).CreateInvalidAuthorizationResponse())
 		return
 	}
 	handleAuthorization(w, r, new(CommentAuthorizationResponse).CreateAuthorizationResponse())
-}
-
-func handleCommentLogin(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	returnURL := r.URL.Query().Get("return")
-	filePath := path.Join(DIST_FOLDER, "login.html")
-	t, _ := template.ParseFiles(filePath)
-	t.Execute(w, AccessData{ReturnURL: returnURL})
-}
-
-func handleCommentLogout(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	//delete the cookie
-	cookie := &http.Cookie{
-		Name:   COMMENT_COOKIE_NAME,
-		MaxAge: -1,
-	}
-	http.SetCookie(w, cookie)
-	returnURL := r.URL.Query().Get("return")
-	http.Redirect(w, r, fmt.Sprintf("%s#success=true", returnURL), http.StatusSeeOther)
-}
-
-func handleCommentSubmit(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	expireInOneDay := time.Now().AddDate(0, 0, 1)
-	cookie := &http.Cookie{
-		Name:    COMMENT_COOKIE_NAME,
-		Expires: expireInOneDay,
-		Value:   "true",
-	}
-	http.SetCookie(w, cookie)
-	returnURL := r.FormValue("returnurl")
-	http.Redirect(w, r, fmt.Sprintf("%s#success=true", returnURL), http.StatusSeeOther)
 }

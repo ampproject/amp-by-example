@@ -20,18 +20,22 @@
   the authorization response -->
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
 
-  <!-- Add the configuration for the `authorization`, `pingback` and the `login` endpoints. It is
+  <!-- Add the configuration for the `authorization`, `pingback` and the `login` endpoints. We provide two login endpoints, one for sign-in and one for sign-out. It is
   also possible to create a fallback response that will be used if the authorization fails with the `authorizationFallbackResponse` attribute -->
   <script id="amp-access" type="application/json">
-  {
-    "authorization": "https://rocky-sierra-1919.herokuapp.com/amp-access/api/amp-authorization.json?rid=READER_ID&url=CANONICAL_URL&ref=DOCUMENT_REFERRER&_=RANDOM",
-    "pingback": "https://rocky-sierra-1919.herokuapp.com/amp-access/api/amp-pingback?rid=READER_ID&ref=DOCUMENT_REFERRER&url=CANONICAL_URL",
-    "login": "https://rocky-sierra-1919.herokuapp.com/amp-access/login/?rid=READER_ID&url=CANONICAL_URL",
-    "authorizationFallbackResponse": {
-        "error": true,
-        "access": false
-      }
-  }
+    {
+        "authorization": "<%host%>/components/amp-access/authorization?rid=READER_ID&url=CANONICAL_URL&ref=DOCUMENT_REFERRER&_=RANDOM",
+        "pingback": "<%host%>/components/amp-access/authorization?rid=READER_ID&url=CANONICAL_URL&ref=DOCUMENT_REFERRER&_=RANDOM",
+        "login": {
+          "sign-in": "<%host%>/components/amp-access/login?rid=READER_ID&url=CANONICAL_URL",
+          "sign-out": "<%host%>/components/amp-access/logout"
+        },
+        "authorizationFallbackResponse": {
+            "error": true,
+            "access": false,
+            "subscriber": false
+        }
+    }
   </script>
   <link rel="canonical" href="<%host%>/components/amp-access/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -65,24 +69,24 @@
     <p>This section is only visible to users with <code>"access": true</code> and <code>"subscriber": false</code></p>
   </div>
 
-  <!-- Combine `amp-access` and `amp-mustache` to show information returned from the authorization request. In this case we show the number of free views left for non-subscribers. -->
-  <section amp-access="access AND views">
+  <!-- Combine `amp-access` and `amp-mustache` to show information returned from the authorization request. In this case we show the user name returned in the authentification response. -->
+  <section amp-access="subscriber">
     <template amp-access-template type="amp-mustache">
-      You are viewing article {{views}} of {{maxViews}} free articles this month!
+      Hello {{name}}!
     </template>
   </section>
 
-  <!-- Use `on="tap:amp-access.login"` to open the login dialog when the element is
+  <!-- Use `on="tap:amp-access.login-sign-in"` to open the login dialog when the element is
   clicked.
 
   `amp-access-hide` will default the component to be hidden and enabled later
   if the `amp-access` expression is evaluated to `TRUE` -->
   <section class="p1" amp-access="NOT subscriber" amp-access-hide role="button" tabindex="0">
-    <a class="ampstart-btn caps" on="tap:amp-access.login">Login</a>
+    <a class="ampstart-btn caps" on="tap:amp-access.login-sign-in">Login</a>
   </section>
-  <!-- The logout link will only be shown for logged in subscribers. -->
+  <!-- The logout link will only be shown for logged in subscribers. We use a trick here: the logout is a login action that directly redirects back to the original URL. This has the advantage that the page updates without being reloaded.  -->
   <section class="p1" amp-access="subscriber" amp-access-hide role="button" tabindex="0">
-    <a href="https://rocky-sierra-1919.herokuapp.com/amp-access/login/logout">Logout</a>
+    <a class="ampstart-btn caps" on="tap:amp-access.login-sign-out">Logout</a>
   </section>
   <!-- Checkout the [official amp-access sample](https://rocky-sierra-1919.herokuapp.com/) for demos of first-click-free and view counting. -->
 </body>
