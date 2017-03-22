@@ -20,7 +20,6 @@ const gutil = require('gulp-util');
 const path = require('path');
 const through = require('through2');
 const fs = require('fs');
-const mkdirp = require('mkdirp');
 const PluginError = gutil.PluginError;
 const DocumentParser = require('../lib/DocumentParser');
 const ExampleFile = require('../lib/ExampleFile');
