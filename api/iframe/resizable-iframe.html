@@ -23,30 +23,33 @@ p {
   </head>
   <body>
     <div id="box">
-      <button id="action" class="ampstart-btn">Resize to 300x300</button>
+      <button id="action" class="ampstart-btn">Resize</button>
       <p id="message">Size: <span id="size">200x200</span></p>
     </div>
   <script>
 (function (d, w) {
   var BORDER_WIDTH = 2;
-  postSize(200, 200);
+  var sizes = [200, 300];
+  var currentSize = 0;
+  postSize(sizes[currentSize]);
 
   d.getElementById('action').onclick = function(event) {
-    postSize(300, 300);
+    postSize(sizes[currentSize]);
   }
 
-  function postSize(width, height) {
-    console.log('post new embed-size: ' + width + 'x' + height);
-    d.getElementById('size').innerHTML = width + 'x' + height;
+  function postSize(size) {
+    console.log('post new embed-size: ' + size + 'x' + size);
+    d.getElementById('size').innerHTML = size + 'x' + size;
     var box = d.getElementById('box');
-    box.style.width = width - BORDER_WIDTH + 'px';
-    box.style.height = height - BORDER_WIDTH + 'px';
+    box.style.width = size - BORDER_WIDTH + 'px';
+    box.style.height = size - BORDER_WIDTH + 'px';
+    currentSize = (currentSize + 1) % sizes.length;
 
     w.parent.postMessage({
       sentinel: 'amp',
       type: 'embed-size',
-      height: height,
-      width: width
+      height: size,
+      width: size
     }, '*');
 
   }
