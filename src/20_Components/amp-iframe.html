@@ -80,19 +80,19 @@ div[overflow] {
                           src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJ2eUgeAK6j4ARbn5u_wAGqWA&key=AIzaSyCNCZ0Twm_HFRaZ5i-FuPDYs3rLwm4_848">
   </amp-iframe>
 
-  <!-- ## Resizeable Iframes -->
+  <!-- ## Resizable Iframes -->
   <!--
-    One important feature of `amp-iframe` is the ability to resize the iframe  at runtime. For this to work: 
+    One important feature of `amp-iframe` is the ability to resize the iframe  at runtime. For this to work:
 
     * The `amp-iframe` must set the `allow-same-origin` sandbox attribute.
     * The `amp-frame` must be defined with the `resizable` attribute.
     * The `amp-iframe` must have an `overflow` child element.
-    * The iframe document must send an `embed-size` request: 
+    * The iframe document must send an `embed-size` request:
 
 
     ```html
-  window.parent.postMessage({ 
-    sentinel: 'amp', 
+  window.parent.postMessage({
+    sentinel: 'amp',
     type: 'embed-size',
     height: document.body.scrollHeight
   }, '*');
@@ -100,12 +100,12 @@ div[overflow] {
 
     The following example demonstrates two resizing use cases:
 
-    1. **Resize on load:** the iframe size is initially set to `150x150` px via the `amp-iframe` layout. On page load, the embedded iframe will resize itself to `200x200` px. 
-    2. **Resize on user interaction:** pressing the button will resize the iframe to `300x300` px.
+    1. **Resize on load:** the iframe size is initially set to `150x150`px via the `amp-iframe` layout. On page load, the embedded iframe will resize itself to `200x200`px.
+    2. **Resize on user interaction:** pressing the button will resize the iframe to `300x300`px.
 
   -->
   <amp-iframe width="150" height="150"
-      sandbox="allow-scripts allow-same-origin" 
+      sandbox="allow-scripts allow-same-origin"
       resizable
       frameborder="0"
       src="<% api.host %>/iframe/resizable-iframe.html"
