@@ -235,16 +235,11 @@ module.exports = function(config, updateTimestamp) {
       // a4a preview embeds the original sample via iframe
       if (document.metadata.preview && document.metadata.preview.toLowerCase() == "a4a") {
         previewTemplate = config.a4a.template;
-        // copy ad sample to api app engine folder
-        const previewPath = path.join(config.api.dist, example.targetPath());
-        mkdirp.sync(path.dirname(previewPath));
-        fs.writeFileSync(previewPath, example.contents);
-        gutil.log('Generated ' + previewPath);
         // configure a4a preview
         args.width = document.metadata.width || config.a4a.defaultWidth;
         args.height = document.metadata.height || config.a4a.defaultHeight;
         args.adContainerHeight = args.height + config.a4a.adContainerLabelHeight;
-        args.a4aEmbedUrl = config.api.host + '/' + example.targetPath();
+        args.a4aEmbedUrl = example.urlSource();
       }
 
       args.title = example.title() + ' (Preview) - ' + 'AMP by Example';

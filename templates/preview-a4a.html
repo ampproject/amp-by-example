@@ -27,6 +27,13 @@
         color: #6e6e6e;
         text-align: left;
       }
+      .a4a-ad-container amp-iframe {		 
+        border: 0;		 
+        padding: 0;		
+        margin: 0;		
+        border: none;		
+        overflow: hidden;		
+      }
       #abe-preview p {
         color: #7b7b7b;
       }
@@ -58,10 +65,22 @@
       <p class="pb1">
       Lorem ipsum dolor sit amet, etiam mattis ullamcorper lacinia integer et, nec aliquam libero, vel duis pretium hendrerit eget lacus, nullam massa rhoncus vel congue luctus porta. Amet cursus integer lacus mi pede, turpis dictumst nunc dolor donec tortor, enim velit elementum, mollis elit purus vestibulum eget amet ipsum. Ipsum placerat neque voluptatem arcu in integer, dolor sem quisque, mattis nulla massa ipsum enim cursus ut, etiam per adipiscing mauris tellus tortor, sapien maecenas pharetra amet ut felis. </p>
       <div class="abe-amp-ad-container">
+        {{#metadata.adSlot}}
         <amp-ad width="{{width}}" height="{{height}}"
            type="doubleclick"
            data-slot="{{metadata.adSlot}}">
         </amp-ad>
+        {{/metadata.adSlot}}
+        {{^metadata.adSlot}}
+        <amp-iframe scrolling="no"
+                    width="{{width}}"
+                    height="250"
+                    sandbox="allow-scripts allow-popups"
+                    frameborder="0"
+                    src="{{a4aEmbedUrl}}">
+          <div placeholder></div>
+        </amp-iframe>
+        {{/metadata.adSlot}}
       </div>
       <p class="pb1">
       Tempor neque nisl in fermentum, nulla duis duis feugiat. Leo aenean sit, laudantium fermentum aliquet sagittis nec ac ac, donec ac tincidunt sollicitudin lacus neque. Morbi tellus autem pede bibendum, natoque maecenas justo ac, nec aliquam taciti, pellentesque nam iaculis eros nec at. Proin in orci. Et eu nec montes rutrum nullam, nunc pharetra gravida elit, consectetuer consequatur, eros dignissim, justo vel suspendisse. Ipsum quis metus ultricies nullam nullam. Quis at luctus sit pede etiam, tellus vitae, maecenas mauris nibh lacinia est augue. Aenean nec cursus aptent sit odio tempor, felis duis nulla vel varius mauris, risus duis ac.</p>
