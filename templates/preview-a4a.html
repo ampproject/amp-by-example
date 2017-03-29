@@ -10,15 +10,15 @@
       {{> css/shared.css }}
       {{> css/preview.css}}
       {{{exampleStyles}}}
-      .a4a-ad-container {
+      .abe-amp-ad-container {
         background: #f6f6f6;
         border-top: 1px solid #dfdfdf;
         float: right;
+        margin: 0 1rem 1rem 1rem;
         height: {{adContainerHeight}}px;
         width: {{width}}px;
-        margin: 8px 16px;
       }
-      .a4a-ad-container::before {
+      .abe-amp-ad-container::before {
         content: "{{subHeading}} Preview";
         display: block;
         font-size: 11px;
@@ -27,15 +27,18 @@
         color: #6e6e6e;
         text-align: left;
       }
-      .a4a-ad-container amp-iframe {
-        border: 0;
-        padding: 0;
-        margin: 0;
-        border: none;
-        overflow: hidden;
+      .a4a-ad-container amp-iframe {		 
+        border: 0;		 
+        padding: 0;		
+        margin: 0;		
+        border: none;		
+        overflow: hidden;		
+      }
+      #abe-preview p {
+        color: #7b7b7b;
       }
       @media (max-width: 550px) {
-        .a4a-ad-container {
+        .abe-amp-ad-container {
           clear: both;
           float: none;
           text-align: center;
@@ -57,17 +60,27 @@
       </div>
     <div id="abe-preview" class="ampstart-card p1">
       <h1>{{subHeading}}</h1>
-      <p class="ampstart-card info p1">This example is to showcase the AMP ad creative format. Speed of actual ad delivery & rendering is not representative since this ad is not being delivered from an ad server.</p>
+      <div class="ampstart-card info p1 my2">This example is to showcase the <a href="https://github.com/ampproject/amphtml/blob/master/extensions/amp-a4a/amp-a4a-format.md">AMP ad creative format</a>. The demo features an actual AMP ad served via Doubleclick for Publishers. </div>
 
       <p class="pb1">
       Lorem ipsum dolor sit amet, etiam mattis ullamcorper lacinia integer et, nec aliquam libero, vel duis pretium hendrerit eget lacus, nullam massa rhoncus vel congue luctus porta. Amet cursus integer lacus mi pede, turpis dictumst nunc dolor donec tortor, enim velit elementum, mollis elit purus vestibulum eget amet ipsum. Ipsum placerat neque voluptatem arcu in integer, dolor sem quisque, mattis nulla massa ipsum enim cursus ut, etiam per adipiscing mauris tellus tortor, sapien maecenas pharetra amet ut felis. </p>
-      <div class="a4a-ad-container">
-        <amp-iframe scrolling="no" width="{{width}}" height="250"
-                                                     sandbox="allow-scripts allow-same-origin allow-popups"
-                                                     frameborder="0"
-                                                     src="{{a4aEmbedUrl}}">
-          <amp-img src="/img/pixel-f6f6f6.png" width="{{width}}" height="{{height}}" placeholder></amp-img>
+      <div class="abe-amp-ad-container">
+        {{#metadata.adSlot}}
+        <amp-ad width="{{width}}" height="{{height}}"
+           type="doubleclick"
+           data-slot="{{metadata.adSlot}}">
+        </amp-ad>
+        {{/metadata.adSlot}}
+        {{^metadata.adSlot}}
+        <amp-iframe scrolling="no"
+                    width="{{width}}"
+                    height="250"
+                    sandbox="allow-scripts allow-popups"
+                    frameborder="0"
+                    src="{{a4aEmbedUrl}}">
+          <div placeholder></div>
         </amp-iframe>
+        {{/metadata.adSlot}}
       </div>
       <p class="pb1">
       Tempor neque nisl in fermentum, nulla duis duis feugiat. Leo aenean sit, laudantium fermentum aliquet sagittis nec ac ac, donec ac tincidunt sollicitudin lacus neque. Morbi tellus autem pede bibendum, natoque maecenas justo ac, nec aliquam taciti, pellentesque nam iaculis eros nec at. Proin in orci. Et eu nec montes rutrum nullam, nunc pharetra gravida elit, consectetuer consequatur, eros dignissim, justo vel suspendisse. Ipsum quis metus ultricies nullam nullam. Quis at luctus sit pede etiam, tellus vitae, maecenas mauris nibh lacinia est augue. Aenean nec cursus aptent sit odio tempor, felis duis nulla vel varius mauris, risus duis ac.</p>
