@@ -452,14 +452,14 @@ a.item {
         "sizes": {
           "S": "$5.99",
           "M": "$5.99",
-          "L": null
+          "L": "unavailable"
         },
         "defaultSize": "S"
       },
       "golden": {
         "sizes": {
           "S": "$9.99",
-          "M": null,
+          "M": "unavailable",
           "L": "$9.99"
         },
         "defaultSize": "L"
@@ -545,20 +545,20 @@ a.item {
           <label for="size">Size:</label>
           <amp-selector name="size" layout="container"
                   on="select:AMP.setState({selectedSize: event.targetOption})"
-                  [selected]="(product[selectedColor || 'green'].sizes[selectedSize || 'S'])
+                  [selected]="(product[selectedColor || 'green'].sizes[selectedSize || 'S'] != 'unavailable')
                       ? selectedSize
                       : product[selectedColor || 'green'].defaultSize">
             <ul class="p0 m1">
               <li option="S" class=""
-                  [class]="(product[selectedColor || 'green'].sizes['S'])
+                  [class]="(product[selectedColor || 'green'].sizes['S'] != 'unavailable')
                       ? ''
                       : 'unavailable'">S</li>
               <li option="M" class="" selected
-                  [class]="(product[selectedColor || 'green'].sizes['M'])
+                  [class]="(product[selectedColor || 'green'].sizes['M'] != 'unavailable')
                       ? ''
                       : 'unavailable'">M</li>
               <li option="L" class="unavailable"
-                  [class]="(product[selectedColor || 'green'].sizes['L'])
+                  [class]="(product[selectedColor || 'green'].sizes['L'] != 'unavailable')
                       ? ''
                       : 'unavailable'">L</li>
             </ul>
