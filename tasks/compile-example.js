@@ -179,8 +179,8 @@ module.exports = function(config, updateTimestamp) {
         timestamp: timestamp,
         fileName: example.url(),
         host: config.host,
-        urlPreview: example.urlPreview(),
         urlSource: example.urlSource(),
+        urlPreview: previewUrl(example),
         github: example.githubUrl(),
         subHeading: example.title(),
         exampleStyles: document.styles,
@@ -233,7 +233,7 @@ module.exports = function(config, updateTimestamp) {
       let previewTemplate = config.templates.preview;
 
       // a4a preview embeds the original sample via iframe
-      if (document.metadata.preview && document.metadata.preview.toLowerCase() == "a4a") {
+      if (document.isAmpAdSample()) {
         previewTemplate = config.a4a.template;
         // configure a4a preview
         args.width = document.metadata.width || config.a4a.defaultWidth;
@@ -293,7 +293,7 @@ module.exports = function(config, updateTimestamp) {
           name: exampleFile.name(),
           description: exampleFile.document.description(),
           url: exampleFile.url(),
-          urlPreview: exampleFile.urlPreview(),
+          urlPreview: previewUrl(exampleFile),
           urlPreviewEmbed: exampleFile.urlPreviewEmbed(),
           urlEmbed: exampleFile.urlEmbed(),
           selected: selected,
@@ -318,6 +318,22 @@ module.exports = function(config, updateTimestamp) {
     sampleFile.contents = new Buffer(sampleHtml);
     gutil.log('Generated ' + sampleFile.relative);
     stream.push(sampleFile);
+  }
+
+  function previewUrl(exampleFile) {
+    const document = exampleFile.document;
+    if (!document.metadata.preview) {
+      return null;
+    }
+    if (document.isAmpAdSample() || document.metadata.preview === 'cache') {
+      return cachedUrl(exampleFile.urlPreview());
+    } else {
+      return exampleFile.urlPreview();
+    }
+  }
+
+  function cachedUrl(url) {
+    return 'https://ampbyexample-com.cdn.ampproject.org/c/s/ampbyexample.com' + url + '?exp=a4a:-1';
   }
 
   function sort(examples) {
