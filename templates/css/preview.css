@@ -11,6 +11,9 @@ body {
 #abe-preview-header > a {
   line-height: 16px;
 }
+#abe-preview-header-title {
+  width: 100%;
+}
 #abe-preview {
   background: #fff;
   min-height: 100vh;
