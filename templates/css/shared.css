@@ -10,6 +10,11 @@ body {
 .www-components-sec-nav {
   min-width: 200px;
 }
+.www-component-desc li a,
+.www-component-desc p a {
+  text-decoration: none;
+  color: #b60845;
+}
 .ampstart-headerbar-nav .ampstart-nav-item.www-current-page {
   color: #B60845;
 }
