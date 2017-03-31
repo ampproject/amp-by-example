@@ -184,6 +184,16 @@ If your sample looks better with a single column layout, you can disable the cod
 }--->
 ```
 
+#### Disabling the Playground
+
+If it doesn't make sense for your sample to provide a playground link, you can disable it:
+
+```json
+<!---{
+  "disablePlayground": true
+}--->
+```
+
 ## Running the backend server
 
 If you need to run or write a sample that depends on the backend server, you can run a local version.
