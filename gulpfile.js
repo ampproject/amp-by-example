@@ -68,7 +68,7 @@ const paths = {
   playground: 'playground',
   src: 'src',
   scripts: ['tasks/**/*.js', 'gulpfile.js'],
-  static: 'static/*.*',
+  static: 'static/**/*.*',
   templates: {
     dir: 'templates',
     files: ['templates/**/*.css', 'templates/**/*.html'],
