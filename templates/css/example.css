@@ -44,6 +44,10 @@ code {
   margin-left: 5rem;
   margin-right: 5rem;
   margin-bottom: 2rem;
+  padding: 0;
+}
+.www-component-desc > .ampstart-card {
+  padding: 1rem;
 }
 @media (max-width: 40rem) {
   .www-component-desc > div,
