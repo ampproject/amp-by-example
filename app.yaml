@@ -68,13 +68,18 @@ handlers:
   script: _go_app
 
 skip_files:
+- .well-known
 - node_modules
 - scripts
 - playground/node_modules
 - playground/src
 - playground/dist
+- playground/.cache
+- playground/img
+- scripts
 - src
 - spec
+- data
 - static
 - tasks
 - android
@@ -83,3 +88,4 @@ skip_files:
 - ^(.*/)?.*\.swp$
 - api
 - .git
+- lib

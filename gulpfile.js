@@ -296,6 +296,9 @@ function shouldMinifyHtml(file) {
   if (config.env !== PROD) {
     return false;
   }
+  if (!file.path.endsWith('.html')) {
+    return false;
+  }
   if (file.path.endsWith('/source/index.html')) {
     return false;
   }
