@@ -1,7 +1,7 @@
 <!--
   ## Introduction
 
-  The amp-gist component allows embedding of an entire gist or a single file. The `fixed-height` layout is the only supported layout, and it requires the `height` attribute. **You must provide the actual height of the gist**, and you can find this on the gist page by inspecting the element with developer tools (e.g. Chrome Dev Tools). 
+  The amp-gist component allows embedding of an entire gist or a single file. The `fixed-height` layout is the only supported layout, and it requires the `height` attribute. **You must provide the actual height of the gist**, and you can find this on the gist page by inspecting the element with developer tools (e.g. Chrome Dev Tools).
 
   Read the official [amp-gist documentation](https://github.com/ampproject/amphtml/blob/master/extensions/amp-gist/amp-gist.md). Visit [GitHub Gist](https://gist.github.com/) to create a Gist.
 -->
@@ -20,6 +20,12 @@
   <!---{
     "experiments": ["amp-gist"]
   }--->
+<style amp-custom>
+  amp-gist {
+    margin: 1rem;
+  }
+</style>
+
 </head>
 <body>
 
@@ -28,7 +34,7 @@
   <amp-gist
     data-gistid="b9bb35bc68df68259af94430f012425f"
     layout="fixed-height"
-    height="225">
+    height="241">
   </amp-gist>
 
   <!-- Embed one file out of a gist using the `data-file` attribute. The
@@ -37,7 +43,7 @@
     data-gistid="a19e811dcd7df10c4da0931641538497"
     data-file="hi.c"
     layout="fixed-height"
-    height="185">
+    height="197">
   </amp-gist>
 
 </body>
