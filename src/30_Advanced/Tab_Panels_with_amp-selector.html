@@ -73,7 +73,8 @@
         <div role="tabpanel" class="tabContent">Tab three content... </div>
     </amp-selector>
     <!--
-    #### Tab panels using `amp-carousel`.
+    ####  Amp component as the panel
+    You can have just about anything as `tabContent` - the `amp-carousel` is a good example of a more complex component being used.
     -->
     <amp-selector role="tablist" layout="container" class="ampTabContainer">
         <div role="tab" class="tabButton" selected option="a">Images</div>
@@ -91,6 +92,7 @@
     </amp-selector>
     <!--
     #### Tab panels with varying heights
+    The panels themselves don't require a fixed height; rather, the panel will adjust it's height based on the content within.
     -->
     <amp-selector role="tablist" layout="container" class="ampTabContainer">
         <div role="tab" class="tabButton" selected option="a">Tall Container</div>
