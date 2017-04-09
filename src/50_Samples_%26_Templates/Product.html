@@ -3,7 +3,7 @@
   "skipValidation": "true",
   "default": "preview",
   "hideCode": true,
-  "experiments": ["amp-form-var-sub", "amp-bind"]
+  "experiments": ["amp-bind"]
   }--->
 <!--
 ## Introduction
@@ -516,7 +516,7 @@ a.item {
                   on="select:AMP.setState({
                     selectedColor: event.targetOption,
                     selectedSlide: 0,
-                    selectedSize: product[event.targetOption].sizes[selectedSize] ? selectedSize : product[event.targetOption].defaultSize
+                    selectedSize: product[event.targetOption].sizes[selectedSize] != 'unavailable' ? selectedSize : product[event.targetOption].defaultSize
                   })">
             <ul class="p0 m1">
               <li>
@@ -544,7 +544,7 @@ a.item {
         <div class="items-center flex">
           <label for="size">Size:</label>
           <amp-selector name="size" layout="container"
-                  on="select:AMP.setState({selectedSize: event.targetOption})"
+                  on="select:AMP.setState({selectedSize: event.targetOption, selectedColor: selectedColor ? selectedColor : 'green'})"
                   [selected]="(product[selectedColor || 'green'].sizes[selectedSize || 'S'] != 'unavailable')
                       ? selectedSize
                       : product[selectedColor || 'green'].defaultSize">
