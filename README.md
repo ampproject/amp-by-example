@@ -97,7 +97,7 @@ This works for elements in the header as well:
 Every HTML comment creates a separate example section spanning the following HTML element.
 
 ```html
-<!-- This comment spans the whole following div including the two images -->
+<!-- This comment spans the whole following section including the two images -->
 <section>
   <amp-img src="img/image1.jpg" width="200" height="100" layout="responsive"></amp-img>
   <amp-img src="img/image2.jpg" width="200" height="100" layout="responsive"></amp-img>
