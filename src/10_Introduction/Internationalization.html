@@ -26,9 +26,13 @@ Internationalization and localization of content is an important feature that
 websites often embrace to provide maximum reach for their content or services.
 
 For static websites, a common site structure technique for addressing this is
-called 'hreflang'. Hreflang is a part of the meta data of a website and is used
+known as 'hreflang'. Hreflang is a part of the meta data of a website and is used
 to annotate a page such that crawlers can discover alternative translations of
 a particular article. Search engines such as Google recognise websites that use hreflang.
+
+The hreflang notation is used with the link tag to refer to another document:
+
+`<link rel="alternate" hreflang="fr" href="/path/to/french.html" />`
 
 You can [read more about hreflang here.](https://support.google.com/webmasters/answer/189077?hl=en)
 
@@ -57,22 +61,22 @@ the English AMP document must include a link tag to the canonical document. Simi
 canonical document includes a corresponding link tag to the AMP document.
 
 Additionally, this diagram includes French translations of both the canonical document
-and the AMP document. Therefore the documents must include link tags with hreflang
+and the AMP document. Therefore the documents must include link tags with `hreflang`
 attributes to connect the various alternative language versions of the canonical and
 AMP documents. The following rules apply:
-* Every canonical document must have a link tag with rel=amphtml pointing to
+* Every canonical document must have a link tag with `rel=amphtml` pointing to
 its matching AMP document in the same language.
-* Every AMP document must have a link tag with rel=canonical pointing to
+* Every AMP document must have a link tag with `rel=canonical` pointing to
 its matching canonical desktop document, again, in the same language.
-* Every canonical document must have a link tag with rel=alternate and an
-hreflang attribute for each alternative language version of the canonical document.
-* Every AMP document must have a link tag with rel=alternate and an
-hreflang attribute for each alternative language version of the AMP document.
+* Every canonical document must have a link tag with `rel=alternate` and an
+`hreflang` attribute for each alternative language version of the canonical document.
+* Every AMP document must have a link tag with `rel=alternate` and an
+`hreflang` attribute for each alternative language version of the AMP document.
 
 Therefore, given an article with X language versions of itself
 (including English) each canonical document would include:
-* 1 link tag with rel=amphtml
-* And X link tags with rel=alternate and the hreflang attribute
+* 1 link tag with `rel=amphtml`
+* And X link tags with `rel=alternate` and the `hreflang` attribute
 
 [View the example here.](/internationalization/basic/)
 
@@ -90,14 +94,14 @@ The following diagram illustrates this structure at a high level:
 
 The same rules from the previous example apply in this example with the addition of
 the following rules:
-* Every canonical document must have a link tag with rel=alternate and no hreflang attribute
+* Every canonical document must have a link tag with `rel=alternate` and no `hreflang` attribute
 pointing to its matching alternate mobile document in the same language.
-* Every alternate mobile document must have a link tag with rel=canonical pointing to
+* Every alternate mobile document must have a link tag with `rel=canonical` pointing to
 its matching canonical desktop document, again, in the same language.
-* Every alternate mobile document must have a link tag with rel=alternate and an
-hreflang attribute for each alternative language version of the alternate mobile document.
+* Every alternate mobile document must have a link tag with `rel=alternate` and an
+`hreflang` attribute for each alternative language version of the alternate mobile document.
 
-[TODO View the example here.](/internationalization/alternate/)
+[View the example here.](/internationalization/alternate/)
 
 -->
 </body>
