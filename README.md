@@ -109,11 +109,11 @@ Nesting comments are not supported:
 ```html
 <!-- A comment -->
 <div>
-  <!-- This does not work -->
+  <!-- This does not work because the parent div has already a comment -->
   <amp-img src="img/image1.jpg" width="200" height="100" layout="responsive"></amp-img>
 </div>
 <div>
-  <!-- This does work though -->
+  <!-- Commenting inside nested tags works though -->
   <amp-img src="img/image1.jpg" width="200" height="100" layout="responsive"></amp-img>
 </div>
 ```
