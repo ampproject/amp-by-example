@@ -97,20 +97,36 @@ This works for elements in the header as well:
 Every HTML comment creates a separate example section spanning the following HTML element.
 
 ```html
-<!-- This comment spans the whole following div including the two images -->
-<div>
+<!-- This comment spans the whole following section including the two images -->
+<section>
   <amp-img src="img/image1.jpg" width="200" height="100" layout="responsive"></amp-img>
   <amp-img src="img/image2.jpg" width="200" height="100" layout="responsive"></amp-img>
-</div>
+</section>
 ```
 
-Nested comments are not supported:
+Nesting comments are not supported:
 
 ```html
 <!-- A comment -->
 <div>
-  <!-- This does not work -->
+  <!-- This does not work because the parent div has already a comment -->
   <amp-img src="img/image1.jpg" width="200" height="100" layout="responsive"></amp-img>
+</div>
+<div>
+  <!-- Commenting inside nested tags works though -->
+  <amp-img src="img/image1.jpg" width="200" height="100" layout="responsive"></amp-img>
+</div>
+```
+
+If your comment spans multiple elements, wrap these in an single `div` without any attributes. The enclosing `div` tag will be hidden in source code listings:
+
+```html
+<!-- The enclosing `div` will be hidden in source code listings. -->
+<div>
+  <button on="tap:my-lightbox" role="button" tabindex="0">Open lightbox</button>
+  <amp-lightbox id="my-lightbox" layout="nodisplay">
+    <h1>Hello World!</h1>
+  </amp-lightbox>
 </div>
 ```
 
