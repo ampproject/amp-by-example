@@ -339,7 +339,7 @@ a.item {
 
     See below for more informations on how we use`amp-bind`. -->
   <div class="product-gallery">
-    <ul class="show" [class]="selectedColor == 'green' ? 'show' : 'hide'">
+    <ul class="show" [class]="(!selectedColor || selectedColor == 'green') ? 'show' : 'hide'">
       <li tabindex="0" role="button">
         <amp-img on="tap:AMP.setState({selectedSlide: 0})"
                   src="/img/green_apple_1_60x40.jpg"
@@ -395,9 +395,9 @@ a.item {
             layout="responsive"
             type="slides"
             [slide]="selectedSlide"
-            on="goToSlide:AMP.setState({selectedSlide: event.index})"
+            on="slideChange:AMP.setState({selectedSlide: event.index})"
             class="show"
-            [class]="selectedColor == 'green' ? 'show' : 'hide'">
+            [class]="(!selectedColor || selectedColor == 'green') ? 'show' : 'hide'">
       <amp-img src="/img/green_apple_1_1024x682.jpg"
                 width="1024" height="682"
                 layout="responsive">
@@ -413,7 +413,7 @@ a.item {
             layout="responsive"
             type="slides"
             [slide]="selectedSlide"
-            on="goToSlide:AMP.setState({selectedSlide: event.index})"
+            on="slideChange:AMP.setState({selectedSlide: event.index})"
             class="hide"
             [class]="selectedColor == 'golden' ? 'show' : 'hide'">
         <amp-img src="/img/golden_apple1_1024x682.jpg"
@@ -427,7 +427,7 @@ a.item {
             layout="responsive"
             type="slides"
             [slide]="selectedSlide"
-            on="goToSlide:AMP.setState({selectedSlide: event.index})"
+            on="slideChange:AMP.setState({selectedSlide: event.index})"
             class="hide"
             [class]="selectedColor == 'red' ? 'show' : 'hide'">
         <amp-img src="/img/red_apple_1_1024x682.jpg"
