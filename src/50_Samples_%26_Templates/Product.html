@@ -329,7 +329,7 @@ div.square {
     corresponding to the selected colour. We realized the color selection by using `amp-selector`. Find more the doc and info in The Product Page section below.
 
     The green colour is the default color for the gallery when the page loads.
-    Clicking on a preview image will reveal the image in the gallery via the tap action `on="tap:product-carousel-preview.goToSlide(index=0)"`.
+    Clicking on a preview image will reveal the image in the gallery via the tap action `on="tap:AMP.setState({selectedSlide: 0})"`.
 
     See below for more informations on how we use`amp-bind`. -->
   <div class="product-gallery">
@@ -381,7 +381,9 @@ div.square {
    <!-- ## Image Gallery -->
   <!-- The `amp-carousel` component works very well for product image galleries. Learn how the `amp-carousel` component works [here](/advanced/image_galleries_with_amp-carousel/).
 
-  Notice how we are binding to the `slide` and `class` by using to the values of the variables `selectedSlide` and `selectedColor`. -->
+  Notice how we are binding to the `slide` and `class` by using to the values of the variables `selectedSlide` and `selectedColor`. 
+  It's not possible to set a default value for variables, for example we use the expression`(!selectedColor || selectedColor == 'green')`
+  to make sure the selected color is green at default. -->
   <div class="product-gallery">
 
     <amp-carousel id="green-apple-carousel"
