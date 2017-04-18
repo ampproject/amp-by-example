@@ -7,7 +7,7 @@ pre, code {
 .www-component-desc pre,
 pre {
   font-size: 14px;
-  overflow: auto;
+  overflow: scroll;
   -moz-tab-size: 2;
   -o-tab-size: 2;
   tab-size: 2;
@@ -90,6 +90,7 @@ code {
 }
 .abe-preview {
   background: #fff;
+  overflow: hidden;
 }
 .abe-preview>h1,
 .abe-preview>h2,
