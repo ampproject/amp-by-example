@@ -329,7 +329,7 @@ div.square {
     corresponding to the selected colour. We realized the color selection by using `amp-selector`. Find more the doc and info in The Product Page section below.
 
     The green colour is the default color for the gallery when the page loads.
-    Clicking on a preview image will reveal the image in the gallery via the tap action `on="tap:AMP.setState({selectedSlide: 0})"`.
+    Clicking on a preview image will reveal the image in the gallery via the tap action `on="tap:AMP.setState({product: {selectedSlide: 0}})"`.
 
     See below for more informations on how we use`amp-bind`. -->
   <div class="product-gallery">
@@ -441,7 +441,8 @@ div.square {
       for each product when you switch between colours and the size you previously selected is not available for the new color -->
   <amp-state id="product">
     <script type="application/json">
-    { "selectedColor": "green",
+    {
+      "selectedColor": "green",
       "selectedSize": "S",
       "selectedSlide": 0,
       "green": {
@@ -479,7 +480,7 @@ div.square {
     We bind the `text` attribute to the
       value of expression `product[product.selectedColor].sizes[product.selectedSize]`. `product` is the id `amp-state` json described in the Product Configuration section.
 
-    Notice how we set $1.99 as default value for the price:  expressions
+    Notice how we set $1.99 as default for the price:  expressions
       will not be evaluated at the page load.
 
      We use `amp-selector` together with `amp-bind` to update the page for showing the price, the size availability, the gallery and preview of images.
