@@ -101,7 +101,7 @@ This sample showcases how to build a product listing page in AMP HTML.
 
   <div class="items">
     [[range .Products]]
-    <a class="m1 item" href="/samples_templates/product/[[$.Mode]]">
+    <a class="m1 text-decoration-none" href="/samples_templates/product/[[$.Mode]]">
       <amp-img width="640"
                height="426"
                layout="responsive"
@@ -121,43 +121,43 @@ This sample showcases how to build a product listing page in AMP HTML.
 <h3 class="pl1 pt2 pb2">Recommendations</h3>
   <!-- The `amp-carousel` supports also a more traditional carousel mode.   -->
   <amp-carousel class="m1" width="auto" height="160" layout="fixed-height" type="carousel" autoplay>
-    <a class="m1" href="#" role="listitem">
+    <a class="m1 text-decoration-none" href="#" role="listitem">
       <amp-img width="640" height="426" layout="responsive" alt="Apple" src="/img/product1_640x426.jpg"></amp-img>
       <p class="name">Apple</p>
       <p class="star">★★★★★</p>
       <p class="price">$1.99</p>
-    </a><a class="m1" href="#" role="listitem">
+    </a><a class="m1 text-decoration-none" href="#" role="listitem">
       <amp-img width="640" height="426" layout="responsive" alt="Orange" src="/img/product2_640x426.jpg"></amp-img>
       <p class="name">Orange</p>
       <p class="star">★★★★☆</p>
       <p class="price">$0.99</p>
-    </a><a class="m1" href="#" role="listitem">
+    </a><a class="m1 text-decoration-none" href="#" role="listitem">
       <amp-img width="640" height="426" layout="responsive" alt="Pear" src="/img/product3_640x426.jpg"></amp-img>
       <p class="name">Pear</p>
       <p class="star">★★★☆☆</p>
       <p class="price">$1.50</p>
-    </a><a class="m1" href="#" role="listitem">
+    </a><a class="m1 text-decoration-none" href="#" role="listitem">
       <amp-img width="640" height="426" layout="responsive" alt="Banana" src="/img/product4_640x426.jpg"></amp-img>
       <p class="name">Banana</p>
       <p class="star">★★★★★</p>
       <p class="price">$1.50</p>
     </a>
-    <a class="m1" href="#" role="listitem">
+    <a class="m1 text-decoration-none" href="#" role="listitem">
       <amp-img width="640" height="426" layout="responsive" alt="Apple" src="/img/product1_640x426.jpg"></amp-img>
       <p class="name">Apple 2</p>
       <p class="star">★★★★★</p>
       <p class="price">$1.99</p>
-    </a><a class="m1" href="#" role="listitem">
+    </a><a class="m1 text-decoration-none" href="#" role="listitem">
       <amp-img width="640" height="426" layout="responsive" alt="Orange" src="/img/product2_640x426.jpg"></amp-img>
       <p class="name">Orange 2</p>
       <p class="star">★★★★☆</p>
       <p class="price">$0.99</p>
-    </a><a class="m1" href="#" role="listitem">
+    </a><a class="m1 text-decoration-none" href="#" role="listitem">
       <amp-img width="640" height="426" layout="responsive" alt="Pear" src="/img/product3_640x426.jpg"></amp-img>
       <p class="name">Pear 2</p>
       <p class="star">★★★☆☆</p>
       <p class="price">$1.50</p>
-    </a><a class="m1" href="#" role="listitem">
+    </a><a class="m1 text-decoration-none" href="#" role="listitem">
       <amp-img width="640" height="426" layout="responsive" alt="Banana" src="/img/product4_640x426.jpg"></amp-img>
       <p class="name">Banana 2</p>
       <p class="star">★★★★★</p>
@@ -177,7 +177,7 @@ With AMP, you can easily pull in different latest offers or highlights without c
           layout="responsive"
           src="/json/related_products.json">
   <template type="amp-mustache">
-    <a class="m1 item" href="/samples_templates/product/preview/">
+    <a class="m1 text-decoration-none" href="/samples_templates/product/preview/">
       <amp-img width="640"
                height="426"
                layout="responsive"
