@@ -1,0 +1,117 @@
+<!---{
+    "experiments": ["amp-form", "form-submit"],
+    "preview": "default"
+  }--->
+<!--
+  #### Introduction
+
+  This example shows a clever use of [amp-form](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md)
+  for displaying a favorite ("heart") control, letting the user click/tap on it, and recording the event in server-side
+  code. For now, the "favorite" icon can only be tapped once. Toggling may be added [after AMP implements
+  support](https://github.com/ampproject/amphtml/pull/5540) for rendering `<input>` elements in
+  [amp-mustache](https://github.com/ampproject/amphtml/blob/master/extensions/amp-mustache/amp-mustache.md) templates.
+
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <link rel="canonical" href="<%host%>/advanced/favorite/" >
+  <!-- #### Setup -->
+  <!--
+  Import the `<amp-form>` [and `<amp-mustache>`](https://github.com/ampproject/amphtml/issues/5619) components.
+  -->
+  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+  <!-- -->
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!--
+  Customize success or error messages by using the [`.amp-form-submit-success` and `.amp-form-submit-error` CSS
+  classes](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md#classes-and-css-hooks).
+  For success, we'll change the color of the heart icon, using CSS filters
+  ([credit](http://codepen.io/noahblon/post/coloring-svgs-in-css-background-images)). Fiters are supported by most
+  browsers except IE and Edge, for which the SVG sprite method could be used instead, or even the ♥ Unicode character.
+
+  The example works by having a form submit button without text, and styled with a background image pointing
+  to an SVG with the icon we want (a heart in this example). Once the form is submitted, we'll hide the button and
+  display a `<div submit-success>`, which we style with the same background image, but a different color.
+  -->
+  <style amp-custom>
+    form.amp-form-submit-success [submit-success] {
+      /* Change the heart color from the SVG red to orange */
+      filter: hue-rotate(40deg) saturate(0.5) brightness(390%) saturate(4);
+      /* The Android browser requires a prefix: http://caniuse.com/#search=css%20filter */
+      -webkit-filter: hue-rotate(40deg) saturate(0.5) brightness(390%) saturate(4);
+    }
+    form.amp-form-submit-error [submit-error] {
+      color: red;
+    }
+
+    .favorite {
+      width: 48px;
+      height: 48px;
+      display: inline-block;
+      cursor: pointer;
+
+      background: url(https://upload.wikimedia.org/wikipedia/commons/f/f1/Heart_coraz%C3%B3n.svg) no-repeat 50% 50%;
+      background-size: cover;
+
+      /* Turn the red SVG into grey */
+      filter: grayscale(100%) brightness(5) brightness(.9);
+      -webkit-filter: grayscale(100%) brightness(5) brightness(.9);
+
+      /* Disable any border or outline the form > input element might have */
+      outline: none;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- #### Submitting the form via XMLHttpRequest
+
+  Since we've loaded `<amp-form>`, we can use a regular `<form>` element. It only has one `input` control,
+  the submit button, and an `action-xhr` attribute set to the server endpoint. This prevents the form submission from
+  loading a new page. The endpoint result will be egnored for the purposes of this example, as well as [the
+  target attribute](https://github.com/ampproject/amphtml/issues/5607#issuecomment-253894602).
+
+  #### Replacing the "favorite" input field with a "favorite<b>d</b>" icon
+
+  The form's [on
+  attribute](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md#events) is set to
+  call the `hide` built-in method of the `input` (identified by its id, `favorite-btn`). If the submission succeeds,
+
+  1. The [`<div submit-success>` element will be
+     rendered](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md#successerror-response-rendering).
+     The `<div>` has a `.favorite` class, which will display the heart icon, overlaid perfectly over
+     the `<input>`'s grey heart icon.
+  2. The form will be decorated with a `.amp-form-submit-success` class, which will cause the `div` to match the
+     `form.amp-form-submit-success [submit-success]` CSS rule above, which will change the color of the heart icon
+     to orange.
+
+  -->
+  <form on="submit-success:favorite-btn.hide"
+        method="post" action-xhr="<%host%>/components/amp-form/submit-form-input-text-xhr" target="_top">
+    <input class="favorite" id="favorite-btn" type="submit" value="">
+    <div submit-success class="favorite">
+      <template type="amp-mustache">
+
+      </template>
+    </div>
+    <!-- #### Error handling
+
+    If the XHR request fails, the `<div submit-error>` will be rendered.
+
+    -->
+    <div submit-error>
+      <template type="amp-mustache">
+        Couldn't save favorite :-(
+      </template>
+    </div>
+  </form>
+
+</body>
+</html>
