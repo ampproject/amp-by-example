@@ -203,7 +203,7 @@ div.square {
     background-color: #FF0000;
 }
 
-.golden{
+.golden {
     background-color: #DAA520;
 }
 
@@ -211,6 +211,22 @@ div.square {
   .product-gallery > ul {
     display: none;
   }
+}
+.info-button {
+  background: url(/img/ic_info_outline_black_24dp_1x.png) no-repeat scroll 0 0 transparent;
+  width: 24px;
+  height: 24px;
+  margin: 4px 0 0 4px;
+}
+
+.lightbox {
+  width: 80%;
+  height: auto;
+  margin: auto;
+  top: 25%;
+  left: 0;
+  position: relative;
+  background-color: #FFF
 }
 
     </style>
@@ -600,7 +616,20 @@ div.square {
 
     <!-- ## Dynamic Related Product Lists -->
     <!--  -->
-    <h2 id="related-products" class="m1">Related products</h2>
+    <div class="items-center flex">
+      <h2 id="related-products" class="m1 inline-block">Related products</h2>
+      <amp-lightbox id="my-lightbox" layout="nodisplay">
+        <div class="lightbox">
+          <p class="p2">Products that have been bought together</p>
+          <button class="ampstart-btn caps mx2 mb2" on="tap:my-lightbox.close"
+            role="button" tabindex="0">
+            Close
+          </button>
+        </div>
+      </amp-lightbox>
+      <button class="info-button border-none" on="tap:my-lightbox" role="button" tabindex="0">
+      </button>
+    </div>
     <!--
     With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
      Learn more about `amp-list` [here](/components/amp-list/)
