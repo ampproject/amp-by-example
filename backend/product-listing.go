@@ -76,9 +76,9 @@ var cache *LRUCache
 func InitProductListing() {
 	initProducts(DIST_FOLDER + "/json/related_products.json")
 	RegisterSample(SHOPPING_CART, gotToShoppingCart)
-	RegisterSample("samples_templates/product_listing", renderProductListing)
+	RegisterSample("samples_templates/browse_page", renderProductListing)
 	RegisterSample("samples_templates/product", renderProduct)
-	RegisterSampleEndpoint("samples_templates/product_listing", SEARCH, handleSearchRequest)
+	RegisterSampleEndpoint("samples_templates/browse_page", SEARCH, handleSearchRequest)
 	http.HandleFunc(ADD_TO_CART_PATH, func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, addToCart)
 	})
