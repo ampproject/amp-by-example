@@ -67,4 +67,7 @@
 }, {
   "source": "/samples_templates/product_listing/",
   "target": "/samples_templates/product_browse_page/"
+}, {
+  "source": "/samples_templates/product/",
+  "target": "/samples_templates/product_page/"
 }]

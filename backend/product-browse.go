@@ -30,7 +30,7 @@ import (
 const (
 	SEARCH           = "search"
 	SHOPPING_CART    = "shopping_cart"
-	ADD_TO_CART_PATH = "/samples_templates/product/add_to_cart"
+	ADD_TO_CART_PATH = "/samples_templates/product_page/add_to_cart"
 	ABE_CLIENT_ID    = "ABE_CLIENT_ID"
 )
 
@@ -77,7 +77,7 @@ func InitProductBrowse() {
 	initProducts(DIST_FOLDER + "/json/related_products.json")
 	RegisterSample(SHOPPING_CART, gotToShoppingCart)
 	RegisterSample("samples_templates/product_browse_page", renderProductBrowsePage)
-	RegisterSample("samples_templates/product", renderProduct)
+	RegisterSample("samples_templates/product_page", renderProduct)
 	RegisterSampleEndpoint("samples_templates/product_browse_page", SEARCH, handleSearchRequest)
 	http.HandleFunc(ADD_TO_CART_PATH, func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, addToCart)

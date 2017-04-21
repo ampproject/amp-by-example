@@ -30,7 +30,7 @@ This sample showcases how to build a product page in AMP HTML.
     <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
     <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
 
-    <link rel="canonical" href="<%host%>/samples_templates/product/">
+    <link rel="canonical" href="<%host%>/samples_templates/product_page/">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <style amp-custom>
     <%>css/product.css%>
@@ -523,7 +523,7 @@ This sample showcases how to build a product page in AMP HTML.
     <!-- We use the `CLIENT_ID` variable to identify the user, this enables storing a shopping cart between repeated visits of an AMP page (either via the AMP Cache or the original host). This variable can be used inside an amp-form by declaring an hidden input value with `default-value="CLIENT_ID(cart)`. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
 
       <form id="order" method="POST"
-            action-xhr="/samples_templates/product/add_to_cart"
+            action-xhr="/samples_templates/product_page/add_to_cart"
             target="_top" class="flex flex-wrap m1">
         <div class="items-center flex">
           <label for="color">Color:</label>
@@ -649,7 +649,7 @@ This sample showcases how to build a product page in AMP HTML.
               layout="responsive"
               src="/json/related_products.json">
       <template type="amp-mustache">
-        <a class="text-decoration-none" href="/samples_templates/product/preview/">
+        <a class="text-decoration-none" href="/samples_templates/product_page/preview/">
           <amp-img width="640"
                    height="426"
                    layout="responsive"
