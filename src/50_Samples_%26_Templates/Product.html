@@ -168,75 +168,74 @@ This sample showcases how to build a product page in AMP HTML.
       user-select: none;
     }
 
-.unavailable:before, .unavailable:after {
-    position: absolute;
-    content: '';
-    background: grey;
-    display: block;
-    width: auto;
-    height: 1px;
-    min-width: 56px;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    left: -8px;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-}
+    .unavailable:before, .unavailable:after {
+      position: absolute;
+      content: '';
+      background: grey;
+      display: block;
+      width: auto;
+      height: 1px;
+      min-width: 56px;
+      -webkit-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+      left: -8px;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
 
-.unavailable:after {
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
+    .unavailable:after {
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
 
-div.square {
-  width: 40px;
-  height: 40px;
-}
+    div.square {
+      width: 40px;
+      height: 40px;
+    }
 
-.green {
-    background-color: #008000;
-}
+    .green {
+      background-color: #008000;
+    }
 
-.red {
-    background-color: #FF0000;
-}
+    .red {
+      background-color: #FF0000;
+    }
 
-.golden {
-    background-color: #DAA520;
-}
+    .golden {
+      background-color: #DAA520;
+    }
 
-@media (max-width: 1024px) {
-  .product-gallery > ul {
-    display: none;
-  }
-}
-.info-button {
-  background: url(/img/ic_info_outline_black_24dp_1x.png) no-repeat scroll 0 0 transparent;
-  width: 24px;
-  height: 24px;
-  margin: 4px 0 0 4px;
-}
+    @media (max-width: 1024px) {
+      .product-gallery > ul {
+        display: none;
+      }
+    }
+    .info-button {
+      background: -webkit-image-set(
+        url(/img/ic_info_outline_black_24dp_1x.png) 1x,
+        url(/img/ic_info_outline_black_24dp_2x.png) 2x
+      );
+      background-repeat: no-repeat;
+      width: 24px;
+      height: 24px;
+      margin: 4px 0 0 4px;
+    }
 
-.info {
-  background-color: #FFF;
-  width: -webkit-fit-content;
-  width: fit-content;
-  margin: auto; 
-}
+    .info {
+      background-color: #FFF;
+      width: -webkit-fit-content;
+      width: fit-content;
+      margin: auto;
+    }
 
-.lightbox {
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    position: fixed;
-    display: flex;
-    align-items: center;
-}
-
+    .lightbox {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
     </style>
 
     <!-- ## Metadata -->
