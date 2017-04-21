@@ -220,14 +220,12 @@ This sample showcases how to build a product page in AMP HTML.
       background-repeat: no-repeat;
       width: 24px;
       height: 24px;
-      margin: 4px 0 0 4px;
+      margin-top: 4px;
     }
 
     .info {
-      background-color: #FFF;
-      width: -webkit-fit-content;
-      width: fit-content;
-      margin: auto;
+      margin: 0 auto;
+      background: #fff;
     }
 
     .lightbox {
@@ -624,12 +622,12 @@ This sample showcases how to build a product page in AMP HTML.
     <!-- ## Dynamic Related Product Lists -->
     <!--  -->
     <div class="items-center flex">
-      <h2 id="related-products" class="m1 inline-block">Related products</h2>
+      <h2 id="related-products" class="m1 inline-block">Related products
       <amp-lightbox id="my-lightbox" layout="nodisplay">
         <div class="lightbox" on="tap:my-lightbox.close" role="button"
             tabindex="0">
           <div class="info">
-            <p class="p2">Products that have been bought together</p>
+            <h4 class="p2">Products that have been bought together</h4>
             <button class="ampstart-btn caps mx2 mb2" on="tap:my-lightbox.close"
               role="button" tabindex="0">
               Close
@@ -637,6 +635,7 @@ This sample showcases how to build a product page in AMP HTML.
         </div>
         </div>
       </amp-lightbox>
+    </h2>
       <button class="info-button border-none" on="tap:my-lightbox" role="button" tabindex="0">
       </button>
     </div>
