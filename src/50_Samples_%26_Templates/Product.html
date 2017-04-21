@@ -219,7 +219,7 @@ div.square {
   margin: 4px 0 0 4px;
 }
 
-.lightbox {
+.info {
   width: 80%;
   height: auto;
   margin: auto;
@@ -227,6 +227,15 @@ div.square {
   left: 0;
   position: relative;
   background-color: #FFF
+}
+
+.lightbox {
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    position: fixed;
 }
 
     </style>
@@ -619,12 +628,15 @@ div.square {
     <div class="items-center flex">
       <h2 id="related-products" class="m1 inline-block">Related products</h2>
       <amp-lightbox id="my-lightbox" layout="nodisplay">
-        <div class="lightbox">
-          <p class="p2">Products that have been bought together</p>
-          <button class="ampstart-btn caps mx2 mb2" on="tap:my-lightbox.close"
-            role="button" tabindex="0">
-            Close
-          </button>
+        <div class="lightbox" on="tap:my-lightbox.close" role="button"
+            tabindex="0">
+          <div class="info">
+            <p class="p2">Products that have been bought together</p>
+            <button class="ampstart-btn caps mx2 mb2" on="tap:my-lightbox.close"
+              role="button" tabindex="0">
+              Close
+            </button>
+        </div>
         </div>
       </amp-lightbox>
       <button class="info-button border-none" on="tap:my-lightbox" role="button" tabindex="0">
