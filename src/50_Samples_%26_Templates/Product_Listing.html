@@ -57,13 +57,11 @@ This sample showcases how to build a product listing page in AMP HTML.
     Use the [amp-sidebar](/components/amp-sidebar/) component to give customers the chance to quickly jump to any of your product categories.
   -->
   <amp-sidebar id="drawermenu" layout="nodisplay">
-    <div class="h2 p1">
-      <a href="/" class="text-decoration-none">Products by Example</a>
-    </div>
+    <a href="/" class="caps text-decoration-none block p1">Products by Example</a>
     <hr/>
-    <h3 class="expanded p1"><a class="text-decoration-none" href="/samples_templates/product_listing/preview/">Fruit</a></h3>
-    <h3 class="p1"><a class="text-decoration-none" href="/samples_templates/product_listing/preview/">Vegetable</a></h3>
-    <h3 class="p1"><a class="text-decoration-none" href="/samples_templates/product_listing/preview/">More</a></h3>
+    <a class="caps text-decoration-none block p1" href="/samples_templates/product_listing/preview/">Fruit</a>
+    <a class="caps text-decoration-none block p1" href="/samples_templates/product_listing/preview/">Vegetable</a>
+    <a class="caps text-decoration-none block p1" href="/samples_templates/product_listing/preview/">More</a>
   </amp-sidebar>
   <!-- ## Header with Search -->
   <!--
@@ -75,8 +73,8 @@ This sample showcases how to build a product listing page in AMP HTML.
     <a id="sample-menu" on="tap:drawermenu.toggle">
       <amp-img srcset="/img/ic_menu_white_1x_web_24dp.png 1x, /img/ic_menu_white_2x_web_24dp.png 2x" width="24" height="24" alt="navigation"></amp-img>
     </a>
-    <form method="GET" action="<%host%>/samples_templates/product_listing[[.Mode]]/search" target="_top">
-      <input type="search" placeholder="Search">
+    <form method="GET" action="/samples_templates/product_listing[[.Mode]]/search" target="_top">
+      <input name="search" type="search" placeholder="Search">
       <a id="sample-logo" href="/">Products by Example</a>
       <input type="submit" value="">
     </form>
@@ -103,7 +101,7 @@ This sample showcases how to build a product listing page in AMP HTML.
 
   <div class="items">
     [[range .Products]]
-    <a class="m1 item" href="/samples_templates/product/[[$.Mode]]">
+    <a class="m1 text-decoration-none" href="/samples_templates/product/[[$.Mode]]">
       <amp-img width="640"
                height="426"
                layout="responsive"
@@ -123,43 +121,43 @@ This sample showcases how to build a product listing page in AMP HTML.
 <h3 class="pl1 pt2 pb2">Recommendations</h3>
   <!-- The `amp-carousel` supports also a more traditional carousel mode.   -->
   <amp-carousel class="m1" width="auto" height="160" layout="fixed-height" type="carousel" autoplay>
-    <a class="m1" href="#" role="listitem">
+    <a class="m1 text-decoration-none" href="#" role="listitem">
       <amp-img width="640" height="426" layout="responsive" alt="Apple" src="/img/product1_640x426.jpg"></amp-img>
       <p class="name">Apple</p>
       <p class="star">★★★★★</p>
       <p class="price">$1.99</p>
-    </a><a class="m1" href="#" role="listitem">
+    </a><a class="m1 text-decoration-none" href="#" role="listitem">
       <amp-img width="640" height="426" layout="responsive" alt="Orange" src="/img/product2_640x426.jpg"></amp-img>
       <p class="name">Orange</p>
       <p class="star">★★★★☆</p>
       <p class="price">$0.99</p>
-    </a><a class="m1" href="#" role="listitem">
+    </a><a class="m1 text-decoration-none" href="#" role="listitem">
       <amp-img width="640" height="426" layout="responsive" alt="Pear" src="/img/product3_640x426.jpg"></amp-img>
       <p class="name">Pear</p>
       <p class="star">★★★☆☆</p>
       <p class="price">$1.50</p>
-    </a><a class="m1" href="#" role="listitem">
+    </a><a class="m1 text-decoration-none" href="#" role="listitem">
       <amp-img width="640" height="426" layout="responsive" alt="Banana" src="/img/product4_640x426.jpg"></amp-img>
       <p class="name">Banana</p>
       <p class="star">★★★★★</p>
       <p class="price">$1.50</p>
     </a>
-    <a class="m1" href="#" role="listitem">
+    <a class="m1 text-decoration-none" href="#" role="listitem">
       <amp-img width="640" height="426" layout="responsive" alt="Apple" src="/img/product1_640x426.jpg"></amp-img>
       <p class="name">Apple 2</p>
       <p class="star">★★★★★</p>
       <p class="price">$1.99</p>
-    </a><a class="m1" href="#" role="listitem">
+    </a><a class="m1 text-decoration-none" href="#" role="listitem">
       <amp-img width="640" height="426" layout="responsive" alt="Orange" src="/img/product2_640x426.jpg"></amp-img>
       <p class="name">Orange 2</p>
       <p class="star">★★★★☆</p>
       <p class="price">$0.99</p>
-    </a><a class="m1" href="#" role="listitem">
+    </a><a class="m1 text-decoration-none" href="#" role="listitem">
       <amp-img width="640" height="426" layout="responsive" alt="Pear" src="/img/product3_640x426.jpg"></amp-img>
       <p class="name">Pear 2</p>
       <p class="star">★★★☆☆</p>
       <p class="price">$1.50</p>
-    </a><a class="m1" href="#" role="listitem">
+    </a><a class="m1 text-decoration-none" href="#" role="listitem">
       <amp-img width="640" height="426" layout="responsive" alt="Banana" src="/img/product4_640x426.jpg"></amp-img>
       <p class="name">Banana 2</p>
       <p class="star">★★★★★</p>
@@ -179,7 +177,7 @@ With AMP, you can easily pull in different latest offers or highlights without c
           layout="responsive"
           src="/json/related_products.json">
   <template type="amp-mustache">
-    <a class="m1 item" href="/samples_templates/product/preview/">
+    <a class="m1 text-decoration-none" href="/samples_templates/product/preview/">
       <amp-img width="640"
                height="426"
                layout="responsive"
