@@ -1,6 +1,9 @@
 <!doctype html>
 <html ⚡>
   <head>
+    <title>例：日本語のAMPページ</title>
+    <meta name="description">hreflang を使って正規ページ、モバイルページ、AMPページがあるサイトの i18n の例</meta>
+
     <meta charset="utf-8">
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -13,20 +16,21 @@
     <link rel="alternate" hreflang="ja" href="/internationalization/alternate/ja/index.amp.html" />
   </head>
   <body>
-    <h1>Japanese AMP Document</h1>
+    <h1>日本語のAMPページ</h1>
 
-    <p>Other related documents in Japanese:</p>
+    <p>日本語の関連ページ</p>
     <ul>
-      <li><a href="/internationalization/alternate/ja/">Japanese canonical</a></li>
+      <li><a href="/internationalization/alternate/ja/">正規ページ</a></li>
+      <li><a href="/internationalization/alternate/ja/index.mobile.html">モバイルページ</a></li>
     </ul>
 
-    <p>...</p>
+    <p>他の言語</p>
     <ul>
-      <li><a href="/internationalization/alternate/index.amp.html">AMP in English</a></li>
-      <li><a href="/internationalization/alternate/fr/index.amp.html">AMP in French</a></li>
+      <li><a href="/internationalization/alternate/index.amp.html">英語</a></li>
+      <li><a href="/internationalization/alternate/fr/index.amp.html">フランス語</a></li>
     </ul>
 
-    <p>This page contains the following link tags:</p>
+    <p>このページには次のリンクタグがあります</p>
     <pre>
       &lt;link rel="canonical" href="/internationalization/alternate/ja/" /&gt;
       &lt;link rel="alternate" hreflang="en" href="/internationalization/alternate/index.amp.html" /&gt;
@@ -34,6 +38,6 @@
       &lt;link rel="alternate" hreflang="ja" href="/internationalization/alternate/ja/index.amp.html" /&gt;
     </pre>
 
-    <a href="/introduction/internationalization/">Back to the documentation</a>
+    <a href="/introduction/internationalization/">ドキュメントに戻る</a>
   </body>
 </html>
