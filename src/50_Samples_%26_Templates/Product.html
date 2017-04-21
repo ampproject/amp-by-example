@@ -220,13 +220,10 @@ div.square {
 }
 
 .info {
-  width: 80%;
-  height: auto;
-  margin: auto;
-  top: 25%;
-  left: 0;
-  position: relative;
-  background-color: #FFF
+  background-color: #FFF;
+  width: -webkit-fit-content;
+  width: fit-content;
+  margin: auto; 
 }
 
 .lightbox {
@@ -236,6 +233,8 @@ div.square {
     height: 100%;
     overflow: auto;
     position: fixed;
+    display: flex;
+    align-items: center;
 }
 
     </style>
