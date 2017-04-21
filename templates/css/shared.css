@@ -4,8 +4,8 @@
 body {
   font-family: Montserrat,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Arial,sans-serif;
 }
-.info {
-  background: #FFFDE7; 
+.abe-info {
+  background: #FFFDE7;
 }
 .www-components-sec-nav {
   min-width: 200px;
@@ -59,7 +59,7 @@ body {
 .ampstart-input input[type=checkbox]:checked:after,
 .ampstart-input input[type=checkbox]:after,
 .ampstart-input input[type=checkbox]:checked,
-.ampstart-input input[type=radio]:checked, 
+.ampstart-input input[type=radio]:checked,
 .ampstart-input input[type=radio]:after {
   background: none;
 }
@@ -71,11 +71,11 @@ body {
   opacity: 0.5;
 }
 a.ampstart-btn,
-a.ampstart-btn[disabled], 
-a.ampstart-btn[disabled]:focus, 
+a.ampstart-btn[disabled],
+a.ampstart-btn[disabled]:focus,
 a.ampstart-btn[disabled]:hover,
-.ampstart-btn[disabled], 
-.ampstart-btn[disabled]:focus, 
+.ampstart-btn[disabled],
+.ampstart-btn[disabled]:focus,
 .ampstart-btn[disabled]:hover,
 .ampstart-btn {
   color: #b60845;
@@ -103,13 +103,13 @@ a.ampstart-btn-secondary:hover,
   border: 1px solid #fff;
 }
 
-.ampstart-btn-secondary[disabled], 
-.ampstart-btn-secondary[disabled]:focus, 
+.ampstart-btn-secondary[disabled],
+.ampstart-btn-secondary[disabled]:focus,
 .ampstart-btn-secondary[disabled]:hover,
-.ampstart-btn-secondary, 
-a.ampstart-btn-secondary, 
-a.ampstart-btn-secondary.disabled, 
-a.ampstart-btn-secondary.disabled:focus, 
+.ampstart-btn-secondary,
+a.ampstart-btn-secondary,
+a.ampstart-btn-secondary.disabled,
+a.ampstart-btn-secondary.disabled:focus,
 a.ampstart-btn-secondary.disabled:hover,
 a.ampstart-btn-secondary {
   color: #fff;
