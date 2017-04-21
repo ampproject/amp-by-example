@@ -30,11 +30,11 @@ import (
 const (
 	SEARCH           = "search"
 	SHOPPING_CART    = "shopping_cart"
-	ADD_TO_CART_PATH = "/samples_templates/product/add_to_cart"
+	ADD_TO_CART_PATH = "/samples_templates/product_page/add_to_cart"
 	ABE_CLIENT_ID    = "ABE_CLIENT_ID"
 )
 
-type ProductListingPage struct {
+type ProductBrowsePage struct {
 	Title        string
 	Products     []Product
 	SearchAction string
@@ -73,12 +73,12 @@ type JsonRoot struct {
 var products []Product
 var cache *LRUCache
 
-func InitProductListing() {
+func InitProductBrowse() {
 	initProducts(DIST_FOLDER + "/json/related_products.json")
 	RegisterSample(SHOPPING_CART, gotToShoppingCart)
-	RegisterSample("samples_templates/product_listing", renderProductListing)
-	RegisterSample("samples_templates/product", renderProduct)
-	RegisterSampleEndpoint("samples_templates/product_listing", SEARCH, handleSearchRequest)
+	RegisterSample("samples_templates/product_browse_page", renderProductBrowsePage)
+	RegisterSample("samples_templates/product_page", renderProduct)
+	RegisterSampleEndpoint("samples_templates/product_browse_page", SEARCH, handleSearchRequest)
 	http.HandleFunc(ADD_TO_CART_PATH, func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, addToCart)
 	})
@@ -180,12 +180,12 @@ func renderProduct(w http.ResponseWriter, r *http.Request, page Page) {
 	page.Render(w, ProductPage{Mode: page.Mode})
 }
 
-func renderProductListing(w http.ResponseWriter, r *http.Request, page Page) {
-	productListing := searchProducts(page, r.URL.Query().Get(SEARCH))
-	page.Render(w, productListing)
+func renderProductBrowsePage(w http.ResponseWriter, r *http.Request, page Page) {
+	productBrowse := searchProducts(page, r.URL.Query().Get(SEARCH))
+	page.Render(w, productBrowse)
 }
 
-func searchProducts(page Page, query string) ProductListingPage {
+func searchProducts(page Page, query string) ProductBrowsePage {
 	var title string
 	var result []Product
 	if query == "" {
@@ -196,7 +196,7 @@ func searchProducts(page Page, query string) ProductListingPage {
 		result = findProducts(query)
 	}
 	searchAction := path.Join(page.Route, query)
-	return ProductListingPage{
+	return ProductBrowsePage{
 		Title:        title,
 		Products:     result,
 		SearchAction: searchAction,

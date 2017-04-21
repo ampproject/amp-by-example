@@ -33,7 +33,7 @@ func init() {
 	backend.InitAmpLiveList()
 	backend.InitAmpForm()
 	backend.InitAmpCache()
-	backend.InitProductListing()
+	backend.InitProductBrowse()
 	backend.InitHousingForm()
 	backend.InitAmpAnalytics()
 	backend.InitCommentSection()
