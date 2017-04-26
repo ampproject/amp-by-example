@@ -1,6 +1,8 @@
 <!--
   #### Introduction
 
+  There are a number of tools in AMP and CSS to make responsive documents.  
+
   In each of these examples, we'll use a 200x200 grey square as a parent to each element to demonstrate the layout values.
 -->
 <!-- -->
@@ -15,8 +17,8 @@
   <style amp-custom>
   div.square {
     display: inline-block;
-    width: 300px;
-    height:300px;
+    width: 200px;
+    height:200px;
     background-color: grey;
     margin: 5px;
   }
@@ -28,7 +30,6 @@
 </head>
 <body>
 
-  <!-- ### Layout Types -->
   <!-- #### responsive
     AMP HTML has a number of different layout types.  The most common of these is the responsive layout attribute value.
 
@@ -48,7 +49,7 @@
   -->
   <div class="square"><amp-install-serviceworker src="/sw.js" data-iframe-src="https://ampbyexample.com/sw.html" layout="nodisplay"></amp-install-serviceworker></div>
   <!-- #### fixed
-    The layout="fixed" attribute value indicate that the element should fit to the size its given (300x200).
+    The layout="fixed" attribute value indicates that the element should fit to the size its given (300x200).
   -->
   <div class="square"><amp-fit-text width="300" height="200" layout="fixed">Lorem ipsum dolori sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</amp-fit-text></div>
   <div class="square"><amp-img width="300" height="200" layout="fixed" src="/img/amp.jpg"></amp-img></div>
