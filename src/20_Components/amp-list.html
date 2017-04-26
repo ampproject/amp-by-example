@@ -1,5 +1,5 @@
 <!--
-  #### Introduction
+  ## Introduction
 
   The [`amp-list`](https://www.ampproject.org/docs/reference/components/amp-list) component fetches dynamic content from a CORS JSON endpoint and renders it using a supplied template. This is good for embedding a dynamic list of related articles.
 -->
@@ -9,9 +9,10 @@
 <head>
   <meta charset="utf-8">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
-  <!-- #### Setup -->
-  <!-- Import the `amp-list` and `amp-mustache` components in the header -->
+  <!-- ## Setup -->
+  <!-- Import the `amp-list` component ... -->
   <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+  <!-- ... and the `amp-mustache` component in the header -->
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
   <link rel="canonical" href="<%host%>/components/amp-list/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -21,15 +22,14 @@
     margin-left: 16px;
   }
   .list-overflow {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    width: 160px;
+    margin-left: auto;
   }
   </style>
 </head>
 <body>
 
-  <!-- #### Using a nested template -->
+  <!-- ## Using a nested template -->
   <!--
   The `amp-list` content is provided by a JSON CORS endpoint, which is defined by the `src`
   attribute. The URL's protocol must be HTTPS. The response must be a JSON object containing
@@ -47,33 +47,30 @@
   ```
   The list content is rendered via an [amp-mustache template](https://www.ampproject.org/docs/reference/components/amp-mustache). The template can be specified either by id, or by using a nested element.
   -->
-  <amp-list width=auto height=100 layout=fixed-height src="<%host%>/json/examples.json">
+  <amp-list width="auto" height="100" layout="fixed-height" src="<%host%>/json/examples.json" class="m1">
     <template type="amp-mustache" id="amp-template-id">
-      <div><a href={{url}}>{{title}}</a></div>
+      <div><a href="{{url}}">{{title}}</a></div>
     </template>
   </amp-list>
 
-  <!-- #### Using an existing template -->
+  <!-- ## Using an existing template -->
   <!--
     The template can also be specified using an ID of an existing
     `template` element. This example references the template from the
     previous sample.
   -->
-  <amp-list width=auto height=100 layout=fixed-height src="<%host%>/json/examples.json"
-      template="amp-template-id">
+  <amp-list width="auto" height="100" layout="fixed-height" src="<%host%>/json/examples.json"
+      template="amp-template-id" class="m1">
   </amp-list>
 
-  <!-- #### Handling List Overflow -->
+  <!-- ## Handling List Overflow -->
   <!--
  If the `amp-list` content requires more space than available, the AMP runtime will display the overflow element (if specified).
   -->
-  <amp-list width=auto height=10 layout=fixed-height src="<%host%>/json/examples.json" template="amp-template-id">
-    <div>
-  <button overflow role=button aria-label="Show more" class="list-overflow">
-    Show more
-  </button>
+  <amp-list width="auto" height="48" layout="fixed-height" src="<%host%>/json/examples.json" template="amp-template-id" class="m1">
+    <div overflow role="button" aria-label="Show more" class="list-overflow ampstart-btn caps">
+      Show more
     </div>
   </amp-list>
-  </ul>
 </body>
 </html>

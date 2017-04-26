@@ -16,15 +16,15 @@
 
 describe("DocumentParser", function() {
 
-  var DocumentParser = require('../../tasks/lib/DocumentParser').DocumentParser;
-  var CodeSection = require('../../tasks/lib/CodeSection');
+  var DocumentParser = require('../../lib/DocumentParser').DocumentParser;
+  var CodeSection = require('../../lib/CodeSection');
 
   var HEAD = '<head>';
   var HEAD_END = '</head>';
   var BODY = '<body>';
   var BODY_END = '</body>';
   var TAG = '<h1>hello</h1>';
-  var EMPTY_LINE = ' ';
+  var EMPTY_LINE = '';
   var WRAPPED_TAG = `<h1
     class="test">
     hello

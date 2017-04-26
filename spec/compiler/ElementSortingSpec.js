@@ -16,9 +16,9 @@
 
 describe('ElementSorting', function() {
 
-  const CodeSection = require('../../tasks/lib/CodeSection');
-  const Document = require('../../tasks/lib/Document');
-  const elementSorting = require('../../tasks/lib/ElementSorting');
+  const CodeSection = require('../../lib/CodeSection');
+  const Document = require('../../lib/Document');
+  const elementSorting = require('../../lib/ElementSorting');
 
   const body = '<body><div></div>';
   const appBanner = '<amp-app-banner><child></child></amp-app-banner>';

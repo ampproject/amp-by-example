@@ -2,87 +2,101 @@
 <html ⚡>
   <head>
     {{{head}}}
+    {{^includesSidebar}}
+    <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+    {{/includesSidebar}}
+    {{#supportsAmpSelector}}
+    <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+    {{/supportsAmpSelector}}
     {{> head.html}}
     <style amp-custom>
       {{> css/code.css}}
-      {{> css/material.css}}
-      {{> css/styles.css}}
+      {{> css/ampstart.css}}
+      {{> css/shared.css }}
+      {{> css/example.css}}
       {{{exampleStyles}}}
    </style>
   </head>
   {{{bodyTag}}}
   {{{elementsAfterBody}}}
     {{^isEmbed}}
-    {{> menu.html}}
-    {{#metadata.preview}}
-    <a href="{{urlPreview}}" class="fab show-on-mobile">
-      <amp-img src="/img/ic_play_arrow_white_2x_web_24dp.png" width="24" height="24"></amp-img>
-    </a>
-    {{/metadata.preview}}
-    {{> header.html}}
-    {{/isEmbed}}
-    <article>
-      {{^isEmbed}}
-      <h3 id="title">
-        {{subHeading}} {{#metadata.experiments.length}}<i class="amp-experiment-large"></i>{{/metadata.experiments.length}}
-      </h3>
-      {{#metadata.experiments.length}}
-      <div class="box">
-        <div class="column doc">
-          {{> experiment.html}}
-        </div>
-        <div class="column code hide-on-mobile {{#metadata.hideCode}}hide{{/metadata.hideCode}}"></div>
-        <div class="column preview hide-on-mobile {{#metadata.hidePreview}}hide{{/metadata.hidePreview}}"></div>
+    {{> ampstart/navbar.snip.html}}
+      <header class="www-header center">
+        <h1 class="mb1">
+          {{subHeading}} {{#metadata.experiments.length}}<i class="amp-experiment-large"></i>{{/metadata.experiments.length}}
+        </h1>
+        {{#github}}
+        <a href="{{github}}" class="block mb4 caps text-decoration-none">Edit on Github</a>
+        {{/github}}
+
+        <div class="www-index-header-action mx-auto">
+          {{^metadata.disablePlayground}}
+          <a class="ampstart-btn ampstart-btn-secondary caps mb1 mx2 xs-hide sm-hide text-decoration-none inline-block"
+            href="/playground/#url={{host}}{{urlSource}}">Open in Playground</a>
+          {{/metadata.disablePlayground}}
+          {{#urlPreview}}
+          <a class="ampstart-btn ampstart-btn-secondary caps mb1 mx2 text-decoration-none inline-block"
+             href="{{urlPreview}}">View Demo</a>
+          {{/urlPreview}}
       </div>
-      {{/metadata.experiments.length}}
-      {{/isEmbed}}
+    </header>
+    {{/isEmbed}}
+  {{#supportsAmpSelector}}
+  <amp-selector layout="container">
+  {{/supportsAmpSelector}}
+
+  <main class="flex pl2">
+    <aside class="www-components-sec-nav col-3 xs-hide sm-hide relative">
+      <ul class="www-component-anchors list-reset m0 p0 px1 caps">
+        {{#headings}}
+        <li class="clearfix mb3">
+          <a href="#{{id}}"
+             class="www-component-anchor text-decoration-none left"
+             {{#supportsAmpSelector}}option="{{id}}"{{/supportsAmpSelector}}>
+            {{name}}</a>
+        </li>
+        {{/headings}}
+      </ul>
+    </aside>
+    <article class="www-components flex-auto col-9">
+      {{^isEmbed}} {{#metadata.experiments.length}}
+      <section class="www-component-desc pb4">
+        <div> {{> experiment.html}} </div>
+      </section>
+      {{/metadata.experiments.length}} {{/isEmbed}}
+
       {{#sections}}
-      {{#hideColumns}}
-      <amp-accordion class="hidden-section-accordion">
-        <section class="hidden-section hide-on-mobile {{#metadata.hideCode}}hide{{/metadata.hideCode}}"> 
-          <header class="hidden-section-header">
-            <div class="box">
-              <div class="column doc"></div>
-              <div class="column code">
-                <span class="hidden-section-show-more">Show Hidden Code</span>
-                <span class="hidden-section-show-less">Hide Code</span>
+      {{^metadata.hideDoc}} {{#markedDoc}}
+      <section class="www-component-desc">
+          {{{markedDoc}}}
+          {{^isEmptyCodeSection}}
+          <div class="abe-code-container">
+            <div class="abe-code-preview ampstart-card mb1">
+              {{^metadata.hidePreview}}{{#showPreview}}
+              <h3 class="abe-code px1 pt1 caps h4 mb1">Example</h3>
+              <div class="abe-preview fit mb1">
+                {{{preview}}}
               </div>
-              <div class="column preview {{#metadata.hidePreview}}hide{{/metadata.hidePreview}}"></div>
+              {{/showPreview}}{{/metadata.hidePreview}}
+              <div class="abe-code fit px1 pb1 {{^showPreview}}p1{{/showPreview}}">
+                <pre class="hljs html p0 m0">{{{escapedCode}}}</pre>
+              </div>
             </div>
           </div>
-          </header>
-          <div>
-     {{/hideColumns}}
-      <div class="box">
-        <div class="column doc {{#hideDocOnMobile}}hide-on-mobile{{/hideDocOnMobile}} {{#metadata.hideDoc}}hide{{/metadata.hideDoc}}">
-          {{{markedDoc}}}
-          {{^isEmbed}}
-          {{#isLastSection}}
-          {{#nextExample}}
-          <p>
-            Next up:
-            <a id="nextArticle" href="{{url}}">{{title}}</a>
-          </p>
-          {{/nextExample}}
-          {{/isLastSection}}
-          {{/isEmbed}}
-        </div>
-        <div class="column code {{#hideCodeOnMobile}}hide-on-mobile{{/hideCodeOnMobile}} {{#metadata.hideCode}}hide{{/metadata.hideCode}}">
-          <pre class="hljs"><code class="html">{{{escapedCode}}}</code></pre>
-        </div>
-        <div class="column preview {{#hidePreviewOnMobile}}hide-on-mobile{{/hidePreviewOnMobile}} {{#metadata.hidePreview}}hide{{/metadata.hidePreview}}">
-          {{{preview}}}
-        </div>
-      </div>
-      {{#hideColumns}}
-      </div>
-      </section>
-      </amp-accordion>
-      {{/hideColumns}}
+          {{/isEmptyCodeSection}}
+        </section>
+      {{/markedDoc}} {{/metadata.hideDoc}}
       {{/sections}}
+
     </article>
+    <aside class="col-2 xs-hide"></aside>
+  </main>
+  {{#supportsAmpSelector}}
+  </amp-selector>
+  {{/supportsAmpSelector}}
+
     {{^isEmbed}}
-    {{> footer.html}}
+    {{> ampstart/footer.snip.html}}
     {{/isEmbed}}
     {{> analytics.html}}
     {{> serviceworker.html}}

@@ -19,8 +19,8 @@ describe("Document", function() {
   const CANONICAL = '<link rel="canonical" href="https://ampbyexample.com/" >';
   const NON_CANONICAL = '<link href="https://ampbyexample.com/" >';
 
-  const CodeSection = require('../../tasks/lib/CodeSection');
-  const Document = require('../../tasks/lib/Document');
+  const CodeSection = require('../../lib/CodeSection');
+  const Document = require('../../lib/Document');
 
   beforeEach(function() {
       doc = new Document();
@@ -131,6 +131,9 @@ describe("Document", function() {
       expect(firstSection.isLastSection).toEqual(false);
       expect(secondSection.isLastSection).toEqual(true);
     });
+  });
+
+  describe("parses outline", function() {
   });
 
   function descriptionOf(text) {

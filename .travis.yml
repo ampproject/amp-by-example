@@ -16,7 +16,7 @@ addons:
     - g++-4.8
 before_script:
 - npm install -g gulp
-script: gulp lint test validate && gulp clean build
+script: gulp validate
 #before_install:
 #- openssl aes-256-cbc -K $encrypted_8592b1f8cf3c_key -iv $encrypted_8592b1f8cf3c_iv
 #  -in client-secret.json.enc -out client-secret.json -d

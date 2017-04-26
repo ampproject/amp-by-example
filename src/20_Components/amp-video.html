@@ -1,5 +1,5 @@
 <!--
-  #### Introduction
+  ## Introduction
 
   Embed videos into your AMP HTML files. Video source files should be served via HTTPS.
 -->
@@ -8,10 +8,11 @@
 <html ⚡>
 <head>
   <meta charset="utf-8">
-  <!-- #### Setup -->
+  <!-- ## Setup -->
   <!--
-    `amp-video` is builtin custom tag and is automatically imported via the AMP runtime.
+    Import the `amp-video` component.
   -->
+  <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <link rel="canonical" href="<%host%>/components/amp-video/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -19,7 +20,7 @@
 </head>
 <body>
 
-  <!-- #### Basic Usage -->
+  <!-- ## Basic Usage -->
   <!--
     A simple video with controller.
     `amp-video` supports the following formats: mp4, webm, ogg together with all the formats
@@ -27,7 +28,7 @@
     Boolean attribute (`controls` in this case) must be without values.
     Expression with value like `controls="controls"` is invalid.
   -->
-  <amp-video width=480 height=270 src="/video/tokyo.mp4"
+  <amp-video width="480" height="270" src="/video/tokyo.mp4"
              poster="/img/tokyo.jpg"
              layout="responsive"
              controls>
@@ -38,7 +39,7 @@
     <source type="video/webm" src="/video/tokyo.webm">
   </amp-video>
 
-  <!-- #### Autoplay -->
+  <!-- ## Autoplay -->
   <!--
     Setting `autoplay` will automatically play/pause the video as it is
     scrolled into/out of view on supported browsers.
@@ -50,7 +51,7 @@
     (e.g., mutes/unmutes, pauses/resumes, etc.), and the video is scrolled in
     or out of view, the state of the video remains as how the user left it.
   -->
-  <amp-video width=480 height=270 src="/video/tokyo.mp4"
+  <amp-video width="480" height="270" src="/video/tokyo.mp4"
              poster="/img/tokyo.jpg"
              layout="responsive"
              controls

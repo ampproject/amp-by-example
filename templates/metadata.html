@@ -1,13 +1,37 @@
 <title>{{title}}</title>
 <meta name="description" content="{{desc}}" />
 {{^skipCanonical}}
-<link rel="canonical" href="{{canonical}}" >
+<link rel="canonical" href="{{canonical}}">
 {{/skipCanonical}}
 
 <!-- Schema.org markup for Google+ -->
 <meta itemprop="name" content="{{title}}">
 <meta itemprop="description" content="{{desc}}">
 <meta itemprop="image" content="{{leader}}">
+{{#categories}}{{#selected}}
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@id": "{{host}}/#{{url}}",
+        "name": "{{name}}"
+      }
+    }{{#examples}}{{#selected}}, {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@id": "{{host}}{{url}}",
+        "name": "{{title}}"
+      }
+    }{{/selected}}{{/examples}}]
+  }
+</script>
+{{/selected}}{{/categories}}
 
 <!-- Twitter Card data -->
 <meta name="twitter:card" content="summary">
@@ -15,7 +39,7 @@
 <meta name="twitter:creator" content="@sebabenz">
 <meta name="twitter:title" content="{{title}}">
 <meta name="twitter:description" content="{{desc}}">
-<meta name="twitter:image" content="{{logo}}">
+<meta name="twitter:image" content="{{leader}}">
 <meta name="twitter:image:alt" content="AMP by Example">
 
 <!-- Open Graph data -->

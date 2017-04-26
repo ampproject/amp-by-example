@@ -3,7 +3,7 @@
     "preview": "default"
   }--->
 <!--
-#### Introduction
+## Introduction
 
 This sample showcases how to build a housing page in AMP HTML. Explore how to use amp components, like `amp-carousel`, `form` and `amp-list` to create a housing page.
 -->
@@ -24,6 +24,8 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
     <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
     <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+
     <link rel="canonical" href="<%host%>/sample_amps/housing/">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <style amp-custom>
@@ -31,7 +33,7 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
       margin: 0;
       padding: 0;
     }
-    li {
+    .description li {
       list-style-type: square;
     }
     #housing-description {
@@ -52,7 +54,6 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
       color: #111;
       height: 100px;
       padding: 0;
-      line-height: 75px;
       padding-right: 8px;
     }
     .related amp-img {
@@ -88,9 +89,6 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
         display: block;
       }
     }
-    .contact-heading {
-      margin-top: 0px
-    }
     @media (max-width: 744px) {
       .contact {
         display: flex;
@@ -100,23 +98,9 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
         padding: 0 16px;
       }
     }
-    .call-to-action {
-      margin: 0 16px;
-    }
-    @media (max-width: 744px) {
-      .call-to-action {
-        margin: 0 auto;
-        justify-content: space-between;
-      }
-    }
     .social-share {
       line-height: 36px;
       display: flex;
-      padding-bottom: 16px;
-      padding-top: 16px;
-    }
-    amp-social-share {
-      margin-right: 8px;
     }
     .list-overflow {
       position: absolute;
@@ -124,85 +108,74 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
     }
     .form-field-right {
       border: 1px solid #dfdfdf;
-      position: relative;
       background: white;
       width: 200px;
-      width: 179px;
-    }
-    .form-field-right input {
-      border: none;
     }
     .form-field-left {
       width: 200px;
     }
-    .form-field {
-      display: flex;
-      margin-bottom: 16px;
-    }
-    .description {
-      padding: 16px;
-      margin: 16px;
+    .ampstart-card {
+      text-decoration: none;
     }
     </style>
 
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     </head>
     <body>
-        <h4>
-            <!-- #### Heading -->
+            <!-- ## Heading -->
             <!--[amp-fit-text](https://www.ampproject.org/docs/reference/extended/amp-fit-text.html) can to fit the text to the available space. It works well for titles that vary not too much in length. -->
+        <h4 class="mx1">
             <amp-fit-text width="300" height="45" layout="responsive" max-font-size="45">
                     Cosy House in Central London
             </amp-fit-text>
         </h4>
-        <h4 class="price-description">£430,000</h4>
-        <p id="housing-description">London SW1A 1AA</p>
+        <h4 class="price-description mx1">£430,000</h4>
+        <p id="housing-description" class="m1">London SW1A 1AA</p>
 
-
-        <!-- #### Image Gallery -->
+        <!-- ## Image Gallery -->
         <!-- The `amp-carousel` works very well for housing image galleries. Learn more about `amp-carousel` [here](/advanced/image_galleries_with_amp-carousel/). -->
         <amp-carousel width="512" height="384" layout="responsive" type="slides">
             <amp-img src="/img/buckingham_palace_building_1280x960.jpg" width="1280" height="960" layout="responsive" alt="Buckingham Palace" attribution="https://pixabay.com"></amp-img>
             <amp-img src="/img/buckingham_palace_entrance_1280x853.jpg" width="1280" height="853" layout="responsive" alt="Buckingham Palace entrance" attribution="https://pixabay.com"></amp-img>
         </amp-carousel>
         <!-- These buttons are used for requesting details on the property. -->
-        <div class="contact-section">
-            <h4 class="contact-heading"> Do you like this property?</h4>
+        <div class="contact-section p1">
+            <h4 class="mt0"> Do you like this property?</h4>
             <div class="contact">
-                <a href="tel:012 3456789" class="button button-primary call-to-action">Call agent</a>
-                <a href="mailto:someone@example.com" class="button button-primary call-to-action">Email agent</a>
+                <a href="tel:012 3456789" class="ampstart-btn caps ml1">Call agent</a>
+                <a href="mailto:someone@example.com" class="ampstart-btn caps ml1">Email agent</a>
             </div>
         </div>
 
 
-    <!-- #### Social -->
+    <!-- ## Social -->
     <!-- The Social Share extension provides a common interface for share buttons. Learn more about `amp-social-share` [here](/components/amp-social-share/). -->
-    <p class="social-share">
+    <p class="social-share p1">
         <amp-social-share type="twitter"
         width="60"
-        height="44"></amp-social-share>
+        height="44" class="mr2"></amp-social-share>
         <amp-social-share type="facebook"
         width="60"
         height="44"
-        data-attribution=254325784911610></amp-social-share>
+        data-attribution="254325784911610" class="mr2"> </amp-social-share>
         <amp-social-share type="gplus"
         width="60"
-        height="44"></amp-social-share>
+        height="44" class="mr2"></amp-social-share>
         <amp-social-share type="email"
         width="60"
-        height="44"></amp-social-share>
+        height="44" class="mr2"></amp-social-share>
         <amp-social-share type="pinterest"
         width="66"
-        height="44"></amp-social-share>
+        height="44" class="mr2"></amp-social-share>
     </p>
 
-    <!-- #### Collapsibles/Accordion -->
+    <!-- ## Collapsibles/Accordion -->
     <!-- Use `amp-accordion` to hide and show additional data about your product. Learn more about `amp-accordion` [here](/components/amp-accordion/). Embedding Google Maps is possible via the [Google Maps Embed API](https://developers.google.com/maps/documentation/embed/guide), see [here](https://ampbyexample.com/components/amp-iframe/#example16) for a sample.-->
     <div>
       <amp-accordion>
         <section>
           <h4>Description</h4>
-          <ul class="description">
+          <ul class="description p1">
             <li>Ideally located near tube station</li>
             <li>Open plan kitchen</li>
             <li>Bicycle storage, visitors parking, communal gardens and roof terraces</li>
@@ -224,41 +197,41 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
         </section>
         <section>
           <h4>Mortgage Calculator</h4>
-          <form method="GET" action="<%host%>/samples_templates/housing/calculate-mortgage" action-xhr="<%host%>/samples_templates/housing/calculate-mortgage-xhr"  target="_top">
-            <div class="form-field">
+          <form class="px1 pt1" method="GET" action="/samples_templates/housing/calculate-mortgage" action-xhr="/samples_templates/housing/calculate-mortgage-xhr"  target="_top">
+            <div class="flex mb1">
               <span class="form-field-left">
                 Price
               </span>
-              <div class="form-field-right">
+              <div class="form-field-right relative">
                 <span>&#163</span><input type="number" name="price" maxlength="10" value="2000000" required>
               </div>
             </div>
-            <div class="form-field">
+            <div class="flex mb1">
               <span class="form-field-left">
                 Deposit
               </span>
-              <div class="form-field-right">
+              <div class="form-field-right relative">
                 <span>&#163</span><input type="number" name="deposit" maxlength="10" value="100000" required>
               </div>
             </div>
-            <div class="form-field">
+            <div class="flex mb1">
               <span class="form-field-left">
                 Annual interest
               </span>
-              <div class="form-field-right">
+              <div class="form-field-right relative">
                 <span>&#37;</span><input type="number" name="annual_interest" maxlength="10" value="2.5" step="0.01" required>
               </div>
             </div>
-            <div class="form-field">
+            <div class="flex mb1">
               <span class="form-field-left">
                 Repayment period (years)
               </span>
-              <div class="form-field-right">
+              <div class="form-field-right relative">
                 <span> </span><input type="number" name="repayment_period" value="25" required>
               </div>
             </div>
-            <div class="form-field">
-              <input type="submit" value="Calculate" class="button button-primary">
+            <div class="flex mb1">
+              <input type="submit" value="Calculate" class="ampstart-btn caps">
             </div>
             <div submit-success>
               <template type="amp-mustache">
@@ -275,16 +248,16 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
       </amp-accordion>
     </div>
 
-    <h4>Properties sold nearby</h4>
+    <h4 class="m1">Properties sold nearby</h4>
 
-    <!-- #### Properties sold nearby -->
+    <!-- ## Properties sold nearby -->
     <!-- Use `amp-list` to show a list of properties sold nearby. Learn more about `amp-list` [here](/components/amp-list/) -->
-    <amp-list width=auto
-              height=150
-              layout=fixed-height
+    <amp-list width="auto"
+              height="150"
+              layout="fixed-height"
               src="/json/other_properties.json">
       <template type="amp-mustache">
-        <a href="#" class="card related">
+        <a href="#" class="ampstart-card related m1">
           <amp-img width="122"
                    height="100"
                    src="{{src}}"
@@ -295,12 +268,12 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
                  <p class= "price-other">{{price}}</p>
         </a>
       </template>
-      <div overflow role=button aria-label="Show more" class="list-overflow">
+      <div overflow role="button" aria-label="Show more" class="list-overflow">
         Show more
       </div>
     </amp-list>
 
-    <!-- #### Analytics -->
+    <!-- ## User Analytics -->
     <!-- Analytics must be configured in the body. Here we use Google Analytics to track pageviews.  -->
     <amp-analytics type="googleanalytics">
       <script type="application/json">

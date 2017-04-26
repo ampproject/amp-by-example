@@ -1,9 +1,10 @@
 <!---{
   "hideCode": true,
+  "disablePlayground": true,
   "hidePreview": true
 }--->
 <!--
-  #### Introduction
+  ## Introduction
 
   The [Google AMP Cache](https://developers.google.com/amp/cache/overview) stores valid AMPs and provides a consistently fast access to AMPs. It is available for anyone to use. 
 
@@ -21,21 +22,12 @@ This article describes the new AMP URL Cache format which will go live in Q1 201
   <link rel="canonical" href="<%host%>/advanced/using_the_google_amp_cache/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <style amp-custom>
-        .amp-iframe-container {
-          margin: 0;
-          padding: 16px;
-        }
         .doc pre {
           margin: 16px;
           padding: 16px;
         }
         .doc pre code {
           font-size: 14px;
-        }
-        @media (max-width: 700px) {
-          .amp-iframe-container, .doc pre {
-            margin: 16px 0;
-          }
         }
         .doc pre, .doc pre>code, code {
           background-color: #ECEFF1;
@@ -45,15 +37,15 @@ This article describes the new AMP URL Cache format which will go live in Q1 201
 </head>
 <body>
   <!--
-#### AMP Cache URL Format
+## AMP Cache URL Format
 
 When possible, the Google AMP Cache will create a subdomain for each AMP document's domain by first converting it from [IDN (punycode)](https://en.wikipedia.org/wiki/Punycode) to UTF-8. The caches replaces every `-` (dash) with `--` (2 dashes) and replace every `.` (dot) with `-` (dash). For example, `pub.com` will map to `pub-com.cdn.ampproject.org`. 
 
 Here is AMP Cache URL for `https://ampbyexample.com/components/amp-img`:
 
-<div class="amp-iframe-container"><amp-iframe height="88" 
+<amp-iframe height="149" 
 layout="fixed-height" sandbox="allow-scripts allow-same-origin allow-popups"
-                      src="https://amp-by-example-api.appspot.com/iframe/amp-url-converter.html?url=https://ampbyexample.com/components/amp-img"><amp-img layout="fixed-height" height="88" src="https://ampbyexample.comm/img/pixel-white.png" placeholder></amp-img></amp-iframe></div>
+                      src="https://amp-by-example-api.appspot.com/iframe/amp-url-converter.html?url=https://ampbyexample.com/components/amp-img"><div placeholder></div></amp-iframe>
 
 The converted AMP Cache URL consists of the following parts:
 
@@ -67,7 +59,7 @@ It is OK for URLs to include parameters in the query string, simply include thes
 
 Example: [https://ampbyexample-com.cdn.ampproject.org/ampbyexample.com/g?value=Hello%20World](https://ampbyexample-com.cdn.ampproject.org/ampbyexample.com/g?value=Hello%20World).
 
-#### Redirect & Error Handling
+## Redirect & Error Handling
 
 Here are some examples for how the AMP Cache handles redirects and errors:
 

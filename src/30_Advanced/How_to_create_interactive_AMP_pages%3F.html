@@ -3,7 +3,7 @@
     "preview": "default"
   }--->
 <!--
-  #### Introduction
+  ## Introduction
 
   This samples demonstrates how to embed interactive charts into AMP files.
 
@@ -19,7 +19,7 @@
 <head>
   <meta charset="utf-8">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
-  <!-- #### Setup -->
+  <!-- ## Setup -->
   <!--
     The only additional AMP component we will be using is `amp-iframe`.
   -->
@@ -30,12 +30,12 @@
 </head>
 <body>
 
-  <!-- #### Iframe to the Rescue -->
+  <!-- ## Iframe to the Rescue -->
   <!--
     The key is to split your webpage into content that is defined with AMP...
   -->
-  <div>
-    <h4>Who's going to win the Oscars?</h4>
+  <section class="m1">
+    <h2 class="py2 py1">Who's going to win the Oscars?</h2>
     <p>
     We have also created this interactive guide — this shows
     the day by day and minute by minute search interest in best
@@ -43,7 +43,7 @@
     announced in January and will be updated to feature data from
     the awards ceremony itself.
     </p>
-  </div>
+  </section>
   <!--
     ...and interactive content embedded via iframes.
 
@@ -62,15 +62,15 @@
     </amp-img>
   </amp-iframe>
 
-  <div>
-    <h4>Where in America cares most about the Oscars?</h4>
+  <section class="p1">
+    <h2 class="pb2">Where in America cares most about the Oscars?</h2>
     <p>
     It won’t surprise you to know that Hollywood consistently has
     the highest search interest in, well, Hollywood. But other
     metropolitan areas are in there too, from New York to Chicago
     to San Francisco (where Oscars parties are yearly tradition).
     </p>
-  </div>
+  </section>
   <!--
     Here is another interactive element embedded via an iframe.
 

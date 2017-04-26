@@ -1,0 +1,101 @@
+<!--
+  Copyright 2016 The AMP HTML Authors. All Rights Reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS-IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the license.
+-->
+<!-- Toolbar displayed at the top of the page. This doesn't do much but has a
+     lot of styling, so we isolate it to keep the source for other parts of
+     the page easier to read. -->
+<link rel="import" href="../../node_modules/@polymer/polymer/polymer.html">
+<link rel="import" href="../../node_modules/@polymer/iron-flex-layout/iron-flex-layout.html">
+<dom-module id="ampproject-toolbar">
+  <style scope="ampproject-toolbar">
+    header {
+      display: flex;
+      -webkit-box-pack: start;
+      -ms-flex-pack: start;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      justify-content: flex-start;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: #fff;
+      color: #000;
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif; 
+      width: 100%;
+      height: 60px;
+      box-sizing: border-box;
+      box-shadow: 0 0 5px 2px rgba(0,0,0,.1);
+      padding-left: 1.5rem;
+      padding-right: 2.5rem;
+    }
+    .ampstart-headerbar-nav {
+      line-height: 3.5rem;
+      -webkit-box-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      padding: 0;
+      margin: 0;
+    }
+    .ampstart-headerbar-nav .ampstart-nav-item.www-current-page a {
+      color: #B60845;
+    }
+    .ampstart-headerbar-nav ul {
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      display: flex;
+      text-align: center;
+      white-space: nowrap;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .ampstart-headerbar-nav ul li {
+      border-bottom: 4px solid transparent;
+padding: 0 1.5rem;
+    background: 0 0;
+    opacity: .8;
+    }
+    .ampstart-headerbar-nav ul li a { 
+      font-size: 16px;
+      color: #000;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .ampstart-headerbar-nav ul li.current-page {
+      border-bottom: 4px solid #b60845;
+    }
+  </style>
+
+  <template>
+    <header class="ampstart-headerbar">
+      <img src="/img/amp_by_example_logo.svg" width="172" height="33"></amp-img>
+      <nav class="ampstart-headerbar-nav ampstart-nav xs-hide sm-hide">
+        <ul class="list-reset center m0 p0 flex justify-center nowrap">
+          <li class="ampstart-nav-item"><a href="/" class="text-decoration-none block">Examples</a></li>
+          <li class="ampstart-nav-item www-current-page current-page"><a href="/playground/" class="text-decoration-none block">Playground</a></li>
+          <li class="ampstart-nav-item"><a href="https://github.com/ampproject/amp-by-example" class="text-decoration-none block">GitHub</a></li>
+          <li class="ampstart-nav-item"><a href="https://www.ampproject.org/learn/about-amp/" class="text-decoration-none block">What is AMP?</a></li>
+        </ul>
+      </nav>
+    </header>
+  </template>
+  <script>
+    Polymer({
+      is: 'ampproject-toolbar'
+    });
+  </script>
+</dom-module>

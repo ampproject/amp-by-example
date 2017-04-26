@@ -1,5 +1,5 @@
 <!--
-  #### Introduction
+  ## Introduction
 
   The amp-pinterest component allows embedding a Pin It button or pin widget.
 -->
@@ -9,7 +9,7 @@
 <head>
   <meta charset="utf-8">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
-  <!-- #### Setup -->
+  <!-- ## Setup -->
   <!--
     Import the `amp-pinterest` component in the header.
   -->
@@ -20,17 +20,17 @@
 </head>
 <body>
 
-  <!-- #### Pin It Button -->
+  <!-- ## Pin It Button -->
   <!--
     Set `data-do` to `buttonPin` to enable pinning content on your site. These attributes are required:
-    
+
     * `data-url`: the URL to be shared.
     * `data-media` the absolute image URL to be pinned.
     * `data-description`:  the default description that appears in the pin create form.
   -->
   <figure>
     <amp-img src="/img/amp.jpg" width="300" height="169" alt="an image"></amp-img>
-    <amp-pinterest height=28 width=56
+    <amp-pinterest height="18" width="56"
       data-do="buttonPin"
       data-url="https://ampbyexample.com/"
       data-media="https://ampbyexample.com/img/amp.png"
@@ -38,11 +38,11 @@
     </amp-pinterest>
   </figure>
 
-  <!-- #### Embed pin widget -->
+  <!-- ## Embed pin widget -->
   <!--
     To embed the pin widget, set `data-do` to `embedPing`. The `data-url` attribute must contain the fully-qualified URL of the Pinterest resource.
   -->
-    <amp-pinterest width=320 height=213
+    <amp-pinterest width="236" height="326"
       data-do="embedPin"
       data-url="https://www.pinterest.com/pin/228065168607834583/">
     </amp-pinterest>

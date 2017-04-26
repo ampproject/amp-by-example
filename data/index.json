@@ -1,0 +1,64 @@
+{
+  "navbar": {
+    "logo": {
+      "url": "/img/amp_by_example_logo.svg",
+      "width": "172",
+      "height": "33"
+    },
+    "name": "AMP by Example",
+    "sidebar-id": "header-sidebar",
+    "nav": [{
+      "link": {
+        "url": "/",
+        "text": "Examples",
+        "classes": "www-current-page"
+      }
+    }, {
+      "link": {
+        "url": "/playground/",
+        "text": "Playground"
+      }
+    }, {
+      "link": {
+        "url": "https://github.com/ampproject/amp-by-example",
+        "text": "GitHub"
+      }
+    }, {
+      "link": {
+        "url": "https://www.ampproject.org/learn/about-amp/",
+        "text": "What is AMP?"
+      }
+    }]
+  },
+  "footer": {
+    "social-follow": {
+      "links": [{
+        "twitter": "https://twitter.com/amphtml"
+      }, {
+        "github": "https://github.com/ampproject/amp-by-example"
+      }, {
+        "slack": "https://docs.google.com/forms/d/1wAE8w3K5preZnBkRk-MD1QkX8FmlRDxd_vs4bFSeJlQ/viewform?fbzx=4406980310789882877"
+      }, {
+        "wordpress": "https://amphtml.wordpress.com/"
+      }]
+    },
+    "faq-links": {
+      "links": [{
+        "url": "https://github.com/ampproject/amp-by-example/issues/new",
+        "text": "feedback"
+      }, {
+        "url": "https://github.com/ampproject/amp-by-example",
+        "text": "github"
+      }, {
+        "url": "/LICENSE.txt",
+        "text": "license"
+      }, {
+        "url": "https://www.google.com/intl/en/policies/privacy/",
+        "text": "privacy"
+      }]
+    },
+    "copyright": {
+      "text": "AMP by Example is a part of Accelarated Mobile Pages Project"
+    }
+  }
+}

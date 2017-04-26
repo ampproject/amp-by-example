@@ -14,50 +14,28 @@
  * limitations under the License.
  **/
 
-importScripts('/bower_components/sw-toolbox/sw-toolbox.js');
+importScripts('/sw-toolbox/sw-toolbox.js');
 
 const config = {
   offlinePage: '/youre_offline/'
-}
+};
 
-const IGNORED_URLS = ['shopping_cart']
+const IGNORED_URLS = ['shopping_cart'];
 
 config.filesToCache = [
-    '/',
-    '/components/amp-img/',
-    '/components/amp-install-serviceworker/',
-    config.offlinePage,
-    '/img/offline.png',
-    '/img/logo.svg',
-    '/favicons/favicon.ico',
-    '/favicons/favicon-230x230.png',
-    '/favicons/favicon-96x96.png',
-    '/favicons/android-chrome-36x36.png',
-    '/favicons/android-chrome-72x72.png',
-    '/img/ic_experiment_black_2x_web_18dp.png',
-    '/img/ic_experiment_black_1x_web_18dp.png',
-    '/img/ic_experiment_black_2x_web_24dp.png',
-    '/img/ic_experiment_black_1x_web_24dp.png',
-    '/img/ic_experiment_black_2x_web_36dp.png',
-    '/img/ic_experiment_black_1x_web_36dp.png',
-    '/img/ic_link_black_1x_web_18dp.png',
-    '/img/ic_link_black_2x_web_18dp.png',
-    '/img/ic_menu_white_1x_web_24dp.png',
-    '/img/ic_menu_white_2x_web_24dp.png',
-    '/img/ic_indeterminate_check_box_black_24dp_1x.png',
-    '/img/ic_indeterminate_check_box_black_24dp_2x.png',
-    '/img/ic_add_box_black_24dp_1x.png',
-    '/img/ic_add_box_black_24dp_2x.png',
-    '/img/ic_chevron_left_black_24dp_1x.png',
-    '/img/ic_chevron_left_black_24dp_2x.png',
-    '/img/ic_play_arrow_white_1x_web_24dp.png',
-    '/img/ic_play_arrow_white_2x_web_24dp.png',
-    '/img/ic_play_circle_filled_white_24dp_1x.png',
-    '/img/ic_play_circle_filled_white_24dp_2x.png',
-    '/img/GitHub-Mark-Light-32px.png',
-    '/img/GitHub-Mark-Light-64px.png',
-    '/img/abe_device_screenshot_1x.png',
-    '/img/abe_device_screenshot_2x.png'
+  '/',
+  '/components/amp-img/',
+  '/components/amp-install-serviceworker/',
+  config.offlinePage,
+  '/img/offline.png',
+  '/favicons/favicon.ico',
+  '/favicons/favicon-230x230.png',
+  '/favicons/favicon-96x96.png',
+  '/favicons/android-chrome-36x36.png',
+  '/favicons/android-chrome-72x72.png',
+  '/playground/img/playground-logo.svg',
+  '/playground/',
+  '/img/amp_logo_black.svg'
 ];
 
 /**
@@ -96,8 +74,8 @@ function ampByExampleHandler(request, values) {
     if (request.url.indexOf("__amp_source_origin") != -1 || shouldNotCache(request)) {
       return toolbox.networkOnly(request, values);
     }
-    // cache or network - whatever is fastest
-    return toolbox.fastest(request, values).catch(function() {
+    // network first, we always want to get the latest 
+    return toolbox.networkFirst(request, values).catch(function() {
       return toolbox.cacheOnly(new Request(config.offlinePage), values)
         .then(function(response) {
           return response || new Response('You\'re offline. Sorry.', {
@@ -119,8 +97,8 @@ function ampByExampleHandler(request, values) {
       );
     });
   } else {
-    // cache all other requests
-    return toolbox.fastest(request, values);
+    // cache first for all other requests
+    return toolbox.cacheFirst(request, values);
   }
 }
 
@@ -128,13 +106,11 @@ function shouldNotCache(request) {
   return IGNORED_URLS.some(url => request.url.indexOf(url) != -1);
 }
 
-toolbox.options.debug = true;
-toolbox.router.default = toolbox.networkOnly;
+toolbox.options.debug = false;
+toolbox.router.default = toolbox.networkFirst;
 toolbox.router.get('/(.*)', ampByExampleHandler, {origin: self.location.origin});
-// cache first amp runtime 
-toolbox.router.get('/(.*)', toolbox.cacheFirst, {origin: 'https://cdn.ampproject.org'});
-// cache first google fonts
-toolbox.router.get('/(.+)', toolbox.cacheFirst, {origin: /https?:\/\/fonts.+/});
+// network first amp runtime 
+toolbox.router.get('/(.*)', toolbox.networkFirst, {origin: 'https://cdn.ampproject.org'});
 
 toolbox.precache(config.filesToCache);
 

@@ -16,7 +16,7 @@
 
 describe("ExampleFile", function() {
 
-  var ExampleFile = require('../../tasks/lib/ExampleFile');
+  var ExampleFile = require('../../lib/ExampleFile');
 
   describe('created from path', function() {
     var file = ExampleFile.fromPath('src/10_Hello-world\'s/What\'s_up_100%25?.html');
