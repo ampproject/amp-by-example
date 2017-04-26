@@ -1,5 +1,3 @@
-// Copyright Google Inc.
-//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -16,43 +14,103 @@ package backend
 
 import (
 	"encoding/json"
+	"fmt"
+	"html/template"
 	"net/http"
+	"path"
+	"time"
 )
+
+type AccessData struct {
+	ReturnURL string
+}
+
+type AuthResponse struct {
+	Subscriber bool   `json:"subscriber"`
+	Access     bool   `json:"access"`
+	Name       string `json:"name"`
+}
+
+type AuthorizationResponse interface {
+	CreateAuthorizationResponse() AuthorizationResponse
+}
 
 const (
-	ACCESS_SAMPLE_PATH = "/components/amp-access/"
+	AMP_ACCESS_SAMPLE_PATH = "/" + CATEGORY_COMPONENTS + "/amp-access/"
+	AMP_ACCESS_COOKIE      = "ABE_LOGGED_IN"
 )
 
-type AuthorizationResponse struct {
-	User       string `json:"username"`
-	Status     string `json:"status"`
-	Freenights int    `json:"freenights"`
-}
-
 func InitAmpAccess() {
-	http.HandleFunc(ACCESS_SAMPLE_PATH+"authorization", handleAuthorization)
-	http.HandleFunc(ACCESS_SAMPLE_PATH+"pingback", handlePingback)
-	http.HandleFunc(ACCESS_SAMPLE_PATH+"login", handleLogin)
+	http.HandleFunc(AMP_ACCESS_SAMPLE_PATH+"authorization", handleDefaultAuthorization)
+	http.HandleFunc(AMP_ACCESS_SAMPLE_PATH+"login", handleLogin)
+	http.HandleFunc(AMP_ACCESS_SAMPLE_PATH+"logout", handleLogout)
+	http.HandleFunc(AMP_ACCESS_SAMPLE_PATH+"pingback", handlePingback)
+	http.HandleFunc(AMP_ACCESS_SAMPLE_PATH+"submit", handleSubmit)
 }
 
-func handleAuthorization(w http.ResponseWriter, r *http.Request) {
-
-	authedUser := AuthorizationResponse{"test-user", "Gold", 2}
-	js, err := json.Marshal(authedUser)
+func handleAuthorization(w http.ResponseWriter, r *http.Request, authData interface{}) {
+	js, err := json.Marshal(authData)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
-	w.Header().Set("Content-Type", "application/json")
+	EnableCors(w, r)
+	SetContentTypeJson(w)
 	w.Write(js)
 }
 
 func handlePingback(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
+	EnableCors(w, r)
 }
 
 func handleLogin(w http.ResponseWriter, r *http.Request) {
+	EnableCors(w, r)
+	returnURL := r.URL.Query().Get("return")
+	filePath := path.Join(DIST_FOLDER, "login.html")
+	t, _ := template.ParseFiles(filePath)
+	t.Execute(w, AccessData{ReturnURL: returnURL})
+}
+
+func handleDefaultAuthorization(w http.ResponseWriter, r *http.Request) {
+	_, err := r.Cookie(AMP_ACCESS_COOKIE)
+	if err != nil {
+		handleAuthorization(w, r, &AuthResponse{
+			Access:     false,
+			Subscriber: false,
+			Name:       "",
+		})
+		return
+	}
+	handleAuthorization(w, r, &AuthResponse{
+		Access:     true,
+		Subscriber: true,
+		Name:       "Charlie",
+	})
+}
+
+func handleLogout(w http.ResponseWriter, r *http.Request) {
+	EnableCors(w, r)
+	//delete the cookie
+	cookie := &http.Cookie{
+		Name:   AMP_ACCESS_COOKIE,
+		MaxAge: -1,
+	}
+	http.SetCookie(w, cookie)
+	returnURL := r.URL.Query().Get("return")
+	http.Redirect(w, r, fmt.Sprintf("%s#success=true", returnURL), http.StatusSeeOther)
+}
+
+func handleSubmit(w http.ResponseWriter, r *http.Request) {
+	EnableCors(w, r)
+	expireInOneDay := time.Now().AddDate(0, 0, 1)
+	cookie := &http.Cookie{
+		Name:    AMP_ACCESS_COOKIE,
+		Expires: expireInOneDay,
+		Value:   "true",
+	}
+	http.SetCookie(w, cookie)
+	returnURL := r.FormValue("returnurl")
+	http.Redirect(w, r, fmt.Sprintf("%s#success=true", returnURL), http.StatusSeeOther)
 }

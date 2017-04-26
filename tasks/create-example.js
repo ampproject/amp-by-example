@@ -19,9 +19,9 @@
 const through = require('through2');
 const gutil = require('gulp-util');
 const PluginError = gutil.PluginError;
-const Templates = require('./lib/Templates');
-const Metadata = require('./lib/Metadata');
-const ExampleFile = require('./lib/ExampleFile');
+const Templates = require('../lib/Templates');
+const Metadata = require('../lib/Metadata');
+const ExampleFile = require('../lib/ExampleFile');
 
 /**
  * Create an empty example.
@@ -47,7 +47,7 @@ module.exports = function(config) {
   return through.obj(function(file, encoding, callback) {
     if (file.isNull()) {
       // nothing to do
-      return callback(null, file);
+      return callback();
     }
     if (file.isStream()) {
       this.emit('error', new PluginError('create-example',

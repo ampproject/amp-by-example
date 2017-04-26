@@ -1,7 +1,7 @@
   <!--
-  #### Introduction
+  ## Introduction
 
-  [amp-sticky-ad](https://github.com/ampproject/amphtml/blob/master/extensions/amp-sticky-ad/amp-sticky-ad.md) adds support for ad units that always take a fixed place in the viewport in your AMP HTML files.
+  [amp-sticky-ad](https://www.ampproject.org/docs/reference/components/amp-sticky-ad) adds support for ad units that always take a fixed place in the viewport in your AMP HTML files.
 
   The sticky ad will appear at the bottom of the page.
   -->
@@ -11,30 +11,26 @@
 
 <head>
   <meta charset="utf-8">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!--
+    Import the `amp-sticky-ad` component in the header.
+  -->
+  <script async custom-element="amp-sticky-ad" src="https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js"></script>
+  <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
   <link rel="canonical" href="<%host%>/components/amp-sticky-ad/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-  <script async src="https://cdn.ampproject.org/v0.js"></script>
-  <script async custom-element="amp-sticky-ad" src="https://cdn.ampproject.org/v0/amp-sticky-ad-0.1.js"></script>
   <style amp-custom>
-    .amp-sticky-ad {
-      background-color: #fce4ec
-    }
-
-    .amp-sticky-ad-loaded {
-      background-color: #f48fb1
-    }
-
     .amp-sticky-ad-close-button {
-      min-width: 0
+      min-width: 0;
     }
     </style>
 </head>
 <body>
 
-    <!-- #### Basic Usage -->
+    <!-- ## Basic Usage -->
   <!--
-    Use an `amp-ad` as a direct child of `amp-sticky-ad`. 
+    Use an `amp-ad` as a direct child of `amp-sticky-ad`.
 
     The height of the `amp-sticky-ad` will be determined based on the height of the `amp-ad` child.
     The max-height of the sticky-ad is 100px, if the height exceeds 100px then the height would be 100px and overflow content will be hidden.
@@ -50,7 +46,7 @@
   </amp-sticky-ad>
 
     <!--
-     #### Positioning
+     ## Positioning
   -->
   <!--
      `amp-sticky-ad` will display after scroll one viewport height from top provided there is at least one more viewport of content available.

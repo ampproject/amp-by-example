@@ -3,204 +3,117 @@
   <head>
     <meta charset="utf-8">
     <style amp-custom>
-      {{> css/material.css}}
-      {{> css/styles.css}}
-      {{{styles}}}
-      html, body {
-         margin: 0;
-         height: 100%;
-         width: 100%;
+      {{> css/ampstart.css}}
+      {{> css/shared.css }}
+      .abe-sample-card {
+        background: #f9f7f7;
+        min-width: 240px;
+        width: 0;
+        max-width: 380px;
+        flex: 1 1 240px;
       }
-      body {
-        background: #ECEFF1;
+      @media (min-width: 600px) {
+        .abe-sample-card {
+          margin-right: 1rem;
+        }
       }
-      main {
-        padding-top: 16px;
-        margin: 0 auto;
-      }
-      .category-container {
-        padding: 16px 0;
-      }
-      .category-container:nth-of-type(even) {
-        background-color: #CFD8DC;
-      }
-      .category {
-        margin: 0 auto;
-        padding: 0;
-      }
-      .category h4 {
-        font-size: 24px;
-        line-height: 32px;
-        margin-bottom: 42px;
-        padding: 0 16px;
-        letter-spacing: .1px;
-      }
-      .category.intro {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-direction: row;
-      }
-      .category.intro .text {
-        width: 50%;
-      }
-      .category.intro .screenshot {
-        margin-left: auto;
-      }
-      .category.intro .text, .category.intro .screenshot {
-        flex: 1 1 auto;
-      }
-      .category.intro ul {
-        list-style: none;
-        border-left: solid 4px #ff4081;
-        padding: 0 8px;
-        margin: 24px 16px;
-      }
-      .category.intro ul li a {
-        display: block;
+      .abe-sample-card .ampstart-btn {
         padding: 8px;
       }
-      .category.intro p, .category.intro a {
-        font-size: 20px;
-        line-height: 32px;
-        -webkit-font-smoothing: antialiased;
+      .abe-sample-card .ampstart-btn:not(.ampstart-btn-secondary) {
+        background-color: transparent;
       }
-      .samples {
-        padding-bottom: 16px;
-        display: flex; 
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        flex-grow: 0
+      .abe-sample-card a.ampstart-btn-secondary:active,
+      .abe-sample-card a.ampstart-btn-secondary:focus,
+      .abe-sample-card a.ampstart-btn-secondary:hover,
+      .abe-sample-card a.ampstart-btn-secondary, 
+      .abe-sample-card a.ampstart-btn-secondary.disabled, 
+      .abe-sample-card a.ampstart-btn-secondary.disabled:focus, 
+      .abe-sample-card a.ampstart-btn-secondary.disabled:hover,
+      .abe-sample-card a.ampstart-btn-secondary {
+        border: 1px solid #b60845;
       }
-      .samples .card {
-        background: white;
-        flex: 1 1 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        margin: 8px;
-        padding: 0;
-        min-width: 300px;
-        max-width: 300px;
-        width: 300px;
-      }
-      .samples .card h4 {
-        font-size: 24px;
-        padding: 0;
-        margin: 24px 16px 12px 16px;
-        border: none;
-        color: #333;
-        line-height: 32px;
-        background-position: right; 
-      }
-      .samples .card h5 {
-        font-size: 14px;
-        margin: 0px 16px 12px 16px;
-        padding: 0;
-        margin: 0;
-        padding: 0 16px 16px 16px;
-        border: none;
-        font-weight: 300;
-        color: #555;
-        line-height: 14px;
-      }
-      .samples .card p {
-        margin: 0 16px 16px 16px;
-        padding: 0;
-        flex-grow: 1;
-      }
-      .samples .card .button {
-        text-align: left;
-        color: #eb407a;
-        font-weight: 500;
+      .abe-sample-card-actions {
         margin-top: auto;
-        padding: 8px 16px;
-        -webkit-tap-highlight-color: #eee;
-        letter-spacing: .1px;
-        width: 100%;
-        border-top: solid 1px #ccc;
       }
-      .samples .card a:active {
-        background-color: #eee;
+      .abe-experiment {
+        position: absolute;
+        display: inline-block;
+        margin: 4px;
+        width: 24px;
+        height: 24px;
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzAwMDAwMCI+PHBhdGggZmlsbD0ibm9uZSIgZD0iTS02MTgtMTA4MEg3ODJ2MzYwMEgtNjE4ek0wIDBoMjR2MjRIMHoiLz48cGF0aCBkPSJNMjAuNzIgMTcuNzFMMTUgOS44MlY1LjA4aDJ2LTJIN3YyaDJ2NC43M0wzLjE0IDE3LjljLS40NC42MS0uNSAxLjQxLS4xNiAyLjA4LjM0LjY3IDEuMDMgMS4wOSAxLjc4IDEuMDloMTQuNWMxLjEgMCAyLS45IDItMiAwLS41Mi0uMjEtMS0uNTQtMS4zNnoiLz48L3N2Zz4=");
       }
-      @media (min-width: 960px) {
-        .samples .card {
-          min-width: 300px;
-          max-width: 300px;
-          width: 300px;
-        }
-        .category {
-          max-width: 960px;
-        }
+      .www-header > span {
+        margin-left: auto;
+        margin-right: auto;
       }
-      @media (max-width: 960px) {
-        .samples .card {
-          min-width: 300px;
-          max-width: 400px;
-        }
-        .category {
-          max-width: 840px;
-        }
-        main {
-          margin-top: 40px;
-        }
-      }
-      @media (max-width: 840px) {
-        .samples {
-          justify-content: center;
-        }
-        .category.intro .screenshot {
-          display: none;
-        }
+      .abe-sample-card-filler {
+        height: 0;
+        background: none;
       }
     </style>
-    {{> head.html}}
+    <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+    <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
+    {{> head.html}}
   </head>
   <body>
-    {{> menu.html}}
-    {{> header.html}}
-    <main class="categories">
-    <div class="category-container">
-      <section class="category intro">
-        <section class="text">
-          <h4>Learn AMP by Example</h4>
-          <p>AMP by Example gives a hands-on introduction to Accelerated Mobile Pages based on code and live samples. Learn how to create web pages with AMP and and how to effectively use AMP components.</p>
-          <h4>Contents</h4>
-          <ul>
-            {{#categories}}
-            <li><a href="#{{url}}">{{name}}</a></li>
-            {{/categories}}
-          </ul>
-        </section>
-        <section class="screenshot">
-          <amp-img srcset="/img/abe_device_screenshot_1x.png 1x, /img/abe_device_screenshot_2x.png 2x" width="360" height="617" layout="fixed" alt="screenshot"></amp-img>
-        </section>
-      </section>
-    </div>
-    {{#categories}}
-    <div class="category-container">
-      <section id="{{url}}" class="category">
-        <h4>{{name}}</h4> 
-        {{#description}} <p class="description">{{{description}}}</p> {{/description}}
-        <div class="samples">
+    {{> ampstart/navbar.snip.html}}
+    <header class="www-header">
+      <h1 class="mb4 px2 col-12 sm-col-8 mx-auto">Learn AMP by Example</h1>
+      <span class="h3 block mb4 px2 col-12 sm-col-8 mx-auto">AMP by Example gives a hands-on introduction to Accelerated Mobile Pages based on code and live samples. <span class="xs-hide sm-hide">Learn how to create web pages with AMP and how to effectively use AMP components.</span></span>
+    </header>
+  <amp-selector layout="container">
+  <main class="flex pl2">
+    <aside class="www-components-sec-nav col-2 xs-hide sm-hide relative">
+      <ul class="www-component-anchors list-reset m0 pt0 pb3 px1 caps">
+        {{#categories}}
+        <li class="clearfix mb3"><a href="#{{url}}" class="www-component-anchor text-decoration-none left" option="">{{name}}</a></li>
+        {{/categories}}
+      </ul>
+    </aside>
+    <article class="www-components flex-auto col-8">
+      {{#categories}}
+        <section class="www-component-desc" id="{{url}}">
+          <h2 class="www-heading  pb4 mb2 relative">{{name}}</h2>
+          <div class="mb4">{{{description}}}</div>
+          <div class="abe-examples flex flex-wrap">
           {{#examples}}
-          <div class="card{{#experiment}} experiment{{/experiment}}{{#highlight}} highlight{{/highlight}}">
-            <h4 class="{{#experiment}}amp-experiment-medium{{/experiment}}">
-              {{title}}
-            </h4> 
-            {{#description}} <p class="description">{{{ description }}}</p> {{/description}}
-            <a class="button" href="{{url}}">View Sample</a>
+          <div class="ampstart-card abe-sample-card flex flex-column flex-auto p1 mb1">
+            <h3 class="mb1">
+              {{title}}<i class="{{#experiment}}abe-experiment{{/experiment}}"></i>
+            </h3>
+            {{#description}} <p class="mb1">{{{ description }}}</p> {{/description}}
+            <div class="abe-sample-card-actions">
+              {{#metadata.preview}}
+              <a class="ampstart-btn ampstart-btn-secondary caps text-decoration-none inline-block"
+                 href="{{urlPreview}}">Demo</a>
+              {{/metadata.preview}}
+              <a class="ampstart-btn caps text-decoration-none inline-block"
+                 href="{{url}}">Code</a>
+            </div>
           </div>
           {{/examples}}
-      </section>
-        </div>
-        {{/categories}}
-    </main>
-    {{> footer.html}}
+
+          <!-- hack to ensure that cards are aligned in the last line -->
+          <div class="abe-sample-card abe-sample-card-filler flex-auto px1 mr1"></div>
+          <div class="abe-sample-card abe-sample-card-filler flex-auto px1 mr1"></div>
+          <div class="abe-sample-card abe-sample-card-filler flex-auto px1 mr1"></div>
+          <div class="abe-sample-card abe-sample-card-filler flex-auto px1 mr1"></div>
+          <div class="abe-sample-card abe-sample-card-filler flex-auto px1 mr1"></div>
+          <div class="abe-sample-card abe-sample-card-filler flex-auto px1 mr1"></div>
+          <div class="abe-sample-card abe-sample-card-filler flex-auto px1 mr1"></div>
+
+          </div>
+        </section>
+      {{/categories}}
+    </article>
+  </main>
+  </amp-selector>
+    {{> ampstart/footer.snip.html}}
     {{> analytics.html}}
     {{> serviceworker.html}}
   </body>

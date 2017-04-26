@@ -1,10 +1,12 @@
-<div id="experimental-mode" class="card info">
-  <h4>Experimental Mode</h4>
-  <p>This example uses the following experimental feature{{#metadata.experiments.1}}s{{/metadata.experiments.1}}: <code class="amp-experiment-list">[{{#metadata.experiments}}<span>{{.}}</span>{{/metadata.experiments}}]</code><br>Enable them below and <a href="https://www.ampproject.org/docs/reference/experimental.html">learn more here</a>.</p>
+<div class="abe-experiment-warning ampstart-card p1">
+  <h4 class="mb1">Experimental Mode</h4>
+  <p>This example uses the following experimental feature{{#metadata.experiments.1}}s{{/metadata.experiments.1}}: <code class="amp-experiment-list">[{{#metadata.experiments}}<span>{{.}}</span>{{/metadata.experiments}}]</code>. Enable the experiment via the button below. Some components require the AMP Dev Channel to be enabled as well. <a href="https://www.ampproject.org/docs/reference/experimental.html">Learn more here</a>.</p>
 
-  <div id="experiment-container">
-    <button id="experiment-toggle" class="button-inactive">Enable Experiment{{#metadata.experiments.1}}s{{/metadata.experiments.1}}</button>
-    <a id="canary-toggle" class="button button-inactive" href="https://cdn.ampproject.org/experiments.html" target="_blank">Enable Dev Channel</a>
+  <div class="abe-experiment-warning-buttons flex flex-wrap">
+    <button id="experiment-toggle" class="ampstart-btn ampstart-btn-secondary caps mr1 mt1" disabled>Enable Experiment{{#metadata.experiments.1}}s{{/metadata.experiments.1}}</button>
+    <a id="canary-toggle"
+      class="ampstart-btn ampstart-btn-secondary caps mt1 disabled"
+      href="https://cdn.ampproject.org/experiments.html" target="_blank"><span class="caps inline-block white text-decoration-none">Enable Dev Channel</span></a>
   </div>
 </div>
 <!-- BEGIN INVALID AMP - don't try at home -->
@@ -12,13 +14,18 @@
 document.addEventListener("DOMContentLoaded", function(event) {
   (window.AMP = window.AMP || []).push(function(AMP) {
 
-    function enableButton(button) {
-      const element = document.getElementById(button);
-      element.className = element.className.replace("inactive", "primary");
+    function enableButton(elementId) {
+      const element = document.getElementById(elementId);
+      if (element.nodeName.toLowerCase() === 'button') {
+        element.removeAttribute('disabled');
+      } else {
+        element.classList.remove('disabled');
+      }
     }
 
     function areAllExperimentsEnabled() {
       {{#metadata.experiments}}
+      console.log('isExperimentOn {{.}}:' + AMP.isExperimentOn('{{.}}'));
       if (!AMP.isExperimentOn('{{.}}')) {
         return false;
       }
@@ -56,5 +63,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
   });
 });
 
-  </script>
+</script>
 <!-- END INVALID AMP -->

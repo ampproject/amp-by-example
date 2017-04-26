@@ -19,12 +19,11 @@ import (
 	"math"
 	"net/http"
 	"strconv"
-	"strings"
 )
 
 const (
 	ERROR_CASE_HOUSING  = "error"
-	HOUSING_SAMPLE_PATH = "/samples_templates/housing/"
+	HOUSING_SAMPLE_PATH = "/" + CATEGORY_SAMPLE_TEMPLATES + "/housing/"
 )
 
 type MortgageForm struct {
@@ -35,16 +34,11 @@ type MortgageForm struct {
 }
 
 func InitHousingForm() {
-	http.HandleFunc(HOUSING_SAMPLE_PATH+"calculate-mortgage-xhr", func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, calculateMortgageXHR)
-	})
-	http.HandleFunc(HOUSING_SAMPLE_PATH+"calculate-mortgage", func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, calculateMortgage)
-	})
+	http.HandleFunc(HOUSING_SAMPLE_PATH+"calculate-mortgage-xhr", calculateMortgageXHR)
+	http.HandleFunc(HOUSING_SAMPLE_PATH+"calculate-mortgage", calculateMortgage)
 }
 
 func calculateMonthlyPayment(mortgageForm MortgageForm) float64 {
-
 	monthlyInterestRateDecimal := (mortgageForm.Interest / 12) / 100
 	numberOfMonthlyPayments := float64(mortgageForm.Period * 12)
 	amountBorrowed := float64(mortgageForm.Price - mortgageForm.Deposit)
@@ -54,7 +48,6 @@ func calculateMonthlyPayment(mortgageForm MortgageForm) float64 {
 }
 
 func parseForm(r *http.Request) (MortgageForm, error) {
-
 	price, priceErr := strconv.Atoi(r.FormValue("price"))
 	deposit, depositErr := strconv.Atoi(r.FormValue("deposit"))
 	interest, interestErr := strconv.ParseFloat(r.FormValue("annual_interest"), 64)
@@ -62,37 +55,13 @@ func parseForm(r *http.Request) (MortgageForm, error) {
 
 	// can't return nil in place of a struct, so creating one in case there are errors
 	mortgageForm := MortgageForm{price, deposit, interest, period}
-
-	err := parseFormErrors(priceErr, depositErr, interestErr, periodErr)
-	if err != nil {
-		return mortgageForm, err
-	}
-
-	return mortgageForm, nil
-}
-
-func parseFormErrors(priceErr error, depositErr error, interestErr error, periodErr error) error {
-	var errors []string
-	appendError(priceErr, errors)
-	appendError(depositErr, errors)
-	appendError(interestErr, errors)
-	appendError(periodErr, errors)
-
-	if errors != nil {
-		return fmt.Errorf(strings.Join(errors, "\n"))
-	}
-	return nil
-}
-
-func appendError(anError error, errors []string) {
-	if anError != nil {
-		errors = append(errors, anError.Error())
-	}
+	err := parseFormErrors([]error{priceErr, depositErr, interestErr, periodErr})
+	return mortgageForm, err
 }
 
 func calculateMortgageXHR(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", buildSourceOrigin(r.Host))
-	w.Header().Set("Content-Type", "application/json")
+	EnableCors(w, r)
+	SetContentTypeJson(w)
 	response := ""
 	mortgageForm, err := parseForm(r)
 	if err != nil {

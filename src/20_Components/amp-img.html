@@ -1,5 +1,5 @@
 <!-- 
-  #### Introduction
+  ## Introduction
 
   AMP HTML files don't support the normal HTML `img` tag. With `amp-img` AMP
   provides a powerful replacement.
@@ -9,14 +9,18 @@
 <html ⚡>
 <head>
   <meta charset="utf-8">
+  <!-- ## Setup -->
+  <!--
+    `amp-img` is a built-in element and is automatically imported via the AMP runtime.
+  -->
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
   <link rel="canonical" href="<%host%>/components/amp-img/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-  <script async src="https://cdn.ampproject.org/v0.js"></script>
 </head>
 <body>
 
-  <!-- #### Basic Usage -->
+  <!-- ## Basic Usage -->
   <!--
     A simple [responsive](https://www.ampproject.org/docs/guides/responsive/control_layout.html)
     image - *width* and *height* are used to determine the aspect ratio.

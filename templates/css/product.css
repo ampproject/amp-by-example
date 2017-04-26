@@ -14,17 +14,17 @@ amp-carousel {
 .header {
   background-color: #607D8B;
 }
-.header #hamburger {
+.header #sample-menu {
   position:absolute;
   top:0;
   left: 0;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 700;
   color: white;
   text-transform: uppercase;
   padding: 13px;
 }
-.header #logo {
+.header #sample-logo {
   position:absolute;
   top:0;
   left:36px;
@@ -32,8 +32,10 @@ amp-carousel {
   font-weight: 400;
   color: white;
   text-transform: uppercase;
-  margin: 16px;
+  margin: 0 16px;
   height: 32px;
+  text-decoration: none;
+  line-height: 52px;
 }
 /* search form */
 .header form {
@@ -107,12 +109,12 @@ amp-carousel {
 .header input::-webkit-input-placeholder {
   color: #999;
 }
-.header input:focus + #logo {
+.header input:focus + #sample-logo {
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s 0.7s, opacity 0.7s ease;
 }
-.header input + #logo {
+.header input + #sample-logo {
   visibility: visible;
   opacity: 1;
   transition: opacity 1.5s ease;

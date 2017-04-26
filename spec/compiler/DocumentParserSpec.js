@@ -16,15 +16,15 @@
 
 describe("DocumentParser", function() {
 
-  var DocumentParser = require('../../tasks/lib/DocumentParser').DocumentParser;
-  var CodeSection = require('../../tasks/lib/CodeSection');
+  var DocumentParser = require('../../lib/DocumentParser').DocumentParser;
+  var CodeSection = require('../../lib/CodeSection');
 
   var HEAD = '<head>';
   var HEAD_END = '</head>';
   var BODY = '<body>';
   var BODY_END = '</body>';
   var TAG = '<h1>hello</h1>';
-  var EMPTY_LINE = ' ';
+  var EMPTY_LINE = '';
   var WRAPPED_TAG = `<h1
     class="test">
     hello
@@ -186,6 +186,24 @@ describe("DocumentParser", function() {
       expect(parser.extractEndTag('   </div>')).toEqual('div');
       expect(parser.extractEndTag('<div class="test">')).toEqual('');
       expect(parser.extractEndTag('  <h4>Hello World</h4>')).toEqual('h4');
+    });
+  });
+
+  describe('extracts body tag', function() {
+    it("no body", function() {
+      const noBody = '<notBody>';
+      expect(parse('something').body).toEqual('');
+    });
+    it("body only", function() {
+      expect(parse(BODY).body).toEqual(BODY);
+    });
+    it("body with attributes", function() {
+      const bodyWithAttributes = '<body attr="hello" attr2="world">';
+      expect(parse(bodyWithAttributes).body).toEqual(bodyWithAttributes);
+    });
+    it("incomplete body", function() {
+      const noBody = '<body';
+      expect(parse('something').body).toEqual('');
     });
   });
 

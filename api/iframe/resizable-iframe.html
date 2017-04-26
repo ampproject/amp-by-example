@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <link rel="stylesheet" href="https://ampbyexample.com/css/ampstart.css">
+    <style>
+body {
+  margin: 0;
+  padding: 0;
+}
+#box {
+  width: 198px;
+  height: 198px;
+  border: 2px solid #b60845;
+  padding: 1rem;
+  background: #ccc;
+}
+p {
+  margin-top: 1rem;
+}
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      <button id="action" class="ampstart-btn">Resize</button>
+      <p id="message">Size: <span id="size">200x200</span></p>
+    </div>
+  <script>
+(function (d, w) {
+  var BORDER_WIDTH = 2;
+  var sizes = [200, 300];
+  var currentSize = 0;
+  postSize(sizes[currentSize]);
+
+  d.getElementById('action').onclick = function(event) {
+    postSize(sizes[currentSize]);
+  }
+
+  function postSize(size) {
+    console.log('post new embed-size: ' + size + 'x' + size);
+    d.getElementById('size').innerHTML = size + 'x' + size;
+    var box = d.getElementById('box');
+    box.style.width = size - BORDER_WIDTH + 'px';
+    box.style.height = size - BORDER_WIDTH + 'px';
+    currentSize = (currentSize + 1) % sizes.length;
+
+    w.parent.postMessage({
+      sentinel: 'amp',
+      type: 'embed-size',
+      height: size,
+      width: size
+    }, '*');
+
+  }
+})(document, window);
+  </script>
+  </body>
+</html>

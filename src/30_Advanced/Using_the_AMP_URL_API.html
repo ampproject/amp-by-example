@@ -1,22 +1,22 @@
 <!---{
-  "draft": true,
   "hideCode": true,
-  "hidePreview": true
-  }--->
+  "hidePreview": true,
+  "disablePlayground": true,
+  "skipValidation": true
 }--->
 <!doctype html>
 <html ⚡>
 <head>
   <meta charset="utf-8">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
   <link rel="canonical" href="<%host%>/advanced/using_the_amp_url_api/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-  <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-  <script async src="https://cdn.ampproject.org/v0.js"></script>
 </head>
 <body>
 <!--
-  #### Introduction
+  ## Introduction
 
   The [AMP URL API](https://developers.google.com/amp/cache/use-amp-url)
   retrieves the matching AMP URLs for a given list of URLs. Apps can use
@@ -32,7 +32,7 @@
   For [performance and security reasons](https://developers.google.com/amp/cache/overview#cache-optimizations-and-modifications) 
   we recommend using the cached AMP version when displaying AMP content.
 
-  #### See how it works
+  ## See how it works
 
   Press execute to perform a live query against the AMP URL API. Change the input 
   query and try different URLs. 

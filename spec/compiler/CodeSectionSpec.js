@@ -16,7 +16,7 @@
 
 describe("CodeSection", function() {
 
-  var CodeSection = require('../../tasks/lib/CodeSection');
+  var CodeSection = require('../../lib/CodeSection');
 
   beforeEach(function() {
     section = new CodeSection();
@@ -131,6 +131,158 @@ describe("CodeSection", function() {
     it('hides empty doc', function() {
       section.appendDoc("  ");
       expect(section.hideDocOnMobile()).toEqual(true);
+    });
+  });
+  describe('hide columns if code section', function() {
+    /*
+    it('is longer than 4 lines', function() {
+      section.appendCode("line1");
+      expect(section.hideColumns()).toEqual(false);
+      section.appendCode("line2");
+      expect(section.hideColumns()).toEqual(false);
+      section.appendCode("line3");
+      expect(section.hideColumns()).toEqual(false);
+      section.appendCode("line4");
+      expect(section.hideColumns()).toEqual(false);
+      section.appendCode("line5");
+      expect(section.hideColumns()).toEqual(true);
+    });
+    */
+    it('has no doc', function() {
+      section.appendDoc("some doc");
+      section.appendCode("line1");
+      section.appendCode("line2");
+      section.appendCode("line3");
+      section.appendCode("line4");
+      section.appendCode("line5");
+      expect(section.hideColumns()).toEqual(false);
+    });
+    it('is boilerplate', function() {
+      section.appendCode("line1\n   <style amp-boilerplate> more\n code");
+      expect(section.hideColumns()).toEqual(true);
+    });
+  });
+  describe('removes uncorrectly escaped templates', function(){
+    it('contains an escaped template', function() {
+      expect(section.cleanUpCode("[[<span class=\"hljs-attr\">.Disabled</span>]]")).toEqual("[[ .Disabled]]")
+    });
+    it('contains an escaped template and spaces', function() {
+      expect(section.cleanUpCode("[[    <span class=\"hljs-attr\">.Disabled    </span>]]")).toEqual("[[ .Disabled]]")
+    });
+    it('does not alter valid escaped templates', function() {
+      expect(section.cleanUpCode("<span class=\"hljs-string\">\"[[.Timestamp]]\"</span>")).toEqual("<span class=\"hljs-string\">\"[[.Timestamp]]\"</span>")
+    });
+    it('contains an escaped template with range clause', function() {
+      expect(section.cleanUpCode("[[<span class=\"hljs-attr\">range</span><span class=\"hljs-attr\">.BlogItems</span>]]")).toEqual("[[range .BlogItems]]")
+    });
+    it('contains an escaped template with if clause', function() {
+      expect(section.cleanUpCode("[[<span class=\"hljs-attr\">if</span><span class=\"hljs-attr\">.BlogItems</span>]]")).toEqual("[[if .BlogItems]]")
+    });
+    it('contains an escaped template with if clause and spaces', function() {
+      expect(section.cleanUpCode("[[   <span class=\"hljs-attr\">if   </span><span class=\"hljs-attr\">.BlogItems</span>   ]]")).toEqual("[[if .BlogItems]]")
+    });
+    it('contains an escaped template with end clause', function() {
+      expect(section.cleanUpCode("[[<span class=\"hljs-attr\">end</span>]]")).toEqual("[[end ]]")
+    });
+
+  });
+
+  describe("parses outline", function() {
+    it('has no headings by default', function() {
+      section.appendDoc("Some Doc");
+      expect(section.headings).toEqual([]);
+    });
+    it('ignores # in text', function() {
+      section.appendDoc("asdfsafd ### Some Doc");
+      expect(section.headings).toEqual([]);
+    });
+    it('adds single heading', function() {
+      section.appendDoc("##Some Doc");
+      expect(section.headings).toEqual([{
+        id: 'some-doc',
+        name: 'Some Doc',
+      }]);
+    });
+    it('removes whitespace heading', function() {
+      section.appendDoc("##  Some Doc   ");
+      expect(section.headings).toEqual([{
+        id: 'some-doc',
+        name: 'Some Doc',
+      }]);
+    });
+    it('adds multiple headings', function() {
+      section.appendDoc("##Some Doc");
+      section.appendDoc("##Another Doc");
+      expect(section.headings).toEqual([{
+        id: 'some-doc',
+        name: 'Some Doc'
+      }, {
+        id: 'another-doc',
+        name: 'Another Doc'
+      }]);
+    });
+  });
+
+  describe('strips leading whitespace from codesections', function(){
+    it('keeps formatting without leading whitespace', function() {
+      section.appendCode("<h1>Hello</h1>");
+      expect(section.code).toEqual("<h1>Hello</h1>\n");
+    });
+    it('strips leading whitespace', function() {
+      section.appendCode("    <h1>Hello</h1>");
+      expect(section.code).toEqual("<h1>Hello</h1>\n");
+    });
+    it('strips leading whitespace from multiple lines', function() {
+      section.appendCode("  <h1>Hello</h1>");
+      section.appendCode("    <h1>Hello</h1>");
+      section.appendCode("  <h1>Hello</h1>");
+      expect(section.code).toEqual(
+        "<h1>Hello</h1>\n" +
+        "  <h1>Hello</h1>\n" +
+        "<h1>Hello</h1>\n"
+      );
+    });
+    it('strips only whitespace', function() {
+      section.appendCode("  <h1>Hello</h1>");
+      section.appendCode("xx<h1>Hello</h1>");
+      expect(section.code).toEqual(
+        "<h1>Hello</h1>\n" +
+        "xx<h1>Hello</h1>\n"
+      );
+    });
+  });
+  describe('wrapper divs', function(){
+    it('strips enclosing div', function() {
+      section.appendCode("<div>");
+      section.appendCode("<h1>Hello</h1>");
+      section.appendCode("</div>");
+      expect(section.escapedCode()).not.toContain(
+        "div"
+      );
+    });
+    it('strips enclosing div with whitespace', function() {
+      section.appendCode("  <div>   ");
+      section.appendCode("<h1>Hello</h1>");
+      section.appendCode("   </div>   ");
+      expect(section.escapedCode()).not.toContain(
+        "div"
+      );
+    });
+    it('ignores divs with classes', function() {
+      section.appendCode('<div class="test">');
+      section.appendCode("Hello");
+      section.appendCode("</div>");
+      expect(section.escapedCode()).toContain(
+        "div"
+      );
+    });
+    it('ignores divs with ids', function() {
+      section.appendCode('<div id="test">');
+      section.appendCode("Hello");
+      section.appendCode("</div>");
+      expect(section.escapedCode()).toContain(
+        "div"
+      );
     });
   });
 

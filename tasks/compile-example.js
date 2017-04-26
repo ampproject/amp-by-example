@@ -22,10 +22,10 @@ const through = require('through2');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 const PluginError = gutil.PluginError;
-const DocumentParser = require('./lib/DocumentParser');
-const ExampleFile = require('./lib/ExampleFile');
-const Metadata = require('./lib/Metadata');
-const Templates = require('./lib/Templates');
+const DocumentParser = require('../lib/DocumentParser');
+const ExampleFile = require('../lib/ExampleFile');
+const Metadata = require('../lib/Metadata');
+const Templates = require('../lib/Templates');
 
 /**
  * Collects a list of example files, renders them (using templateExample) and
@@ -110,16 +110,18 @@ module.exports = function(config, updateTimestamp) {
     }
 
     const stream = this;
-    compileIndex(stream);
+    const categories = mapToCategories(examples);
+    compileIndex(stream, categories);
+    compileSitemap(stream, categories);
     compileExamples(stream);
-
     cb();
   }
 
-  function compileIndex(stream) {
-    const args = {
+  function compileIndex(stream, categories) {
+    const args = require('../data/index.json');
+    const indexArgs = {
       config: config,
-      categories: mapToCategories(examples),
+      categories: categories,
       title: 'AMP by Example',
       desc: 'A hands-on introduction to Accelerated Mobile Pages (AMP) ' +
         'focusing on code and live samples. Learn how to create AMP pages ' +
@@ -128,6 +130,7 @@ module.exports = function(config, updateTimestamp) {
       github: "https://github.com/ampproject/amp-by-example/",
       fileName: '/'
     };
+    Object.assign(args, indexArgs);
 
     Metadata.add(args);
     args.fileName = '';
@@ -139,13 +142,21 @@ module.exports = function(config, updateTimestamp) {
     stream.push(indexFile);
   }
 
+  function compileSitemap(stream, categories) {
+    const indexFile = latestFile.clone({contents: false});
+    indexFile.path = path.join(latestFile.base, "sitemap.json");
+    indexFile.contents = new Buffer(JSON.stringify(categories, null, 2));
+    gutil.log('Generated ' + indexFile.relative);
+    stream.push(indexFile);
+  }
+
   function findNextExample(examples, index) {
       const next = examples[index];
       if (!next) {
         return null;
       }
       const metadata = next.document.metadata;
-      if (metadata && metadata.draft) {
+      if (!next.category() || (metadata && metadata.draft)) {
         return findNextExample(examples, index+1);
       }
       return next;
@@ -159,69 +170,95 @@ module.exports = function(config, updateTimestamp) {
       if (example.category()) {
         nextExample = findNextExample(examples, index + 1);
       }
-      const args = {
+      const args = require('../data/index.json');
+      const sampleArgs = {
         config: config,
         head: document.head,
         title: example.title() + ' - ' + 'AMP by Example',
         desc: document.description(),
         timestamp: timestamp,
         fileName: example.url(),
+        host: config.host,
+        urlSource: example.urlSource(),
+        urlPreview: previewUrl(example),
         github: example.githubUrl(),
         subHeading: example.title(),
         exampleStyles: document.styles,
         categories: mapToCategories(examples, example),
         component: document.metadata.component,
+        bodyTag: document.body,
+        elementsAfterBody: document.elementsAfterBody,
         sections: document.sections,
+        headings: document.headings(),
         metadata: document.metadata,
         nextExample: nextExample,
         skipCanonical: document.hasCanonical(),
+        includesManifest: document.includesLink('manifest'),
         includesAnalytics: document.importsComponent('amp-analytics'),
+        includesLiveList: document.importsComponent('amp-live-list'),
         includesAccordion: document.importsComponent('amp-accordion'),
+        includesSelector: document.importsComponent('amp-selector'),
         includesSidebar: document.importsComponent('amp-sidebar'),
-        includesServiceWorker: document.importsComponent('amp-install-serviceworker')
+        includesServiceWorker: document.importsComponent('amp-install-serviceworker') || document.metadata.skipServiceWorker
       };
+      sampleArgs.supportsAmpSelector = !sampleArgs.includesLiveList && !sampleArgs.includesSelector;
+      Object.assign(args, sampleArgs);
       Metadata.add(args);
 
+      // compile source file
+      const inputFile = example.file;
+      inputFile.path = path.join(inputFile.base, example.targetSourcePath());
+      inputFile.contents = new Buffer(
+        example.contents.replace(/\<\!\-\-\-\{(.|[\n\r])*\}\-\-\-\>/, '').trim());
+      inputFile.metadata = document.metadata;
+      gutil.log('Generated ' + inputFile.relative);
+      stream.push(inputFile);
+
       // compile example
-      const sampleHtml = pageTemplates.render(config.templates.example, args);
-      file.path = path.join(file.base, example.targetPath());
-      file.metadata = document.metadata;
-      file.contents = new Buffer(sampleHtml);
-      gutil.log('Generated ' + file.relative);
-      stream.push(file);
+      compileTemplate(stream, example, args, {
+        template: config.templates.example,
+        targetPath: example.targetPath(),
+        isEmbed: false
+      });
+
+      // compile embed
+      compileTemplate(stream, example, args, {
+        template: config.templates.example,
+        targetPath: example.targetEmbedPath(),
+        isEmbed: true
+      });
 
       // compile example preview
-      if (document.metadata.preview) {
-        // the default preview template
-        let previewTemplate = config.templates.preview;
+      // the default preview template
+      let previewTemplate = config.templates.preview;
 
-        // a4a preview embeds the original sample via iframe
-        if (document.metadata.preview.toLowerCase() == "a4a") {
-          previewTemplate = config.a4a.template;
-          // copy ad sample to api app engine folder
-          const previewPath = path.join(config.api.dist, example.targetPath());
-          mkdirp.sync(path.dirname(previewPath));
-          fs.writeFileSync(previewPath, example.contents);
-          gutil.log('Generated ' + previewPath);
-          // configure a4a preview
-          args.width = document.metadata.width || config.a4a.defaultWidth;
-          args.height = document.metadata.height || config.a4a.defaultHeight;
-          args.adContainerHeight = args.height + config.a4a.adContainerLabelHeight;
-          args.a4aEmbedUrl = config.api.host + '/' + example.targetPath();
-        }
-
-        // generate preview
-        args.title = example.title() + ' (Preview) - ' + 'AMP by Example';
-        args.desc = "This is a live preview of the '" + example.title() + "' sample. " + args.desc;
-        args.canonical = config.host + example.url() + 'preview/';
-        const previewFile = file.clone({contents: false});
-        const previewHtml = pageTemplates.render(previewTemplate, args);
-        previewFile.path = path.join(file.base, example.targetPreviewPath());
-        previewFile.metadata = document.metadata;
-        previewFile.contents = new Buffer(previewHtml);
-        gutil.log('Generated ' + previewFile.relative);
-        stream.push(previewFile);
+      // a4a preview embeds the original sample via iframe
+      if (document.isAmpAdSample()) {
+        previewTemplate = config.a4a.template;
+        // configure a4a preview
+        args.width = document.metadata.width || config.a4a.defaultWidth;
+        args.height = document.metadata.height || config.a4a.defaultHeight;
+        args.adContainerHeight = args.height + config.a4a.adContainerLabelHeight;
+        args.a4aEmbedUrl = example.urlSource();
       }
+
+      args.title = example.title() + ' (Preview) - ' + 'AMP by Example';
+      args.desc = "This is a live preview of the '" + example.title() + "' sample. " + args.desc;
+      args.canonical = config.host + example.url() + 'preview/';
+
+      // generate preview
+      compileTemplate(stream, example, args, {
+        template: previewTemplate,
+        targetPath: example.targetPreviewPath(),
+        isEmbed: false
+      });
+
+      // generate preview embed
+      compileTemplate(stream, example, args, {
+        template: previewTemplate,
+        targetPath: example.targetPreviewEmbedPath(),
+        isEmbed: true
+      });
     });
   }
 
@@ -238,7 +275,7 @@ module.exports = function(config, updateTimestamp) {
         // add example to categories instance
         if (!currentCategory ||
           currentCategory.name != exampleFile.category().name) {
-          currentCategory =  exampleFile.category();
+          currentCategory = exampleFile.category();
           currentCategory.examples = [];
           if (currentExample) {
             currentCategory.selected =
@@ -249,22 +286,54 @@ module.exports = function(config, updateTimestamp) {
         const selected = currentExample &&
           exampleFile.title() == currentExample.title();
 
-        let exampleUrl = exampleFile.url();
-        if(exampleFile.document.metadata.default == 'preview') {
-          exampleUrl += "preview/";
-        }
+        const experiments = exampleFile.document.metadata.experiments;
 
         currentCategory.examples.push({
           title: exampleFile.title(),
           name: exampleFile.name(),
           description: exampleFile.document.description(),
-          url: exampleUrl,
+          url: exampleFile.url(),
+          urlPreview: previewUrl(exampleFile),
+          urlPreviewEmbed: exampleFile.urlPreviewEmbed(),
+          urlEmbed: exampleFile.urlEmbed(),
           selected: selected,
-          experiments: exampleFile.document.metadata.experiments,
+          metadata: exampleFile.document.metadata,
+          experiments: experiments,
+          experiment: experiments && experiments.length > 0,
           highlight: exampleFile.document.metadata.highlight
         });
       });
     return categories;
+  }
+
+  function compileTemplate(stream, example, args, options) {
+    const document = example.document;
+    const inputFile = example.file;
+    args.isEmbed = options.isEmbed;
+    const sampleHtml = pageTemplates.render(options.template, args);
+    args.isEmbed = false;
+    const sampleFile = inputFile.clone({contents: false});
+    sampleFile.path = path.join(inputFile.base, options.targetPath);
+    sampleFile.metadata = document.metadata;
+    sampleFile.contents = new Buffer(sampleHtml);
+    gutil.log('Generated ' + sampleFile.relative);
+    stream.push(sampleFile);
+  }
+
+  function previewUrl(exampleFile) {
+    const document = exampleFile.document;
+    if (!document.metadata.preview) {
+      return null;
+    }
+    if (document.isAmpAdSample() || document.metadata.preview === 'cache') {
+      return cachedUrl(exampleFile.urlPreview());
+    } else {
+      return exampleFile.urlPreview();
+    }
+  }
+
+  function cachedUrl(url) {
+    return 'https://ampbyexample-com.cdn.ampproject.org/c/s/ampbyexample.com' + url + '?exp=a4a:-1';
   }
 
   function sort(examples) {
@@ -272,6 +341,10 @@ module.exports = function(config, updateTimestamp) {
       return a.filePath.localeCompare(b.filePath);
     });
     return examples;
+  }
+
+  function clone(obj) {
+    return JSON.parse(JSON.stringify(obj));
   }
 
   return through.obj(bufferContents, endStream);

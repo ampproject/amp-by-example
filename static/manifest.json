@@ -2,10 +2,10 @@
   "name": "AMP by Example",
   "short_name": "AMP Examples",
   "description": "Learn AMP by Examples",
-  "start_url": "https://ampbyexample.com",
+  "start_url": ".",
   "display": "standalone",
-  "background_color": "#607D8B",
-  "theme_color": "#607D8B",
+  "background_color": "#FFFFFF",
+  "theme_color": "#000000",
   "icons": [
     {
       "src": "/favicons/android-chrome-36x36.png",

@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link rel="stylesheet" href="https://ampbyexample.com/css/ampstart.css">
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+      }
+      pre {
+        font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+        font-size: 14px;
+        overflow: auto;
+        margin: 0;
+        padding: 8px;
+        background-color: #ECEFF1;
+        overflow-x: auto;
+        min-height: 32px;
+      }
+      -webkit-scrollbar, pre::-webkit-scrollbar {
+        height: 8px;
+        width: 4px;
+      }
+      pre::-webkit-scrollbar-thumb {
+        background: rgba(0,0,0,.26);
+      }
+      a {
+        color: #37474f;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .error {
+        color: red;
+      }
+      .input-container {
+        display: flex;
+      }
+      .input-container .responsive-input {
+        flex: 1;
+        margin: auto 0;
+      }
+      .input-container .fixed-input {
+        flex: 0;
+        margin: auto 0 auto 1rem;
+      }
+      .input-container div input {
+        font-size: 14px;
+        padding: 6px;
+        width: 100%;
+      }
+      .result-container {
+        padding: 16px 0 0 0;
+      }
+      .ampstart-input>label {
+        color: #b60845;
+      }
+      .ampstart-input>label:after {
+        background: #b60845;
+      }
+      /* make space for active outline */
+      #execute {
+        margin: 4px;
+      }
+    </style>
+  </head>
+  <body class="py1">
+    <section class="input-container">
+      <div class="ampstart-input inline-block relative m0 p0 mb3 responsive-input">
+        <input type="text" value="" name="input" id="input" class="block border-none p0 m0" placeholder="Enter an URL">
+        <label for="ip1" class="absolute top-0 right-0 bottom-0 left-0">
+          Enter an URL
+        </label>
+      </div>
+      <div class="fixed-input">
+        <button id="execute" class="ampstart-btn">Convert</button>
+      </div>
+    </section>
+    <section class="result-container">
+      <pre id="result"></pre>
+    </section>
+    <script src="https://cdn.ampproject.org/viewer/google/amp_url.js"></script>
+    <script src="/scripts/amp_url_converter.js"></script>
+  </body>
+</html>

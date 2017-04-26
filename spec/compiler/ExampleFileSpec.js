@@ -16,7 +16,7 @@
 
 describe("ExampleFile", function() {
 
-  var ExampleFile = require('../../tasks/lib/ExampleFile');
+  var ExampleFile = require('../../lib/ExampleFile');
 
   describe('created from path', function() {
     var file = ExampleFile.fromPath('src/10_Hello-world\'s/What\'s_up_100%25?.html');
@@ -25,6 +25,15 @@ describe("ExampleFile", function() {
     });
     it('extracts url', function() {
       expect(file.url()).toBe("/hello-worlds/whats_up_100/");
+    });
+    it('extracts preview url', function() {
+      expect(file.urlPreview()).toBe("/hello-worlds/whats_up_100/preview/");
+    });
+    it('extracts embed url', function() {
+      expect(file.urlEmbed()).toBe("/hello-worlds/whats_up_100/embed/");
+    });
+    it('extracts preview embed url', function() {
+      expect(file.urlPreviewEmbed()).toBe("/hello-worlds/whats_up_100/preview/embed/");
     });
     it('extracts url without __', function() {
     var file = ExampleFile.fromPath('src/50_Samples_%26_Templates/Test.html');

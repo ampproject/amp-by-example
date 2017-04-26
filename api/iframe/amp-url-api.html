@@ -5,10 +5,13 @@
     <script src="/third_party/linkify-element.min.js"></script>
 
     <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="https://ampbyexample.com/css/ampstart.css">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <style>
+      body {
+        font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+      }
       pre, textarea, code {
-        font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
         font-size: 12px;
         line-height: 16px;
       }
@@ -31,9 +34,6 @@
         -moz-box-sizing: border-box;
         box-sizing: border-box;
       }
-      #run {
-        margin: 16px 0;
-      }
       #loader {
         display: none;
         position: relative;
@@ -41,6 +41,10 @@
         width: 24px;
         height: 24px;
         margin: auto;
+      }
+      /* make space for active outline */
+      #run {
+        margin: 4px;
       }
     </style>
     <script type="text/javascript">
@@ -52,7 +56,7 @@ function sendAmpUrlRequest() {
   resultView.innerHTML = '';
   const loader = document.getElementById('loader');
   loader.style.display = 'inline';
-  const urls = document.getElementById('input').value; 
+  const urls = document.getElementById('input').value;
   sendApiRequest(urls, function(result) {
     loader.style.display = 'none';
     resultView.innerHTML = result;
@@ -99,18 +103,17 @@ function createRequest(method, url) {
   return xhr;
 }
     </script>
-    <link href='https://fonts.googleapis.com/css?family=Roboto:regular&amp;lang=en' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    <textarea type="text" id="input" >{  
-  "urls":[  
+    <textarea type="text" id="input">{
+  "urls":[
     "https://ampbyexample.com",
     "https://www.example.org/article-without-amp-version",
     "https://www.theguardian.com/membership/2016/feb/24/todays-release-of-accelerated-mobile-pages-amp",
     "http://bit.ly/28lya4p"
   ]
 }</textarea>
-    <button id="run" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="sendAmpUrlRequest();">
+    <button id="run" class="ampstart-btn" onclick="sendAmpUrlRequest();">
       Execute
     </button>
     <img id="loader" src="/img/loader.gif">
