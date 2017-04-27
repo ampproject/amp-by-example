@@ -46,6 +46,9 @@ code {
   margin-bottom: 2rem;
   padding: 0;
 }
+.www-component-desc > pre {
+  padding: 1rem;
+}
 .www-component-desc > .ampstart-card {
   padding: 1rem;
 }
