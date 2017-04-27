@@ -61,12 +61,18 @@ a[role="tab"] {
   padding: 8px;
 }
 
-#preview {
+#preview-panel {
   position: relative;
-}
-#preview iframe {
-  background-color: #fff;
+  height: 110px;
   overflow: hidden;
+}
+#preview-panel iframe {
+  background-color: #fff;
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 /**

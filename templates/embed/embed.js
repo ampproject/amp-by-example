@@ -20,13 +20,13 @@
 var MIN_IFRAME_HEIGHT = 100;
 
 var preview = document.getElementById('preview');
+var previewPanel = document.getElementById('preview-panel');
 
 /**
  * Set the preview width and height.
  */
-function setPreviewDimension(width, height) {
-  preview.width = width;
-  preview.height = height;
+function setPreviewHeight(height) {
+  previewPanel.style.height = height + 'px';
 }
 
 /**
@@ -34,7 +34,7 @@ function setPreviewDimension(width, height) {
  */
 function fitPreviewToContent() {
   var iframeDoc = preview.contentDocument || preview.contentWindow.document;
-  setPreviewDimension(document.documentElement.clientWidth, iframeDoc.body.offsetHeight);
+  setPreviewHeight(iframeDoc.body.offsetHeight);
 }
 
 /**
@@ -54,39 +54,22 @@ function postEmbedHeightToViewer() {
   }, '*');
 }
 
-// true if the iframe is currently being resized
-var resizing = false;
 // Listen to resize events and update the preview dimension
-window.addEventListener('resize', onResize, true);
-
-/**
- * Debounce resize events. 
- */
-function onResize() {
-  if (!resizing) {
-    resizing = true;
-    setTimeout(fitPreviewIntoAvailableSpace, 200);
-  }
-}
+window.addEventListener('resize', fitPreviewIntoAvailableSpace, true);
 
 /**
  * Resize the preview based on the available width and the resulting preview content height.
  */
 function fitPreviewIntoAvailableSpace() {
-  // 1. Change width of preview window to let the preview resize itself
-  setPreviewDimension(document.documentElement.clientWidth, preview.height);
-  // 2. Wait until preview has resized and update embed height 
-  // TODO Use AMP viewer API instead of timeout
-  setTimeout(function() {
+  window.requestAnimationFrame(function() {
     fitPreviewToContent();
     postEmbedHeightToViewer();
-    resizing = false;
-  }, 100);
+  });
 };
 
 // Initially give preview same size as source code view (for a smoother transition)
 var sourcePanel = document.getElementById('source-panel');
-setPreviewDimension(sourcePanel.clientWidth, sourcePanel.offsetHeight);
+setPreviewHeight(sourcePanel.offsetHeight);
 
 /** Configure Tabs **/
 
