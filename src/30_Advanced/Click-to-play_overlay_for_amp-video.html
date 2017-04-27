@@ -1,0 +1,130 @@
+<!--
+  ## Introduction
+
+  Click-to-play is a common UX for video players on the web.
+
+  Initially displayed on top of the video, the overlay contains details about
+  the video such as title, duration, poster image, links and a play icon.
+
+  `amp-video` supports `play` standard AMP action which allows us to implement
+  custom click-to-play overlays with ease.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <!-- ## Setup -->
+  <!--
+    Import the `amp-video` component.
+  -->
+  <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <link rel="canonical" href="<%host%>/components/amp-video/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <!-- ## Styling -->
+  <!--
+    Custom styles for click-to-play overlay
+  -->
+  <style amp-custom>
+
+    /* Wrapper that hosts the video and the overlay */
+    .video-player {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Overlay fills the parent and sits on top of the video */
+    .click-to-play-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .poster-image {
+      position: absolute;
+      z-index: 1;
+    }
+
+    .poster-image img {
+      object-fit: cover;
+    }
+
+    .video-title {
+      position: absolute;
+      z-index: 2;
+
+      /* Align to the top left */
+      top: 0;
+      left: 0;
+
+      font-size: 1.3em;
+      background-color: rgba(0,0,0,0.8);
+      color: #fafafa;
+      padding: 0.5rem;
+      margin: 0px;
+    }
+
+    .play-icon {
+      position: absolute;
+      z-index: 2;
+
+      width: 100px;
+      height: 100px;
+
+      background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAQAAABIkb+zAAAGgElEQVR4Ae2bBXTjRhBAVQaVmeGYAmVmZm6gzPCg3AdlZmZm5tphZobjCzPrwI5lxZY0qnKbUeSUnF1JvntPM4+Mmq/dmZ2dHXHaRq4ugAvgAlivLoAL4AK4AC4Ag/BcHJeq68Pcc4Y+vP6dOP0zOnEEgOdO4+7mPuE8/6mfcHfr3+M3NICj9XvsmZY+rP9mgwDg9anxPeeh0u/13/J2AlAYv3Xawrw7ar9orRhu8QlSIByQA7Igtfmqhj9tvaF6bu6WXgoImwCOjpzve2feWP1LV89oUJZBARV00QwFVX9PBlFu9//YkVy5S8YUvzjaaQDePOe39J5Q9HV7nzimqLBetL+LGSWk9AY+bE7M39wb4RO8cwBx5olzdkl2rz+kAjEwOgFNgXVjf3YfVRAxmeKcATht8qL7Z33X4Q9PvectPk/3O02XlJv1nSZPd4svEkKFdaGPWvbJMkGcZj/ALXixzb3XVvWMKibjA2FP9001u0fM70jdPeOmGk93IDwJIUObL6nCNJlusRfgbrzQHpk/dkjKpPGD4gMN/2V6JMYDDYPiJIQkf9/Bpxmf320fgGH+AdnL18oAJuOnvwoQCByHemG3DDOCHQCpeIEjCvpF1TD/nab/uvP/PRLvNE36Q09gTo7xWar1AIbrzskRJHTbQfHEInyfTk8sGhQJAkC/eHC2yZ0tBZjBfY/mDwXR/KIB2nsfOQ5FA2QcxhFmZBtBdYZ1ADz3JiYK3aM4dzzd7MajerpxFFp8hju/yfFWAaSi+SWDKoDJfOsRFMjtNxBSrQGYgRd5cbmsms23ByGkPrrEeHeGFQDPYezxh2FipSXvWK0tPoIgSPF5E+89xw4Qh39fMUScNxBekGsPwIJcskYD5Pcb78YxAuD9T6oIqcR5b6oh79ihN9XgNEqqwDFgA4jDhLnNT6ZPvUDesUvrBTIGrZPRKI4BAJOHe+rlifv//9NnMHhpOcs0mhgD5c5aTCzoAXjyFzukt6yLPvpouhQP7JHJGI2gQTDGgKcEwPThojJJjur+I4AuAfm5ZWxjEJDPLsG0ghIAt41/dAGQ1CEaAzRDGoSTqDKlogGS3n3djttNSgDMVYYlmEb80SLk3aY9MiljEfSMbp9O3qECwAiUUhlSSfyP7vLaFKFx6vH1ADRJObkYIxEFAGZAn7YqOIGoAIhTL8yb/iRS4JUVmBVRAKAHNAjEA55dRgdA49TPLiOTqHQQvYACAMtWIxIBuKScFgCl1RetU19STgD6Alj6ogDANUCSCQDnYQFA+aY9OqeeCKXhrbzk9bQBcBFbmBdWYf3mkR0AnfrmKKLZoEjW432xasRPEwBj0KXlZADqBVoAOqeuF8YBZPXYQoxDlAD3N1gNgE797LIoACCpkhHg2WWsAHROjQB31DICPBdjgNtqNu4ppF5ewQgQayc+sgABKMNofJ4c0zBqFN95loVMi9FCBiwLmZFKDAdjl0r0sKQSmMzVjcQumTPKKw8zpNPvNykALOk0xR6ZlHsVeGIpQzqNcejc0jElNhuaoHy8kUgwbCl3yRgQAWKwpdS6RrEuwbip/6VLBXB2U6+LCl+0sm7qT8PFTJLB4bLK+JQ9tRjLKsyFrVVrARwubGk1I1sbhS3m0uKDjSEnS4u6hJQbq7G0aFVxF5ws7i5fY/S1xFlSXr+8PKSCM+V1XSTlwjIsr1t2wFE4AKDZfsBBioppPdYdcBhjkJAnSI4cMcFQcH4u3n9LD/keWxJy4JBvTHmw0dpDPiMr4tNy++0+ZlXhj+6tvNYds6K8iQhtPrAYAc0nq+/S1Yb5b9rSajAzp59kRpa3GoAG0ObfL8vUamBPs8eM7H7RjmYPFTqJ+URPs7HdZk5Op9/6dps2n6lXJdXmhqddMmpHLGx4AlktG9o+3e6GpwiEbdO+agvKlrScgSh/1GJqiL3bsaa/pIqWdTJr05+6dPVZJabv3OJo2+U+WW+uWjOmULddjkivrtwr07m2S5Q4c9NxYv73HQJCRCEwriDrxn/VNicnogE5Lkatx5t7D8t/Y1WnX1KwY9qkkabrokBQbvG9uOLg7E0i2/H5GDd/75KRXPldR6svIMuqAuqEElFJ87caCDet+6D5nFKMONY3fzO332/pnZt7deXbqwr6l63p9PeJ/WKf2Olfuia79/nl55Sig7O337sPQMT+ERT3IaDYP4blPsnnArgALoAL4AK4AC6AC/AXFiQqJBNJmysAAAAASUVORK5CYII=);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+
+      /* Align to the middle */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      cursor: pointer;
+      opacity: 0.9;
+    }
+
+    .play-icon:hover, .play-icon:focus {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ## Markup -->
+  <!--
+    The overlay is an absolutely positioned `div` that sits on top of the
+    `amp-video` element and fills the parent player container. It
+    hosts the poster image, video title and a play icon.
+
+    Play icon uses `play` and `hide` AMP actions to hide the overlay and
+    play the video when it is tapped.
+  -->
+    <div class="video-player">
+
+      <amp-video id="myVideo" controls
+                 width="1280" height="720" layout="responsive"
+                 src="https://storage.googleapis.com/ampconf-76504.appspot.com/Bullfinch%20-%202797.mp4">
+      </amp-video>
+
+      <div id="myOverlay" class="click-to-play-overlay">
+
+        <h3 class="video-title">Title of the video</h3>
+
+        <div class="play-icon"
+             role="button" tabindex="0"
+             on="tap:myOverlay.hide, myVideo.play"></div>
+
+        <amp-img class="poster-image"
+                 layout="fill"
+                 src="https://unsplash.it/1080/720?image=666"></amp-img>
+      </div>
+
+    </div>
+
+</body>
+</html>
