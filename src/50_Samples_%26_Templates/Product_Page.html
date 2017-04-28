@@ -235,6 +235,28 @@ This sample showcases how to build a product page in AMP HTML.
       display: flex;
       align-items: center;
     }
+    .ampTabContainer {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .tabButton {
+        list-style: none;
+        flex-grow: 1;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .tabContent {
+        display: none;
+        width: 100%;
+        order: 1; /* must be greater than the order of the tab buttons to flex to the next line */
+        border: 1px solid #ccc;
+    }
+
+    .tabButton[selected]+.tabContent {
+        display: block;
+    }
     </style>
 
     <!-- ## Metadata -->
@@ -597,28 +619,30 @@ This sample showcases how to build a product page in AMP HTML.
         </div>
       </form>
 
-    <!-- ## Collapsibles / Accordion -->
-    <!-- Use `amp-accordion` to hide and show additional data about your product. Learn more about `amp-accordion` [here](/components/amp-accordion/). -->
-    <div>
-      <amp-accordion>
-        <section>
-          <h4 class="p1">Description</h4>
-          <p class="p1">Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
-        </section>
-        <section>
-          <h4 class="p1">Specification</h4>
-          <p class="p1">Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
-        </section>
-        <section>
-          <h4 class="p1">Measurements</h4>
-          <p class="p1">Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
-        </section>
-        <section>
-          <h4 class="p1">Other</h4>
-          <p class="p1">Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
-        </section>
-      </amp-accordion>
-    </div>
+    <!-- ## Tab panels -->
+    <!-- Use `amp-selector` styled as tab panels to add additional data about your product. Learn more about [`amp-selector`](https://www.ampproject.org/docs/reference/components/dynamic/amp-selector). -->
+  <amp-selector role="tablist"
+  layout="container"
+  class="ampTabContainer p1">
+  <div role="tab"
+    class="tabButton h4"
+    selected
+    option="a">ABOUT</div>
+  <div role="tabpanel"
+      class="tabContent p1 p">Fruit are righ of vitamins.</div>
+  <div role="tab"
+    class="tabButton h4"
+    option="b">SPECS</div>
+  <div role="tabpanel"
+    class="tabContent p1 p">Always wash fruits.</div>
+  <div role="tab"
+      class="tabButton h4"
+      selected
+      option="c">MEASUREMENTS</div>
+  <div role="tabpanel"
+      class="tabContent p1 p">Size may vary.</div>
+
+</amp-selector>
 
     <!-- ## Dynamic Related Product Lists -->
     <!--  -->
