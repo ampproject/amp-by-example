@@ -1,0 +1,435 @@
+/**
+ * Basic styles
+ */
+html {
+  line-height: 1.15;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+html, body {
+  overflow: hidden;
+}
+body {
+  margin: 0;
+  font-family: "Roboto",sans-serif;
+  color: #333;
+  font-size: 16px;
+  line-height: 16px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+section, main {
+  display: block;
+}
+a {
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+ul {
+  padding: 8px;
+  margin: 0;
+}
+
+/**
+ * Tabs
+ */
+[role="tabpanel"] {
+  width: 100%;
+}
+[role="tabpanel"][aria-hidden="true"] {
+  display: none;
+}
+[role="tablist"] li {
+  display: inline-block;
+  list-style: none;
+}
+a[role="tab"]:hover {
+  background: #f4fcfe;
+}
+a[aria-selected], a[role="tab"]:focus {
+  position: relative;
+  font-weight: bold;
+  outline: none;
+}
+a[role="tab"] {
+  color: #333;
+  text-decoration: none;
+  display: inline-block;
+  margin-right: 8px;
+  padding: 8px;
+}
+
+#preview-panel {
+  position: relative;
+  height: 110px;
+  overflow: hidden;
+}
+#preview-panel iframe {
+  background-color: #fff;
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/**
+ * Code formatting
+ */
+pre,
+code,
+kbd,
+samp,
+tt {
+  margin: 0;
+  font-family: "Roboto Mono", Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 14px;
+  color: #333;
+  background: #f5f5f5;
+  box-shadow: inset 0px 1px 4px #d6d6d6;
+  border-radius: 2px;
+}
+
+code {
+  padding: 2px 5px;
+  margin: 0 2px;
+}
+
+a code {
+  color: #333;
+  white-space: nowrap;
+}
+a:hover code {
+  color: #1c79be;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code {
+  background: none;
+  border: 0;
+  font-size: 0.9em;
+}
+
+.rtl code {
+  direction: ltr;
+}
+
+/**
+ * Syntax highlighting styles
+ */
+pre {
+  overflow: auto;
+  tab-size: 2;
+  word-break: normal;
+  line-height: 1.4;
+  padding: 1em;
+}
+pre > code {
+  white-space: pre;
+  word-wrap: initial;
+  display: block;
+}
+pre > code td {
+  border: 0;
+}
+
+@media only screen and (max-width: 956px) {
+  .code pre {
+    margin: 0 -25px;
+  }
+
+  code {
+    font-size: 13px;
+  }
+
+  table a code {
+    line-height: 2;
+    white-space: normal;
+  }
+}
+.highlight {
+  /* Comment */
+  /* Keyword */
+  /* Operator */
+  /* Comment.Multiline */
+  /* Comment.Preproc */
+  /* Comment.Single */
+  /* Comment.Special */
+  /* Generic.Deleted */
+  /* Generic.Emph */
+  /* Generic.Error */
+  /* Generic.Heading */
+  /* Generic.Inserted */
+  /* Generic.Output */
+  /* Generic.Prompt */
+  /* Generic.Strong */
+  /* Generic.Subheading */
+  /* Generic.Traceback */
+  /* Keyword.Constant */
+  /* Keyword.Declaration */
+  /* Keyword.Namespace */
+  /* Keyword.Pseudo */
+  /* Keyword.Reserved */
+  /* Keyword.Type */
+  /* Literal.Number */
+  /* Literal.String */
+  /* Name.Attribute */
+  /* Name.Builtin */
+  /* Name.Class */
+  /* Name.Constant */
+  /* Name.Decorator */
+  /* Name.Entity */
+  /* Name.Exception */
+  /* Name.Function */
+  /* Name.Label */
+  /* Name.Namespace */
+  /* Name.Tag */
+  /* Name.Variable */
+  /* Operator.Word */
+  /* Text.Whitespace */
+  /* Literal.Number.Float */
+  /* Literal.Number.Hex */
+  /* Literal.Number.Integer */
+  /* Literal.Number.Oct */
+  /* Literal.String.Backtick */
+  /* Literal.String.Char */
+  /* Literal.String.Doc */
+  /* Literal.String.Double */
+  /* Literal.String.Escape */
+  /* Literal.String.Heredoc */
+  /* Literal.String.Interpol */
+  /* Literal.String.Other */
+  /* Literal.String.Regex */
+  /* Literal.String.Single */
+  /* Literal.String.Symbol */
+  /* Name.Builtin.Pseudo */
+  /* Name.Variable.Class */
+  /* Name.Variable.Global */
+  /* Name.Variable.Instance */
+  /* Literal.Number.Integer.Long */
+}
+.highlight .hll {
+  background-color: #ffffcc;
+}
+.highlight .c {
+  color: #0099FF;
+  font-style: italic;
+}
+.highlight .k {
+  color: #006699;
+  font-weight: bold;
+}
+.highlight .o {
+  color: #555555;
+}
+.highlight .cm {
+  color: #0099FF;
+  font-style: italic;
+}
+.highlight .cp {
+  color: #009999;
+}
+.highlight .c1 {
+  color: #0099FF;
+  font-style: italic;
+}
+.highlight .cs {
+  color: #0099FF;
+  font-weight: bold;
+  font-style: italic;
+}
+.highlight .gd {
+  background-color: #FFCCCC;
+  border: 1px solid #CC0000;
+}
+.highlight .ge {
+  font-style: italic;
+}
+.highlight .gr {
+  color: #FF0000;
+}
+.highlight .gh {
+  color: #003300;
+  font-weight: bold;
+}
+.highlight .gi {
+  background-color: #CCFFCC;
+  border: 1px solid #00CC00;
+}
+.highlight .go {
+  color: #848484;
+}
+.highlight .gp {
+  color: #000099;
+  font-weight: bold;
+}
+.highlight .gs {
+  font-weight: bold;
+}
+.highlight .gu {
+  color: #003300;
+  font-weight: bold;
+}
+.highlight .gt {
+  color: #99CC66;
+}
+.highlight .kc {
+  color: #006699;
+  font-weight: bold;
+}
+.highlight .kd {
+  color: #006699;
+  font-weight: bold;
+}
+.highlight .kn {
+  color: #006699;
+  font-weight: bold;
+}
+.highlight .kp {
+  color: #006699;
+}
+.highlight .kr {
+  color: #006699;
+  font-weight: bold;
+}
+.highlight .kt {
+  color: #007788;
+  font-weight: bold;
+}
+.highlight .m {
+  color: #FF6600;
+}
+.highlight .s {
+  color: #CC3300;
+}
+.highlight .na {
+  color: #1867a3;
+}
+.highlight .nb {
+  color: #336666;
+}
+.highlight .nc {
+  color: #00AA88;
+  font-weight: bold;
+}
+.highlight .no {
+  color: #336600;
+}
+.highlight .nd {
+  color: #9999FF;
+}
+.highlight .ni {
+  color: #999999;
+  font-weight: bold;
+}
+.highlight .ne {
+  color: #CC0000;
+  font-weight: bold;
+}
+.highlight .nf {
+  color: #CC00FF;
+}
+.highlight .nl {
+  color: #9999FF;
+}
+.highlight .nn {
+  color: #00CCFF;
+  font-weight: bold;
+}
+.highlight .nt {
+  color: #1867a3;
+  font-weight: bold;
+}
+.highlight .nv {
+  color: #003333;
+}
+.highlight .ow {
+  color: #000000;
+  font-weight: bold;
+}
+.highlight .w {
+  color: #bbbbbb;
+}
+.highlight .mf {
+  color: #FF6600;
+}
+.highlight .mh {
+  color: #FF6600;
+}
+.highlight .mi {
+  color: #FF6600;
+}
+.highlight .mo {
+  color: #FF6600;
+}
+.highlight .sb {
+  color: #CC3300;
+}
+.highlight .sc {
+  color: #CC3300;
+}
+.highlight .sd {
+  color: #CC3300;
+  font-style: italic;
+}
+.highlight .s2 {
+  color: #CC3300;
+}
+.highlight .se {
+  color: #CC3300;
+  font-weight: bold;
+}
+.highlight .sh {
+  color: #CC3300;
+}
+.highlight .si {
+  color: #AA0000;
+}
+.highlight .sx {
+  color: #CC3300;
+}
+.highlight .sr {
+  color: #33AAAA;
+}
+.highlight .s1 {
+  color: #CC3300;
+}
+.highlight .ss {
+  color: #FFCC33;
+}
+.highlight .bp {
+  color: #336666;
+}
+.highlight .vc {
+  color: #003333;
+}
+.highlight .vg {
+  color: #003333;
+}
+.highlight .vi {
+  color: #003333;
+}
+.highlight .il {
+  color: #FF6600;
+}
+
+/* Make line numbers unselectable: excludes line numbers from copy-paste user ops */
+.highlight .lineno {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+}
+
+.lineno::-moz-selection {
+  background-color: transparent;
+}
+
+/* Mozilla specific */
+.lineno::selection {
+  background-color: transparent;
+}
