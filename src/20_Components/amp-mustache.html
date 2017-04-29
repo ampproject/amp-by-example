@@ -1,0 +1,111 @@
+<!--
+  ## Introduction
+
+  <a href="https://www.ampproject.org/docs/reference/components/amp-mustache">amp-mustache</a> templates are a simple, structured templating system.
+
+  amp-mustache doesn't actually provide the data, or compile the template.  Instead, the data is provided and template compiled by other AMP tags, such as amp-access, amp-form, and amp-list.  For more information on those use cases, see those docs/samples directly.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <link rel="canonical" href="<%host%>/components/amp-mustache/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!-- ## Setup -->
+  <!--
+    Import the amp-mustache tag.  You'll need to do this along with any other tags your use case requires.
+  -->
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+</head>
+<body>
+
+  <!-- ## Data
+    Data for amp-mustache templates are provided by other AMP tags.  For the purposes of this demo, assume we've been passed a dictionary that looks like this:
+
+   <code>
+    {
+      'fullname': 'Jordan M Adler',
+      'phonenumber': '212-555-1212',
+      'cart_items': [
+        {
+          'name': 'Pluot',
+          'quantity': 5,
+          'price': '$1.00'
+        },
+        {
+          'name': 'Apple',
+          'quantity': 1,
+          'price': '$3.25'
+        }
+      ],
+      address: {
+        'addr1': '111 8th Ave',
+        'city': 'New York',
+        'state': 'NY',
+        'zipcode': 10011
+      }
+    }
+   </code>
+  -->
+
+  <!-- ## Variables -->
+  <!--
+    Variables are interpolated when the variable name is surrounded in double curly brackets ( {{varname}} )
+  -->
+  <div>
+    <template type="amp-mustache">
+      Hi {{fullname}}!
+    </template>
+  </div>
+
+  <!-- ## Conditionals -->
+  <!--
+    Conditionals are called using the same syntax, but with an octothorpe (#) prepended.
+  -->
+  <div>
+    <template type="amp-mustache">
+      {{#phonenumber}}
+        The registered phone number is {{phonenumber}}
+      {{/phonenumber}}
+    </template>
+  </div>
+
+  <!--
+    For negative conditionals instead, insert a caret (^) before the variable name.
+  -->
+  <div>
+    <template type="amp-mustache">
+      {{^phonenumber}}
+        There is no registered phone number for this profile
+      {{/phonenumber}}
+    </template>
+  </div>
+
+  <!-- ## Loops -->
+  <!--
+    Loops use the same syntax as conditionals, but work when <i>lists</i> are provided instead of scalar variables such as strings, integers, and dictionaries.
+  -->
+  <div>
+    <template type="amp-mustache">
+      <div id="cart">
+        {{#cart_items}}
+          <div class="cart-item">
+            <span class="cart-item-name">{{name}}</span>
+            <span class="cart-item-qty">{{quantity}}</span>
+            <span class="cart-item-price">{{price}}</span>
+          </div>
+        {{/cart_items}}
+        {{^cart_items}}
+          Your cart is empty!
+        {{/cart_items}}
+      </div>
+    </template>
+  </div>
+
+
+
+</body>
+</html>
