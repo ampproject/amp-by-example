@@ -247,11 +247,19 @@ This sample showcases how to build a product page in AMP HTML.
         cursor: pointer;
     }
 
+    .tabButton[aria-selected=true] {
+      border-bottom: 5px solid #b60845;
+    }
+
+    amp-selector [option][selected] {
+      outline: #fff;
+    }
+
+
     .tabContent {
         display: none;
         width: 100%;
         order: 1; /* must be greater than the order of the tab buttons to flex to the next line */
-        border: 1px solid #ccc;
     }
 
     .tabButton[selected]+.tabContent {
@@ -629,15 +637,14 @@ This sample showcases how to build a product page in AMP HTML.
     selected
     option="a">ABOUT</div>
   <div role="tabpanel"
-      class="tabContent p1 p">Fruit are righ of vitamins.</div>
+      class="tabContent p1 p">Fruit are rich of vitamins.</div>
   <div role="tab"
     class="tabButton h4"
     option="b">SPECS</div>
   <div role="tabpanel"
-    class="tabContent p1 p">Always wash fruits.</div>
+    class="tabContent p1 p">Always wash fruits before eating.</div>
   <div role="tab"
       class="tabButton h4"
-      selected
       option="c">MEASUREMENTS</div>
   <div role="tabpanel"
       class="tabContent p1 p">Size may vary.</div>
