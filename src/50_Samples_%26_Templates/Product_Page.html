@@ -689,7 +689,7 @@ This sample showcases how to build a product page in AMP HTML.
               height="100"
               layout="fixed-height"
               src="/json/related_products.json"
-              [src]=product.relatedProductsSrc>
+              [src]="product.relatedProductsSrc">
       <template type="amp-mustache">
         <a class="text-decoration-none p1" href="/samples_templates/product_page/preview/">
           <amp-img width="640"
@@ -703,7 +703,7 @@ This sample showcases how to build a product page in AMP HTML.
         </a>
       </template>
     </amp-list>
-    <button class="ampstart-btn caps m1 mb3" id='listSrcButton' on="tap:AMP.setState({product: {relatedProductsSrc: '/json/more_related_products.json'}})">Show more</button>
+    <button class="ampstart-btn caps m1 mb3" id="listSrcButton" on="tap:AMP.setState({product: {relatedProductsSrc: '/json/more_related_products.json'}})">Show more</button>
   <!--
     ## User Analytics
   -->
