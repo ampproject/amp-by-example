@@ -672,17 +672,17 @@ This sample showcases how to build a product page in AMP HTML.
         </div>
       </amp-lightbox>
     </h2>
-      <button class="info-button border-none" on="tap:my-lightbox" role="button" tabindex="0">
+      <button class="info-button border-none mr1" on="tap:my-lightbox" role="button" tabindex="0">
       </button>
     </div>
     <!--
     With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
      Learn more about `amp-list` [here](/components/amp-list/)
     -->
-    <amp-list class="items p1"
-              width="200"
+    <amp-list class="items m1"
+              width="auto"
               height="100"
-              layout="responsive"
+              layout="fixed-height"
               src="/json/related_products.json"
               [src]=product.relatedProductsSrc>
       <template type="amp-mustache">
@@ -698,8 +698,7 @@ This sample showcases how to build a product page in AMP HTML.
         </a>
       </template>
     </amp-list>
-    <button class="ampstart-btn caps m1 mb3" id='listSrcButton' on="tap:AMP.setState({relatedProductsSrc: '/json/more_related_products.json'})">Show more</button>
-
+    <button class="ampstart-btn caps m1 mb3" id='listSrcButton' on="tap:AMP.setState({product: {relatedProductsSrc: '/json/more_related_products.json'}})">Show more</button>
   <!--
     ## User Analytics
   -->
