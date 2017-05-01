@@ -235,6 +235,7 @@ This sample showcases how to build a product page in AMP HTML.
       display: flex;
       align-items: center;
     }
+
     .ampTabContainer {
         display: flex;
         flex-wrap: wrap;
@@ -263,10 +264,14 @@ This sample showcases how to build a product page in AMP HTML.
       display: block;
       height: 4px;
       background: linear-gradient(90deg,#94103e 0,#db004d);
-}
+    }
 
     .tabButton[selected]+.tabContent {
         display: block;
+    }
+
+    .items, amp-list.items > div {
+      justify-content: flex-start;
     }
     </style>
 
@@ -686,7 +691,7 @@ This sample showcases how to build a product page in AMP HTML.
               src="/json/related_products.json"
               [src]=product.relatedProductsSrc>
       <template type="amp-mustache">
-        <a class="text-decoration-none" href="/samples_templates/product_page/preview/">
+        <a class="text-decoration-none p1" href="/samples_templates/product_page/preview/">
           <amp-img width="640"
                    height="426"
                    layout="responsive"
