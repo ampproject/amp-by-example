@@ -13,7 +13,8 @@
   "author": "The AMP HTML Authors",
   "license": "Apache-2.0",
   "scripts": {
-    "start": "gulp serve"
+    "start": "gulp serve",
+    "dev": "gulp"
   },
   "dependencies": {
     "phantom": "^4.0.1",
