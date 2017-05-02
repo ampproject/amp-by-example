@@ -682,8 +682,8 @@ This sample showcases how to build a product page in AMP HTML.
     </div>
     <!--
     With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
-    You can dinamically change the source of the `amp-list` CORS JSON endpoint by using `amp-bind`: we are using a variable called `relatedProductsSrc` and we are binding its value
-    to the `src` attribute of `amp-list`.
+    You can dynamically change the source of the `amp-list` endpoint by using `amp-bind`:
+    we bind the variable `relatedProductsSrc` to the to the `src` attribute of the `amp-list`.
     Learn more about `amp-list` [here](/components/amp-list/).
     -->
     <amp-list class="items m1"
@@ -706,7 +706,7 @@ This sample showcases how to build a product page in AMP HTML.
       </template>
     </amp-list>
     <!--
-      You can set the value of the `relatedProductsSrc` variable by using a button `tap` action.
+    The button `tap` action sets the value of the `relatedProductsSrc` to an extended list of related products.
     -->
     <button class="ampstart-btn caps m1 mb3" id="listSrcButton" on="tap:AMP.setState({product: {relatedProductsSrc: '/json/more_related_products.json'}})">Show more</button>
   <!--
