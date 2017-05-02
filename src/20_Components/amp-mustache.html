@@ -1,7 +1,7 @@
 <!--
   ## Introduction
 
-  [amp-mustache](https://www.ampproject.org/docs/reference/components/amp-mustache) templates are a simple, structured templating system.
+  [amp-mustache](https://www.ampproject.org/docs/reference/components/amp-mustache) templates are a simple, structured templating system based on [mustache](https://mustache.github.io).
 
   `amp-mustache` doesn't actually provide the data, or compile the template.  Instead, the data is provided and template compiled by other AMP tags, such as `amp-access`, `amp-form`, and `amp-list`.  For more information on those use cases, see those docs/samples directly.
 -->
@@ -24,7 +24,7 @@
 <body>
 
   <!-- ## Data
-    Data for `amp-mustache` templates are provided by other AMP tags.  For the purposes of this demo, we're using `amp-list` to ass in a JSON file with a dictionary that looks like this:
+    Data for `amp-mustache` templates are provided by other AMP tags.  For the purposes of this demo, we're using `amp-list` to pass in a JSON file with a dictionary that looks like this:
 
     ```json
     {
@@ -54,7 +54,7 @@
 
   <!-- ## Variables -->
   <!--
-    Variables are interpolated when the variable name is surrounded in double curly brackets ( {{varname}} )
+    Variables are interpolated when the variable name is surrounded in double curly brackets (`{{varname}}`)
   -->
   <amp-list src="<%host%>/json/cart.json" layout="responsive" height="100" width="300">
     <template type="amp-mustache">
