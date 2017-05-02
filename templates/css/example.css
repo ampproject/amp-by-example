@@ -1,5 +1,5 @@
-* {
-  box-sizing: initial;
+amp-instagram {
+  box-sizing: content-box;
 }
 .www-component-desc pre,
 pre, code {
