@@ -18,7 +18,7 @@
     Import the `amp-mustache` tag.  You'll need to do this along with any other tags your use case requires.  For the purposes of this sample, we'll use `amp-list`.
   -->
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
-  <script async custom-template="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+  <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 </head>
 <body>
@@ -56,7 +56,7 @@
   <!--
     Variables are interpolated when the variable name is surrounded in double curly brackets ( {{varname}} )
   -->
-  <amp-list src="<%host%>/json/cart.json">
+  <amp-list src="<%host%>/json/cart.json" layout="responsive" height="100" width="300">
     <template type="amp-mustache">
       Hi {{fullname}}!
     </template>
@@ -66,7 +66,7 @@
   <!--
     Conditionals are called using the same syntax, but with an octothorpe (#) prepended.
   -->
-  <amp-list src="<%host%>/json/cart.json">
+  <amp-list src="<%host%>/json/cart.json" layout="responsive" height="100" width="300">
     <template type="amp-mustache">
       {{#phonenumber}}
         The registered phone number is {{phonenumber}}
@@ -77,7 +77,7 @@
   <!--
     For negative conditionals instead, insert a caret (^) before the variable name.
   -->
-  <amp-list src="<%host%>/json/cart.json">
+  <amp-list src="<%host%>/json/cart.json" layout="responsive" height="100" width="300">
     <template type="amp-mustache">
       {{^phonenumber}}
         There is no registered phone number for this profile
@@ -89,7 +89,7 @@
   <!--
     Loops use the same syntax as conditionals, but work when <i>lists</i> are provided instead of scalar variables such as strings, integers, and dictionaries.
   -->
-  <amp-list src="<%host%>/json/cart.json">
+  <amp-list src="<%host%>/json/cart.json" layout="responsive" height="100" width="300">
     <template type="amp-mustache">
       <div id="cart">
         {{#cart_items}}
