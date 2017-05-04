@@ -258,6 +258,13 @@ This sample showcases how to build a product page in AMP HTML.
         order: 1; /* must be greater than the order of the tab buttons to flex to the next line */
     }
 
+    .tabButton[selected]::after {
+      content: '';
+      display: block;
+      height: 4px;
+      background: linear-gradient(90deg,#94103e 0,#db004d);
+}
+
     .tabButton[selected]+.tabContent {
         display: block;
     }
@@ -630,18 +637,18 @@ This sample showcases how to build a product page in AMP HTML.
   layout="container"
   class="ampTabContainer ampstart-headerbar-nav">
   <div role="tab"
-    class="tabButton h4 www-component-anchor ampstart-nav-item"
+    class="tabButton h4 ampstart-nav-item"
     selected
     option="a">ABOUT</div>
   <div role="tabpanel"
       class="tabContent p1 p">Fruit is rich in vitamins and minerals. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
   <div role="tab"
-    class="tabButton h4 www-component-anchor ampstart-nav-item"
+    class="tabButton h4 ampstart-nav-item"
     option="b">SPECS</div>
   <div role="tabpanel"
     class="tabContent p1 p">Always wash fruit before eating. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
   <div role="tab"
-      class="tabButton h4 www-component-anchor ampstart-nav-item"
+      class="tabButton h4 ampstart-nav-item"
       option="c">SIZE</div>
   <div role="tabpanel"
       class="tabContent p1 p">Size may vary. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
