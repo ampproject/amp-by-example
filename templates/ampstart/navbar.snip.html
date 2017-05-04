@@ -35,27 +35,46 @@ limitations under the License.
       {{/href}}
     {{/logo}}
     {{^sidebaronly}}
-      <nav class="ampstart-headerbar-nav ampstart-nav xs-hide sm-hide">
-        <ul class="list-reset center m0 p0 flex justify-center nowrap">
-          {{#nav}}
-            {{#link}}
-              <li class="ampstart-nav-item {{classes}}"><a href="{{{url}}}" class="text-decoration-none block" {{#target}}target="{{.}}"{{/target}}>{{text}}</a></li>
-            {{/link}}
-            {{#dropdown}}
-              <li class="ampstart-nav-item ampstart-nav-dropdown relative">
-                {{> ampstart/dropdown.snip.html}}
+    <nav class="ampstart-headerbar-nav ampstart-nav xs-hide sm-hide">
+      <ul class="list-reset m0 p0 flex justify-center nowrap">
+        {{#sections}}
+        <li class="ampstart-nav-item abe-nav-list {{classes}} {{#selected}}www-current-page{{/selected}}">
+          <a href="{{{path}}}" class="text-decoration-none block">{{name}}</a>
+          <div class="abe-list-container">
+            <div class="abe-list-shadow"></div>
+            <ul class="list-reset m0 p0">
+              {{#categories}}
+              <li class="abe-has-sublist">
+                <a href="{{url}}">{{name}}</a>
+                <ul class="list-reset m0 p0 flex flex-column flex-wrap abe-sublist">
+                  {{#examples}}
+                  <li>
+                    <a href="{{url}}">{{title}}</a>
+                  </li>
+                  {{/examples}}
+                </ul>
               </li>
-            {{/dropdown}}
-            {{#search}}
-              <li  class="ampstart-nav-item ampstart-nav-search right-align">
-                <input type="text" placeholder="{{text}}"></input>
-              </li>
-            {{/search}}
-          {{/nav}}
-        </ul>
-      </nav>
+              {{/categories}}
+            </ul>
+          </div>
+        </li>
+        {{/sections}}
+        {{#nav}}
+        {{#link}}
+        <li class="ampstart-nav-item {{classes}}">
+          <a href="{{{url}}}" class="text-decoration-none block" {{#target}}target="{{.}}"{{/target}}>{{text}}</a>
+        </li>
+        {{/link}}
+        {{#search}}
+        <li  class="ampstart-nav-item ampstart-nav-search right-align">
+          <input type="text" placeholder="{{text}}"></input>
+        </li>
+        {{/search}}
+        {{/nav}}
+      </ul>
+    </nav>
     {{/sidebaronly}}
   </header>
   {{> ampstart/sidebar.snip.html}}
   <!-- End Navbar -->
-{{/navbar}}
+  {{/navbar}}

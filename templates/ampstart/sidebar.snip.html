@@ -4,6 +4,8 @@
     <a href="#" on="tap:{{sidebar-id}}.toggle"class="ampstart-navbar-trigger items-start">✕</a>
   </div>
   <nav class="ampstart-sidebar-nav ampstart-nav">
+    {{#sections}}
+    <a href="{{path}}" class="block caps h4 py1 abe-primary">{{name}}</a>
     <ul class="list-reset m0 p0 caps h5">
       {{#categories}}
         <li class="ampstart-nav-item ampstart-nav-dropdown relative">
@@ -16,6 +18,7 @@
         {{/search}}
       {{/categories}}
     </ul>
+    {{/sections}}
   </nav>
 
   {{> ampstart/social-follow.snip.html}}
