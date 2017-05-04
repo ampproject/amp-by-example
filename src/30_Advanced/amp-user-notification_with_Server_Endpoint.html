@@ -21,12 +21,12 @@
     in the left bottom corner.
   -->
   <style amp-custom>
-    footer {
-      margin-bottom: 50px;
-    }
-    amp-user-notification {
-      padding: 8px;
-      background: beige;
+    /* Center the notification content */
+    amp-user-notification > div {
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   </style>
   <link rel="canonical" href="<%host%>/advanced/amp-user-notification_with_server_endpoint/">
@@ -45,19 +45,21 @@
 
     The URL defined by `data-dismiss-href` will be called when the notification is dismissed.
 
-    You can find a sample implementation [here](https://github.com/ampproject/amp-publisher-sample/blob/master/controllers/amp-user-notification/api.js).
+    You can find a sample implementation [here](https://github.com/ampproject/amp-publisher-sample/blob/master/amp-paywall-demo/controllers/amp-user-notification/api.js).
 
     If the notification has already been dismissed and the related item has been added to
     the localstorage, the notification will not appear even if you have configured
     `data-show-if-href` and `data-dismiss-href`.
   -->
-  <amp-user-notification layout="nodisplay" id="amp-user-notification1"
+  <amp-user-notification 
+      id="my-notification"
+      layout="nodisplay" 
       data-show-if-href="https://rocky-sierra-1919.herokuapp.com/amp-user-notification/api/show?timestamp=TIMESTAMP"
-      data-dismiss-href=
-      "https://rocky-sierra-1919.herokuapp.com/amp-user-notification/api/echo/post">
-      This is an amp-user-notification. It uses a backend service
-      to verify if the notification has to be shown.
-     <button on="tap:amp-user-notification1.dismiss" class="ampstart-btn caps ml1">I accept</button>
+      data-dismiss-href="https://rocky-sierra-1919.herokuapp.com/amp-user-notification/api/echo/post">
+    <div>
+      This is an amp-user-notification. It uses a backend service to verify if the notification has to be shown.
+      <button on="tap:amp-user-notification1.dismiss" class="ampstart-btn caps ml1">I accept</button>
+    </div>
   </amp-user-notification>
 
 </body>
