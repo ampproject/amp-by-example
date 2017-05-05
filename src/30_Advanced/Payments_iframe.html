@@ -1,0 +1,62 @@
+<!---{
+  "preview": "default"
+}--->
+<!--
+  ## Introduction
+
+  Through [amp-iframe](https://www.ampproject.org/docs/reference/components/layout/amp-iframe) and allowpaymentrequest, pages can support requesting payment information from the browser.
+
+  This example shows how to embed an iframe that contains only a "buy now" button. All of the actual payment logic is contained within the iframe src itself.
+
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <link rel="canonical" href="<%host%>/advanced/payments_iframe/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!-- ## Setup -->
+  <!--
+  The only extra component needed for this example is amp-iframe. Other included components are included for demonstration purposes and are not actually required to support PaymentRequest.
+  -->
+  <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+
+  <style amp-custom>
+  .paymentButton {
+    margin-left: 25%;
+  }
+  </style>
+
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+</head>
+<body>
+
+  <amp-img src="/img/green_apple_2_1024x685.jpg"
+           width="1024" height="682"
+           layout="responsive">
+  </amp-img>
+
+  <div class="paymentButton">
+    <!-- ## Basic Usage -->
+    <!--
+    In the basic case, the AMP page hands off all PaymentRequest logic to the iframe to complete purchase of a single item.
+
+    Crtically, the iframe does two things:
+
+      1. Sets the `allowpaymentrequest` attribute, which gives the iframe source permission to call PaymentRequst.show().
+      2. Passes a relevant product identifier via query string, allowing the iframe to retrive appropriate product information for this product.
+
+    However, since AMP allows no javascript, the iframe source must also handle the case where PaymentRequest is not available.
+    -->
+    <amp-iframe width="150" height="66"
+        sandbox="allow-scripts allow-same-origin allow-top-navigation"
+        allowpaymentrequest
+        frameborder="0"
+        src="http://localhost:5050/payments-iframe.html?id=1">
+    </amp-iframe>
+    <p>Green Apples: $1.99</p>
+  </div>
+</body>
+</html>

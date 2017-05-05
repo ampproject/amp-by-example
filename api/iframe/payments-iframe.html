@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <style>
+body {
+  margin: 0;
+  padding: 8px;
+}
+
+#buy {
+  background-color: #3E82F8;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+    </style>
+  </head>
+  <body>
+    <button id="buy">Buy Now</button>
+  <script>
+var productIdToDetails = {
+  1: {
+    name: 'Chair',
+    price: 50
+  },
+  2: {
+    name: 'Table',
+    price: 100
+  },
+  3: {
+    name: 'Couch',
+    price: 500
+  }
+};
+
+(function (d, w) {
+  d.getElementById('buy').onclick = function(event) {
+    var productId = getParameterByName('id');
+    var product = productIdToDetails[productId];
+
+    console.log("Buying product " + product['name'] + ": "
+      + productId);
+
+    var supportedInstruments = [{
+      supportedMethods: ['basic-card']
+    }];
+
+    var cost = product['price'];
+
+    var details = {
+      total: {label: 'Total', amount: {currency: 'USD', value: cost.toFixed(2)}},
+      displayItems: [
+        {
+          label: product['name'],
+          amount: {currency: 'USD', value: cost.toFixed(2)}
+        }
+      ]
+    };
+
+    var options = {
+      requestPayerName: true,
+      requestShipping: false,
+      shippingType: 'pickup'
+    };
+
+    new PaymentRequest(supportedInstruments, details, options)
+        .show()
+        .then(function(instrumentResponse) {
+          console.log('success');
+          instrumentResponse.complete('success').then(function() {
+            top.window.location.href = 'https://ampbyexample.com';
+          });
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+  }
+
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+})(document, window);
+  </script>
+  </body>
+</html>
