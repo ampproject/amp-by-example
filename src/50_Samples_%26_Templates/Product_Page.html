@@ -235,6 +235,7 @@ This sample showcases how to build a product page in AMP HTML.
       display: flex;
       align-items: center;
     }
+
     .ampTabContainer {
         display: flex;
         flex-wrap: wrap;
@@ -263,10 +264,14 @@ This sample showcases how to build a product page in AMP HTML.
       display: block;
       height: 4px;
       background: linear-gradient(90deg,#94103e 0,#db004d);
-}
+    }
 
     .tabButton[selected]+.tabContent {
         display: block;
+    }
+
+    .items, amp-list.items > div {
+      justify-content: flex-start;
     }
     </style>
 
@@ -497,6 +502,7 @@ This sample showcases how to build a product page in AMP HTML.
   <amp-state id="product">
     <script type="application/json">
     {
+      "relatedProductsSrc": "/json/related_products.json",
       "selectedColor": "green",
       "selectedSize": "S",
       "selectedSlide": 0,
@@ -671,20 +677,23 @@ This sample showcases how to build a product page in AMP HTML.
         </div>
       </amp-lightbox>
     </h2>
-      <button class="info-button border-none" on="tap:my-lightbox" role="button" tabindex="0">
+      <button class="info-button border-none mr1" on="tap:my-lightbox" role="button" tabindex="0">
       </button>
     </div>
     <!--
     With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
-     Learn more about `amp-list` [here](/components/amp-list/)
+    You can dynamically change the source of the `amp-list` endpoint by using `amp-bind`:
+    we bind the variable `relatedProductsSrc` to the to the `src` attribute of the `amp-list`.
+    Learn more about `amp-list` [here](/components/amp-list/).
     -->
-    <amp-list class="items p1"
-              width="200"
+    <amp-list class="items m1"
+              width="auto"
               height="100"
-              layout="responsive"
-              src="/json/related_products.json">
+              layout="fixed-height"
+              src="/json/related_products.json"
+              [src]="product.relatedProductsSrc">
       <template type="amp-mustache">
-        <a class="text-decoration-none" href="/samples_templates/product_page/preview/">
+        <a class="text-decoration-none p1" href="/samples_templates/product_page/preview/">
           <amp-img width="640"
                    height="426"
                    layout="responsive"
@@ -696,7 +705,10 @@ This sample showcases how to build a product page in AMP HTML.
         </a>
       </template>
     </amp-list>
-
+    <!--
+    The button `tap` action sets the value of the `relatedProductsSrc` to an extended list of related products.
+    -->
+    <button class="ampstart-btn caps m1 mb3" id="listSrcButton" on="tap:AMP.setState({product: {relatedProductsSrc: '/json/more_related_products.json'}})">Show more</button>
   <!--
     ## User Analytics
   -->
