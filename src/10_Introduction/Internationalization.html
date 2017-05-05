@@ -1,7 +1,8 @@
 <!---{
   "hideCode": true,
   "disablePlayground": true,
-  "hidePreview": true
+  "hidePreview": true,
+  "draft": true
 }
 --->
 <!doctype html>
@@ -18,9 +19,7 @@
 
 ## Introduction
 
-How to support hreflang and internationalization with AMP.
-
-## About Internationalization
+How to support [hreflang](https://support.google.com/webmasters/answer/189077?hl=en) and internationalization with AMP.
 
 Internationalization and localization of content is an important feature that
 websites often embrace to provide maximum reach for their content or services.
@@ -32,9 +31,7 @@ a particular article. Search engines such as Google recognise websites that use 
 
 The hreflang notation is used with the link tag to refer to another document:
 
-`<link rel="alternate" hreflang="fr" href="/path/to/french.html" />`
-
-You can [read more about hreflang here.](https://support.google.com/webmasters/answer/189077?hl=en)
+```<link rel="alternate" hreflang="fr" href="https://www.example.com/path/to/french.html" />```
 
 AMP documents can also use the hreflang notation to point crawlers towards
 other versions of themselves in other languages.
@@ -47,10 +44,9 @@ documents across an article.
 
 ## Example 1: Canonical + AMP
 
-The most common site structure pattern is to support translations of an article
-with a canonical document and a corresponding AMP document.
+A common site structure pattern is pairing non-AMP canonical documents with AMP documents.
 
-The following diagram illustrates this structure at a high level:
+The following diagram illustrates how to provide translations for this structure:
 
 [<amp-img layout="responsive" src="/internationalization/amp_hreflang_example_1.png" width="960" height="540"></amp-img>](/internationalization/amp_hreflang_example_1.png)
 
@@ -88,7 +84,7 @@ The next example is an expanded version of the first example. This example inclu
 * An alternate mobile site document
 * An AMP document
 
-The following diagram illustrates this structure at a high level:
+The following diagram illustrates how to provide translations for this structure:
 
 [<amp-img layout="responsive" src="/internationalization/amp_hreflang_example_2.png" width="960" height="540"></amp-img>](/internationalization/amp_hreflang_example_2.png)
 
