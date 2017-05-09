@@ -92,6 +92,15 @@ a.abe-primary {
     pointer-events: none;
     position: absolute;
 }
+.ampstart-nav-item .abe-list-container .abe-sublist::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 6px;
+}
+.ampstart-nav-item .abe-list-container .abe-sublist::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .2);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .2);
+}
 .ampstart-nav-item .abe-list-container .abe-sublist {
   background: #f8f8f8;
   box-shadow: 0 0 40px 0 rgba(0,0,0,0.1);
@@ -100,14 +109,11 @@ a.abe-primary {
   transform: translateX(99%);
   transition: opacity .3s;
   max-height: calc(100vh - 180px);
+  overflow-y: auto;
 }
 .ampstart-nav-item .abe-list-container>ul li:hover .abe-sublist {
   opacity: 1;
   pointer-events: all;
-}
-.ampstart-nav-item .abe-list-container>ul li:hover .abe-sublist li {
-  background: #f8f8f8;
-      box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
 }
 .ampstart-nav-item .abe-list-container>ul li:hover .abe-sublist li:hover,
 .ampstart-nav-item .abe-list-container>ul .abe-sublist li:hover {
