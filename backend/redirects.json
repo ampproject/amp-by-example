@@ -70,4 +70,7 @@
 }, {
   "source": "/samples_templates/product/",
   "target": "/samples_templates/product_page/"
+}, {
+  "source": "/ecommerce",
+  "target": "/e-commerce_and_retail/"
 }]
