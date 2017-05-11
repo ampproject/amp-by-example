@@ -4,7 +4,7 @@
 <!--
   ## Introduction
 
-  Through [amp-iframe](https://www.ampproject.org/docs/reference/components/layout/amp-iframe) and allowpaymentrequest, pages can support requesting payment information from the browser.
+  Through [amp-iframe](https://www.ampproject.org/docs/reference/components/layout/amp-iframe) and allowpaymentrequest, pages can support requesting payment information from the browser. The PaymentRequest API is an [open W3C spec](https://www.w3.org/TR/payment-request/) with support from most major browsers. This example won't go into detail on the API, but you can get more information in [this deep dive article](https://developers.google.com/web/fundamentals/discovery-and-monetization/payment-request/deep-dive-into-payment-request).
 
   This example shows how to embed an iframe that contains only a "buy now" button. All of the actual payment logic is contained within the iframe src itself.
 
@@ -38,7 +38,7 @@
            layout="responsive">
   </amp-img>
 
-  <div class="paymentButton">
+  <div class="m1">
     <!-- ## Basic Usage -->
     <!--
     In the basic case, the AMP page hands off all PaymentRequest logic to the iframe to complete purchase of a single item.
@@ -48,7 +48,11 @@
       1. Sets the `allowpaymentrequest` attribute, which gives the iframe source permission to call PaymentRequst.show().
       2. Passes a relevant product identifier via query string, allowing the iframe to retrive appropriate product information for this product.
 
-    However, since AMP allows no javascript, the iframe source must also handle the case where PaymentRequest is not available.
+    However, since AMP does not allow javascript, the iframe source must also handle the case where PaymentRequest is not available. While currently out of scope for this example, potential options are to:
+
+      1. Swap the "Buy Now" button for an "Add to cart" button.
+      2. Redirect to a standard checkout form.
+      3. Hide the "Buy Now" button altogether, and have a separate AMP-based Add to Cart button (see the [Product Page demo](/samples_templates/product_page/))
     -->
     <amp-iframe width="150" height="66"
         sandbox="allow-scripts allow-same-origin allow-top-navigation"
