@@ -1,0 +1,189 @@
+<!---{
+  "disablePlayground": true
+}--->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <link rel="canonical" href="<%host%>/shopping_cart/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <meta name="amp-experiment-token" content="HfmyLgNLmblRg3Alqy164Vywr">
+	<script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+	<script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+	<script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+	<script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <style amp-custom>
+.booking {
+	margin: 1rem;
+}
+.booking > div {
+	margin: 1rem 0;
+}
+.booking > button {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #b60845;
+  font-size: 1rem;
+  line-height: 1.125rem;
+  padding: 0;
+  text-decoration: none;
+  word-wrap: normal;
+}
+.preview {
+  display: flex;
+}
+.www-component-desc>.ampstart-mobile-frame {
+  width: 380px;
+  height: 669px;
+  margin: 1rem auto;
+  border-radius: 17px;
+  position: relative;
+}
+.ampstart-mobile-frame amp-iframe {
+  margin: 1px;
+  top: 54px;
+  bottom: 56px;
+  left: 31px;
+  right: 30px;
+}
+  </style>
+</head>
+<body>
+  <!-- 
+
+    Introduction ...
+
+    ## Dynamic Content
+
+    AMPs can be served from [AMP Caches](https://developers.google.com/amp/cache/overview) on a different origin, for example, when they're served in Google Search results. This makes it necessary to consider the AMP Cache's caching strategy when implementing AMPs:
+
+    > The (AMP) cache follows a "stale-while-revalidate" model. It uses the origin's caching headers, such as `Max-Age`, as hints in deciding whether a particular document or resource is stale. When a user makes a request for something that is stale, that request causes a new copy to be fetched, so that the next user gets fresh content.
+    [[source](https://developers.google.com/amp/cache/overview)]
+
+    If it's critical that users never see stale data **or** that data is never older than 15s then additional steps are required. Product pricing or availability are typical examples for when this is the case. To ensure that users always see the latest content, you can use the [amp-list](/components/amp-list) component which will fetch and render content directly from your server. 
+
+    Here is a sample how to render product name and price using amp-list:
+  -->
+  <amp-list height="24" layout="fixed-height" src="<%host%>/json/product.json" class="m1">
+    <template type="amp-mustache" id="amp-template-id">
+      {{name}}: ${{price}}
+    </template>
+  </amp-list>
+  <!--
+    <div class="ampstart-card info">
+    **Best Practice:** use multiple `amp-list` instances with a single shared JSON endpoint to benefit from the AMP runtimes request caching and avoid multiple requests to JSON endpoints.
+    </div>
+
+    Another approach is to use [amp-bind](/components/amp-bind/) with a JSON endpoint, This works well if up-to-date data needs to be available after an user interaction, for example, a hotel page displays room availability when the user selects specific dates.
+  -->
+  <div>
+    <amp-state id="booking" src="<%host%>/json/room.json"></amp-state>
+    <div class="booking">
+      <button on="tap:AMP.setState({day: 'monday'})">M</button>
+      <button on="tap:AMP.setState({day: 'tuesday'})">T</button>
+      <button on="tap:AMP.setState({day: 'wednesday'})">M</button>
+      <button on="tap:AMP.setState({day: 'thursday'})">T</button>
+      <button on="tap:AMP.setState({day: 'friday'})">F</button>
+      <button on="tap:AMP.setState({day: 'saturday'})">S</button>
+      <button on="tap:AMP.setState({day: 'sunday'})">S</button>
+      <div><span [text]="'Room is: ' + booking[day]">Please select a day</span> </div>
+    </div>
+  </div>
+  <div>
+    <amp-state id="pricing" src="<%host%>/json/product.json"></amp-state>
+    <button class="ampstart-btn m1" on="tap:AMP.setState({})">Show Price</button>
+    <div class="m1">Price: $<span [text]="pricing.items[0].price">?</span> </div>
+  </div>
+  <!--
+
+    ## Personalization & Login
+
+    An easy way to provide personalized content in AMPs is to use `amp-list`. You can either use cookies (using the attribute `credentials="include"`) or AMP's [client id](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md#client-id):
+  -->
+
+  <amp-list credentials="include" height="24" layout="fixed-height" src="<%host%>/json/product.json?clientId=CLIENT_ID(myCookieId)" class="m1">
+    <template type="amp-mustache" id="amp-template-id">
+      Your personal offer: ${{price}}
+    </template>
+  </amp-list>
+
+  <!--
+    <div class="ampstart-card info">
+    **Best Practice:** make sure to configure the [AMP CORS headers](https://github.com/ampproject/amphtml/blob/master/spec/amp-cors-requests.md) when using `amp-list` for personalization. 
+    </div>
+
+    If you rely on logged-in users, you can use the [amp-access](/components/amp-access/) component to log users into your website directly from an AMP page. Check out [this sample](/samples_templates/comment_section/) for how to implement a login flow in AMP. 
+
+    <div class="ampstart-card info">
+    **Good to know:** `amp-access` works on your origin and on AMP Caches.
+    </div>
+
+    ## Category Pages
+
+    <div class="preview">
+    <amp-iframe class="ampstart-card mx-auto xs-hide sm-hide" src="https://ampbyexample.com/samples_templates/product_browse_page/preview/embed/" layout="fixed" width="340" height= "540" sandbox="allow-scripts"></amp-iframe>
+    </div>
+
+    <div class="ampstart-mobile-frame xs-hide relative">
+    <amp-img src="https://ampstart.com/img/www/mobile.svg" width="458" height="806" alt="Mobile outline" layout="responsive" class="absolute top-0 left-0 right-0 bottom-0"></amp-img>
+
+    <amp-iframe width="324" height="494" layout="responsive" sandbox="allow-scripts allow-popups" allowfullscreen="" frameborder="0" src="/samples_templates/product_browse_page/preview/embed/" class="absolute xs-hide">
+    <div placeholder=""></div>
+    </amp-iframe>
+    </div>
+
+
+    * **Product search:** use [amp-form](/components/amp-form/) to implement a search form. You can serve search results either on a different page (which must not be AMP) or, even better, render search results directly inside the current page. Coming soon: autocomplete suggestions.  
+    * **Product filtering and sorting:** client-side sorting and filtering is going to be supported soon [amp-sort](https://github.com/ampproject/amphtml/issues/8691) and [amp-filter](https://github.com/ampproject/amphtml/issues/9113). Until then you can always fallback to handling this server-side. 
+
+    ## Product pages
+
+    <div class="preview">
+    <amp-iframe class="ampstart-card mx-auto xs-hide sm-hide" src="/samples_templates/product_page/preview/embed/" layout="fixed" width="340" height= "540" sandbox="allow-scripts"></amp-iframe>
+    </div>
+
+    * **Product gallery:** with [amp-carousel](/components/amp-carousel/) and [amp-bind](/components/amp-bind) it is easy to create sophisticated image galleries. [Here](/advanced/image_galleries_with_amp-carousel/) are some samples how to implement image gallieries with captions and thumbnails in AMPHTML.
+    * **Product configuration:** use [amp-selector](/components/amp-selector) and [amp-bind](/components/ampbind) for advanced product configuration. For an advanced version see the [sample product page](/samples_templates/product_page/preview/).
+    * Like / Favorite / Save (no sample yet)
+    * Add to Cart: amp-form (optional redirect)
+    * **Tabs:** can be easily implemented by combining [amp-selector](/components/amp-selector/) with a flex layout. [Here](/advanced/tab_panels_with_amp-selector/) is a sample.
+    * **Star ratings:** [here](/advanced/star_rating/) is a sample demonstrating how to implement a star rating system in AMP. 
+    * **Call tracking:** use [amp-call-tracking](/components/amp-call-tracking) to track calls initiated from your AMPs.
+    * **Comments / reviews:** comment or review submission can be implemented using [amp-form](/components/amp-form). Combine with [amp-access](/components/amp-access/) if a user login is required. [Here](/samples_templates/comment_section/preview/) is a sample combining both.
+
+    ## Checkout flow & Payments
+
+    To avoid user frustration make it possible for users to initiate checkout directly from withing your AMP pages. 
+    Here are three ways you can handle checkout in AMP pages:
+
+    * In Chrome you can use the payments requests API. Checkout the [payments sample](/advanced/payments_in_amp/preview/) to see how it works. 
+    * Implement your checkout flow inside your AMP pages using [amp-form](/components/amp-form).
+    * Re-direct users to the checkout flow on your website. Important: make the transition as seamless as possible, in particular, don't let users enter the same information twice.
+
+    <div class="ampstart-card info">
+    **Best Practice:** speed-up the transition from your AMPs to your normal website using [amp-install-serviceworker](/components/amp-install-serviceworker/) to pre-cache parts of your normal website.
+    </div>
+
+    ## Analytics
+
+    AMP Pages might be served from different origins. 
+
+    <div class="ampstart-card info">
+    **Best Practice:** treat your AMPs as a different platform similar to like you would treat an email campaign. Make sure to properly attribute links from your AMPs back to your website.
+    </div>
+
+    ## More
+
+    Docs ...
+    Ask questions here...
+
+  -->
+
+</body>
+</html>
