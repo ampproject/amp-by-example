@@ -63,21 +63,21 @@
   <body>
     {{> ampstart/navbar.snip.html}}
     <header class="www-header">
-      <h1 class="mb4 px2 col-12 sm-col-8 mx-auto">Learn AMP by Example</h1>
-      <span class="h3 block mb4 px2 col-12 sm-col-8 mx-auto">AMP by Example gives a hands-on introduction to Accelerated Mobile Pages based on code and live samples. <span class="xs-hide sm-hide">Learn how to create web pages with AMP and how to effectively use AMP components.</span></span>
+      <h1 class="mb4 px2 col-12 sm-col-8 mx-auto">{{title}}</h1>
+      <span class="h3 block mb4 px2 col-12 sm-col-8 mx-auto">{{desc}}</span>
     </header>
   <amp-selector layout="container">
   <main class="flex pl2">
     <aside class="www-components-sec-nav col-2 xs-hide sm-hide relative">
       <ul class="www-component-anchors list-reset m0 pt0 pb3 px1 caps">
         {{#categories}}
-        <li class="clearfix mb3"><a href="#{{url}}" class="www-component-anchor text-decoration-none left" option="">{{name}}</a></li>
+        <li class="clearfix mb3"><a href="{{url}}" class="www-component-anchor text-decoration-none left" option="">{{name}}</a></li>
         {{/categories}}
       </ul>
     </aside>
     <article class="www-components flex-auto col-8">
       {{#categories}}
-        <section class="www-component-desc" id="{{url}}">
+        <section class="www-component-desc" id="{{id}}">
           <h2 class="www-heading  pb4 mb2 relative">{{name}}</h2>
           <div class="mb4">{{{description}}}</div>
           <div class="abe-examples flex flex-wrap">
