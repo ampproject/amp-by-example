@@ -1,31 +1,20 @@
-<!---{
-  "preview": "default"
-  }--->
-  <!-- -->
 <!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <link rel="stylesheet" href="https://ampbyexample.com/css/ampstart.css">
     <style>
 body {
   margin: 0;
-  padding: 8px;
-}
-
-#buy {
-  background-color: #3E82F8;
-  color: white;
-  text-align: center;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
+  width: auto;
+  height: auto;
 }
     </style>
   </head>
   <body>
-    <button id="buy">Buy Now</button>
-  <script>
+    <button id="buy" class="ampstart-btn">Buy Now</button>
+    <script>
 (function (d, w) {
   d.getElementById('buy').onclick = function(event) {
     var productIdToDetails = {
@@ -73,16 +62,16 @@ body {
 
     if(window.PaymentRequest) {
       new PaymentRequest(supportedInstruments, details, options)
-          .show()
-          .then(function(instrumentResponse) {
-            console.log('success');
-            instrumentResponse.complete('success').then(function() {
-              top.window.location.href = 'https://ampbyexample.com';
-            });
-          })
-          .catch(function(err) {
-            console.log(err);
+        .show()
+        .then(function(instrumentResponse) {
+          console.log('success');
+          instrumentResponse.complete('success').then(function() {
+            top.window.location.href = 'https://ampbyexample.com';
           });
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
     }
   }
 
@@ -90,12 +79,12 @@ body {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");
     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
+      results = regex.exec(url);
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
 })(document, window);
-  </script>
+    </script>
   </body>
 </html>
