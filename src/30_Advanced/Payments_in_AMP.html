@@ -23,11 +23,12 @@ Via [amp-iframe](/components/amp-iframe) and the `allowpaymentrequest` attribute
   <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
 
   <style amp-custom>
-  div[placeholder] {
-    border: 1px solid #b60845;
-  }
   .label {
     line-height: 42px;
+  }
+  /* hide the default loader */
+  .amp-active > div {
+    display: none;
   }
   </style>
 
@@ -40,7 +41,7 @@ Via [amp-iframe](/components/amp-iframe) and the `allowpaymentrequest` attribute
            layout="responsive">
   </amp-img>
 
-  <div class="flex flex-center">
+  <div id="payment-demo" class="flex flex-center">
     <div class="label m1">Green Apples: $1.99</div>
     <!-- ## Configuring the Iframe -->
     <!--
@@ -52,16 +53,19 @@ Via [amp-iframe](/components/amp-iframe) and the `allowpaymentrequest` attribute
       2. Passes a relevant product identifier via query string, allowing the iframe to retrive appropriate product information for this product.
 
     -->
-    <amp-iframe width="94" height="42"
+    <amp-iframe width="130" height="42"
         sandbox="allow-scripts allow-same-origin allow-top-navigation"
         allowpaymentrequest
         frameborder="0"
         src="<% api.host %>/iframe/payments-iframe.html?productId=1"
         class="m1">
-        <div placeholder></div>
+        <button placeholder class="ampstart-btn caps" disabled>Buy Now</button>
     </amp-iframe>
   </div>
     <!--
+    <div class="ampstart-card info">**Best Practice:** we add a placeholder element to the amp-iframe to ensure that it can be loaded in the top viewport. The placeholder shows a disabled button until the iframe is loaded. We also disable the [default loading animation](/advanced/custom_loading_indicators/) using css.
+      </div>
+
     However, since AMP does not allow javascript, the iframe source must also handle the case where PaymentRequest is not available. While currently out of scope for this example, potential options are to:
 
     1. Swap the "Buy Now" button for an "Add to cart" button.

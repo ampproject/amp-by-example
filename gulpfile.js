@@ -160,7 +160,7 @@ gulp.task('deploy:site:prod', 'deploy to production site', function() {
 
 gulp.task('deploy:api:prod', 'deploy to production api app engine', function() {
   return run(
-      'cd api && goapp deploy -application  amp-by-example-api -version 1')
+      'cd api && goapp deploy -application  amp-by-example-api -version 2')
     .exec();
 });
 

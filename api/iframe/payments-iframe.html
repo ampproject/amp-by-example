@@ -5,34 +5,36 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <link rel="stylesheet" href="https://ampbyexample.com/css/ampstart.css">
     <style>
-body {
-  margin: 0;
-  width: auto;
-  height: auto;
-}
+      body {
+        margin: 0;
+      }
+      button {
+        width: 130px;
+        height: 42px;
+      }
     </style>
   </head>
   <body>
-    <button id="buy" class="ampstart-btn">Buy Now</button>
+    <button id="buy" class="ampstart-btn caps">Buy Now</button>
     <script>
 (function (d, w) {
   d.getElementById('buy').onclick = function(event) {
     var productIdToDetails = {
       1: {
-        name: 'Chair',
-        price: 50
+        name: 'Apple',
+        price: 6.99
       },
       2: {
-        name: 'Table',
-        price: 100
+        name: 'Orange',
+        price: 4.50
       },
       3: {
-        name: 'Couch',
-        price: 500
+        name: 'Pear',
+        price: 3.99
       }
     };
 
-    var productId = getParameterByName('id');
+    var productId = getParameterByName('productId');
     var product = productIdToDetails[productId];
 
     console.log("Buying product " + product['name'] + ": "
