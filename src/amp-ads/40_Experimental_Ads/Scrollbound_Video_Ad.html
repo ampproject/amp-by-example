@@ -15,6 +15,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+  <!-- TODO(aghassemi, #9311): Put real binaries when #9311 is resolved -->
   <script async src="https://amp-ads.firebaseapp.com/dist/amp-inabox.js"></script>
   <script async custom-element="amp-animation" src="https://amp-ads.firebaseapp.com/dist/v0/amp-animation-0.1.max.js"></script>
   <script async custom-element="amp-video" src="https://amp-ads.firebaseapp.com/dist/v0/amp-video-0.1.max.js"></script>
@@ -35,7 +37,7 @@
   <style amp-custom>
 
     /*
-     * Top level container: it fills the parent viewport
+     * Top level container: It fills the parent viewport
      * that hosts the ad.
      */
     .ad-container {
@@ -57,7 +59,7 @@
       z-index: 2;
     }
 
-    /* Video player: click-to-player overlay */
+    /* Video player: Click-to-player overlay */
     .video-container .poster-image {
       position: absolute;
       z-index: 1;
@@ -92,7 +94,7 @@
       z-index: 1;
     }
 
-    /* Content Layer: background image */
+    /* Content Layer: Background image */
     .background amp-img {
       margin: -70px;
     }
@@ -101,7 +103,7 @@
       object-fit: cover;
     }
 
-    /* Content Layer: title and logo */
+    /* Content Layer: Title and logo */
     .title {
       position: absolute;
       top: 5px;
@@ -109,7 +111,7 @@
       font-weight: bold;
     }
 
-    /* Content Layer: footer and learn more button */
+    /* Content Layer: Footer and learn more button */
     .footer {
       position: absolute;
       bottom: 0;
@@ -137,8 +139,8 @@
       color: #fafafa;
       text-decoration: none;
     }
-    /* Generic CSS class to fill a parent */
 
+    /* Generic CSS class to fill a parent */
     .fill {
       position: absolute;
       top: 0;
@@ -164,7 +166,7 @@
 
     Normally animations have a duration defined, scrollbound animations also have
     a duration but in pixels rather than milliseconds. Currently duration of
-    a scrollbound animation is approximatly one viewport height, meaning all keyframes
+    a scrollbound animation is approximately one viewport height, meaning all keyframes
     of the animation will be hit between the time ad is fully in viewport until
     user scrolls it partially out of the viewport.
 
@@ -175,11 +177,11 @@
 
     To achieve that, we define 4 keyframes. Between 0 and 10% of viewport,
     video is fullsize, between 10% and 50%, it starts scaling down until it
-    settles at half its size when in the middle of the viewport and keeps that
-    scale all the way to the last keyframe.
+    settles at half its size when in the middle of the viewport and stays the
+    same size all the way to the last keyframe.
 
-    **Parallax bakground image**:
-    You may have noticed that the background image of this ad has a slight parallax
+    **Parallax background image**:
+    You may have noticed that the background image of this ad has a subtle parallax
     effect. To achieve that, we use scrollbound animation and specify a `60px` offset
     at the last keyframe.
   -->
@@ -212,7 +214,7 @@
 
   <!-- ## Ad Container -->
   <!--
-  Top level container: it fills the parent viewport that hosts the ad.
+  Top level container: It fills the parent viewport that hosts the ad.
   -->
   <div class="ad-container">
     <!-- ## Video Layer -->
