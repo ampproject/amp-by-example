@@ -21,7 +21,7 @@
   var buyButton = d.getElementById('buy');
   if (!window.PaymentRequest) {
     buyButton.setAttribute('disabled', '');
-    buyButton.text = 'Add to Cart';
+    buyButton.text = 'Disabled';
     console.log('Payment request API not supported by this browser');
     return;
   }
