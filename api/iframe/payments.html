@@ -18,7 +18,14 @@
     <button id="buy" class="ampstart-btn caps">Buy Now</button>
     <script>
 (function (d, w) {
-  d.getElementById('buy').onclick = function(event) {
+  var buyButton = d.getElementById('buy');
+  if (!window.PaymentRequest) {
+    buyButton.setAttribute('disabled', '');
+    buyButton.text = 'Add to Cart';
+    console.log('Payment request API not supported by this browser');
+    return;
+  }
+  buyButton.onclick = function(event) {
     var productIdToDetails = {
       1: {
         name: 'Apple',
@@ -47,7 +54,13 @@
     var cost = product['price'];
 
     var details = {
-      total: {label: 'Total', amount: {currency: 'USD', value: cost.toFixed(2)}},
+      total: {
+        label: 'Total', 
+        amount: {
+          currency: 'USD', 
+          value: cost.toFixed(2)
+        }
+      },
       displayItems: [
         {
           label: product['name'],
@@ -62,7 +75,7 @@
       shippingType: 'pickup'
     };
 
-    if(window.PaymentRequest) {
+    if (window.PaymentRequest) {
       new PaymentRequest(supportedInstruments, details, options)
         .show()
         .then(function(instrumentResponse) {
