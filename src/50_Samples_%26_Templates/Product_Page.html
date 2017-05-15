@@ -23,6 +23,7 @@ This sample showcases how to build a product page in AMP HTML.
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
     <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
     <script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
+    <script async custom-element="amp-image-lightbox" src="https://cdn.ampproject.org/v0/amp-image-lightbox-0.1.js"></script>
     <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
     <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
@@ -273,6 +274,11 @@ This sample showcases how to build a product page in AMP HTML.
     .items, amp-list.items > div {
       justify-content: flex-start;
     }
+    .close-gallery-button {
+      z-index: 1;
+      position: absolute;
+      right: 0;
+    }
     </style>
 
     <!-- ## Metadata -->
@@ -454,11 +460,13 @@ This sample showcases how to build a product page in AMP HTML.
             [class]="product.selectedColor == 'green' ? 'show' : 'hide'">
       <amp-img src="/img/green_apple_1_1024x682.jpg"
                 width="1024" height="682"
-                layout="responsive">
+                layout="responsive" on="tap:gallery-lightbox"
+                role="button" tabindex="0">
       </amp-img>
       <amp-img src="/img/green_apple_2_1024x685.jpg"
                 width="1024" height="682"
-                layout="responsive">
+                layout="responsive" on="tap:gallery-lightbox"
+                role="button" tabindex="0">
       </amp-img>
     </amp-carousel>
 
@@ -472,7 +480,8 @@ This sample showcases how to build a product page in AMP HTML.
             [class]="product.selectedColor == 'golden' ? 'show' : 'hide'">
         <amp-img src="/img/golden_apple1_1024x682.jpg"
                 width="1024" height="682"
-                layout="responsive">
+                layout="responsive" on="tap:gallery-lightbox"
+                role="button" tabindex="0">
         </amp-img>
     </amp-carousel>
 
@@ -486,13 +495,28 @@ This sample showcases how to build a product page in AMP HTML.
             [class]="product.selectedColor == 'red' ? 'show' : 'hide'">
         <amp-img src="/img/red_apple_1_1024x682.jpg"
                 width="1024" height="682"
-                layout="responsive">
+                layout="responsive" on="tap:gallery-lightbox"
+                role="button" tabindex="0">
         </amp-img>
         <amp-img src="/img/red_apple_2_1024x793.jpg"
                 width="1024" height="682"
-                layout="responsive">
+                layout="responsive" on="tap:gallery-lightbox"
+                role="button" tabindex="0">
         </amp-img>
     </amp-carousel>
+    <!-- ## Full screen image -->
+    <!-- The `amp-image-lightbox` component allows the user to expand an image to fill the viewport.
+    By clicking on each image from the product gallery, the user can see the product image by using the full screen.
+    Learn more [here](/components/amp-image-lightbox/) -->
+    <amp-image-lightbox id="gallery-lightbox" layout="nodisplay">
+      <div on="tap:gallery-lightbox.close" role="button"
+          tabindex="0">
+          <button class="ampstart-btn caps m2 close-gallery-button" on="tap:gallery-lightbox.close"
+            role="button" tabindex="0">
+            Close
+          </button>
+      </div>
+    </amp-image-lightbox>
 
   </div>
   <!-- ## Product Configuration -->
