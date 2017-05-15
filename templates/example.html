@@ -78,7 +78,7 @@
                 {{{preview}}}
               </div>
               {{/showPreview}}{{/metadata.hidePreview}}
-              <div class="abe-code fit px1 pb1 {{^showPreview}}p1{{/showPreview}}">
+              <div class="abe-code fit px1 pb1 {{^showPreview}}p1{{/showPreview}} {{#metadata.hidePreview}}p1{{/metadata.hidePreview}} ">
                 <pre class="hljs html p0 m0">{{{escapedCode}}}</pre>
               </div>
             </div>
