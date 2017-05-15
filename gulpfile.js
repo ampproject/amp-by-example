@@ -112,7 +112,7 @@ const config = {
     defaultHeight: 250,
     defaultLayout: "fixed"
   },
-  host: 'https://ampbyexample.firebaseapp.com'
+  host: 'https://ampbyexample.com'
 };
 
 gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
