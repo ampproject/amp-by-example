@@ -106,6 +106,12 @@ const config = {
     defaultHeight: 250,
     adContainerLabelHeight: 22
   },
+  a4aExperimental: {
+    template: 'preview-a4a-experimental.html',
+    defaultWidth: 300,
+    defaultHeight: 250,
+    defaultLayout: "fixed"
+  },
   host: 'https://ampbyexample.com'
 };
 

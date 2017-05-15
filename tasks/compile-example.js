@@ -249,6 +249,17 @@ module.exports = function(config, indexPath, updateTimestamp) {
         args.a4aEmbedUrl = example.urlSource();
       }
 
+      // experimental a4a preview embeds the original sample via amp-ad tag
+      // with type="fake"
+      if (document.isAmpExperimentalAdSample()) {
+        previewTemplate = config.a4aExperimental.template;
+        // configure a4a preview
+        args.width = document.metadata.width || config.a4aExperimental.defaultWidth;
+        args.height = document.metadata.height || config.a4aExperimental.defaultHeight;
+        args.layout = document.metadata.layout || config.a4aExperimental.defaultLayout;
+        args.a4aEmbedUrl = example.urlSource();
+      }
+
       args.title = example.title() + ' (Preview) - ' + 'AMP by Example';
       args.desc = "This is a live preview of the '" + example.title() + "' sample. " + args.desc;
       args.canonical = config.host + example.url() + 'preview/';
@@ -280,7 +291,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
     sort(examples)
       .filter(exampleFile => exampleFile.category() && !exampleFile.document.metadata.draft)
       .forEach(function(exampleFile) {
-        // add new section 
+        // add new section
         if (!currentSection || currentSection.path !== exampleFile.section().path) {
           currentSection = exampleFile.section();
           currentSection.categories = [];
