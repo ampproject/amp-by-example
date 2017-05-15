@@ -42,12 +42,6 @@
       #abe-scroll-to-reveal {
         display: none;
       }
-      #abe-experimental-warning .ampstart-btn {
-        font-size: 0.8rem;
-        width: 100%;
-        margin-right: 0;
-        text-align: center;
-      }
       @media (min-width: 1024px) {
         #abe-experimental-warning, #abe-scroll-to-reveal {
           position: fixed;
@@ -57,6 +51,7 @@
           width: 280px;
           left: calc(50vw + 210px + 10px);
         }
+
         #abe-scroll-to-reveal {
           width: 75px;
           overflow: hidden;
@@ -80,15 +75,14 @@
     <div id="abe-preview" class="ampstart-card p1">
       <div class="abe-70vh">
         <h1>{{subHeading}}</h1>
-        <div id="abe-experimental-warning">
-          {{#metadata.experiments.length}}
-            {{> experiment.html}}
-          {{/metadata.experiments.length}}
+        <div id="abe-experimental-warning" class="ampstart-card abe-info p1 my2">
+          <h4 class="mb1">Experimental!</h4>
+          This example is to showcase experimental features in the <a href="https://github.com/ampproject/amphtml/blob/master/extensions/amp-a4a/amp-a4a-format.md">AMP ad creative format</a> which are not ready yet for production use.
         </div>
 
         {{#metadata.scrollToReveal}}
-        <div id="abe-scroll-to-reveal" class="ampstart-card p1">
-          <div>↑<br>Scroll<br>to<br>reveal</div>
+        <div id="abe-scroll-to-reveal" class="ampstart-card p1 my2">
+          <div class="mb1">↑<br>Scroll<br>to<br>reveal</div>
         </div>
         {{/metadata.scrollToReveal}}
 
@@ -100,9 +94,10 @@
         Tempor neque nisl in fermentum, nulla duis duis feugiat. Leo aenean sit, laudantium fermentum aliquet sagittis nec ac ac, donec ac tincidunt sollicitudin lacus neque. Morbi tellus autem pede bibendum, natoque maecenas justo ac, nec aliquam taciti, pellentesque nam iaculis eros nec at. Proin in orci. Et eu nec montes rutrum nullam, nunc pharetra gravida elit, consectetuer consequatur, eros dignissim, justo vel suspendisse. Ipsum quis metus ultricies nullam nullam. Quis at luctus sit pede etiam, tellus vitae, maecenas mauris nibh lacinia est augue. Aenean nec cursus aptent sit odio tempor, felis duis nulla vel varius mauris, risus duis ac.</p>
       </div>
       <div class="abe-amp-ad-container">
+        <!-- TODO(aghassemi,#9311): This needs to take experiments as an argument and enable them on the embed automatically-->
         <amp-ad
           layout="{{layout}}" width="{{width}}" height="{{height}}"
-          type="fake" data-use-a4a="true" force3p="true"
+          type="fake" data-use-a4a="true" force3p="false" fakesig="true" disable3pfallback="false"
           src="{{a4aEmbedUrl}}">
         </amp-ad>
       </div>
