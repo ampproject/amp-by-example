@@ -35,7 +35,7 @@
   text-decoration: none;
   word-wrap: normal;
 }
-.preview {
+.abe-viewer-preview {
   display: flex;
 }
 .www-component-desc>.ampstart-mobile-frame {
@@ -56,8 +56,48 @@
 </head>
 <body>
   <!-- 
+    ## Product pages
 
-    Introduction ...
+    It's possible with AMP to create beautiful and interactive product pages. [This sample](/samples_templates/product_page/preview/) demonstrates how to build a complex product page with dynamic product configuration and add-to-cart flow. With the introduction of [amp-bind](/components/amp-bind/) it's now possible to create truly interactive AMP pages: : it can be used to coordinate page state based on user interaction to show and hide arbitrary divs. 
+
+
+    <div class="ampstart-mobile-frame xs-hide relative">
+      <amp-img src="https://ampstart.com/img/www/mobile.svg" width="458" height="806" alt="Mobile outline" layout="responsive" class="absolute top-0 left-0 right-0 bottom-0"></amp-img>
+
+      <amp-iframe width="324" height="494" layout="responsive" sandbox="allow-scripts allow-popups" allowfullscreen="" frameborder="0" src="/samples_templates/product_page/preview/embed/" class="absolute xs-hide">
+      <div placeholder=""></div>
+      </amp-iframe>
+    </div>
+
+
+    These samples help you getting started with building a product landing page with AMP: 
+
+    * **Product gallery:** with [amp-carousel](/components/amp-carousel/) and [amp-bind](/components/amp-bind) it is easy to create sophisticated image galleries. [Here](/advanced/image_galleries_with_amp-carousel/) are some samples how to implement image gallieries with captions and thumbnails in AMPHTML.
+    * **Product configuration:** use [amp-selector](/components/amp-selector) and [amp-bind](/components/ampbind) for advanced product configuration. For an advanced version see the [sample product page](/samples_templates/product_page/preview/).
+    * **Add to Cart:** the [product sample](/samples_templates/product_page/preview/) demonstrates a fully functional add-to-cart flow which works across different origins.
+    * **Tabs:** can be easily implemented by combining [amp-selector](/components/amp-selector/) with a flex layout. [Here](/advanced/tab_panels_with_amp-selector/) is a sample.
+    * **Star ratings:** [here](/advanced/star_rating/) is a sample demonstrating how to implement a star rating system in AMP. 
+    * **Call tracking:** use [amp-call-tracking](/components/amp-call-tracking) to track calls initiated from your AMPs.
+    * **Comments / reviews:** comment or review submission can be implemented using [amp-form](/components/amp-form). Combine with [amp-access](/components/amp-access/) if a user login is required. [Here](/samples_templates/comment_section/preview/) is a sample combining both.
+
+
+    ## Category Pages
+
+    Product category pages are very well suited for AMP. The content is typically static and geared toward offering the best showcase of available products. [Here](/samples_templates/product_browse_page/preview/) is a working sample of a product pages demonstrating common features of a category pages such as product listings or search.
+
+    <div class="ampstart-mobile-frame xs-hide relative">
+    <amp-img src="https://ampstart.com/img/www/mobile.svg" width="458" height="806" alt="Mobile outline" layout="responsive" class="absolute top-0 left-0 right-0 bottom-0"></amp-img>
+
+    <amp-iframe width="324" height="494" layout="responsive" sandbox="allow-scripts allow-popups" allowfullscreen="" frameborder="0" src="/samples_templates/product_browse_page/preview/embed/" class="absolute xs-hide">
+    <div placeholder=""></div>
+    </amp-iframe>
+    </div>
+
+    Soon, it will be possible to create even better category pages with AMP:
+
+    * **Product search:** use [amp-form](/components/amp-form/) to implement a search form. You can serve search results either on a different page (which must not be AMP) or, even better, render search results directly inside the current page. Soon it will be even possible to provide autocomplete suggestions.  
+    * **Product filtering and sorting:** client-side sorting and filtering is going to be supported soon [amp-sort](https://github.com/ampproject/amphtml/issues/8691) and [amp-filter](https://github.com/ampproject/amphtml/issues/9113). Until then you can always fallback to handling this server-side. 
+
 
     ## Dynamic Content
 
@@ -71,7 +111,7 @@
     Here is a sample how to render product name and price using amp-list:
   -->
   <amp-list height="24" layout="fixed-height" src="<%host%>/json/product.json" class="m1">
-    <template type="amp-mustache" id="amp-template-id">
+    <template type="amp-mustache">
       {{name}}: ${{price}}
     </template>
   </amp-list>
@@ -82,33 +122,25 @@
 
     Another approach is to use [amp-bind](/components/amp-bind/) with a JSON endpoint, This works well if up-to-date data needs to be available after an user interaction, for example, a hotel page displays room availability when the user selects specific dates.
   -->
-  <div>
-    <amp-state id="booking" src="<%host%>/json/room.json"></amp-state>
-    <div class="booking">
-      <button on="tap:AMP.setState({day: 'monday'})">M</button>
-      <button on="tap:AMP.setState({day: 'tuesday'})">T</button>
-      <button on="tap:AMP.setState({day: 'wednesday'})">M</button>
-      <button on="tap:AMP.setState({day: 'thursday'})">T</button>
-      <button on="tap:AMP.setState({day: 'friday'})">F</button>
-      <button on="tap:AMP.setState({day: 'saturday'})">S</button>
-      <button on="tap:AMP.setState({day: 'sunday'})">S</button>
-      <div><span [text]="'Room is: ' + booking[day]">Please select a day</span> </div>
-    </div>
+  <div class="p1">
+    <amp-state id="products" src="<%host%>/json/products.json"></amp-state>
+    <amp-img on="tap:AMP.setState({ productId: 0})" src="/img/red_apple_1_60x40.jpg" width="60" height="40"> 
+    </amp-img>
+    <amp-img on="tap:AMP.setState({ productId: 1})" src="/img/green_apple_1_60x40.jpg" width="60" height="40"> 
+    </amp-img>
+    <amp-img on="tap:AMP.setState({ productId: 2})" src="/img/product1_alt1_60x40.jpg" width="60" height="40"> 
+    </amp-img>
+    <div [text]="products[productId] + ' available'">Please select a product</div>
   </div>
-  <div>
-    <amp-state id="pricing" src="<%host%>/json/product.json"></amp-state>
-    <button class="ampstart-btn m1" on="tap:AMP.setState({})">Show Price</button>
-    <div class="m1">Price: $<span [text]="pricing.items[0].price">?</span> </div>
-  </div>
-  <!--
 
+  <!--
     ## Personalization & Login
 
     An easy way to provide personalized content in AMPs is to use `amp-list`. You can either use cookies (using the attribute `credentials="include"`) or AMP's [client id](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md#client-id):
   -->
 
   <amp-list credentials="include" height="24" layout="fixed-height" src="<%host%>/json/product.json?clientId=CLIENT_ID(myCookieId)" class="m1">
-    <template type="amp-mustache" id="amp-template-id">
+    <template type="amp-mustache">
       Your personal offer: ${{price}}
     </template>
   </amp-list>
@@ -124,38 +156,6 @@
     **Good to know:** `amp-access` works on your origin and on AMP Caches.
     </div>
 
-    ## Category Pages
-
-    <div class="preview">
-    <amp-iframe class="ampstart-card mx-auto xs-hide sm-hide" src="https://ampbyexample.com/samples_templates/product_browse_page/preview/embed/" layout="fixed" width="340" height= "540" sandbox="allow-scripts"></amp-iframe>
-    </div>
-
-    <div class="ampstart-mobile-frame xs-hide relative">
-    <amp-img src="https://ampstart.com/img/www/mobile.svg" width="458" height="806" alt="Mobile outline" layout="responsive" class="absolute top-0 left-0 right-0 bottom-0"></amp-img>
-
-    <amp-iframe width="324" height="494" layout="responsive" sandbox="allow-scripts allow-popups" allowfullscreen="" frameborder="0" src="/samples_templates/product_browse_page/preview/embed/" class="absolute xs-hide">
-    <div placeholder=""></div>
-    </amp-iframe>
-    </div>
-
-
-    * **Product search:** use [amp-form](/components/amp-form/) to implement a search form. You can serve search results either on a different page (which must not be AMP) or, even better, render search results directly inside the current page. Coming soon: autocomplete suggestions.  
-    * **Product filtering and sorting:** client-side sorting and filtering is going to be supported soon [amp-sort](https://github.com/ampproject/amphtml/issues/8691) and [amp-filter](https://github.com/ampproject/amphtml/issues/9113). Until then you can always fallback to handling this server-side. 
-
-    ## Product pages
-
-    <div class="preview">
-    <amp-iframe class="ampstart-card mx-auto xs-hide sm-hide" src="/samples_templates/product_page/preview/embed/" layout="fixed" width="340" height= "540" sandbox="allow-scripts"></amp-iframe>
-    </div>
-
-    * **Product gallery:** with [amp-carousel](/components/amp-carousel/) and [amp-bind](/components/amp-bind) it is easy to create sophisticated image galleries. [Here](/advanced/image_galleries_with_amp-carousel/) are some samples how to implement image gallieries with captions and thumbnails in AMPHTML.
-    * **Product configuration:** use [amp-selector](/components/amp-selector) and [amp-bind](/components/ampbind) for advanced product configuration. For an advanced version see the [sample product page](/samples_templates/product_page/preview/).
-    * Like / Favorite / Save (no sample yet)
-    * Add to Cart: amp-form (optional redirect)
-    * **Tabs:** can be easily implemented by combining [amp-selector](/components/amp-selector/) with a flex layout. [Here](/advanced/tab_panels_with_amp-selector/) is a sample.
-    * **Star ratings:** [here](/advanced/star_rating/) is a sample demonstrating how to implement a star rating system in AMP. 
-    * **Call tracking:** use [amp-call-tracking](/components/amp-call-tracking) to track calls initiated from your AMPs.
-    * **Comments / reviews:** comment or review submission can be implemented using [amp-form](/components/amp-form). Combine with [amp-access](/components/amp-access/) if a user login is required. [Here](/samples_templates/comment_section/preview/) is a sample combining both.
 
     ## Checkout flow & Payments
 
@@ -166,22 +166,18 @@
     * Implement your checkout flow inside your AMP pages using [amp-form](/components/amp-form).
     * Re-direct users to the checkout flow on your website. Important: make the transition as seamless as possible, in particular, don't let users enter the same information twice.
 
+
     <div class="ampstart-card info">
     **Best Practice:** speed-up the transition from your AMPs to your normal website using [amp-install-serviceworker](/components/amp-install-serviceworker/) to pre-cache parts of your normal website.
     </div>
 
     ## Analytics
 
-    AMP Pages might be served from different origins. 
+    Make sure to measure how users engange with your AMP Pages using [amp-analytics](https://www.ampproject.org/docs/reference/components/amp-analytics). **Important:** test your analytics integration and make sure that AMP traffic is correctly attributed, in particular if the AMP is served from a different origin. For testing, you can [load your AMPs via the Google AMP Cache](https://ampbyexample.com/advanced/using_the_google_amp_cache/).
 
     <div class="ampstart-card info">
     **Best Practice:** treat your AMPs as a different platform similar to like you would treat an email campaign. Make sure to properly attribute links from your AMPs back to your website.
     </div>
-
-    ## More
-
-    Docs ...
-    Ask questions here...
 
   -->
 
