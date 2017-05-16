@@ -116,7 +116,7 @@
       amp-lightbox {
         font-family: 'Roboto', sans-serif;
         font-size: 12px;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.8);
       }
       .lightbox-content {
         height: 100%;
@@ -251,7 +251,8 @@
             type="carousel"
             class="carousel">
           <div class="carousel-item"
-              on="tap:main-lightbox.activate"
+              on="tap:main-lightbox.activate,
+                row-engine.show, row-gauges.hide, row-seats.hide"
               role="button">
             <div class="carousel-item-inner">
               <amp-img src="<%host%>/img/car-engine.jpg"
@@ -267,7 +268,8 @@
             </div>
           </div>
           <div class="carousel-item"
-              on="tap:main-lightbox.activate"
+              on="tap:main-lightbox.activate,
+                row-engine.hide, row-gauges.show, row-seats.hide"
               role="button">
             <div class="carousel-item-inner">
               <amp-img src="<%host%>/img/car-gauges.jpg"
@@ -283,7 +285,8 @@
             </div>
           </div>
           <div class="carousel-item"
-              on="tap:main-lightbox.activate"
+              on="tap:main-lightbox.activate,
+                row-engine.hide, row-gauges.hide, row-seats.show"
               role="button">
             <div class="carousel-item-inner">
               <amp-img src="<%host%>/img/car-seats.jpg"
@@ -364,7 +367,7 @@
               </div>
             </div>
           </div>
-          <div class="lightbox-row" id="row-engine">
+          <div class="lightbox-row" id="row-gauges">
             <div class="lightbox-row-img">
               <amp-img src="<%host%>/img/car-gauges.jpg"
                 width="160"
@@ -383,9 +386,9 @@
               </div>
             </div>
           </div>
-          <div class="lightbox-row" id="row-engine">
+          <div class="lightbox-row" id="row-seats">
             <div class="lightbox-row-img">
-              <amp-img src="<%host%>/img/car-engine.jpg"
+              <amp-img src="<%host%>/img/car-seats.jpg"
                 width="160"
                 height="90"
                 layout="fixed"></amp-img>
