@@ -245,18 +245,8 @@ module.exports = function(config, indexPath, updateTimestamp) {
         // configure a4a preview
         args.width = document.metadata.width || config.a4a.defaultWidth;
         args.height = document.metadata.height || config.a4a.defaultHeight;
-        args.adContainerHeight = args.height + config.a4a.adContainerLabelHeight;
-        args.a4aEmbedUrl = example.urlSource();
-      }
-
-      // experimental a4a preview embeds the original sample via amp-ad tag
-      // with type="fake"
-      if (document.isAmpExperimentalAdSample()) {
-        previewTemplate = config.a4aExperimental.template;
-        // configure a4a preview
-        args.width = document.metadata.width || config.a4aExperimental.defaultWidth;
-        args.height = document.metadata.height || config.a4aExperimental.defaultHeight;
-        args.layout = document.metadata.layout || config.a4aExperimental.defaultLayout;
+        args.layout = document.metadata.layout || config.a4a.defaultLayout;
+        args.adContainerHeight = args.height;
         args.a4aEmbedUrl = example.urlSource();
       }
 
@@ -351,7 +341,8 @@ module.exports = function(config, indexPath, updateTimestamp) {
     if (!document.metadata.preview) {
       return null;
     }
-    if (document.isAmpAdSample() || document.metadata.preview === 'cache') {
+    if ((document.isAmpAdSample() && document.metadata.adSlot)
+      || document.metadata.preview === 'cache') {
       return cachedUrl(exampleFile.urlPreview());
     } else {
       return exampleFile.urlPreview();
