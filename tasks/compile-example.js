@@ -248,6 +248,11 @@ module.exports = function(config, indexPath, updateTimestamp) {
         args.layout = document.metadata.layout || config.a4a.defaultLayout;
         args.adContainerHeight = args.height; 
         args.a4aEmbedUrl = example.urlSource();
+        args.a4aPreview = function() {
+          return function(text, render) {
+            return "<b>" + render(text) + "</b>"
+          }
+        };
       }
 
       args.title = example.title() + ' (Preview) - ' + 'AMP by Example';
