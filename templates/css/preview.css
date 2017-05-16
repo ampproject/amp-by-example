@@ -7,7 +7,7 @@ body {
   color: #000;
   height: 56px;
   width: 100vw;
-  z-index: 1;
+  z-index: 100;
 }
 #abe-preview-header > a {
   line-height: 16px;
