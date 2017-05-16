@@ -246,13 +246,8 @@ module.exports = function(config, indexPath, updateTimestamp) {
         args.width = document.metadata.width || config.a4a.defaultWidth;
         args.height = document.metadata.height || config.a4a.defaultHeight;
         args.layout = document.metadata.layout || config.a4a.defaultLayout;
-        args.adContainerHeight = args.height; 
+        args.adContainerHeight = args.height;
         args.a4aEmbedUrl = example.urlSource();
-        args.a4aPreview = function() {
-          return function(text, render) {
-            return "<b>" + render(text) + "</b>"
-          }
-        };
       }
 
       args.title = example.title() + ' (Preview) - ' + 'AMP by Example';
@@ -346,7 +341,8 @@ module.exports = function(config, indexPath, updateTimestamp) {
     if (!document.metadata.preview) {
       return null;
     }
-    if (document.isAmpAdSample() || document.metadata.preview === 'cache') {
+    if ((document.isAmpAdSample() && document.metadata.adSlot)
+      || document.metadata.preview === 'cache') {
       return cachedUrl(exampleFile.urlPreview());
     } else {
       return exampleFile.urlPreview();

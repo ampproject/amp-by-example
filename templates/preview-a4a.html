@@ -139,15 +139,22 @@
       <p class="pb1 xs-hide sm-hide">Lorem ipsum dolor sit amet, etiam mattis ullamcorper lacinia integer et, nec aliquam libero, vel duis pretium hendrerit eget lacus, nullam massa rhoncus vel congue luctus porta. Amet cursus integer lacus mi pede, turpis dictumst nunc dolor donec tortor, enim velit elementum, mollis elit purus vestibulum eget amet ipsum. Ipsum placerat neque voluptatem arcu in integer, dolor sem quisque, mattis nulla massa ipsum enim cursus ut, etiam per adipiscing mauris tellus tortor, sapien maecenas pharetra amet ut felis. </p>
       <div class="abe-amp-ad-container">
         {{#metadata.adSlot}}
-        <amp-ad width="{{width}}" 
+        <amp-ad width="{{width}}"
                 height="{{height}}"
                 type="doubleclick"
-                data-slot="{{metadata.adSlot}}">
-        </amp-ad>
+                layout="{{layout}}"
+                data-slot="{{metadata.adSlot}}"></amp-ad>
         {{/metadata.adSlot}}
         {{^metadata.adSlot}}
-        <amp-ad layout="{{layout}}" width="{{width}}" height="{{height}}" type="fake" data-use-a4a="true" force3p="false" fakesig="true" disable3pfallback="false" src="{{a4aEmbedUrl}}">
-        </amp-ad>
+        <amp-ad layout="{{layout}}"
+          width="{{width}}"
+          height="{{height}}"
+          type="fake"
+          data-use-a4a="true"
+          force3p="false"
+          fakesig="true"
+          disable3pfallback="false"
+          src="{{a4aEmbedUrl}}"></amp-ad>
         {{/metadata.adSlot}}
       </div>
       <p class="pb1">
