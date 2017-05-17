@@ -16,7 +16,7 @@
 
 describe("FileName", function() {
 
-  var FileName = require('../../tasks/lib/FileName');
+  var FileName = require('../../lib/FileName');
 
   describe('fromString', function() {
     it('returns empty string for undefined', function() {

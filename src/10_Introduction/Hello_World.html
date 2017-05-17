@@ -4,6 +4,7 @@
 An AMP HTML tutorial - learn the different building blocks of an AMP HTML file. AMP HTML is entirely built on existing web technologies. It achieves reliable performance by restricting some parts of HTML, CSS and JavaScript. To make up for those limitations AMP HTML defines a set of custom elements for rich content beyond basic HTML. This samples shows what's necessary to create a valid AMP HTML file.
 -->
 <!-- -->
+<!-- Doctype declaration is required. -->
 <!doctype html>
 <!-- This tells everyone that this is an AMP file. `<html amp>` works too. -->
 <html ⚡>
@@ -17,7 +18,7 @@ An AMP HTML tutorial - learn the different building blocks of an AMP HTML file. 
   <!--
     AMP HTML files require a canonical link pointing to the regular HTML. If no HTML version exists, it should point to itself.
   -->
-  <link rel="canonical" href="<%host%>/Introduction/Hello_World">
+  <link rel="canonical" href="<%host%>/introduction/hello_world">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <!--
     CSS must be embedded inline.

@@ -35,31 +35,31 @@
       src: url(fonts/FontDoesNotExist.ttf) format('truetype');
     }
     @font-face {
-      font-family: 'Tangerine';
+      font-family: 'Comic AMP';
       font-style: normal;
       font-weight: 400;
-      src: local('Tangerine'), url(/fonts/Tangerine_Regular.ttf) format('truetype');
+      src: local('Comic AMP'), url(/fonts/ComicAMP.ttf) format('truetype');
     }
 
     .unavailable-font-loaded .unavailable-font {
       font-family: 'Font Does Not exist', serif, sans-serif;
     }
-    .tangerine-loaded .tangerine {
-      font-family: 'Tangerine', serif, sans-serif;
+    .comicamp-loaded .comicamp {
+      font-family: 'Comic AMP', serif, sans-serif;
     }
     .another-unavailable-font-loaded .another-unavailable-font {
       font-family: 'Another Font That Does Not exist', serif, sans-serif;
     }
-    .unavailable-font-loading, .tangerine-loading, .another-unavailable-font-loading {
+    .unavailable-font-loading, .comicamp-loading, .another-unavailable-font-loading {
       color: blue;
     }
     .unavailable-font-loading .unavailable-font,
-      .tangerine-loading .tangerine,
+      .comicamp-loading .comicamp,
         .another-unavailable-font-loading .another-unavailable-font {
           color: aqua;
     }
     .unavailable-font-missing .unavailable-font,
-      .tangerine-missing .tangerine,
+      .comicamp-missing .comicamp,
         .another-unavailable-font-missing .another-unavailable-font  {
           color: red;
     }
@@ -85,15 +85,15 @@
 
     <amp-font
     layout="nodisplay"
-    font-family="Tangerine"
+    font-family="Comic AMP"
     timeout="2000"
-    on-error-remove-class="tangerine-loading"
-    on-error-add-class="tangerine-missing"
-    on-load-remove-class="tangerine-loading"
-    on-load-add-class="tangerine-loaded">
+    on-error-remove-class="comicamp-loading"
+    on-error-add-class="comicamp-missing"
+    on-load-remove-class="comicamp-loading"
+    on-load-add-class="comicamp-loaded">
   </amp-font>
     <!-- and use an existing font. -->
-  <p class="tangerine">
+  <p class="comicamp">
     This text is displayed in red if the chosen font is not supported.
   </p>
   <!--

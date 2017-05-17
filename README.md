@@ -1,10 +1,8 @@
 [![Build Status](https://travis-ci.org/ampproject/amp-by-example.svg?branch=master)](https://travis-ci.org/ampproject/amp-by-example)
 
-#AMP by Example
+# AMP by Example
 
 [ampbyexample.com](http://ampbyexample.com/) gives you a hands-on introduction to Accelerated Mobile Pages based on code and live samples. Learn how to create websites with AMP and how to effectively make use of the different AMP components.
-
-![Screenshot](src/img/abe_preview.png)
 
 In case we are missing any examples, feel free to [let us know](https://github.com/ampproject/amp-by-example/issues/new). Have you got any good examples you would like to contribute? Read on, it’s very easy to add new examples.
 
@@ -99,20 +97,36 @@ This works for elements in the header as well:
 Every HTML comment creates a separate example section spanning the following HTML element.
 
 ```html
-<!-- This comment spans the whole following div including the two images -->
-<div>
+<!-- This comment spans the whole following section including the two images -->
+<section>
   <amp-img src="img/image1.jpg" width="200" height="100" layout="responsive"></amp-img>
   <amp-img src="img/image2.jpg" width="200" height="100" layout="responsive"></amp-img>
-</div>
+</section>
 ```
 
-Nested comments are not supported:
+Nesting comments are not supported:
 
 ```html
 <!-- A comment -->
 <div>
-  <!-- This does not work -->
+  <!-- This does not work because the parent div has already a comment -->
   <amp-img src="img/image1.jpg" width="200" height="100" layout="responsive"></amp-img>
+</div>
+<div>
+  <!-- Commenting inside nested tags works though -->
+  <amp-img src="img/image1.jpg" width="200" height="100" layout="responsive"></amp-img>
+</div>
+```
+
+If your comment spans multiple elements, wrap these in an single `div` without any attributes. The enclosing `div` tag will be hidden in source code listings:
+
+```html
+<!-- The enclosing `div` will be hidden in source code listings. -->
+<div>
+  <button on="tap:my-lightbox" role="button" tabindex="0">Open lightbox</button>
+  <amp-lightbox id="my-lightbox" layout="nodisplay">
+    <h1>Hello World!</h1>
+  </amp-lightbox>
 </div>
 ```
 
@@ -183,6 +197,16 @@ If your sample looks better with a single column layout, you can disable the cod
 <!---{
   "hideCode": true,
   "hidePreview": true
+}--->
+```
+
+#### Disabling the Playground
+
+If it doesn't make sense for your sample to provide a playground link, you can disable it:
+
+```json
+<!---{
+  "disablePlayground": true
 }--->
 ```
 

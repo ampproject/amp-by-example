@@ -33,7 +33,7 @@ func init() {
 	backend.InitAmpLiveList()
 	backend.InitAmpForm()
 	backend.InitAmpCache()
-	backend.InitProductListing()
+	backend.InitProductBrowse()
 	backend.InitHousingForm()
 	backend.InitAmpAnalytics()
 	backend.InitCommentSection()
@@ -41,6 +41,7 @@ func init() {
 	backend.InitSlowResponseSample()
 	backend.InitPollSample()
 	backend.InitRatingSample()
+	backend.InitAmpAccess()
 	playground.InitPlayground()
 	http.Handle("/", ServeStaticFiles(HandleNotFound(http.FileServer(http.Dir(DIST_DIR)))))
 }

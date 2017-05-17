@@ -39,9 +39,9 @@ const htmlhint = require("gulp-htmlhint");
 const compileExample = require('./tasks/compile-example');
 const sitemap = require('./tasks/compile-sitemap');
 const createExample = require('./tasks/create-example');
-const FileName = require('./tasks/lib/FileName');
-const Metadata = require('./tasks/lib/Metadata');
-const ExampleFile = require('./tasks/lib/ExampleFile');
+const FileName = require('./lib/FileName');
+const Metadata = require('./lib/Metadata');
+const ExampleFile = require('./lib/ExampleFile');
 const gulpAmpValidator = require('gulp-amphtml-validator');
 
 const PROD = 'prod';
@@ -68,7 +68,7 @@ const paths = {
   playground: 'playground',
   src: 'src',
   scripts: ['tasks/**/*.js', 'gulpfile.js'],
-  static: 'static/*.*',
+  static: 'static/**/*.*',
   templates: {
     dir: 'templates',
     files: ['templates/**/*.css', 'templates/**/*.html'],
@@ -102,9 +102,10 @@ const config = {
   },
   a4a: {
     template: 'preview-a4a.html',
+    defaultLayout: 'fixed',
     defaultWidth: 300,
     defaultHeight: 250,
-    adContainerLabelHeight: 22
+    defaultForce3p: false,
   },
   host: 'https://ampbyexample.com'
 };
@@ -294,6 +295,9 @@ gulp.task('validate:example', 'validate example html files', function() {
 
 function shouldMinifyHtml(file) {
   if (config.env !== PROD) {
+    return false;
+  }
+  if (!file.path.endsWith('.html')) {
     return false;
   }
   if (file.path.endsWith('/source/index.html')) {

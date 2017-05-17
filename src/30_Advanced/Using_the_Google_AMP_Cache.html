@@ -1,15 +1,12 @@
 <!---{
   "hideCode": true,
+  "disablePlayground": true,
   "hidePreview": true
 }--->
 <!--
   ## Introduction
 
   The [Google AMP Cache](https://developers.google.com/amp/cache/overview) stores valid AMPs and provides a consistently fast access to AMPs. It is available for anyone to use. 
-
-<div class="card important">
-This article describes the new AMP URL Cache format which will go live in Q1 2017. For the current format please refer to the [official documentation](https://developers.google.com/amp/cache/overview).
-</div>
 -->
 <!-- -->
 <!doctype html>
@@ -21,21 +18,12 @@ This article describes the new AMP URL Cache format which will go live in Q1 201
   <link rel="canonical" href="<%host%>/advanced/using_the_google_amp_cache/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <style amp-custom>
-        .amp-iframe-container {
-          margin: 0;
-          padding: 16px;
-        }
         .doc pre {
           margin: 16px;
           padding: 16px;
         }
         .doc pre code {
           font-size: 14px;
-        }
-        @media (max-width: 700px) {
-          .amp-iframe-container, .doc pre {
-            margin: 16px 0;
-          }
         }
         .doc pre, .doc pre>code, code {
           background-color: #ECEFF1;
@@ -51,9 +39,9 @@ When possible, the Google AMP Cache will create a subdomain for each AMP documen
 
 Here is AMP Cache URL for `https://ampbyexample.com/components/amp-img`:
 
-<div class="amp-iframe-container"><amp-iframe height="149" 
+<amp-iframe height="149" 
 layout="fixed-height" sandbox="allow-scripts allow-same-origin allow-popups"
-                      src="https://amp-by-example-api.appspot.com/iframe/amp-url-converter.html?url=https://ampbyexample.com/components/amp-img"><amp-img layout="fixed-height" height="88" src="https://ampbyexample.comm/img/pixel-white.png" placeholder></amp-img></amp-iframe></div>
+                      src="https://amp-by-example-api.appspot.com/iframe/amp-url-converter.html?url=https://ampbyexample.com/components/amp-img"><div placeholder></div></amp-iframe>
 
 The converted AMP Cache URL consists of the following parts:
 

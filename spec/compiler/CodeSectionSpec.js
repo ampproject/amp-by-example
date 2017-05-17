@@ -16,7 +16,7 @@
 
 describe("CodeSection", function() {
 
-  var CodeSection = require('../../tasks/lib/CodeSection');
+  var CodeSection = require('../../lib/CodeSection');
 
   beforeEach(function() {
     section = new CodeSection();
@@ -248,6 +248,40 @@ describe("CodeSection", function() {
       expect(section.code).toEqual(
         "<h1>Hello</h1>\n" +
         "xx<h1>Hello</h1>\n"
+      );
+    });
+  });
+  describe('wrapper divs', function(){
+    it('strips enclosing div', function() {
+      section.appendCode("<div>");
+      section.appendCode("<h1>Hello</h1>");
+      section.appendCode("</div>");
+      expect(section.escapedCode()).not.toContain(
+        "div"
+      );
+    });
+    it('strips enclosing div with whitespace', function() {
+      section.appendCode("  <div>   ");
+      section.appendCode("<h1>Hello</h1>");
+      section.appendCode("   </div>   ");
+      expect(section.escapedCode()).not.toContain(
+        "div"
+      );
+    });
+    it('ignores divs with classes', function() {
+      section.appendCode('<div class="test">');
+      section.appendCode("Hello");
+      section.appendCode("</div>");
+      expect(section.escapedCode()).toContain(
+        "div"
+      );
+    });
+    it('ignores divs with ids', function() {
+      section.appendCode('<div id="test">');
+      section.appendCode("Hello");
+      section.appendCode("</div>");
+      expect(section.escapedCode()).toContain(
+        "div"
       );
     });
   });

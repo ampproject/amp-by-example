@@ -54,7 +54,7 @@
   <section id="amp-bind-sample">
     <!-- ## Configuring initial state -->
     <!--
-      `amp-bind` works by binding elements to implicit JSON "state". This state can
+      `amp-bind` works by binding elements to an implicit JSON "state". This state can
       be initialized with one or more &lt;amp-state&gt; components.
     -->
     <amp-state id="allAnimals">
@@ -75,7 +75,7 @@
     </amp-state>
 
     <!--
-      Referencing implicit state in binding expressions is done by dot or bracket
+      Referencing implicit state in binding expressions is done using dot or bracket
       syntax, starting with the &lt;amp-state&gt; element's `id`, e.g.
       `allAnimals.dog.imageUrl` or `allAnimals['cat']['imageUrl']`.
 
@@ -96,9 +96,9 @@
       3. [Element-specific attributes](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md#bindable-attributes),
       for example, the `src` attribute for `amp-img` or `amp-video`.
 
-      To create a binding, create a new attribute on an element with the form:
+      To create a binding, create a new attribute on an element with the syntax:
 
-      `[property]="expression"`
+      `[attribute]="expression"`
 
     -->
 
@@ -113,19 +113,19 @@
 
     <!-- ## Binding Styles -->
     <!--
-      Styling can be changed by applying css classes. It will override all the element's style classes. `allAnimals` is the `id` of the `amp-state` component above.
+      Styling can be changed by applying CSS classes, which will override all the element's style classes. In the next example, `allAnimals` is the `id` of the `amp-state` component above and we use bracket notation because `currentAnimal` is a variable.
     -->
     <p [class]="allAnimals[currentAnimal].style" class="greenBackground">Each animal has a different background color.</p>
     <!-- ## Binding Attribute Values -->
     <!--
-      Various AMP components support binding attribute values with amp-bind. For example, `amp-img` URLs can be changed.
+      Various AMP components support binding attribute values with `amp-bind`. For example, `amp-img` URLs can be changed.
     -->
     <amp-img src="/img/Border_Collie.jpg" layout="responsive" width="300" height="200"
                                                                           [src]="allAnimals[currentAnimal].imageUrl">
     </amp-img>
 
     <!--
-      The src URL for videos embedded with `amp-video` can be changed. At the moment, among all the AMP video components, only amp-video supports amp-bind.
+      The src URL for videos embedded with `amp-video` can also be changed. At the moment, among all the AMP video components, only `amp-video` supports `amp-bind`.
     -->
     <amp-video src="/video/dog-video.mp4" layout="responsive" [src]="allAnimals[currentAnimal].videoUrl" width="300" height="170" autoplay controls="true"></amp-video>
 
@@ -139,7 +139,7 @@
       `amp-state` components
     -->
     <button class="ampstart-btn caps m1"
-            on="tap:AMP.setState(currentAnimal='cat')">Set to Cat</button>
+            on="tap:AMP.setState({currentAnimal: 'cat'})">Set to Cat</button>
   </section>
 </body>
 </html>

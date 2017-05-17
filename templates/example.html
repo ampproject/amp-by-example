@@ -30,12 +30,14 @@
         {{/github}}
 
         <div class="www-index-header-action mx-auto">
+          {{^metadata.disablePlayground}}
           <a class="ampstart-btn ampstart-btn-secondary caps mb1 mx2 xs-hide sm-hide text-decoration-none inline-block"
-            href="/playground/#url={{host}}{{urlSource}}">Open in Playground</a>
-          {{#metadata.preview}}
+             href="/playground/#url={{host}}{{section}}{{urlSource}}">Open in Playground</a>
+          {{/metadata.disablePlayground}}
+          {{#urlPreview}}
           <a class="ampstart-btn ampstart-btn-secondary caps mb1 mx2 text-decoration-none inline-block"
-            href="preview">View Demo</a>
-          {{/metadata.preview}}
+             href="{{section}}{{urlPreview}}">View Demo</a>
+          {{/urlPreview}}
       </div>
     </header>
     {{/isEmbed}}
@@ -63,12 +65,12 @@
       </section>
       {{/metadata.experiments.length}} {{/isEmbed}}
 
-      {{#sections}}
+      {{#document.sections}}
       {{^metadata.hideDoc}} {{#markedDoc}}
       <section class="www-component-desc">
           {{{markedDoc}}}
           {{^isEmptyCodeSection}}
-          <div>
+          <div class="abe-code-container">
             <div class="abe-code-preview ampstart-card mb1">
               {{^metadata.hidePreview}}{{#showPreview}}
               <h3 class="abe-code px1 pt1 caps h4 mb1">Example</h3>
@@ -76,7 +78,7 @@
                 {{{preview}}}
               </div>
               {{/showPreview}}{{/metadata.hidePreview}}
-              <div class="abe-code fit px1 pb1 {{^showPreview}}p1{{/showPreview}}">
+              <div class="abe-code fit px1 pb1 {{^showPreview}}p1{{/showPreview}} {{#metadata.hidePreview}}p1{{/metadata.hidePreview}} ">
                 <pre class="hljs html p0 m0">{{{escapedCode}}}</pre>
               </div>
             </div>
@@ -84,7 +86,7 @@
           {{/isEmptyCodeSection}}
         </section>
       {{/markedDoc}} {{/metadata.hideDoc}}
-      {{/sections}}
+      {{/document.sections}}
 
     </article>
     <aside class="col-2 xs-hide"></aside>
