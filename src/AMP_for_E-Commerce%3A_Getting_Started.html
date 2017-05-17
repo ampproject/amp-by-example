@@ -58,7 +58,7 @@
   <!-- 
     ## Product pages
 
-    It's possible with AMP to create beautiful and interactive product pages. [This sample](/samples_templates/product_page/preview/) demonstrates how to build a complex product page with dynamic product configuration and add-to-cart flow. With the introduction of [amp-bind](/components/amp-bind/) it's now possible to create truly interactive AMP pages: : it can be used to coordinate page state based on user interaction to show and hide arbitrary divs. 
+    It's possible with AMP to create beautiful and interactive product pages. [This sample](/samples_templates/product_page/preview/) demonstrates how to build a complex product page with dynamic product configuration and an add-to-cart flow. With the introduction of [amp-bind](/components/amp-bind/) it's now possible to create truly interactive AMP pages: it can be used to coordinate page state based on user interaction to show and hide arbitrary divs. 
 
 
     <div class="ampstart-mobile-frame xs-hide relative">
@@ -72,7 +72,7 @@
 
     These samples help you getting started with building a product landing page with AMP: 
 
-    * **Product gallery:** with [amp-carousel](/components/amp-carousel/) and [amp-bind](/components/amp-bind) it is easy to create sophisticated image galleries. [Here](/advanced/image_galleries_with_amp-carousel/) are some samples how to implement image gallieries with captions and thumbnails in AMPHTML.
+    * **Product gallery:** with [amp-carousel](/components/amp-carousel/) and [amp-bind](/components/amp-bind) it is easy to create sophisticated image galleries. [Here](/advanced/image_galleries_with_amp-carousel/) are some samples how to implement image galleries with captions and thumbnails in AMPHTML.
     * **Product configuration:** use [amp-selector](/components/amp-selector) and [amp-bind](/components/ampbind) for advanced product configuration. For an advanced version see the [sample product page](/samples_templates/product_page/preview/).
     * **Add to Cart:** the [product sample](/samples_templates/product_page/preview/) demonstrates a fully functional add-to-cart flow which works across different origins.
     * **Tabs:** can be easily implemented by combining [amp-selector](/components/amp-selector/) with a flex layout. [Here](/advanced/tab_panels_with_amp-selector/) is a sample.
@@ -81,9 +81,9 @@
     * **Comments / reviews:** comment or review submission can be implemented using [amp-form](/components/amp-form). Combine with [amp-access](/components/amp-access/) if a user login is required. [Here](/samples_templates/comment_section/preview/) is a sample combining both.
 
 
-    ## Category Pages
+    ## Product Category Page
 
-    Product category pages are very well suited for AMP. The content is typically static and geared toward offering the best showcase of available products. [Here](/samples_templates/product_browse_page/preview/) is a working sample of a product pages demonstrating common features of a category pages such as product listings or search.
+    As popular landing pages for users, product category pages are well suited for AMP. They are often a mix of editorial content and the hero-style presentation of products. [Here](/samples_templates/product_browse_page/preview/) is a working sample of a product pages demonstrating common features of a category pages such as product listings or search.
 
     <div class="ampstart-mobile-frame xs-hide relative">
     <amp-img src="https://ampstart.com/img/www/mobile.svg" width="458" height="806" alt="Mobile outline" layout="responsive" class="absolute top-0 left-0 right-0 bottom-0"></amp-img>
@@ -95,13 +95,13 @@
 
     Soon, it will be possible to create even better category pages with AMP:
 
-    * **Product search:** use [amp-form](/components/amp-form/) to implement a search form. You can serve search results either on a different page (which must not be AMP) or, even better, render search results directly inside the current page. Soon it will be even possible to provide autocomplete suggestions.  
+    * **Product search:** use [amp-form](/components/amp-form/) to implement a search form. You can serve search results either on a different page (which may not be AMP) or, even better, render search results directly inside the current page. Soon it will be even possible to provide autocomplete suggestions.  
     * **Product filtering and sorting:** client-side sorting and filtering is going to be supported soon [amp-sort](https://github.com/ampproject/amphtml/issues/8691) and [amp-filter](https://github.com/ampproject/amphtml/issues/9113). Until then you can always fallback to handling this server-side. 
 
 
     ## Dynamic Content
 
-    AMPs can be served from [AMP Caches](https://developers.google.com/amp/cache/overview) on a different origin, for example, when they're served in Google Search results. This makes it necessary to consider the AMP Cache's caching strategy when implementing AMPs:
+    AMPs can be served from an [AMP Cache](https://developers.google.com/amp/cache/overview) on a different origin, for example, when they're served in Google Search results. This makes it necessary to consider the AMP Cache's caching strategy when implementing AMPs:
 
     > The (AMP) cache follows a "stale-while-revalidate" model. It uses the origin's caching headers, such as `Max-Age`, as hints in deciding whether a particular document or resource is stale. When a user makes a request for something that is stale, that request causes a new copy to be fetched, so that the next user gets fresh content.
     [[source](https://developers.google.com/amp/cache/overview)]
@@ -117,18 +117,18 @@
   </amp-list>
   <!--
     <div class="ampstart-card info">
-    **Best Practice:** use multiple `amp-list` instances with a single shared JSON endpoint to benefit from the AMP runtimes request caching and avoid multiple requests to JSON endpoints.
+    **Best Practice:** use multiple `amp-list` instances with a single shared JSON endpoint to benefit from the AMP runtimes request caching and avoid multiple requests to this JSON endpoints.
     </div>
 
     Another approach is to use [amp-bind](/components/amp-bind/) with a JSON endpoint, This works well if up-to-date data needs to be available after an user interaction, for example, a hotel page displays room availability when the user selects specific dates.
   -->
   <div class="p1">
     <amp-state id="products" src="<%host%>/json/products.json"></amp-state>
-    <amp-img on="tap:AMP.setState({ productId: 0})" src="/img/red_apple_1_60x40.jpg" width="60" height="40"> 
+    <amp-img on="tap:AMP.setState({ productId: 0})" src="/img/red_apple_1_60x40.jpg" width="60" height="40" role="button" tabindex="0"> 
     </amp-img>
-    <amp-img on="tap:AMP.setState({ productId: 1})" src="/img/green_apple_1_60x40.jpg" width="60" height="40"> 
+    <amp-img on="tap:AMP.setState({ productId: 1})" src="/img/green_apple_1_60x40.jpg" width="60" height="40" role="button" tabindex="0"> 
     </amp-img>
-    <amp-img on="tap:AMP.setState({ productId: 2})" src="/img/product1_alt1_60x40.jpg" width="60" height="40"> 
+    <amp-img on="tap:AMP.setState({ productId: 2})" src="/img/product1_alt1_60x40.jpg" width="60" height="40" role="button" tabindex="0"> 
     </amp-img>
     <div [text]="products[productId] + ' available'">Please select a product</div>
   </div>
@@ -162,7 +162,7 @@
     To avoid user frustration make it possible for users to initiate checkout directly from withing your AMP pages. 
     Here are three ways you can handle checkout in AMP pages:
 
-    * In Chrome you can use the payments requests API. Checkout the [payments sample](/advanced/payments_in_amp/preview/) to see how it works. 
+    * In Chrome you can use the Payments Requests API. Checkout the [payments sample](/advanced/payments_in_amp/preview/) to see how it works. 
     * Implement your checkout flow inside your AMP pages using [amp-form](/components/amp-form).
     * Re-direct users to the checkout flow on your website. Important: make the transition as seamless as possible, in particular, don't let users enter the same information twice.
 
@@ -173,7 +173,7 @@
 
     ## Analytics
 
-    Make sure to measure how users engange with your AMP Pages using [amp-analytics](https://www.ampproject.org/docs/reference/components/amp-analytics). **Important:** test your analytics integration and make sure that AMP traffic is correctly attributed, in particular if the AMP is served from a different origin. For testing, you can [load your AMPs via the Google AMP Cache](https://ampbyexample.com/advanced/using_the_google_amp_cache/).
+    Make sure to measure how users engage with your AMP Pages using [amp-analytics](https://www.ampproject.org/docs/reference/components/amp-analytics). **Important:** test your analytics integration and make sure that AMP traffic is correctly attributed, in particular if the AMP is served from a different origin. For testing, you can [load your AMPs via the Google AMP Cache](https://ampbyexample.com/advanced/using_the_google_amp_cache/).
 
     <div class="ampstart-card info">
     **Best Practice:** treat your AMPs as a different platform similar to like you would treat an email campaign. Make sure to properly attribute links from your AMPs back to your website.
