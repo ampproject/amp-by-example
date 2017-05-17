@@ -225,7 +225,8 @@ module.exports = function(config, indexPath, updateTimestamp) {
       compileTemplate(stream, example, args, {
         template: config.templates.example,
         targetPath: example.targetPath(),
-        isEmbed: false
+        isEmbed: false,
+        postProcessor: replaceAmpAdRuntime
       });
 
       // compile embed
@@ -328,7 +329,10 @@ module.exports = function(config, indexPath, updateTimestamp) {
     const document = example.document;
     const inputFile = example.file;
     args.isEmbed = options.isEmbed;
-    const sampleHtml = pageTemplates.render(options.template, args);
+    let sampleHtml = pageTemplates.render(options.template, args);
+    if (options.postProcessor) {
+      sampleHtml = options.postProcessor(document, sampleHtml);
+    }
     args.isEmbed = false;
     const sampleFile = inputFile.clone({contents: false});
     sampleFile.path = path.join(inputFile.base, options.targetPath);
@@ -359,6 +363,10 @@ module.exports = function(config, indexPath, updateTimestamp) {
       return a.filePath.localeCompare(b.filePath);
     });
     return examples;
+  }
+
+  function replaceAmpAdRuntime(document, string) {
+    return string.replace("https://amp-ads.firebaseapp.com/dist/amp-inabox.js", "https://cdn.ampproject.org/v0.js");
   }
 
   function clone(obj) {
