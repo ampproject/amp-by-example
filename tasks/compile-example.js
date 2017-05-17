@@ -247,6 +247,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
         args.height = document.metadata.height || config.a4a.defaultHeight;
         args.layout = document.metadata.layout || config.a4a.defaultLayout;
         args.adContainerHeight = args.height;
+        args.force3p = document.metadata.force3p || config.a4a.defaultForce3p;
         args.a4aEmbedUrl = example.urlSource();
       }
 
