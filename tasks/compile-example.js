@@ -365,11 +365,11 @@ module.exports = function(config, indexPath, updateTimestamp) {
     return examples;
   }
 
-  fuction replaceAmpAdRuntime(document, string) {
+  function replaceAmpAdRuntime(document, string) {
     if (!document.isAmpAdSample()) {
       return string;
     }
-    return string.replace("https://amp-ads.firebaseapp.com/dist/amp-inabox.js", "https://cdn.ampproject.org/v0.js");
+    return string.replace("https://amp-ads.firebaseapp.com/dist/amp-inabox.js", "https://amp-ads.firebaseapp.com/dist/amp.js");
   }
 
   function clone(obj) {
