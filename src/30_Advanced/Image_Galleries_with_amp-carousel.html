@@ -75,37 +75,6 @@
       border-style: solid;
     }
   </style>
-  <!-- ## Metadata
-    The Top Stories carousel requires schema.org markup for one of the following types: Article, NewsArticle, BlogPosting, or VideoObject. If your Image Gallery is also a NewsArticle, you may want to mark it up as such
-  -->
-  <script type="application/ld+json">
-  [
-    {
-      "@context": "http://schema.org",
-      "@type": "NewsArticle",
-      ...
-    },
-    {
-      "@context": "http://schema.org",
-      "@type": "ImageGallery",
-      "associatedMedia": [
-        {
-          "@context": "http://schema.org",
-          "@type": "ImageObject",
-          "contentUrl": "https://unsplash.it/60/40?image=1",
-          "caption": "A cute pup"
-        },
-        {,
-          "@context": "http://schema.org",
-          "@type": "ImageObject",
-          "contentUrl": "https://unsplash.it/60/40?image=2",
-          "caption": "A doubly cute pup"
-        },
-      ],
-    }
-  ]
-  
-  </script>
 </head>
 <body>
 
@@ -275,6 +244,36 @@ first described in text and paintings in medieval times.
       <button on="tap:carousel-with-carousel-preview.goToSlide(index=17)"><amp-img src="https://unsplash.it/60/40?image=117" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
     </amp-carousel>
   </div>
+  <!-- ## Metadata
+    The Top Stories carousel requires schema.org markup for one of the following types: Article, NewsArticle, BlogPosting, or VideoObject. If your Image Gallery is also a NewsArticle, you may want to mark it up as such
+  -->
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "http://schema.org",
+      "@type": "NewsArticle",
+      ...
+    },
+    {
+      "@context": "http://schema.org",
+      "@type": "ImageGallery",
+      "associatedMedia": [
+        {
+          "@context": "http://schema.org",
+          "@type": "ImageObject",
+          "contentUrl": "https://unsplash.it/60/40?image=1",
+          "caption": "A cute pup"
+        },
+        {,
+          "@context": "http://schema.org",
+          "@type": "ImageObject",
+          "contentUrl": "https://unsplash.it/60/40?image=2",
+          "caption": "A doubly cute pup"
+        },
+      ],
+    }
+  ]
+  </script>
 
 </body>
 </html>
