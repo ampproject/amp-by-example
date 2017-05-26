@@ -121,23 +121,27 @@
     <p [class]="allAnimals[currentAnimal].style" class="greenBackground">Each animal has a different background color.</p>
     <!-- ## Binding Attribute Values -->
     <!--
-      Various AMP components support binding attribute values with `amp-bind` and here it follows
-      a list of samples.
-      - `amp-img` URLs can be changed.
+      Various AMP components support binding attribute values with `amp-bind`:
+      - [amp-img](/components/amp-bind#amp-img)
+      - [amp-video](/components/amp-bind#amp-video)
+      - [amp-iframe](/components/amp-bind#amp-iframe)
     -->
-    <amp-img src="/img/Border_Collie.jpg" layout="responsive" width="300" height="200"
+    <!--
+      `amp-img` URLs can be changed.
+    -->
+    <amp-img id="amp-img" src="/img/Border_Collie.jpg" layout="responsive" width="300" height="200"
                                                                           [src]="allAnimals[currentAnimal].imageUrl">
     </amp-img>
 
     <!--
-      - The `src` URL for videos embedded with `amp-video` can be changed. At the moment, among all the AMP video components, only `amp-video` supports `amp-bind`.
+      The `src` URL for videos embedded with `amp-video` can be changed. At the moment, among all the AMP video components, `amp-video` and `amp-youtube` support `amp-bind`.
     -->
-    <amp-video src="/video/dog-video.mp4" layout="responsive" [src]="allAnimals[currentAnimal].videoUrl" width="300" height="170" autoplay controls="true"></amp-video>
+    <amp-video id="amp-video" src="/video/dog-video.mp4" layout="responsive" [src]="allAnimals[currentAnimal].videoUrl" width="300" height="170" autoplay controls="true"></amp-video>
 
     <!--
-      - The `src` for iframes embedded with `amp-iframe` can be changed.
+      The `src` for iframes embedded with `amp-iframe` can be changed.
     -->
-    <amp-iframe width="500" height="281"
+    <amp-iframe id="amp-iframe" width="500" height="281"
                             layout="responsive"
                             sandbox="allow-scripts allow-same-origin allow-popups"
                             allowfullscreen
