@@ -77,19 +77,19 @@
 
 
   -->
-  <div class="fixed-panel" width="180">
+  <div class="fixed-panel">
     <div>
       <span>Adjust Aspect Ratio:</span>
-      <button layout="flex-item" on="tap:AMP.setState({deviceClass: 'vtphone'})">Set to Vertical Phone</button>
-      <button layout="flex-item" on="tap:AMP.setState({deviceClass: 'desktop'})">Set to Desktop</button>
-      <button layout="flex-item" on="tap:AMP.setState({deviceClass: 'hzphone'})">Set to Horizontal Phone</button>
-      <button layout="flex-item" on="tap:AMP.setState({deviceClass: ''})">Set to Square</button>
+      <button on="tap:AMP.setState({deviceClass: 'vtphone'})">Set to Vertical Phone</button>
+      <button on="tap:AMP.setState({deviceClass: 'desktop'})">Set to Desktop</button>
+      <button on="tap:AMP.setState({deviceClass: 'hzphone'})">Set to Horizontal Phone</button>
+      <button on="tap:AMP.setState({deviceClass: ''})">Set to Square</button>
     </div>
     <div>
       <span>Adjust Size:</span>
-      <button layout="flex-item" on="tap:AMP.setState({sizeClass: 'half'})">Half size</button>
-      <button layout="flex-item" on="tap:AMP.setState({sizeClass: ''})">Regular size</button>
-      <button layout="flex-item" on="tap:AMP.setState({sizeClass: 'double'})">Double size</button>
+      <button on="tap:AMP.setState({sizeClass: 'half'})">Half size</button>
+      <button on="tap:AMP.setState({sizeClass: ''})">Regular size</button>
+      <button on="tap:AMP.setState({sizeClass: 'double'})">Double size</button>
     </div>
   </div>
 
