@@ -5,8 +5,16 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     {{> head.html}}
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-  <script async src="https://cdn.ampproject.org/v0.js"></script>
-    <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+    {{#metadata.adSlot}}
+      <script async src="https://cdn.ampproject.org/v0.js"></script>
+      <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+    {{/metadata.adSlot}}
+    {{^metadata.adSlot}}
+      <!-- TODO(aghassemi,#9311): Remove when A4A can be embeded using prod binaries -->
+      <script async src="https://amp-ads.firebaseapp.com/dist/amp.js"></script>
+      <script async custom-element="amp-ad" src="https://amp-ads.firebaseapp.com/dist/v0/amp-ad-0.1.max.js"></script>
+      <script async custom-element="amp-ad-fake" src="https://amp-ads.firebaseapp.com/dist/v0/amp-ad-network-fake-impl-0.1.max.js"></script>
+    {{/metadata.adSlot}}
     <style amp-custom>
       {{> css/code.css}}
       {{> css/ampstart.css}}
@@ -14,20 +22,9 @@
       {{> css/preview.css}}
       .abe-amp-ad-container {
         background: #f6f6f6;
-        border-top: 1px solid #dfdfdf;
-        float: right;
-        margin: 0 1rem 1rem 1rem;
+        margin: 0 auto 1rem auto;
         height: {{adContainerHeight}}px;
         width: {{width}}px;
-      }
-      .abe-amp-ad-container::before {
-        content: "{{subHeading}} Preview";
-        display: block;
-        font-size: 11px;
-        line-height: 16px;
-        padding: 3px 8px;
-        color: #6e6e6e;
-        text-align: left;
       }
       .a4a-ad-container amp-iframe {
         border: 0;
@@ -36,64 +33,147 @@
         border: none;
         overflow: hidden;
       }
+      #abe-preview {
+        max-width: 700px;
+        margin: 0 auto;
+        {{^isEmbed}}
+        margin-top: 56px;
+        {{/isEmbed}}
+      }
       #abe-preview p {
         color: #7b7b7b;
       }
-      @media (max-width: 550px) {
-        .abe-amp-ad-container {
-          clear: both;
-          float: none;
+      @media (min-width: 1024px) {
+        #abe-scroll-to-reveal {
+          overflow: hidden;
           text-align: center;
-          margin-right: auto;
-          margin-left: auto;
+          display: block;
+          left: calc(50vw - 350px - 120px);
+          top: 4rem;
+          color: #b60845;
+          position: fixed;
+        }
+      }
+      @media (min-width: 1280px) {
+        #abe-experimental-warning {
+          position: fixed;
+          top: 104px;
+        }
+        #abe-experimental-warning {
+          width: 270px;
+          left: calc(50vw + 350px + 16px)
+        }
+      }
+      @media (min-width: 1280px) {
+        #abe-experimental-warning {
+          width: 260px;
+          left: calc(50vw + 350px + 16px)
+        }
+      }
+      @media (min-width: 1440px) {
+        #abe-experimental-warning {
+          width: 280px;
+          left: calc(50vw + 350px + 32px)
+        }
+      }
+      @media (max-width: 1023px) {
+        #abe-scroll-to-reveal svg {
+          display: none;
+        }
+        #abe-scroll-to-reveal {
+          position: absolute;
+          top: calc(75vh - 64px);
+          left: calc(50vw - 64px);
+          margin: 0 auto;
+          vertical-align: middle;
+          border-radius: 50%;
+          margin: auto;
+          padding: 0;
+          box-shadow: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+          z-index: 10;
+          height: 128px;
+          width: 128px;
+          min-width: 56px;
+          background-color: #b60845;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          animation: 1s scrollOut ease-in 2s forwards;
+        }
+        @keyframes scrollOut {
+          0%   {
+            opacity: 1;
+          }
+          100% {
+            opacity: 0;
+            /* transform: translateY(-100vh);       */
+          }
         }
       }
     </style>
   </head>
   <body>
-      <div id="abe-preview-header" class="ampstart-headerbar fixed flex justify-start items-center top-0 left-0 right-0 pl2 pr4">
-        <a href=".." class="caps text-decoration-none">
-          <i class="align-middle inline-block mr1"><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-              <path d="M0 0h24v24H0z" fill="none"/>
-            </svg></i>
-        </a>
-        <h1 id="abe-preview-header-title" class="h3 center truncate caps">Demo: {{subHeading}}</h1>
-      </div>
+    {{^isEmbed}}
+    <div id="abe-preview-header" class="ampstart-headerbar fixed flex justify-start items-center top-0 left-0 right-0 pl2 pr4">
+      <a href=".." class="caps text-decoration-none">
+        <i class="align-middle inline-block mr1"><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+          </svg></i>
+      </a>
+      <h1 id="abe-preview-header-title" class="h3 center truncate caps">{{subHeading}}</h1>
+    </div>
+    {{/isEmbed}}
     <div id="abe-preview" class="ampstart-card p1">
-      <h1>{{subHeading}}</h1>
-      <div class="ampstart-card abe-info p1 my2">This example is to showcase the <a href="https://github.com/ampproject/amphtml/blob/master/extensions/amp-a4a/amp-a4a-format.md">AMP ad creative format</a>. The demo features an actual AMP ad served via Doubleclick for Publishers. </div>
-
-      <p class="pb1 xs-hide sm-hide">
-      Lorem ipsum dolor sit amet, etiam mattis ullamcorper lacinia integer et, nec aliquam libero, vel duis pretium hendrerit eget lacus, nullam massa rhoncus vel congue luctus porta. Amet cursus integer lacus mi pede, turpis dictumst nunc dolor donec tortor, enim velit elementum, mollis elit purus vestibulum eget amet ipsum. Ipsum placerat neque voluptatem arcu in integer, dolor sem quisque, mattis nulla massa ipsum enim cursus ut, etiam per adipiscing mauris tellus tortor, sapien maecenas pharetra amet ut felis. </p>
+      {{^isEmbed}}
+      {{#metadata.scrollToReveal}}
+      <div id="abe-scroll-to-reveal" class="p1 my2">
+        <svg class="m1" xmlns="http://www.w3.org/2000/svg" width="36px" height="36px" viewBox="0 0 24 24" fill="#b60845">
+          <path fill="none" d="M0 0h24v24H0V0z"/>
+          <path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/>
+        </svg>
+        <div class="center">scroll<br>to<br>reveal</div>
+      </div>
+      {{/metadata.scrollToReveal}}
+      <aside id="abe-experimental-warning" class="ampstart-card abe-info p1 my2">This example is to showcase the <a href="https://github.com/ampproject/amphtml/blob/master/extensions/amp-a4a/amp-a4a-format.md">AMP ad creative format</a>. The demo features an actual AMP ad served via Doubleclick for Publishers. </aside>
+      {{/isEmbed}}
+      {{#metadata.scrollToReveal}}
+      <p class="pb1">Tempor neque nisl in fermentum, nulla duis duis feugiat. Leo aenean sit, laudantium fermentum aliquet sagittis nec ac ac, donec ac tincidunt sollicitudin lacus neque. Morbi tellus autem pede bibendum, natoque maecenas justo ac, nec aliquam taciti, pellentesque nam iaculis eros nec at. Proin in orci. Et eu nec montes rutrum nullam, nunc pharetra gravida elit, consectetuer consequatur, eros dignissim, justo vel suspendisse. Ipsum quis metus ultricies nullam nullam. Quis at luctus sit pede etiam, tellus vitae, maecenas mauris nibh lacinia est augue. Aenean nec cursus aptent sit odio tempor, felis duis nulla vel varius mauris, risus duis ac.</p>
+      <p class="pb1 xs-hide sm-hide">Lorem ipsum dolor sit amet, etiam mattis ullamcorper lacinia integer et, nec aliquam libero, vel duis pretium hendrerit eget lacus, nullam massa rhoncus vel congue luctus porta. Amet cursus integer lacus mi pede, turpis dictumst nunc dolor donec tortor, enim velit elementum, mollis elit purus vestibulum eget amet ipsum. Ipsum placerat neque voluptatem arcu in integer, dolor sem quisque, mattis nulla massa ipsum enim cursus ut, etiam per adipiscing mauris tellus tortor, sapien maecenas pharetra amet ut felis. </p>
+      {{/metadata.scrollToReveal}}
+      <p class="pb1 xs-hide sm-hide">Lorem ipsum dolor sit amet, etiam mattis ullamcorper lacinia integer et, nec aliquam libero, vel duis pretium hendrerit eget lacus, nullam massa rhoncus vel congue luctus porta. Amet cursus integer lacus mi pede, turpis dictumst nunc dolor donec tortor, enim velit elementum, mollis elit purus vestibulum eget amet ipsum. Ipsum placerat neque voluptatem arcu in integer, dolor sem quisque, mattis nulla massa ipsum enim cursus ut, etiam per adipiscing mauris tellus tortor, sapien maecenas pharetra amet ut felis. </p>
       <div class="abe-amp-ad-container">
         {{#metadata.adSlot}}
-        <amp-ad width="{{width}}" height="{{height}}"
-           type="doubleclick"
-           data-slot="{{metadata.adSlot}}">
-        </amp-ad>
+        <amp-ad width="{{width}}"
+                height="{{height}}"
+                type="doubleclick"
+                layout="{{layout}}"
+                data-slot="{{metadata.adSlot}}"></amp-ad>
         {{/metadata.adSlot}}
         {{^metadata.adSlot}}
-        <amp-iframe scrolling="no"
-                    width="{{width}}"
-                    height="250"
-                    sandbox="allow-scripts allow-popups"
-                    frameborder="0"
-                    src="{{a4aEmbedUrl}}">
-          <div placeholder></div>
-        </amp-iframe>
+        <amp-ad layout="{{layout}}"
+          width="{{width}}"
+          height="{{height}}"
+          type="fake"
+          data-use-a4a="true"
+          force3p="{{force3p}}"
+          fakesig="true"
+          disable3pfallback="false"
+          src="{{a4aEmbedUrl}}"></amp-ad>
         {{/metadata.adSlot}}
       </div>
       <p class="pb1">
       Tempor neque nisl in fermentum, nulla duis duis feugiat. Leo aenean sit, laudantium fermentum aliquet sagittis nec ac ac, donec ac tincidunt sollicitudin lacus neque. Morbi tellus autem pede bibendum, natoque maecenas justo ac, nec aliquam taciti, pellentesque nam iaculis eros nec at. Proin in orci. Et eu nec montes rutrum nullam, nunc pharetra gravida elit, consectetuer consequatur, eros dignissim, justo vel suspendisse. Ipsum quis metus ultricies nullam nullam. Quis at luctus sit pede etiam, tellus vitae, maecenas mauris nibh lacinia est augue. Aenean nec cursus aptent sit odio tempor, felis duis nulla vel varius mauris, risus duis ac.</p>
       <p class="pb1">
-Suspendisse duis dolor amet rutrum, dui vitae curabitur sed enim dictum amet, morbi ipsum wisi nibh recusandae ac, molestie donec sed malesuada duis morbi, felis lorem urna. Erat sed mollis nostrum massa et, elit sodales malesuada ut, nonummy dolor enim rutrum enim, volutpat eu neque amet tempor maecenas eu. Sed ut ut suscipit deserunt, velit et non in, eget adipiscing, sed suscipit et ut. Wisi arcu massa mauris tellus sodales erat, vitae sed donec, facilisis eros ante sed ipsum et malesuada, libero hymenaeos. Sit fermentum semper. Mauris mauris magna ut, vitae maecenas ut aliquet ante, ut proin lacus elit a donec, est eros. Vitae sem, a lacus egestas, sit molestie nonummy ut. Ante nunc imperdiet nisl curae, sed duis volutpat lorem ut non. Velit arcu magna imperdiet, placerat quis a diam donec ullamcorper tempus. Ante conubia fermentum, potenti nulla hendrerit, mauris libero augue, nonummy quam tellus fermentum ac mauris, dui ut. At montes, nisl elit nonummy integer turpis aliquam, amet nunc sapien praesent, sed metus quisque sit, iaculis wisi et aliquam nulla. A sollicitudin.</p>
+      Suspendisse duis dolor amet rutrum, dui vitae curabitur sed enim dictum amet, morbi ipsum wisi nibh recusandae ac, molestie donec sed malesuada duis morbi, felis lorem urna. Erat sed mollis nostrum massa et, elit sodales malesuada ut, nonummy dolor enim rutrum enim, volutpat eu neque amet tempor maecenas eu. Sed ut ut suscipit deserunt, velit et non in, eget adipiscing, sed suscipit et ut. Wisi arcu massa mauris tellus sodales erat, vitae sed donec, facilisis eros ante sed ipsum et malesuada, libero hymenaeos. Sit fermentum semper. Mauris mauris magna ut, vitae maecenas ut aliquet ante, ut proin lacus elit a donec, est eros. Vitae sem, a lacus egestas, sit molestie nonummy ut. Ante nunc imperdiet nisl curae, sed duis volutpat lorem ut non. Velit arcu magna imperdiet, placerat quis a diam donec ullamcorper tempus. Ante conubia fermentum, potenti nulla hendrerit, mauris libero augue, nonummy quam tellus fermentum ac mauris, dui ut. At montes, nisl elit nonummy integer turpis aliquam, amet nunc sapien praesent, sed metus quisque sit, iaculis wisi et aliquam nulla. A sollicitudin.</p>
       <p class="pb1">
-Nec morbi. Sed nunc nonummy ac, ipsum eu consequat in donec. Scelerisque amet ante sapiente. Gravida iaculis mauris eu pellentesque in, torquent eu tellus ultricies orci, pellentesque massa bibendum odio purus, ridiculus ullamcorper inceptos ante quis, condimentum fusce. Mollis nonummy arcu aliquet eget eu scelerisque, phasellus amet maecenas sollicitudin, sit mauris risus, pellentesque malesuada sit. Sem posuere vestibulum urna at sed est. Eaque leo nec nec eu ligula, mattis libero mauris eget euismod proin. Vel blandit duis nibh pellentesque qui justo, vestibulum lacinia congue neque, elementum pellentesque porta tempor, donec id sit ipsum mauris volutpat. Mauris suspendisse et. Lacus placerat curabitur pede, sit faucibus ut orci, eu nulla justo vel id vel vel, id augue amet eget vel maecenas pretium. Malesuada felis scelerisque vel ut, nec lobortis, erat donec lorem donec, volutpat duis non augue duis eget porttitor, turpis massa auctor viverra dui dolor aliquam. Lacinia sed urna.</p>
-    {{^isEmbed}}
+      Nec morbi. Sed nunc nonummy ac, ipsum eu consequat in donec. Scelerisque amet ante sapiente. Gravida iaculis mauris eu pellentesque in, torquent eu tellus ultricies orci, pellentesque massa bibendum odio purus, ridiculus ullamcorper inceptos ante quis, condimentum fusce. Mollis nonummy arcu aliquet eget eu scelerisque, phasellus amet maecenas sollicitudin, sit mauris risus, pellentesque malesuada sit. Sem posuere vestibulum urna at sed est. Eaque leo nec nec eu ligula, mattis libero mauris eget euismod proin. Vel blandit duis nibh pellentesque qui justo, vestibulum lacinia congue neque, elementum pellentesque porta tempor, donec id sit ipsum mauris volutpat. Mauris suspendisse et. Lacus placerat curabitur pede, sit faucibus ut orci, eu nulla justo vel id vel vel, id augue amet eget vel maecenas pretium. Malesuada felis scelerisque vel ut, nec lobortis, erat donec lorem donec, volutpat duis non augue duis eget porttitor, turpis massa auctor viverra dui dolor aliquam. Lacinia sed urna.</p>
+      {{^isEmbed}}
     </div>
     {{/isEmbed}}
     {{> analytics.html}}
     {{> serviceworker.html}}
   </body>
 </html>
+

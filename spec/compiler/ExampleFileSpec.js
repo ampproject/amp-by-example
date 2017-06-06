@@ -23,6 +23,10 @@ describe("ExampleFile", function() {
     it('extracts title', function() {
       expect(file.title()).toBe("What's up 100%?");
     });
+    it('strips leading _', function() {
+      expect(ExampleFile.fromPath('src/10_Hello-world/_Hello.html')
+        .targetPath()).toBe("hello-world/hello/index.html");
+    });
     it('extracts url', function() {
       expect(file.url()).toBe("/hello-worlds/whats_up_100/");
     });
@@ -83,6 +87,25 @@ describe("ExampleFile", function() {
     it('returns undefined when the file has no category', function() {
       expect(ExampleFile.fromPath('src/amp-form-error.html').nextFile())  
         .toEqual(null)
+    });
+  });
+
+  describe('section', function() {
+    it('returns parent dir if section', function() {
+      expect(ExampleFile.fromPath('src/amp-ads/10_introduction/hello.html').section().path)  
+        .toEqual('/amp-ads');
+    });
+    it('returns root path if no section', function() {
+      expect(ExampleFile.fromPath('src/10_introduction/hello.html').section().path)  
+        .toEqual('/');
+    });
+    it('returns root path if no category', function() {
+      expect(ExampleFile.fromPath('src/hello.html').section().path)  
+        .toEqual('/');
+    });
+    it('part of url', function() {
+      expect(ExampleFile.fromPath('src/amp-ads/10_introduction/hello.html').url())  
+        .toEqual('/amp-ads/introduction/hello/');
     });
   });
 

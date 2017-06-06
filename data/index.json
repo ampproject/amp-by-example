@@ -2,18 +2,12 @@
   "navbar": {
     "logo": {
       "url": "/img/amp_by_example_logo.svg",
-      "width": "172",
-      "height": "33"
+      "width": "208",
+      "height": "40"
     },
     "name": "AMP by Example",
     "sidebar-id": "header-sidebar",
     "nav": [{
-      "link": {
-        "url": "/",
-        "text": "Examples",
-        "classes": "www-current-page"
-      }
-    }, {
       "link": {
         "url": "/playground/",
         "text": "Playground"

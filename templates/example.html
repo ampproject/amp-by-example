@@ -32,11 +32,11 @@
         <div class="www-index-header-action mx-auto">
           {{^metadata.disablePlayground}}
           <a class="ampstart-btn ampstart-btn-secondary caps mb1 mx2 xs-hide sm-hide text-decoration-none inline-block"
-            href="/playground/#url={{host}}{{urlSource}}">Open in Playground</a>
+             href="/playground/#url={{host}}{{section}}{{urlSource}}">Open in Playground</a>
           {{/metadata.disablePlayground}}
           {{#urlPreview}}
           <a class="ampstart-btn ampstart-btn-secondary caps mb1 mx2 text-decoration-none inline-block"
-             href="{{urlPreview}}">View Demo</a>
+             href="{{section}}{{urlPreview}}">View Demo</a>
           {{/urlPreview}}
       </div>
     </header>
@@ -65,7 +65,7 @@
       </section>
       {{/metadata.experiments.length}} {{/isEmbed}}
 
-      {{#sections}}
+      {{#document.sections}}
       {{^metadata.hideDoc}} {{#markedDoc}}
       <section class="www-component-desc">
           {{{markedDoc}}}
@@ -78,7 +78,7 @@
                 {{{preview}}}
               </div>
               {{/showPreview}}{{/metadata.hidePreview}}
-              <div class="abe-code fit px1 pb1 {{^showPreview}}p1{{/showPreview}}">
+              <div class="abe-code fit px1 pb1 {{^showPreview}}p1{{/showPreview}} {{#metadata.hidePreview}}p1{{/metadata.hidePreview}} ">
                 <pre class="hljs html p0 m0">{{{escapedCode}}}</pre>
               </div>
             </div>
@@ -86,7 +86,7 @@
           {{/isEmptyCodeSection}}
         </section>
       {{/markedDoc}} {{/metadata.hideDoc}}
-      {{/sections}}
+      {{/document.sections}}
 
     </article>
     <aside class="col-2 xs-hide"></aside>
