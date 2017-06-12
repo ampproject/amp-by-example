@@ -98,8 +98,16 @@ func handleLogout(w http.ResponseWriter, r *http.Request) {
 		MaxAge: -1,
 	}
 	http.SetCookie(w, cookie)
-	returnURL := r.URL.Query().Get("return")
+	returnURL := r.URL.Query().Get("returnurl")
 	http.Redirect(w, r, fmt.Sprintf("%s#success=true", returnURL), http.StatusSeeOther)
+}
+
+func handleLogoutButton(w http.ResponseWriter, r *http.Request) {
+	EnableCors(w, r)
+	returnURL := r.URL.Query().Get("return")
+	filePath := path.Join(DIST_FOLDER, "logout.html")
+	t, _ := template.ParseFiles(filePath)
+	t.Execute(w, AccessData{ReturnURL: "returnURL"})
 }
 
 func handleSubmit(w http.ResponseWriter, r *http.Request) {
