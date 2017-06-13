@@ -107,7 +107,7 @@ func handleLogoutButton(w http.ResponseWriter, r *http.Request) {
 	returnURL := r.URL.Query().Get("return")
 	filePath := path.Join(DIST_FOLDER, "logout.html")
 	t, _ := template.ParseFiles(filePath)
-	t.Execute(w, AccessData{ReturnURL: "returnURL"})
+	t.Execute(w, AccessData{ReturnURL: returnURL})
 }
 
 func handleSubmit(w http.ResponseWriter, r *http.Request) {
