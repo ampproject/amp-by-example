@@ -23,6 +23,7 @@ This sample showcases how to build a product browse page in AMP HTML.
   <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
   <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
   <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
 
   <link rel="canonical" href="<%host%>/samples_templates/product_browse_page/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -46,6 +47,31 @@ This sample showcases how to build a product browse page in AMP HTML.
       font-size: 36px;
       max-height: 30%;
       font-weight: 300;
+    }
+    .choose-container {
+      position: relative;
+      z-index: 1;
+    }
+    .choices {
+      list-style-type: none;
+      border-radius: 2px;
+    }
+    .choices-container {
+      background-color: white;
+      position: absolute;
+    }
+    .first-sort-choice {
+      display: inline-block;
+    }
+    .hide {
+      opacity: 0;
+    }
+    .show {
+      opacity: 1;
+    }
+    .c {
+      position: relative;
+      display: inline-block;
     }
   </style>
 
@@ -115,6 +141,69 @@ This sample showcases how to build a product browse page in AMP HTML.
   <p>No products found.</p>
   [[end]]
 </div>
+<amp-state id="products">
+  <script type="application/json">
+  {
+    "sortMenuOpen": "false",
+    "sortChoice": "Price high to low",
+    "sortChoiceValue": "price-descendent",
+    "secondSortChoice": "Price low to high",
+    "secondSortChoiceValue": "price-ascendent",
+    "sortChoiceTemp": "Price high to low",
+    "sortChoiceTempValue": "price-descendent"
+  }
+  </script>
+</amp-state>
+<div class="choose-container">
+    <span class="pl1 pr1"> Sort </span>
+    <div class="c">
+      <p role="button" [text]="products.sortChoice" class="pt1 first-sort-choice" on="tap:AMP.setState({
+          products: {
+            sortMenuOpen: true
+        }
+      })">Price high to low</p>
+      <div class="choices-container">
+          <ul class="choices pl0">
+          <li role="button" [text]="products.secondSortChoice" on="tap:AMP.setState({
+            products: {
+              sortMenuOpen: false,
+              sortChoiceTemp: products.sortChoice,
+              sortChoiceTempValue: products.sortChoiceValue,
+              sortChoice: products.secondSortChoice,
+              sortChoiceValue: products.secondSortChoiceValue,
+              secondSortChoice: products.sortChoiceTemp,
+              secondSortChoiceValue: products.sortChoiceTempValue
+            }
+          })" class="hide" [class]="products.sortMenuOpen == true ? 'show' : ' hide'">Price low to high</li>
+        </ul>
+      </div>
+  </div>
+</div>
+
+<!--<button class="ampstart-btn caps m2" on="tap:AMP.setState({products: {sort: price-descendent}})">
+  Order
+</button>-->
+<amp-list class="items"
+          width="200"
+          height="100"
+          layout="responsive"
+          src="/samples_templates/products?sort=price-descendent&_=RANDOM"
+          [src]="products.sortChoiceValue == 'price-descendent' ? '/samples_templates/products?sort=price-descendent&_=RANDOM' : '/samples_templates/products?sort=price-ascendent&_=RANDOM'">
+  <template type="amp-mustache">
+      <amp-img width="640"
+               height="426"
+               layout="responsive"
+               alt="{{name}}"
+               src="{{img}}"></amp-img>
+             <p class="name">{{name}}</p>
+             <p class="star">{{{stars}}}</p>
+             <p class="price">${{price}}</p>
+    </a>
+  </template>
+</amp-list>
+<p> Choice value<span [text]="products.sortChoiceValue">price-descendent</span></p>
+<p>Temp choice value<span [text]="products.sortChoiceTempValue">price-descendent</span></p>
+<p>Second choice value<span [text]="products.secondSortChoiceValue">price-ascendent</span></p>
 
 <!-- ## Offers & Highlights -->
 <!-- -->

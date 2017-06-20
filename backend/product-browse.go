@@ -25,6 +25,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"sort"
 )
 
 const (
@@ -72,6 +73,7 @@ type JsonRoot struct {
 
 var products []Product
 var cache *LRUCache
+var productsRoot JsonRoot
 
 func InitProductBrowse() {
 	initProducts(DIST_FOLDER + "/json/related_products.json")
@@ -79,9 +81,7 @@ func InitProductBrowse() {
 	RegisterSample("samples_templates/product_browse_page", renderProductBrowsePage)
 	RegisterSample("samples_templates/product_page", renderProduct)
 	RegisterSampleEndpoint("samples_templates/product_browse_page", SEARCH, handleSearchRequest)
-	http.HandleFunc(ADD_TO_CART_PATH, func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, addToCart)
-	})
+	http.HandleFunc("/samples_templates/products", handleProductsRequest)
 	cache = NewLRUCache(100)
 }
 
@@ -133,6 +133,7 @@ func initProducts(path string) {
 	if err != nil {
 		panic(err)
 	}
+	productsRoot = root
 	products = root.Products
 }
 
@@ -219,4 +220,46 @@ func findProducts(query string) []Product {
 func handleSearchRequest(w http.ResponseWriter, r *http.Request, page Page) {
 	route := page.Route + "?" + SEARCH + "=" + r.FormValue(SEARCH)
 	http.Redirect(w, r, route, http.StatusSeeOther)
+}
+
+func handleProductsRequest(w http.ResponseWriter, r *http.Request) {
+	jsonProducts, err := json.Marshal(productsRoot)
+ 	if err != nil {
+	 http.Error(w, err.Error(), http.StatusInternalServerError)
+	 return
+ }
+ sortQuery := r.URL.Query().Get("sort")
+ if sortQuery == "price-descendent" {
+	 sort.Sort(ByPriceDesc(products))
+ } else {
+	 sort.Sort(ByPriceAsc(products))
+ }
+  w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonProducts)
+}
+
+type ByPriceAsc []Product
+
+func (a ByPriceAsc) Len() int           { return len(a) }
+func (a ByPriceAsc) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByPriceAsc) Less(i, j int) bool {
+	price1, err1 := strconv.ParseFloat(a[i].Price, 64)
+	price2, err2 := strconv.ParseFloat(a[j].Price, 64)
+	if err1 != nil || err2 != nil {
+		return false
+	}
+	return price1 < price2
+}
+
+type ByPriceDesc []Product
+
+func (a ByPriceDesc) Len() int           { return len(a) }
+func (a ByPriceDesc) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByPriceDesc) Less(i, j int) bool {
+	price1, err1 := strconv.ParseFloat(a[i].Price, 64)
+	price2, err2 := strconv.ParseFloat(a[j].Price, 64)
+	if err1 != nil || err2 != nil {
+		return false
+	}
+	return price1 > price2
 }
