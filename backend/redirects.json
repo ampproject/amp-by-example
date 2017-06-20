@@ -72,5 +72,8 @@
   "target": "/samples_templates/product_page/"
 }, {
   "source": "/ecommerce",
-  "target": "/amp_for_e-commerce%3A_getting_started/"
+  "target": "/amp_for_e-commerce_getting_started/"
+}, {
+  "source": "/advanced/integrating_videos_in_amp:_an_overview/",
+  "target": "/advanced/integrating_videos_in_amp_an_overview/"
 }]
