@@ -163,11 +163,11 @@ first described in text and paintings in medieval times.
   set by bind when `selectedSlide` changes.
   -->
   <amp-carousel controls width="400" height="100">
-    <amp-img src="/img/image1.jpg" width="100" height="75"
+    <amp-img src="/img/image1.jpg" width="100" height="75" role="button" tabindex="0"
         [class]="selectedSlide == 0 ? 'selected' : ''" on="tap:AMP.setState({selectedSlide: 0})"></amp-img>
-    <amp-img src="/img/image2.jpg" width="100" height="75"
+    <amp-img src="/img/image2.jpg" width="100" height="75" role="button" tabindex="1"
         [class]="selectedSlide == 1 ? 'selected' : ''" on="tap:AMP.setState({selectedSlide: 1})"></amp-img>
-    <amp-img src="/img/image3.jpg" width="100" height="75"
+    <amp-img src="/img/image3.jpg" width="100" height="75" role="button" tabindex="2"
         [class]="selectedSlide == 2 ? 'selected' : ''" on="tap:AMP.setState({selectedSlide: 2})"></amp-img>
   </amp-carousel>
 
