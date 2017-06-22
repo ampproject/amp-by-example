@@ -70,8 +70,16 @@
     The `amp-form` component displays `submit-success` or `submit-error` elements based on the response and
     renders the template data inside these two elements. The `submit-success` and `submit-error` elements
     must be direct children of `form`.
+
+    The amp-form extension allows you to build your own custom validation UI by using the `custom-validation-reporting`,
+    read [here](https://www.ampproject.org/docs/reference/components/amp-form#custom-validations) about the possible strategies;
+    in the sample below we will use the `show-all-on-submit` strategy to ensure all the errors are shown when the user submits the form.
   -->
-  <form method="post" class="p2" action-xhr="/components/amp-form/submit-form-input-text-xhr" target="_top">
+  <form method="post"
+        class="p2"
+        action-xhr="/components/amp-form/submit-form-input-text-xhr"
+        target="_top"
+        custom-validation-reporting="show-all-on-submit">
     <div class="ampstart-input inline-block relative m0 p0 mb3">
       <input type="text" class="block border-none p0 m0" name="name" placeholder="Name..." required>
       <input type="email" class="block border-none p0 m0" name="email" placeholder="Email..." required>
