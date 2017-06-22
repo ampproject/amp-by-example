@@ -25,7 +25,8 @@
   {
     "vendor": "laterpay",
     "laterpay": {
-      "articleTitleSelector": ".preview > h3"
+      "articleTitleSelector": ".preview > h3",
+      "sandbox": true
     }
   }
   </script>
@@ -43,8 +44,11 @@
   </section>
 
   <!-- This section is only shown if the value of the `access` and `error` attributes 
-  on the response for the authorization requests both evaluate to `FALSE`-->
+  on the response for the authorization requests both evaluate to `FALSE`
+  The LaterPay dialog with the different purchase options will be rendered here-->
   <section amp-access="NOT error AND NOT access" amp-access-hide>
+    <!-- The id and class shown here are both predefined and should be kept as such
+    You can then use these as references to style the dialog to your needs. -->
     <div id="amp-access-laterpay-dialog" class="amp-access-laterpay"></div>
   </section>
 
