@@ -248,7 +248,7 @@ func (a ByPriceAsc) Less(i, j int) bool {
 	if err1 != nil || err2 != nil {
 		return false
 	}
-	return price1 < price2
+	return price1 > price2
 }
 
 type ByPriceDesc []Product
@@ -261,5 +261,5 @@ func (a ByPriceDesc) Less(i, j int) bool {
 	if err1 != nil || err2 != nil {
 		return false
 	}
-	return price1 > price2
+	return price1 < price2
 }

@@ -24,7 +24,7 @@ This sample showcases how to build a product browse page in AMP HTML.
   <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
   <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-
+  <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
   <link rel="canonical" href="<%host%>/samples_templates/product_browse_page/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-custom>
@@ -63,7 +63,7 @@ This sample showcases how to build a product browse page in AMP HTML.
     .first-sort-choice {
       display: inline-block;
     }
-    .hide {
+    .hide-choice {
       opacity: 0;
     }
     .show {
@@ -146,38 +146,32 @@ This sample showcases how to build a product browse page in AMP HTML.
   {
     "sortMenuOpen": "false",
     "sortChoice": "Price high to low",
-    "sortChoiceValue": "price-descendent",
-    "secondSortChoice": "Price low to high",
-    "secondSortChoiceValue": "price-ascendent",
-    "sortChoiceTemp": "Price high to low",
-    "sortChoiceTempValue": "price-descendent"
+    "sortChoiceValue": "price-descendent"
   }
   </script>
 </amp-state>
 <div class="choose-container">
-    <span class="pl1 pr1"> Sort </span>
-    <div class="c">
-      <p role="button" [text]="products.sortChoice" class="pt1 first-sort-choice" on="tap:AMP.setState({
-          products: {
-            sortMenuOpen: true
-        }
-      })">Price high to low</p>
-      <div class="choices-container">
-          <ul class="choices pl0">
-          <li role="button" [text]="products.secondSortChoice" on="tap:AMP.setState({
+  <label for="sort">Sort:</label>
+  <amp-selector name="sort"
+          layout="container"
+          [selected]="products.sortChoiceValue"
+          on="select:AMP.setState({
             products: {
-              sortMenuOpen: false,
-              sortChoiceTemp: products.sortChoice,
-              sortChoiceTempValue: products.sortChoiceValue,
-              sortChoice: products.secondSortChoice,
-              sortChoiceValue: products.secondSortChoiceValue,
-              secondSortChoice: products.sortChoiceTemp,
-              secondSortChoiceValue: products.sortChoiceTempValue
+              sortChoiceValue: event.targetOption,
+              sortMenuOpen: true
             }
-          })" class="hide" [class]="products.sortMenuOpen == true ? 'show' : ' hide'">Price low to high</li>
-        </ul>
-      </div>
-  </div>
+          })">
+    <ul class="p0 m1">
+      <li>
+        <div option="price-descendent" selected>Price high to low</div>
+      </li>
+      <li>
+        <div option="price-ascendent" class="hide-choice" [class]="products.sortMenuOpen == true
+            ? 'show'
+            : 'hide-choice'" >Price low to high</div>
+      </li>
+    </ul>
+  </amp-selector>
 </div>
 
 <!--<button class="ampstart-btn caps m2" on="tap:AMP.setState({products: {sort: price-descendent}})">
@@ -201,9 +195,6 @@ This sample showcases how to build a product browse page in AMP HTML.
     </a>
   </template>
 </amp-list>
-<p> Choice value<span [text]="products.sortChoiceValue">price-descendent</span></p>
-<p>Temp choice value<span [text]="products.sortChoiceTempValue">price-descendent</span></p>
-<p>Second choice value<span [text]="products.secondSortChoiceValue">price-ascendent</span></p>
 
 <!-- ## Offers & Highlights -->
 <!-- -->
