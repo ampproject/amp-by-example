@@ -24,7 +24,6 @@ This sample showcases how to build a product browse page in AMP HTML.
   <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
   <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-  <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
   <link rel="canonical" href="<%host%>/samples_templates/product_browse_page/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-custom>
@@ -48,30 +47,9 @@ This sample showcases how to build a product browse page in AMP HTML.
       max-height: 30%;
       font-weight: 300;
     }
-    .choose-container {
-      position: relative;
-      z-index: 1;
-    }
-    .choices {
-      list-style-type: none;
-      border-radius: 2px;
-    }
-    .choices-container {
-      background-color: white;
-      position: absolute;
-    }
-    .first-sort-choice {
-      display: inline-block;
-    }
-    .hide-choice {
-      opacity: 0;
-    }
-    .show {
-      opacity: 1;
-    }
-    .c {
-      position: relative;
-      display: inline-block;
+    .list-overflow {
+      width: 160px;
+      margin-top: 150px;
     }
   </style>
 
@@ -123,66 +101,50 @@ This sample showcases how to build a product browse page in AMP HTML.
     </a>
   </amp-carousel>
 
-  <h3 class="pl1 pt2 pb2">[[.Title]]</h3>
-
-  <div class="items">
-    [[range .Products]]
-    <a class="m1 text-decoration-none" href="/samples_templates/product/[[$.Mode]]">
-      <amp-img width="640"
-               height="426"
-               layout="responsive"
-               alt="[[.Name]]"
-               src="[[.Img]]"></amp-img>
-           <p class="name">[[.Name]]</p>
-           <p class="star">[[.StarsAsHtml]]</p>
-           <p class="price">$[[.Price]]</p>
-  </a>
-  [[else]]
-  <p>No products found.</p>
-  [[end]]
-</div>
-<amp-state id="products">
-  <script type="application/json">
-  {
-    "sortChoiceValue": "price-descendent"
-  }
-  </script>
-</amp-state>
-<div class="choose-container">
-  <label for="sort">Sort:</label>
-  <select on="change:AMP.setState({
-    products: {
-      sortChoiceValue: event.value
+  <amp-state id="products">
+    <script type="application/json">
+    {
+      "sortChoiceValue": "price-descendent"
     }
-  })">
-    <option value="price-descendent">Price high to low
-  </option>
-    <option value="price-ascendent">Price low to high
+    </script>
+  </amp-state>
+  <div class="ampstart-input inline-block relative m1">
+    <select id="sort" on="change:AMP.setState({
+      products: {
+        sortChoiceValue: event.value
+      }
+    })">
+      <option value="price-descendent">Price high to low
     </option>
-  </select>
-</div>
+      <option value="price-ascendent">Price low to high
+      </option>
+    </select>
+    <label for="sort" class="absolute top-0 right-0 bottom-0 left-0">Sort</label>
+  </div>
 
-<!--<button class="ampstart-btn caps m2" on="tap:AMP.setState({products: {sort: price-descendent}})">
-  Order
-</button>-->
-<amp-list class="items"
-          width="200"
-          height="100"
-          layout="responsive"
-          src="/samples_templates/products?sort=price-descendent&_=RANDOM"
-          [src]="products.sortChoiceValue == 'price-descendent' ? '/samples_templates/products?sort=price-descendent&_=RANDOM' : '/samples_templates/products?sort=price-ascendent&_=RANDOM'">
-  <template type="amp-mustache">
-      <amp-img width="640"
-               height="426"
-               layout="responsive"
-               alt="{{name}}"
-               src="{{img}}"></amp-img>
-             <p class="name">{{name}}</p>
-             <p class="star">{{{stars}}}</p>
-             <p class="price">${{price}}</p>
-    </a>
-  </template>
-</amp-list>
+  <amp-list class="items"
+            width="auto"
+            height="200"
+            layout="fixed-height"
+            src="/samples_templates/products?sort=price-descendent&_=RANDOM"
+            [src]="products.sortChoiceValue == 'price-descendent' ? '/samples_templates/products?sort=price-descendent&_=RANDOM' : '/samples_templates/products?sort=price-ascendent&_=RANDOM'">
+    <template type="amp-mustache">
+        <a class="m1 text-decoration-none" href="/samples_templates/product/[[$.Mode]]">
+          <amp-img width="640"
+                   height="426"
+                   layout="responsive"
+                   alt="{{name}}"
+                   src="{{img}}"></amp-img>
+                 <p class="name">{{name}}</p>
+                 <p class="star">{{{stars}}}</p>
+                 <p class="price">${{price}}</p>
+      </a>
+    </template>
+    <div overflow role="button" aria-label="Show more" class="list-overflow ampstart-btn caps">
+      Show more
+    </div>
+
+  </amp-list>
 
 <!-- ## Offers & Highlights -->
 <!-- -->
