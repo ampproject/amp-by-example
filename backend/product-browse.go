@@ -223,11 +223,6 @@ func handleSearchRequest(w http.ResponseWriter, r *http.Request, page Page) {
 }
 
 func handleProductsRequest(w http.ResponseWriter, r *http.Request) {
-	jsonProducts, err := json.Marshal(productsRoot)
- 	if err != nil {
-	 http.Error(w, err.Error(), http.StatusInternalServerError)
-	 return
- }
  sortQuery := r.URL.Query().Get("sort")
  if sortQuery == "price-descendent" {
 	 sort.Sort(ByPriceDesc(products))
@@ -235,6 +230,12 @@ func handleProductsRequest(w http.ResponseWriter, r *http.Request) {
 	 sort.Sort(ByPriceAsc(products))
  }
   w.Header().Set("Content-Type", "application/json")
+	productsRoot.Products = products
+	jsonProducts, err := json.Marshal(productsRoot)
+	if err != nil {
+	 http.Error(w, err.Error(), http.StatusInternalServerError)
+	 return
+ }
 	w.Write(jsonProducts)
 }
 
@@ -248,7 +249,7 @@ func (a ByPriceAsc) Less(i, j int) bool {
 	if err1 != nil || err2 != nil {
 		return false
 	}
-	return price1 > price2
+	return price1 < price2
 }
 
 type ByPriceDesc []Product
@@ -261,5 +262,5 @@ func (a ByPriceDesc) Less(i, j int) bool {
 	if err1 != nil || err2 != nil {
 		return false
 	}
-	return price1 < price2
+	return price1 > price2
 }
