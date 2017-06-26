@@ -77,11 +77,14 @@ This sample showcases how to build a product browse page in AMP HTML.
     <a id="sample-menu" on="tap:drawermenu.toggle">
       <amp-img srcset="/img/ic_menu_white_1x_web_24dp.png 1x, /img/ic_menu_white_2x_web_24dp.png 2x" width="24" height="24" alt="navigation"></amp-img>
     </a>
-    <form method="GET" action="/samples_templates/product_browse_page[[.Mode]]/search" target="_top">
-      <input name="search" type="search" placeholder="Search">
+      <input name="search" type="text" placeholder="Search" on="change:AMP.setState({
+        products: {
+          listSrc: '/samples_templates/products?searchProduct='+event.value+'&_=RANDOM'
+        }
+      })">
       <a id="sample-logo" href="/">Products</a>
+      <!-- Keep this just for creating the change event -->
       <input type="submit" value="">
-    </form>
   </div>
 
   <!-- ## A Hero Slider -->
@@ -104,14 +107,16 @@ This sample showcases how to build a product browse page in AMP HTML.
   <amp-state id="products">
     <script type="application/json">
     {
-      "sortChoiceValue": "price-descendent"
+      "sortChoiceValue": "price-descendent",
+      "listSrc": "/samples_templates/products?sort=price-descendent&_=RANDOM"
     }
     </script>
   </amp-state>
   <div class="ampstart-input inline-block relative m1">
     <select id="sort" on="change:AMP.setState({
       products: {
-        sortChoiceValue: event.value
+        sortChoiceValue: event.value,
+        listSrc: '/samples_templates/products?sort='+event.value+'&_=RANDOM'
       }
     })">
       <option value="price-descendent">Price high to low
@@ -127,7 +132,7 @@ This sample showcases how to build a product browse page in AMP HTML.
             height="200"
             layout="fixed-height"
             src="/samples_templates/products?sort=price-descendent&_=RANDOM"
-            [src]="products.sortChoiceValue == 'price-descendent' ? '/samples_templates/products?sort=price-descendent&_=RANDOM' : '/samples_templates/products?sort=price-ascendent&_=RANDOM'">
+            [src]=products.listSrc>
     <template type="amp-mustache">
         <a class="m1 text-decoration-none" href="/samples_templates/product/[[$.Mode]]">
           <amp-img width="640"

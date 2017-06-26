@@ -223,15 +223,27 @@ func handleSearchRequest(w http.ResponseWriter, r *http.Request, page Page) {
 }
 
 func handleProductsRequest(w http.ResponseWriter, r *http.Request) {
+ var responseProducts []Product
  sortQuery := r.URL.Query().Get("sort")
- if sortQuery == "price-descendent" {
-	 sort.Sort(ByPriceDesc(products))
- } else {
-	 sort.Sort(ByPriceAsc(products))
+ if sortQuery != "" {
+	 responseProducts = make([]Product, len(products))
+	 copy(responseProducts, products)
+	 if sortQuery == "price-descendent" {
+		 sort.Sort(ByPriceDesc(responseProducts))
+	 } else {
+		 sort.Sort(ByPriceAsc(responseProducts))
+	 }
+ }
+productQuery := r.URL.Query().Get("searchProduct")
+ if productQuery != "" {
+	 var tempProduct = findProducts(productQuery)
+	 responseProducts = make([]Product, len(tempProduct))
+	 responseProducts = tempProduct
  }
   w.Header().Set("Content-Type", "application/json")
-	productsRoot.Products = products
-	jsonProducts, err := json.Marshal(productsRoot)
+	var responseProductsRoot JsonRoot = productsRoot
+	responseProductsRoot.Products = responseProducts
+	jsonProducts, err := json.Marshal(responseProductsRoot)
 	if err != nil {
 	 http.Error(w, err.Error(), http.StatusInternalServerError)
 	 return
