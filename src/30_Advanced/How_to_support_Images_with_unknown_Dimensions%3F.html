@@ -29,24 +29,24 @@
        }
       </style>
   </head>
-  <body> 
+  <body>
   <!--
     ## Introduction
 
-    This sample demonstrates how it is possible to embed images with unknown dimensions into an AMP page while maintaining the correct aspect ratio. 
+    This sample demonstrates how it is possible to embed images with unknown dimensions into an AMP page while maintaining the correct aspect ratio.
 
     ## Background
-    
-    To avoid page jumps while loading an AMP page, the AMP runtime's static layout system requires that the height of all elements is known in advance. This is why the `amp-img` extension requires the `width` and `height` of an image to be specified: 
+
+    To avoid page jumps while loading an AMP page, the AMP runtime's static layout system requires that the height of all elements is known in advance. This is why the `amp-img` extension requires the `width` and `height` of an image to be specified:
   -->
   <amp-img width="300" height="200" src="https://unsplash.it/300/200?image=1074"></amp-img>
   <!--
-  The `amp-img` extension supports different [layouts](https://www.ampproject.org/docs/guides/responsive/control_layout). The `responsive` layout requires width and height to be able to determine an image's aspect ratio. 
+  The `amp-img` extension supports different [layouts](https://www.ampproject.org/docs/guides/responsive/control_layout). The `responsive` layout requires width and height to be able to determine an image's aspect ratio.
   -->
   <amp-img layout="responsive" width="300" height="200" src="https://unsplash.it/300/200?image=1074"></amp-img>
 
   <!--
-  The `fixed-height` layout only requires a height, but stretches the image to fill the available width: 
+  The `fixed-height` layout only requires a height, but stretches the image to fill the available width:
   -->
   <amp-img layout="fixed-height" height="200" src="https://unsplash.it/300/200?image=1074"></amp-img>
 
@@ -62,12 +62,12 @@
     </div>
  </div>
 
- <!-- The question is: how can images with unknown dimensions be embeded inside an AMP pages while maintaining their correct aspect ration? 
+ <!-- The question is: how can images with unknown dimensions be embeded inside an AMP pages while maintaining their correct aspect ratio?
 
     ## Object-Fit to the Rescue
-    
-    We can solve this problem by combining AMP's [fill layout](https://github.com/ampproject/amphtml/blob/master/spec/amp-html-layout.md) with the [object-fit]( https://css-tricks.com/almanac/properties/o/object-fit/) CSS property. The `object-fit` property helps us ensure that the image maintains it's aspect ratio while being resized via the `fill` layout. 
-    
+
+    We can solve this problem by combining AMP's [fill layout](https://github.com/ampproject/amphtml/blob/master/spec/amp-html-layout.md) with the [object-fit]( https://css-tricks.com/almanac/properties/o/object-fit/) CSS property. The `object-fit` property helps us ensure that the image maintains its aspect ratio while being resized via the `fill` layout.
+
     First we need to define a container to constrain the maximum size of the image, e.g.:
 
     ```
@@ -112,7 +112,7 @@
       </div>
     </div>
 
-    <!-- 
+    <!--
     ## Fixed-Height Layout with correct Aspect Ratios
 
     This approach works also with responsive container dimensions, for example, a dynamic width:
@@ -124,7 +124,7 @@
        height: 300px;
      }
      ```
-      
+
    The result is a fixed-height layout that maintains the correct image aspect ratio:
     -->
     <div>
@@ -142,10 +142,10 @@
       </div>
     </div>
 
-    <!-- 
-    ## Image Carousels 
+    <!--
+    ## Image Carousels
 
-    This approach also works very well for image carousels by combining it with an `amp-carousel` using a `fixed-height` layout. 
+    This approach also works very well for image carousels by combining it with an `amp-carousel` using a `fixed-height` layout.
     -->
     <amp-carousel height="300" layout="fixed-height" type="slides">
       <div class="fixed-height-container">
