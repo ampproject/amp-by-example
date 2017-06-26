@@ -79,7 +79,8 @@ This sample showcases how to build a product browse page in AMP HTML.
     </a>
       <input name="search" type="text" placeholder="Search" on="change:AMP.setState({
         products: {
-          listSrc: '/samples_templates/products?searchProduct='+event.value+'&_=RANDOM'
+          searchProduct: event.value,
+          listSrc: '/samples_templates/products?searchProduct='+ event.value +'&sortChoiceValue='+ products.sortChoiceValue +'&_=RANDOM'
         }
       })">
       <a id="sample-logo" href="/">Products</a>
@@ -108,6 +109,7 @@ This sample showcases how to build a product browse page in AMP HTML.
     <script type="application/json">
     {
       "sortChoiceValue": "price-descendent",
+      "searchProduct": "",
       "listSrc": "/samples_templates/products?sort=price-descendent&_=RANDOM"
     }
     </script>
@@ -116,7 +118,7 @@ This sample showcases how to build a product browse page in AMP HTML.
     <select id="sort" on="change:AMP.setState({
       products: {
         sortChoiceValue: event.value,
-        listSrc: '/samples_templates/products?sort='+event.value+'&_=RANDOM'
+        listSrc: '/samples_templates/products?searchProduct='+products.searchProduct+'&sort='+event.value+'&_=RANDOM'
       }
     })">
       <option value="price-descendent">Price high to low
@@ -132,7 +134,7 @@ This sample showcases how to build a product browse page in AMP HTML.
             height="200"
             layout="fixed-height"
             src="/samples_templates/products?sort=price-descendent&_=RANDOM"
-            [src]=products.listSrc>
+            [src]="products.listSrc">
     <template type="amp-mustache">
         <a class="m1 text-decoration-none" href="/samples_templates/product/[[$.Mode]]">
           <amp-img width="640"
