@@ -22,10 +22,10 @@ import (
 	"io/ioutil"
 	"net/http"
 	"path"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
-	"sort"
 )
 
 const (
@@ -223,38 +223,38 @@ func handleSearchRequest(w http.ResponseWriter, r *http.Request, page Page) {
 }
 
 func handleProductsRequest(w http.ResponseWriter, r *http.Request) {
- var responseProducts []Product
- sortQuery := r.URL.Query().Get("sort")
- if sortQuery != "" {
-	 responseProducts = make([]Product, len(products))
-	 copy(responseProducts, products)
-	 if sortQuery == "price-descendent" {
-		 sort.Sort(ByPriceDesc(responseProducts))
-	 } else {
-		 sort.Sort(ByPriceAsc(responseProducts))
-	 }
- }
-productQuery := r.URL.Query().Get("searchProduct")
- if productQuery != "" {
-	 var tempProduct = findProducts(productQuery)
-	 responseProducts = make([]Product, len(tempProduct))
-	 responseProducts = tempProduct
- }
-  w.Header().Set("Content-Type", "application/json")
+	var responseProducts []Product
+	sortQuery := r.URL.Query().Get("sort")
+	if sortQuery != "" {
+		responseProducts = make([]Product, len(products))
+		copy(responseProducts, products)
+		if sortQuery == "price-descendent" {
+			sort.Sort(ByPriceDesc(responseProducts))
+		} else {
+			sort.Sort(ByPriceAsc(responseProducts))
+		}
+	}
+	productQuery := r.URL.Query().Get("searchProduct")
+	if productQuery != "" {
+		var tempProduct = findProducts(productQuery)
+		responseProducts = make([]Product, len(tempProduct))
+		responseProducts = tempProduct
+	}
+	w.Header().Set("Content-Type", "application/json")
 	var responseProductsRoot JsonRoot = productsRoot
 	responseProductsRoot.Products = responseProducts
 	jsonProducts, err := json.Marshal(responseProductsRoot)
 	if err != nil {
-	 http.Error(w, err.Error(), http.StatusInternalServerError)
-	 return
- }
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	w.Write(jsonProducts)
 }
 
 type ByPriceAsc []Product
 
-func (a ByPriceAsc) Len() int           { return len(a) }
-func (a ByPriceAsc) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByPriceAsc) Len() int      { return len(a) }
+func (a ByPriceAsc) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 func (a ByPriceAsc) Less(i, j int) bool {
 	price1, err1 := strconv.ParseFloat(a[i].Price, 64)
 	price2, err2 := strconv.ParseFloat(a[j].Price, 64)
@@ -266,8 +266,8 @@ func (a ByPriceAsc) Less(i, j int) bool {
 
 type ByPriceDesc []Product
 
-func (a ByPriceDesc) Len() int           { return len(a) }
-func (a ByPriceDesc) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByPriceDesc) Len() int      { return len(a) }
+func (a ByPriceDesc) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 func (a ByPriceDesc) Less(i, j int) bool {
 	price1, err1 := strconv.ParseFloat(a[i].Price, 64)
 	price2, err2 := strconv.ParseFloat(a[j].Price, 64)
