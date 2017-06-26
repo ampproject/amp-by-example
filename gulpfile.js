@@ -43,6 +43,7 @@ const FileName = require('./lib/FileName');
 const Metadata = require('./lib/Metadata');
 const ExampleFile = require('./lib/ExampleFile');
 const gulpAmpValidator = require('gulp-amphtml-validator');
+const Templates = require('./lib/Templates');
 
 const PROD = 'prod';
 
@@ -109,6 +110,9 @@ const config = {
   },
   host: 'https://ampbyexample.com'
 };
+
+const sampleTemplates = Templates.get(config.templates.root,/* minify */ false, '<% %>');
+
 
 gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
   function() {
@@ -223,7 +227,7 @@ gulp.task('copy:scripts', 'copy scripts', function() {
 
 gulp.task('copy:license', 'copy license', function() {
   return gulp.src('LICENSE')
-    .pipe(cache('static'))
+    .pipe(cache('license'))
     .pipe(rename(function(path) {
       path.extname = ".txt";
     }))
@@ -232,13 +236,19 @@ gulp.task('copy:license', 'copy license', function() {
 
 gulp.task('copy:static', 'copy static files', function() {
   return gulp.src(paths.static)
+    .pipe(change(prerenderTemplates))
     .pipe(cache('static'))
     .pipe(gulp.dest(paths.dist.dir));
 });
 
+function prerenderTemplates(string) {
+  return sampleTemplates.renderString(string, config);
+}
+
+
 gulp.task("compile:favicons", function() {
   return gulp.src(paths.favicon)
-    .pipe(cache('static'))
+    .pipe(cache('favicons'))
     .pipe(favicons({
       appName: "AMP by Example",
       appDescription: "Accelerated Mobile Pages in Action",
