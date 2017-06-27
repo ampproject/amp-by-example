@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet">
+    <style>
+    {{> styles.css }}
+    </style>
+  </head>
+  <body>
+    <main id="tabinterface">
+      <ul>
+        <li><a href="#source-panel" aria-selected="true">Source</a></li>
+        <li><a href="#preview-panel">Preview</a></li>
+      </ul>
+      <section id="source-panel">
+        {{{sample.code}}}
+      </section>
+      <section id="preview-panel" aria-hidden="true">
+        <iframe id="preview" src="{{sample.preview}}" frameborder="0"></iframe>
+      </section>
+    </main>
+    <script>{{> embed.js }}</script>
+  </body>
+</html>

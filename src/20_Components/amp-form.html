@@ -71,10 +71,126 @@
     renders the template data inside these two elements. The `submit-success` and `submit-error` elements
     must be direct children of `form`.
   -->
-  <form method="post" class="p2" action-xhr="/components/amp-form/submit-form-input-text-xhr" target="_top">
+  <form method="post"
+        class="p2"
+        action-xhr="/components/amp-form/submit-form-input-text-xhr"
+        target="_top">
     <div class="ampstart-input inline-block relative m0 p0 mb3">
-      <input type="text" class="block border-none p0 m0" name="name" placeholder="Name..." required>
-      <input type="email" class="block border-none p0 m0" name="email" placeholder="Email..." required>
+      <input type="text"
+          class="block border-none p0 m0"
+          name="name"
+          placeholder="Name..."
+          required>
+      <input type="email"
+        class="block border-none p0 m0"
+        name="email"
+        placeholder="Email..."
+        required>
+    </div>
+    <input type="submit" value="Subscribe" class="ampstart-btn caps">
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Thanks {{name}} for trying the <code>amp-form</code> demo! Try to insert the word "error" as a name input in the form to see how <code>amp-form</code> handles errors.
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error! Thanks {{name}} for trying the <code>amp-form</code> demo with an error response.
+      </template>
+    </div>
+  </form>
+
+  <!-- ## Form Custom Validation -->
+  <!--
+    The `amp-form` extension allows you to build your own custom validation UI by using the `custom-validation-reporting`,
+  read [here](https://www.ampproject.org/docs/reference/components/amp-form#custom-validations) about the different strategies.
+
+  Use `show-all-on-submit` strategy to ensure all the validation messages are shown when the user submits the form.
+  -->
+  <form method="post"
+        class="p2"
+        action-xhr="/components/amp-form/submit-form-input-text-xhr"
+        target="_top"
+        custom-validation-reporting="show-all-on-submit">
+    <div class="ampstart-input inline-block relative m0 p0 mb3">
+      <input type="text" class="block border-none p0 m0" id="show-all-on-submit-name" name="name" placeholder="Name..." required pattern="\w+\s\w+">
+      <span visible-when-invalid="valueMissing"
+        validation-for="show-all-on-submit-name"></span>
+      <span visible-when-invalid="patternMismatch"
+        validation-for="show-all-on-submit-name">
+        Please enter your first and last name separated by a space (e.g. Jane Miller)
+      </span>
+      <input type="email" class="block border-none p0 m0" id="show-all-on-submit-email" name="email" placeholder="Email..." required>
+      <span visible-when-invalid="valueMissing"
+          validation-for="show-all-on-submit-email"></span>
+      <span visible-when-invalid="typeMismatch"
+          validation-for="show-all-on-submit-email"></span>
+    </div>
+    <input type="submit" value="Subscribe" class="ampstart-btn caps">
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Thanks {{name}} for trying the <code>amp-form</code> demo! Try to insert the word "error" as a name input in the form to see how <code>amp-form</code> handles errors.
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error! Thanks {{name}} for trying the <code>amp-form</code> demo with an error response.
+      </template>
+    </div>
+  </form>
+
+  <!-- Use `show-first-on-submit` strategy to show the first validation message when the user submit the form. -->
+  <form method="post"
+        class="p2"
+        action-xhr="/components/amp-form/submit-form-input-text-xhr"
+        target="_top"
+        custom-validation-reporting="show-first-on-submit">
+    <div class="ampstart-input inline-block relative m0 p0 mb3">
+      <input type="text" class="block border-none p0 m0" id="show-first-on-submit-name"  name="name" placeholder="Name..." required pattern="\w+\s\w+">
+      <span visible-when-invalid="valueMissing"
+        validation-for="show-first-on-submit-name"></span>
+      <span visible-when-invalid="patternMismatch"
+        validation-for="show-first-on-submit-name">
+        Please enter your first and last name separated by a space (e.g. Jane Miller)
+      </span>
+      <input type="email" class="block border-none p0 m0" id="show-first-on-submit-email" name="email" placeholder="Email..." required>
+      <span visible-when-invalid="valueMissing"
+          validation-for="show-first-on-submit-email"></span>
+      <span visible-when-invalid="typeMismatch"
+          validation-for="show-first-on-submit-email"></span>
+    </div>
+    <input type="submit" value="Subscribe" class="ampstart-btn caps">
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Thanks {{name}} for trying the <code>amp-form</code> demo! Try to insert the word "error" as a name input in the form to see how <code>amp-form</code> handles errors.
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error! Thanks {{name}} for trying the <code>amp-form</code> demo with an error response.
+      </template>
+    </div>
+  </form>
+
+  <!-- Use `as-you-go` strategy to show validation messages as the user is interacting with the form. -->
+  <form method="post"
+        class="p2"
+        action-xhr="/components/amp-form/submit-form-input-text-xhr"
+        target="_top"
+        custom-validation-reporting="as-you-go">
+    <div class="ampstart-input inline-block relative m0 p0 mb3">
+      <input type="text" class="block border-none p0 m0" id="as-you-go-name" name="name" placeholder="Name..." required pattern="\w+\s\w+">
+      <span visible-when-invalid="valueMissing"
+        validation-for="as-you-go-name"></span>
+      <span visible-when-invalid="patternMismatch"
+        validation-for="as-you-go-name">
+        Please enter your first and last name separated by a space (e.g. Jane Miller)
+      </span>
+      <input type="email" class="block border-none p0 m0" id="as-you-go-email" name="email" placeholder="Email..." required>
+      <span visible-when-invalid="valueMissing"
+          validation-for="as-you-go-email"></span>
+      <span visible-when-invalid="typeMismatch"
+          validation-for="as-you-go-email"></span>
     </div>
     <input type="submit" value="Subscribe" class="ampstart-btn caps">
     <div submit-success>
@@ -405,7 +521,7 @@
     Use `select` element for dropdowns.
   -->
     <form method="post"
-      action-xhr="<%host%>/components/amp-form/submit-form-xhr" target="_top" class="p2">
+      action-xhr="/components/amp-form/submit-form-xhr" target="_top" class="p2">
       <div class="ampstart-input inline-block relative mb3">
         <select name="cars" id="cars" >
           <option value="volvo">Volvo</option>

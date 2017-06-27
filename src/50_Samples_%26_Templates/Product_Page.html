@@ -2,8 +2,7 @@
   "preview": "default",
   "skipValidation": "true",
   "default": "preview",
-  "hideCode": true,
-  "experiments": ["amp-bind"]
+  "hideCode": true
   }--->
 <!--
 ## Introduction
@@ -15,6 +14,7 @@ This sample showcases how to build a product page in AMP HTML.
 <html ⚡>
 <head>
     <meta charset="utf-8">
+    <meta name="amp-experiment-token" content="HfmyLgNLmblRg3Alqy164Vywr">
     <script async src="https://cdn.ampproject.org/v0.js"></script>
 
     <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
@@ -23,6 +23,7 @@ This sample showcases how to build a product page in AMP HTML.
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
     <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
     <script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
+    <script async custom-element="amp-image-lightbox" src="https://cdn.ampproject.org/v0/amp-image-lightbox-0.1.js"></script>
     <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
     <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
@@ -30,7 +31,7 @@ This sample showcases how to build a product page in AMP HTML.
     <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
     <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
 
-    <link rel="canonical" href="<%host%>/samples_templates/product/">
+    <link rel="canonical" href="<%host%>/samples_templates/product_page/">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <style amp-custom>
     <%>css/product.css%>
@@ -168,51 +169,116 @@ This sample showcases how to build a product page in AMP HTML.
       user-select: none;
     }
 
-.unavailable:before, .unavailable:after {
-    position: absolute;
-    content: '';
-    background: grey;
-    display: block;
-    width: auto;
-    height: 1px;
-    min-width: 56px;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    left: -8px;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-}
+    .unavailable:before, .unavailable:after {
+      position: absolute;
+      content: '';
+      background: grey;
+      display: block;
+      width: auto;
+      height: 1px;
+      min-width: 56px;
+      -webkit-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+      left: -11px;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      border-bottom: 2px solid;
+    }
 
-.unavailable:after {
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
+    .unavailable:after {
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
 
-div.square {
-  width: 40px;
-  height: 40px;
-}
+    div.square {
+      width: 40px;
+      height: 40px;
+    }
 
-.green {
-    background-color: #008000;
-}
+    .green {
+      background-color: #008000;
+    }
 
-.red {
-    background-color: #FF0000;
-}
+    .red {
+      background-color: #FF0000;
+    }
 
-.golden{
-    background-color: #DAA520;
-}
+    .golden {
+      background-color: #DAA520;
+    }
 
-@media (max-width: 1024px) {
-  .product-gallery > ul {
-    display: none;
-  }
-}
+    @media (max-width: 1024px) {
+      .product-gallery > ul {
+        display: none;
+      }
+    }
+    .info-button {
+      background: -webkit-image-set(
+        url(/img/ic_info_outline_black_24dp_1x.png) 1x,
+        url(/img/ic_info_outline_black_24dp_2x.png) 2x
+      );
+      background-repeat: no-repeat;
+      width: 24px;
+      height: 24px;
+      margin-top: 4px;
+    }
 
+    .info {
+      margin: 0 auto;
+      background: #fff;
+    }
+
+    .lightbox {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .ampTabContainer {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .tabButton {
+        list-style: none;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+    }
+
+    amp-selector [option][selected] {
+      outline: #fff;
+    }
+
+    .tabContent {
+        line-height: 1.5rem;
+        display: none;
+        width: 100%;
+        order: 1; /* must be greater than the order of the tab buttons to flex to the next line */
+    }
+
+    .tabButton[selected]::after {
+      content: '';
+      display: block;
+      height: 4px;
+      background: linear-gradient(90deg,#94103e 0,#db004d);
+    }
+
+    .tabButton[selected]+.tabContent {
+        display: block;
+    }
+
+    .items, amp-list.items > div {
+      justify-content: flex-start;
+    }
+    .close-gallery-button {
+      z-index: 1;
+      position: absolute;
+      right: 0;
+    }
     </style>
 
     <!-- ## Metadata -->
@@ -256,11 +322,11 @@ div.square {
       <!-- ## Navigation -->
       <!-- Use the [amp-sidebar](/components/amp-sidebar/) component to give customers the chance to quickly jump to any of your product categories.-->
       <amp-sidebar id="drawermenu" layout="nodisplay">
-        <a href="/" class="caps text-decoration-none block p1">Products by Example</a>
+        <a href="/" class="caps text-decoration-none block p1">Products</a>
         <hr/>
-        <a class="caps text-decoration-none block p1" href="/samples_templates/product_listing/preview/">Fruit</a>
-        <a class="caps text-decoration-none block p1" href="/samples_templates/product_listing/preview/">Vegetable</a>
-        <a class="caps text-decoration-none block p1" href="/samples_templates/product_listing/preview/">More</a>
+        <a class="caps text-decoration-none block p1" href="/samples_templates/product_browse_page/preview/">Fruit</a>
+        <a class="caps text-decoration-none block p1" href="/samples_templates/product_browse_page/preview/">Vegetable</a>
+        <a class="caps text-decoration-none block p1" href="/samples_templates/product_browse_page/preview/">More</a>
       </amp-sidebar>
       <!-- ## Header with Search -->
       <!-- AMP supports forms, which means you can directly integrate a product search into your AMPs. Try searching for "Apple".-->
@@ -271,9 +337,9 @@ div.square {
                   width="24" height="24"
                   alt="navigation"></amp-img>
         </a>
-        <form method="GET" action="/samples_templates/product_listing[[.Mode]]/search" target="_top">
+        <form method="GET" action="/samples_templates/product_browse_page[[.Mode]]/search" target="_top">
           <input name="search" type="search" placeholder="Search">
-          <a id="sample-logo" href="/">Products by Example</a>
+          <a id="sample-logo" href="/">Product</a>
           <input type="submit" value="">
         </form>
       </div>
@@ -394,11 +460,13 @@ div.square {
             [class]="product.selectedColor == 'green' ? 'show' : 'hide'">
       <amp-img src="/img/green_apple_1_1024x682.jpg"
                 width="1024" height="682"
-                layout="responsive">
+                layout="responsive" on="tap:gallery-lightbox"
+                role="button" tabindex="0">
       </amp-img>
       <amp-img src="/img/green_apple_2_1024x685.jpg"
                 width="1024" height="682"
-                layout="responsive">
+                layout="responsive" on="tap:gallery-lightbox"
+                role="button" tabindex="0">
       </amp-img>
     </amp-carousel>
 
@@ -412,7 +480,8 @@ div.square {
             [class]="product.selectedColor == 'golden' ? 'show' : 'hide'">
         <amp-img src="/img/golden_apple1_1024x682.jpg"
                 width="1024" height="682"
-                layout="responsive">
+                layout="responsive" on="tap:gallery-lightbox"
+                role="button" tabindex="0">
         </amp-img>
     </amp-carousel>
 
@@ -426,13 +495,28 @@ div.square {
             [class]="product.selectedColor == 'red' ? 'show' : 'hide'">
         <amp-img src="/img/red_apple_1_1024x682.jpg"
                 width="1024" height="682"
-                layout="responsive">
+                layout="responsive" on="tap:gallery-lightbox"
+                role="button" tabindex="0">
         </amp-img>
         <amp-img src="/img/red_apple_2_1024x793.jpg"
                 width="1024" height="682"
-                layout="responsive">
+                layout="responsive" on="tap:gallery-lightbox"
+                role="button" tabindex="0">
         </amp-img>
     </amp-carousel>
+    <!-- ## Full screen image -->
+    <!-- The `amp-image-lightbox` component allows the user to expand an image to fill the viewport.
+    By clicking on each image from the product gallery, the user can see the product image by using the full screen.
+    Learn more [here](/components/amp-image-lightbox/) -->
+    <amp-image-lightbox id="gallery-lightbox" layout="nodisplay">
+      <div on="tap:gallery-lightbox.close" role="button"
+          tabindex="0">
+          <button class="ampstart-btn caps m2 close-gallery-button" on="tap:gallery-lightbox.close"
+            role="button" tabindex="0">
+            Close
+          </button>
+      </div>
+    </amp-image-lightbox>
 
   </div>
   <!-- ## Product Configuration -->
@@ -442,6 +526,7 @@ div.square {
   <amp-state id="product">
     <script type="application/json">
     {
+      "relatedProductsSrc": "/json/related_products.json",
       "selectedColor": "green",
       "selectedSize": "S",
       "selectedSlide": 0,
@@ -502,7 +587,7 @@ div.square {
     <!-- We use the `CLIENT_ID` variable to identify the user, this enables storing a shopping cart between repeated visits of an AMP page (either via the AMP Cache or the original host). This variable can be used inside an amp-form by declaring an hidden input value with `default-value="CLIENT_ID(cart)`. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
 
       <form id="order" method="POST"
-            action-xhr="/samples_templates/product/add_to_cart"
+            action-xhr="/samples_templates/product_page/add_to_cart"
             target="_top" class="flex flex-wrap m1">
         <div class="items-center flex">
           <label for="color">Color:</label>
@@ -575,43 +660,64 @@ div.square {
         </div>
       </form>
 
-    <!-- ## Collapsibles / Accordion -->
-    <!-- Use `amp-accordion` to hide and show additional data about your product. Learn more about `amp-accordion` [here](/components/amp-accordion/). -->
-    <div>
-      <amp-accordion>
-        <section>
-          <h4 class="p1">Description</h4>
-          <p class="p1">Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
-        </section>
-        <section>
-          <h4 class="p1">Specification</h4>
-          <p class="p1">Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
-        </section>
-        <section>
-          <h4 class="p1">Measurements</h4>
-          <p class="p1">Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
-        </section>
-        <section>
-          <h4 class="p1">Other</h4>
-          <p class="p1">Lorem ipsum dolor sit amet, mauris id, fermentum natoque ut et ullam dolore egestas. Vitae tortor maecenas nec consequat, nisl vestibulum est est curabitur. Mi eu in pellentesque lectus nostra ut. </p>
-        </section>
-      </amp-accordion>
-    </div>
+    <!-- ## Tab panels -->
+    <!-- Use `amp-selector` styled as tab panels to add additional data about your product.
+    Learn how to implement tabs in AMP [here](/advanced/tab_panels_with_amp-selector/preview/). -->
+  <amp-selector role="tablist"
+  layout="container"
+  class="ampTabContainer ampstart-headerbar-nav" keyboard-select-mode="select">
+  <div role="tab"
+    class="tabButton h4 ampstart-nav-item"
+    selected
+    option="a">ABOUT</div>
+  <div role="tabpanel"
+      class="tabContent p1 p">Fruit is rich in vitamins and minerals. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+  <div role="tab"
+    class="tabButton h4 ampstart-nav-item"
+    option="b">SPECS</div>
+  <div role="tabpanel"
+    class="tabContent p1 p">Always wash fruit before eating. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+  <div role="tab"
+      class="tabButton h4 ampstart-nav-item"
+      option="c">SIZE</div>
+  <div role="tabpanel"
+      class="tabContent p1 p">Size may vary. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+</amp-selector>
 
     <!-- ## Dynamic Related Product Lists -->
     <!--  -->
-    <h2 id="related-products" class="m1">Related products</h2>
+    <div class="items-center flex">
+      <h2 id="related-products" class="m1 inline-block">Related products
+      <amp-lightbox id="my-lightbox" layout="nodisplay">
+        <div class="lightbox" on="tap:my-lightbox.close" role="button"
+            tabindex="0">
+          <div class="info">
+            <h4 class="p2">Products that have been bought together</h4>
+            <button class="ampstart-btn caps mx2 mb2" on="tap:my-lightbox.close"
+              role="button" tabindex="0">
+              Close
+            </button>
+        </div>
+        </div>
+      </amp-lightbox>
+    </h2>
+      <button class="info-button border-none mr1" on="tap:my-lightbox" role="button" tabindex="0">
+      </button>
+    </div>
     <!--
     With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
-     Learn more about `amp-list` [here](/components/amp-list/)
+    You can dynamically change the source of the `amp-list` endpoint by using `amp-bind`:
+    we bind the variable `relatedProductsSrc` to the to the `src` attribute of the `amp-list`.
+    Learn more about `amp-list` [here](/components/amp-list/).
     -->
-    <amp-list class="items p1"
-              width="200"
+    <amp-list class="items m1"
+              width="auto"
               height="100"
-              layout="responsive"
-              src="/json/related_products.json">
+              layout="fixed-height"
+              src="/json/related_products.json"
+              [src]="product.relatedProductsSrc">
       <template type="amp-mustache">
-        <a class="text-decoration-none" href="/samples_templates/product/preview/">
+        <a class="text-decoration-none p1" href="/samples_templates/product_page/preview/">
           <amp-img width="640"
                    height="426"
                    layout="responsive"
@@ -623,7 +729,10 @@ div.square {
         </a>
       </template>
     </amp-list>
-
+    <!--
+    The button `tap` action sets the value of the `relatedProductsSrc` to an extended list of related products.
+    -->
+    <button class="ampstart-btn caps m1 mb3" id="listSrcButton" on="tap:AMP.setState({product: {relatedProductsSrc: '/json/more_related_products.json'}})">Show more</button>
   <!--
     ## User Analytics
   -->

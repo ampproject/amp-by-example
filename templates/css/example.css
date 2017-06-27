@@ -1,3 +1,6 @@
+amp-instagram {
+  box-sizing: content-box;
+}
 .www-component-desc pre,
 pre, code {
   font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
@@ -45,6 +48,9 @@ code {
   margin-right: 5rem;
   margin-bottom: 2rem;
   padding: 0;
+}
+.www-component-desc > pre {
+  padding: 1rem;
 }
 .www-component-desc > .ampstart-card {
   padding: 1rem;

@@ -6,7 +6,7 @@
 <!--
 ## Introduction
 
-This sample showcases how to build a product listing page in AMP HTML.
+This sample showcases how to build a product browse page in AMP HTML.
 -->
 <!-- -->
 <!doctype html>
@@ -24,7 +24,7 @@ This sample showcases how to build a product listing page in AMP HTML.
   <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
   <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
 
-  <link rel="canonical" href="<%host%>/samples_templates/product_listing/">
+  <link rel="canonical" href="<%host%>/samples_templates/product_browse_page/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-custom>
     article#preview {
@@ -57,11 +57,11 @@ This sample showcases how to build a product listing page in AMP HTML.
     Use the [amp-sidebar](/components/amp-sidebar/) component to give customers the chance to quickly jump to any of your product categories.
   -->
   <amp-sidebar id="drawermenu" layout="nodisplay">
-    <a href="/" class="caps text-decoration-none block p1">Products by Example</a>
+    <a href="/" class="caps text-decoration-none block p1">Products</a>
     <hr/>
-    <a class="caps text-decoration-none block p1" href="/samples_templates/product_listing/preview/">Fruit</a>
-    <a class="caps text-decoration-none block p1" href="/samples_templates/product_listing/preview/">Vegetable</a>
-    <a class="caps text-decoration-none block p1" href="/samples_templates/product_listing/preview/">More</a>
+    <a class="caps text-decoration-none block p1" href="/samples_templates/product_browse_page/preview/">Fruit</a>
+    <a class="caps text-decoration-none block p1" href="/samples_templates/product_browse_page/preview/">Vegetable</a>
+    <a class="caps text-decoration-none block p1" href="/samples_templates/product_browse_page/preview/">More</a>
   </amp-sidebar>
   <!-- ## Header with Search -->
   <!--
@@ -73,9 +73,9 @@ This sample showcases how to build a product listing page in AMP HTML.
     <a id="sample-menu" on="tap:drawermenu.toggle">
       <amp-img srcset="/img/ic_menu_white_1x_web_24dp.png 1x, /img/ic_menu_white_2x_web_24dp.png 2x" width="24" height="24" alt="navigation"></amp-img>
     </a>
-    <form method="GET" action="/samples_templates/product_listing[[.Mode]]/search" target="_top">
+    <form method="GET" action="/samples_templates/product_browse_page[[.Mode]]/search" target="_top">
       <input name="search" type="search" placeholder="Search">
-      <a id="sample-logo" href="/">Products by Example</a>
+      <a id="sample-logo" href="/">Products</a>
       <input type="submit" value="">
     </form>
   </div>
@@ -120,7 +120,7 @@ This sample showcases how to build a product listing page in AMP HTML.
 <!-- -->
 <h3 class="pl1 pt2 pb2">Recommendations</h3>
   <!-- The `amp-carousel` supports also a more traditional carousel mode.   -->
-  <amp-carousel class="m1" width="auto" height="160" layout="fixed-height" type="carousel" autoplay>
+  <amp-carousel class="m1" width="auto" height="160" layout="fixed-height" type="carousel">
     <a class="m1 text-decoration-none" href="#" role="listitem">
       <amp-img width="640" height="426" layout="responsive" alt="Apple" src="/img/product1_640x426.jpg"></amp-img>
       <p class="name">Apple</p>

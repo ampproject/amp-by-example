@@ -20,7 +20,6 @@ const gutil = require('gulp-util');
 const path = require('path');
 const through = require('through2');
 const fs = require('fs');
-const mkdirp = require('mkdirp');
 const PluginError = gutil.PluginError;
 const DocumentParser = require('../lib/DocumentParser');
 const ExampleFile = require('../lib/ExampleFile');
@@ -31,7 +30,7 @@ const Templates = require('../lib/Templates');
  * Collects a list of example files, renders them (using templateExample) and
  * creates a list (using templateIndex)
  */
-module.exports = function(config, updateTimestamp) {
+module.exports = function(config, indexPath, updateTimestamp) {
   let sampleTemplates;
   let pageTemplates;
 
@@ -93,6 +92,7 @@ module.exports = function(config, updateTimestamp) {
     if (file.isBuffer()) {
       const example = ExampleFile.fromPath(file.path);
       const contents = prerenderTemplates(file.contents.toString(), config);
+      latestFile.section = example.section();
       example.document = DocumentParser.parse(contents);
       example.file = file;
       example.contents = contents;
@@ -110,56 +110,61 @@ module.exports = function(config, updateTimestamp) {
     }
 
     const stream = this;
-    const categories = mapToCategories(examples);
-    compileIndex(stream, categories);
-    compileSitemap(stream, categories);
+    const sections = createSections(examples);
+    compileIndex(stream, sections);
+    compileSitemap(stream, sections);
     compileExamples(stream);
     cb();
   }
 
-  function compileIndex(stream, categories) {
-    const args = require('../data/index.json');
-    const indexArgs = {
-      config: config,
-      categories: categories,
-      title: 'AMP by Example',
-      desc: 'A hands-on introduction to Accelerated Mobile Pages (AMP) ' +
-        'focusing on code and live samples. Learn how to create AMP pages ' +
-        'and see examples for all AMP components.',
-      timestamp: timestamp,
-      github: "https://github.com/ampproject/amp-by-example/",
-      fileName: '/'
-    };
-    Object.assign(args, indexArgs);
+  function compileIndex(stream, sections) {
+    sections.forEach(section => {
+      const args = require('../data/index.json');
 
-    Metadata.add(args);
-    args.fileName = '';
-    const html = pageTemplates.render(config.templates.index, args);
-    const indexFile = latestFile.clone({contents: false});
-    indexFile.path = path.join(latestFile.base, "index.html");
-    indexFile.contents = new Buffer(html);
-    gutil.log('Generated ' + indexFile.relative);
-    stream.push(indexFile);
+      // clear selection state
+      sections.forEach(s => s.selected = false);
+      section.selected = true;
+
+      const indexArgs = {
+        config: config,
+        title: section.title,
+        desc: section.desc,
+        sections: sections,
+        categories: section.categories,
+        timestamp: timestamp,
+        github: "https://github.com/ampproject/amp-by-example/",
+        fileName: '/'
+      };
+      Object.assign(args, indexArgs);
+
+      Metadata.add(args);
+      args.fileName = '';
+      const html = pageTemplates.render(config.templates.index, args);
+      const indexFile = latestFile.clone({contents: false});
+      indexFile.path = path.join(latestFile.base, section.path, "index.html");
+
+      indexFile.contents = new Buffer(html);
+      stream.push(indexFile);
+    });
   }
 
-  function compileSitemap(stream, categories) {
+  function compileSitemap(stream, sections) {
     const indexFile = latestFile.clone({contents: false});
     indexFile.path = path.join(latestFile.base, "sitemap.json");
-    indexFile.contents = new Buffer(JSON.stringify(categories, null, 2));
-    gutil.log('Generated ' + indexFile.relative);
+    indexFile.contents = new Buffer(JSON.stringify(sections, null, 2));
     stream.push(indexFile);
   }
 
   function findNextExample(examples, index) {
-      const next = examples[index];
-      if (!next) {
-        return null;
-      }
-      const metadata = next.document.metadata;
-      if (!next.category() || (metadata && metadata.draft)) {
-        return findNextExample(examples, index+1);
-      }
-      return next;
+    const next = examples[index];
+    if (!next) {
+      return null;
+    }
+    const metadata = next.document.metadata;
+    if (!next.category() || (metadata && metadata.draft)) {
+      return findNextExample(examples, index+1);
+    }
+    return next;
   }
 
   function compileExamples(stream) {
@@ -170,9 +175,12 @@ module.exports = function(config, updateTimestamp) {
       if (example.category()) {
         nextExample = findNextExample(examples, index + 1);
       }
+      const sections = createSections(examples, example);
       const args = require('../data/index.json');
       const sampleArgs = {
         config: config,
+        index: index,
+        document: document,
         head: document.head,
         title: example.title() + ' - ' + 'AMP by Example',
         desc: document.description(),
@@ -184,11 +192,10 @@ module.exports = function(config, updateTimestamp) {
         github: example.githubUrl(),
         subHeading: example.title(),
         exampleStyles: document.styles,
-        categories: mapToCategories(examples, example),
         component: document.metadata.component,
         bodyTag: document.body,
         elementsAfterBody: document.elementsAfterBody,
-        sections: document.sections,
+        sections: sections,
         headings: document.headings(),
         metadata: document.metadata,
         nextExample: nextExample,
@@ -211,14 +218,15 @@ module.exports = function(config, updateTimestamp) {
       inputFile.contents = new Buffer(
         example.contents.replace(/\<\!\-\-\-\{(.|[\n\r])*\}\-\-\-\>/, '').trim());
       inputFile.metadata = document.metadata;
-      gutil.log('Generated ' + inputFile.relative);
+      //gutil.log('Generated ' + inputFile.relative);
       stream.push(inputFile);
 
       // compile example
       compileTemplate(stream, example, args, {
         template: config.templates.example,
         targetPath: example.targetPath(),
-        isEmbed: false
+        isEmbed: false,
+        postProcessor: replaceAmpAdRuntime
       });
 
       // compile embed
@@ -238,7 +246,9 @@ module.exports = function(config, updateTimestamp) {
         // configure a4a preview
         args.width = document.metadata.width || config.a4a.defaultWidth;
         args.height = document.metadata.height || config.a4a.defaultHeight;
-        args.adContainerHeight = args.height + config.a4a.adContainerLabelHeight;
+        args.layout = document.metadata.layout || config.a4a.defaultLayout;
+        args.adContainerHeight = args.height;
+        args.force3p = document.metadata.force3p || config.a4a.defaultForce3p;
         args.a4aEmbedUrl = example.urlSource();
       }
 
@@ -266,25 +276,34 @@ module.exports = function(config, updateTimestamp) {
     return sampleTemplates.renderString(string, config);
   }
 
-  function mapToCategories(examples, currentExample) {
-    const categories = [];
+  function createSections(examples, currentExample) {
+    const sections = [];
     let currentCategory;
+    let currentSection;
     sort(examples)
       .filter(exampleFile => exampleFile.category() && !exampleFile.document.metadata.draft)
       .forEach(function(exampleFile) {
+        // add new section
+        if (!currentSection || currentSection.path !== exampleFile.section().path) {
+          currentSection = exampleFile.section();
+          currentSection.categories = [];
+          sections.push(currentSection);
+          currentSection.selected = false;
+        }
         // add example to categories instance
         if (!currentCategory ||
-          currentCategory.name != exampleFile.category().name) {
+          currentCategory.name !== exampleFile.category().name) {
           currentCategory = exampleFile.category();
           currentCategory.examples = [];
-          if (currentExample) {
-            currentCategory.selected =
-              (currentCategory.name == currentExample.category().name);
-          }
-          categories.push(currentCategory);
+          currentSection.categories.push(currentCategory);
+          currentCategory.selected = false;
         }
         const selected = currentExample &&
           exampleFile.title() == currentExample.title();
+        if (selected) {
+          currentCategory.selected = selected;
+          currentSection.selected = selected;
+        }
 
         const experiments = exampleFile.document.metadata.experiments;
 
@@ -303,20 +322,22 @@ module.exports = function(config, updateTimestamp) {
           highlight: exampleFile.document.metadata.highlight
         });
       });
-    return categories;
+    return sections;
   }
 
   function compileTemplate(stream, example, args, options) {
     const document = example.document;
     const inputFile = example.file;
     args.isEmbed = options.isEmbed;
-    const sampleHtml = pageTemplates.render(options.template, args);
+    let sampleHtml = pageTemplates.render(options.template, args);
+    if (options.postProcessor) {
+      sampleHtml = options.postProcessor(document, sampleHtml);
+    }
     args.isEmbed = false;
     const sampleFile = inputFile.clone({contents: false});
     sampleFile.path = path.join(inputFile.base, options.targetPath);
     sampleFile.metadata = document.metadata;
     sampleFile.contents = new Buffer(sampleHtml);
-    gutil.log('Generated ' + sampleFile.relative);
     stream.push(sampleFile);
   }
 
@@ -325,7 +346,8 @@ module.exports = function(config, updateTimestamp) {
     if (!document.metadata.preview) {
       return null;
     }
-    if (document.isAmpAdSample() || document.metadata.preview === 'cache') {
+    if ((document.isAmpAdSample() && document.metadata.adSlot)
+      || document.metadata.preview === 'cache') {
       return cachedUrl(exampleFile.urlPreview());
     } else {
       return exampleFile.urlPreview();
@@ -341,6 +363,13 @@ module.exports = function(config, updateTimestamp) {
       return a.filePath.localeCompare(b.filePath);
     });
     return examples;
+  }
+
+  function replaceAmpAdRuntime(document, string) {
+    if (!document.isAmpAdSample()) {
+      return string;
+    }
+    return string.replace("https://amp-ads.firebaseapp.com/dist/amp-inabox.js", "https://amp-ads.firebaseapp.com/dist/amp.js");
   }
 
   function clone(obj) {
