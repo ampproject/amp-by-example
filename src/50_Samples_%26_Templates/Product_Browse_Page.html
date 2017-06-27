@@ -51,6 +51,20 @@ This sample showcases how to build a product browse page in AMP HTML.
       width: 160px;
       margin-top: 150px;
     }
+    .products {
+      display: block;
+      height: 100px;
+      padding: 0;
+      padding-right: 8px;
+    }
+    .products amp-img {
+      line-height: 24px;
+      font-weight: 400;
+      font-size: 24px;
+      vertical-align: middle;
+      float: left;
+      margin-right: 10px;
+    }
   </style>
 
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
@@ -129,20 +143,18 @@ This sample showcases how to build a product browse page in AMP HTML.
     <label for="sort" class="absolute top-0 right-0 bottom-0 left-0">Sort</label>
   </div>
 
-  <amp-list class="items"
-            width="auto"
-            height="200"
+  <amp-list width="auto"
+            height="500"
             layout="fixed-height"
             src="/samples_templates/products?sort=price-descendent&_=RANDOM"
             [src]="products.listSrc">
     <template type="amp-mustache">
-        <a class="m1 text-decoration-none" href="/samples_templates/product/[[$.Mode]]">
-          <amp-img width="640"
-                   height="426"
-                   layout="responsive"
+        <a class="m1 text-decoration-none products" href="/samples_templates/product/[[$.Mode]]">
+          <amp-img width="150"
+                   height="100"
                    alt="{{name}}"
                    src="{{img}}"></amp-img>
-                 <p class="name">{{name}}</p>
+                 <h2 class="name">{{name}}</h2>
                  <p class="star">{{{stars}}}</p>
                  <p class="price">${{price}}</p>
       </a>
