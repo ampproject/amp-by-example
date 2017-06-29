@@ -67,8 +67,25 @@ function fitPreviewIntoAvailableSpace() {
   });
 };
 
+/**
+ * Get URL parameter. 
+ *
+ * via https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+ */
+function getUrlParameter(name) {
+    var url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
 // Initially give preview same size as source code view (for a smoother transition)
 var sourcePanel = document.getElementById('source-panel');
+var initialPreviewHeight = getUrlParameter('preview-height') || sourcePanel.offsetHeight;
+console.log('initial preview height: ' + initialPreviewHeight);
 setPreviewHeight(sourcePanel.offsetHeight);
 
 /** Configure Tabs **/
@@ -83,10 +100,16 @@ tabPanels.forEach(function(tabPanel) {
   tabPanel.setAttribute('role', 'tabpanel');
 });
 
-// Make all but the first section hidden (ARIA state and display CSS)
-tabs.querySelectorAll('[role="tabpanel"]:not(:first-of-type)').forEach(function(tabPanel) {
+// Make all hidden (ARIA state and display CSS)
+tabs.querySelectorAll('[role="tabpanel"]').forEach(function(tabPanel) {
   tabPanel.setAttribute('aria-hidden', 'true');
 });
+
+// Configure active panel
+var activePanelId = getUrlParameter('active-tab') || 'source';
+var activePanel = document.getElementById(activePanelId + '-panel') || sourcePanel;
+activePanel.setAttribute('aria-selected', true);
+activePanel.removeAttribute('aria-hidden');
 
 // Get the list of tab links
 var tabsList = tabs.querySelector('ul');
@@ -120,7 +143,7 @@ tabs.querySelectorAll('[role="tab"]').forEach(function(e) {
     var activePanel = tabs.querySelector(e.getAttribute('href'));
     activePanel.removeAttribute('aria-hidden');
 
-    // calculate new height
+    // Calculate new height
     fitPreviewToContent();
     postEmbedHeightToViewer();
   };
