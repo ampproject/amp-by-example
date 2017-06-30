@@ -236,15 +236,18 @@ gulp.task('copy:license', 'copy license', function() {
 
 gulp.task('copy:static', 'copy static files', function() {
   return gulp.src(paths.static)
-    .pipe(change(prerenderTemplates))
+    .pipe(gulpIf(isHtml, change(prerenderTemplates)))
     .pipe(cache('static'))
     .pipe(gulp.dest(paths.dist.dir));
 });
 
+function isHtml(file) {
+  return file.path.endsWith('.html');
+}
+
 function prerenderTemplates(string) {
   return sampleTemplates.renderString(string, config);
 }
-
 
 gulp.task("compile:favicons", function() {
   return gulp.src(paths.favicon)
