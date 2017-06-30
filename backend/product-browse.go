@@ -54,6 +54,7 @@ type Product struct {
 	Stars       string `json:"stars"`
 	Attribution string `json:"attribution"`
 	Url         string `json:"url"`
+	Color       string `json:"color"`
 }
 
 type ShoppingCartItem struct {
@@ -194,7 +195,7 @@ func searchProducts(page Page, query string) ProductBrowsePage {
 		result = products
 	} else {
 		title = "Search Results for '" + query + "'"
-		result = findProducts(query)
+		result = findProducts([]string{query})
 	}
 	searchAction := path.Join(page.Route, query)
 	return ProductBrowsePage{
@@ -205,16 +206,36 @@ func searchProducts(page Page, query string) ProductBrowsePage {
 	}
 }
 
-func findProducts(query string) []Product {
-	query = strings.ToLower(query)
-	var result []Product
+func findProducts(query []string) []Product {
+	result := map[Product]bool{}
 	for _, product := range products {
-		productName := strings.ToLower(product.Name)
-		if strings.Contains(productName, query) {
-			result = append(result, product)
+		productQueryFeatures := buildQuery(product)
+		for _, queryString := range query {
+			if queryString != "" && contains(productQueryFeatures, strings.ToLower(queryString)) || queryString == "all" {
+				result[product] = true
+			}
 		}
 	}
-	return result
+	productResult := make([]Product, 0, len(result))
+	for k := range result {
+		productResult = append(productResult, k)
+	}
+	return productResult
+}
+
+func buildQuery(product Product) []string {
+	productName := strings.ToLower(product.Name)
+	productColor := strings.ToLower(product.Color)
+	return []string{strings.ToLower(productName), strings.ToLower(productColor)}
+}
+
+func contains(array []string, str string) bool {
+	for _, a := range array {
+		if strings.Contains(a, str) {
+			return true
+		}
+	}
+	return false
 }
 
 func handleSearchRequest(w http.ResponseWriter, r *http.Request, page Page) {
@@ -235,11 +256,14 @@ func handleProductsRequest(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	productQuery := r.URL.Query().Get("searchProduct")
-	if productQuery != "" {
-		var tempProduct = findProducts(productQuery)
+	colorQuery := r.URL.Query().Get("searchColor")
+	query := []string{productQuery, colorQuery}
+	var tempProduct = findProducts(query)
+	if len(tempProduct) > 0 {
 		responseProducts = make([]Product, len(tempProduct))
 		responseProducts = tempProduct
 	}
+
 	w.Header().Set("Content-Type", "application/json")
 	var responseProductsRoot JsonRoot = productsRoot
 	responseProductsRoot.Products = responseProducts

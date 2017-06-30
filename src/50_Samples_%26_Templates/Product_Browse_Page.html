@@ -65,6 +65,35 @@ This sample showcases how to build a product browse page in AMP HTML.
       float: left;
       margin-right: 10px;
     }
+    .refine {
+      display:none;
+    }
+    @media (min-width: 600px) {
+      .refine {
+        display:inline;
+        float: left;
+        width: 20%;
+        box-shadow: 5px 0 5px -5px rgba(0,0,0,.4);
+      }
+      .content {
+        float: right;
+        width: 80%;
+      }
+    }
+    /* layout */
+    #main-wrap {
+    /* overflow to handle inner floating block */
+      overflow: hidden;
+    }
+
+    #info-wrap {
+    /* overflow to handle inner floating block */
+      overflow: hidden;
+    }
+    .info {
+      width: 50%;
+      float: left;
+    }
   </style>
 
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
@@ -93,8 +122,8 @@ This sample showcases how to build a product browse page in AMP HTML.
     </a>
       <input name="search" type="text" placeholder="Search" on="change:AMP.setState({
         products: {
-          searchProduct: event.value,
-          listSrc: '/samples_templates/products?searchProduct='+ event.value +'&sortChoiceValue='+ products.sortChoiceValue +'&_=RANDOM'
+          listSrc: '/samples_templates/products?searchProduct='+ event.value +'&sortChoiceValue='+ products.sortChoiceValue +'&searchColor='+ products.searchColor +'&_=RANDOM',
+          searchProduct: event.value
         }
       })">
       <a id="sample-logo" href="/">Products</a>
@@ -124,26 +153,71 @@ This sample showcases how to build a product browse page in AMP HTML.
     {
       "sortChoiceValue": "price-descendent",
       "searchProduct": "",
+      "searchColor": "",
       "listSrc": "/samples_templates/products?sort=price-descendent&_=RANDOM"
     }
     </script>
   </amp-state>
-  <div class="ampstart-input inline-block relative m1">
-    <select id="sort" on="change:AMP.setState({
-      products: {
-        sortChoiceValue: event.value,
-        listSrc: '/samples_templates/products?searchProduct='+products.searchProduct+'&sort='+event.value+'&_=RANDOM'
-      }
-    })">
-      <option value="price-descendent">Price high to low
-    </option>
-      <option value="price-ascendent">Price low to high
-      </option>
-    </select>
-    <label for="sort" class="absolute top-0 right-0 bottom-0 left-0">Sort</label>
-  </div>
+  <div id="main-wrap">
+    <div class="refine p1">
+      <h3>Filter results</h3>
+      <h4 class="p1">Color</h4>
+      <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mx1">
+        <input type="radio" id="yellow" name="colorFilter" class="relative" value="Yellow" on="change:AMP.setState({
+          products: {
+            searchColor: event.checked == true ? 'yellow' : '',
+            listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sortChoiceValue='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'yellow' : '') +'&_=RANDOM'
+          }
+        })">
+        <label for="yellow"> yellow </label>
+      </div>
+      <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mx1">
+        <input type="radio" id="orange" name="colorFilter" class="relative" value="Orange" on="change:AMP.setState({
+          products: {
+            searchColor: event.checked == true ? 'orange' : '',
+            listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sortChoiceValue='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'orange' : '') +'&_=RANDOM'
+          }
+        })">
+        <label for="orange"> orange </label>
+      </div>
+      <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mx1">
+        <input type="radio" id="green" name="colorFilter" class="relative" value="Green" on="change:AMP.setState({
+          products: {
+            searchColor: event.checked == true ? 'green' : '',
+            listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sortChoiceValue='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'green' : '') +'&_=RANDOM'
+          }
+        })">
+        <label for="green"> green </label>
+      </div>
+      <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mx1">
+        <input type="radio" id="all" name="colorFilter" class="relative" value="all" on="change:AMP.setState({
+          products: {
+            searchColor: event.checked == true ? 'all' : '',
+            listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sortChoiceValue='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'all' : '') +'&_=RANDOM'
+          }
+        })">
+        <label for="all"> all </label>
+      </div>
+    </div>
+      <div class="content">
+        <div id="info-wrap">
+          <div class="ampstart-input inline-block relative m1">
+            <select id="sort" on="change:AMP.setState({
+              products: {
+                sortChoiceValue: event.value,
+                listSrc: '/samples_templates/products?searchProduct='+products.searchProduct+'&sort='+event.value+'&searchColor='+products.searchColor+'&_=RANDOM'
+              }
+            })">
+            <option value="price-descendent">Price high to low
+            </option>
+              <option value="price-ascendent">Price low to high
+              </option>
+            </select>
+            <label for="sort" class="absolute top-0 right-0 bottom-0 left-0">Sort</label>
+          </div>
+        </div>
 
-  <amp-list width="auto"
+        <amp-list width="auto"
             height="500"
             layout="fixed-height"
             src="/samples_templates/products?sort=price-descendent&_=RANDOM"
@@ -164,6 +238,8 @@ This sample showcases how to build a product browse page in AMP HTML.
     </div>
 
   </amp-list>
+</div>
+</div>
 
 <!-- ## Offers & Highlights -->
 <!-- -->
