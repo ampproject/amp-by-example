@@ -210,32 +210,39 @@ func findProducts(query []string) []Product {
 	result := map[Product]bool{}
 	for _, product := range products {
 		productQueryFeatures := buildQuery(product)
+		var found = false
 		for _, queryString := range query {
-			if queryString != "" && contains(productQueryFeatures, strings.ToLower(queryString)) || queryString == "all" {
-				result[product] = true
+			if contains(productQueryFeatures, strings.ToLower(queryString)) ||  queryString == "all" {
+				found = true
+			} else {
+				found = false
+				break
 			}
+		}
+		if found {
+			result[product] = true
 		}
 	}
 	productResult := make([]Product, 0, len(result))
-	for k := range result {
-		productResult = append(productResult, k)
-	}
+  for k := range result {
+  	productResult = append(productResult, k)
+  }
 	return productResult
 }
 
-func buildQuery(product Product) []string {
+func buildQuery(product Product) []string{
 	productName := strings.ToLower(product.Name)
 	productColor := strings.ToLower(product.Color)
 	return []string{strings.ToLower(productName), strings.ToLower(productColor)}
 }
 
 func contains(array []string, str string) bool {
-	for _, a := range array {
-		if strings.Contains(a, str) {
-			return true
-		}
-	}
-	return false
+   for _, a := range array {
+      if strings.Contains(a, str) {
+         return true
+      }
+   }
+   return false
 }
 
 func handleSearchRequest(w http.ResponseWriter, r *http.Request, page Page) {
@@ -245,23 +252,23 @@ func handleSearchRequest(w http.ResponseWriter, r *http.Request, page Page) {
 
 func handleProductsRequest(w http.ResponseWriter, r *http.Request) {
 	var responseProducts []Product
+	productQuery := r.URL.Query().Get("searchProduct")
+	colorQuery := r.URL.Query().Get("searchColor")
+	query := []string{productQuery, colorQuery}
+	var tempProducts = findProducts(query)
+	if len(tempProducts) > 0 {
+		responseProducts = make([]Product, len(tempProducts))
+		responseProducts = tempProducts
+	} else {
+		responseProducts = make([]Product, 0)
+	}
 	sortQuery := r.URL.Query().Get("sort")
 	if sortQuery != "" {
-		responseProducts = make([]Product, len(products))
-		copy(responseProducts, products)
 		if sortQuery == "price-descendent" {
 			sort.Sort(ByPriceDesc(responseProducts))
 		} else {
 			sort.Sort(ByPriceAsc(responseProducts))
 		}
-	}
-	productQuery := r.URL.Query().Get("searchProduct")
-	colorQuery := r.URL.Query().Get("searchColor")
-	query := []string{productQuery, colorQuery}
-	var tempProduct = findProducts(query)
-	if len(tempProduct) > 0 {
-		responseProducts = make([]Product, len(tempProduct))
-		responseProducts = tempProduct
 	}
 
 	w.Header().Set("Content-Type", "application/json")
