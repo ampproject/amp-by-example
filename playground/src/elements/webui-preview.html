@@ -17,7 +17,7 @@
   preview will be rendered inside an iframe. -->
 <dom-module id="webui-preview">
   <style scope="webui-preview">
-    #preview-container {
+    #previewContainer {
       overflow-y: scroll;
       background-color: white;
       position: relative;
@@ -36,39 +36,80 @@
     }
   </style>
   <template>
-    <div id="preview-container">
-      <iframe id="previewIframe" 
-        frameBorder="0" 
-        sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+    <div id="previewContainer">
     </div>
   </template>
   <script>
-    var PREVIEW_REQUEST_URL = 'playground/preview/';
     Polymer({
       is: 'webui-preview',
+      createIframe: function () {
+        var iframe = document.createElement('iframe');
+        iframe.setAttribute('frameBorder', '0');
+        iframe.setAttribute('id', 'previewIframe');
+        iframe.setAttribute('name', 'AMP Playground Output');
+        return iframe;
+      },
       refresh: function(documentString) {
-        var previewIframe = this.$.previewIframe;
-        previewIframe.classList.toggle('loading');
-        setTimeout(function() {
-          if ('serviceWorker' in navigator && 
-              navigator.serviceWorker.controller) {
-            // store preview doc in the cache to return it via the serviceworker
-            caches.open('previews').then(function(cache) {
-              const data = { headers: {'Content-Type': 'text/html'} };
-              cache.put(
-                  new Request(PREVIEW_REQUEST_URL), 
-                  new Response(documentString, data));
-              previewIframe.src = PREVIEW_REQUEST_URL;
-            });
-          } else {
-            console.log('[preview] No serviceworker detected. Falling back to ' +
-                'srcdoc. This might cause some samples to not work in the ' +
-                'playground.');
-            previewIframe.srcdoc = documentString;
+        window.requestIdleCallback(() => {
+          var previewContainer = this.$.previewContainer;
+          this.state = this.saveState(this.previewIframe);
+          this.updatePreview(documentString);
+          this.restoreState(this.previewIframe, this.state);
+        });
+      },
+      updatePreview: function(documentString) {
+        var previewContainer = this.$.previewContainer;
+        // create a new preview iframe
+        this.previewIframe = this.createIframe();
+        previewContainer.innerHTML = '';
+        Polymer.dom(previewContainer).appendChild(this.previewIframe);
+        // create the preview
+        var childDoc = this.previewIframe.contentDocument;
+        var childWindow = this.getIframeWindow(this.previewIframe);
+        if (!childDoc) childDoc = childWindow.document;
+        childDoc.open();
+        childDoc.write('');
+        childDoc.write(documentString);
+        childDoc.close();
+      },
+      getIframeWindow: function (iframeElement) {
+        return iframeElement.contentWindow || iframeElement.contentDocument.parentWindow;
+      },
+      restoreState: function (iframe, state) {
+        if (!iframe) return {};
+        var win = this.getIframeWindow(iframe);
+        if (!win) return {};
+        if (state.scroll) {
+          win.scrollTo(state.scroll.x, state.scroll.y);
+        }
+      },
+      saveState: function (iframe) {
+        if (!iframe) return {};
+        var win = this.getIframeWindow(iframe);
+        if (!win) return {};
+        return {
+          scroll: {
+            x: win.scrollX,
+            y: win.scrollY
           }
-          previewIframe.classList.toggle('loading');
-        }, 150);
+        };
       },
     });
+ 
+    /*
+     * @see https://developers.google.com/web/updates/2015/08/using-requestidlecallback
+     */
+    window.requestIdleCallback = window.requestIdleCallback ||
+      function (cb) {
+        return setTimeout(function () {
+          var start = Date.now();
+          cb({ 
+            didTimeout: false,
+            timeRemaining: function () {
+              return Math.max(0, 50 - (Date.now() - start));
+            }
+          });
+        }, 1);
+      }
   </script>
 </dom-module>
