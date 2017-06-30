@@ -400,46 +400,52 @@ This sample showcases how to build a product page in AMP HTML.
     See below for more informations on how we use`amp-bind`. -->
   <div class="product-gallery">
     <ul class="show" [class]="product.selectedColor == 'green' ? 'show' : 'hide'">
-      <li tabindex="0" role="button">
+      <li>
         <amp-img on="tap:AMP.setState({product: {selectedSlide: 0}})"
                   src="/img/green_apple_1_60x40.jpg"
                   width="60" height="40"
                   class="selected"
-                  [class]="product.selectedSlide == 0 ? 'selected' : '' ">
+                  [class]="product.selectedSlide == 0 ? 'selected' : '' "
+                  tabindex="0" role="button">
         </amp-img>
       </li>
-      <li tabindex="1" role="button">
+      <li>
         <amp-img on="tap:AMP.setState({product: {selectedSlide: 1}})"
                   src="/img/green_apple_2_60x40.jpg"
                   width="60" height="40"
-                  [class]="product.selectedSlide == 1 ? 'selected' : '' ">
+                  [class]="product.selectedSlide == 1 ? 'selected' : '' "
+                  tabindex="1" role="button">
         </amp-img>
       </li>
     </ul>
 
     <ul class="hide" [class]="product.selectedColor == 'golden' ? 'show' : 'hide'">
-      <li tabindex="0" role="button">
+      <li>
         <amp-img on="tap:AMP.setState({product: {selectedSlide: 0}})"
                 src="/img/product1_alt1_60x40.jpg"
                  width="60" height="40"
-                 [class]="product.selectedSlide == 0 ? 'selected' : '' ">
+                 [class]="product.selectedSlide == 0 ? 'selected' : '' "
+                 tabindex="0" role="button">
         </amp-img>
       </li>
     </ul>
 
     <ul class="hide" [class]="product.selectedColor == 'red' ? 'show' : 'hide'">
-      <li tabindex="0" role="button">
+      <li>
         <amp-img on="tap:AMP.setState({ product: {selectedSlide : 0}})"
                  src="/img/red_apple_1_60x40.jpg"
                  width="60" height="40"
-                 [class]="product.selectedSlide == 0 ? 'selected' : '' ">
+                 class="selected"
+                 [class]="product.selectedSlide == 0 ? 'selected' : '' "
+                 tabindex="0" role="button">
         </amp-img>
       </li>
-      <li tabindex="1" role="button">
+      <li>
         <amp-img on="tap:AMP.setState({ product: {selectedSlide : 1}})"
                  src="/img/red_apple_2_60x46.jpg"
                  width="60" height="40"
-                 [class]="product.selectedSlide == 1 ? 'selected' : '' ">
+                 [class]="product.selectedSlide == 1 ? 'selected' : '' "
+                 tabindex="1" role="button">
         </amp-img>
       </li>
     </ul>
@@ -572,7 +578,7 @@ This sample showcases how to build a product page in AMP HTML.
     Every time you select a color, we call `AMP.setState` with `{selectedColor: event.targetOption}`. This is triggering
     all the attributes and elements binded to `selectedColor` to update: the price (binded with the attribute `[text]`), the gallery, the image preview and the size selector (all binded with `[class]`). -->
       <p class="price-description">Price:
-        <span [text]="product[product.selectedColor].sizes[product.selectedSize]">$1.99</span>
+        <span [text]="product[product.selectedColor].sizes[product.selectedSize]">$5.99</span>
     </p>
 
     <!-- ## Product page -->
@@ -603,13 +609,13 @@ This sample showcases how to build a product page in AMP HTML.
                   })">
             <ul class="p0 m1">
               <li>
-                <div option="green" selected class="square green" width="40" height="40"></div>
+                <div option="green" selected class="square green"></div>
               </li>
               <li>
-                <div option="golden" class="square golden" width="40" height="40"></div>
+                <div option="golden" class="square golden"></div>
               </li>
               <li>
-                <div option="red" class="square red" width="40" height="40"></div>
+                <div option="red" class="square red"></div>
               </li>
             </ul>
           </amp-selector>
