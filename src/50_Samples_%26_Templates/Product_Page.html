@@ -395,25 +395,25 @@ This sample showcases how to build a product page in AMP HTML.
     corresponding to the selected colour. We realized the color selection by using `amp-selector`. Find more the doc and info in The Product Page section below.
 
     The green colour is the default color for the gallery when the page loads.
-    Clicking on a preview image will reveal the image in the gallery via the tap action `on="tap:AMP.setState({product: {selectedSlide: 0}})"`.
+    Clicking on a preview image will reveal the image in the gallery via the tap action `on="tap:AMP.setState({product: {selectedSlideForGreen: 0}})"`.
 
     See below for more informations on how we use`amp-bind`. -->
   <div class="product-gallery">
     <ul class="show" [class]="product.selectedColor == 'green' ? 'show' : 'hide'">
       <li>
-        <amp-img on="tap:AMP.setState({product: {selectedSlide: 0}})"
+        <amp-img on="tap:AMP.setState({product: {selectedSlideForGreen: 0}})"
                   src="/img/green_apple_1_60x40.jpg"
                   width="60" height="40"
                   class="selected"
-                  [class]="product.selectedSlide == 0 ? 'selected' : '' "
+                  [class]="product.selectedSlideForGreen == 0 ? 'selected' : '' "
                   tabindex="0" role="button">
         </amp-img>
       </li>
       <li>
-        <amp-img on="tap:AMP.setState({product: {selectedSlide: 1}})"
+        <amp-img on="tap:AMP.setState({product: {selectedSlideForGreen: 1}})"
                   src="/img/green_apple_2_60x40.jpg"
                   width="60" height="40"
-                  [class]="product.selectedSlide == 1 ? 'selected' : '' "
+                  [class]="product.selectedSlideForGreen == 1 ? 'selected' : '' "
                   tabindex="1" role="button">
         </amp-img>
       </li>
@@ -421,10 +421,11 @@ This sample showcases how to build a product page in AMP HTML.
 
     <ul class="hide" [class]="product.selectedColor == 'golden' ? 'show' : 'hide'">
       <li>
-        <amp-img on="tap:AMP.setState({product: {selectedSlide: 0}})"
+        <amp-img on="tap:AMP.setState({product: {selectedSlideForGolden: 0}})"
                 src="/img/product1_alt1_60x40.jpg"
                  width="60" height="40"
-                 [class]="product.selectedSlide == 0 ? 'selected' : '' "
+                 class="selected"
+                 [class]="product.selectedSlideForGolden == 0 ? 'selected' : '' "
                  tabindex="0" role="button">
         </amp-img>
       </li>
@@ -432,19 +433,19 @@ This sample showcases how to build a product page in AMP HTML.
 
     <ul class="hide" [class]="product.selectedColor == 'red' ? 'show' : 'hide'">
       <li>
-        <amp-img on="tap:AMP.setState({ product: {selectedSlide : 0}})"
+        <amp-img on="tap:AMP.setState({ product: {selectedSlideForRed : 0}})"
                  src="/img/red_apple_1_60x40.jpg"
                  width="60" height="40"
                  class="selected"
-                 [class]="product.selectedSlide == 0 ? 'selected' : '' "
+                 [class]="product.selectedSlideForRed == 0 ? 'selected' : '' "
                  tabindex="0" role="button">
         </amp-img>
       </li>
       <li>
-        <amp-img on="tap:AMP.setState({ product: {selectedSlide : 1}})"
+        <amp-img on="tap:AMP.setState({ product: {selectedSlideForRed : 1}})"
                  src="/img/red_apple_2_60x46.jpg"
                  width="60" height="40"
-                 [class]="product.selectedSlide == 1 ? 'selected' : '' "
+                 [class]="product.selectedSlideForRed == 1 ? 'selected' : '' "
                  tabindex="1" role="button">
         </amp-img>
       </li>
@@ -453,15 +454,15 @@ This sample showcases how to build a product page in AMP HTML.
    <!-- ## Image Gallery -->
   <!-- The `amp-carousel` component works very well for product image galleries. Learn how the `amp-carousel` component works [here](/advanced/image_galleries_with_amp-carousel/).
 
-  Notice how we are binding to the `slide` and `class` by using to the values of the variables `selectedSlide` and `selectedColor`. -->
+  Notice how we are binding to the `slide` and `class` by using to the values of the variables `selectedSlideForGreen` and `selectedColor`. -->
   <div class="product-gallery">
 
     <amp-carousel id="green-apple-carousel"
             width="1024" height="682"
             layout="responsive"
             type="slides"
-            [slide]="product.selectedSlide"
-            on="slideChange: AMP.setState({product: {selectedSlide: event.index}})"
+            [slide]="product.selectedSlideForGreen"
+            on="slideChange: AMP.setState({product: {selectedSlideForGreen: event.index}})"
             class="show"
             [class]="product.selectedColor == 'green' ? 'show' : 'hide'">
       <amp-img src="/img/green_apple_1_1024x682.jpg"
@@ -480,8 +481,8 @@ This sample showcases how to build a product page in AMP HTML.
             width="1024" height="682"
             layout="responsive"
             type="slides"
-            [slide]="product.selectedSlide"
-            on="slideChange: AMP.setState({product: {selectedSlide: event.index}})"
+            [slide]="product.selectedSlideForGolden"
+            on="slideChange: AMP.setState({product: {selectedSlideForGolden: event.index}})"
             class="hide"
             [class]="product.selectedColor == 'golden' ? 'show' : 'hide'">
         <amp-img src="/img/golden_apple1_1024x682.jpg"
@@ -495,8 +496,8 @@ This sample showcases how to build a product page in AMP HTML.
             width="1024" height="682"
             layout="responsive"
             type="slides"
-            [slide]="product.selectedSlide"
-            on="slideChange: AMP.setState({product: {selectedSlide: event.index}})"
+            [slide]="product.selectedSlideForRed"
+            on="slideChange: AMP.setState({product: {selectedSlideForRed: event.index}})"
             class="hide"
             [class]="product.selectedColor == 'red' ? 'show' : 'hide'">
         <amp-img src="/img/red_apple_1_1024x682.jpg"
@@ -535,7 +536,9 @@ This sample showcases how to build a product page in AMP HTML.
       "relatedProductsSrc": "/json/related_products.json",
       "selectedColor": "green",
       "selectedSize": "S",
-      "selectedSlide": 0,
+      "selectedSlideForRed": 0,
+      "selectedSlideForGolden": 0,
+      "selectedSlideForGreen": 0,
       "green": {
         "sizes": {
           "S": "$5.99",
@@ -603,7 +606,9 @@ This sample showcases how to build a product page in AMP HTML.
                   on="select:AMP.setState({
                     product: {
                       selectedColor: event.targetOption,
-                      selectedSlide: 0,
+                      selectedSlideForRed: 0,
+                      selectedSlideForGreen: 0,
+                      selectedSlideForYellow: 0,
                       selectedSize: product[event.targetOption].sizes[product.selectedSize] != 'unavailable' ? product.selectedSize : product[event.targetOption].defaultSize
                     }
                   })">
