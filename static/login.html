@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="792782562940-b1ob75jg25rvg6pvse2d379gs1efb6sv.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="215342317408-fnuvelotjpqsnj0dkonnrfqef5shdf2m.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <title>Login</title>
     <style>
@@ -32,10 +32,11 @@
           <div class="label">Password:</div>
           <input type="password" name="password" value="123456">
         </div>
+          <input name="returnurl" type="hidden" value="{{.ReturnURL}}">
+          <input name="token" id="token" type="hidden" value="">
           <input type="submit" value="Login" class="button">
-        <input name="returnurl" type="hidden" value="{{.ReturnURL}}">
-        <input name="token" id="token" type="hidden" value="">
       </form>
+      <p> Or you can use Google Sign in </p>
       <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
       <script>
         function onSignIn(googleUser) {

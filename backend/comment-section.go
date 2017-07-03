@@ -51,8 +51,8 @@ func InitCommentSection() {
 
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"authorization", handleCommentAuthorization)
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"login", handleLogin)
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"logout", handleLogout)
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"logout_button", handleLogoutButton)
+	http.HandleFunc(COMMENT_SAMPLE_PATH+"submit-logout", handleLogout)
+	http.HandleFunc(COMMENT_SAMPLE_PATH+"logout", handleLogoutButton)
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"submit", handleSubmit)
 }
 

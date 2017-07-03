@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-    <meta name="google-signin-client_id" content="792782562940-b1ob75jg25rvg6pvse2d379gs1efb6sv.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="215342317408-fnuvelotjpqsnj0dkonnrfqef5shdf2m.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js"></script>
     <title>Logout</title>
   </head>
   <body>
-    <form method="post" action="logout" id="logout-form">
+    <form method="post" action="submit-logout" id="logout-form">
       <input name="returnurl" type="hidden" value="{{.ReturnURL}}">
     </form>
       <script>
@@ -18,10 +18,10 @@
               return auth2.signOut()
             })
             .then(() => {
-              var form = document.getElementById("logout-form");
-              form.submit();
-            })
-      });
+              var form = document.getElementById("logout-form")
+              form.submit()
+            });
+          });
     </script>
   </body>
 </html>

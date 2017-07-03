@@ -98,7 +98,7 @@ func handleLogout(w http.ResponseWriter, r *http.Request) {
 		MaxAge: -1,
 	}
 	http.SetCookie(w, cookie)
-	returnURL := r.URL.Query().Get("returnurl")
+	returnURL := r.FormValue("returnurl")
 	http.Redirect(w, r, fmt.Sprintf("%s#success=true", returnURL), http.StatusSeeOther)
 }
 
