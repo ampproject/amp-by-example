@@ -27,7 +27,15 @@
   <link rel="import" href="elements/webui-mainpage.html">
   <link rel="import" href="../node_modules/@polymer/polymer/polymer.html">
   <script src="webui.js"></script>
-  <script async src="https://cdn.ampproject.org/v0/validator.js"></script>
+  <script>
+    const validatorPromise = new Promise(resolve => {
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://cdn.ampproject.org/v0/validator.js';
+      script.onload = resolve;
+      document.head.appendChild(script);
+    });
+  </script>
   <style is="custom-style">
     .ampproject-message { background-color: #FFF9C4; }
     html, body {
