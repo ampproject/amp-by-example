@@ -20,13 +20,14 @@
   <title>AMP Playground</title>
   <meta name="description" content="A live editing environment for Accelerated Mobile Pages (AMP) including
   validation and live preview.">
+  <link rel="preload" href="https://cdn.ampproject.org/v0/validator.js">
   <link rel="shortcut icon" href="/favicons/favicon.ico">
   <script src="../node_modules/webcomponents.js/webcomponents.min.js"></script>
   <link rel="import" href="../node_modules/@polymer/paper-styles/demo-pages.html">
   <link rel="import" href="elements/webui-mainpage.html">
   <link rel="import" href="../node_modules/@polymer/polymer/polymer.html">
   <script src="webui.js"></script>
-  <script src="https://cdn.ampproject.org/v0/validator.js"></script>
+  <script async src="https://cdn.ampproject.org/v0/validator.js"></script>
   <style is="custom-style">
     .ampproject-message { background-color: #FFF9C4; }
     html, body {
