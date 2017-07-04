@@ -35,5 +35,23 @@
     "stars": "&#9733;&#9733;&#9733;&#9733;&#9733;",
     "url": "#",
     "color": "yellow"
+  }, {
+    "id": 5,
+    "img": "/img/product5_640x408.jpg",
+    "name": "Watermelon",
+    "attribution": "pixabay",
+    "price": "4.50",
+    "stars": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+    "url": "#",
+    "color": "red"
+  }, {
+    "id": 6,
+    "img": "/img/product6_640x424.jpg",
+    "name": "Melon",
+    "attribution": "pixabay",
+    "price": "3.50",
+    "stars": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+    "url": "#",
+    "color": "yellow"
   }]
 }
