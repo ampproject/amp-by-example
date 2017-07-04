@@ -24,8 +24,8 @@ drag to resize the two sides. -->
       display: -ms-flex;
       display: -webkit-flex;
       display: flex;
-      margin: 0px;
-      margin-top: 64px;
+      margin: 0;
+      margin-top: 4px;
     }
   </style>
   <template>
@@ -109,8 +109,13 @@ drag to resize the two sides. -->
 
       _updateSize: function(size) {
         // adjust the panes size
-        this._left.style.width = size + 'px';
-        this._right.style.width = '' + (this.offsetWidth - size - this._dragHandle.offsetWidth) + 'px';
+        this._size = size;
+        window.requestAnimationFrame(this._updatePanes.bind(this));
+      },
+
+      _updatePanes(timestamp) {
+        this._left.style.width = this._size + 'px';
+        this._right.style.width = '' + (this.offsetWidth - this._size - this._dragHandle.offsetWidth) + 'px';
       },
 
       _setPointerEvent: function(value) {
