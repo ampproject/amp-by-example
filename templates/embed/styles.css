@@ -28,7 +28,7 @@ a {
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 ul {
-  padding: 8px;
+  padding: 8px 8px 0;
   margin: 0;
 }
 
@@ -45,13 +45,16 @@ ul {
   display: inline-block;
   list-style: none;
 }
-a[role="tab"]:hover {
-  background: #f4fcfe;
-}
 a[aria-selected], a[role="tab"]:focus {
   position: relative;
   font-weight: bold;
   outline: none;
+}
+a[aria-selected] {
+  border: 1px solid #ddd;
+  border-top: 2px solid #1c79c0;
+  border-bottom: 1px solid #fff;
+  border-radius: 3px 3px 0 0;
 }
 a[role="tab"] {
   color: #333;
