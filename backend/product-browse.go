@@ -22,6 +22,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"path"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -53,6 +54,7 @@ type Product struct {
 	Stars       string `json:"stars"`
 	Attribution string `json:"attribution"`
 	Url         string `json:"url"`
+	Color       string `json:"color"`
 }
 
 type ShoppingCartItem struct {
@@ -72,6 +74,7 @@ type JsonRoot struct {
 
 var products []Product
 var cache *LRUCache
+var productsRoot JsonRoot
 
 func InitProductBrowse() {
 	initProducts(DIST_FOLDER + "/json/related_products.json")
@@ -79,9 +82,7 @@ func InitProductBrowse() {
 	RegisterSample("samples_templates/product_browse_page", renderProductBrowsePage)
 	RegisterSample("samples_templates/product_page", renderProduct)
 	RegisterSampleEndpoint("samples_templates/product_browse_page", SEARCH, handleSearchRequest)
-	http.HandleFunc(ADD_TO_CART_PATH, func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, addToCart)
-	})
+	http.HandleFunc("/samples_templates/products", handleProductsRequest)
 	cache = NewLRUCache(100)
 }
 
@@ -133,6 +134,7 @@ func initProducts(path string) {
 	if err != nil {
 		panic(err)
 	}
+	productsRoot = root
 	products = root.Products
 }
 
@@ -193,7 +195,7 @@ func searchProducts(page Page, query string) ProductBrowsePage {
 		result = products
 	} else {
 		title = "Search Results for '" + query + "'"
-		result = findProducts(query)
+		result = findProducts([]string{query})
 	}
 	searchAction := path.Join(page.Route, query)
 	return ProductBrowsePage{
@@ -204,19 +206,104 @@ func searchProducts(page Page, query string) ProductBrowsePage {
 	}
 }
 
-func findProducts(query string) []Product {
-	query = strings.ToLower(query)
-	var result []Product
+func findProducts(query []string) []Product {
+	result := map[Product]bool{}
 	for _, product := range products {
-		productName := strings.ToLower(product.Name)
-		if strings.Contains(productName, query) {
-			result = append(result, product)
+		productQueryFeatures := buildQuery(product)
+		var found = false
+		for _, queryString := range query {
+			if contains(productQueryFeatures, strings.ToLower(queryString)) ||  queryString == "all" {
+				found = true
+			} else {
+				found = false
+				break
+			}
+		}
+		if found {
+			result[product] = true
 		}
 	}
-	return result
+	productResult := make([]Product, 0, len(result))
+  for k := range result {
+  	productResult = append(productResult, k)
+  }
+	return productResult
+}
+
+func buildQuery(product Product) []string{
+	productName := strings.ToLower(product.Name)
+	productColor := strings.ToLower(product.Color)
+	return []string{strings.ToLower(productName), strings.ToLower(productColor)}
+}
+
+func contains(array []string, str string) bool {
+   for _, a := range array {
+      if strings.Contains(a, str) {
+         return true
+      }
+   }
+   return false
 }
 
 func handleSearchRequest(w http.ResponseWriter, r *http.Request, page Page) {
 	route := page.Route + "?" + SEARCH + "=" + r.FormValue(SEARCH)
 	http.Redirect(w, r, route, http.StatusSeeOther)
+}
+
+func handleProductsRequest(w http.ResponseWriter, r *http.Request) {
+	var responseProducts []Product
+	productQuery := r.URL.Query().Get("searchProduct")
+	colorQuery := r.URL.Query().Get("searchColor")
+	query := []string{productQuery, colorQuery}
+	var tempProducts = findProducts(query)
+	if len(tempProducts) > 0 {
+		responseProducts = make([]Product, len(tempProducts))
+		responseProducts = tempProducts
+	} else {
+		responseProducts = make([]Product, 0)
+	}
+	sortQuery := r.URL.Query().Get("sort")
+	if sortQuery != "" {
+		if sortQuery == "price-descendent" {
+			sort.Sort(ByPriceDesc(responseProducts))
+		} else {
+			sort.Sort(ByPriceAsc(responseProducts))
+		}
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	var responseProductsRoot JsonRoot = productsRoot
+	responseProductsRoot.Products = responseProducts
+	jsonProducts, err := json.Marshal(responseProductsRoot)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Write(jsonProducts)
+}
+
+type ByPriceAsc []Product
+
+func (a ByPriceAsc) Len() int      { return len(a) }
+func (a ByPriceAsc) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a ByPriceAsc) Less(i, j int) bool {
+	price1, err1 := strconv.ParseFloat(a[i].Price, 64)
+	price2, err2 := strconv.ParseFloat(a[j].Price, 64)
+	if err1 != nil || err2 != nil {
+		return false
+	}
+	return price1 < price2
+}
+
+type ByPriceDesc []Product
+
+func (a ByPriceDesc) Len() int      { return len(a) }
+func (a ByPriceDesc) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a ByPriceDesc) Less(i, j int) bool {
+	price1, err1 := strconv.ParseFloat(a[i].Price, 64)
+	price2, err2 := strconv.ParseFloat(a[j].Price, 64)
+	if err1 != nil || err2 != nil {
+		return false
+	}
+	return price1 > price2
 }
