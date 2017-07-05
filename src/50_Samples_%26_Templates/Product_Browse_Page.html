@@ -182,7 +182,7 @@
       </amp-state>
       <amp-lightbox id="filter-lightbox" layout="nodisplay">
          <div>
-            <h3 class="ml1">Filter results</h3>
+            <h3 class="m1 mt2">Filter results</h3>
             <h4 class="p1">Color</h4>
             <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mx1">
                <input type="radio" name="colorFilter" class="relative" value="Yellow" on="change:AMP.setState({
@@ -190,7 +190,7 @@
                   searchColor: event.checked == true ? 'yellow' : '',
                   listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'yellow' : '') +'&_=RANDOM'
                   }
-                  })">
+                  }), filter-lightbox.close">
                <label for="yellow"> yellow </label>
             </div>
             <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mx1">
@@ -199,7 +199,7 @@
                   searchColor: event.checked == true ? 'orange' : '',
                   listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'orange' : '') +'&_=RANDOM'
                   }
-                  })">
+                  }), filter-lightbox.close">
                <label for="orange"> orange </label>
             </div>
             <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mx1">
@@ -208,7 +208,7 @@
                   searchColor: event.checked == true ? 'green' : '',
                   listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'green' : '') +'&_=RANDOM'
                   }
-                  })">
+                  }), filter-lightbox.close">
                <label for="green"> green </label>
             </div>
             <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mx1">
@@ -217,13 +217,8 @@
                   searchColor: event.checked == true ? 'all' : '',
                   listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'all' : '') +'&_=RANDOM'
                   }
-                  })">
+                }), filter-lightbox.close">
                <label for="all"> all </label>
-            </div>
-            <div class="mx1">
-               <a on="tap:filter-lightbox.close" role="button" tabindex="0" class="ampstart-btn inline-block">
-               Close
-               </a>
             </div>
          </div>
       </amp-lightbox>
