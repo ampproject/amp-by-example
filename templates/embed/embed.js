@@ -85,7 +85,6 @@ function getUrlParameter(name) {
 // Initially give preview same size as source code view (for a smoother transition)
 var sourcePanel = document.getElementById('source-panel');
 var initialPreviewHeight = getUrlParameter('preview-height') || sourcePanel.offsetHeight;
-console.log('initial preview height: ' + initialPreviewHeight);
 setPreviewHeight(sourcePanel.offsetHeight);
 
 /** Configure Tabs **/
@@ -108,7 +107,6 @@ tabs.querySelectorAll('[role="tabpanel"]').forEach(function(tabPanel) {
 // Configure active panel
 var activePanelId = getUrlParameter('active-tab') || 'source';
 var activePanel = document.getElementById(activePanelId + '-panel') || sourcePanel;
-activePanel.setAttribute('aria-selected', true);
 activePanel.removeAttribute('aria-hidden');
 
 // Get the list of tab links
@@ -118,7 +116,11 @@ tabsList.querySelectorAll('li').forEach(function(li) {
   li.setAttribute('role', 'presentation');
   var a = li.querySelector('a');
   a.setAttribute('role', 'tab');
-  a.setAttribute('aria-control', a.getAttribute('href').substring(1));
+  var target = a.getAttribute('href').substring(1);
+  a.setAttribute('aria-control', target);
+  if (target === activePanel.id) {
+    a.setAttribute('aria-selected', true);
+  }
 });
 
 // Init tab selector click behavior
