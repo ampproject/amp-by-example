@@ -86,6 +86,9 @@ This sample showcases how to build a product page in AMP HTML.
     .product-gallery > ul > li:focus {
       outline: none;
     }
+    .product-gallery amp-img:focus {
+      outline: none;
+    } 
     form#order label {
       display: inline;
       font-weight: 500;
@@ -152,6 +155,15 @@ This sample showcases how to build a product page in AMP HTML.
 
     form#order amp-selector[name=color] div:not([selected]):not([disabled]) {
       opacity: 0.6;
+    }
+    @keyframes fadeIn {
+      0% {opacity: 0;}
+      100% {opacity: 1;}
+    }
+    .fadeIn {
+      animation-duration: 1s;
+      animation-fill-mode: both;
+      animation-name: fadeIn;
     }
     .hide {
       display: none;
@@ -423,7 +435,7 @@ This sample showcases how to build a product page in AMP HTML.
         <amp-img on="tap:AMP.setState({product: {selectedSlideForGolden: 0}})"
                 src="/img/product1_alt1_60x40.jpg"
                  width="60" height="40"
-                 class="selected"
+                 class="selected  fadeIn"
                  [class]="product.selectedSlideForGolden == 0 ? 'selected' : '' "
                  tabindex="0" role="button">
         </amp-img>
@@ -435,7 +447,7 @@ This sample showcases how to build a product page in AMP HTML.
         <amp-img on="tap:AMP.setState({ product: {selectedSlideForRed : 0}})"
                  src="/img/red_apple_1_60x40.jpg"
                  width="60" height="40"
-                 class="selected"
+                 class="selected  fadeIn"
                  [class]="product.selectedSlideForRed == 0 ? 'selected' : '' "
                  tabindex="0" role="button">
         </amp-img>
@@ -462,8 +474,8 @@ This sample showcases how to build a product page in AMP HTML.
             type="slides"
             [slide]="product.selectedSlideForGreen"
             on="slideChange: AMP.setState({product: {selectedSlideForGreen: event.index}})"
-            class="show"
-            [class]="product.selectedColor == 'green' ? 'show' : 'hide'">
+            class="show  fadeIn"
+            [class]="product.selectedColor == 'green' ? 'show  fadeIn' : 'hide'">
       <amp-img src="/img/green_apple_1_1024x682.jpg"
                 width="1024" height="682"
                 layout="responsive" on="tap:gallery-lightbox"
@@ -483,7 +495,7 @@ This sample showcases how to build a product page in AMP HTML.
             [slide]="product.selectedSlideForGolden"
             on="slideChange: AMP.setState({product: {selectedSlideForGolden: event.index}})"
             class="hide"
-            [class]="product.selectedColor == 'golden' ? 'show' : 'hide'">
+            [class]="product.selectedColor == 'golden' ? 'show  fadeIn' : 'hide'">
         <amp-img src="/img/golden_apple1_1024x682.jpg"
                 width="1024" height="682"
                 layout="responsive" on="tap:gallery-lightbox"
@@ -498,7 +510,7 @@ This sample showcases how to build a product page in AMP HTML.
             [slide]="product.selectedSlideForRed"
             on="slideChange: AMP.setState({product: {selectedSlideForRed: event.index}})"
             class="hide"
-            [class]="product.selectedColor == 'red' ? 'show' : 'hide'">
+            [class]="product.selectedColor == 'red' ? 'show  fadeIn' : 'hide'">
         <amp-img src="/img/red_apple_1_1024x682.jpg"
                 width="1024" height="682"
                 layout="responsive" on="tap:gallery-lightbox"
