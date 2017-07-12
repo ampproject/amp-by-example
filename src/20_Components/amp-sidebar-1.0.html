@@ -54,16 +54,20 @@
   <!--
     `amp-sidebar-1.0` follows all of the same requirements of [`amp-sidebar-0.1`](../amp-sidebar/#basic-usage). However, `amp-sidebar-1.0`'s `toolbar` elements have their own requirments:
 
-    - The sidebar may implement toolbars by adding nav elements with the `toolbar` attribute and `target` attribute.
-    - The nav element must be a child of `<amp-sidebar>` and follow this format: `<nav toolbar="(media-query)" target="elementID">`.
-    - The nav containing the toolbar attribute must only contain a single `<ul>` element, that contains `<li>` elements.
-    - The `<li>` elements may contain any valid HTML elements (supported by AMP), or any of the AMP elements that `<amp-sidebar>` supports.
-    - Toolbar behavior is only applied while the `toolbar` attribute media-query is valid. Also, an element with the `target` attribute id must exist on the page for the toolbar to be applied.
+    The sidebar may implement toolbars by adding nav elements with the `toolbar` attribute and `target` attribute.
+
+    The nav element must be a child of `<amp-sidebar>` and follow this format: `<nav toolbar="(media-query)" target="elementID">`.
+
+    The nav containing the toolbar attribute must only contain a single `<ul>` element, that contains `<li>` elements.
+
+    The `<li>` elements may contain any valid HTML elements (supported by AMP), or any of the AMP elements that `<amp-sidebar>` supports.
+
+    Toolbar behavior is only applied while the `toolbar` attribute media-query is valid. Also, an element with the `target` attribute id must exist on the page for the toolbar to be applied.
   -->
     <div>
       <amp-sidebar id="sidebar-left" layout="nodisplay" side="left">
         <amp-img class="amp-close-image" src="/img/ic_close_black_18dp_2x.png" width="20" height="20" alt="close sidebar" on="tap:sidebar.close" role="button" tabindex="0"></amp-img>
-        <nav toolbar="(max-width: 768px)" target="toolbar-target">
+        <nav toolbar="(max-width: 56rem)" target="toolbar-target">
           <ul>
             <li><a href="/">Home</a></li>
             <li> Nav item 1</li>
@@ -108,7 +112,7 @@
             <li> Nav item 1</li>
           </ul>
         </nav>
-        <nav toolbar="(min-width: 768px)" target="toolbar-only-target-two">
+        <nav toolbar="(min-width: 56rem)" target="toolbar-only-target-two">
           <ul>
             <li toolbar-only>
               <amp-fit-text width="220" height="20" layout="responsive" max-font-size="24">
