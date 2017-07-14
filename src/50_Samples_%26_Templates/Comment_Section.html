@@ -48,6 +48,9 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
         margin: 0 16px 16px 0;
         width: 100%;
     }
+    .nightmode {
+      background: #f2f2f2;
+    }
     </style>
 
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
@@ -71,16 +74,23 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     <body>
     <!-- ## Add a Comment Section -->
     <!-- -->
-    <h2 class="p1">Comments</h2>
+
+      <div class="right mt1 mr1" amp-access="loggedIn" amp-access-hide>
+        <template amp-access-template type="amp-mustache">
+          <p class="left">Hi {{userName}}</p>
+          <a class="ml1" href="/preferences">preferences</a>
+        </template>
+      </div>
+      <h2 class="p1">Comments</h2>
 
     <!-- Use `amp-list` to render existing comments to make sure that the latest comments appear if the page is loaded via AMP Cache.  -->
-      <amp-list class="mt1" width="auto" height="230" layout="fixed-height" src="/json/comments.json">
+      <amp-list class="mt1" width="auto" height="230" layout="fixed-height" src="/samples_templates/comments">
         <template type="amp-mustache">
           <div class="flex px1 pt1">
             <amp-img width="44" height="44" class="mr1 flex-none" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>
             <div class="ampstart-card p1 comment">
-              <p><span class="user">{{user}}</span> <span class="date">{{datetime}}</span></p>
-              <p>{{text}}</p>
+              <p><span class="user">{{User}}</span> <span class="date">{{Datetime}}</span></p>
+              <p>{{Text}}</p>
             </div>
           </div>
         </template>
