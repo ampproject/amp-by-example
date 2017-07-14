@@ -64,6 +64,7 @@ func RegisterTemplate(route string, mode string, templatePath string,
 			RedirectToSecureVersion(w, r)
 			return
 		}
+		EnableCors(w, r)
 		handler(w, r, page)
 	})
 }
