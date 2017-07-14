@@ -38,7 +38,7 @@ class AmpUrlConverter {
       this.showError('Empty input');
       return;
     }
-    if (!/^http[s]?\:\/\//.test(urlString)) {
+    if (!/^http[s]?\:\/\//i.test(urlString)) {
       urlString = 'http://' + urlString;
     }
     try {
