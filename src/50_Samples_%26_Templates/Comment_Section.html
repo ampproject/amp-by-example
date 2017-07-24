@@ -77,14 +77,13 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
 
       <div class="right mt1 mr1" amp-access="loggedIn" amp-access-hide>
         <template amp-access-template type="amp-mustache">
-          <p class="left">Hi {{userName}}</p>
           <a class="ml1" href="/preferences">preferences</a>
         </template>
       </div>
       <h2 class="p1">Comments</h2>
 
     <!-- Use `amp-list` to render existing comments to make sure that the latest comments appear if the page is loaded via AMP Cache.  -->
-      <amp-list class="mt1" width="auto" height="230" layout="fixed-height" src="/samples_templates/comments">
+      <amp-list credentials="include" class="mt1" width="auto" height="230" layout="fixed-height" src="/samples_templates/comment_section/comments">
         <template type="amp-mustache">
           <div class="flex px1 pt1">
             <amp-img width="44" height="44" class="mr1 flex-none" alt="user" src="/img/ic_account_box_black_48dp_1x.png"></amp-img>

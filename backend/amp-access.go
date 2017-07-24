@@ -32,7 +32,7 @@ type AuthResponse struct {
 }
 
 type AuthorizationResponse interface {
-	CreateAuthorizationResponse() AuthorizationResponse
+	CreateAuthorizationResponse(r *http.Request) AuthorizationResponse
 }
 
 const (

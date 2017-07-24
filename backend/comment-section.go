@@ -19,9 +19,9 @@ import (
 	"net/http"
 	"time"
 	"io/ioutil"
-	//"sort"
+	"sort"
 	"encoding/json"
-	//"strconv"
+	"strconv"
 )
 
 const (
@@ -29,12 +29,13 @@ const (
 	USER                = "Charlie"
 	ABE_COMMENT_SORT    = "ABE_COMMENT_SORT"
 	ABE_COMMENT_NUMBER  = "ABE_COMMENT_NUMBER"
+	COMMENT_DATE_NEW_FIRST = "comment-date-new-first"
 )
 
 type CommentAuthorizationResponse struct {
-	User bool `json:"loggedIn"`
-	UserStyle bool `json:"user"`
-	Style string  `json:"style"`
+	User 							bool `json:"loggedIn"`
+	NumberOfComments 	int  `json:"numberOfComments"`
+	Sort							string `json:"sort"`
 }
 
 type Comment struct {
@@ -51,12 +52,17 @@ type CommentJsonRoot struct {
 var comments []Comment
 var commentsRoot CommentJsonRoot
 
-func (h CommentAuthorizationResponse) CreateAuthorizationResponse() AuthorizationResponse {
-	return CommentAuthorizationResponse{true, true, "nightmode"}
+func (h CommentAuthorizationResponse) CreateAuthorizationResponse(r *http.Request) AuthorizationResponse {
+	numberOfCommentsCookie, _ := r.Cookie(ABE_COMMENT_NUMBER)
+	numberOfCommentsCookieInt, _ := strconv.Atoi(numberOfCommentsCookie.Value)
+
+	sortingCookie, _:= r.Cookie(ABE_COMMENT_SORT)
+	sortStrategy := sortingCookie.Value
+	return CommentAuthorizationResponse{true, numberOfCommentsCookieInt, sortStrategy}
 }
 
 func (h CommentAuthorizationResponse) CreateInvalidAuthorizationResponse() AuthorizationResponse {
-	return CommentAuthorizationResponse{false, true, "nightmode"}
+	return CommentAuthorizationResponse{false, -1, COMMENT_DATE_NEW_FIRST}
 }
 
 func InitCommentSection() {
@@ -72,7 +78,7 @@ func InitCommentSection() {
 	http.HandleFunc(COMMENT_SAMPLE_PATH+"update-preferences", func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, updatePreferences)
 	})
-	http.HandleFunc("/samples_templates/comments", handleCommentsRequest)
+	http.HandleFunc("/samples_templates/comment_section/comments", handleCommentsRequest)
 
 }
 
@@ -84,7 +90,7 @@ func submitCommentXHR(w http.ResponseWriter, r *http.Request) {
 		newComment := Comment{
 			Text:     text,
 			User:     USER,
-			Datetime: time.Now().Format("15:04:05"),
+			Datetime: time.Now().Format("2006-01-02T15:04:05.000Z"),
 			UserImg:  "/img/ic_account_box_black_48dp_1x.png",
 		}
 		response = fmt.Sprintf("{\"Datetime\":\"%s\", \"User\":\"%s\", \"Text\":\"%s\", \"UserImg\":\"%s\"}",
@@ -97,19 +103,10 @@ func submitCommentXHR(w http.ResponseWriter, r *http.Request) {
 
 func updatePreferences(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
-	numberOfComments := r.FormValue("numberOfComments")
+	numberOfComments, _ := strconv.Atoi(r.FormValue("numberOfComments"))
 	sort := r.FormValue("sort")
-	expireInOneDay := time.Now().AddDate(0, 0, 1)
-	sortingCookie := &http.Cookie{
-		Name:    ABE_COMMENT_SORT,
-		Expires: expireInOneDay,
-		Value:   sort,
-	}
-	numberOfCommentsCookie := &http.Cookie{
-		Name:    ABE_COMMENT_NUMBER,
-		Expires: expireInOneDay,
-		Value:   numberOfComments,
-	}
+	sortingCookie := createSortingCookie(sort)
+	numberOfCommentsCookie := createNumberOfCommentsCookie(numberOfComments)
 	http.SetCookie(w, numberOfCommentsCookie)
 	http.SetCookie(w, sortingCookie)
 	SetContentTypeJson(w)
@@ -118,45 +115,74 @@ func updatePreferences(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleCommentsRequest(w http.ResponseWriter, r *http.Request) {
+	EnableCors(w, r)
 	var responseComments []Comment
 	responseComments = make([]Comment, len(comments))
 	responseComments = comments
-	// numberOfCommentsCookie, errNumberOfComments := r.Cookie(ABE_COMMENT_NUMBER)
-	// if errNumberOfComments != nil {
-	// 	http.Error(w, errNumberOfComments.Error(), http.StatusInternalServerError)
-	// 	return
-	// }
-	// sortingCookie, errSortingCookie := r.Cookie(ABE_COMMENT_SORT)
-	// if errSortingCookie != nil {
-	// 	http.Error(w, errSortingCookie.Error(), http.StatusInternalServerError)
-	// 	return
-	// }
-	// sortQuery := sortingCookie.Value
-	// if sortQuery != "" {
-	// 	if sortQuery == "comment-date-descendent" {
-	// 		sort.Sort(ByDateDesc(responseComments))
-	// 	} else {
-	// 		sort.Sort(ByDateAsc(responseComments))
-	// 	}
-	// }
-	// numberOfCommentsQuery := numberOfCommentsCookie.Value
-	// numberOfComments, numberOfCommentsError := strconv.Atoi(numberOfCommentsQuery)
-	// if numberOfCommentsError != nil {
-	// 	http.Error(w, numberOfCommentsError.Error(), http.StatusInternalServerError)
-	// 	return
-	// }
-	//
-	// responseComments = responseComments[:numberOfComments]
+	numberOfCommentsCookie, errNumberOfComments := r.Cookie(ABE_COMMENT_NUMBER)
+	//cookie is not set yet
+	if errNumberOfComments != nil {
+		numberOfCommentsCookie = createNumberOfCommentsCookieDefault()
+		http.SetCookie(w, numberOfCommentsCookie)
+	}
+	sortingCookie, errSortingCookie := r.Cookie(ABE_COMMENT_SORT)
+	//cookie is not set yet
+	if errSortingCookie != nil {
+		sortingCookie = createSortingCookieDefault()
+		http.SetCookie(w, sortingCookie)
+	}
+	sortQuery := sortingCookie.Value
+	if sortQuery != "" {
+		if sortQuery == COMMENT_DATE_NEW_FIRST {
+			sort.Sort(ByDateDesc(responseComments))
+		} else {
+			sort.Sort(ByDateAsc(responseComments))
+		}
+	}
+	numberOfCommentsQuery := numberOfCommentsCookie.Value
+	numberOfComments, numberOfCommentsError := strconv.Atoi(numberOfCommentsQuery)
+	if numberOfCommentsError != nil {
+		http.Error(w, "Parsing number of comments error", http.StatusInternalServerError)
+		return
+	}
+
+	responseComments = responseComments[:numberOfComments]
 
 	w.Header().Set("Content-Type", "application/json")
 	var responseCommentsRoot CommentJsonRoot = commentsRoot
 	responseCommentsRoot.Comments = responseComments
 	jsonComments, jsonError := json.Marshal(responseCommentsRoot)
 	if jsonError != nil {
-		http.Error(w, jsonError.Error(), http.StatusInternalServerError)
+		http.Error(w, "Comments marshal error", http.StatusInternalServerError)
 		return
 	}
 	w.Write(jsonComments)
+}
+
+func createNumberOfCommentsCookie(numberOfComments int) *http.Cookie {
+	expireInOneDay := time.Now().AddDate(0, 0, 1)
+	return &http.Cookie{
+		Name:    ABE_COMMENT_NUMBER,
+		Expires: expireInOneDay,
+		Value:   strconv.Itoa(numberOfComments),
+	}
+}
+
+func createNumberOfCommentsCookieDefault() *http.Cookie {
+	return createNumberOfCommentsCookie(len(comments))
+}
+
+func createSortingCookieDefault() *http.Cookie {
+	return createSortingCookie(COMMENT_DATE_NEW_FIRST)
+}
+
+func createSortingCookie(sort string) *http.Cookie {
+	expireInOneDay := time.Now().AddDate(0, 0, 1)
+	return &http.Cookie {
+		Name:    ABE_COMMENT_SORT,
+		Expires: expireInOneDay,
+		Value:   sort,
+	}
 }
 
 type ByDateAsc []Comment
@@ -197,7 +223,7 @@ func handleCommentAuthorization(w http.ResponseWriter, r *http.Request) {
 		handleAuthorization(w, r, new(CommentAuthorizationResponse).CreateInvalidAuthorizationResponse())
 		return
 	}
-	handleAuthorization(w, r, new(CommentAuthorizationResponse).CreateAuthorizationResponse())
+	handleAuthorization(w, r, new(CommentAuthorizationResponse).CreateAuthorizationResponse(r))
 }
 
 func initComments(path string) {

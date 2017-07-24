@@ -38,12 +38,12 @@ func InitHotelSample() {
 	http.HandleFunc(HOTEL_SAMPLE_PATH+"check-available", checkAvailability)
 }
 
-func (h HotelAuthorizationResponse) CreateAuthorizationResponse() AuthorizationResponse {
+func (h HotelAuthorizationResponse) CreateAuthorizationResponse(r *http.Request) AuthorizationResponse {
 	return HotelAuthorizationResponse{"test-user", "Gold", 2}
 }
 
 func handleHotelAuthorization(w http.ResponseWriter, r *http.Request) {
-	handleAuthorization(w, r, new(HotelAuthorizationResponse).CreateAuthorizationResponse())
+	handleAuthorization(w, r, new(HotelAuthorizationResponse).CreateAuthorizationResponse(r))
 }
 
 func checkAvailability(w http.ResponseWriter, r *http.Request) {
