@@ -205,6 +205,46 @@
     </div>
   </form>
 
+  <!-- ## Form Verification -->
+  <!--
+  Form verification enables asynchronous validation of form fields. As a user
+  fills out a form with verification enabled, `amp-form` sends the
+  values to the `verify-url` to check the value using logic on the server.
+  If an error occurs, such as a username being taken, it will show as a
+  validation error in the form.
+
+  Read [here](https://www.ampproject.org/docs/reference/components/amp-form)
+  for complete documentation.
+
+  Use the `verify-xhr` attribute to enable the form verification feature.
+
+  Form verification can combine with custom error reporting using
+  `visible-when-invalid="customError"`.
+  -->
+  <form method="post"
+        class="p2"
+        action-xhr="/components/amp-form/verify-form-input-text-xhr"
+        verify-xhr="/components/amp-form/verify-form-input-text-xhr"
+        target="_top"
+        custom-validation-reporting="as-you-go">
+    <div class="ampstart-input inline-block relative m0 p0 mb3">
+      <input type="text" class="block border-none p0 m0" id="verification-username" name="username" placeholder="Username..." required pattern="\w+">
+      <span visible-when-invalid="customError" validation-for="verification-username">That username is already taken</span>
+      <span visible-when-invalid="patternMismatch" validation-for="verification-username">Invalid character in username</span>
+    </div>
+    <input type="submit" value="Check" class="ampstart-btn caps">
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Thanks {{name}} for trying the <code>amp-form</code> demo! Try to insert the word "error" as a name input in the form to see how <code>amp-form</code> handles errors.
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error! Thanks {{name}} for trying the <code>amp-form</code> demo with an error response.
+      </template>
+    </div>
+  </form>
+
   <!-- ## Hiding input fields after success -->
   <!--
   Use the `amp-form-submit-success` class to hide input fields after a successful submission.
