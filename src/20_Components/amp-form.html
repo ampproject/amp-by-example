@@ -208,18 +208,26 @@
   <!-- ## Form Verification -->
   <!--
   Form verification enables asynchronous validation of form fields. As a user
-  fills out a form with verification enabled, `amp-form` sends the
-  values to the `verify-url` to check the value using logic on the server.
-  If an error occurs, such as a username being taken, it will show as a
+  fills out a form with verification enabled, `amp-form` sends the fields to
+  the `verify-xhr` URL to check their values using logic on the server.
+  If an error is found, such as a username being taken, it will show as a
   validation error in the form.
 
-  Read [here](https://www.ampproject.org/docs/reference/components/amp-form)
+  Read <a href="https://www.ampproject.org/docs/reference/components/amp-form#verification-(experimental)">here</a>
   for complete documentation.
 
   Use the `verify-xhr` attribute to enable the form verification feature.
 
   Form verification can combine with custom error reporting using
-  `visible-when-invalid="customError"`.
+  `visible-when-invalid="customError"`. When amp-form receives errors from the
+  XHR response, it sets the `customError` validity on offending elements.
+  Since AMP uses the [HTML5 Form Constraint Validation API](https://www.w3.org/TR/html5/forms.html#the-constraint-validation-api),
+  it is easy for form verification errors to interact with standard form
+  validation messages.
+
+  In the `submit-error` template, you can choose how to render verification
+  error message using the `verifyErrors` list. These will only display if the
+  user submits the form before the asynchronous verification response completes.
   -->
   <form method="post"
         class="p2"
@@ -240,7 +248,13 @@
     </div>
     <div submit-error>
       <template type="amp-mustache">
-        Error! Thanks {{name}} for trying the <code>amp-form</code> demo with an error response.
+        {{#verifyErrors}}
+            <p>{{message}}</p>
+        {{/verifyErrors}}
+        {{^verifyErrors}}
+            <p>Something went wrong. Try again later?</p>
+        {{/verifyErrors}}
+        <p>Error! Thanks {{name}} for trying the <code>amp-form</code> demo with an error response.</p>
       </template>
     </div>
   </form>
