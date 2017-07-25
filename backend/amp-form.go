@@ -53,7 +53,6 @@ func submitFormXHRInputText(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(response))
 }
 
-
 func verifyFormXHRInputText(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
 	SetContentTypeJson(w)
@@ -61,10 +60,10 @@ func verifyFormXHRInputText(w http.ResponseWriter, r *http.Request) {
 	name := r.FormValue("username")
 	if isUserTryingTheInputTextErrorDemo(name) {
 		w.WriteHeader(http.StatusBadRequest)
-		response = fmt.Sprintf("{\"verifyErrors\": [{ " +
-			"\"name\": \"username\", " +
-			"\"message\":\"The username \\\"%s\\\" is already taken\"" +
-		"}]}", name)
+		response = fmt.Sprintf("{\"verifyErrors\": [{ "+
+			"\"name\": \"username\", "+
+			"\"message\":\"The username \\\"%s\\\" is already taken\""+
+			"}]}", name)
 	} else {
 		response = fmt.Sprintf("{\"username\":\"%s\"}", name)
 	}
