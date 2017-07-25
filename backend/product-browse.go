@@ -212,7 +212,7 @@ func findProducts(query []string) []Product {
 		productQueryFeatures := buildQuery(product)
 		var found = false
 		for _, queryString := range query {
-			if contains(productQueryFeatures, strings.ToLower(queryString)) ||  queryString == "all" {
+			if contains(productQueryFeatures, strings.ToLower(queryString)) || queryString == "all" {
 				found = true
 			} else {
 				found = false
@@ -224,25 +224,25 @@ func findProducts(query []string) []Product {
 		}
 	}
 	productResult := make([]Product, 0, len(result))
-  for k := range result {
-  	productResult = append(productResult, k)
-  }
+	for k := range result {
+		productResult = append(productResult, k)
+	}
 	return productResult
 }
 
-func buildQuery(product Product) []string{
+func buildQuery(product Product) []string {
 	productName := strings.ToLower(product.Name)
 	productColor := strings.ToLower(product.Color)
 	return []string{strings.ToLower(productName), strings.ToLower(productColor)}
 }
 
 func contains(array []string, str string) bool {
-   for _, a := range array {
-      if strings.Contains(a, str) {
-         return true
-      }
-   }
-   return false
+	for _, a := range array {
+		if strings.Contains(a, str) {
+			return true
+		}
+	}
+	return false
 }
 
 func handleSearchRequest(w http.ResponseWriter, r *http.Request, page Page) {
