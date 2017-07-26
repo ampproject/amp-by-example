@@ -41,6 +41,9 @@
     .greenBackground {
       background-color: green;
     }
+    .yellowBackground {
+      background-color: yellow;
+    }
     /* make the demo look better */
     #amp-bind-sample > * {
       padding: 1rem;
@@ -56,8 +59,10 @@
     <!--
       `amp-bind` works by binding elements to an implicit JSON "state". This state can
       be initialized with one or more &lt;amp-state&gt; components.
+      You can also bind to the `amp-state` `src` to provide data remotely.
+      The remote data returned from this fetch is merged into the `amp-state` json data.
     -->
-    <amp-state id="allAnimals">
+    <amp-state id="allAnimals" [src]="remoteAnimalUrl">
       <script type="application/json">
       { "currentAnimal" : "dog",
         "dog": {
@@ -149,20 +154,6 @@
                             [src]="allAnimals[allAnimals.currentAnimal].iframeUrl">
     </amp-iframe>
     </section>
-    <!-- ## Load state remotely -->
-    <!-- Alternatively you could provide a remote json configuration endpoint to populate the amp-state content.  -->
-    <section>
-      <amp-state id="remoteAmpState" src="/json/amp-bind-data.json?RANDOM">
-      </amp-state>
-      <p [text]="'This is a ' + remoteAmpState.animal + '.'">This is a dog.</p>
-    </section>
-
-    <!-- You can also bind to the `amp-state` `src` to provide the new state src url remotely.  -->
-    <section>
-      <amp-state id="refreshRemoteAmpState" src="/json/amp-bind-data.json?RANDOM" [src]="refreshRemoteAmpState.stateUrl">
-      </amp-state>
-      <p [text]="'This is a ' + refreshRemoteAmpState.animal + '.'">This is a dog.</p>
-    </section>
 
     <!-- ## Triggering updates -->
     <!--
@@ -174,13 +165,19 @@
       `amp-state` components
     -->
     <button class="ampstart-btn caps m1"
-            on="tap:AMP.setState({allAnimals: {currentAnimal: 'cat'},
-                                  remoteAmpState: {animal: 'cat'},
-                                  refreshRemoteAmpState: {stateUrl: '/json/amp-bind-data-new-state.json?RANDOM'}})">
+            on="tap:AMP.setState({allAnimals: {currentAnimal: 'cat'}})">
                                   Set to Cat
     </button>
 
+    <!-- ## Load state remotely -->
+    <!--
+      By setting the src value of the `amp-state`, new data are fetched remotely and merged into the `amp-state` data json.
+    -->
 
+    <button class="ampstart-btn caps m1"
+            on="tap:AMP.setState({remoteAnimalUrl: '/json/amp-bind-data-new-state.json?RANDOM'})">
+                                  Set to Bird
+    </button>
 
 </body>
 </html>
