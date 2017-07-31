@@ -73,6 +73,87 @@
       border-width: 1px;
       border-style: solid;
     }
+
+    /* define some contants */
+    .collapsible-captions {
+      --caption-height: 32px;
+      --image-height: 300px;
+      --caption-padding: 1rem;
+      --button-size: 28px;
+      --caption-color: #f5f5f5;;
+      --caption-bg-color: #111;
+      background: var(--caption-bg-color);
+    }
+    .collapsible-captions * {
+      /* disable chrome touch highlight */
+      -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+      box-sizing: border-box;
+    }
+    /* see https://ampbyexample.com/advanced/how_to_support_images_with_unknown_dimensions/ */
+    .collapsible-captions .fixed-height-container {
+      position: relative;
+      width: 100%;
+      height: var(--image-height);
+    }
+    .collapsible-captions amp-img img {
+      object-fit: contain;
+    }
+    .collapsible-captions figure {
+      margin: 0;
+      padding: 0;
+    }
+    /* single line caption */
+    .collapsible-captions figcaption {
+      position: absolute;
+      bottom: 0;
+      margin: 0;
+      width: 100%;
+      /* inital height is one line */
+      max-height: var(--caption-height);
+      line-height: var(--caption-height);
+      padding: 0 var(--button-size);
+      /* cut text after first line and show an ellipsis */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      /* animate expansion */
+      transition: max-height 200ms cubic-bezier(0.4, 0, 0.2, 1);
+      /* overlay the carousel icons */
+      z-index: 1000;
+      /* some styling */
+      color: var(--caption-color);
+      background: var(--caption-bg-color);      
+    }
+    /* expanded caption */
+    .collapsible-captions figcaption.expanded {
+      /* add padding and show all of the text */
+      padding: var(--button-size);
+      line-height: inherit;
+      white-space: normal;
+      text-overflow: auto;
+      max-height: calc(var(--caption-height) + var(--image-height));
+      /* show scrollbar in case caption is larger than image */
+      overflow: auto;
+    }
+    /* don't show focus highlights in chrome */
+    .collapsible-captions figcaption:focus {
+      outline: none;
+      border: none;
+    }
+    /* the expand/collapse icon */
+    .collapsible-captions figcaption span {
+      display: block;
+      position: absolute;
+      top: calc((var(--caption-height) - var(--button-size)) / 2);
+      right: 2px;
+      width: var(--button-size);
+      height: var(--button-size);
+      line-height: var(--button-size);
+      text-align: center;
+      font-size: 12px;
+      color: inherit;
+      cursor: pointer; 
+    }
   </style>
 </head>
 <body>
@@ -97,9 +178,9 @@
     <div class="slide">
       <amp-img src="/img/Hovawart.jpg" layout="responsive" width="500" height="350" alt="Hovawart"></amp-img>
       <amp-fit-text layout="responsive" width="500" height="100">
-The Hovawart is a medium to large size German dog breed. The name of the breed means "an estate
-guard dog", which is the original use for the breed. The breed originated in the Black Forest
-region and was first described in text and paintings in medieval times.
+        The Hovawart is a medium to large size German dog breed. The name of the breed means "an estate
+        guard dog", which is the original use for the breed. The breed originated in the Black Forest
+        region and was first described in text and paintings in medieval times.
       </amp-fit-text>
     </div>
   </amp-carousel>
@@ -110,77 +191,109 @@ region and was first described in text and paintings in medieval times.
     <div class="slide">
       <amp-img src="/img/Border_Collie.jpg" layout="fill" alt="Border Collie"></amp-img>
       <div class="caption">
-The Border Collie is a working and herding dog breed developed in the Anglo-Scottish border region
-for herding livestock, especially sheep. It was specifically bred for intelligence and obedience.
+        The Border Collie is a working and herding dog breed developed in the Anglo-Scottish border region
+        for herding livestock, especially sheep. It was specifically bred for intelligence and obedience.
       </div>
     </div>
 
     <div class="slide">
       <amp-img src="/img/Shetland_Sheepdog.jpg" layout="fill" alt="Shetland Sheepdog"></amp-img>
       <div class="caption">
-The Shetland Sheepdog, often known as the Sheltie, is a breed of herding dog. Less favored nicknames
-are the Toy Collie and the Miniature Collie. They are small dogs, and come in a variety of colors,
-such as sable, tri-color, and blue merle. They are very intelligent, vocal, excitable, energetic dogs
-who are always willing to please and work hard.
+        The Shetland Sheepdog, often known as the Sheltie, is a breed of herding dog. Less favored nicknames
+        are the Toy Collie and the Miniature Collie. They are small dogs, and come in a variety of colors,
+        such as sable, tri-color, and blue merle. They are very intelligent, vocal, excitable, energetic dogs
+        who are always willing to please and work hard.
       </div>
     </div>
 
     <div class="slide">
       <amp-img src="/img/Hovawart.jpg" layout="fill" alt="Hovawart"></amp-img>
       <div class="caption">
-The Hovawart is a medium to large size German dog breed. The name of the breed means "an estate guard
-dog", which is the original use for the breed. The breed originated in the Black Forest region and was
-first described in text and paintings in medieval times.
+        The Hovawart is a medium to large size German dog breed. The name of the breed means "an estate guard
+        dog", which is the original use for the breed. The breed originated in the Black Forest region and was
+        first described in text and paintings in medieval times.
       </div>
     </div>
   </amp-carousel>
   <!-- ## Linking Carousels with amp-bind -->
   <!--
 
-  With [amp-bind](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md) it's possible to link carousel state across multiple amp-carousels.
+    With [amp-bind](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md) it's possible to link carousel state across multiple amp-carousels.
 
-  Whenever the carousel slide changes, it updates `selectedSlide`. This causes the `text`
-  attribute in the `<p>` tag above the carousel to update as well.
+    Whenever the carousel slide changes, it updates `selectedSlide`. This causes the `text`
+    attribute in the `<p>` tag above the carousel to update as well.
 
-  Only [whitelisted functions](https://www.ampproject.org/es/docs/reference/components/amp-bind)
-  are allowed when using `amp-bind`. We use the unary plus operator before `selectedSlide` to cast it into an integer.
+    Only [whitelisted functions](https://www.ampproject.org/es/docs/reference/components/amp-bind)
+    are allowed when using `amp-bind`. We use the unary plus operator before `selectedSlide` to cast it into an integer.
   -->
   <div>
     <p> Selected slide: <span [text]="+selectedSlide + 1">1</span>/3</p>
 
     <amp-carousel controls type="slides" width="400" height="300"
-    [slide]="selectedSlide" on="slideChange:AMP.setState({selectedSlide: event.index})">
+                                                     [slide]="selectedSlide" on="slideChange:AMP.setState({selectedSlide: event.index})">
       <amp-img src="/img/image1.jpg" width="400" height="300"></amp-img>
       <amp-img src="/img/image2.jpg" width="400" height="300"></amp-img>
       <amp-img src="/img/image3.jpg" width="400" height="300"></amp-img>
     </amp-carousel>
   </div>
   <!--
-  This and the following carousel are linked to each other and to the large carousel above. Notice how
-  selecting an image on either of these two carousels changes the image on the top carousel.
+    This and the following carousel are linked to each other and to the large carousel above. Notice how
+    selecting an image on either of these two carousels changes the image on the top carousel.
 
-  In the first example, the CSS class for the selected image on the carousel is
-  set by bind when `selectedSlide` changes.
+    In the first example, the CSS class for the selected image on the carousel is
+    set by bind when `selectedSlide` changes.
   -->
   <amp-carousel controls width="400" height="100">
     <amp-img src="/img/image1.jpg" width="100" height="75" role="button" tabindex="0"
-        [class]="selectedSlide == 0 ? 'selected' : ''" on="tap:AMP.setState({selectedSlide: 0})"></amp-img>
-    <amp-img src="/img/image2.jpg" width="100" height="75" role="button" tabindex="1"
-        [class]="selectedSlide == 1 ? 'selected' : ''" on="tap:AMP.setState({selectedSlide: 1})"></amp-img>
-    <amp-img src="/img/image3.jpg" width="100" height="75" role="button" tabindex="2"
-        [class]="selectedSlide == 2 ? 'selected' : ''" on="tap:AMP.setState({selectedSlide: 2})"></amp-img>
+                                                                         [class]="selectedSlide == 0 ? 'selected' : ''" on="tap:AMP.setState({selectedSlide: 0})"></amp-img>
+                                                                       <amp-img src="/img/image2.jpg" width="100" height="75" role="button" tabindex="1"
+                                                                                                                                            [class]="selectedSlide == 1 ? 'selected' : ''" on="tap:AMP.setState({selectedSlide: 1})"></amp-img>
+                                                                                                                                          <amp-img src="/img/image3.jpg" width="100" height="75" role="button" tabindex="2"
+                                                                                                                                                                                                               [class]="selectedSlide == 2 ? 'selected' : ''" on="tap:AMP.setState({selectedSlide: 2})"></amp-img>
   </amp-carousel>
 
   <!--
-  In the second example, an [amp-selector](https://github.com/ampproject/amphtml/blob/master/extensions/amp-selector/amp-selector.md) eliminates redundant code, but functions in the same way as the carousel above.
-   -->
+    In the second example, an [amp-selector](https://github.com/ampproject/amphtml/blob/master/extensions/amp-selector/amp-selector.md) eliminates redundant code, but functions in the same way as the carousel above.
+  -->
   <amp-selector layout="container" name="carousel-selector" [selected]="selectedSlide" on="select:AMP.setState({selectedSlide: event.targetOption})">
     <amp-carousel controls width="400" height="100">
-        <amp-img src="/img/image1.jpg" width="100" height="75" option="0"></amp-img>
-        <amp-img src="/img/image2.jpg" width="100" height="75" option="1"></amp-img>
-        <amp-img src="/img/image3.jpg" width="100" height="75" option="2"></amp-img>
+      <amp-img src="/img/image1.jpg" width="100" height="75" option="0"></amp-img>
+      <amp-img src="/img/image2.jpg" width="100" height="75" option="1"></amp-img>
+      <amp-img src="/img/image3.jpg" width="100" height="75" option="2"></amp-img>
     </amp-carousel>
   </amp-selector>
+
+
+  <!-- ## Collapsible Image Captions with amp-bind
+
+    Here is another workaround for image captions: expandable captions. The idea is to first show only the first line of a caption (using `text-overflow: ellipsis;`). When the user clicks on the caption, the caption is expanded to show the full text. This works by using `amp-bind` to toggle a CSS class `expanded` when the caption is clicked. 
+
+    This sample uses the trick described [here](/advanced/how_to_support_images_with_unknown_dimensions/) to ensure that images never overlap the caption. A positive side-effect is that image dimensions don't need to be known in advance either. This makes it a very flexible approach for an image carousel with images and captions of unknown size/length.
+  -->
+  <amp-carousel class="collapsible-captions" height="332" layout="fixed-height" type="slides">
+    <figure>
+      <div class="fixed-height-container">
+        <amp-img layout="fill" src="https://unsplash.it/500/400"></amp-img>
+      </div>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+        <span [text]="expanded ? '&#9660;' : '&#9650;'">&#9650;</span>
+      </figcaption>
+    </figure>
+    <figure>
+      <div class="fixed-height-container">
+        <amp-img layout="fill" src="https://unsplash.it/500/500"></amp-img>
+      </div>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+        <span [text]="expanded ? '&#9660;' : '&#9650;'">&#9650;</span></figcaption>
+    </figure>
+    <figure>
+      <div class="fixed-height-container">
+        <amp-img layout="fill" src="https://unsplash.it/200/500"></amp-img>
+      </div>
+      <figcaption on="tap:AMP.setState({expanded: !expanded})" tabindex="0" role="button" [class]="expanded ? 'expanded' : ''">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+        <span [text]="expanded ? '&#9660;' : '&#9650;'">&#9650;</span></figcaption>
+    </figure>
+  </amp-carousel>
 
   <!-- ## Image Galleries with Previews -->
   <!-- You can reveal specific slides in carousel using an on tap action `on="tap:my-carousel.goToSlide(index=0)"`. Slides are identified by the carousel id and index (starting at 0).
@@ -243,11 +356,12 @@ first described in text and paintings in medieval times.
       <button on="tap:carousel-with-carousel-preview.goToSlide(index=17)"><amp-img src="https://unsplash.it/60/40?image=117" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
     </amp-carousel>
   </div>
+
   <!-- ## Metadata
     The Top Stories carousel requires schema.org markup for one of the following types: Article, NewsArticle, BlogPosting, or VideoObject. If your Image Gallery is also a NewsArticle, you may want to mark it up as such:
-  ```html
-  <script type="application/ld+json">
-  [
+    ```html
+    <script type="application/ld+json">
+[
     {
       "@context": "http://schema.org",
       "@type": "NewsArticle",
@@ -272,8 +386,8 @@ first described in text and paintings in medieval times.
       ],
     }
   ]
-  </script>
-  ```
-  -->
+    </script>
+    ```
+    -->
 </body>
 </html>
