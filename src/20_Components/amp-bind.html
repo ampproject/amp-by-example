@@ -151,7 +151,6 @@
                             src="https://player.vimeo.com/video/183849543"
                             [src]="allAnimals[allAnimals.currentAnimal].iframeUrl">
     </amp-iframe>
-    </section>
 
     <!-- ## Triggering updates -->
     <!--
@@ -166,7 +165,7 @@
       Set to Cat
     </button>
 
-    <!-- ## Configuring initial state remotely-->
+    <!-- ## Configuring initial state remotely -->
     <!--
       You can also bind to the `amp-state` `src` to provide data remotely.
       The remote data returned from this fetch is merged into the `amp-state` json data, for example:
@@ -220,6 +219,7 @@
     <amp-img id="amp-img" src="/img/Border_Collie.jpg" layout="responsive" width="300" height="200"
             [src]="remoteAnimals[remoteAnimals.currentAnimal].imageUrl">
     </amp-img>
+  </section>
 
 </body>
 </html>
