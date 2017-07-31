@@ -59,10 +59,8 @@
     <!--
       `amp-bind` works by binding elements to an implicit JSON "state". This state can
       be initialized with one or more &lt;amp-state&gt; components.
-      You can also bind to the `amp-state` `src` to provide data remotely.
-      The remote data returned from this fetch is merged into the `amp-state` json data.
     -->
-    <amp-state id="allAnimals" [src]="remoteAnimalUrl">
+    <amp-state id="allAnimals">
       <script type="application/json">
       { "currentAnimal" : "dog",
         "dog": {
@@ -169,15 +167,60 @@
                                   Set to Cat
     </button>
 
+    <!-- ## Configuring initial state remotely-->
+    <!--
+      You can also bind to the `amp-state` `src` to provide data remotely.
+      The remote data returned from this fetch is merged into the `amp-state` json data, for example:
+      ```json
+      { "currentAnimal": "bird",
+        "dog": {
+          "imageUrl": "/img/Border_Collie.jpg",
+          "videoUrl": "/video/dog-video.mp4",
+          "style": "greenBackground",
+          "iframeUrl": "https://player.vimeo.com/video/183849543"
+        },        
+        "bird": {
+          "imageUrl": "/img/bird.jpg",
+          "videoUrl": "/video/bird-video.mp4",
+          "style": "yellowBackground",
+          "iframeUrl": "https://player.vimeo.com/video/151358139"
+        }
+      }
+      ```
+    -->
+    <amp-state id="remoteAnimals" [src]="remoteAnimalUrl">
+      <script type="application/json">
+      { "currentAnimal" : "dog",
+        "dog": {
+          "imageUrl": "/img/Border_Collie.jpg",
+          "videoUrl": "/video/dog-video.mp4",
+          "style": "greenBackground",
+          "iframeUrl": "https://player.vimeo.com/video/183849543"
+        }
+      }
+      </script>
+    </amp-state>
+
     <!-- ## Load state remotely -->
     <!--
-      By setting the src value of the `amp-state`, new data are fetched remotely and merged into the `amp-state` data json.
+      By setting the `src` attribute of the `amp-state`,
+      new data is fetched and merged into the `amp-state`.
     -->
 
-    <button class="ampstart-btn caps m1"
-            on="tap:AMP.setState({remoteAnimalUrl: '/json/amp-bind-data-new-state.json?RANDOM'})">
-                                  Set to Bird
+    <button class="ampstart-btn caps m1" on="tap:AMP.setState({remoteAnimalUrl: '/json/amp-bind-data-new-state.json?RANDOM'})">
+      Set to Bird
     </button>
+
+    <!-- Similarly to the samples above, you can bind to text, ... -->
+
+    <p [text]="'This is a ' + remoteAnimals.currentAnimal + '.'">This is a dog.</p>
+
+    <!--
+      ... bind to `amp-img` `src ` ... and all the components described [here](https://www.ampproject.org/docs/reference/components/amp-bind)
+    -->
+    <amp-img id="amp-img" src="/img/Border_Collie.jpg" layout="responsive" width="300" height="200"
+            [src]="remoteAnimals[remoteAnimals.currentAnimal].imageUrl">
+    </amp-img>
 
 </body>
 </html>
