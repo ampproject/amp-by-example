@@ -111,7 +111,7 @@
     <!--
       The text of this `<p>` will change when the `currentAnimal` variable
       changes. `currentAnimal` is an uninitialized implicit state variable, which will be
-      set when a state change is triggered (see below). A state variable default can be specified using amp-state.
+      set when a state change is triggered (see below). A state variable default can be specified using `amp-state`.
 
     -->
     <p [text]="'This is a ' + allAnimals.currentAnimal + '.'">This is a dog.</p>
@@ -170,6 +170,7 @@
       You can also bind to the `amp-state` `src` to provide data remotely.
       The remote data returned from this fetch is merged into the `amp-state` json data, for example:
       ```json
+
       { "currentAnimal": "bird",
         "dog": {
           "imageUrl": "/img/Border_Collie.jpg",
@@ -216,7 +217,7 @@
     <!--
       ... bind to `amp-img` `src ` ... and all the components described [here](https://www.ampproject.org/docs/reference/components/amp-bind)
     -->
-    <amp-img id="amp-img" src="/img/Border_Collie.jpg" layout="responsive" width="300" height="200"
+    <amp-img src="/img/Border_Collie.jpg" layout="responsive" width="300" height="200"
             [src]="remoteAnimals[remoteAnimals.currentAnimal].imageUrl">
     </amp-img>
   </section>
