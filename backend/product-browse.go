@@ -83,6 +83,9 @@ func InitProductBrowse() {
 	RegisterSample("samples_templates/product_page", renderProduct)
 	RegisterSampleEndpoint("samples_templates/product_browse_page", SEARCH, handleSearchRequest)
 	http.HandleFunc("/samples_templates/products", handleProductsRequest)
+	http.HandleFunc(ADD_TO_CART_PATH, func(w http.ResponseWriter, r *http.Request) {
+		handlePost(w, r, addToCart)
+	})
 	cache = NewLRUCache(100)
 }
 
