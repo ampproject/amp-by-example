@@ -90,6 +90,22 @@ amp-selector [disabled] {
     <amp-img src="/img/landscape_village_300x200.jpg" width="60" height="40"></amp-img>
   </amp-selector>
 
+  <!-- ## Actions -->
+  <!--
+  The `clear` action may be used to clear all selections of an `amp-selector`.
+  -->
+  <div>
+    <button on="tap:clearActionDemoSelector.clear"
+            class="ampstart-btn ampstart-btn-secondary caps m1">
+            Clear Selection</button>
+    <amp-selector id='clearActionDemoSelector'layout="container" class="m1" multiple>
+      <amp-img src="/img/landscape_sea_300x199.jpg"  width="60" height="40" option="1"></amp-img>
+      <amp-img src="/img/landscape_desert_300x200.jpg" width="60" height="40" option="2"></amp-img>
+      <amp-img src="/img/landscape_ship_300x200.jpg" width="60" height="40" option="3" selected></amp-img>
+      <amp-img src="/img/landscape_village_300x200.jpg" width="60" height="40" option="4"></amp-img>
+    </amp-selector>
+  </div>
+
   <!-- ## Forms -->
   <!--
 Inside a form, `amp-selector` behaves like a radio-button/checkbox group and submits the selected value(s) against the name of the amp-selector.
