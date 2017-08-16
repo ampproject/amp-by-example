@@ -47,6 +47,8 @@
     }
     li {
       margin-bottom: 20px;
+      margin-left: 10px;
+      margin-right: 10px;
       list-style: none;
     }
 
@@ -54,7 +56,7 @@
       font-weight: bold;
     }
 
-    .amp-sidebar-toolbar-target-shown {
+    #sidebar-right nav.amp-sidebar-toolbar-target-shown {
         display: none;
     }
   </style>
@@ -170,7 +172,7 @@
     <div>
       <amp-sidebar id="sidebar-right" layout="nodisplay" side="right">
         <amp-img class="amp-close-image" src="/img/ic_close_black_18dp_2x.png" width="20" height="20" alt="close sidebar" on="tap:sidebar-left.close" role="button" tabindex="0"></amp-img>
-        <nav toolbar="(max-width: 784px)" toolbar-target="target-element">
+        <nav toolbar="(max-width: 784px)" toolbar-target="target-element-right">
           <ul>
             <li><a href="/">Home</a></li>
             <li> Nav item 1</li>
