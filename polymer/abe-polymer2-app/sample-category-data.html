@@ -1,0 +1,147 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="sample-category-data">
+
+  <script>
+  (function() {
+
+    class SampleCategoryData extends Polymer.Element {
+
+      static get is() { return 'sample-category-data'; }
+
+      static get properties() { return {
+
+        categoryName: String,
+
+        itemName: String,
+
+        categories: {
+          type: Array
+        },
+
+        category: {
+          type: Object,
+          computed: '_computeCategory(categoryName)',
+          notify: true
+        },
+
+        item: {
+          type: Object,
+          computed: '_computeItem(category.items, itemName)',
+          notify: true
+        },
+
+        failure: {
+          type: Boolean,
+          notify: true,
+          readOnly: true
+        }
+
+      }}
+
+      _getCategoryObject(categoryName) {
+        if (this.categories === undefined) {
+          return null;
+        }
+        for (let i = 0, c; c = this.categories[i]; ++i) {
+          if (c.id === categoryName) {
+            return c;
+          } else if (categoryName === "index.html") {
+            return null
+          }
+        }
+      }
+
+      _computeCategory(categoryName) {
+        // Fetch the items of the category. Note that the fetch is asynchronous,
+        // which means `category.items` may not be set initially (but that path
+        // will be notified when the fetch completes).
+        let categoryObj = this._getCategoryObject(categoryName);
+        this._fetchItems(categoryObj, 1);
+        return categoryObj;
+      }
+
+      _computeItem(items, itemName) {
+        if (!items || !itemName) {
+          return;
+        }
+        for (let i = 0, item; item = items[i]; ++i) {
+          if (item.url.endsWith(itemName.concat('/'))) {
+            return item;
+          }
+        }
+      }
+
+      _fetchItems(category, attempts) {
+        this._setFailure(false);
+        // Only fetch the items of a category if it has not been previously set.
+        if (!category || category.items) {
+          return;
+        }
+        this._getResource({
+          url: 'https://ampbyexample.com/sitemap.json',
+          onLoad(e) {
+            var itemsEncoded = JSON.parse(e.target.responseText)[0]["categories"]
+            itemsEncoded = itemsEncoded.filter(function(item) {
+              return item.name == category.name
+            });
+
+            var items =  itemsEncoded[0]["examples"].map(function(item) {
+              var obj = {
+                name:  item["name"],
+                title: item["title"],
+                description: item["description"],
+                url: item["url"]
+              };
+              return obj;
+            });
+            this.set('category.items', items);
+          },
+          onError(e) {
+            this._setFailure(true);
+          }
+        }, attempts);
+      }
+
+      _getResource(rq, attempts) {
+        let xhr = new XMLHttpRequest();
+        xhr.addEventListener('load', rq.onLoad.bind(this));
+        xhr.addEventListener('error', (e) => {
+          // Flaky connections might fail fetching resources
+          if (attempts > 1) {
+            this._getResourceDebouncer = Polymer.Debouncer.debounce(this._getResourceDebouncer,
+              Polymer.Async.timeOut.after(200), this._getResource.bind(this, rq, attempts - 1));
+          } else {
+            rq.onError.call(this, e);
+          }
+        });
+
+        xhr.open('GET', rq.url);
+        xhr.send();
+      }
+
+      refresh() {
+        if (this.categoryName) {
+          // Try at most 3 times to get the items.
+          this._fetchItems(this._getCategoryObject(this.categoryName), 3);
+        }
+      }
+
+    }
+
+    customElements.define(SampleCategoryData.is, SampleCategoryData);
+
+  })();
+  </script>
+
+</dom-module>

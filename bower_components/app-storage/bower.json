@@ -1,0 +1,62 @@
+{
+  "name": "app-storage",
+  "authors": [
+    "The Polymer Authors"
+  ],
+  "version": "2.0.2",
+  "description": "Web Components for managing user data in web apps",
+  "main": [
+    "app-storage-behavior.html",
+    "app-network-status-behavior.html",
+    "app-localstorage/app-localstorage-document.html",
+    "app-indexeddb-mirror/app-indexeddb-mirror.html"
+  ],
+  "moduleType": [],
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#1.9 - 2"
+  },
+  "devDependencies": {
+    "font-roboto": "polymerelements/font-roboto#^1.0.0",
+    "iron-flex-layout": "polymerelements/iron-flex-layout#1 - 2",
+    "iron-icon": "polymerelements/iron-icon#1 - 2",
+    "iron-icons": "polymerelements/iron-icons#1 - 2",
+    "moment": "^2.12.0",
+    "paper-button": "polymerelements/paper-button#1 - 2",
+    "paper-fab": "polymerelements/paper-fab#1 - 2",
+    "paper-input": "polymerelements/paper-input#1 - 2",
+    "paper-styles": "polymerelements/paper-styles#1 - 2",
+    "promise-polyfill": "polymerlabs/promise-polyfill#1 - 2",
+    "web-component-tester": "^6.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+  },
+  "variants": {
+    "1.x": {
+      "dependencies": {
+        "polymer": "Polymer/polymer#^1.9"
+      },
+      "devDependencies": {
+        "font-roboto": "polymerelements/font-roboto#^1.0.0",
+        "iron-flex-layout": "polymerelements/iron-flex-layout#^1.0.0",
+        "iron-icon": "polymerelements/iron-icon#^1.0.0",
+        "iron-icons": "polymerelements/iron-icons#^1.0.0",
+        "moment": "^2.12.0",
+        "paper-button": "polymerelements/paper-button#^1.0.0",
+        "paper-fab": "polymerelements/paper-fab#^1.0.0",
+        "paper-input": "polymerelements/paper-input#^1.0.0",
+        "paper-styles": "polymerelements/paper-styles#^1.0.0",
+        "promise-polyfill": "polymerlabs/promise-polyfill#^1.0.0",
+        "web-component-tester": "Polymer/web-component-tester#^4.0.0",
+        "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.24"
+      },
+      "resolutions": {
+        "webcomponentsjs": "^0.7"
+      }
+    }
+  },
+  "resolutions": {
+    "webcomponentsjs": "^1.0.0"
+  }
+}
