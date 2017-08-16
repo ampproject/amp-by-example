@@ -45,11 +45,17 @@ const ExampleFile = require('./lib/ExampleFile');
 const gulpAmpValidator = require('gulp-amphtml-validator');
 const Templates = require('./lib/Templates');
 
+const polymerBuild = require('polymer-build');
+const polymerJson = require('./polymer.json');
+const polymerProject = new polymerBuild.PolymerProject(polymerJson);
+const mergeStream = require('merge-stream');
+
 const PROD = 'prod';
 
 const paths = {
   dist: {
     dir: 'dist',
+    pwa: 'pwa',
     css: 'dist/css',
     html: 'dist/**/*.html',
     samples: ['dist/**/*.html'],
@@ -111,7 +117,8 @@ const config = {
   host: 'https://ampbyexample.com'
 };
 
-const sampleTemplates = Templates.get(config.templates.root,/* minify */ false, '<% %>');
+const sampleTemplates = Templates.get(config.templates.root, /* minify */ false,
+  '<% %>');
 
 
 gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
@@ -519,6 +526,14 @@ gulp.task('build:playground', 'Build the playground', function() {
   ).exec();
 });
 
+gulp.task('build:polymer', 'Build the polymer app', function() {
+  const polymer = 'polymer/**/*'
+  let sourcesStream = polymerProject.sources()
+  let dependenciesStream = polymerProject.dependencies()
+  let buildStream = mergeStream(sourcesStream, dependenciesStream)
+  return buildStream.pipe(gulp.dest(paths.dist.dir));
+});
+
 function generateRobotsTxt(contents) {
   return file('robots.txt', contents, {
       src: true
@@ -559,7 +574,8 @@ gulp.task('build', 'build all resources', [
   'compile:sitemap',
   'compile:example',
   'copy:well-known',
-  'build:playground'
+  'build:playground',
+  'build:polymer'
 ]);
 
 function run(command) {

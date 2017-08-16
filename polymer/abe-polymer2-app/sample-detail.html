@@ -1,0 +1,232 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<link rel="import" href="amp-my-embed.html">
+<link rel="import" href="sample-category-data.html">
+
+<dom-module id="sample-detail">
+
+  <template>
+
+    <style include="sample-common-styles">
+
+      :host {
+        display: block;
+      }
+
+      #content {
+        @apply --layout-horizontal;
+        @apply --layout-center-justified;
+      }
+
+      .detail {
+        margin: 64px 32px;
+        width: 50%;
+        max-width: 400px;
+        transition: opacity 0.4s;
+        opacity: 0;
+      }
+
+      .detail[has-content] {
+        opacity: 1;
+      }
+
+      h1 {
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 28px;
+        margin: 0;
+      }
+
+      .description {
+        margin: 32px 0;
+      }
+
+      .description > h2 {
+        margin: 16px 0;
+        font-size: 13px;
+      }
+
+      .description > p {
+        margin: 0;
+        color: var(--app-secondary-color);
+      }
+
+      .pickers {
+        @apply --layout-vertical;
+        border-top: 1px solid #ccc;
+      }
+
+      shop-select > select {
+        font-size: 16px;
+        padding: 16px 24px 16px 70px;
+      }
+
+      @media (max-width: 767px) {
+
+        #content {
+          @apply --layout-vertical;
+          @apply --layout-center;
+        }
+
+        .detail {
+          box-sizing: border-box;
+          margin: 32px 0;
+          padding: 0 24px;
+          width: 100%;
+          max-width: 600px;
+        }
+
+        h1 {
+          font-size: 20px;
+          line-height: 24px;
+        }
+
+        .price {
+          font-size: inherit;
+          margin: 12px 0 32px;
+        }
+
+      }
+
+    </style>
+
+    <!--
+      app-route provides the name of the category and the item.
+    -->
+    <app-route
+        route="[[route]]"
+        pattern="/:category/:item"
+        data="{{routeData}}"></app-route>
+
+    <!--
+      shop-category-data provides the item data for a given category and item name.
+    -->
+    <sample-category-data
+        id="categoryData"
+        category-name="[[routeData.category]]"
+        categories="{{categories}}"
+        category="{{category}}"
+        item-name="[[routeData.item]]"
+        item="{{item}}"
+        failure="{{failure}}"></sample-category-data>
+
+    <header>
+          <h1>[[item.title]]</h1>
+    </header>
+
+    <!--<amp-viewer src="https://ampbyexample.com/[[routeData.category]]/[[routeData.item]]/embed"></amp-viewer>-->
+    <amp-my-embed
+        item-url="[[item.url]]"
+        content="{{content}}"></amp-my-embed>
+
+    <div>[[content]]</div>
+
+    <!--
+      shop-network-warning shows a warning message when the items can't be rendered due
+      to network conditions.
+    -->
+    <shop-network-warning
+        hidden$="[[!failure]]"
+        offline="[[offline]]"
+        on-try-reconnect="_tryReconnect"></shop-network-warning>
+
+  </template>
+
+  <script>
+
+    class SampleDetail extends Polymer.Element {
+
+      static get is() { return 'sample-detail'; }
+
+      static get properties() { return {
+
+        item: Object,
+
+        route: Object,
+
+        routeData: Object,
+
+        visible: {
+          type: Boolean,
+          value: false
+        },
+
+        offline: {
+          type: Boolean,
+          observer: '_offlineChanged'
+        },
+
+        failure: Boolean
+
+      }}
+
+      _itemNameChanged(newValue, oldValue) {
+        console.log(this.itemName)
+      }
+
+      static get observers() { return [
+        '_itemChanged(item, visible)'
+      ]}
+
+
+      _itemChanged(item, visible) {
+        if (visible) {
+          this._itemChangeDebouncer = Polymer.Debouncer.debounce(this._itemChangeDebouncer,
+            Polymer.Async.microTask, () => {
+              // The item description contains escaped HTML (e.g. "&lt;br&gt;"), so we need to
+              // unescape it ("<br>") and set it as innerHTML.
+              // let text = item ? item.description : '';
+              // this.$.desc.innerHTML = this._unescapeText(text);
+
+              // Reset the select menus.
+              // this.$.quantitySelect.value = '1';
+              // this.$.sizeSelect.value = 'M';
+
+              this.dispatchEvent(new CustomEvent('change-section', {
+                bubbles: true, composed: true, detail: {
+                  category: item ? item.category : '',
+                  title: item ? item.title : ''
+                }}));
+            })
+        }
+      }
+
+      _unescapeText(text) {
+        let elem = document.createElement('textarea');
+        elem.innerHTML = text;
+        return elem.textContent;
+      }
+
+      _isDefined(item) {
+        return item != null;
+      }
+
+      _tryReconnect() {
+        this.$.categoryData.refresh();
+      }
+
+      _offlineChanged(offline) {
+        if (!offline) {
+          this._tryReconnect();
+        }
+      }
+
+    }
+
+    customElements.define(SampleDetail.is, SampleDetail);
+
+  </script>
+
+</dom-module>
