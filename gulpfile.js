@@ -44,10 +44,6 @@ const Metadata = require('./lib/Metadata');
 const ExampleFile = require('./lib/ExampleFile');
 const gulpAmpValidator = require('gulp-amphtml-validator');
 const Templates = require('./lib/Templates');
-const polymerBuild = require('polymer-build');
-const polymerJson = require('./polymer.json');
-const polymerProject = new polymerBuild.PolymerProject(polymerJson);
-const mergeStream = require('merge-stream');
 
 const PROD = 'prod';
 
@@ -71,6 +67,7 @@ const paths = {
   samples: 'src/**/*.html',
   metadata: 'src/**/*.json',
   playground: 'playground',
+  polymer: 'polymer',
   src: 'src',
   scripts: ['tasks/**/*.js', 'gulpfile.js'],
   static: 'static/**/*.*',
@@ -525,11 +522,16 @@ gulp.task('build:playground', 'Build the playground', function() {
 });
 
 gulp.task('build:polymer', 'Build the polymer app', function() {
-  const polymer = 'polymer/**/*'
-  let sourcesStream = polymerProject.sources()
-  let dependenciesStream = polymerProject.dependencies()
-  let buildStream = mergeStream(sourcesStream, dependenciesStream)
-  return buildStream.pipe(gulp.dest(paths.dist.dir));
+  const polymerDist = '../dist/' + paths.polymer;
+  return run(
+    'npm i && ' +
+    'cd ' + paths.polymer + ' && ' +
+    'npm i && ' +
+    'gulp build && ' +
+    'mkdir -p ../dist && ' +
+    'rm -rf ' + polymerDist + ' && ' +
+    'cp -R dist ' + polymerDist
+  ).exec();
 });
 
 function generateRobotsTxt(contents) {

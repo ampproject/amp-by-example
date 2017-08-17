@@ -1,0 +1,20 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/abe-polymer2-app.html",
+  "fragments": [
+    "src/sample-list.html",
+    "src/sample-detail.html"
+  ],
+  "sources": [
+    "src/**/*",
+    "node_modules/**/*"
+  ],
+  "extraDependencies": [
+    "polymer/node_modules/webcomponents.js/*"
+  ],
+  "lint": {
+    "rules": [
+      "polymer-2"
+    ]
+  }
+}
