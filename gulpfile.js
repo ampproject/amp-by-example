@@ -44,7 +44,6 @@ const Metadata = require('./lib/Metadata');
 const ExampleFile = require('./lib/ExampleFile');
 const gulpAmpValidator = require('gulp-amphtml-validator');
 const Templates = require('./lib/Templates');
-
 const polymerBuild = require('polymer-build');
 const polymerJson = require('./polymer.json');
 const polymerProject = new polymerBuild.PolymerProject(polymerJson);
@@ -55,7 +54,6 @@ const PROD = 'prod';
 const paths = {
   dist: {
     dir: 'dist',
-    pwa: 'pwa',
     css: 'dist/css',
     html: 'dist/**/*.html',
     samples: ['dist/**/*.html'],
