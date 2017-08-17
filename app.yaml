@@ -64,6 +64,11 @@ handlers:
   secure: always
   http_headers:
 
+- url: /polymer/detail/.*
+  static_files: dist/polymer/index.html
+  upload: index.html
+  secure: always
+
 - url: /.*
   script: _go_app
 

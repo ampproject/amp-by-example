@@ -71,8 +71,6 @@
     "sw-toolbox": "^3.5.1",
     "through2": "^2.0.1",
     "url-join": "^2.0.2",
-    "url-regex": "^4.1.1",
-    "polymer-build": "^2.0.0",
-    "merge-stream": "^1.0.1"
+    "url-regex": "^4.1.1"
   }
 }
