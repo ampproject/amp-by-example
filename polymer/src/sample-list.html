@@ -18,7 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <template>
 
-    <style include="sample-common-styles">
+    <style>
 
       .grid {
         @apply --layout-horizontal;
@@ -71,12 +71,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         id="categoryData"
         category-name="[[routeData.category]]"
         category="{{category}}"
-        categories="{{categories}}"
         failure="{{failure}}"></sample-category-data>
 
     <header>
       <h1>[[category.id]]</h1>
-      <span>[[_getPluralizedQuantity(category.items.length)]]</span>
     </header>
 
     <ul class="grid" hidden$="[[failure]]">
@@ -109,8 +107,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       static get properties() { return {
 
         category: Object,
-
-        categories: Array,
 
         route: Object,
 
@@ -155,14 +151,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return item.name ? ['/polymer/detail', item.url].join('') : null;
       }
 
-      _getPluralizedQuantity(quantity) {
-        if (!quantity) {
-          return '';
-        }
-        let pluralizedQ = quantity === 1 ? 'item' : 'items';
-        return  '(' + quantity + ' ' + pluralizedQ + ')';
-      }
-
       _categoryChanged(category, visible) {
         if (!visible) {
           return;
@@ -176,10 +164,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   category: category.name,
                   id: category.id
                 }}));
-            } else {
-              this.dispatchEvent(new CustomEvent('show-invalid-url-warning', {
-                bubbles: true, composed: true}));
             }
+            // else {
+            //   this.dispatchEvent(new CustomEvent('show-invalid-url-warning', {
+            //     bubbles: true, composed: true}));
+            // }
           });
       }
 

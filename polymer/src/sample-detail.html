@@ -19,7 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <template>
 
-    <style include="sample-common-styles">
+    <style>
 
       :host {
         display: block;
@@ -116,7 +116,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <sample-category-data
         id="categoryData"
         category-name="[[routeData.category]]"
-        categories="{{categories}}"
         category="{{category}}"
         item-name="[[routeData.item]]"
         item="{{item}}"
@@ -171,10 +170,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         failure: Boolean
 
       }}
-
-      _itemNameChanged(newValue, oldValue) {
-        console.log(this.itemName)
-      }
 
       static get observers() { return [
         '_itemChanged(item, visible)'

@@ -9,11 +9,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../node_modules/@npm-polymer/polymer/polymer-element.html">
+<link rel="import" href="../node_modules/@npm-polymer/iron-ajax/iron-ajax.html">
 
 <dom-module id="sample-category-data">
-
   <script>
+
+
   (function() {
+
+    let categoryList = [
+      {
+        name: 'Introduction',
+        id: 'introduction'
+      }];
 
     class SampleCategoryData extends Polymer.Element {
 
@@ -26,12 +34,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         itemName: String,
 
         categories: {
-          type: Array
+          type: Array,
+          notify: true
         },
 
         category: {
           type: Object,
-          computed: '_computeCategory(categoryName)',
+          //computed: '_computeCategory(categoryName)',
           notify: true
         },
 
@@ -49,12 +58,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       }}
 
+      static get observers() { return [
+        '_categoriesLoaded(categories)', '_categoryNameSet(categoryName)'
+      ]}
+
+      _categoriesLoaded(categories) {
+        this._computeCategory(this.categoryName)
+      }
+
+      _categoryNameSet(categoryName) {
+        this._fetchCategories(3);
+      }
+
+
       _getCategoryObject(categoryName) {
         if (this.categories === undefined) {
           return null;
         }
         for (let i = 0, c; c = this.categories[i]; ++i) {
           if (c.id === categoryName) {
+            this.category = c;
             return c;
           } else if (categoryName === "index.html") {
             return null
@@ -63,6 +86,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       _computeCategory(categoryName) {
+
         // Fetch the items of the category. Note that the fetch is asynchronous,
         // which means `category.items` may not be set initially (but that path
         // will be notified when the fetch completes).
@@ -80,6 +104,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             return item;
           }
         }
+      }
+
+      handleResponse(data) {
+        var cats = data.detail.response[0]["categories"]
+        var catNames =  cats.map(function(cat) {
+          var obj = {
+            name:  cat["name"],
+            id: cat["id"]
+          };
+          return obj;
+        });
+        this.categories = catNames;
+      }
+
+      _fetchCategories(attempts) {
+        this._setFailure(false);
+        if (this.categories) {
+          return;
+        }
+        this._getResource({
+          url: 'https://ampbyexample.com/sitemap.json',
+          onLoad(e) {
+            var cats = JSON.parse(e.target.responseText)[0]["categories"]
+            var catNames =  cats.map(function(cat) {
+              var obj = {
+                name:  cat["name"],
+                id: cat["id"]
+              };
+              return obj;
+            });
+            this.set('categories', catNames);
+            this.categories = catNames;
+          },
+          onError(e) {
+            this._setFailure(true);
+          }
+        }, attempts);
       }
 
       _fetchItems(category, attempts) {
@@ -106,6 +167,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               return obj;
             });
             this.set('category.items', items);
+            category.items = items
           },
           onError(e) {
             this._setFailure(true);
