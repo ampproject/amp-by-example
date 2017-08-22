@@ -9,9 +9,6 @@
     "src/**/*",
     "node_modules/**/*"
   ],
-  "extraDependencies": [
-    "polymer/node_modules/webcomponents.js/*"
-  ],
   "lint": {
     "rules": [
       "polymer-2"

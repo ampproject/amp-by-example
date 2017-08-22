@@ -135,7 +135,7 @@
   <!--
     sample-category-data provides the list of categories.
   -->
-  <!--<sample-category-data categories$="{{categories}}"></sample-category-data>-->
+  <!--<sample-category-data categories="{{categories}}"></sample-category-data>-->
 
   <iron-ajax auto url="https://ampbyexample.com/sitemap.json" handle-as="json"
     on-response="handleResponse"></iron-ajax>
@@ -144,7 +144,7 @@
     <!-- home view -->
     <sample-home name="home" categories="[[categories]]"></sample-home>
     <!-- list view of items in a category -->
-    <sample-list name="list" categories="[[categories]]" route="[[subroute]]" offline="[[offline]]"></sample-list>
+    <sample-list name="list" route="[[subroute]]" offline="[[offline]]" categories="[[categories]]"></sample-list>
     <!-- detail view of one item -->
     <sample-detail name="detail" route="[[subroute]]" offline="[[offline]]" categories="[[categories]]"></sample-detail>
   </iron-pages>
@@ -163,10 +163,6 @@
             type: String,
             reflectToAttribute: true,
             observer: '_pageChanged'
-          },
-          prop1: {
-            type: String,
-            value: 'abe-polymer2-app'
           },
           categories: {
             type: Array,
@@ -234,9 +230,9 @@
             Polymer.importHref(
               this.resolveUrl('sample-' + page + '.html'),
               cb, cb, true);
-          }
         }
       }
+    }
 
       _pageLoaded(shouldResetLayout) {
         this._ensureLazyLoaded();

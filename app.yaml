@@ -69,6 +69,15 @@ handlers:
   upload: index.html
   secure: always
 
+- url: /polymer/src
+  static_dir: dist/polymer/src
+  secure: always
+
+- url: /polymer/list/.*
+  static_files: dist/polymer/index.html
+  upload: index.html
+  secure: always
+
 - url: /.*
   script: _go_app
 
