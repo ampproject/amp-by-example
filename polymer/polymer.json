@@ -13,5 +13,8 @@
     "rules": [
       "polymer-2"
     ]
-  }
+  },
+  "builds": [{
+    "addServiceWorker": true
+  }]
 }

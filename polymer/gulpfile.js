@@ -17,6 +17,7 @@
 "use strict";
 
 const gulp = require('gulp-help')(require('gulp'));
+
 const gls = require('gulp-live-server');
 const uglify = require('gulp-uglify');
 const pump = require('pump');
@@ -27,6 +28,9 @@ const polymerBuild = require('polymer-build');
 const polymerJson = require('./polymer.json');
 const polymerProject = new polymerBuild.PolymerProject(polymerJson);
 const mergeStream = require('merge-stream');
+//var gulpServiceWorker = require('gulp-serviceworker');
+const generateServiceWorker = require('polymer-build').generateServiceWorker;
+
 
 const paths = {
   dist: {
@@ -43,9 +47,42 @@ gulp.task('build:polymer', 'Build the polymer app', function() {
   return buildStream.pipe(gulp.dest(paths.dist.dir));
 });
 
+// gulp.task('generate-service-worker', ['build'], function() {
+//   return gulp.src(['dist/*'])
+//     .pipe(gulpServiceWorker({
+//       rootDir: 'dist/',
+//     }));
+// });
+
+
+
 gulp.task('build', 'Build the polymer app', [
   'build:polymer'
 ]);
+
+function build() {
+  gutil.log('Build!');
+  return polymerBuild.generateServiceWorker({
+      project: polymerProject,
+      buildRoot: 'dist/',
+      swPrecacheConfig: {
+        // See https://github.com/GoogleChrome/sw-precache#options-parameter for all supported options
+        navigateFallback: '/index.html',
+      }
+    })
+    .then(() => {
+      gutil.log('Build complete!');
+    }).catch(e => gutil.log(e));
+}
+
+
+gulp.task('sw', 'generate sw', function(cb) {
+  try {
+    build().then(() => cb());
+  } catch (e) {
+    gutil.log(e);
+  }
+});
 
 gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
   function() {

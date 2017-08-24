@@ -78,6 +78,14 @@ handlers:
   upload: index.html
   secure: always
 
+- url: /polymer/sw\.js$
+  secure: always
+  static_files: dist/sw.js
+  upload: dist/sw\.js$
+  expiration: 0
+  http_headers:
+    Access-Control-Allow-Origin: "*"
+
 - url: /.*
   script: _go_app
 

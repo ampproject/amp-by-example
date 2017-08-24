@@ -30,47 +30,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply --layout-center-justified;
       }
 
-      .detail {
-        margin: 64px 32px;
-        width: 50%;
-        max-width: 400px;
-        transition: opacity 0.4s;
-        opacity: 0;
-      }
-
-      .detail[has-content] {
-        opacity: 1;
-      }
-
       h1 {
         font-size: 24px;
         font-weight: 500;
         line-height: 28px;
         margin: 0;
-      }
-
-      .description {
-        margin: 32px 0;
-      }
-
-      .description > h2 {
-        margin: 16px 0;
-        font-size: 13px;
-      }
-
-      .description > p {
-        margin: 0;
-        color: var(--app-secondary-color);
-      }
-
-      .pickers {
-        @apply --layout-vertical;
-        border-top: 1px solid #ccc;
-      }
-
-      shop-select > select {
-        font-size: 16px;
-        padding: 16px 24px 16px 70px;
       }
 
       @media (max-width: 767px) {
@@ -91,11 +55,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         h1 {
           font-size: 20px;
           line-height: 24px;
-        }
-
-        .price {
-          font-size: inherit;
-          margin: 12px 0 32px;
         }
 
       }
@@ -125,7 +84,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <h1>[[item.title]]</h1>
     </header>
 
-    <!--<amp-viewer src="https://ampbyexample.com/[[routeData.category]]/[[routeData.item]]/embed"></amp-viewer>-->
     <amp-my-embed
         item-url="[[item.url]]"
         content="{{content}}"></amp-my-embed>
