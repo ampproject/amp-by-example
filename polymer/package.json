@@ -35,6 +35,7 @@
     "gulp-minify-inline": "^0.2.1",
     "gulp-uglify": "^2.0.1",
     "gulp-util": "^3.0.8",
-    "pump": "^1.0.2"
+    "pump": "^1.0.2",
+    "gulp-serviceworker": "0.0.3"
   }
 }
