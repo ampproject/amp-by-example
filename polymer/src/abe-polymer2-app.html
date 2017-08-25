@@ -6,7 +6,6 @@
 <link rel="import" href="../node_modules/@npm-polymer/iron-ajax/iron-ajax.html">
 <link rel="import" href="../node_modules/@npm-polymer/iron-pages/iron-pages.html">
 <link rel="import" href="../node_modules/@npm-polymer/iron-selector/iron-selector.html">
-<link rel="import" href="../node_modules/@npm-polymer/app-layout/app-header/app-header.html">
 <link rel="import" href="../node_modules/@npm-polymer/app-layout/app-scroll-effects/effects/waterfall.html">
 <link rel="import" href="../node_modules/@npm-polymer/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../node_modules/@npm-polymer/app-layout/helpers/helpers.html">
@@ -33,53 +32,8 @@
       color: var(--app-primary-color);
     }
 
-    app-header {
-      @apply --layout-fixed-top;
-      z-index: 1;
-      background-color: rgba(255, 255, 255, 0.95);
-      --app-header-shadow: {
-        box-shadow: inset 0px 5px 6px -3px rgba(0, 0, 0, 0.2);
-        height: 10px;
-        bottom: -10px;
-      };
-    }
-
     paper-icon-button {
       color: var(--app-primary-color);
-    }
-
-    .logo {
-      text-align: center;
-    }
-
-    .logo a {
-      font-size: 16px;
-      font-weight: 600;
-      letter-spacing: 0.3em;
-      color: var(--app-primary-color);
-      text-decoration: none;
-      /* required for IE 11, so this <a> can receive pointer events */
-      display: inline-block;
-      pointer-events: auto;
-    }
-
-    .left-bar-item {
-      width: 40px;
-    }
-
-    .menu-btn {
-      display: none;
-    }
-
-    .cart-btn-container {
-      position: relative;
-      width: 40px;
-    }
-
-    .announcer {
-      position: fixed;
-      height: 0;
-      overflow: hidden;
     }
 
     :host(:not([page=detail])) .back-btn {
@@ -90,38 +44,15 @@
       display: none !important;
     }
 
-    #tabContainer {
-      position: relative;
-      height: 66px;
-    }
-
     iron-pages {
       max-width: 1440px;
       margin: 0 auto;
-    }
-
-    .demo-label {
-      box-sizing: border-box;
-      width: 120px;
-      padding: 6px;
-      margin: 8px auto 0;
-      background-color: var(--app-primary-color);
-      color: white;
-      text-transform: uppercase;
     }
 
     /* small screen */
     @media (max-width: 767px) {
       :host {
         padding-top: 64px;
-      }
-
-      .menu-btn {
-        display: block;
-      }
-
-      :host([page=detail]) .menu-btn {
-        display: none;
       }
     }
 
@@ -132,20 +63,13 @@
         pattern="/polymer/:page"
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
-  <!--
-    sample-category-data provides the list of categories.
-  -->
-  <!--<sample-category-data categories="{{categories}}"></sample-category-data>-->
 
   <iron-ajax auto url="https://ampbyexample.com/sitemap.json" handle-as="json"
     on-response="handleResponse"></iron-ajax>
 
   <iron-pages role="main" selected="[[page]]" attr-for-selected="name" selected-attribute="visible" fallback-selection="404">
-    <!-- home view -->
     <sample-home name="home" categories="[[categories]]"></sample-home>
-    <!-- list view of items in a category -->
     <sample-list name="list" route="[[subroute]]" offline="[[offline]]" categories="[[categories]]"></sample-list>
-    <!-- detail view of one item -->
     <sample-detail name="detail" route="[[subroute]]" offline="[[offline]]" categories="[[categories]]"></sample-detail>
   </iron-pages>
   </template>
@@ -197,7 +121,6 @@
         // Custom elements polyfill safe way to indicate an element has been upgraded.
         this.removeAttribute('unresolved');
         // listen for custom events
-        this.addEventListener('dom-change', (e)=>this._domChange(e));
         this.addEventListener('show-invalid-url-warning', (e)=>this._onFallbackSelectionTriggered(e));
         // listen for online/offline
         Polymer.RenderStatus.afterNextRender(this, () => {
@@ -212,9 +135,6 @@
         }
 
         this.page = page || 'home';
-
-        // Close the drawer - in case the *route* change came from a link in the drawer.
-        this.drawerOpened = false;
       }
 
       _pageChanged(page, oldPage) {
@@ -294,18 +214,6 @@
         if (detail.title) {
           document.title = detail.title + ' - SAMPLE';
           this._announce(detail.title + ', loaded');
-        }
-      }
-
-      // This is for performance logging only.
-      _domChange(e) {
-        if (window.performance && performance.mark && !this.__loggedDomChange) {
-          let target = e.composedPath()[0];
-          let host = target.getRootNode().host;
-          if (host && host.localName.match(this.page)) {
-            this.__loggedDomChange = true;
-            performance.mark(host.localName + '.domChange');
-          }
         }
       }
 
