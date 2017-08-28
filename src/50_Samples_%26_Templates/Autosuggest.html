@@ -6,13 +6,14 @@
 ## Introduction
 
 This sample showcases how to implement an interactive autosuggest form field.
-Here the field suggests cities in an address form, but the suggestion template
-may contain any elements, such as products listings or suggested search queries.
+The example below suggests cities in an address form, but the list of
+suggestions may contain any content, such as anticipated search queries, or
+product listings with images.
 -->
 <!--
 ## Setup
 
-First, the markup declares the page as AMP, containst the AMP boilerplate, and
+First, the markup declares the page as AMP, contains the AMP boilerplate, and
 includes the required AMP extensions.
 -->
 <!doctype html>
@@ -32,7 +33,8 @@ includes the required AMP extensions.
 <!--
 ## Styles
 
-Only a few styles are necessary to implement the autosuggest overlay.
+Only a few CSS rules are necessary to implement the autosuggest overlay.
+The remaining rules set the style and layout of the form fields.
 -->
   <style amp-custom>
   /* --------------------------------
@@ -155,6 +157,12 @@ Only a few styles are necessary to implement the autosuggest overlay.
   <h2 class="p1">Autosuggest</h2>
 
   <!--
+  Autosuggest combines multiple AMP extensions: `amp-form`, `amp-list`,
+  `amp-selector`, and `amp-bind`. `amp-form` handles submitting the form and
+  renders the success and error states. `amp-list` displays the autosuggest
+  results in an `amp-selector` for accessibility. Finally, `amp-bind` glues
+  all the components together to enable interactivity.
+
   Try entering a city name. In this sample form, only US state capitals
   are returned in the typeahead. In a real-world product, more cities would be
   suggested.
