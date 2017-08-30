@@ -86,6 +86,10 @@ handlers:
   http_headers:
     Access-Control-Allow-Origin: "*"
 
+- url: /polymer/
+  static_files: dist/polymer/index.html
+  upload: dist/polymer/index.html
+
 - url: /.*
   script: _go_app
 
