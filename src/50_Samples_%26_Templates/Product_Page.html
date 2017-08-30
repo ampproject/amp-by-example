@@ -754,7 +754,7 @@ This sample showcases how to build a product page in AMP HTML.
     <!--
     The button `tap` action sets the value of the `relatedProductsSrc` to an extended list of related products.
     -->
-    <button class="ampstart-btn caps m1 mb3" id="listSrcButton" on="tap:AMP.setState({product: {relatedProductsSrc: '/json/more_related_products.json'}})">Show more</button>
+    <button [disabled]="listSrcButtonDisabled" class="ampstart-btn caps m1 mb3" id="listSrcButton" on="tap:AMP.setState({listSrcButtonDisabled: true, product: {relatedProductsSrc: '/json/more_related_products.json'}})">Show more</button>
   <!--
     ## User Analytics
   -->
