@@ -29,7 +29,7 @@ const polymerJson = require('./polymer.json');
 const polymerProject = new polymerBuild.PolymerProject(polymerJson);
 const mergeStream = require('merge-stream');
 //var gulpServiceWorker = require('gulp-serviceworker');
-const generateServiceWorker = require('polymer-build').generateServiceWorker;
+const generateServiceWorker = polymerBuild.generateServiceWorker;
 
 
 const paths = {

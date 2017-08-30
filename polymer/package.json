@@ -36,6 +36,7 @@
     "gulp-uglify": "^2.0.1",
     "gulp-util": "^3.0.8",
     "pump": "^1.0.2",
-    "gulp-serviceworker": "0.0.3"
+    "gulp-serviceworker": "0.0.3",
+    "polymer-build": "2.0.0"
   }
 }
