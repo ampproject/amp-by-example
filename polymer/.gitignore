@@ -1,3 +1,4 @@
 node_modules/
 dist
 .cache
+bower_components/
