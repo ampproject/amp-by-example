@@ -70,7 +70,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         data="{{routeData}}"></app-route>
 
     <!--
-      shop-category-data provides the item data for a given category and item name.
+      sample-category-data provides the item data for a given category and item name.
     -->
     <sample-category-data
         id="categoryData"
@@ -138,15 +138,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (visible) {
           this._itemChangeDebouncer = Polymer.Debouncer.debounce(this._itemChangeDebouncer,
             Polymer.Async.microTask, () => {
-              // The item description contains escaped HTML (e.g. "&lt;br&gt;"), so we need to
-              // unescape it ("<br>") and set it as innerHTML.
-              // let text = item ? item.description : '';
-              // this.$.desc.innerHTML = this._unescapeText(text);
-
-              // Reset the select menus.
-              // this.$.quantitySelect.value = '1';
-              // this.$.sizeSelect.value = 'M';
-
               this.dispatchEvent(new CustomEvent('change-section', {
                 bubbles: true, composed: true, detail: {
                   category: item ? item.category : '',

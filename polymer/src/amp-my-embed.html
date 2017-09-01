@@ -60,7 +60,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
         fullUrl: {
           type: String,
-          computed: 'computeFullUrl(itemUrl)',
+          computed: '_computeFullUrl(url, itemUrl)',
           observer: 'urlChanged'
         },
         itemUrl: {
@@ -74,8 +74,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       };
     }
 
-      computeFullUrl(itemUrl) {
-        return [this.url, this.itemUrl, "embed"].join('')
+      _computeFullUrl(url, itemUrl) {
+        return [url, itemUrl, "embed"].join('')
       }
 
       urlChanged() {
@@ -117,9 +117,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          * @type {Element}
          */
         this.shadowRoot_ = null;
-
-        /** @private */
-        this.boundClickListener_ = this.clickListener_.bind(this);
 
         /**
          * Child element that will wrap the AMP shadow root.
@@ -197,10 +194,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this.xhr_ = new XMLHttpRequest();
       this.xhr_.open('GET', url, true);
       this.xhr_.responseType = 'document';
-      // This is set to text/* instead of text/html because the development server
-      // only forwards requests to the proxy for requests whose 'Accept' header
-      // is NOT text/html.
-      // https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#proxying-api-requests-in-development
       this.xhr_.setRequestHeader('Accept', 'text/*');
       this.xhr_.onreadystatechange = () => {
         if (this.xhr_.readyState < /* STATUS_RECEIVED */ 2) {
@@ -225,55 +218,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this.xhr_.onabort = () => { reject(new Error('Request aborted')); };
       this.xhr_.send();
     });
-  }
-
-  /**
-   * Event listener that redirects clicks on same-domain links to react-router.
-   * This avoids page reload due to navigation from same-domain links in the AMP document,
-   * which affords seamless UX in the style of a single-page app.
-   * @private
-   * @param e {!Event}
-   */
-  clickListener_(e) {
-    if (e.defaultPrevented) {
-      return false;
-    }
-
-    let a = null;
-
-    if (e.path) {
-      // Check `path` since events that cross the Shadow DOM boundary are retargeted.
-      // See http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom-301/#toc-events
-      for (let i = 0; i < e.path.length; i++) {
-        const node = e.path[i];
-        if (node.tagName === 'A') {
-          a = node;
-          break;
-        }
-      }
-    } else {
-      // Polyfill for `path`.
-      let node = e.target;
-      while (node && node.tagName !== 'A') {
-        node = node.parentNode;
-      }
-      a = node;
-    }
-
-    if (a && a.href) {
-      const url = new URL(a.href);
-      if (url.origin === window.location.origin) {
-        // Perform router push instead of page navigation.
-        e.preventDefault();
-        // Clean up current shadow AMP document.
-        this.closeShadowAmpDoc_();
-        // Router push reuses current component with new props.
-        this.props.router.push(url.pathname);
-        return false;
-      }
-    }
-
-    return true;
   }
 
     }
