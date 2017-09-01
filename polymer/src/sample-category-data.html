@@ -53,11 +53,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }}
 
       static get observers() { return [
-        '_categoriesLoaded(categories)', '_categoryNameSet(categoryName)'
+        '_categoriesLoaded(categories, categoryName)', '_categoryNameSet(categoryName)'
       ]}
 
-      _categoriesLoaded(categories) {
-        this._computeCategory(this.categoryName)
+      static get sitemapUrl() { return 'https://ampbyexample.com/sitemap.json'; }
+
+      _categoriesLoaded(categories, categoryName) {
+        this._computeCategory(categoryName)
       }
 
       _categoryNameSet(categoryName) {
@@ -65,11 +67,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
 
-      _getCategoryObject(categoryName) {
-        if (this.categories === undefined) {
+      _getCategoryObject(categoryName, categories) {
+        if (categories === undefined) {
           return null;
         }
-        for (let i = 0, c; c = this.categories[i]; ++i) {
+        for (let i = 0, c; c = categories[i]; ++i) {
           if (c.id === categoryName) {
             this.category = c;
             return c;
@@ -84,7 +86,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // Fetch the items of the category. Note that the fetch is asynchronous,
         // which means `category.items` may not be set initially (but that path
         // will be notified when the fetch completes).
-        let categoryObj = this._getCategoryObject(categoryName);
+        let categoryObj = this._getCategoryObject(categoryName, this.categories);
         this._fetchItems(categoryObj, 1);
         return categoryObj;
       }
@@ -100,16 +102,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       }
 
-      handleResponse(data) {
-        var cats = data.detail.response[0]["categories"]
-        var catNames =  cats.map(function(cat) {
-          var obj = {
-            name:  cat["name"],
-            id: cat["id"]
-          };
-          return obj;
-        });
-        this.categories = catNames;
+      _parseCategoriesFromJson(e) {
+        return JSON.parse(e.target.responseText)[0]["categories"]
       }
 
       _fetchCategories(attempts) {
@@ -118,9 +112,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           return;
         }
         this._getResource({
-          url: 'https://ampbyexample.com/sitemap.json',
+          url: SampleCategoryData.sitemapUrl,
           onLoad(e) {
-            var cats = JSON.parse(e.target.responseText)[0]["categories"]
+            var cats = this._parseCategoriesFromJson(e)
             var catNames =  cats.map(function(cat) {
               var obj = {
                 name:  cat["name"],
@@ -144,14 +138,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           return;
         }
         this._getResource({
-          url: 'https://ampbyexample.com/sitemap.json',
+          url: SampleCategoryData.sitemapUrl,
           onLoad(e) {
-            var itemsEncoded = JSON.parse(e.target.responseText)[0]["categories"]
-            itemsEncoded = itemsEncoded.filter(function(item) {
-              return item.name == category.name
+            var cats = this._parseCategoriesFromJson(e)
+            cats = cats.filter(function(cat) {
+              return cat.name == category.name
             });
 
-            var items =  itemsEncoded[0]["examples"].map(function(item) {
+            var items =  cats[0]["examples"].map(function(item) {
               var obj = {
                 name:  item["name"],
                 title: item["title"],
@@ -189,7 +183,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       refresh() {
         if (this.categoryName) {
           // Try at most 3 times to get the items.
-          this._fetchItems(this._getCategoryObject(this.categoryName), 3);
+          this._fetchItems(this._getCategoryObject(this.categoryName, this.categories), 3);
         }
       }
 
