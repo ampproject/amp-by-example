@@ -29,7 +29,7 @@ const polymerJson = require('./polymer.json');
 const polymerProject = new polymerBuild.PolymerProject(polymerJson);
 const mergeStream = require('merge-stream');
 //var gulpServiceWorker = require('gulp-serviceworker');
-const generateServiceWorker = polymerBuild.generateServiceWorker;
+const addServiceWorker = polymerBuild.addServiceWorker;
 
 
 const paths = {
@@ -47,22 +47,14 @@ gulp.task('build:polymer', 'Build the polymer app', function() {
   return buildStream.pipe(gulp.dest(paths.dist.dir));
 });
 
-// gulp.task('generate-service-worker', ['build'], function() {
-//   return gulp.src(['dist/*'])
-//     .pipe(gulpServiceWorker({
-//       rootDir: 'dist/',
-//     }));
-// });
-
-
-
 gulp.task('build', 'Build the polymer app', [
-  'build:polymer'
+  'build:polymer',
+  'sw'
 ]);
 
 function build() {
   gutil.log('Build!');
-  return polymerBuild.generateServiceWorker({
+  return polymerBuild.addServiceWorker({
       project: polymerProject,
       buildRoot: 'dist/',
       swPrecacheConfig: {
