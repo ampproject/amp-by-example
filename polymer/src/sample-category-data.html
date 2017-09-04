@@ -48,6 +48,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Boolean,
           notify: true,
           readOnly: true
+        },
+
+        resource: {
+          type: Object
         }
 
       }}
@@ -114,8 +118,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this._getResource({
           url: SampleCategoryData.sitemapUrl,
           onLoad(e) {
-            var cats = this._parseCategoriesFromJson(e)
-            var catNames =  cats.map(function(cat) {
+            this.resource = this._parseCategoriesFromJson(e)
+            var catNames =  this.resource.map(function(cat) {
               var obj = {
                 name:  cat["name"],
                 id: cat["id"]
@@ -137,30 +141,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (!category || category.items) {
           return;
         }
-        this._getResource({
-          url: SampleCategoryData.sitemapUrl,
-          onLoad(e) {
-            var cats = this._parseCategoriesFromJson(e)
-            cats = cats.filter(function(cat) {
-              return cat.name == category.name
-            });
 
-            var items =  cats[0]["examples"].map(function(item) {
-              var obj = {
-                name:  item["name"],
-                title: item["title"],
-                description: item["description"],
-                url: item["url"]
-              };
-              return obj;
-            });
-            this.set('category.items', items);
-            category.items = items
-          },
-          onError(e) {
-            this._setFailure(true);
-          }
-        }, attempts);
+        var cats = this.resource
+        cats = cats.filter(function(cat) {
+                return cat.name == category.name
+        });
+
+        var items =  cats[0]["examples"].map(function(item) {
+        var obj = {
+          name:  item["name"],
+          title: item["title"],
+          description: item["description"],
+          url: item["url"]
+        };
+        return obj;
+        });
+        this.set('category.items', items);
+        category.items = items
       }
 
       _getResource(rq, attempts) {
