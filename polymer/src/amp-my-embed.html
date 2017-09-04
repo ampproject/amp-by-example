@@ -42,7 +42,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </style>
 
-    <span id="name"></span>
+    <span id="ampContent"></span>
 
   </template>
 
@@ -86,50 +86,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         super();
         // 'offline' is set to true if and when the document fetch fails.
         this.state = {'offline': false};
-
-        /**
-         * `window.AMP` is set by the AMP runtime when it finishes loading.
-         * @const
-         * @private
-         */
         this.ampReadyPromise_ = new Promise(resolve => {
           (window.AMP = window.AMP || []).push(resolve);
         });
 
-        /**
-         * XMLHTTPRequest that fetches the AMP document.
-         * @private
-         * @type {XMLHTTPRequest}
-         */
         this.xhr_ = null;
-
-        /**
-         * Provides AMP functionality on the newly created shadow root after
-         * an AMP document is attached.
-         * @private
-         * @type {Object}
-         */
-        this.shadowAmp_ = null;
-
-        /**
-         * The root node of the shadow AMP.
-         * @note A single node must not be reused for multiple shadow AMP docs.
-         * @type {Element}
-         */
-        this.shadowRoot_ = null;
-
-        /**
-         * Child element that will wrap the AMP shadow root.
-         * @private
-         * @type {Element}
-         */
-        this.container_ = document.getElementById('container');
-
+        this._amp = null;
+        this._host = null;
       }
 
       ready() {
         super.ready();
-        this.$.name.textContent = this.shadowAmp_;
+        this.$.ampContent.textContent = this._amp;
       }
 
   /**
@@ -140,20 +108,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   fetchAndAttachAmpDoc_(url) {
     this.fetchDocument_(url).then(doc => {
       return this.ampReadyPromise_.then(amp => {
-        // Hide navigational and other unwanted elements before displaying.
-        this.hideUnwantedElementsOnDocument_(doc);
 
         // Replace the old shadow root with a new div element.
-        const oldShadowRoot = this.shadowRoot_;
-        this.shadowRoot_ = document.createElement('div');
+        const oldShadowRoot = this._amp;
+        this._host = document.createElement('div');
         if (oldShadowRoot) {
-          this.$.name.replaceChild(this.shadowRoot_, oldShadowRoot);
+          this.$.ampContent.replaceChild(this._host, oldShadowRoot);
         } else {
-          this.$.name.appendChild(this.shadowRoot_);
+          this.$.ampContent.appendChild(this._host);
         }
 
-        // Attach the shadow document to the new shadow root.
-        this.shadowAmp_ = amp.attachShadowDoc(this.shadowRoot_, doc, url);
+        this._amp = amp.attachShadowDoc(this._host, doc, url);
       });
     }).catch(error => {
       this.setState({'offline': true});
@@ -165,22 +130,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    * @private
    */
   closeShadowAmpDoc_() {
-    if (typeof this.shadowAmp_.close === 'function') {
-      this.shadowAmp_.close();
+    if (typeof this._amp.close === 'function') {
+      this._amp.close();
     }
   }
-
-  /**
-   * Hides elements (e.g. banners) that would clash with the app shell.
-   * @param {!Document} doc
-   * @private
-   */
-   hideUnwantedElementsOnDocument_(doc) {
-     const banners = doc.getElementsByClassName('banner');
-     for (let i = 0; i < banners.length; i++) {
-       banners[i].style.display = 'none';
-     }
-   }
 
   /**
    * Fetches and parses HTML at `url`.

@@ -78,10 +78,10 @@ handlers:
   upload: index.html
   secure: always
 
-- url: /polymer/sw\.js$
+- url: /polymer/service-worker\.js
   secure: always
-  static_files: dist/sw.js
-  upload: dist/sw\.js$
+  static_files: dist/polymer/service-worker.js
+  upload: dist/polymer/service-worker\.js
   expiration: 0
   http_headers:
     Access-Control-Allow-Origin: "*"
