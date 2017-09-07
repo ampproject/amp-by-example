@@ -88,7 +88,7 @@ This sample showcases how to build a product page in AMP HTML.
     }
     .product-gallery amp-img:focus {
       outline: none;
-    } 
+    }
     form#order label {
       display: inline;
       font-weight: 500;
@@ -754,7 +754,13 @@ This sample showcases how to build a product page in AMP HTML.
     <!--
     The button `tap` action sets the value of the `relatedProductsSrc` to an extended list of related products.
     -->
-    <button [disabled]="listSrcButtonDisabled" class="ampstart-btn caps m1 mb3" id="listSrcButton" on="tap:AMP.setState({listSrcButtonDisabled: true, product: {relatedProductsSrc: '/json/more_related_products.json'}})">Show more</button>
+    <button class="ampstart-btn caps m1 mb3 show" [class]="listSrcButtonDisabled == true ? 'ampstart-btn caps m1 mb3 hide' : 'ampstart-btn caps m1 mb3 show'" id="listSrcButton" on="tap:AMP.setState({listSrcButtonDisabled: true, product: {relatedProductsSrc: '/json/more_related_products.json'}})">Show more</button>
+    <!--
+    While infinite scrolling is not possible at the moment in AMP, you can still implement a paginated
+    show more pattern by using a number of `buttons` that can be hidden or shown by using `amp-bind`.
+    -->
+    <button [disabled]="listSrcButtonDisabled2" class="ampstart-btn caps m1 mb3 hide" [class]="listSrcButtonDisabled == true ? 'ampstart-btn caps m1 mb3 show' : 'ampstart-btn caps m1 mb3 hide'" id="listSrcButton" on="tap:AMP.setState({listSrcButtonDisabled2: true,product: {relatedProductsSrc: '/json/more_related_products2.json'}})">Show more</button>
+
   <!--
     ## User Analytics
   -->
