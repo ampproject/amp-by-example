@@ -550,6 +550,7 @@ This sample showcases how to build a product page in AMP HTML.
       "selectedSlideForRed": 0,
       "selectedSlideForGolden": 0,
       "selectedSlideForGreen": 0,
+      "timesShowMoreClicked": 0,
       "green": {
         "sizes": {
           "S": "$5.99",
@@ -752,15 +753,17 @@ This sample showcases how to build a product page in AMP HTML.
       </template>
     </amp-list>
     <!--
-    The button `tap` action sets the value of the `relatedProductsSrc` to an extended list of related products.
+      The button `tap` action sets the value of the `relatedProductsSrc` to an extended list of related products.
+      While infinite scrolling is not possible at the moment in AMP, you can use `amp-bind` to dynamically change the
+      src of `amp-list`.
     -->
-    <button class="ampstart-btn caps m1 mb3 show" [class]="listSrcButtonDisabled == true ? 'ampstart-btn caps m1 mb3 hide' : 'ampstart-btn caps m1 mb3 show'" id="listSrcButton" on="tap:AMP.setState({listSrcButtonDisabled: true, product: {relatedProductsSrc: '/json/more_related_products.json'}})">Show more</button>
-    <!--
-    While infinite scrolling is not possible at the moment in AMP, you can still implement a paginated
-    show more pattern by using a number of `buttons` that can be hidden or shown by using `amp-bind`.
-    -->
-    <button [disabled]="listSrcButtonDisabled2" class="ampstart-btn caps m1 mb3 hide" [class]="listSrcButtonDisabled == true ? 'ampstart-btn caps m1 mb3 show' : 'ampstart-btn caps m1 mb3 hide'" id="listSrcButton" on="tap:AMP.setState({listSrcButtonDisabled2: true,product: {relatedProductsSrc: '/json/more_related_products2.json'}})">Show more</button>
-
+    <button class="ampstart-btn caps m1 mb3"
+      id="listSrcButton"
+      on="tap:AMP.setState({
+        listSrcButtonDisabled: true,
+        product: {relatedProductsSrc: '/json/more_related_products'.concat(product.timesShowMoreClicked).concat('.json'), timesShowMoreClicked: product.timesShowMoreClicked + 1}})">
+        Show more
+    </button>
   <!--
     ## User Analytics
   -->
