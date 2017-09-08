@@ -761,7 +761,10 @@ This sample showcases how to build a product page in AMP HTML.
       id="listSrcButton"
       on="tap:AMP.setState({
         listSrcButtonDisabled: true,
-        product: {relatedProductsSrc: '/json/more_related_products'.concat(product.timesShowMoreClicked).concat('.json'), timesShowMoreClicked: product.timesShowMoreClicked + 1}})">
+        product: {
+          relatedProductsSrc: '/json/more_related_products'.concat(product.timesShowMoreClicked).concat('.json'),
+          timesShowMoreClicked: product.timesShowMoreClicked + 1}
+        })">
         Show more
     </button>
   <!--
