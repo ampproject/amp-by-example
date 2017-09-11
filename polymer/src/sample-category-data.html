@@ -34,7 +34,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         category: {
           type: Object,
-          //computed: '_computeCategory(categoryName)',
           notify: true
         },
 
@@ -127,7 +126,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               return obj;
             });
             this.set('categories', catNames);
-            this.categories = catNames;
           },
           onError(e) {
             this._setFailure(true);
