@@ -17,7 +17,7 @@
 "use strict";
 
 const gulp = require('gulp-help')(require('gulp'));
-
+const del = require('del');
 const gls = require('gulp-live-server');
 const uglify = require('gulp-uglify');
 const pump = require('pump');
@@ -28,9 +28,7 @@ const polymerBuild = require('polymer-build');
 const polymerJson = require('./polymer.json');
 const polymerProject = new polymerBuild.PolymerProject(polymerJson);
 const mergeStream = require('merge-stream');
-//var gulpServiceWorker = require('gulp-serviceworker');
 const addServiceWorker = polymerBuild.addServiceWorker;
-
 
 const paths = {
   dist: {
@@ -39,21 +37,91 @@ const paths = {
   src: 'src'
 };
 
-gulp.task('build:polymer', 'Build the polymer app', function() {
-  const polymer = 'polymer/**/*'
-  let sourcesStream = polymerProject.sources()
-  let dependenciesStream = polymerProject.dependencies()
-  let buildStream = mergeStream(sourcesStream, dependenciesStream)
-  return buildStream.pipe(gulp.dest(paths.dist.dir));
-});
+function waitFor(stream) {
+  return new Promise((resolve, reject) => {
+    stream.on('end', resolve);
+    stream.on('error', reject);
+  });
+}
 
-gulp.task('build', 'Build the polymer app', [
-  'build:polymer',
-  'sw'
-]);
+// gulp.task('build', 'Build the polymer app', [
+//   'build:polymer',
+//   'build:serviceWorker'
+// ]);
+
+gulp.task('build:polymer', build)
+
+// gulp.task('build:polymer', 'Build the polymer app', function() {
+//   const polymer = 'polymer/**/*'
+//   let sourcesStream = polymerProject.sources()
+//   let dependenciesStream = polymerProject.dependencies()
+//   let buildStream = mergeStream(sourcesStream, dependenciesStream)
+//   return buildStream.pipe(gulp.dest(paths.dist.dir));
+// });
 
 function build() {
-  gutil.log('Build!');
+  return new Promise((resolve, reject) => { // eslint-disable-line no-unused-vars
+
+    // Lets create some inline code splitters in case you need them later in your build.
+    let sourcesStreamSplitter = new polymerBuild.HtmlSplitter();
+    let dependenciesStreamSplitter = new polymerBuild.HtmlSplitter();
+
+    // Okay, so first thing we do is clear the build directory
+    console.log(`Deleting ${paths.dist.dir} directory...`);
+    del([paths.dist.dir])
+      .then(() => {
+
+        // Let's start by getting your source files. These are all the files
+        // in your `src/` directory, or those that match your polymer.json
+        // "sources"  property if you provided one.
+        let sourcesStream = polymerProject.sources()
+
+        // Similarly, you can get your dependencies seperately and perform
+        // any dependency-only optimizations here as well.
+        let dependenciesStream = polymerProject.dependencies()
+
+        // Okay, now let's merge your sources & dependencies together into a single build stream.
+        let buildStream = mergeStream(sourcesStream, dependenciesStream)
+          .once('data', () => {
+            console.log('Analyzing build dependencies...');
+          });
+
+        // Okay, time to pipe to the build directory
+        buildStream = buildStream.pipe(gulp.dest(paths.dist.dir));
+
+        // waitFor the buildStream to complete
+        return waitFor(buildStream);
+      })
+      .then(() => {
+        // Okay, now let's generate the Service Worker
+        console.log('Generating the Service Worker...');
+        return polymerBuild.addServiceWorker({
+          project: polymerProject,
+          buildRoot: 'dir/',
+          swPrecacheConfig: {
+            // See https://github.com/GoogleChrome/sw-precache#options-parameter for all supported options
+            navigateFallback: '/index.html',
+          }
+        });
+      })
+      .then(() => {
+        // You did it!
+        console.log('Build complete!');
+        resolve();
+      });
+  });
+}
+
+gulp.task('build:serviceWorker', 'Build a service worker', function(cb) {
+  try {
+    buildServiceWorker().then(() => cb());
+  } catch (e) {
+    gutil.log(e);
+  }
+});
+
+function buildServiceWorker() {
+  gutil.log('Build a service worker');
   return polymerBuild.addServiceWorker({
       project: polymerProject,
       buildRoot: 'dist/',
@@ -66,15 +134,6 @@ function build() {
       gutil.log('Build complete!');
     }).catch(e => gutil.log(e));
 }
-
-
-gulp.task('sw', 'generate sw', function(cb) {
-  try {
-    build().then(() => cb());
-  } catch (e) {
-    gutil.log(e);
-  }
-});
 
 gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
   function() {

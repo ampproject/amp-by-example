@@ -122,7 +122,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         newDoc = parser.parseFromString( doc, 'text/html' );
 
         // Replace the old shadow root with a new div element.
-        const oldShadowRoot = this._amp;
+        const oldShadowRoot = this._host;
         this._host = document.createElement('div');
         if (oldShadowRoot) {
           this.$.ampContent.replaceChild(this._host, oldShadowRoot);
