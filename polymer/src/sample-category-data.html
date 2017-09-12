@@ -12,8 +12,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../node_modules/@npm-polymer/iron-ajax/iron-ajax.html">
 
 <dom-module id="sample-category-data">
-  <script>
+  <template>
+    <iron-ajax auto url="https://ampbyexample.com/sitemap.json" handle-as="json"
+      on-response="handleResponse"></iron-ajax>
+  </template>
 
+  <script>
 
   (function() {
 
@@ -69,6 +73,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this._fetchCategories(3);
       }
 
+      handleResponse(data) {
+        this.resource = data.detail.response[0]["categories"]
+        var catNames =  this.resource.map(function(cat) {
+          var obj = {
+            name:  cat["name"],
+            id: cat["id"]
+          };
+          return obj;
+        });
+        this.categories = catNames;
+      }
 
       _getCategoryObject(categoryName, categories) {
         if (categories === undefined) {
