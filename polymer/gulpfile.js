@@ -44,20 +44,7 @@ function waitFor(stream) {
   });
 }
 
-// gulp.task('build', 'Build the polymer app', [
-//   'build:polymer',
-//   'build:serviceWorker'
-// ]);
-
 gulp.task('build:polymer', build)
-
-// gulp.task('build:polymer', 'Build the polymer app', function() {
-//   const polymer = 'polymer/**/*'
-//   let sourcesStream = polymerProject.sources()
-//   let dependenciesStream = polymerProject.dependencies()
-//   let buildStream = mergeStream(sourcesStream, dependenciesStream)
-//   return buildStream.pipe(gulp.dest(paths.dist.dir));
-// });
 
 function build() {
   return new Promise((resolve, reject) => { // eslint-disable-line no-unused-vars
@@ -97,10 +84,13 @@ function build() {
         console.log('Generating the Service Worker...');
         return polymerBuild.addServiceWorker({
           project: polymerProject,
-          buildRoot: 'dir/',
+          buildRoot: paths.dist.dir,
           swPrecacheConfig: {
             // See https://github.com/GoogleChrome/sw-precache#options-parameter for all supported options
             navigateFallback: '/index.html',
+            staticFileGlobs: [
+              'node_modules/@webcomponents/webcomponentsjs/*',
+            ],
           }
         });
       })
@@ -111,36 +101,6 @@ function build() {
       });
   });
 }
-
-gulp.task('build:serviceWorker', 'Build a service worker', function(cb) {
-  try {
-    buildServiceWorker().then(() => cb());
-  } catch (e) {
-    gutil.log(e);
-  }
-});
-
-function buildServiceWorker() {
-  gutil.log('Build a service worker');
-  return polymerBuild.addServiceWorker({
-      project: polymerProject,
-      buildRoot: 'dist/',
-      swPrecacheConfig: {
-        // See https://github.com/GoogleChrome/sw-precache#options-parameter for all supported options
-        navigateFallback: '/index.html',
-      }
-    })
-    .then(() => {
-      gutil.log('Build complete!');
-    }).catch(e => gutil.log(e));
-}
-
-gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
-  function() {
-    const port = 8000;
-    const server = gls.static('.', port);
-    server.start();
-  });
 
 gulp.task('default', 'Run a webserver', [
   'serve'

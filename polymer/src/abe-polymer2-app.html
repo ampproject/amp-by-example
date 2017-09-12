@@ -151,7 +151,7 @@
           Polymer.RenderStatus.afterNextRender(this, () => {
               // Register service worker if supported.
               if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('service-worker.js', {scope: '/'});
+                navigator.serviceWorker.register('service-worker.js', {scope: '/polymer/'});
               }
               this._notifyNetworkStatus();
               this.loadComplete = true;
