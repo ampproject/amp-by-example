@@ -29,10 +29,11 @@ import (
 )
 
 const (
-	SEARCH           = "search"
-	SHOPPING_CART    = "shopping_cart"
-	ADD_TO_CART_PATH = "/samples_templates/product_page/add_to_cart"
-	ABE_CLIENT_ID    = "ABE_CLIENT_ID"
+	SEARCH              = "search"
+	SHOPPING_CART       = "shopping_cart"
+	ADD_TO_CART_PATH    = "/samples_templates/product_page/add_to_cart"
+	ABE_CLIENT_ID       = "ABE_CLIENT_ID"
+	LAST_SHOW_MORE_PATH = "/json/more_related_products0.json"
 )
 
 type ProductBrowsePage struct {
@@ -83,6 +84,7 @@ func InitProductBrowse() {
 	RegisterSample("samples_templates/product_page", renderProduct)
 	RegisterSampleEndpoint("samples_templates/product_browse_page", SEARCH, handleSearchRequest)
 	http.HandleFunc("/samples_templates/products", handleProductsRequest)
+	http.HandleFunc(LAST_SHOW_MORE_PATH, handleLastLoadMoreRequest)
 	http.HandleFunc(ADD_TO_CART_PATH, func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, addToCart)
 	})
@@ -251,6 +253,31 @@ func contains(array []string, str string) bool {
 func handleSearchRequest(w http.ResponseWriter, r *http.Request, page Page) {
 	route := page.Route + "?" + SEARCH + "=" + r.FormValue(SEARCH)
 	http.Redirect(w, r, route, http.StatusSeeOther)
+}
+
+func handleLastLoadMoreRequest(w http.ResponseWriter, r *http.Request) {
+	productsFile, err := ioutil.ReadFile(DIST_FOLDER + LAST_SHOW_MORE_PATH)
+	if err != nil {
+		panic(err)
+	}
+	var productsRoot JsonRoot
+	err = json.Unmarshal(productsFile, &productsRoot)
+	if err != nil {
+		panic(err)
+	}
+
+	products = productsRoot.Products
+	//add no more flag to signal that next one it's the last batch of items
+	products[len(products)-1].Id = -1
+
+	w.Header().Set("Content-Type", "application/json")
+	productsRoot.Products = products
+	jsonProducts, err := json.Marshal(productsRoot)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Write(jsonProducts)
 }
 
 func handleProductsRequest(w http.ResponseWriter, r *http.Request) {

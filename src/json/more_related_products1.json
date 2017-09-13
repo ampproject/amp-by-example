@@ -6,7 +6,8 @@
     "price": "1.99",
     "stars": "&#9733;&#9733;&#9733;&#9733;&#9733;",
     "attribution": "visualhunt",
-    "url": "#"
+    "url": "#",
+    "color": "green"
   }, {
     "id": 2,
     "img": "/img/product2_640x426.jpg",
@@ -14,7 +15,8 @@
     "attribution": "visualhunt",
     "price": "0.99",
     "stars": "&#9733;&#9733;&#9733;&#9733;&#9734;",
-    "url": "#"
+    "url": "#",
+    "color": "orange"
   }, {
     "id": 3,
     "img": "/img/product3_640x426.jpg",
@@ -22,7 +24,8 @@
     "attribution": "visualhunt",
     "price": "1.50",
     "stars": "&#9733;&#9733;&#9733;&#9734;&#9734;",
-    "url": "#"
+    "url": "#",
+    "color": "green"
   }, {
     "id": 4,
     "img": "/img/product4_640x426.jpg",
@@ -30,23 +33,26 @@
     "attribution": "pixabay",
     "price": "1.50",
     "stars": "&#9733;&#9733;&#9733;&#9733;&#9733;",
-    "url": "#"
+    "url": "#",
+    "color": "yellow"
   }, {
     "id": 5,
-    "img": "/img/product1_640x426.jpg",
-    "name": "Apple",
-    "price": "1.99",
+    "img": "/img/product5_640x408.jpg",
+    "name": "Watermelon",
+    "attribution": "pixabay",
+    "price": "4.50",
     "stars": "&#9733;&#9733;&#9733;&#9733;&#9733;",
-    "attribution": "visualhunt",
-    "url": "#"
+    "url": "#",
+    "color": "red"
   }, {
     "id": 6,
-    "img": "/img/product2_640x426.jpg",
-    "name": "Orange",
-    "attribution": "visualhunt",
-    "price": "0.99",
-    "stars": "&#9733;&#9733;&#9733;&#9733;&#9734;",
-    "url": "#"
+    "img": "/img/product6_640x424.jpg",
+    "name": "Melon",
+    "attribution": "pixabay",
+    "price": "3.50",
+    "stars": "&#9733;&#9733;&#9733;&#9733;&#9733;",
+    "url": "#",
+    "color": "yellow"
   }, {
     "id": 7,
     "img": "/img/product3_640x426.jpg",
@@ -65,11 +71,11 @@
     "url": "#"
   }, {
     "id": 9,
-    "img": "/img/product2_640x426.jpg",
-    "name": "Orange",
+    "img": "/img/product3_640x426.jpg",
+    "name": "Pear",
     "attribution": "visualhunt",
-    "price": "0.99",
-    "stars": "&#9733;&#9733;&#9733;&#9733;&#9734;",
+    "price": "1.50",
+    "stars": "&#9733;&#9733;&#9733;&#9734;&#9734;",
     "url": "#"
   }, {
     "id": 10,

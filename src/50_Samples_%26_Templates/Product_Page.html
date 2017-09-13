@@ -171,6 +171,7 @@ This sample showcases how to build a product page in AMP HTML.
     .show {
       display: block;
     }
+
     .unavailable {
       position: relative;
       background: gray;
@@ -285,15 +286,18 @@ This sample showcases how to build a product page in AMP HTML.
     .items, amp-list.items > div {
       justify-content: flex-start;
     }
+
     .close-gallery-button {
       z-index: 1;
       position: absolute;
       right: 0;
     }
-    #listSrcButton {
+
+    .listSrcButton {
       display: none;
     }
-    #show-more-list div div:last-child #listSrcButton {
+
+    #show-more-list div div:last-child .listSrcButton {
       display: inline;
       position: absolute;
       left: 0;
@@ -748,13 +752,14 @@ This sample showcases how to build a product page in AMP HTML.
     -->
     <amp-list class="items m1"
               width="auto"
-              height="100"
+              height="145"
               layout="fixed-height"
               src="/json/related_products.json"
               [src]="product.relatedProductsSrc"
               id="show-more-list">
       <template type="amp-mustache">
-        <a class="text-decoration-none p1" href="/samples_templates/product_page/preview/">
+        <a class="text-decoration-none p1"
+          href="/samples_templates/product_page/preview/">
           <amp-img width="70.31"
                    height="46.8"
                    layout="fixed"
@@ -764,16 +769,16 @@ This sample showcases how to build a product page in AMP HTML.
                  <p class="star">{{{stars}}}</p>
                  <p class="price">${{price}}</p>
         </a>
-        <button class="ampstart-btn caps m1 mb3"
-          id="listSrcButton"
-          on="tap:AMP.setState({
-            listSrcButtonDisabled: true,
-            product: {
-              relatedProductsSrc: '/json/more_related_products'.concat(product.timesShowMoreClicked).concat('.json'),
-              timesShowMoreClicked: product.timesShowMoreClicked + 1}
-            })">
-            Show more
-        </button>
+          <button class="ampstart-btn caps m1 mb3 listSrcButton"
+            [class] = "(listSrcButtonDisabled == -1 ? 'ampstart-btn caps m1 mb3 hide' : 'ampstart-btn caps m1 mb3 listSrcButton')"
+            on="tap:AMP.setState({
+              listSrcButtonDisabled: {{{id}}},
+              product: {
+                relatedProductsSrc: '/json/more_related_products'.concat(product.timesShowMoreClicked).concat('.json'),
+                timesShowMoreClicked: product.timesShowMoreClicked + 1}
+              })">
+              Show more
+          </button>
       </template>
     </amp-list>
   <!--
