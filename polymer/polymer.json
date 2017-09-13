@@ -1,20 +1,26 @@
 {
   "entrypoint": "index.html",
   "shell": "src/abe-polymer2-app.html",
-  "fragments": [
-    "src/sample-list.html",
-    "src/sample-detail.html"
-  ],
   "sources": [
-    "src/**/*",
-    "node_modules/**/*"
+    "src/**/*"
+  ],
+  "extraDependencies": [
+    "node_modules/@webcomponents/webcomponentsjs/*.js"
   ],
   "lint": {
     "rules": [
       "polymer-2"
     ]
   },
-  "builds": [{
-    "addServiceWorker": true
-  }]
+  "builds": [
+    {
+      "preset": "es5-bundled"
+    },
+    {
+      "preset": "es6-bundled"
+    },
+    {
+      "preset": "es6-unbundled"
+    }
+  ]
 }
