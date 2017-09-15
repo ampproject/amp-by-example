@@ -297,13 +297,6 @@ This sample showcases how to build a product page in AMP HTML.
       display: none;
     }
 
-    #show-more-list div div:last-child .listSrcButton {
-      display: inline;
-      position: absolute;
-      left: 0;
-      margin-left: 0;
-    }
-
     </style>
 
     <!-- ## Metadata -->
@@ -565,6 +558,7 @@ This sample showcases how to build a product page in AMP HTML.
       "selectedSlideForGolden": 0,
       "selectedSlideForGreen": 0,
       "timesShowMoreClicked": 0,
+      "showMoreButtonDisabled": false,
       "green": {
         "sizes": {
           "S": "$5.99",
@@ -750,12 +744,14 @@ This sample showcases how to build a product page in AMP HTML.
     src of `amp-list`.
     Learn more about `amp-list` [here](/components/amp-list/).
     -->
+    <amp-state id="myState" src="/json/related_products.json">
+    </amp-state>
     <amp-list class="items m1"
               width="auto"
               height="145"
               layout="fixed-height"
               src="/json/related_products.json"
-              [src]="product.relatedProductsSrc"
+              [src]="myState.items"
               id="show-more-list">
       <template type="amp-mustache">
         <a class="text-decoration-none p1"
@@ -769,18 +765,24 @@ This sample showcases how to build a product page in AMP HTML.
                  <p class="star">{{{stars}}}</p>
                  <p class="price">${{price}}</p>
         </a>
-          <button class="ampstart-btn caps m1 mb3 listSrcButton"
-            [class] = "(listSrcButtonDisabled == -1 ? 'ampstart-btn caps m1 mb3 hide' : 'ampstart-btn caps m1 mb3 listSrcButton')"
-            on="tap:AMP.setState({
-              listSrcButtonDisabled: {{id}},
-              product: {
-                relatedProductsSrc: '/json/more_related_products'.concat(product.timesShowMoreClicked).concat('.json'),
-                timesShowMoreClicked: product.timesShowMoreClicked + 1}
-              })">
-              Show more
-          </button>
       </template>
     </amp-list>
+    <form method="GET"
+        action="/json/more_related_products"
+        action-xhr="/json/more_related_products"
+        target="_top"
+        on="submit-error: AMP.setState({
+          myState: { items: myState.items.concat(event.response.items)},
+          product: {  showMoreButtonDisabled: true }
+        }); submit-success: AMP.setState({
+          myState: { items: myState.items.concat(event.response.items)},
+          product: {timesShowMoreClicked: product.timesShowMoreClicked + 1 }
+        });">
+      <input type="hidden" name="timesShowMoreClicked" value="0" [value]="product.timesShowMoreClicked.toString()">
+      <input type="submit" value="Show more"
+        class="ampstart-btn caps m1 mb3 show"
+        [class] = "(product.showMoreButtonDisabled == true ? 'ampstart-btn caps m1 mb3 hide' : 'ampstart-btn caps m1 mb3 show')">
+  </form>
   <!--
     ## User Analytics
   -->
