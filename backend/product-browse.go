@@ -15,6 +15,7 @@
 package backend
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"html/template"
@@ -26,15 +27,14 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"bytes"
 )
 
 const (
-	SEARCH              = "search"
-	SHOPPING_CART       = "shopping_cart"
-	ADD_TO_CART_PATH    = "/samples_templates/product_page/add_to_cart"
-	ABE_CLIENT_ID       = "ABE_CLIENT_ID"
-	SHOW_MORE_PATH      = "/json/more_related_products"
+	SEARCH           = "search"
+	SHOPPING_CART    = "shopping_cart"
+	ADD_TO_CART_PATH = "/samples_templates/product_page/add_to_cart"
+	ABE_CLIENT_ID    = "ABE_CLIENT_ID"
+	SHOW_MORE_PATH   = "/json/more_related_products"
 )
 
 type ProductBrowsePage struct {
@@ -279,7 +279,7 @@ func handleLastLoadMoreRequest(w http.ResponseWriter, r *http.Request) {
 	w.Write(jsonProducts)
 }
 
-func buildShowMorePath(timesShowMoreClicked string ) string {
+func buildShowMorePath(timesShowMoreClicked string) string {
 	list := []string{DIST_FOLDER, SHOW_MORE_PATH, timesShowMoreClicked, ".json"}
 	var path bytes.Buffer
 
