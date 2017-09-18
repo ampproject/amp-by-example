@@ -293,10 +293,6 @@ This sample showcases how to build a product page in AMP HTML.
       right: 0;
     }
 
-    .listSrcButton {
-      display: none;
-    }
-
     </style>
 
     <!-- ## Metadata -->
@@ -763,7 +759,8 @@ This sample showcases how to build a product page in AMP HTML.
     While infinite scrolling is not possible at the moment in AMP, you can use `amp-bind` to dynamically change the
     src of `amp-list` and add more items to the page.
     We bind the `src` attribute to the id of an `amp-state` component so that the `amp-list` will use the items
-    from that component as a `src`. We append items to the `amp-state` everytime the user click on the Show more button, see below for more info.
+    from that component as a `src`. The `amp-state` initial value is set by setting the `src` value
+    to the same endpoint used by `amp-list`. We append items to the `amp-state` everytime the user click on the Show more button, see below for more info.
     -->
     <amp-state id="myState" src="/json/related_products.json">
     </amp-state>

@@ -86,7 +86,7 @@ func InitProductBrowse() {
 	RegisterSample("samples_templates/product_page", renderProduct)
 	RegisterSampleEndpoint("samples_templates/product_browse_page", SEARCH, handleSearchRequest)
 	http.HandleFunc("/samples_templates/products", handleProductsRequest)
-	http.HandleFunc(SHOW_MORE_PATH, handleLastLoadMoreRequest)
+	http.HandleFunc(SHOW_MORE_PATH, handleLoadMoreRequest)
 	http.HandleFunc(ADD_TO_CART_PATH, func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, addToCart)
 	})
@@ -257,7 +257,7 @@ func handleSearchRequest(w http.ResponseWriter, r *http.Request, page Page) {
 	http.Redirect(w, r, route, http.StatusSeeOther)
 }
 
-func handleLastLoadMoreRequest(w http.ResponseWriter, r *http.Request) {
+func handleLoadMoreRequest(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
 	SetContentTypeJson(w)
 	moreItemsPageIndex := r.URL.Query().Get("moreItemsPageIndex")
