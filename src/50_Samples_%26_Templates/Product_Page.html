@@ -782,7 +782,7 @@ This sample showcases how to build a product page in AMP HTML.
           myState: { items: myState.items.concat(event.response.items)},
           product: {moreItemsPageIndex: product.moreItemsPageIndex + 1 }
         });">
-      <input type="hidden" name="moreItemsPageIndex" value="0" [value]="product.moreItemsPageIndex.toString()">
+      <input type="hidden" name="moreItemsPageIndex" value="0" [value]="product.moreItemsPageIndex">
       <input type="submit" value="Show more"
         class="ampstart-btn caps m1 mb3 show"
         [class] = "(product.showMoreButtonDisabled == true ? 'hide' : 'ampstart-btn caps m1 mb3 show')">
