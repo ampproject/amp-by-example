@@ -2,7 +2,7 @@
   "items": [{
     "id": 7,
     "img": "/img/product1_640x426.jpg",
-    "name": "Apple",
+    "name": "British Apple",
     "price": "1.99",
     "stars": "&#9733;&#9733;&#9733;&#9733;&#9733;",
     "attribution": "visualhunt",
@@ -11,7 +11,7 @@
   }, {
     "id": 8,
     "img": "/img/product2_640x426.jpg",
-    "name": "Orange",
+    "name": "Spanish Orange",
     "attribution": "visualhunt",
     "price": "0.99",
     "stars": "&#9733;&#9733;&#9733;&#9733;&#9734;",
@@ -20,7 +20,7 @@
   }, {
     "id": 9,
     "img": "/img/product3_640x426.jpg",
-    "name": "Pear",
+    "name": "French Pear",
     "attribution": "visualhunt",
     "price": "1.50",
     "stars": "&#9733;&#9733;&#9733;&#9734;&#9734;",

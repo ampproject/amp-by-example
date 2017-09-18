@@ -34,7 +34,7 @@ const (
 	SHOPPING_CART    = "shopping_cart"
 	ADD_TO_CART_PATH = "/samples_templates/product_page/add_to_cart"
 	ABE_CLIENT_ID    = "ABE_CLIENT_ID"
-	SHOW_MORE_PATH   = "/json/more_related_products"
+	SHOW_MORE_PATH   = "/json/more_related_products_page"
 )
 
 type ProductBrowsePage struct {
@@ -259,28 +259,19 @@ func handleSearchRequest(w http.ResponseWriter, r *http.Request, page Page) {
 func handleLastLoadMoreRequest(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
 	SetContentTypeJson(w)
-	timesShowMoreClicked := r.URL.Query().Get("timesShowMoreClicked")
-	if timesShowMoreClicked == "1" {
+	moreItemsPageIndex := r.URL.Query().Get("moreItemsPageIndex")
+	if moreItemsPageIndex == "1" {
 		w.WriteHeader(http.StatusNotFound)
 	}
-	productsFile, err := ioutil.ReadFile(buildShowMorePath(timesShowMoreClicked))
+	productsFile, err := ioutil.ReadFile(buildShowMorePath(moreItemsPageIndex))
 	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
 	}
-	var productsRoot JsonRoot
-	err = json.Unmarshal(productsFile, &productsRoot)
-	if err != nil {
-		w.WriteHeader(http.StatusNotFound)
-	}
-	jsonProducts, err := json.Marshal(productsRoot)
-	if err != nil {
-		w.WriteHeader(http.StatusNotFound)
-	}
-	w.Write(jsonProducts)
+	w.Write(productsFile)
 }
 
-func buildShowMorePath(timesShowMoreClicked string) string {
-	list := []string{DIST_FOLDER, SHOW_MORE_PATH, timesShowMoreClicked, ".json"}
+func buildShowMorePath(moreItemsPageIndex string) string {
+	list := []string{DIST_FOLDER, SHOW_MORE_PATH, moreItemsPageIndex, ".json"}
 	var path bytes.Buffer
 
 	for _, l := range list {

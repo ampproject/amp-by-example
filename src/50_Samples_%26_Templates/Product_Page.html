@@ -551,13 +551,12 @@ This sample showcases how to build a product page in AMP HTML.
   <amp-state id="product">
     <script type="application/json">
     {
-      "relatedProductsSrc": "/json/related_products.json",
       "selectedColor": "green",
       "selectedSize": "S",
       "selectedSlideForRed": 0,
       "selectedSlideForGolden": 0,
       "selectedSlideForGreen": 0,
-      "timesShowMoreClicked": 0,
+      "moreItemsPageIndex": 0,
       "showMoreButtonDisabled": false,
       "green": {
         "sizes": {
@@ -737,15 +736,8 @@ This sample showcases how to build a product page in AMP HTML.
     </div>
     <!--
     With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
-    You can dynamically change the source of the `amp-list` endpoint by using `amp-bind`:
-    we bind the variable `relatedProductsSrc` to the to the `src` attribute of the `amp-list`.
-    The button `tap` action sets the value of the `relatedProductsSrc` to an extended list of related products.
-    While infinite scrolling is not possible at the moment in AMP, you can use `amp-bind` to dynamically change the
-    src of `amp-list`.
     Learn more about `amp-list` [here](/components/amp-list/).
     -->
-    <amp-state id="myState" src="/json/related_products.json">
-    </amp-state>
     <amp-list class="items m1"
               width="auto"
               height="145"
@@ -767,21 +759,33 @@ This sample showcases how to build a product page in AMP HTML.
         </a>
       </template>
     </amp-list>
+    <!--
+    While infinite scrolling is not possible at the moment in AMP, you can use `amp-bind` to dynamically change the
+    src of `amp-list` and add more items to the page.
+    We bind the `src` attribute to the id of an `amp-state` component so that the `amp-list` will use the items
+    from that component as a `src`. We append items to the `amp-state` everytime the user click on the Show more button, see below for more info.
+    -->
+    <amp-state id="myState" src="/json/related_products.json">
+    </amp-state>
+    <!--
+    You can show or hide a Show more button by using `amp-form` and the `submit-error` and `submit-success` events: notice
+    how we set the `showMoreButtonDisabled` variable to false based on the server response.
+    -->
     <form method="GET"
-        action="/json/more_related_products"
-        action-xhr="/json/more_related_products"
+        action="/json/more_related_products_page"
+        action-xhr="/json/more_related_products_page"
         target="_top"
         on="submit-error: AMP.setState({
           myState: { items: myState.items.concat(event.response.items)},
           product: {  showMoreButtonDisabled: true }
         }); submit-success: AMP.setState({
           myState: { items: myState.items.concat(event.response.items)},
-          product: {timesShowMoreClicked: product.timesShowMoreClicked + 1 }
+          product: {moreItemsPageIndex: product.moreItemsPageIndex + 1 }
         });">
-      <input type="hidden" name="timesShowMoreClicked" value="0" [value]="product.timesShowMoreClicked.toString()">
+      <input type="hidden" name="moreItemsPageIndex" value="0" [value]="product.moreItemsPageIndex.toString()">
       <input type="submit" value="Show more"
         class="ampstart-btn caps m1 mb3 show"
-        [class] = "(product.showMoreButtonDisabled == true ? 'ampstart-btn caps m1 mb3 hide' : 'ampstart-btn caps m1 mb3 show')">
+        [class] = "(product.showMoreButtonDisabled == true ? 'hide' : 'ampstart-btn caps m1 mb3 show')">
   </form>
   <!--
     ## User Analytics
