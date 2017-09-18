@@ -71,7 +71,8 @@ func (p *Product) StarsAsHtml() template.HTML {
 }
 
 type JsonRoot struct {
-	Products []Product `json:"items"`
+	Products     []Product `json:"items"`
+	HasMorePages bool      `json:"hasMorePages"`
 }
 
 var products []Product
@@ -260,13 +261,23 @@ func handleLastLoadMoreRequest(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
 	SetContentTypeJson(w)
 	moreItemsPageIndex := r.URL.Query().Get("moreItemsPageIndex")
-	if moreItemsPageIndex == "1" {
-		w.WriteHeader(http.StatusNotFound)
-	}
 	productsFile, err := ioutil.ReadFile(buildShowMorePath(moreItemsPageIndex))
 	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
 	}
+	var productsRoot JsonRoot
+	err = json.Unmarshal(productsFile, &productsRoot)
+	if err != nil {
+		panic(err)
+	}
+	if moreItemsPageIndex == "1" {
+		productsRoot.HasMorePages = false
+	} else {
+		productsRoot.HasMorePages = true
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	productsFile, err = json.Marshal(productsRoot)
 	w.Write(productsFile)
 }
 

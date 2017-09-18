@@ -557,7 +557,7 @@ This sample showcases how to build a product page in AMP HTML.
       "selectedSlideForGolden": 0,
       "selectedSlideForGreen": 0,
       "moreItemsPageIndex": 0,
-      "showMoreButtonDisabled": false,
+      "hasMorePages": true,
       "green": {
         "sizes": {
           "S": "$5.99",
@@ -768,24 +768,22 @@ This sample showcases how to build a product page in AMP HTML.
     <amp-state id="myState" src="/json/related_products.json">
     </amp-state>
     <!--
-    You can show or hide a Show more button by using `amp-form` and the `submit-error` and `submit-success` events: notice
-    how we set the `showMoreButtonDisabled` variable to false based on the server response.
+    You can show or hide a Show more button by using `amp-form` and the `submit-success` event: notice
+    how we set the `hasMorePages` variable to false based on the server response.
     -->
     <form method="GET"
         action="/json/more_related_products_page"
         action-xhr="/json/more_related_products_page"
         target="_top"
-        on="submit-error: AMP.setState({
+        on="submit-success: AMP.setState({
           myState: { items: myState.items.concat(event.response.items)},
-          product: {  showMoreButtonDisabled: true }
-        }); submit-success: AMP.setState({
-          myState: { items: myState.items.concat(event.response.items)},
-          product: {moreItemsPageIndex: product.moreItemsPageIndex + 1 }
+          product: {moreItemsPageIndex: product.moreItemsPageIndex + 1,
+                    hasMorePages: event.response.hasMorePages}
         });">
       <input type="hidden" name="moreItemsPageIndex" value="0" [value]="product.moreItemsPageIndex">
       <input type="submit" value="Show more"
         class="ampstart-btn caps m1 mb3 show"
-        [class] = "(product.showMoreButtonDisabled == true ? 'hide' : 'ampstart-btn caps m1 mb3 show')">
+        [class] = "(product.hasMorePages == false ? 'hide' : 'ampstart-btn caps m1 mb3 show')">
   </form>
   <!--
     ## User Analytics
