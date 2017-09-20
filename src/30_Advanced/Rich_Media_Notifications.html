@@ -1,0 +1,121 @@
+<!--
+  ## Introduction
+
+  <center>
+    <amp-img src="https://developers.google.com/web/updates/images/2017/02/lock-screen.jpg" width="200" height="320" class="my1">
+    <amp-img src="https://developers.google.com/web/updates/images/2017/02/wear.png" width="200" height="200" class="my1">
+  </center>
+  <br />
+  <center>Photo by Michael Alø-Nielsen / CC BY 2.0</center>
+  <br />
+  <br />
+
+  Media notifications are one of the most common ways users control media
+  playback on mobile devices. Chrome for Android now exposes the MediaSessionAPI
+  to let developers customize the appearance of notifications that show up when
+  an audio/video is playing.
+
+  `amp-video`, `amp-audio` and other AMP video players now implement the
+  MediaSessionAPI and let you effortlessly show better notifications for media
+  playback on mobile devices.
+
+  Since notifications are synced accross devices, implementing the
+  MediaSessionAPI once will let your users see richer information about the
+  media file currently playing as well as pause it / play it from their
+  notification center, lock screen or even smartwatch!
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <!-- ## Setup -->
+  <!--
+    Depending on whether you're implementing custom media notifications for `amp-audio`,
+    `amp-video` or other video players, import the necessary components.
+  -->
+  <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
+  <script async custom-element="amp-audio" src="https://cdn.ampproject.org/v0/amp-audio-0.1.js"></script>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <link rel="canonical" href="<%host%>/components/amp-video/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+</head>
+<body>
+
+  <!-- ## Markup -->
+  <!--
+    If you are using a video player that already implements the internal
+    MediaSessionAPI like `amp-youtube`, then your work is done! The player will
+    handle the notifications, add artwork and metadata based on the information
+    it has on its servers.
+
+    For `amp-audio` and `amp-video`, we need to provide more information to add
+    to the media notification.
+
+    Specify the `artist`, `artwork`, `title` and `album` by adding each of the
+    attributes to the `amp-audio` / `amp-video` element.
+
+    ***Note:*** *To try the examples, you have to be on Chrome for Android.*
+
+    Start playing the audio/video then notice how the notification on your device
+    or smartwatch has all the information/artwork specified here
+  -->
+
+  <!-- ## For audio playback with `amp-audio` -->
+  <!--
+  Result:
+
+
+  <center>
+    <amp-img src="https://i.imgur.com/uzaVJsM.jpg" width="200" height="320" class="my1"></amp-img>
+  </center>
+  <br />
+  <br />
+
+  -->
+      <amp-audio
+        src="https://storage.googleapis.com/media-session/sintel/snow-fight.mp3"
+        artwork="https://storage.googleapis.com/media-session/sintel/artwork-512.png"
+        title="Snow Fight"
+        album="Jan Morgenstern"
+        artist="Sintel"
+        height="50"
+        width="auto"
+        controls>
+      </amp-audio>
+  <!-- ## For video playback with `amp-video` -->
+  <!--
+  ***Note:*** *In this example, we provide both `poster` and `artwork`.*
+
+  `poster` serves as a placeholder shown to users while the video loads,
+  while `artwork` is the image that appears in the rich notifications
+  (usually a square image of 500 by 500 pixels).
+
+  Result:
+
+
+  <center>
+    <amp-img src="https://i.imgur.com/QBSHYgs.jpg" width="200" height="320" class="my1"></amp-img>
+    <amp-img src="https://i.imgur.com/GrZpu0p.png" width="200" height="200" class="my1"></amp-img>
+  </center>
+  <br />
+  <br />
+
+  -->
+  <amp-video
+    autoplay
+    src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+    poster="https://peach.blender.org/wp-content/uploads/bbb-splash.png"
+    artwork="img/bigbuckbunny.jpg"
+    title="Big Buck Bunny"
+    album="Blender"
+    artist="Blender Foundation"
+    width="720"
+    height="405"
+    layout="responsive"
+    controls>
+  </amp-video>
+
+</body>
+</html>
