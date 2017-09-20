@@ -2,13 +2,8 @@
   ## Introduction
 
   <center>
-    <amp-img src="https://developers.google.com/web/updates/images/2017/02/lock-screen.jpg" width="200" height="320" class="my1">
-    <amp-img src="https://developers.google.com/web/updates/images/2017/02/wear.png" width="200" height="200" class="my1">
+    <amp-img src="https://developers.google.com/web/updates/images/2017/02/lock-screen.jpg" width="320" height="569" class="my1">
   </center>
-  <br />
-  <center>Photo by Michael Alø-Nielsen / CC BY 2.0</center>
-  <br />
-  <br />
 
   Media notifications are one of the most common ways users control media
   playback on mobile devices. Chrome for Android now exposes the MediaSessionAPI
@@ -23,6 +18,10 @@
   MediaSessionAPI once will let your users see richer information about the
   media file currently playing as well as pause it / play it from their
   notification center, lock screen or even smartwatch!
+
+  <center>
+    <amp-img src="https://developers.google.com/web/updates/images/2017/02/wear.png" width="320" height="569" class="my1">
+  </center>
 -->
 <!-- -->
 <!doctype html>
@@ -64,15 +63,7 @@
 
   <!-- ## For audio playback with `amp-audio` -->
   <!--
-  Result:
-
-
-  <center>
-    <amp-img src="https://i.imgur.com/uzaVJsM.jpg" width="200" height="320" class="my1"></amp-img>
-  </center>
-  <br />
-  <br />
-
+  A sample amp-audio component with media notifications:
   -->
       <amp-audio
         src="https://storage.googleapis.com/media-session/sintel/snow-fight.mp3"
@@ -84,6 +75,12 @@
         width="auto"
         controls>
       </amp-audio>
+  <!--
+  This is what it looks like on a mobile device:
+  <center>
+    <amp-img src="https://i.imgur.com/uzaVJsM.jpg" width="320" height="569" class="my1"></amp-img>
+  </center>
+  -->
   <!-- ## For video playback with `amp-video` -->
   <!--
   ***Note:*** *In this example, we provide both `poster` and `artwork`.*
@@ -91,17 +88,6 @@
   `poster` serves as a placeholder shown to users while the video loads,
   while `artwork` is the image that appears in the rich notifications
   (usually a square image of 500 by 500 pixels).
-
-  Result:
-
-
-  <center>
-    <amp-img src="https://i.imgur.com/QBSHYgs.jpg" width="200" height="320" class="my1"></amp-img>
-    <amp-img src="https://i.imgur.com/GrZpu0p.png" width="200" height="200" class="my1"></amp-img>
-  </center>
-  <br />
-  <br />
-
   -->
   <amp-video
     autoplay
@@ -116,6 +102,18 @@
     layout="responsive"
     controls>
   </amp-video>
+  <!--
+  This what it looks like on a mobile device:
 
+  <center>
+    <amp-img src="https://i.imgur.com/QBSHYgs.jpg" width="320" height="569" class="my1"></amp-img>
+  </center>
+
+  ...and on an Android smartwatch:
+
+  <center>
+    <amp-img src="https://i.imgur.com/GrZpu0p.png" width="200" height="200" class="my1"></amp-img>
+  </center>
+  -->
 </body>
 </html>
