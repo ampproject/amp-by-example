@@ -286,7 +286,7 @@ The `amp-carousel-next` event is issued when there is a traversal to the next sl
   </script>
   </amp-analytics>
   <!--
-The `amp-carousel-next` event is issued when there is a traversal to the previous slide: -->
+The `amp-carousel-prev` event is issued when there is a traversal to the previous slide: -->
   <amp-analytics>
   <script type="application/json">
   {
@@ -295,7 +295,7 @@ The `amp-carousel-next` event is issued when there is a traversal to the previou
     },
     "triggers": {
       "ampCarouselPrev": {
-        "on": "amp-carousel-next",
+        "on": "amp-carousel-prev",
         "request": "event",
         "vars": {
           "eventId": "carousel-prev-${fromSlide}"

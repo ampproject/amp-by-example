@@ -38,6 +38,10 @@ class AmpUrlConverter {
       this.showError('Empty input');
       return;
     }
+    if (!/^http[s]?\:\/\//i.test(urlString)) {
+      urlString = 'http://' + urlString;
+      this.inputView.value = urlString;
+    }
     try {
       const ampUrl = this.ampUrlFactory.createAmpUrl(urlString);
       const proxyUrl = ampUrl.getProxyUrl();

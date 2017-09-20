@@ -15,6 +15,7 @@
 package backend
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"html/template"
@@ -33,6 +34,7 @@ const (
 	SHOPPING_CART    = "shopping_cart"
 	ADD_TO_CART_PATH = "/samples_templates/product_page/add_to_cart"
 	ABE_CLIENT_ID    = "ABE_CLIENT_ID"
+	SHOW_MORE_PATH   = "/json/more_related_products_page"
 )
 
 type ProductBrowsePage struct {
@@ -69,7 +71,8 @@ func (p *Product) StarsAsHtml() template.HTML {
 }
 
 type JsonRoot struct {
-	Products []Product `json:"items"`
+	Products     []Product `json:"items"`
+	HasMorePages bool      `json:"hasMorePages"`
 }
 
 var products []Product
@@ -83,6 +86,10 @@ func InitProductBrowse() {
 	RegisterSample("samples_templates/product_page", renderProduct)
 	RegisterSampleEndpoint("samples_templates/product_browse_page", SEARCH, handleSearchRequest)
 	http.HandleFunc("/samples_templates/products", handleProductsRequest)
+	http.HandleFunc(SHOW_MORE_PATH, handleLoadMoreRequest)
+	http.HandleFunc(ADD_TO_CART_PATH, func(w http.ResponseWriter, r *http.Request) {
+		handlePost(w, r, addToCart)
+	})
 	cache = NewLRUCache(100)
 }
 
@@ -212,7 +219,7 @@ func findProducts(query []string) []Product {
 		productQueryFeatures := buildQuery(product)
 		var found = false
 		for _, queryString := range query {
-			if contains(productQueryFeatures, strings.ToLower(queryString)) ||  queryString == "all" {
+			if contains(productQueryFeatures, strings.ToLower(queryString)) || queryString == "all" {
 				found = true
 			} else {
 				found = false
@@ -224,30 +231,65 @@ func findProducts(query []string) []Product {
 		}
 	}
 	productResult := make([]Product, 0, len(result))
-  for k := range result {
-  	productResult = append(productResult, k)
-  }
+	for k := range result {
+		productResult = append(productResult, k)
+	}
 	return productResult
 }
 
-func buildQuery(product Product) []string{
+func buildQuery(product Product) []string {
 	productName := strings.ToLower(product.Name)
 	productColor := strings.ToLower(product.Color)
 	return []string{strings.ToLower(productName), strings.ToLower(productColor)}
 }
 
 func contains(array []string, str string) bool {
-   for _, a := range array {
-      if strings.Contains(a, str) {
-         return true
-      }
-   }
-   return false
+	for _, a := range array {
+		if strings.Contains(a, str) {
+			return true
+		}
+	}
+	return false
 }
 
 func handleSearchRequest(w http.ResponseWriter, r *http.Request, page Page) {
 	route := page.Route + "?" + SEARCH + "=" + r.FormValue(SEARCH)
 	http.Redirect(w, r, route, http.StatusSeeOther)
+}
+
+func handleLoadMoreRequest(w http.ResponseWriter, r *http.Request) {
+	EnableCors(w, r)
+	SetContentTypeJson(w)
+	moreItemsPageIndex := r.URL.Query().Get("moreItemsPageIndex")
+	productsFile, err := ioutil.ReadFile(buildShowMorePath(moreItemsPageIndex))
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+	}
+	var productsRoot JsonRoot
+	err = json.Unmarshal(productsFile, &productsRoot)
+	if err != nil {
+		panic(err)
+	}
+	if moreItemsPageIndex == "1" {
+		productsRoot.HasMorePages = false
+	} else {
+		productsRoot.HasMorePages = true
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	productsFile, err = json.Marshal(productsRoot)
+	w.Write(productsFile)
+}
+
+func buildShowMorePath(moreItemsPageIndex string) string {
+	list := []string{DIST_FOLDER, SHOW_MORE_PATH, moreItemsPageIndex, ".json"}
+	var path bytes.Buffer
+
+	for _, l := range list {
+		path.WriteString(l)
+	}
+
+	return path.String()
 }
 
 func handleProductsRequest(w http.ResponseWriter, r *http.Request) {

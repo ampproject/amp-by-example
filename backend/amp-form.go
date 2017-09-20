@@ -28,6 +28,9 @@ func InitAmpForm() {
 	http.HandleFunc(SAMPLE_NAME+"submit-form-input-text-xhr", func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitFormXHRInputText)
 	})
+	http.HandleFunc(SAMPLE_NAME+"verify-form-input-text-xhr", func(w http.ResponseWriter, r *http.Request) {
+		handlePost(w, r, verifyFormXHRInputText)
+	})
 	http.HandleFunc(SAMPLE_NAME+"submit-form-xhr", func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitFormXHR)
 	})
@@ -47,6 +50,23 @@ func submitFormXHRInputText(w http.ResponseWriter, r *http.Request) {
 	}
 	email := r.FormValue("email")
 	response = fmt.Sprintf("{\"name\":\"%s\", \"email\":\"%s\"}", name, email)
+	w.Write([]byte(response))
+}
+
+func verifyFormXHRInputText(w http.ResponseWriter, r *http.Request) {
+	EnableCors(w, r)
+	SetContentTypeJson(w)
+	response := ""
+	name := r.FormValue("username")
+	if isUserTryingTheInputTextErrorDemo(name) {
+		w.WriteHeader(http.StatusBadRequest)
+		response = fmt.Sprintf("{\"verifyErrors\": [{ "+
+			"\"name\": \"username\", "+
+			"\"message\":\"The username \\\"%s\\\" is already taken\""+
+			"}]}", name)
+	} else {
+		response = fmt.Sprintf("{\"username\":\"%s\"}", name)
+	}
 	w.Write([]byte(response))
 }
 
