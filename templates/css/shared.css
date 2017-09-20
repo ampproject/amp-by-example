@@ -132,9 +132,9 @@ a.abe-primary {
 .www-components-sec-nav {
   min-width: 200px;
 }
-.ampstart-card a,
-.www-component-desc li a,
-.www-component-desc p a {
+.ampstart-card a:not(.ampstart-btn),
+.www-component-desc li a:not(.ampstart-btn),
+.www-component-desc p a:not(.ampstart-btn) {
   text-decoration: none;
   color: #b60845;
 }
