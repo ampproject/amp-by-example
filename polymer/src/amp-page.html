@@ -1,18 +1,24 @@
 <!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+ Copyright Google Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
 -->
 
 <link rel="import" href="../node_modules/@npm-polymer/polymer/polymer-element.html">
 <link rel="import" href="../node_modules/@npm-polymer/iron-flex-layout/iron-flex-layout.html">
 <script async src="https://cdn.ampproject.org/shadow-v0.js"></script>
 
-<dom-module id="amp-my-embed">
+<dom-module id="amp-page">
 
   <template>
 
@@ -48,31 +54,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script>
 
-    class AmpMyEmbed extends Polymer.Element {
+    class AmpPage extends Polymer.Element {
 
-      static get is() { return 'amp-my-embed'; }
+      static get is() { return 'amp-page'; }
 
-      static get properties() { return {
+      static get properties() {
 
-        url: {
-          type: String,
-          value: window.location.origin
-        },
-        fullUrl: {
-          type: String,
-          computed: '_computeFullUrl(url, itemUrl)',
-          observer: 'urlChanged'
-        },
-        itemUrl: {
-          type: String,
-          notify: true
-        },
-        content: {
-          type: String,
-          notify: true
-        }
-      };
-    }
+        return {
+
+          url: {
+            type: String,
+            value: window.location.origin
+          },
+          fullUrl: {
+            type: String,
+            computed: '_computeFullUrl(url, itemUrl)',
+            observer: 'urlChanged'
+          },
+          itemUrl: {
+            type: String,
+            notify: true
+          },
+          content: {
+            type: String,
+            notify: true
+          }
+        };
+      }
 
       _computeFullUrl(url, itemUrl) {
         return [url, itemUrl, "embed"].join('')
@@ -119,10 +127,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       return this.ampReadyPromise_.then(amp => {
 
         var parser = new DOMParser(),
-        newDoc = parser.parseFromString( doc, 'text/html' );
+         newDoc = parser.parseFromString( doc, 'text/html' );
 
         // Replace the old shadow root with a new div element.
-        const oldShadowRoot = this._host;
+        var oldShadowRoot = this._host;
         this._host = document.createElement('div');
         if (oldShadowRoot) {
           this.$.ampContent.replaceChild(this._host, oldShadowRoot);
@@ -148,7 +156,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   }
 }
 
-    customElements.define(AmpMyEmbed.is, AmpMyEmbed);
+    customElements.define(AmpPage.is, AmpPage);
 
   </script>
 

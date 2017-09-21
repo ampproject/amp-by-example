@@ -1,6 +1,6 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/abe-polymer2-app.html",
+  "shell": "src/abe-polymer-app.html",
   "sources": [
     "src/**/*"
   ],
@@ -12,15 +12,11 @@
       "polymer-2"
     ]
   },
-  "builds": [
-    {
-      "preset": "es5-bundled"
-    },
-    {
-      "preset": "es6-bundled"
-    },
-    {
-      "preset": "es6-unbundled"
-    }
-  ]
+  "builds": [{
+    "preset": "es5-bundled"
+  }, {
+    "preset": "es6-bundled"
+  }, {
+    "preset": "es6-unbundled"
+  }]
 }

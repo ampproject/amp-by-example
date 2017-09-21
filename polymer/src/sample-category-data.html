@@ -1,11 +1,17 @@
 <!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+ Copyright Google Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
 -->
 
 <link rel="import" href="../node_modules/@npm-polymer/polymer/polymer-element.html">
@@ -18,7 +24,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <script>
-
   (function() {
 
     class SampleCategoryData extends Polymer.Element {
@@ -38,7 +43,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         category: {
           type: Object,
-          notify: true
+          notify: true,
+          computed: '_computeCategory(categories, categoryName)',
         },
 
         item: {
@@ -59,117 +65,72 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       }}
 
-      static get observers() { return [
-        '_categoriesLoaded(categories, categoryName)', '_categoryNameSet(categoryName)'
-      ]}
-
-      static get sitemapUrl() { return 'https://ampbyexample.com/sitemap.json'; }
-
-      _categoriesLoaded(categories, categoryName) {
-        this._computeCategory(categoryName)
-      }
-
-      _categoryNameSet(categoryName) {
-        this._fetchCategories(3);
-      }
-
       handleResponse(data) {
         this.resource = data.detail.response[0]["categories"]
         var catNames =  this.resource.map(function(cat) {
-          var obj = {
+          var category = {
             name:  cat["name"],
             id: cat["id"]
           };
-          return obj;
+          return category;
         });
         this.categories = catNames;
       }
 
-      _getCategoryObject(categoryName, categories) {
-        if (categories === undefined) {
+      _getCategory(categoryName, categories) {
+        if (categories === undefined || categoryName === "index.html") {
           return null;
         }
-        for (let i = 0, c; c = categories[i]; ++i) {
-          if (c.id === categoryName) {
-            this.category = c;
-            return c;
-          } else if (categoryName === "index.html") {
-            return null
-          }
-        }
+        return categories.find(function(c) {
+          return c.id === categoryName
+        })
       }
 
-      _computeCategory(categoryName) {
+      _computeCategory(categories, categoryName) {
 
         // Fetch the items of the category. Note that the fetch is asynchronous,
         // which means `category.items` may not be set initially (but that path
         // will be notified when the fetch completes).
-        let categoryObj = this._getCategoryObject(categoryName, this.categories);
-        this._fetchItems(categoryObj, 1);
-        return categoryObj;
+        let category = this._getCategory(categoryName, this.categories);
+        this._fetchItems(category, 1);
+        return category;
       }
 
       _computeItem(items, itemName) {
         if (!items || !itemName) {
           return;
         }
-        for (let i = 0, item; item = items[i]; ++i) {
-          if (item.url.endsWith(itemName.concat('/'))) {
-            return item;
-          }
-        }
+        return items.find (function(item) {
+          return item.url.endsWith(itemName.concat('/'))
+        })
       }
 
       _parseCategoriesFromJson(e) {
         return JSON.parse(e.target.responseText)[0]["categories"]
       }
 
-      _fetchCategories(attempts) {
-        this._setFailure(false);
-        if (this.categories) {
-          return;
-        }
-        this._getResource({
-          url: SampleCategoryData.sitemapUrl,
-          onLoad(e) {
-            this.resource = this._parseCategoriesFromJson(e)
-            var catNames =  this.resource.map(function(cat) {
-              var obj = {
-                name:  cat["name"],
-                id: cat["id"]
-              };
-              return obj;
-            });
-            this.set('categories', catNames);
-          },
-          onError(e) {
-            this._setFailure(true);
-          }
-        }, attempts);
-      }
-
-      _fetchItems(category, attempts) {
+      _fetchItems(category) {
         this._setFailure(false);
         // Only fetch the items of a category if it has not been previously set.
         if (!category || category.items) {
           return;
         }
 
-        var cats = this.resource
-        cats = cats.filter(function(cat) {
+        var categories = this.resource
+        categories = categories.filter(function(cat) {
                 return cat.name == category.name
         });
 
-        var items =  cats[0]["examples"].map(function(item) {
-        var obj = {
-          name:  item["name"],
-          title: item["title"],
-          description: item["description"],
-          url: item["url"]
-        };
-        return obj;
+        var items =  categories[0]["examples"].map(function(itemJson) {
+          var item = {
+            name:  itemJson["name"],
+            title: itemJson["title"],
+            description: itemJson["description"],
+            url: itemJson["url"]
+          };
+          return item;
         });
-        this.set('category.items', items);
+        this.set("category.items", items);
         category.items = items
       }
 
@@ -193,7 +154,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       refresh() {
         if (this.categoryName) {
           // Try at most 3 times to get the items.
-          this._fetchItems(this._getCategoryObject(this.categoryName, this.categories), 3);
+          this._fetchItems(this._getCategory(this.categoryName, this.categories), 3);
         }
       }
 

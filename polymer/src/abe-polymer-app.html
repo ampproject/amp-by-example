@@ -13,10 +13,9 @@
 <link rel="import" href="sample-list.html">
 <link rel="import" href="sample-category-data.html">
 
-<dom-module id="abe-polymer2-app">
+<dom-module id="abe-polymer-app">
   <template>
   <style>
-
     :host {
       display: block;
       position: relative;
@@ -74,12 +73,9 @@
   </template>
 
   <script>
-    /**
-     * @customElement
-     * @polymer
-     */
-    class AbePolymer2App extends Polymer.Element {
-      static get is() { return 'abe-polymer2-app'; }
+
+    class AbePolymerApp extends Polymer.Element {
+      static get is() { return 'abe-polymer-app'; }
       static get properties() {
         return {
           page: {
@@ -209,6 +205,6 @@
       }
     }
 
-    window.customElements.define(AbePolymer2App.is, AbePolymer2App);
+    window.customElements.define(AbePolymerApp.is, AbePolymerApp);
   </script>
 </dom-module>

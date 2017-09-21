@@ -29,6 +29,8 @@ const polymerJson = require('./polymer.json');
 const polymerProject = new polymerBuild.PolymerProject(polymerJson);
 const mergeStream = require('merge-stream');
 const addServiceWorker = polymerBuild.addServiceWorker;
+const gulpIf = require('gulp-if');
+const htmlMinifier = require('gulp-html-minifier');
 
 const paths = {
   dist: {
@@ -62,6 +64,7 @@ function build() {
         // in your `src/` directory, or those that match your polymer.json
         // "sources"  property if you provided one.
         let sourcesStream = polymerProject.sources()
+          .pipe(gulpIf(/\.html$/, htmlMinifier()));
 
         // Similarly, you can get your dependencies seperately and perform
         // any dependency-only optimizations here as well.
