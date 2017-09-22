@@ -121,9 +121,9 @@
       }
 
       _pageChanged(page, oldPage) {
-        if (page != null) {
+        if (page !== null) {
           // home route is eagerly loaded
-          if (page == 'home') {
+          if (page === 'home') {
             this._pageLoaded(Boolean(oldPage));
           // other routes are lazy loaded
           } else {
@@ -160,7 +160,7 @@
         this.offline =  !navigator.onLine;
         // Show the snackbar if the user is offline when starting a new session
         // or if the network status changed.
-        if (this.offline || (!this.offline && oldOffline === true)) {
+        if (this.offline || (!this.offline && oldOffline)) {
           if (!this._networkSnackbar) {
             this._networkSnackbar = document.createElement('sample-snackbar');
             this.root.appendChild(this._networkSnackbar);

@@ -4,8 +4,6 @@
 
 This sample demonstrates how to embed AMP pages inside a Polymer app. You can see the sample in action by visiting [https://www.ampbyexample.com/polymer](https://www.ampbyexample.com/polymer)
 
-By accessing [https://www.ampbyexample.com/polymer](https://www.ampbyexample.com/polymer) you will access to the same AMP samples embedded in a Polymer shell.
-
 ## Installation
 
 1. To build the polymer app, run the following command from the repository root:

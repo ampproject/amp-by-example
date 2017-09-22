@@ -78,7 +78,7 @@
       }
 
       _getCategory(categoryName, categories) {
-        if (categories === undefined || categoryName === "index.html") {
+        if (!categories || categoryName === "index.html") {
           return null;
         }
         return categories.find(function(c) {
@@ -87,7 +87,6 @@
       }
 
       _computeCategory(categories, categoryName) {
-
         // Fetch the items of the category. Note that the fetch is asynchronous,
         // which means `category.items` may not be set initially (but that path
         // will be notified when the fetch completes).
@@ -122,33 +121,14 @@
         });
 
         var items =  categories[0]["examples"].map(function(itemJson) {
-          var item = {
+          return {
             name:  itemJson["name"],
             title: itemJson["title"],
             description: itemJson["description"],
             url: itemJson["url"]
           };
-          return item;
         });
-        this.set("category.items", items);
         category.items = items
-      }
-
-      _getResource(rq, attempts) {
-        let xhr = new XMLHttpRequest();
-        xhr.addEventListener('load', rq.onLoad.bind(this));
-        xhr.addEventListener('error', (e) => {
-          // Flaky connections might fail fetching resources
-          if (attempts > 1) {
-            this._getResourceDebouncer = Polymer.Debouncer.debounce(this._getResourceDebouncer,
-              Polymer.Async.timeOut.after(200), this._getResource.bind(this, rq, attempts - 1));
-          } else {
-            rq.onError.call(this, e);
-          }
-        });
-
-        xhr.open('GET', rq.url);
-        xhr.send();
       }
 
       refresh() {
