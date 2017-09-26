@@ -64,18 +64,49 @@ handlers:
   secure: always
   http_headers:
 
+- url: /polymer/detail/.*
+  static_files: dist/polymer/index.html
+  upload: index.html
+  secure: always
+
+- url: /polymer/src
+  static_dir: dist/polymer/src
+  secure: always
+
+- url: /polymer/list/.*
+  static_files: dist/polymer/index.html
+  upload: index.html
+  secure: always
+
+- url: /polymer/service-worker\.js
+  secure: always
+  static_files: dist/polymer/service-worker.js
+  upload: dist/polymer/service-worker\.js
+  expiration: 0
+  http_headers:
+    Access-Control-Allow-Origin: "*"
+
+- url: /polymer/
+  static_files: dist/polymer/index.html
+  upload: dist/polymer/index.html
+
 - url: /.*
   script: _go_app
 
 skip_files:
 - .well-known
-- ^.*node_modules(/.*)?
+- ^node_modules(/.*)?
 - ^.*scripts(/.*)?
 - ^playground/node_modules(/.*)?
 - ^playground/src(/.*)?
 - ^playground/dist(/.*)?
 - ^playground/.cache(/.*)?
 - ^playground/img(/.*)?
+- ^polymer/node_modules(/.*)?
+- ^polymer/src(/.*)?
+- ^polymer/dist(/.*)?
+- ^polymer/.cache(/.*)?
+- ^polymer/img(/.*)?
 - ^src(/.*)?
 - ^spec(/.*)?
 - ^data(/.*)?

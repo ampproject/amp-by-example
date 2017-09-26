@@ -29,5 +29,44 @@
       <p>Your browser doesn’t support HTML5 audio</p>
     </div>
   </amp-audio>
+
+
+  <!-- ## Customize Media Notifications -->
+  <!--
+    <center>
+      <amp-img class="my1" src="https://i.imgur.com/uzaVJsM.jpg" width="200" height="320"></amp-mg>
+    </center>
+    <br />
+
+    With the implementation of the MediaSessionAPI on AMP, you can now show rich notifications that describe the playing media
+    through the `artist`, `album`, `artwork` and `title` attributes.
+    Learn more by following [this tutorial](/advanced/Rich_Media_Notifications/).
+  -->
+  <amp-audio
+    src="https://storage.googleapis.com/media-session/sintel/snow-fight.mp3"
+    artwork="https://storage.googleapis.com/media-session/sintel/artwork-512.png"
+    title="Snow Fight"
+    album="Jan Morgenstern"
+    artist="Sintel"
+    height="50"
+    width="auto"
+    controls>
+  </amp-audio>
+
+  <!-- ## Disabling controls -->
+  <!--
+  Audio controls are added by default and are the same as [controlsList](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/controlsList) attribute of HTML5 video element.
+  For example, you can use them to disable the download button.
+  -->
+
+  <amp-audio
+    width="auto"
+    height="50"
+    src="https://ia801402.us.archive.org/16/items/EDIS-SRP-0197-06/EDIS-SRP-0197-06.mp3"
+    controlsList="nodownload">
+    <div fallback>
+      <p>Your browser doesn’t support HTML5 audio</p>
+    </div>
+  </amp-audio>
 </body>
 </html>
