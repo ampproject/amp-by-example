@@ -61,6 +61,16 @@
 
         resource: {
           type: Object
+        },
+
+        title: {
+          type: String,
+          notify: true
+        },
+
+        desc: {
+          type: String,
+          notify: true
         }
 
       }}
@@ -75,6 +85,8 @@
           return category;
         });
         this.categories = catNames;
+        this.title = data.detail.response[0]["title"]
+        this.desc = data.detail.response[0]["desc"]
       }
 
       _getCategory(categoryName, categories) {

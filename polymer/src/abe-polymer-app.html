@@ -10,7 +10,6 @@
 <link rel="import" href="../node_modules/@npm-polymer/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../node_modules/@npm-polymer/app-layout/helpers/helpers.html">
 <link rel="import" href="sample-home.html">
-<link rel="import" href="sample-list.html">
 <link rel="import" href="sample-category-data.html">
 
 <dom-module id="abe-polymer-app">
@@ -57,7 +56,7 @@
     }
 
   </style>
-    <sample-category-data categories="{{categories}}"></sample-category-data>
+    <sample-category-data categories="{{categories}}" title="{{title}}" desc="{{desc}}"></sample-category-data>
     <app-location route="{{route}}"></app-location>
     <app-route
         route="{{route}}"
@@ -66,7 +65,7 @@
         tail="{{subroute}}"></app-route>
 
   <iron-pages role="main" selected="[[page]]" attr-for-selected="name" selected-attribute="visible" fallback-selection="404">
-    <sample-home name="home" categories="[[categories]]"></sample-home>
+    <sample-home name="home" categories="[[categories]]" title="[[title]]" desc="[[desc]]"></sample-home>
     <sample-list name="list" route="[[subroute]]" offline="[[offline]]"></sample-list>
     <sample-detail name="detail" route="[[subroute]]" offline="[[offline]]"></sample-detail>
   </iron-pages>

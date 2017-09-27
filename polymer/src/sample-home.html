@@ -18,6 +18,9 @@
 
 <dom-module id="sample-home">
 
+  <link rel="import" type="css" href="/css/example.css">
+  <link rel="import" type="css" href="/css/ampstart.css">
+
   <template>
 
     <style>
@@ -72,6 +75,11 @@
       }
 
     </style>
+    <header class="www-header">
+      <h1 class="mb4 px2 col-12 sm-col-8 mx-auto">[[title]]</h1>
+      <span class="h3 block mb4 px2 col-12 sm-col-8 mx-auto">[[desc]]</span>
+      <h1>[[rootPath]]css/example.css</h1>
+    </header>
     <div class="container">
       <dom-repeat items="[[categories]]">
         <template strip-whitespace>
