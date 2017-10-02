@@ -26,6 +26,11 @@
   <script>
   (function() {
 
+    function sanitizeString(string) {
+      var htmlRegex = /(<([^>]+)>)/ig
+      return string.replace(htmlRegex, "")
+    }
+
     class SampleCategoryData extends Polymer.Element {
 
       static get is() { return 'sample-category-data'; }
@@ -80,7 +85,8 @@
         var catNames =  this.resource.map(function(cat) {
           var category = {
             name:  cat["name"],
-            id: cat["id"]
+            id: cat["id"],
+            desc: sanitizeString(cat["description"])
           };
           return category;
         });
