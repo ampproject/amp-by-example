@@ -143,13 +143,16 @@
     <!--
       The `src` for iframes embedded with `amp-iframe` can be changed.
     -->
-    <amp-iframe id="amp-iframe" width="500" height="281"
-                            layout="responsive"
-                            sandbox="allow-scripts allow-same-origin allow-popups"
-                            allowfullscreen
-                            frameborder="0"
-                            src="https://player.vimeo.com/video/183849543"
-                            [src]="allAnimals[allAnimals.currentAnimal].iframeUrl">
+    <amp-iframe id="amp-iframe" 
+                title="Cute dog video"
+                width="500" 
+                height="281"
+                layout="responsive"
+                sandbox="allow-scripts allow-same-origin allow-popups"
+                allowfullscreen
+                frameborder="0"
+                src="https://player.vimeo.com/video/183849543"
+                [src]="allAnimals[allAnimals.currentAnimal].iframeUrl">
     </amp-iframe>
 
     <!-- ## Triggering updates -->
