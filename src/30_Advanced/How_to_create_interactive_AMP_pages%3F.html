@@ -49,16 +49,17 @@
 
     One thing to be aware of: the AMP runtime will only show iframes located at the top of a website if they provide a placeholder image. The charts in the sample are updated in real-time which means we cannot provide a placeholder image. Instead, we use an image of the chart background which stretches well to different widths.
   -->
-  <amp-iframe src="https://www.google.us/trends/embed/US_cu_82I1CVMBAACV6M_en/horserace_chart_3c6cdb21-e1eb-4412-9c28-707c3638ea35?hl=en&template=fe"
+  <amp-iframe title="Interactive chart displaying 2016 Oscar Best Picture search interest by date"
+              src="https://www.google.us/trends/embed/US_cu_82I1CVMBAACV6M_en/horserace_chart_3c6cdb21-e1eb-4412-9c28-707c3638ea35?hl=en&template=fe"
               height="400"
               layout="fixed-height"
               frameborder="0"
               sandbox="allow-scripts allow-same-origin">
     <amp-img src="/img/oscars_placeholder_1.png"
-      layout="fixed-height"
-      height="360"
-      width="auto"
-      placeholder>
+             layout="fixed-height"
+             height="360"
+             width="auto"
+             placeholder>
     </amp-img>
   </amp-iframe>
 
@@ -78,11 +79,17 @@
     iframes is that it makes it easy to embed these on other
     platforms as well, for example, in a mobile app via a webview.
   -->
-  <amp-iframe src="https://www.google.com/trends/embed/US_cu_x1aYQFIBAAANlM_en/fe_geo_chart_f5a4cc96-b49b-4d88-9a3f-74cc902c2f35?forceMobileMode=true" height="565" layout="fixed-height" frameborder="0" sandbox="allow-scripts allow-same-origin">
+  <amp-iframe title="Interactive US map displaying 2016 Oscar search interest by state"
+              src="https://www.google.com/trends/embed/US_cu_x1aYQFIBAAANlM_en/fe_geo_chart_f5a4cc96-b49b-4d88-9a3f-74cc902c2f35?forceMobileMode=true" 
+              height="565" 
+              layout="fixed-height" 
+              frameborder="0" 
+              sandbox="allow-scripts allow-same-origin">
     <amp-img src="/img/oscars_placeholder_2.png"
-      layout="fixed-height"
-      height="565"
-      placeholder></amp-img>
+             layout="fixed-height"
+             height="565"
+             placeholder>
+    </amp-img>
   </amp-iframe>
 </body>
 </html>
