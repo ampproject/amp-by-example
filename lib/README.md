@@ -28,7 +28,8 @@ The embed viewer can be configured via get parameters. Currently the following o
 Example embed initially showing the preview tab with a height of 200px (note: the amp-iframe should specify the same height): 
 
 ```
-<amp-iframe height="200"
+<amp-iframe title="Example domain page as a placeholder"
+            height="200"
             layout="fixed-height"
             sandbox="allow-scripts allow-forms allow-same-origin"
             resizable
