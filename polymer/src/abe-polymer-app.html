@@ -19,13 +19,13 @@
   <link rel="import" type="css" href="https://www.ampbyexample.com/css/ampstart.css">
   <link rel="import" type="css" href="https://www.ampbyexample.com/css/styles.css">
   <link rel="import" type="css" href="https://www.ampbyexample.com/css/shared.css">
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Montserrat" rel="stylesheet">
 
   <template>
   <style>
     :host {
       display: block;
       position: relative;
-      padding-top: 130px;
       padding-bottom: 64px;
       min-height: 100vh;
       --app-primary-color: #202020;
@@ -50,18 +50,6 @@
       display: none !important;
     }
 
-    iron-pages {
-      max-width: 1440px;
-      margin: 0 auto;
-    }
-
-    /* small screen */
-    @media (max-width: 767px) {
-      :host {
-        padding-top: 64px;
-      }
-    }
-
   </style>
     <sample-category-data categories="{{categories}}" title="{{title}}" desc="{{desc}}"></sample-category-data>
     <app-location route="{{route}}"></app-location>
@@ -76,6 +64,7 @@
     <sample-list name="list" route="[[subroute]]" offline="[[offline]]"></sample-list>
     <sample-detail name="detail" route="[[subroute]]" offline="[[offline]]"></sample-detail>
   </iron-pages>
+
   </template>
 
   <script>
@@ -111,6 +100,7 @@
         this.removeAttribute('unresolved');
         // listen for custom events
         this.addEventListener('show-invalid-url-warning', (e)=>this._onFallbackSelectionTriggered(e));
+        this.addEventListener('change-section', (e)=>this._onChangeSection(e));
         // listen for online/offline
         Polymer.RenderStatus.afterNextRender(this, () => {
           window.addEventListener('online', (e)=>this._notifyNetworkStatus(e));
@@ -185,7 +175,7 @@
         // Scroll to the top of the page when navigating to a non-list page. For list view,
         // scroll to the last saved position only if the category has not changed.
         let scrollTop = 0;
-        if (this.page === 'list') {
+        if (this.page === 'list' || this.page === 'detail') {
           if (this.categoryName === detail.category) {
             scrollTop = this._listScrollTop;
           } else {
@@ -202,7 +192,6 @@
         // Announce the page's title
         if (detail.title) {
           document.title = detail.title + ' - SAMPLE';
-          this._announce(detail.title + ', loaded');
         }
       }
 

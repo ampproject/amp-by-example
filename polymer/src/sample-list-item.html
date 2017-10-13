@@ -19,6 +19,9 @@
 
 <dom-module id="sample-list-item">
 
+  <!-- Need to use absolute URL because of https://github.com/Polymer/polymer-cli/issues/892 -->
+  <link rel="import" type="css" href="https://www.ampbyexample.com/css/ampstart.css">
+
   <template>
 
     <style>
@@ -30,15 +33,6 @@
         margin: 0 48px;
       }
 
-      .title {
-        color: var(--app-primary-color);
-        font-weight: bold;
-      }
-
-      .description {
-        color: var(--app-secondary-color);
-      }
-
       @media (max-width: 767px) {
         :host {
           margin: 0 12px;
@@ -47,8 +41,8 @@
 
     </style>
 
-    <div class="title">[[item.title]]</div>
-    <span class="description">[[item.description]]</span>
+    <h3 class="mb1">[[item.title]]</h3>
+    <p class="mb1">[[item.description]]</p>
 
   </template>
 

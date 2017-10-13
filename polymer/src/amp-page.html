@@ -87,7 +87,9 @@
       }
 
       urlChanged() {
-        this.fetchAndAttachAmpDoc_(this.fullUrl);
+        if(this.fullUrl !== this.url) {
+          this.fetchAndAttachAmpDoc_(this.fullUrl);
+        }
       }
 
       constructor() {
@@ -141,7 +143,7 @@
         this._amp = amp.attachShadowDoc(this._host, newDoc, url);
       });
     }).catch(error => {
-      this.setState({'offline': true});
+      throw new Error('Errod loading the AMP page');
     });
   }
 

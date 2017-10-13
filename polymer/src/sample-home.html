@@ -15,7 +15,6 @@
 -->
 
 <link rel="import" href="../node_modules/@npm-polymer/polymer/polymer-element.html">
-<link rel="import" href="tap-me.html">
 
 <dom-module id="sample-home">
 
@@ -65,11 +64,6 @@
         h2 {
           margin: 24px 0;
         }
-
-        .item:nth-of-type(3) > shop-button > a,
-        .item:nth-of-type(4) > shop-button > a {
-          padding: 8px 24px;
-        }
       }
       .container {
         display: flex;
@@ -77,36 +71,32 @@
         padding-top: 24px;
       }
 
+      article {
+        flex-flow: row wrap;
+      }
+
     </style>
     <header class="www-header">
       <h1 class="mb4 px2 col-12 sm-col-8 mx-auto">[[title]]</h1>
       <span class="h3 block mb4 px2 col-12 sm-col-8 mx-auto">[[desc]]</span>
     </header>
-    <main class="flex pl2">
-      <aside class="www-components-sec-nav col-2 xs-hide sm-hide relative">
-        <ul class="www-component-anchors list-reset m0 pt0 pb3 px1 caps">
-            <template is="dom-repeat" items="{{categories}}">
-              <tap-me name="[[item.name]]" id="[[item.id]]"></tap-me>
-            </template>
-        </ul>
-      </aside>
-      <article class="www-components flex-auto col-8">
+    <main class="pl2">
+      <article class="www-components flex-auto flex">
         <dom-repeat items="[[categories]]">
-              <template strip-whitespace>
-                <section class="www-component-desc" id="[[item.id]]">
-                  <div>
-                    <div class="abe-examples flex flex-wrap">
-                      <div class="ampstart-card abe-sample-card flex flex-column flex-auto p1 mb1">
-                        <h3 class="mb1">[[item.name]]</h3>
-                        <p class="mb1">[[item.desc]]</p>
-                        <div class="abe-sample-card-actions">
-                          <a class="ampstart-btn caps text-decoration-none inline-block" aria-label$="[[item.id]] item.name" href$="/polymer/list/[[item.id]]">List</a>
-                        </div>
-                      </div>
+          <template strip-whitespace>
+            <section class="www-component-desc" id="[[item.id]]">
+              <div>
+                  <div class="abe-examples flex flex-wrap">
+                    <div class="ampstart-card abe-sample-card flex flex-column flex-auto p1 mb1">
+                        <a href$="/polymer/list/[[item.id]]">
+                          <h3 class="mb1">[[item.name]]</h3>
+                          <p class="mb1">[[item.desc]]</p>
+                        </a>
                     </div>
+                  </div>
               </div>
             </section>
-              </template>
+          </template>
         </dom-repeat>
       </article>
     </main>

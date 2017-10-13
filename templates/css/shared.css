@@ -136,6 +136,9 @@ a.abe-primary {
 .www-component-desc li a:not(.ampstart-btn),
 .www-component-desc p a:not(.ampstart-btn) {
   text-decoration: none;
+}
+.www-component-desc li a:not(.ampstart-btn),
+.www-component-desc p a:not(.ampstart-btn) {
   color: #b60845;
 }
 .ampstart-headerbar-nav .ampstart-nav-item.www-current-page {
