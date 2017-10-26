@@ -1,0 +1,46 @@
+<!-- ## Update `amp-list` data from `amp-bind` -->
+<!--
+This is a sample showing how to update amp-list data based on user interactions implemented with `amp-bind`.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+  <!-- ## Setup -->
+  <!--
+    Additionally used AMP components must be imported in the header.
+  -->
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+  <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+
+  <link rel="canonical" href="<%host%>/dynamic_amp/update_list_data_with_amp-bind/">
+  <title>Update amp-list data from amp-bind</title>
+
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+</head>
+<body>
+  <!-- ## How to update `amp-list` data from `amp-bind` -->
+  <!-- `amp-list` data can be updated based on user interaction.In here we change the value of `foo` when the user clicks on a button. -->
+  <button on="tap:AMP.setState({foo: foo+1})">Increment Foo</button>
+  
+<!-- `amp-list` data come from the json endpoint and the value of the `amp-bind` variable `foo` -->
+<amp-list src="/json/related_products.json" width="auto"
+              height="200"
+              layout="fixed-height"
+              class="m1">
+  <template type="amp-mustache">
+    <strong>Product</strong>: {{name}}
+    <strong>Price</strong>: ${{price}}
+    <strong>Foo</strong>: <span [text]="foo">?</span>
+  </template>
+ </amp-list>
+
+</body>
+</html>
