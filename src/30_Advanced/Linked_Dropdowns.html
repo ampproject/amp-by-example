@@ -83,6 +83,7 @@
       <label for="city">City:</label>
       <select [disabled]="!cities" disabled id="city">
         {{^cities}}<option value=""></option>{{/cities}}
+        {{#cities.0}}<option value="">Choose a city</option>{{/cities.0}}
         {{#cities}}<option value="{{.}}">{{.}}</option>{{/cities}}
       </select>
     </template>
