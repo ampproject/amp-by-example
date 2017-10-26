@@ -1,0 +1,40 @@
+<!-- ## Fresh Data On Load -->
+<!--
+This is a sample showing how to fetch fresh data on page load.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+  <!-- ## Setup -->
+  <!--
+    Additionally used AMP components must be imported in the header.
+  -->
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+
+  <link rel="canonical" href="<%host%>/dynamic_amp/fresh_data_on_load/">
+  <title>Fresh data on load</title>
+
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+</head>
+<body>
+  <!-- ## How to get fresh data -->
+  <!-- By using `amp-bind` and `amp-state`, a user can get up-to-date data after an interaction. The endpoint
+  has to be specified in the `amp-state` `src`. -->
+  <amp-state id="data" src="/json/related_products.json">
+  </amp-state>
+  <!-- In this sample we are using a button which triggers an update on the page by setting a new value
+  on the `amp-state`. -->
+  <button on="tap:AMP.setState({
+    data: {response: event.response}})">Click here</button>
+  <!-- The resulting text will change straight after the user clicks on `Submit`. -->
+  <p [text]="data.items[0].name">This text will be updated with amp-state's XHR results.</p>
+
+</body>
+</html>

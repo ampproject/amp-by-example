@@ -1,0 +1,77 @@
+<!-- ## Fresh Data with amp-list -->
+<!--
+This is a sample showing how to fetch fresh data on `amp-list` by demoing a `show-more` button.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+  <!-- ## Setup -->
+  <!--
+    Additionally used AMP components must be imported in the header.
+  -->
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+  <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+  <script async custom-element="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+
+  <link rel="canonical" href="<%host%>/dynamic_amp/fresh_data_list/">
+  <title>Fresh data with amp-list</title>
+
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+</head>
+<body>
+  <!-- ## How to get fresh data on `amp-list` -->
+  <!-- `amp-list` data can be specified by using `amp-bind` and `amp-state`. Here we are using 2 `amp-state`: `myState`
+  represents the actual state of the list of shown products. -->
+  <amp-state id="myState" src="/json/related_products.json">
+  </amp-state>
+
+  <!-- We are using a second `amp-state` just to implement the show-more logic where we are allowing the user to click 3 times. -->
+  <amp-state id="product">
+    <script type="application/json">
+    {
+      "moreItemsPageIndex": 0,
+      "hasMorePages": true
+    }
+    </script>
+  </amp-state>
+
+  <!-- In this sample we are using a form which triggers an update on the page when the user clicks
+  on the show more button. We are then merging the form results into the items already loaded
+  by the `amp-state`. -->
+    <form method="GET"
+        action="/json/more_related_products_page"
+        action-xhr="/json/more_related_products_page"
+        target="_top"
+        on="submit-success: AMP.setState({
+          myState: { items: myState.items.concat(event.response.items)},
+          product: {moreItemsPageIndex: product.moreItemsPageIndex + 1,
+                    hasMorePages: event.response.hasMorePages}
+        });">
+      <input type="hidden" name="moreItemsPageIndex" value="0" [value]="product.moreItemsPageIndex">
+      <input type="submit" value="Show more"
+        class="ampstart-btn caps m1 mb3 show"
+        [class] = "(product.hasMorePages == false ? 'hide' : 'ampstart-btn caps m1 mb3 show')">
+    </form>
+
+  <!-- We bind the `src` attribute of the `amp-list` to the id of the `amp-state` component so that the `amp-list` will use the items
+      from that component as a `src`. -->
+  <amp-list src="/json/related_products.json" [src]="myState.items" width="auto"
+                height="200"
+                layout="fixed-height"
+                class="m1">
+   <template type="amp-mustache">
+     <strong>Product</strong>: {{name}}
+     <strong>Price</strong>: ${{price}}
+   </template>
+ </amp-list>
+
+</body>
+</html>
