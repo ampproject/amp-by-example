@@ -20,6 +20,7 @@ const (
 
 	AMP_CLIENT_ID_COOKIE = "AMP_ECID_GOOGLE"
 
+	CATEGORY_ADVANCED         = "advanced"
 	CATEGORY_COMPONENTS       = "components"
 	CATEGORY_SAMPLE_TEMPLATES = "samples_templates"
 )

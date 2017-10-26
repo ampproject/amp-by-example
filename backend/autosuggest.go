@@ -21,7 +21,7 @@ import (
 )
 
 const (
-	AUTOSUGGEST_SAMPLE_PATH = "/" + CATEGORY_SAMPLE_TEMPLATES + "/autosuggest/"
+	AUTOSUGGEST_SAMPLE_PATH = "/" + CATEGORY_ADVANCED + "/autosuggest/"
 )
 
 func InitAutosuggestSample() {
