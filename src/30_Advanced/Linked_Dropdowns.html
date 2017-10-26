@@ -1,0 +1,94 @@
+<!---{
+  "preview": "default"
+  }--->
+<!--
+  #### Introduction
+
+  These linked dropdowns are implemented using AMP components.
+  This pattern is useful when the values in the second dropdown
+  depend on the value the user selects in the first dropdown.
+  Here we select cities in a chosen country.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <link rel="canonical" href="<%host%>/advanced/linked_dropdowns/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+  <!-- #### Setup -->
+  <!--
+    Import the `amp-bind`, `amp-list` and `amp-mustache` components.
+  -->
+  <div>
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+    <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+  </div>
+  <style amp-custom>
+    label {
+      font-weight: bold;
+    }
+
+    [role="listitem"] {
+      display: flex;
+    }
+
+    [role="listitem"] > * {
+      flex: 1 0 0;
+    }
+
+    amp-list {
+      margin: 10px 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- #### Usage -->
+  <!--
+  We use two amp-list elements to render the options within each `<select>`.
+  The first dropdown triggers a request, which is batched with the request
+  triggered by the other `<amp-list>` and  the `<amp-state>` element, so only
+  one request is sent.
+
+  When the user selects a value in the first dropdown, `amp-bind` updates the
+  `cities` state value. This updates second `amp-list`'s `[src]` binding,
+  and it renders its template using the data in the `cities` array.
+  -->
+<div>
+<amp-list width="auto" height="25" layout="fixed-height" src="<%host%>/json/linked_dropdowns.json">
+    <template type="amp-mustache">
+      <label for="country">Country:</label>
+      <select id="country" on="
+        change:
+          AMP.setState({
+            cities: original.items[0].countries.filter(x => x.name == event.value)[0]
+          })"
+      >
+        <option value="">Choose a country</option>
+        {{#countries}}
+          <option value="{{name}}">{{name}}</option>
+        {{/countries}}
+      </select>
+    </template>
+</amp-list>
+<amp-list width="auto" height="25" layout="fixed-height" [src]="cities" src="<%host%>/json/linked_dropdowns.json">
+    <template type="amp-mustache">
+      <label for="city">City:</label>
+      <select [disabled]="!cities" disabled id="city">
+        {{^cities}}<option value=""></option>{{/cities}}
+        {{#cities}}<option value="{{.}}">{{.}}</option>{{/cities}}
+      </select>
+    </template>
+</amp-list>
+<amp-state id="original" src="<%host%>/json/linked_dropdowns.json"></amp-state>
+</div>
+
+</body>
+</html>
