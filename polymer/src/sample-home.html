@@ -22,6 +22,7 @@
   <link rel="import" type="css" href="https://www.ampbyexample.com/css/ampstart.css">
   <link rel="import" type="css" href="https://www.ampbyexample.com/css/example.css">
   <link rel="import" type="css" href="https://www.ampbyexample.com/css/shared.css">
+  <link rel="import" href="sample-header.html">
 
   <template>
 
@@ -76,12 +77,13 @@
       }
 
     </style>
+    <sample-header></sample-header>
     <header class="www-header">
       <h1 class="mb4 px2 col-12 sm-col-8 mx-auto">[[title]]</h1>
       <span class="h3 block mb4 px2 col-12 sm-col-8 mx-auto">[[desc]]</span>
     </header>
     <main class="pl2">
-      <article class="www-components flex-auto flex">
+      <article class="www-components flex-auto flex justify-center">
         <dom-repeat items="[[categories]]">
           <template strip-whitespace>
             <section class="www-component-desc" id="[[item.id]]">

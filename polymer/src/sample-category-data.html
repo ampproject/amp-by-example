@@ -26,6 +26,33 @@
   <script>
   (function() {
 
+    let sectionList = [
+      {
+        name: 'AMPHTML',
+        path: '/',
+        classes: 'images/mens_outerwear.jpg'
+      },
+      {
+        name: 'AMP for Ads',
+        path: '/amp-ads',
+        classes: 'images/mens_outerwear.jpg'
+      }
+    ];
+    let linkList = [
+        {
+          name: 'Playground',
+          path: '/playground/'
+        },
+        {
+          name: 'GitHub',
+          path: 'https://github.com/ampproject/amp-by-example'
+        },
+        {
+          name: 'What is AMP?',
+          path: 'https://www.ampproject.org/learn/about-amp/'
+        }
+      ];
+
     function sanitizeString(string) {
       var htmlRegex = /(<([^>]+)>)/ig
       return string.replace(htmlRegex, "")
@@ -36,6 +63,20 @@
       static get is() { return 'sample-category-data'; }
 
       static get properties() { return {
+
+        sections: {
+          type: Array,
+          value: sectionList,
+          readOnly: true,
+          notify: true
+        },
+
+        links: {
+          type: Array,
+          value: linkList,
+          readOnly: true,
+          notify: true
+        },
 
         categoryName: String,
 
@@ -86,7 +127,11 @@
           var category = {
             name:  cat["name"],
             id: cat["id"],
-            desc: sanitizeString(cat["description"])
+            desc: sanitizeString(cat["description"]),
+            samples: {
+                title: cat["examples"]["title"],
+                url: cat["examples"]["url"]
+            }
           };
           return category;
         });
