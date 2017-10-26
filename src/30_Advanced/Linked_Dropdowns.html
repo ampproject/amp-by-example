@@ -9,26 +9,35 @@
   depend on the value the user selects in the first dropdown.
   Here we select cities in a chosen country.
 -->
-<!-- -->
+<!-- #### Setup -->
+<!--
+  Import the `amp-bind`, `amp-list` and `amp-mustache` components, and
+  include the standard AMP boilerplate.
+-->
 <!doctype html>
 <html ⚡>
 <head>
-  <meta charset="utf-8">
+  <title>Linked Dropdowns</title>
   <link rel="canonical" href="<%host%>/advanced/linked_dropdowns/">
+
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
 
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+  <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
-  <!-- #### Setup -->
   <!--
-    Import the `amp-bind`, `amp-list` and `amp-mustache` components.
+  ## Styles
+
+  No additional styles are necessary, but you can optionally add styles to
+  change the layout or the look and feel of the page.
   -->
-  <div>
-    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-    <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
-    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
-  </div>
+  <!-- -->
+
   <style amp-custom>
     label {
       font-weight: bold;
@@ -47,18 +56,16 @@
     }
   </style>
 </head>
-
 <body>
-
   <!-- #### Usage -->
   <!--
-  We use two amp-list elements to render the options within each `<select>`.
+  We use two `<amp-list>` elements to render the options within each `<select>`.
   The first dropdown triggers a request, which is batched with the request
-  triggered by the other `<amp-list>` and  the `<amp-state>` element, so only
+  triggered by the other `<amp-list>` and the `<amp-state>` element, so only
   one request is sent.
 
   When the user selects a value in the first dropdown, `amp-bind` updates the
-  `cities` state value. This updates second `amp-list`'s `[src]` binding,
+  `cities` state value. This updates second `<amp-list>`'s `[src]` binding,
   and it renders its template using the data in the `cities` array.
   -->
 <div>
