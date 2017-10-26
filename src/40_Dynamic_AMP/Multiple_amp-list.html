@@ -1,6 +1,6 @@
-<!-- ## Update `amp-list` data from `amp-bind` -->
+<!-- ## Multiple calls to amp-list -->
 <!--
-This is a sample showing how to update amp-list data based on user interactions implemented with `amp-bind`.
+This is a sample showing how to deal with multiple calls to the same `amp-list`.
 -->
 <!-- -->
 <!doctype html>
@@ -13,12 +13,11 @@ This is a sample showing how to update amp-list data based on user interactions 
   <!--
     Additionally used AMP components must be imported in the header.
   -->
-  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
   <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
 
-  <link rel="canonical" href="<%host%>/dynamic_amp/update_list_data_with_amp-bind/">
-  <title>Update amp-list data from amp-bind</title>
+  <link rel="canonical" href="<%host%>/dynamic_amp/multiple_amp-list/">
+  <title>Fresh data on load</title>
 
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 
@@ -26,21 +25,22 @@ This is a sample showing how to update amp-list data based on user interactions 
 
 </head>
 <body>
-  <!-- ## How to update `amp-list` data from `amp-bind` -->
-  <!-- `amp-list` data can be updated based on user interaction.In here we change the value of `foo` when the user clicks on a button. -->
-  <button class="ampstart-btn caps m1 mb3" on="tap:AMP.setState({foo: foo+1})">Increment Foo</button>
+  <!-- ## How to deal with multiple calls to `amp-list` -->
+  <!-- If multiple `amp-list` with the same `src` are found in the page, only one network call is actually made by the AMP runtime. -->
+  <amp-list width="auto" height="100" layout="fixed-height" src="<%host%>/json/examples.json" class="m1">
+    <template type="amp-mustache">
+      <div><a href="{{url}}">{{title}}</a></div>
+    </template>
+  </amp-list>
 
-<!-- `amp-list` data come from the json endpoint and the value of the `amp-bind` variable `foo` -->
-<amp-list src="/json/related_products.json" width="auto"
-              height="175"
-              layout="fixed-height"
-              class="m1">
-  <template type="amp-mustache">
-    <strong>Product</strong>: {{name}}
-    <strong>Price</strong>: ${{price}}
-    <strong>Foo</strong>: <span [text]="foo">?</span>
-  </template>
- </amp-list>
+  <!-- By checking the network tab of the Chrome dev console, you can check that this second `amp-list` does not cause a second network call.
+  Since we are using a [service-worker](https://www.ampproject.org/docs/reference/components/amp-install-serviceworker) you may see
+  2 similar calls one after the other to the same endpoint, so to better verify this behaviour, go to Application -> Service workers and click on Unregister.-->
+  <amp-list width="auto" height="100" layout="fixed-height" src="<%host%>/json/examples.json" class="m1">
+    <template type="amp-mustache">
+      <div><a href="{{url}}">{{title}}</a></div>
+    </template>
+  </amp-list>
 
 </body>
 </html>
