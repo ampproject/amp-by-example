@@ -92,7 +92,6 @@ func writeFavoriteCookie(w http.ResponseWriter, r *http.Request, name string, va
 		Expires: expireInOneDay,
 		Path:    "/",
 		Value:   strconv.FormatBool(value),
-		MaxAge:  36000,
 	}
 	http.SetCookie(w, cookie)
 }
