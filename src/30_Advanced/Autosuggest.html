@@ -10,9 +10,6 @@ The example below suggests cities in an address form, but the list of
 suggestions may contain any content, such as anticipated search queries, or
 product listings with images.
 -->
-<!--
-## Setup
--->
 <!-- -->
 <!doctype html>
 <html ⚡>
@@ -20,15 +17,18 @@ product listings with images.
   <title>Autosuggest form field example</title>
   <meta charset="utf-8">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
-  <!-- First we include `amp-form` -->
+  <!--
+  ## Setup
+  -->
+  <!-- First we include `amp-form`, which is required when using `<form>` elements in AMP documents. -->
   <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
-  <!-- Next we include `amp-selector` -->
+  <!-- Next we include `amp-selector` to easily display results in an accessible list. -->
   <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
-  <!-- Then we include `amp-list` -->
+  <!-- Then we include `amp-list` to request and display the autosuggest results. -->
   <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
-  <!-- Then we include `amp-mustache` -->
+  <!-- Then we include `amp-mustache` to render the mustache templates inside the `<amp-list>`. -->
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
-  <!-- Finally we include `amp-bind` -->
+  <!-- Finally we include `amp-bind` to track and update the page's state after user interactions.-->
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
   <link rel="canonical" href="<%host%>/advanced/autosuggest/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
