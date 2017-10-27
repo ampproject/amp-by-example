@@ -134,11 +134,8 @@ article#preview {
         <a class="caps text-decoration-none block p1" href="/samples_templates/product_browse_page/preview/">More</a>
       </amp-sidebar>
       <!-- ## Header with Search -->
-      <!--
-        AMP supports forms, which means you can directly integrate a product search into your AMPs. Try searching for "Apple".
-
-        AMP doesn't support custom Javascript, but you can use CSS3 animations to enrich your page. The expanding text field when the search box is focused is implemented with CSS only.
-      -->
+      <!-- AMP supports forms, which means you can directly integrate a product search into your AMPs. Try searching for "Apple".
+        AMP doesn't support custom Javascript, but you can use CSS3 animations to enrich your page. The expanding text field when the search box is focused is implemented with CSS only. -->
       <div class="header">
         <a id="sample-menu" on="tap:drawermenu.toggle">
           <amp-img srcset="/img/ic_menu_white_1x_web_24dp.png 1x, /img/ic_menu_white_2x_web_24dp.png 2x" width="24" height="24" alt="navigation"></amp-img>
@@ -154,7 +151,7 @@ article#preview {
         <input type="submit" value="">
       </div>
       <!-- ## A Hero Slider -->
-      <!-- The `amp-carousel` component can be used to quickly create full-bleed, auto-advancing slideshows showcasing your latest promotions. We 
+      <!-- The `amp-carousel` component can be used to quickly create full-bleed, auto-advancing slideshows showcasing your latest promotions. We
         use the [amp-fit-text](/components/amp-fit-text/) component for the slide headers to automatically size the text to fit into the carousel. -->
       <amp-carousel id="hero-images" width="1024" height="480" layout="responsive" type="slides" autoplay>
         <a href="#">
@@ -237,6 +234,10 @@ article#preview {
           </div>
         </div>
       </amp-lightbox>
+      <!-- ## Filter and sorting -->
+      <!-- We implemented filtering and ordering by combining `amp-bind` and `amp-list`. For filtering, we update, via `amp-bind`, the `src` of `amp-list` based on the color selection.
+      Similarly, we use a select option to allow the user to sort products based on preferences and we then modify the
+    `src` url of `amp-list`. -->
       <div id="main-wrap">
         <div class="refine p1">
           <h3>Filter results</h3>
