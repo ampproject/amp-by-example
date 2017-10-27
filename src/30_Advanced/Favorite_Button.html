@@ -130,12 +130,10 @@
            <input type="submit" 
                    [class]="favorite ? 'heart-fill' : 'heart-border'"
                    value="" aria-label="Favorite Toggle"> 
-           </input>
          </template>
          <input type="submit" disabled 
                             class="heart-loading"
                             value="" aria-label="favorite placeholder" placeholder> 
-         </input>
        </amp-list>
      </form>
 
@@ -190,15 +188,13 @@
            <input type="submit" 
                    [class]="favoriteWithCount.value ? 'heart-fill' : 'heart-border'"
                    value="" aria-label="Favorite Toggle"> 
-           </input>
            <div class="favorite-count" >Favorites <span [text]="favoriteWithCount.count"></span></div>
          </template>
          <div placeholder>
-         <input type="submit" disabled 
-                            class="heart-loading"
-                            value="" aria-label="favorite placeholder" placeholder> 
+           <input type="submit" disabled 
+                  class="heart-loading"
+                  value="" aria-label="favorite placeholder" placeholder> 
            <div class="favorite-count loading" >Favorites <span>0</span></div>
-         </input>
          </div>
        </amp-list>
      </form>
