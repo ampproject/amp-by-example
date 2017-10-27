@@ -1,6 +1,6 @@
-<!-- ## Combine fresh data and local data -->
+<!-- ## Load more button -->
 <!--
-This is a sample showing how to combine fresh data and local data on `amp-list` by demoing a `show-more` button.
+This is a sample showing how to implement `show-more` button.
 -->
 <!-- -->
 <!doctype html>
@@ -18,7 +18,7 @@ This is a sample showing how to combine fresh data and local data on `amp-list` 
   <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
 
-  <link rel="canonical" href="<%host%>/dynamic_amp/combine_fresh_data_and_local_data/">
+  <link rel="canonical" href="<%host%>/advanced/load_more_button/">
   <title>Fresh data with amp-list</title>
 
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -27,13 +27,14 @@ This is a sample showing how to combine fresh data and local data on `amp-list` 
 
 </head>
 <body>
-  <!-- ## How to combine fresh and local data with `amp-list` -->
-  <!-- `amp-list` data can be specified by using `amp-bind` and `amp-state`. Here we are using 2 `amp-state`: `myState`
-  represents the actual state of the list of shown products. -->
+  <!-- ## How to implement a load more button -->
+  <!-- You can implement a load more button by using `amp-list` and `amp-bind`, infact
+  `amp-list` data can be specified by using `amp-state` as a `src`. Here we are using 2 `amp-state`: `myState`
+  represents the actual state of the list of shown products... -->
   <amp-state id="myState" src="/json/related_products.json">
   </amp-state>
 
-  <!-- We are using a second `amp-state` just to implement the show-more logic where we are allowing the user to click 3 times. -->
+  <!-- while the `amp-state` with id `product` is just used to implement the show-more logic where we are allowing the user to click 3 times. -->
   <amp-state id="product">
     <script type="application/json">
     {
@@ -43,9 +44,8 @@ This is a sample showing how to combine fresh data and local data on `amp-list` 
     </script>
   </amp-state>
 
-  <!-- In this sample we are using a form which triggers an update on the page when the user clicks
-  on the show more button. We are then merging the form results into the items already loaded
-  by the `amp-state`. -->
+  <!-- The show more button is implemented via a form which trigger a page update by using the `submit-success` event.
+      We are then merging the form results into the items already loaded by the `amp-state`. -->
     <form method="GET"
         action="/json/more_related_products_page"
         action-xhr="/json/more_related_products_page"
