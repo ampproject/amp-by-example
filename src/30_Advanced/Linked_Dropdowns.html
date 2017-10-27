@@ -76,7 +76,7 @@
       </select>
     </template>
 </amp-list>
-<amp-list width="auto" height="25" layout="fixed-height" [src]="cities" src="<%host%>/json/linked_dropdowns.json">
+<amp-list width="auto" height="25" layout="fixed-height" [src]="cities || '<%host%>/json/linked_dropdowns.json'" src="<%host%>/json/linked_dropdowns.json">
     <template type="amp-mustache">
       <label for="city">City:</label>
       <select [disabled]="!cities" disabled id="city">
