@@ -22,17 +22,19 @@ import (
 )
 
 const (
-	AMP_FAVORITE_COOKIE = "amp_favorite_sample"
+	AMP_FAVORITE_COOKIE       = "amp-favorite"
+	AMP_FAVORITE_COUNT_COOKIE = "amp-favorite-with-count"
 )
 
 func InitFavoriteSample() {
 	http.HandleFunc("/favorite", handleFavorite)
+	http.HandleFunc("/favorite-with-count", handleFavoriteWithCount)
 }
 
 func handleFavorite(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
 	SetContentTypeJson(w)
-	w.Header().Set("Cache-Control", "max-age=0")
+	SetMaxAge(w, 0)
 	if r.Method == "POST" {
 		setFavorite(w, r)
 	} else if r.Method == "GET" {
@@ -41,22 +43,41 @@ func handleFavorite(w http.ResponseWriter, r *http.Request) {
 }
 
 func getFavorite(w http.ResponseWriter, r *http.Request) {
-	favorite := readFavoriteFromCookie(r)
+	favorite := readFavoriteFromCookie(r, AMP_FAVORITE_COOKIE)
 	writeFavorite(w, favorite)
 }
 
 func setFavorite(w http.ResponseWriter, r *http.Request) {
-	expireInOneDay := time.Now().AddDate(0, 0, 1)
-	favorite := !readFavoriteFromCookie(r)
-	cookie := &http.Cookie{
-		Name:    AMP_FAVORITE_COOKIE,
-		Expires: expireInOneDay,
-		Path:    "/",
-		Value:   strconv.FormatBool(favorite),
-		MaxAge:  36000,
-	}
-	http.SetCookie(w, cookie)
+	favorite := !readFavoriteFromCookie(r, AMP_FAVORITE_COOKIE)
+	writeFavoriteCookie(w, r, AMP_FAVORITE_COOKIE, favorite)
 	writeFavorite(w, favorite)
+}
+
+func handleFavoriteWithCount(w http.ResponseWriter, r *http.Request) {
+	EnableCors(w, r)
+	SetContentTypeJson(w)
+	SetMaxAge(w, 0)
+	if r.Method == "POST" {
+		setFavoriteWithCount(w, r)
+	} else if r.Method == "GET" {
+		getFavoriteWithCount(w, r)
+	}
+}
+
+func getFavoriteWithCount(w http.ResponseWriter, r *http.Request) {
+	favorite := readFavoriteFromCookie(r, AMP_FAVORITE_COUNT_COOKIE)
+	writeFavoriteWithCount(w, favorite)
+}
+
+func setFavoriteWithCount(w http.ResponseWriter, r *http.Request) {
+	favorite := !readFavoriteFromCookie(r, AMP_FAVORITE_COUNT_COOKIE)
+	writeFavoriteCookie(w, r, AMP_FAVORITE_COUNT_COOKIE, favorite)
+	writeFavoriteWithCount(w, favorite)
+}
+
+func writeFavoriteWithCount(w http.ResponseWriter, favorite bool) {
+	response := fmt.Sprintf("{ \"value\": %t, \"count\": 123}", favorite)
+	w.Write([]byte(response))
 }
 
 func writeFavorite(w http.ResponseWriter, favorite bool) {
@@ -64,8 +85,20 @@ func writeFavorite(w http.ResponseWriter, favorite bool) {
 	w.Write([]byte(response))
 }
 
-func readFavoriteFromCookie(r *http.Request) bool {
-	cookie, err := r.Cookie(AMP_FAVORITE_COOKIE)
+func writeFavoriteCookie(w http.ResponseWriter, r *http.Request, name string, value bool) {
+	expireInOneDay := time.Now().AddDate(0, 0, 1)
+	cookie := &http.Cookie{
+		Name:    name,
+		Expires: expireInOneDay,
+		Path:    "/",
+		Value:   strconv.FormatBool(value),
+		MaxAge:  36000,
+	}
+	http.SetCookie(w, cookie)
+}
+
+func readFavoriteFromCookie(r *http.Request, name string) bool {
+	cookie, err := r.Cookie(name)
 	if err != nil {
 		return false
 	}
