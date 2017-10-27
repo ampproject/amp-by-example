@@ -42,6 +42,7 @@ func init() {
 	backend.InitPollSample()
 	backend.InitRatingSample()
 	backend.InitAutosuggestSample()
+	backend.InitPagedListSample()
 	backend.InitAmpAccess()
 	backend.InitFavoriteSample()
 	playground.InitPlayground()

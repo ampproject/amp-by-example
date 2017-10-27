@@ -22,5 +22,6 @@ const (
 
 	CATEGORY_ADVANCED         = "advanced"
 	CATEGORY_COMPONENTS       = "components"
+	CATEGORY_ADVANCED         = "advanced"
 	CATEGORY_SAMPLE_TEMPLATES = "samples_templates"
 )
