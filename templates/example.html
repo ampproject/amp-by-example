@@ -100,5 +100,12 @@
     {{/isEmbed}}
     {{> analytics.html}}
     {{> serviceworker.html}}
+    <script type="text/javascript">
+        var x = document.querySelectorAll('amp-animation');
+        x.forEach(e => {
+          document.body.appendChild(e);
+        });
+    </script>
+
   </body>
 </html>
