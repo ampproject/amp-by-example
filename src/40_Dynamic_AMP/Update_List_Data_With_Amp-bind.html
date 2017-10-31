@@ -1,6 +1,7 @@
 <!-- ## Update `amp-list` data from `amp-bind` -->
 <!--
 This is a sample showing how to update amp-list data based on user interactions implemented with `amp-bind`.
+In this particular sample we are showing a list of to-do items that the users can update by clicking on a button.
 -->
 <!-- -->
 <!doctype html>
@@ -11,10 +12,12 @@ This is a sample showing how to update amp-list data based on user interactions 
 
   <!-- ## Setup -->
   <!--
-    Additionally used AMP components must be imported in the header.
-  -->
-  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+    Additionally used AMP components must be imported in the header. We use `amp-list` to show a list of to do items.
+   -->
   <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+  <!-- We use `amp-bind` to dinamically change the content of the `amp-list`. -->
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+  <!-- We use `amp-mustache` to render the content of `amp-list`. -->
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
 
   <link rel="canonical" href="<%host%>/dynamic_amp/update_list_data_with_amp-bind/">
@@ -24,23 +27,31 @@ This is a sample showing how to update amp-list data based on user interactions 
 
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
+   <style amp-custom>
+   .done {
+     text-decoration: line-through;
+   }
+   </style>
 </head>
 <body>
   <!-- ## How to update `amp-list` data from `amp-bind` -->
-  <!-- `amp-list` data can be updated based on user interaction.In here we change the value of `foo` when the user clicks on a button. -->
-  <button class="ampstart-btn caps m1 mb3" on="tap:AMP.setState({foo: foo+1})">Increment Foo</button>
+  <!-- `amp-list` data can be updated based on user interaction. In here we update the status of all the to do items by using a checkbox.
+    amp-list` data come from the json endpoint and the value of the `amp-bind` variable `done` -->
 
-<!-- `amp-list` data come from the json endpoint and the value of the `amp-bind` variable `foo` -->
-<amp-list src="/json/related_products.json" width="auto"
-              height="175"
-              layout="fixed-height"
-              class="m1">
-  <template type="amp-mustache">
-    <strong>Product</strong>: {{name}}
-    <strong>Price</strong>: ${{price}}
-    <strong>Foo</strong>: <span [text]="foo">?</span>
-  </template>
- </amp-list>
+    <amp-list src="/json/todo.json" [src]="todos.items" width="auto"
+                  height="100"
+                  layout="fixed-height"
+                  class="m1">
+      <template type="amp-mustache">
+        <div [class]="done{{id}} ? 'done' : ''">{{title}}
+          <input type="checkbox" on="change:AMP.setState({
+            done{{id}} : event.checked,
+            todos: {items: splice(todos.items, {{id}}, 1, {done: event.checked})}
+          })"></div>
+      </template>
+    </amp-list>
+    <!-- clajh -->
+        <amp-state id="todos" src="/json/todo.json"></amp-state>
 
 </body>
 </html>

@@ -1,6 +1,8 @@
 <!-- ## Dynamic and cached product data details -->
 <!--
-This is a sample showing how to implement product data details where some of them can be cached and some should always be as fresh as possible.
+This is a sample showing how to implement product data details like description, price, availability etc.
+AMPs can be served from the AMP Cache, for product dynamic data details, such prices and availability,
+it's critical that users never see stale data. This sample shows the best approaches for implementing product data details.
 -->
 <!-- -->
 <!doctype html>
@@ -11,9 +13,10 @@ This is a sample showing how to implement product data details where some of the
 
   <!-- ## Setup -->
   <!--
-    Additionally used AMP components must be imported in the header.
+    Additionally used AMP components must be imported in the header. We use `amp-list` for retrieving latest data from the server.
   -->
   <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+  <!-- We use `amp-mustache` as a templating for `amp-list` -->
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
 
   <link rel="canonical" href="<%host%>/dynamic_amp/dynamic_and_cached_data_details/">
@@ -26,7 +29,7 @@ This is a sample showing how to implement product data details where some of the
 </head>
 <body>
   <!-- ## How to implement dynamic and cached product data details -->
-  <!-- AMPs can be served from an AMP Cache, for product data details, such prices and availability, it's critical that users never see stale data.
+  <!--
   To ensure that users always see the latest content, you can use the `amp-list` component which will fetch and render content directly from your server.
    -->
    <amp-list height="24"
