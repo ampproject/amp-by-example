@@ -1,0 +1,196 @@
+<!---{
+  "preview": "default"
+  }--->
+<!--
+  ## Introduction
+
+  This sample demonstrastes a classic dropdown combo, with a text field which filters the dropdown elements 
+  according to the user's input. The difference between this example and the auto-suggest example, is that this example
+  has been built 100% client side, for maximum performance and responsiveness.
+-->
+<!doctype html>
+<html ⚡>
+<head>
+  <title>ComboBox</title>
+  <meta charset="utf-8">
+  <link rel="canonical" href="<%host%>/..\30_advanced/combobox/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!-- ## Setup -->
+  <!--
+  The amp-selector component is used for the dropdown list options. The amp-bind component is used for the filtering of the dropdown options
+  according to the user's input. The fontawesome css icons are imported for the arrow icon.
+  -->
+  <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  
+  <style amp-custom>
+        .hidden, .hidden.select-option {
+            display: none;
+        }
+
+        .arrow-up {
+            transform: rotate(180deg);
+        }
+
+        .product-search{
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .search-container {
+            display: flex;
+            flex-flow: row nowrap;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .search-submit {
+            font-size: 1.25em;
+            padding-right: 13px;
+        }
+
+        .autosuggest-box {
+            box-shadow: 0px 2px 6px rgba(0,0,0,.3);
+            overflow-y: scroll;
+            max-height: 300px;
+        }
+
+        input.search-box {
+            padding: 5px 8px;
+            font-size: 1em;
+            background-color: #fff;
+            font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
+            border: 1px solid #d4d4d4;
+            line-height: 1.53333em;
+            height: 2em;
+            padding-right: 50px;
+            width: 100%;
+                   
+        }
+
+        .select-option {
+            display: block;
+            box-sizing: border-box;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 10px;
+            font-size: 15px;
+        }
+
+        amp-selector .select-option.no-outline.no-outline[option] {
+            outline: none;
+        }
+
+        .select-option:focus {
+            box-shadow: inset rgb(94, 158, 215) 0px 0px 45px;
+        }
+
+        .select-option:focus {
+            background: #fff;
+        }
+
+
+        .lvl3 {
+            padding-left: 10px;
+            color: #777
+        }
+
+        .lvl2 {
+            padding-left: 5px;
+            font-weight: bold;
+            color: #777
+        }
+
+        .lvl1 {
+            padding-left: 0px;
+            color: #ccc;
+            font-weight: bold;
+        }
+
+        .select-option-wrap {
+            padding: 0 20px;
+                    
+        }
+        .dropdown-wrap {
+            padding-top: 2em;
+            padding-left: 1em;
+        }
+    </style>
+</head>
+<body>
+
+  <!-- ## Basic Usage -->
+  <!--
+  This example includes two inputs. One is the input in which the user writes the text and the other is a hidden input, 
+  where the id value of the selected option is stored and could be submited in a form.
+
+  The dropdown list's options are rendered server side, instead of using amp-list to maximize responsiveness. 
+  The 'option' attribute of the amp-selector's options, contain the id of the element, as well as its title, seperated by a comma.
+  This is done so that both values can be accessed using the 'event.targetOption' property. 
+  -->
+  <div class="dropdown-wrap">
+        <label for="products-dropdown">Choose your favorite food or beverage</label>
+        <div class="product-search select-wrap full-width">
+            <div class="search-container">
+                <input name="products-dropdown" type="hidden" [value]="foodId">
+                <input id="query" name="query" autocomplete="off" placeholder="Select a product" type="text" class="search-box" on="input-debounced:AMP.setState({ query: event.value, inputText: event.value, autosuggest: event.value, combostate: 'arrow-up'}), autosuggest-list.show" [value]="inputText || ''" value="">
+
+                <button on="tap:autosuggest-list.toggleVisibility, AMP.setState({ combostate: combostate == 'arrow-up' ? '' : 'arrow-up' })" class="search-submit user-valid valid" type="button">
+                    <i [class]="(combostate || '') + ' icon-chevron-down pull-right'" class="icon-chevron-down pull-right"></i>
+                </button>
+            </div>
+            <div class="autosuggest-box" id="autosuggest-list" hidden>
+                <amp-selector keyboard-select-mode="focus"
+                              class="select-option-wrap"
+                              layout="container"
+                              on="select:AMP.setState({
+                                    query: '',
+                                    inputText: event.targetOption.split(',')[1],
+                                    foodId: event.targetOption.split(',')[0],
+                                    combostate: combostate == 'arrow-up' ? '' : 'arrow-up'
+                                }),
+                                autosuggest-list.hide">
+                    <!--The Beverages options-->
+                    <ul>
+                    <li class="select-option no-outline lvl1 " [class]='"select-option no-outline lvl1 " + (query == null || "beverages".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="1,Beverages" aria-selected="false">Beverages</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "chai".indexOf(query.toLowerCase()) >= 0 || "beverages".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="2,Chai" aria-selected="false">Chai</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "chang".indexOf(query.toLowerCase()) >= 0 || "beverages".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="3,Chang" aria-selected="false">Chang</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "guaraná fantástica".indexOf(query.toLowerCase()) >= 0 || "beverages".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="4,Guaraná Fantástica" aria-selected="false">Guaraná Fantástica</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "sasquatch ale".indexOf(query.toLowerCase()) >= 0 || "beverages".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="5,Sasquatch Ale" aria-selected="false">Sasquatch Ale</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "steeleye stout".indexOf(query.toLowerCase()) >= 0 || "beverages".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="6,Steeleye Stout" aria-selected="false">Steeleye Stout</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "côte de blaye".indexOf(query.toLowerCase()) >= 0 || "beverages".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="7,Côte de Blaye" aria-selected="false">Côte de Blaye</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "chartreuse verte".indexOf(query.toLowerCase()) >= 0 || "beverages".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="8,Chartreuse verte" aria-selected="false">Chartreuse verte</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "ipoh coffee".indexOf(query.toLowerCase()) >= 0 || "beverages".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="9,Ipoh Coffee" aria-selected="false">Ipoh Coffee</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "laughing lumberjack lager".indexOf(query.toLowerCase()) >= 0 || "beverages".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="10,Laughing Lumberjack Lager" aria-selected="false">Laughing Lumberjack Lager</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "outback lager".indexOf(query.toLowerCase()) >= 0 || "beverages".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="11,Outback Lager" aria-selected="false">Outback Lager</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "rhönbräu klosterbier".indexOf(query.toLowerCase()) >= 0 || "beverages".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="12,Rhönbräu Klosterbier" aria-selected="false">Rhönbräu Klosterbier</li>
+                    <!--The Condiments options-->
+                    <li class="select-option no-outline lvl1 " [class]='"select-option no-outline lvl1 " + (query == null || "condiments".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="13,Condiments" aria-selected="false">Condiments</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "aniseed syrup".indexOf(query.toLowerCase()) >= 0 || "condiments".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="14,Aniseed Syrup" aria-selected="false">Aniseed Syrup</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "chef anton cajun seasoning".indexOf(query.toLowerCase()) >= 0 || "condiments".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="14,Chef Anton Cajun Seasoning" aria-selected="false">Chef Anton Cajun Seasoning</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "genen shouyu".indexOf(query.toLowerCase()) >= 0 || "condiments".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="15,Genen Shouyu" aria-selected="false">Genen Shouyu</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "gula malacca".indexOf(query.toLowerCase()) >= 0 || "condiments".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="16,Gula Malacca" aria-selected="false">Gula Malacca</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "vegie-spread".indexOf(query.toLowerCase()) >= 0 || "condiments".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="17,Vegie-spread" aria-selected="false">Vegie-spread</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "louisiana fiery hot pepper sauce".indexOf(query.toLowerCase()) >= 0 || "condiments".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="18,Louisiana Fiery Hot Pepper Sauce" aria-selected="false">Louisiana Fiery Hot Pepper Sauce</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "louisiana hot spiced okra".indexOf(query.toLowerCase()) >= 0 || "condiments".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="19,Louisiana Hot Spiced Okra" aria-selected="false">Louisiana Hot Spiced Okra</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "original frankfurter grüne soße".indexOf(query.toLowerCase()) >= 0 || "condiments".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="20,Original Frankfurter grüne Soße" aria-selected="false">Original Frankfurter grüne Soße</li>
+                    <!--The Produce options-->
+                    <li class="select-option no-outline lvl1 " [class]='"select-option no-outline lvl1 " + (query == null || "produce".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="21,Produce" aria-selected="false">Produce</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "apricots".indexOf(query.toLowerCase()) >= 0 || "produce".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="22,Apricots" aria-selected="false">Apricots</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "cabbages".indexOf(query.toLowerCase()) >= 0 || "produce".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="23,Cabbage" aria-selected="false">Cabbage</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "watercress".indexOf(query.toLowerCase()) >= 0 || "produce".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="24,Watercress" aria-selected="false">Watercress</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "asparagus".indexOf(query.toLowerCase()) >= 0 || "produce".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="25,Asparagus" aria-selected="false">Asparagus</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "corn".indexOf(query.toLowerCase()) >= 0 || "produce".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="26,Corn" aria-selected="false">Corn</li>
+                    <li class="select-option no-outline lvl2 " [class]='"select-option no-outline lvl2 " + (query == null || "tomatoes".indexOf(query.toLowerCase()) >= 0 || "produce".indexOf(query.toLowerCase()) >= 0 ? "" : "hidden")' role="option" tabindex="0" on="tap:autosuggest-list.hide" option="27,Tomatoes" aria-selected="false">Tomatoes</li>
+                    </ul>
+                    
+                </amp-selector>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
