@@ -25,7 +25,6 @@
   <link rel="import" type="css" href="https://www.ampbyexample.com/css/shared.css">
 
   <template>
-    <p>Hello</p>
   <sample-category-data
       desc="{{desc}}"
       links="{{links}}"
@@ -47,7 +46,7 @@
                     <ul class="list-reset m0 p0 abe-sublist">
                       <template is="dom-repeat" items="{{item.samples}}" as="sample">
                         <li>
-                          <a href="[[sample.url]]">[[sample.title]]</a>
+                          <a href="/polymer/detail[[sample.url]]">[[sample.title]]</a>
                         </li>
                       </template>
                     </ul>

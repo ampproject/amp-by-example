@@ -19,6 +19,7 @@
 <link rel="import" href="../node_modules/@npm-polymer/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="sample-category-data.html">
 <link rel="import" href="amp-viewer.html">
+<link rel="import" href="sample-header.html">
 
 <dom-module id="sample-detail">
 
@@ -88,6 +89,7 @@
         item="{{item}}"
         failure="{{failure}}"></sample-category-data>
 
+    <sample-header></sample-header>
     <header class="www-header center">
           <h1>[[item.title]]</h1>
     </header>

@@ -29,13 +29,11 @@
     let sectionList = [
       {
         name: 'AMPHTML',
-        path: '/',
-        classes: 'images/mens_outerwear.jpg'
+        path: '/'
       },
       {
         name: 'AMP for Ads',
-        path: '/amp-ads',
-        classes: 'images/mens_outerwear.jpg'
+        path: '/amp-ads'
       }
     ];
     let linkList = [
@@ -56,6 +54,10 @@
     function sanitizeString(string) {
       var htmlRegex = /(<([^>]+)>)/ig
       return string.replace(htmlRegex, "")
+    }
+
+    function buildListUrl(relativeUrl) {
+      return "/polymer/list" + relativeUrl.replace('#','')
     }
 
     class SampleCategoryData extends Polymer.Element {
@@ -122,22 +124,35 @@
       }}
 
       handleResponse(data) {
-        this.resource = data.detail.response[0]["categories"]
-        var catNames =  this.resource.map(function(cat) {
+        this.resources = data.detail.response
+        this._initializeSamples(data)
+        this._initializeSamplesAds(data)
+      }
+
+      _initializeSamples(data) {
+        this.categories = this._getCategoriesFromJson(data.detail.response[0]["categories"])
+        this.title = data.detail.response[0]["title"]
+        this.desc = data.detail.response[0]["desc"]
+      }
+
+      _initializeSamplesAds(data) {
+        this.adsCategories = this._getCategoriesFromJson(data.detail.response[1]["categories"])
+        this.adsTitle = data.detail.response[1]["title"]
+        this.adsDesc = data.detail.response[1]["desc"]
+      }
+
+      _getCategoriesFromJson(resource) {
+        var categories =  resource.map(function(cat) {
           var category = {
             name:  cat["name"],
+            url: buildListUrl(cat["url"]),
             id: cat["id"],
-            desc: sanitizeString(cat["description"]),
-            samples: {
-                title: cat["examples"]["title"],
-                url: cat["examples"]["url"]
-            }
+            desc: sanitizeString(cat["description"] || ""),
+            samples: cat["examples"]
           };
           return category;
         });
-        this.categories = catNames;
-        this.title = data.detail.response[0]["title"]
-        this.desc = data.detail.response[0]["desc"]
+        return categories;
       }
 
       _getCategory(categoryName, categories) {
@@ -177,13 +192,17 @@
         if (!category || category.items) {
           return;
         }
-
-        var categories = this.resource
-        categories = categories.filter(function(cat) {
-                return cat.name == category.name
+        var result
+        var categories = this.resources.filter(function(resource) {
+          resource["categories"].filter(function(cat) {
+            if (cat.id == category.id) {
+              result = cat
+            }
+          });
         });
 
-        var items =  categories[0]["examples"].map(function(itemJson) {
+
+        var items =  result["examples"].map(function(itemJson) {
           return {
             name:  itemJson["name"],
             title: itemJson["title"],
