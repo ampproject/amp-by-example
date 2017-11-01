@@ -1,8 +1,7 @@
 <!-- ## Show more button -->
 <!--
 This is a sample showing how to implement the "show more" design pattern.
-"Show more" is a very simple design pattern to navigate into pages with a lot of content,
-such e-commerce category pages, based on a simple user interaction on a button asking “Do you want to see more results?”
+ "Show more" is common design pattern used on e-commerce category pages to lazy load more content triggered by an user interaction.
 
 -->
 <!-- -->
@@ -15,7 +14,7 @@ such e-commerce category pages, based on a simple user interaction on a button a
   <!-- ## Setup -->
   <!-- Additionally used AMP components must be imported in the header. We use `amp-list` for showing a list of products -->
   <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
-  <!-- We use `amp-bind` for dinamically changing the src of `amp-list` -->
+  <!-- We use `amp-bind` for dynamically changing the src of `amp-list` -->
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
   <!-- We use `amp-form` for making the call to get extra products after an user interaction -->
   <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
@@ -32,13 +31,13 @@ such e-commerce category pages, based on a simple user interaction on a button a
 </head>
 <body>
   <!-- ## How to implement a show more button -->
-  <!-- You can implement a show more button by using `amp-list` and `amp-bind`, infact
-  `amp-list` data can be specified by using `amp-state` as a `src`. Here we are using 2 `amp-state`: `productsState`
-  represents the actual state of the list of shown products... -->
+  <!-- You can implement a show more button by using `amp-list` and `amp-bind`, where
+  `amp-list` `src` data are bind to the value of an `amp-state` element. Here we are using two `amp-state`: `productsState`
+  which uses the same json `src` as the `amp-list` so that will initially contain the same list of items ... -->
   <amp-state id="productsState" src="/json/related_products.json">
   </amp-state>
 
-  <!-- while the `amp-state` with id `product` is just used to implement the show-more logic where we are allowing the user to click 3 times. -->
+  <!-- ... while the `amp-state` with id `product` is just used to implement the show-more logic where we are allowing the user to click 3 times. -->
   <amp-state id="product">
     <script type="application/json">
     {
@@ -48,8 +47,8 @@ such e-commerce category pages, based on a simple user interaction on a button a
     </script>
   </amp-state>
 
-  <!-- The show more button is implemented via a form which trigger a page update by using the `submit-success` event.
-      We are then merging the form results into the items already loaded by the `amp-state`. -->
+  <!-- The show more button is implemented via a form which triggers a page update on the `submit-success` event.
+      We are then merging the form results into the items already loaded by the `amp-state` using the `concat` function. -->
     <form method="GET"
         action="/json/more_related_products_page"
         action-xhr="/json/more_related_products_page"
@@ -57,15 +56,15 @@ such e-commerce category pages, based on a simple user interaction on a button a
         on="submit-success: AMP.setState({
           productsState: { items: productsState.items.concat(event.response.items)},
           product: {moreItemsPageIndex: product.moreItemsPageIndex + 1,
-                    hasMorePages: event.response.hasMorePages}
-        });">
+                    hasMorePages: event.response.hasMorePages}}),
+          event.response.hasMorePages ? showMoreButton.show : showMoreButton.hide">
       <input type="hidden" name="moreItemsPageIndex" value="0" [value]="product.moreItemsPageIndex">
       <input type="submit" value="Show more"
-        class="ampstart-btn caps m1 mb3 show"
-        [class] = "(product.hasMorePages == false ? 'hide' : 'ampstart-btn caps m1 mb3 show')">
+        id="showMoreButton"
+        class="ampstart-btn caps m1 mb3"
     </form>
 
-  <!-- We bind the `src` attribute of the `amp-list` to the id of the `amp-state` component so that the `amp-list` will use the items
+  <!-- We bind the `src` attribute of the `amp-list` to the `amp-state` object containing the products
       from that component as a `src`. -->
   <amp-list src="/json/related_products.json" [src]="productsState.items" width="auto"
                 height="200"

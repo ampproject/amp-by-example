@@ -1,8 +1,7 @@
 <!-- ## Dynamic and cached product data details -->
 <!--
-This is a sample showing how to implement product data details like description, price, availability etc.
-AMPs can be served from the AMP Cache, for product dynamic data details, such prices and availability,
-it's critical that users never see stale data. This sample shows the best approaches for implementing product data details.
+This is a sample showing how to implement product data details such as description, price, availability etc.
+AMPs can be served from the AMP Cache. Due to the AMP Cache's stale-while-invalide caching strategy, one user will see stale data until the latest version has been fetched. This might be a problem if product data needs always to be up-to-date, for example, product availability. This sample demonstrates how to avoid stale data on cached AMPs.
 -->
 <!-- -->
 <!doctype html>
@@ -40,12 +39,12 @@ it's critical that users never see stale data. This sample shows the best approa
         Price: ${{price}}
      </template>
    </amp-list>
-  <!-- For product details such a descriptionb or title, where they are unlikely to change frequently, you don't need to use `amp-list`-->
+  <!-- For product details such a descriptionb or title, where are unlikely to change frequently, you don't need to use `amp-list`-->
   <p> An awesome product </p>
   <!-- if you need to make multiple calls to get all the data, that is not a problem in AMP since if multiple `amp-list` with the same `src` are found in the page, only one network call is actually made by the AMP runtime.
   By checking the network tab of the Chrome dev console, you can check that this second `amp-list` does not cause a second network call.
   Since we are using a [service-worker](https://www.ampproject.org/docs/reference/components/amp-install-serviceworker) you may see
-  2 similar calls one after the other to the same endpoint, so to better verify this behaviour, go to Application -> Service workers and click on Unregister.-->
+  two similar calls one after the other to the same endpoint, so to better verify this behaviour, go to Application -> Service workers and click on Unregister.-->
    <amp-list height="24"
      layout="fixed-height"
      src="/json/product.json"
