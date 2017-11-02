@@ -49,19 +49,19 @@ This is a sample showing how to implement the "show more" design pattern.
 
   <!-- The show more button is implemented via a form which triggers a page update on the `submit-success` event.
       We are then merging the form results into the items already loaded by the `amp-state` using the `concat` function. -->
-    <form method="GET"
-        action="/json/more_related_products_page"
-        action-xhr="/json/more_related_products_page"
-        target="_top"
-        on="submit-success: AMP.setState({
-          productsState: { items: productsState.items.concat(event.response.items)},
-          product: {moreItemsPageIndex: product.moreItemsPageIndex + 1,
-                    hasMorePages: event.response.hasMorePages}}),
-          event.response.hasMorePages ? showMoreButton.show : showMoreButton.hide">
-      <input type="hidden" name="moreItemsPageIndex" value="0" [value]="product.moreItemsPageIndex">
-      <input type="submit" value="Show more"
-        id="showMoreButton"
-        class="ampstart-btn caps m1 mb3"
+      <form method="GET"
+          action="/json/more_related_products_page"
+          action-xhr="/json/more_related_products_page"
+          target="_top"
+          on="submit-success: AMP.setState({
+            productsState: { items: productsState.items.concat(event.response.items)},
+            product: {moreItemsPageIndex: product.moreItemsPageIndex + 1,
+                      hasMorePages: event.response.hasMorePages}
+          });">
+        <input type="hidden" name="moreItemsPageIndex" value="0" [value]="product.moreItemsPageIndex">
+        <input type="submit" value="Show more"
+          class="ampstart-btn caps m1 mb3 show"
+          [class] = "(product.hasMorePages == false ? 'hide' : 'ampstart-btn caps m1 mb3 show')">
     </form>
 
   <!-- We bind the `src` attribute of the `amp-list` to the `amp-state` object containing the products
