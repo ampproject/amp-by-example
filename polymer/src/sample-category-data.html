@@ -30,13 +30,13 @@
       {
         name: 'AMPHTML',
         path: '/'
-      },
-      {
-        name: 'AMP for Ads',
-        path: '/amp-ads'
       }
     ];
     let linkList = [
+        {
+          name: 'AMP for Ads',
+          path: '/amp-ads/'
+        },
         {
           name: 'Playground',
           path: '/playground/'
@@ -68,9 +68,8 @@
 
         sections: {
           type: Array,
-          value: sectionList,
-          readOnly: true,
-          notify: true
+          notify: true,
+          value: sectionList
         },
 
         links: {
@@ -126,19 +125,12 @@
       handleResponse(data) {
         this.resources = data.detail.response
         this._initializeSamples(data)
-        this._initializeSamplesAds(data)
       }
 
       _initializeSamples(data) {
         this.categories = this._getCategoriesFromJson(data.detail.response[0]["categories"])
         this.title = data.detail.response[0]["title"]
         this.desc = data.detail.response[0]["desc"]
-      }
-
-      _initializeSamplesAds(data) {
-        this.adsCategories = this._getCategoriesFromJson(data.detail.response[1]["categories"])
-        this.adsTitle = data.detail.response[1]["title"]
-        this.adsDesc = data.detail.response[1]["desc"]
       }
 
       _getCategoriesFromJson(resource) {

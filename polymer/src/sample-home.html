@@ -76,13 +76,31 @@
         flex-flow: row wrap;
       }
 
+      .animate-in {
+        -webkit-animation: fadeIn .5s ease-in;
+        animation: fadeIn .5s ease-in;
+      }
+      .animate-out {
+        -webkit-transition: opacity .5s;
+        transition: opacity .5s;
+        opacity: 0;
+      }
+      @-webkit-keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
     </style>
     <sample-header></sample-header>
     <header class="www-header">
       <h1 class="mb4 px2 col-12 sm-col-8 mx-auto">[[title]]</h1>
       <span class="h3 block mb4 px2 col-12 sm-col-8 mx-auto">[[desc]]</span>
     </header>
-    <main class="pl2">
+    <main class="pl2 animate-in">
       <article class="www-components flex-auto flex justify-center">
         <dom-repeat items="[[categories]]">
           <template strip-whitespace>

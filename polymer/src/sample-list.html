@@ -65,6 +65,23 @@
           max-width: 50%;
         }
       }
+      .animate-in {
+        -webkit-animation: fadeIn .5s ease-in;
+        animation: fadeIn .5s ease-in;
+      }
+      .animate-out {
+        -webkit-transition: opacity .5s;
+        transition: opacity .5s;
+        opacity: 0;
+      }
+      @-webkit-keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
 
     </style>
 
@@ -92,7 +109,7 @@
       <h1 class="mb4 px2 col-12 sm-col-8 mx-auto">[[title]]</h1>
       <span class="h3 block mb4 px2 col-12 sm-col-8 mx-auto">[[desc]]</span>
     </header>
-    <main class="flex pl2">
+    <main class="flex pl2 animate-in">
       <aside class="www-components-sec-nav col-2 xs-hide sm-hide relative">
         <ul class="www-component-anchors list-reset m0 pt0 pb3 px1 caps">
             <template is="dom-repeat" items="{{categories}}">

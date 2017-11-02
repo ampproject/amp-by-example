@@ -34,9 +34,9 @@
   <header class="ampstart-headerbar fixed flex justify-start items-center top-0 left-0 right-0 pl2 pr4">
     <nav class="ampstart-headerbar-nav ampstart-nav xs-hide sm-hide">
       <ul class="list-reset m0 p0 flex justify-center nowrap">
-        <template is="dom-repeat" items="{{sections}}">
+        <template is="dom-repeat" items="{{sections}}" as="section">
           <li class="ampstart-nav-item abe-nav-list">
-            <a href="[[item.path]]" class="text-decoration-none block">[[item.name]]</a>
+            <a href="[[section.path]]" class="text-decoration-none block">[[section.name]]</a>
             <div class="abe-list-container">
               <div class="abe-list-shadow"></div>
               <ul class="list-reset m0 p0">
