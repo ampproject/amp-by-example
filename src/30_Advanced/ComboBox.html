@@ -23,7 +23,7 @@
   <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
   <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
-  <script async custom-element="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   
@@ -56,7 +56,6 @@
         .autosuggest-box {
             box-shadow: 0px 2px 6px rgba(0,0,0,.3);
             overflow-y: scroll;
-            max-height: 300px;
         }
 
         input.search-box {
@@ -115,9 +114,15 @@
             padding: 0 20px;
                     
         }
+
         .dropdown-wrap {
             padding-top: 2em;
             padding-left: 1em;
+        }
+
+        .dropdown-selector {
+            max-height: 420px;
+            overflow-y: scroll;
         }
     </style>
 </head>
@@ -143,33 +148,32 @@
                     <i [class]="(combostate || '') + ' icon-chevron-down pull-right'" class="icon-chevron-down pull-right"></i>
                 </button>
             </div>
-            <amp-list class="autosuggest-box"
-                        layout="fixed-height"
-                        height="420"
-                        src="/GetDropdownList"
-                        id="autosuggest-list"
-                        hidden>
-                <template type="amp-mustache">
-                    <amp-selector keyboard-select-mode="focus"
-                                    layout="container"
-                                    on="select:AMP.setState({
+            <amp-selector class="dropdown-selector"
+                          keyboard-select-mode="focus"
+                          layout="container"
+                          on="select:AMP.setState({
                                             query: '',
                                             inputText: event.targetOption.split(',')[1],
                                             foodId: event.targetOption.split(',')[0],
                                             combostate: combostate == 'arrow-up' ? '' : 'arrow-up'
                                         }),
                                         autosuggest-list.hide">
-                                        {{#DropdownOptions}}
-                                            <div class="select-option no-outline {{Level}}"
-                                                 [class]="'select-option no-outline {{Level}} ' + (query == null || '{{LowerCaseTitle}}'.indexOf(query.toLowerCase()) >= 0 || '{{ParentCategoryTitle}}'.indexOf(query.toLowerCase()) >= 0 ? '' : 'hidden')"
-                                                 role="option"
-                                                 tabindex="0"
-                                                 on="tap:autosuggest-list.hide"
-                                                 option="{{Code}},{{Title}}">{{Title}}</div>
-                                        {{/DropdownOptions}}
-                    </amp-selector>
-                </template>
-            </amp-list>
+                <amp-list class="autosuggest-box"
+                          layout="fixed-height"
+                          height="650"
+                          src="/json/food-options.json"
+                          id="autosuggest-list"
+                          hidden>
+                    <template type="amp-mustache">
+                        <div class="select-option no-outline {{Level}}"
+                             [class]="'select-option no-outline {{Level}} ' + (query == null || '{{LowerCaseTitle}}'.indexOf(query.toLowerCase()) >= 0 || '{{ParentCategoryTitle}}'.indexOf(query.toLowerCase()) >= 0 ? '' : 'hidden')"
+                             role="option"
+                             tabindex="0"
+                             on="tap:autosuggest-list.hide"
+                             option="{{Code}},{{Title}}">{{Title}}</div>
+                    </template>
+                </amp-list>
+            </amp-selector>
         </div>
     </div>
 
