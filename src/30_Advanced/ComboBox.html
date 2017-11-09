@@ -16,15 +16,14 @@
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <!-- ## Setup -->
-  <!--
-  The amp-selector component is used for the dropdown list options. The amp-bind component is used for the filtering of the dropdown options
-  according to the user's input. The fontawesome css icons are imported for the arrow icon.
-  -->
+  <!--The amp-selector component is used for the user to select amongst the dropdown list options.-->
   <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+   <!--The amp-bind component is used for the filtering of the dropdown options according to the user's input.-->
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+  <!-- The amp-list component is used to generate the dropdown list options.-->
   <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+  <!-- The amp-mustache is used to generate the dropdown list options' template.-->
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   
   <style amp-custom>
@@ -50,7 +49,8 @@
 
         .search-submit {
             font-size: 1.25em;
-            padding-right: 13px;
+            display: flex;
+            align-items: center;
         }
 
         .autosuggest-box {
@@ -62,7 +62,7 @@
             padding: 5px 8px;
             font-size: 1em;
             background-color: #fff;
-            font-family: Arial,"Helvetica Neue",Helvetica,sans-serif;
+            font-family: Arial,Helvetica,sans-serif;
             border: 1px solid #d4d4d4;
             line-height: 1.53333em;
             height: 2em;
@@ -91,7 +91,6 @@
         .select-option:focus {
             background: #fff;
         }
-
 
         .lvl3 {
             padding-left: 10px;
@@ -124,6 +123,30 @@
             max-height: 420px;
             overflow-y: scroll;
         }
+
+        /*------Material icons css-------*/
+        @font-face {
+        font-family: 'Material Icons';
+        font-style: normal;
+        font-weight: 400;
+        src: url(https://fonts.gstatic.com/s/materialicons/v31/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+        }
+
+        .material-icons {
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -webkit-font-feature-settings: 'liga';
+        -webkit-font-smoothing: antialiased;
+        }
     </style>
 </head>
 <body>
@@ -131,10 +154,9 @@
   <!-- ## Basic Usage -->
   <!--
   This example includes two inputs. One is the input in which the user writes the text and the other is a hidden input, 
-  where the id value of the selected option is stored and could be submited in a form.
+  where the id value of the selected option is stored and could be submitted in a form.
 
-  The dropdown list's options are rendered server side, instead of using amp-list to maximize responsiveness. 
-  The 'option' attribute of the amp-selector's options, contain the id of the element, as well as its title, seperated by a comma.
+  The option attribute of the amp-selector's options, contain the id of the element, as well as its title, seperated by a comma.
   This is done so that both values can be accessed using the 'event.targetOption' property. 
   -->
   <div class="dropdown-wrap">
@@ -145,7 +167,7 @@
                 <input id="query" name="query" autocomplete="off" placeholder="Select a product" type="text" class="search-box" on="input-debounced:AMP.setState({ query: event.value, inputText: event.value, autosuggest: event.value, combostate: 'arrow-up'}), autosuggest-list.show" [value]="inputText || ''" value="">
 
                 <button on="tap:autosuggest-list.toggleVisibility, AMP.setState({ combostate: combostate == 'arrow-up' ? '' : 'arrow-up' })" class="search-submit user-valid valid" type="button">
-                    <i [class]="(combostate || '') + ' icon-chevron-down pull-right'" class="icon-chevron-down pull-right"></i>
+                    <i [class]="(combostate || '') + ' material-icons pull-right'" class="material-icons pull-right">&#xE313;</i>
                 </button>
             </div>
             <amp-selector class="dropdown-selector"
