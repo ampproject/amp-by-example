@@ -76,7 +76,13 @@ func setFavoriteWithCount(w http.ResponseWriter, r *http.Request) {
 }
 
 func writeFavoriteWithCount(w http.ResponseWriter, favorite bool) {
-	response := fmt.Sprintf("{ \"value\": %t, \"count\": 123}", favorite)
+	var count int
+	if favorite {
+		count = 124
+	} else {
+		count = 123
+	}
+	response := fmt.Sprintf("{ \"value\": %t, \"count\": %d}", favorite, count)
 	w.Write([]byte(response))
 }
 
@@ -86,11 +92,10 @@ func writeFavorite(w http.ResponseWriter, favorite bool) {
 }
 
 func writeFavoriteCookie(w http.ResponseWriter, r *http.Request, name string, value bool) {
-	expireInOneDay := time.Now().AddDate(0, 0, 1)
+	expireInOneYear := time.Now().AddDate(1, 0, 0)
 	cookie := &http.Cookie{
 		Name:    name,
-		Expires: expireInOneDay,
-		Path:    "/",
+		Expires: expireInOneYear,
 		Value:   strconv.FormatBool(value),
 	}
 	http.SetCookie(w, cookie)
