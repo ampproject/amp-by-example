@@ -76,7 +76,13 @@ func setFavoriteWithCount(w http.ResponseWriter, r *http.Request) {
 }
 
 func writeFavoriteWithCount(w http.ResponseWriter, favorite bool) {
-	response := fmt.Sprintf("{ \"value\": %t, \"count\": 123}", favorite)
+	var count int
+	if favorite {
+		count = 124
+	} else {
+		count = 123
+	}
+	response := fmt.Sprintf("{ \"value\": %t, \"count\": %d}", favorite, count)
 	w.Write([]byte(response))
 }
 

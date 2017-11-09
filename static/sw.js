@@ -21,9 +21,9 @@ const config = {
 };
 
 const IGNORED_URLS = [
-  'shopping_cart',
-  'favorite',
-  'favorite-with-count'
+  /.*\/shopping_cart$/,
+  /.*\/favorite$/,
+  /.*\/favorite-with-count$/,
 ];
 
 config.filesToCache = [
@@ -67,10 +67,13 @@ function requestAccepts(request, contentType) {
  * - generates placeholder image for unavailable images
  */
 function ampByExampleHandler(request, values) {
+  if (shouldNotCache(request)) {
+    return toolbox.networkOnly(request, values);
+  }
   // for samples show offline page if offline and samples are not cached
   if (requestAccepts(request, 'text/html')) {
     // never use cached version for AMP CORS requests (e.g. amp-live-list) or pages that shouldn't be cached
-    if (request.url.indexOf("__amp_source_origin") != -1 || shouldNotCache(request)) {
+    if (request.url.indexOf("__amp_source_origin") != -1) {
       return toolbox.networkOnly(request, values);
     }
     // network first, we always want to get the latest
@@ -102,8 +105,10 @@ function ampByExampleHandler(request, values) {
 }
 
 function shouldNotCache(request) {
+  const path = new URL(request.url).pathname;
   return IGNORED_URLS.some(url => {
-    return request.url.indexOf(url) != -1
+    //console.log('ignore? ' + path + ' ' + url + ' -> ' + url.test(path));
+    return url.test(path);
   });
 }
 
