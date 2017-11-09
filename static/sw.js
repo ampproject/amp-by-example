@@ -20,7 +20,11 @@ const config = {
   offlinePage: '/youre_offline/'
 };
 
-const IGNORED_URLS = ['shopping_cart'];
+const IGNORED_URLS = [
+  'shopping_cart',
+  'favorite',
+  'favorite-with-count'
+];
 
 config.filesToCache = [
   '/',
@@ -58,7 +62,7 @@ function requestAccepts(request, contentType) {
 /**
  * ampbyexample.com fetch handler:
  *
- * - one-behind caching 
+ * - one-behind caching
  * - shows offline page
  * - generates placeholder image for unavailable images
  */
@@ -69,7 +73,7 @@ function ampByExampleHandler(request, values) {
     if (request.url.indexOf("__amp_source_origin") != -1 || shouldNotCache(request)) {
       return toolbox.networkOnly(request, values);
     }
-    // network first, we always want to get the latest 
+    // network first, we always want to get the latest
     return toolbox.networkFirst(request, values).catch(function() {
       return toolbox.cacheOnly(new Request(config.offlinePage), values)
         .then(function(response) {
@@ -98,13 +102,15 @@ function ampByExampleHandler(request, values) {
 }
 
 function shouldNotCache(request) {
-  return IGNORED_URLS.some(url => request.url.indexOf(url) != -1);
+  return IGNORED_URLS.some(url => {
+    return request.url.indexOf(url) != -1
+  });
 }
 
 toolbox.options.debug = false;
 toolbox.router.default = toolbox.networkFirst;
 toolbox.router.get('/(.*)', ampByExampleHandler, {origin: self.location.origin});
-// network first amp runtime 
+// network first amp runtime
 toolbox.router.get('/(.*)', toolbox.networkFirst, {origin: 'https://cdn.ampproject.org'});
 
 toolbox.precache(config.filesToCache);

@@ -86,11 +86,10 @@ func writeFavorite(w http.ResponseWriter, favorite bool) {
 }
 
 func writeFavoriteCookie(w http.ResponseWriter, r *http.Request, name string, value bool) {
-	expireInOneDay := time.Now().AddDate(0, 0, 1)
+	expireInOneYear := time.Now().AddDate(1, 0, 0)
 	cookie := &http.Cookie{
 		Name:    name,
-		Expires: expireInOneDay,
-		Path:    "/",
+		Expires: expireInOneYear,
 		Value:   strconv.FormatBool(value),
 	}
 	http.SetCookie(w, cookie)
