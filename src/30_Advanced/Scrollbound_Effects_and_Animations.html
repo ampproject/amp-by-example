@@ -1,6 +1,18 @@
 <!--
   ## Introduction
 
+  [amp-position-observer](https://www.ampproject.org/docs/reference/components/amp-position-observer)
+  combined with [amp-animation](https://www.ampproject.org/docs/reference/components/amp-animation) is
+  a powerful low-level building-block that can handle various uses-cases such as **scrollbound animations**,
+  **parallax effects** and **transitions** as elements enter and exit the viewport, such as images
+  fade-in and fade-out.
+
+  In this tutorial, we will go through some of these use-cases in detail.
+
+-->
+
+<!--
+  ## Components
   [amp-position-observer](https://www.ampproject.org/docs/reference/components/amp-position-observer) is a
   functional component that monitors the position of an element within the viewport as a user scrolls,
   and dispatches `enter`, `exit` and `scroll:<Position In Viewport As a Percentage>` events.
@@ -9,20 +21,8 @@
   defined by [amp-animation](https://www.ampproject.org/docs/reference/components/amp-animation) or
   videos to create scrollbound and visibility-based behavior.
 
-  The `amp-position-observer` component is only useful when used with other components
-  and does not do anything on its own.
--->
-
-<!--
-  ## Use Cases
-
-  [amp-position-observer](https://www.ampproject.org/docs/reference/components/amp-position-observer)
-  combined with [amp-animation](https://www.ampproject.org/docs/reference/components/amp-animation) becomes
-  a powerful low-level building-block that can handle various uses-cases such as **scrollbound animations**,
-  **parallax effects** and **transitions** as elements enter and exit the viewport such as images
-  fade-in and fade-out.
-
-  In this tutorial, we will go through some of these use-cases.
+  [amp-animation](https://www.ampproject.org/docs/reference/components/amp-animation) is a UI component
+  that relies on [Web Animations API](https://www.w3.org/TR/web-animations/) to define and run animations in AMP documents.
 -->
 
 <!-- -->
@@ -32,10 +32,10 @@
   <meta charset="utf-8">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <!-- ## Setup -->
-  <!--  Import the amp-position-observer component in the header. -->
+  <!--  Import the amp-position-observer and amp-animation  components in the header. -->
   <script async custom-element="amp-position-observer" src="https://cdn.ampproject.org/v0/amp-position-observer-0.1.js"></script>
 
-  <!--  Import the amp-animation component as well to be compibed with amp-position-observer for this tutorial-->
+  <!--  Import the amp-animation component in the header-->
   <script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
 
   <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
