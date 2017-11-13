@@ -113,17 +113,21 @@
   -->
 
   <!--
-  We define our fidget spinner scene as a `div` with an `image`.
+  Our fidget spinner scene is a `div` with an `image`. We add an
+  `amp-position-observer` element as child of the scene to monitor its progress
+  through the viewport. Let's take a look at the details:
 
-  We add an `amp-position-observer` element as child of the scene to monitor
-  its progress through the viewport (position observer acts on its immediate parent by default).
-
-  By defining an `on:scroll` action, we seek through the timeline of the keyframe
-  animation that we will define later in the next section.
-
-  By setting `intersection-ratios`, we define how much of the scene should be
+  - **`on:scroll`**: This event is triggered by position observer as the position of the
+  scene is changed when user scrolls. The event provides a percentage value
+  (decimal between 0 and 1) representing how far the scene is between the start and
+  end of its progress through the viewport.
+  - **`spinAnimation.seekTo(percent=event.percent)`**: We will define an `amp-animation`
+  that will do the spinning in the next step, here we are coupling `amp-position-observer` and
+  `amp-animation` by triggering a `seekTo` action on the animation as `scroll` events occurs.
+  This is how we specify that we like to progress through the animation
+  timeline as the scene progresses through the viewport via scrolling.
+  - **`intersection-ratios`**: Defines how much of the scene should be
   visible in the viewport before `amp-position-observer` triggers any of its events.
-
   Here, we like the spinning to happen only when fidget spinner is fully visible so
   we set it to `1`.
   -->
@@ -140,10 +144,20 @@
 
    Fairly straightforward in this case, we want `fidgetSpinnerImage` to rotate
    360 degrees, so we just define a `"transform": "rotate(360deg)"` as the last (and only)
-   keyframe.
+   keyframe. Let's take a look at the details:
 
-   The value of `duration` is irrelevant in this case since we progress through
-   the timeline via scoling so we just set it to `1`.
+   * **`id="spinAnimation"`**: We need to give the animation an Id so we can reference it from postion observer.
+   * **`"duration": "1"`**: The value of `duration` is irrelevant in this case since we progress through
+   the timeline via scrolling so we just set it to `1`
+   * **`"direction": "reverse"`**: This is needed due an iOS bug with Web Animations.
+   * **`"animations"`**: Here we can define one or more keyframe-based animations. In our case, we only need one.
+   * **`"selector"`**: `"#fidgetSpinnerImage"` is the selector that targets the fidget spinner for the animation.
+   * **`"keyframes":`** We define a `"transform": "rotate(360deg)"` as the last (and only)
+   keyframe. Note that `amp-animation` automatically fills the first keyframe if not provided.
+  -->
+  <!--
+   `amp-animation` has plenty of other features, please see
+   [the API reference](https://www.ampproject.org/docs/reference/components/amp-animation) to learn more about `amp-animations`.
   -->
   <amp-animation id="spinAnimation" layout="nodisplay">
     <script type="application/json">
@@ -178,12 +192,10 @@
 
   <!--
   Our card scene is simply composed of an image and an overlayed title.
+  Here we define two position observers with different `intersection-ratios` values:
 
-  Here we define two position observers with different `intersection-ratios` values.
-
-  The first one will control the opacity of the image as user scrolls.
-
-  The second one will run a timebound slide animation for the title when the
+  * The first one will control the opacity of the image as user scrolls.
+  * The second one will run a timebound slide animation for the title when the
   scene becomes mostly visible (80%) and runs it again "in reverse" when scene
   exits the viewport a bit (20%).
   -->
