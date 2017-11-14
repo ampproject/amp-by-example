@@ -20,6 +20,8 @@ import (
 	"net/http"
 )
 
+const SHOPPING_CART_TOTAL = 9.94
+
 var discounts map[string]float32
 
 func InitCheckout() {
@@ -34,7 +36,7 @@ func handleApplyCode(w http.ResponseWriter, r *http.Request) {
 	SetMaxAge(w, 0)
 	if r.Method == "POST" {
 		clientId := r.FormValue("clientId")
-		discounts[clientId] = 0.8
+		discounts[clientId] = 0.2
 		writeShoppingCart(w, r, clientId)
 	}
 }
@@ -50,14 +52,20 @@ func handleShoppingCart(w http.ResponseWriter, r *http.Request) {
 }
 
 func writeShoppingCart(w http.ResponseWriter, r *http.Request, clientId string) {
-	w.Header().Set("Content-Type", "application/json")
+	SetContentTypeJson(w)
 	discount := discounts[clientId]
-	if discount == 0 {
-		discount = 1
+	total := SHOPPING_CART_TOTAL - SHOPPING_CART_TOTAL*discount
+	cart := createShoppingCart()
+	cart["total"] = fmt.Sprintf("%.2f", total)
+	if discount > 0 {
+		cart["discount"] = fmt.Sprintf("%g%%", (discount * 100))
 	}
-	total := 9.94 * discount
-	cart := map[string]interface{}{
-		"total": fmt.Sprintf("%.2f", total),
+	jsonString, _ := json.Marshal(cart)
+	w.Write([]byte(jsonString))
+}
+
+func createShoppingCart() map[string]interface{} {
+	return map[string]interface{}{
 		"items": []interface{}{
 			map[string]interface{}{
 				"name":     "Item 1",
@@ -76,9 +84,4 @@ func writeShoppingCart(w http.ResponseWriter, r *http.Request, clientId string) 
 			},
 		},
 	}
-	if discount != 1 {
-		cart["discount"] = "20%"
-	}
-	jsonString, _ := json.Marshal(cart)
-	w.Write([]byte(jsonString))
 }
