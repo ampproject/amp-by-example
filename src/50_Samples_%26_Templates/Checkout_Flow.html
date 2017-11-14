@@ -257,7 +257,7 @@
                       <input type="radio" id="address{{id}}" name="address" value="{{id}}" on="change:manualShippingAddress.hide">
                       <label for="address{{id}}">{{name}}, {{street}}, {{city}} </label>
                       {{/default}}
-                      {{^default}}
+                      {{#default}}
                       <input type="radio" checked id="defaultAddress{{id}}" name="address" value="{{id}}" on="change:manualShippingAddress.hide">
                       <label for="defaultAddress{{id}}">{{name}}, {{street}}, {{city}} {{#default}}<strong class="xs-hide">[DEFAULT]</strong>{{/default}}</label>
                       {{/default}}
