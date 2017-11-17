@@ -156,7 +156,7 @@
 
       <!-- ## Review Order (Shopping Cart) -->
       <!-- The review order section displays the current shopping cart content and the total price. We pull in the shopping cart content from a JSON endpoint and render it inside an `amp-list`. The user is identified based on the AMP CLIENT_ID which is passed as
-        a request parameter. Additionally, we bind the amp-list's `src` attribute to an implicit state object `[src]="shoppingCart.src"`, which we use to refresh the content using `amp-bind`.
+        a request parameter. Another possibility would be to use cookies, which are included in the amp-list's source request, if the attribute `credentials="include"` is set. Additionally, we bind the amp-list's `src` attribute to an implicit state object `[src]="shoppingCart.src"`, which we use to refresh the content using `amp-bind`.
         -->
         <section [class]="checkoutSuccess ? 'hide' : 'checkout-section'" class="checkout-section">
           <h3 class="">Review Order</h3>
@@ -165,6 +165,7 @@
                     items="."
                     single-item
                     layout="fixed-height"
+                    credentials="include"
                     src="/checkout/shopping-cart?clientId=CLIENT_ID(cart)"
                     [src]="shoppingCart.src">
             <template type="amp-mustache">
@@ -250,6 +251,7 @@
                         layout="fixed-height"
                         items="."
                         single-item
+                        credentials="include"
                         src="/json/addresses.json">
                 <template type="amp-mustache">
                   <ul class="list-reset">
@@ -351,6 +353,7 @@
                         layout="fixed-height"
                         items="."
                         single-item
+                        credentials="include"
                         src="/json/credit-cards.json">
                 <template type="amp-mustache">
                   <ul class="list-reset">
@@ -419,5 +422,9 @@
           <section class="hide" [class]="checkoutSuccess ? 'checkout-section' : 'hide'">
             <h3>Checkout success!</h3>
           </section>
+
+          <!-- <div class="card important">
+              **Note:** this sample does not include any form validation. However, this can be easily added using AMP's support for [custom form validation](https://ampbyexample.com/components/amp-form/#form-custom-validation).</div> -->
+
     </body>
   </html>
