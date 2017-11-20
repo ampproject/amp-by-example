@@ -1,0 +1,129 @@
+<!---{
+  "preview": "default",
+  "default": "preview"
+  }--->
+<!--
+  ## Introduction
+
+  TODO: a quick intro
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <link rel="canonical" href="<%host%>/../dynamic_amp/multi_page_">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+  <!-- ## Setup -->
+  <!--
+  TODO: explain which components need to be imported. No need to explain the AMP boilerplate.
+  -->
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+<style amp-custom>
+/* A multi-page */
+.container {
+  position: relative;
+  overflow-x: hidden;
+  height: 400px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+.page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.25s cubic-bezier(0, 0, 0.3, 1);
+}
+.active {
+  transform: translateX(0%);
+  pointer-events: auto;
+}
+.page:not(.active) {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.next {
+  transform: translateX(100%);
+}
+.previous {
+  transform: translateX(-100%);
+}
+/* Some sample specific styling */
+.container {
+  background: #f2f2f2;
+}
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.page > div {
+  height: 100%;
+  margin: 0.5rem 0;
+}
+.align-self-end {
+  align-self: flex-end;
+}
+.align-self-start {
+  align-self: flex-start;
+}
+</style>
+</head>
+<body>
+
+  <h1 class="m1 p1">Multi Page Flow</h1>
+
+  <div class="container">
+    <section class="page active" 
+             [class]="currentPage > 0 ? 'page previous' : 'page active'"> 
+      <div>
+        <h2>Page 1</h2>
+        <p>This is some random content.</p>
+      </div>
+      <button on="tap:AMP.pushState({ currentPage: currentPage + 1 })"
+              class="align-self-end ampstart-btn ampstart-btn-secondary caps"
+              >next</button>
+    </section>
+    <section class="page next" 
+             [class]="currentPage < 1 ? 'page next' : 
+             (currentPage > 1 ? 'page previous' : 'page active')"> 
+      <div>
+        <h2>Page 2</h2>
+        <p>This is some random content.</p>
+      </div>
+      <button on="tap:AMP.pushState({ currentPage: currentPage + 1 })"
+              class="align-self-end ampstart-btn ampstart-btn-secondary caps"
+              >next</button>
+    </section>
+    <section class="page next" 
+             [class]="currentPage < 2 ? 'page next' : 
+             (currentPage > 2 ? 'page previous' : 'page active')"> 
+      <div>
+        <h2>Page 3</h2>
+        <p>This is some random content.</p>
+      </div>
+      <form method="post" 
+            action-xhr="https://ampbyexample.com/checkout/apply-code" 
+            on="submit-success:AMP.pushState({currentPage: currentPage + 1})" 
+            target="_top" 
+            class="align-self-end"
+            novalidate="">
+        <input type="submit" 
+               value="Submit"
+               class="ampstart-btn ampstart-btn-secondary caps">
+      </form>
+    </section>
+    <section class="page next" 
+             [class]="currentPage == 3 ? 'page active' : 'page next'"> 
+      <div>
+        <h2>Success</h2>
+        <p>You did it!</p>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
