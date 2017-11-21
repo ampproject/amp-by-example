@@ -26,8 +26,7 @@ This is a sample showing how to show dynamic content after an user interaction: 
 </head>
 <body>
   <!-- ## How to get dynamic content -->
-  <!-- By using `amp-bind` and `amp-state`, a user can get up-to-date data after an interaction.
-  The approach is to use [amp-bind](/components/amp-bind/) with a JSON endpoint. -->
+  <!-- By using `amp-bind` and `amp-state` with a JSON end-point, a user can get up-to-date data after an interaction. As `amp-bind` statements are not evaluated on page load, the updated state is only available after an user interaction, which works well for use cases such as specific product availability. -->
     <div>
     <amp-state id="products" src="<%host%>/json/products.json"></amp-state>
 
