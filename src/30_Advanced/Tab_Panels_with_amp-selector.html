@@ -21,6 +21,8 @@
     <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
     <!-- Import `amp-carousel` component in the header which we'll use as a sample tab content -->
     <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+    <!-- Import `amp-bind` component in the header which we'll use to switch tabs via buttons -->
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
     <!-- There's just a bit of css that's needed -->
     <style amp-custom>       
         .ampTabContainer {
@@ -112,6 +114,26 @@
         <div role="tab" class="tabButton" option="b">Short Container</div>
         <div role="tabpanel" class="tabContent">Hi! I'm content</div>
     </amp-selector>
+
+    <!--
+    ### Selecting Tab Panels via buttons
+    This example shows a basic example with three panels, with an option to select each tab via a button.
+    -->
+    <div>
+      <amp-selector on="select:AMP.setState({selectedTab: event.targetOption})" [selected]="selectedTab" role="tablist" layout="container" class="ampTabContainer">
+          <div role="tab" class="tabButton" selected option="a">Tab one</div>
+          <div role="tabpanel" class="tabContent">Tab one content... </div>
+          <div role="tab" class="tabButton" option="b">Tab two</div>
+          <div role="tabpanel" class="tabContent">Tab two content... </div>
+          <div role="tab" class="tabButton" option="c">Tab three</div>
+          <div role="tabpanel" class="tabContent">Tab three content... </div>
+      </amp-selector>
+
+      <button on="tap:AMP.setState({selectedTab: 'a'})">Select tab 1</button>
+      <button on="tap:AMP.setState({selectedTab: 'b'})">Select tab 2</button>
+      <button on="tap:AMP.setState({selectedTab: 'c'})">Select tab 3</button>
+    </div>
+
 </body>
 
 </html>
