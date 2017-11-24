@@ -23,7 +23,8 @@
         </a>
         <h1 id="abe-preview-header-title" class="h3 center truncate caps">Demo: {{subHeading}}</h1>
       </div>
-    <div id="abe-preview" class="ampstart-card m1">
+    <div id="abe-preview">
+      <div class="ampstart-card m1">
       {{#metadata.experiments.length}}
       <div class="p1">
         {{> experiment.html}}
@@ -34,6 +35,7 @@
       {{{preview}}}
       {{/document.sections}}
     {{^isEmbed}}
+      </div>
     </div>
     {{/isEmbed}}
     {{> analytics.html}}
