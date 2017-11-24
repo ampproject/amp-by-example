@@ -1,0 +1,194 @@
+<!---{
+  "preview": "default",
+  "default": "preview",
+  "hideCode": true
+  }--->
+<!--
+## Introduction
+
+This sample showcases how to show an enlarged picture when hovering.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+
+    <link rel="canonical" href="<%host%>/advanced/hover_zoom/">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style amp-custom>
+    <%>css/product.css%>
+    #product-description {
+      clear: both;
+    }
+
+    .price-description {
+      color: grey;
+      font-weight: 400;
+      margin-top: 24px;
+      margin-bottom: 16px;
+      padding: 0 16px;
+    }
+    .product-gallery > ul {
+      margin: 0;
+      padding: 0;
+      float: left;
+      list-style: none;
+      line-height: 0;
+    }
+    .product-gallery > ul > li {
+      cursor: pointer;
+      margin: 0 1em 1em 1em;
+      opacity: 1;
+      will-change: opacity;
+      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+    .product-gallery > ul > li:active {
+      opacity: 0.5;
+    }
+    .product-gallery > ul > li:focus {
+      outline: none;
+    }
+    .product-gallery amp-img:focus {
+      outline: none;
+    }
+    .product-group {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      0% {opacity: 0;}
+      100% {opacity: 1;}
+    }
+    .fadeIn {
+      animation-duration: 1s;
+      animation-fill-mode: both;
+      animation-name: fadeIn;
+    }
+    .hide {
+      display: none;
+    }
+    .show {
+      display: block;
+    }
+
+    div.square {
+      width: 40px;
+      height: 40px;
+    }
+
+    .green {
+      background-color: #008000;
+    }
+
+
+    @media (max-width: 1024px) {
+      .product-gallery > ul {
+        display: none;
+      }
+    }
+
+    .product-gallery .product-group .zoomed {
+      visibility: hidden;
+    }
+
+    .product-gallery .product-group:hover .zoomed {
+  	   visibility: visible;
+    }
+
+    .price-description {
+      color: grey;
+      font-weight: 400;
+      margin-top: 24px;
+      margin-bottom: 16px;
+      padding: 0 16px;
+      position: absolute;
+    }
+
+    .price-image amp-img {
+      position: absolute;
+    }
+
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    </head>
+    <body>
+
+    <h2 class="m1">Apple</h2>
+
+    <!-- ## Slides preview Gallery -->
+    <!--On desktop we've added a film strip like slide preview. Each product colour has its own image gallery and slide preview.
+    We use [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind) to update the page selecting the gallery and image preview
+    corresponding to the selected colour. We realized the color selection by using `amp-selector`. Find more the doc and info in The Product Page section below.
+
+    The green colour is the default color for the gallery when the page loads.
+    Clicking on a preview image will reveal the image in the gallery via the tap action `on="tap:AMP.setState({product: {selectedSlideForGreen: 0}})"`.
+
+    See below for more informations on how we use`amp-bind`. -->
+  <div class="product-gallery">
+    <ul>
+      <li>
+        <amp-img on="tap:AMP.setState({product: {selectedSlideForGreen: 0}})"
+                  src="/img/green_apple_1_60x40.jpg"
+                  width="60" height="40"
+                  class="selected"
+                  [class]="product.selectedSlideForGreen == 0 ? 'selected' : '' "
+                  tabindex="0" role="button">
+        </amp-img>
+      </li>
+      <li>
+        <amp-img on="tap:AMP.setState({product: {selectedSlideForGreen: 1}})"
+                  src="/img/green_apple_2_60x40.jpg"
+                  width="60" height="40"
+                  [class]="product.selectedSlideForGreen == 1 ? 'selected' : '' "
+                  tabindex="1" role="button">
+        </amp-img>
+      </li>
+    </ul>
+
+
+  </div>
+   <!-- ## Image Gallery -->
+  <!-- We are binding to the `class` by using to the values of the variable `selectedSlideForGreen`. -->
+  <div class="product-gallery">
+    <div class="product-group">
+      <amp-img
+      src = '/img/green_apple_1_300x200.jpg'
+      [src] = "product.selectedSlideForGreen == 0 ? '/img/green_apple_1_300x200.jpg' : '/img/green_apple_2_300x201.jpg'"
+                width="300" height="200"
+                layout="fixed"
+                role="button" tabindex="0">
+      </amp-img>
+      <div class="price-image">
+        <p class="price-description">Price:
+          <span>$5.99</span>
+        </p>
+        <amp-img
+        src = '/img/product1_580x326.jpg'
+        [src] = "product.selectedSlideForGreen == 0 ? '/img/product1_580x326.jpg' : '/img/green_apple_2_580x388.jpg'"
+                  width="580" height="386"
+                  class="zoomed"
+                  layout="fixed"
+                  role="button" tabindex="0">
+        </amp-img>
+      </div>
+    </div>
+  </div>
+  <!-- ## Product Configuration -->
+  <!-- We use the `amp-state` component (part of [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind))
+      to configure the product price depending on the color and the size. We also configure the `defaultSize`
+      for each product when you switch between colours and the size you previously selected is not available for the new color -->
+  <amp-state id="product">
+    <script type="application/json">
+    {
+      "selectedSlideForGreen": 0
+    }
+    </script>
+  </amp-state>
+
+    </body>
+</html>
