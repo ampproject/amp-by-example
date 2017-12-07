@@ -22,7 +22,7 @@
 amp-selector, button {
   margin: 1rem;
 }
-amp-selector:not([disabled]) [option][selected]:not([disabled]) {
+amp-selector:not([disabled]) amp-img[option][selected]:not([disabled]) {
   outline-color: #b60845;
   outline-width: 2px;
 }
@@ -37,6 +37,32 @@ amp-selector [disabled] {
 .divider {
   border-right: 2px solid #333;
   height: 40px;
+}
+amp-selector.radio-selector {
+  list-style: none;
+}
+amp-selector.radio-selector [option][selected] {
+  outline: none;
+}
+amp-selector.radio-selector [option] {
+  display: flex;
+  align-items: center;
+}
+amp-selector.radio-selector [option]:before {
+  transition: background 0.25s ease-in-out;
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin: 8px;
+  border-radius: 100%;
+  border: solid 1px black;
+}
+amp-selector.radio-selector [option][selected]:before {
+  text-align: center;
+  content: "✓";
+  color: white;
+  background: black;
 }
 </style>
 </head>
@@ -108,20 +134,17 @@ amp-selector [disabled] {
 
   <!-- ## Forms -->
   <!--
-Inside a form, `amp-selector` behaves like a radio-button/checkbox group and submits the selected value(s) against the name of the amp-selector.
+Inside a form, `amp-selector` behaves like a radio-button/checkbox group and submits the selected value(s) against the name of the amp-selector. Here we've styled an amp-selector to function like a radio list. Using `amp-selector` for this has the advantage that bindings using [`amp-bind`](/components/amp-bind/) are easier to implement.
   -->
 <form action="#" method="get" target="_top">
-  <amp-selector layout="container" name="form-select" multiple>
-    <ul class="m0 p0">
-      <li option="a" class="px1 mb1">Option A</li>
-      <li option="b" class="px1 mb1">Option B</li>
-      <li option="c" class="px1 mb1">Option C</li>
-      <li option="na" selected class="px1 mb1">N/A</li>
-    </ul>
+  <amp-selector class="radio-selector" layout="container" name="my-selector">
+    <div option="a">Option A</div>
+    <div option="b">Option B</div>
+    <div option="c">Option C</div>
   </amp-selector>
   <input type="submit"
          value="Select"
-         class="ampstart-btn ampstart-btn-secondary caps">
+         class="ampstart-btn ampstart-btn-secondary caps m1">
 </form>
 
 </body>
