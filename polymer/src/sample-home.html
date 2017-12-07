@@ -19,10 +19,9 @@
 <dom-module id="sample-home">
 
   <!-- Need to use absolute URL because of https://github.com/Polymer/polymer-cli/issues/892 -->
-  <link rel="import" type="css" href="https://www.ampbyexample.com/css/ampstart.css">
-  <link rel="import" type="css" href="https://www.ampbyexample.com/css/example.css">
-  <link rel="import" type="css" href="https://www.ampbyexample.com/css/shared.css">
-  <link rel="import" href="sample-header.html">
+  <link rel="import" type="css" href="https://amp-by-example-staging.appspot.com/css/ampstart.css">
+  <link rel="import" type="css" href="https://amp-by-example-staging.appspot.com/css/example.css">
+  <link rel="import" type="css" href="https://amp-by-example-staging.appspot.com/css/shared.css">
 
   <template>
 
@@ -76,50 +75,32 @@
         flex-flow: row wrap;
       }
 
-      .animate-in {
-        -webkit-animation: fadeIn .5s ease-in;
-        animation: fadeIn .5s ease-in;
-      }
-      .animate-out {
-        -webkit-transition: opacity .5s;
-        transition: opacity .5s;
-        opacity: 0;
-      }
-      @-webkit-keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
       }
 
     </style>
-    <sample-header></sample-header>
     <header class="www-header">
       <h1 class="mb4 px2 col-12 sm-col-8 mx-auto">[[title]]</h1>
       <span class="h3 block mb4 px2 col-12 sm-col-8 mx-auto">[[desc]]</span>
     </header>
-    <main class="pl2 animate-in">
+    <main class="pl2 animate-in flex">
       <article class="www-components flex-auto flex justify-center">
-        <dom-repeat items="[[categories]]">
-          <template strip-whitespace>
-            <section class="www-component-desc" id="[[item.id]]">
-              <div>
+            <section class="www-component-desc">
                   <div class="abe-examples flex flex-wrap">
-                    <div class="ampstart-card abe-sample-card flex flex-column flex-auto p1 mb1">
-                        <a href$="/polymer/list/[[item.id]]">
-                          <h3 class="mb1">[[item.name]]</h3>
-                          <p class="mb1">[[item.desc]]</p>
-                        </a>
-                    </div>
+                    <dom-repeat items="[[categories]]">
+                      <template strip-whitespace>
+                            <a class="text-decoration-none ampstart-card abe-sample-card flex flex-column flex-auto p1 mb1" href$="/polymer/list/[[item.id]]">
+                              <h3 class="mb1">[[item.name]]</h3>
+                              <p class="mb1">[[item.desc]]</p>
+                            </a>
+                      </template>
+                    </dom-repeat>
                   </div>
-              </div>
             </section>
-          </template>
-        </dom-repeat>
       </article>
     </main>
+
+    <!-- Show spinner when waiting for the server to repond -->
+    <paper-spinner-lite active="[[waiting]]"></paper-spinner-lite>
 
   </template>
 
@@ -139,6 +120,11 @@
         visible: {
           type: Boolean,
           observer: '_visibleChanged'
+        },
+
+        waiting: {
+          type: Boolean,
+          notify: true
         }
 
       }}

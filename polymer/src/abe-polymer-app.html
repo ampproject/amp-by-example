@@ -11,14 +11,15 @@
 <link rel="import" href="../node_modules/@npm-polymer/app-layout/helpers/helpers.html">
 <link rel="import" href="sample-home.html">
 <link rel="import" href="sample-category-data.html">
+<link rel="import" href="sample-header.html">
 
 <dom-module id="abe-polymer-app">
 
   <!-- Need to use absolute URL because of https://github.com/Polymer/polymer-cli/issues/892 -->
-  <link rel="import" type="css" href="https://www.ampbyexample.com/css/example.css">
-  <link rel="import" type="css" href="https://www.ampbyexample.com/css/ampstart.css">
-  <link rel="import" type="css" href="https://www.ampbyexample.com/css/styles.css">
-  <link rel="import" type="css" href="https://www.ampbyexample.com/css/shared.css">
+  <link rel="import" type="css" href="https://amp-by-example-staging.appspot.com/css/example.css">
+  <link rel="import" type="css" href="https://amp-by-example-staging.appspot.com/css/ampstart.css">
+  <link rel="import" type="css" href="https://amp-by-example-staging.appspot.com/css/styles.css">
+  <link rel="import" type="css" href="https://amp-by-example-staging.appspot.com/css/shared.css">
   <link href="https://fonts.googleapis.com/css?family=Inconsolata|Montserrat" rel="stylesheet">
 
   <template>
@@ -51,6 +52,7 @@
     }
 
   </style>
+
     <sample-category-data categories="{{categories}}" title="{{title}}" desc="{{desc}}"></sample-category-data>
     <app-location route="{{route}}"></app-location>
     <app-route
@@ -58,6 +60,7 @@
         pattern="/polymer/:page"
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
+   <sample-header></sample-header>
 
   <iron-pages role="main" selected="[[page]]" attr-for-selected="name" selected-attribute="visible" fallback-selection="404">
     <sample-home name="home" categories="[[categories]]" title="[[title]]" desc="[[desc]]"></sample-home>
@@ -105,6 +108,7 @@
         Polymer.RenderStatus.afterNextRender(this, () => {
           window.addEventListener('online', (e)=>this._notifyNetworkStatus(e));
           window.addEventListener('offline', (e)=>this._notifyNetworkStatus(e));
+          this.dispatchEvent(new CustomEvent('data-loaded', {bubbles: true, composed: true}));
         });
       }
 

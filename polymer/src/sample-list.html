@@ -17,16 +17,16 @@
 <link rel="import" href="../node_modules/@npm-polymer/polymer/polymer-element.html">
 <link rel="import" href="../node_modules/@npm-polymer/app-route/app-route.html">
 <link rel="import" href="../node_modules/@npm-polymer/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../node_modules/@npm-polymer/paper-ripple/paper-ripple.html">
 <link rel="import" href="sample-category-data.html">
 <link rel="import" href="sample-list-item.html">
-<link rel="import" href="sample-header.html">
 
 <dom-module id="sample-list">
 
   <!-- Need to use absolute URL because of https://github.com/Polymer/polymer-cli/issues/892 -->
-  <link rel="import" type="css" href="https://www.ampbyexample.com/css/ampstart.css">
-  <link rel="import" type="css" href="https://www.ampbyexample.com/css/example.css">
-  <link rel="import" type="css" href="https://www.ampbyexample.com/css/shared.css">
+  <link rel="import" type="css" href="https://amp-by-example-staging.appspot.com/css/ampstart.css">
+  <link rel="import" type="css" href="https://amp-by-example-staging.appspot.com/css/example.css">
+  <link rel="import" type="css" href="https://amp-by-example-staging.appspot.com/css/shared.css">
 
   <template>
 
@@ -65,25 +65,21 @@
           max-width: 50%;
         }
       }
-      .animate-in {
-        -webkit-animation: fadeIn .5s ease-in;
-        animation: fadeIn .5s ease-in;
-      }
-      .animate-out {
-        -webkit-transition: opacity .5s;
-        transition: opacity .5s;
-        opacity: 0;
-      }
-      @-webkit-keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+
+      paper-spinner-lite {
+        position: fixed;
+        width: 20%;
+        height: 20%;
+        top: 25%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        --paper-spinner-stroke-width: 6px;
       }
 
     </style>
+
+    <!-- Show spinner when waiting for the server to repond -->
+    <paper-spinner-lite id="spinner" active="false"></paper-spinner-lite>
 
     <!--
       app-route provides the name of the category.
@@ -104,12 +100,11 @@
         category="{{category}}"
         categories="{{categories}}"
         failure="{{failure}}"></sample-category-data>
-    <sample-header></sample-header>
     <header class="www-header">
       <h1 class="mb4 px2 col-12 sm-col-8 mx-auto">[[title]]</h1>
       <span class="h3 block mb4 px2 col-12 sm-col-8 mx-auto">[[desc]]</span>
     </header>
-    <main class="flex pl2 animate-in">
+    <main class="flex pl2">
       <aside class="www-components-sec-nav col-2 xs-hide sm-hide relative">
         <ul class="www-component-anchors list-reset m0 pt0 pb3 px1 caps">
             <template is="dom-repeat" items="{{categories}}">
@@ -117,24 +112,22 @@
                 <a class="www-component-anchor text-decoration-none left" option="" href="/polymer/list/[[item.id]]">
                   [[item.name]]
                 </a>
+                <paper-ripple></paper-ripple>
               </li>
             </template>
         </ul>
       </aside>
       <article class="www-components flex-auto col-8">
-        <dom-repeat items="[[_getListItems(category.items)]]" initial-count="4">
-          <template strip-whitespace>
-            <section class="www-component-desc" id="[[item.id]]">
-              <div>
-                  <div class="abe-examples flex flex-wrap">
-                    <div class="ampstart-card abe-sample-card flex flex-column flex-auto p1 mb1">
-                      <a href$="[[_getItemHref(item)]]"><sample-list-item item="[[item]]"></sample-list-item></a>
-                    </div>
-                  </div>
+
+            <section class="www-component-desc">
+              <div class="abe-examples flex flex-wrap">
+                <dom-repeat items="[[_getListItems(category.items)]]" initial-count="4">
+                  <template strip-whitespace>
+                      <a class="text-decoration-none ampstart-card abe-sample-card flex flex-column flex-auto p1 mb1" href$="[[_getItemHref(item)]]"><sample-list-item item="[[item]]"></sample-list-item></a>
+                  </template>
+                </dom-repeat>
               </div>
             </section>
-          </template>
-        </dom-repeat>
       </article>
     </main>
 
@@ -165,7 +158,12 @@
           observer: '_offlineChanged'
         },
 
-        failure: Boolean
+        failure: Boolean,
+
+        waiting: {
+          type: Boolean,
+          notify: true
+        }
 
       }}
 
@@ -176,6 +174,7 @@
       connectedCallback() {
         super.connectedCallback();
         this.isAttached = true;
+        this.$.spinner.active = true;
       }
 
       disconnectedCallback() {
@@ -198,6 +197,7 @@
         if (!visible) {
           return;
         }
+        this.$.spinner.active = false;
         this._changeSectionDebouncer = Polymer.Debouncer.debounce(this._changeSectionDebouncer,
           Polymer.Async.microTask, () => {
             if (category) {
