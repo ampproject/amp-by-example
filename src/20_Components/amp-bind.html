@@ -51,6 +51,8 @@
     #amp-bind-sample > * + * {
       margin-top: 1rem;
     }
+    .bg-green { background-color: #2ecc40; }
+    .bg-yellow  { background-color: #ffdc00; }
   </style>
 </head>
 <body>
@@ -224,6 +226,24 @@
             [src]="remoteAnimals[remoteAnimals.currentAnimal].imageUrl">
     </amp-img>
   </section>
+
+    <!-- ## Hiding and showing things -->
+
+    <!-- This sample toggles the visibility of two divs based on a input selection. AMP provides the [`hidden` attribute](https://www.ampproject.org/docs/reference/amp-actions-and-events), which we use to hide and show the two divs.  -->
+    <div>
+      <select on="change:AMP.setState({ option: event.value })" class="m1">
+        <option value=0>No selection</option>
+        <option value=1>Option 1</option>
+        <option value=2>Option 2</option>
+      </select>
+      <div hidden [hidden]="option != 1" class="p1 m1 bg-yellow">
+        Option 1
+      </div>
+      <div hidden [hidden]="option != 2" class="p1 m1 bg-green" >
+        Option 2
+      </div>
+    </div>
+
 
 </body>
 </html>
