@@ -165,12 +165,6 @@ This sample showcases how to build a product page in AMP HTML.
       animation-fill-mode: both;
       animation-name: fadeIn;
     }
-    .hide {
-      display: none;
-    }
-    .show {
-      display: block;
-    }
 
     .unavailable {
       position: relative;
@@ -779,10 +773,10 @@ This sample showcases how to build a product page in AMP HTML.
           product: {moreItemsPageIndex: product.moreItemsPageIndex + 1,
                     hasMorePages: event.response.hasMorePages}
         });">
-      <input type="hidden" name="moreItemsPageIndex" value=0 [value]="product.moreItemsPageIndex">
+      <input type="hidden" name="moreItemsPageIndex" value="0" [value]="product.moreItemsPageIndex">
       <input type="submit" value="Show more"
-        class="ampstart-btn caps m1 mb3 show"
-        [class] = "(product.hasMorePages == false ? 'hide' : 'ampstart-btn caps m1 mb3 show')">
+        class="ampstart-btn caps m1 mb3"
+        [hidden] = "!product.hasMorePages">
   </form>
   <!--
     ## User Analytics
