@@ -433,7 +433,7 @@ This sample showcases how to build a product page in AMP HTML.
       </li>
     </ul>
 
-    <ul class="hide" [class]="product.selectedColor == 'golden' ? 'show' : 'hide'">
+    <ul hidden [hidden]="product.selectedColor != 'golden'">
       <li>
         <amp-img on="tap:AMP.setState({product: {selectedSlideForGolden: 0}})"
                 src="/img/product1_alt1_60x40.jpg"
@@ -445,7 +445,7 @@ This sample showcases how to build a product page in AMP HTML.
       </li>
     </ul>
 
-    <ul class="hide" [class]="product.selectedColor == 'red' ? 'show' : 'hide'">
+    <ul hidden [hidden]="product.selectedColor != 'red'">
       <li>
         <amp-img on="tap:AMP.setState({ product: {selectedSlideForRed : 0}})"
                  src="/img/red_apple_1_60x40.jpg"
@@ -497,8 +497,9 @@ This sample showcases how to build a product page in AMP HTML.
             type="slides"
             [slide]="product.selectedSlideForGolden"
             on="slideChange: AMP.setState({product: {selectedSlideForGolden: event.index}})"
-            class="hide"
-            [class]="product.selectedColor == 'golden' ? 'show  fadeIn' : 'hide'">
+            hidden
+            class="fadeIn"
+            [hidden]="product.selectedColor != 'golden'">
         <amp-img src="/img/golden_apple1_1024x682.jpg"
                 width="1024" height="682"
                 layout="responsive" on="tap:gallery-lightbox"
@@ -512,8 +513,9 @@ This sample showcases how to build a product page in AMP HTML.
             type="slides"
             [slide]="product.selectedSlideForRed"
             on="slideChange: AMP.setState({product: {selectedSlideForRed: event.index}})"
-            class="hide"
-            [class]="product.selectedColor == 'red' ? 'show  fadeIn' : 'hide'">
+            hidden
+            class="fadeIn"
+            [hidden]="product.selectedColor != 'red'">
         <amp-img src="/img/red_apple_1_1024x682.jpg"
                 width="1024" height="682"
                 layout="responsive" on="tap:gallery-lightbox"
