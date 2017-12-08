@@ -13,9 +13,7 @@
 	<script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
 	<script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
 	<script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
-  <script async custom-element="amp-position-observer" src="https://cdn.ampproject.org/v0/amp-position-observer-0.1.js"></script>
-  <script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
-
+  
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <style amp-custom>
     .booking {
@@ -53,29 +51,6 @@
       bottom: 56px;
       left: 31px;
       right: 30px;
-    }
-    .scrollToTop {
-      color: #fafafa;
-      font-size: 1.4em;
-      box-shadow: 0 1px 1.5px 0 rgba(0,0,0,.12), 0 1px 1px 0 rgba(0,0,0,.24);
-      width: 50px;
-      height: 50px;
-      border-radius: 100px;
-      border: none;
-      outline: none;
-      background: #E91E63;
-      z-index: 9999;
-      bottom: 10px;
-      right: 10px;
-      position: fixed;
-      opacity: 0;
-      visibility: hidden;
-    }
-    #marker {
-      position: absolute;
-      top: 100px;
-      width: 0px;
-      height: 0px;
     }
   </style>
 </head>
@@ -123,64 +98,6 @@
     * **Star ratings:** [here](/advanced/star_rating/) is a sample demonstrating how to implement a star rating system in AMP.
     * **Call tracking:** use [amp-call-tracking](/components/amp-call-tracking) to track calls initiated from your AMPs.
     * **Comments / reviews:** comment or review submission can be implemented using [amp-form](/components/amp-form). Combine with [amp-access](/components/amp-access/) if a user login is required. [Here](/samples_templates/comment_section/preview/) is a sample combining both.
- -->
- <!-- ## Scroll to top
-
- For helping users browsing on a long list of items,
- you can implement a `scroll to top` button by using the `scrollTo` action, [amp-position-observer](https://www.ampproject.org/docs/reference/components/amp-position-observer) and [amp-animation](https://www.ampproject.org/docs/reference/components/amp-animation).
- Find more about actions [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-actions-and-events.md).
-
- We use 2 `amp-animation` elements to trigger the visibility of the button.
- The first one is for making the button visible...
- -->
- <amp-animation id="showAnim" layout="nodisplay">
-   <script type="application/json">
-     {
-       "duration": "200ms",
-        "fill": "both",
-        "iterations": "1",
-        "direction": "alternate",
-        "animations": [
-          {
-            "selector": "#scrollToTopButton",
-            "keyframes": [
-              { "opacity": "1", "visibility": "visible" }
-            ]
-          }
-        ]
-     }
-   </script>
- </amp-animation>
- <!-- ... and the second one is for adding the button.-->
- <amp-animation id="hideAnim" layout="nodisplay">
-  <script type="application/json">
-    {
-      "duration": "200ms",
-        "fill": "both",
-        "iterations": "1",
-        "direction": "alternate",
-        "animations": [
-          {
-            "selector": "#scrollToTopButton",
-            "keyframes": [
-              { "opacity": "0", "visibility": "hidden" }
-            ]
-          }
-        ]
-    }
-  </script>
-</amp-animation>
- <!-- We use `amp-position-observer` to start the animation when the user starts to scroll. -->
-<div id="marker">
-  <amp-position-observer
-     on="enter:hideAnim.start; exit:showAnim.start"
-     layout="nodisplay">
-</amp-position-observer>
- </div>
- <!-- We use the `scrollTo` action to scroll the page when the button is tapped. -->
-     <button id="scrollToTopButton" on="tap:top-header.scrollTo(duration=200)" class="scrollToTop">⌃</button>
-
- <!--
 
     ## Product Category Page
 
