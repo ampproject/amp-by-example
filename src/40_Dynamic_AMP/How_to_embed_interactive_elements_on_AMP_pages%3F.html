@@ -8,9 +8,8 @@
   This samples demonstrates how to embed interactive charts into AMP files.
 
   To achieve its performance, AMP HTML doesn't allow custom Javascript.
-  This doesn't mean that you can't created visually rich and interactive websites with AMP: [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind)
-  is the AMP component that allows to implement user interactivity on AMP pages but in case you are using
-  an interactive element, you can still embed it via an iframe.
+  This doesn't mean that you can't created visually rich and interactive websites with AMP.
+  For example, you can use [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind) to create dynamic and interactive features directly in AMP. However, sometimes dynamic content requires custom JS, e.g. when using a charting library. In this cases it's best to embed dynamic content using amp-iframe.
 
   Google Trends recently published [live search trends](https://www.google.com/trends/oscars-2016-in-google-search/index.html) about the Oscars. These gives a fascinating inside into what the billions of searches that take place each day on Google tell us about the nominated actors and movies. Part of the articles are a number of interactive and live updating graphics.
 
