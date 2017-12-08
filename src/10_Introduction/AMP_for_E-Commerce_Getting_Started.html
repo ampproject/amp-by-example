@@ -54,11 +54,28 @@
       left: 31px;
       right: 30px;
     }
-    #scroll-top-button {
+    .scrollToTop {
+      color: #fafafa;
+      font-size: 1.4em;
+      box-shadow: 0 1px 1.5px 0 rgba(0,0,0,.12), 0 1px 1px 0 rgba(0,0,0,.24);
+      width: 50px;
+      height: 50px;
+      border-radius: 100px;
+      border: none;
+      outline: none;
+      background: #E91E63;
+      z-index: 9999;
+      bottom: 10px;
+      right: 10px;
       position: fixed;
-      bottom: 20px;
-      right: 30px;
+      opacity: 0;
       visibility: hidden;
+    }
+    #marker {
+      position: absolute;
+      top: 100px;
+      width: 0px;
+      height: 0px;
     }
   </style>
 </head>
@@ -109,37 +126,60 @@
  -->
  <!-- ## Scroll to top
 
- For helping users while browsing on a long list of articles,
- you can implement a `scroll to top` button by using the `scrollTo` action, amp-position-observer and amp-animation.
+ For helping users browsing on a long list of items,
+ you can implement a `scroll to top` button by using the `scrollTo` action, [amp-position-observer](https://www.ampproject.org/docs/reference/components/amp-position-observer) and [amp-animation](https://www.ampproject.org/docs/reference/components/amp-animation).
  Find more about actions [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-actions-and-events.md).
 
- We use `amp-animation` to trigger the visibility of the button.
+ We use 2 `amp-animation` elements to trigger the visibility of the button.
+ The first one is for making the button visible...
  -->
- <amp-animation id="buttonAdmin" layout="nodisplay">
+ <amp-animation id="showAnim" layout="nodisplay">
    <script type="application/json">
      {
-     "duration": "500ms",
-     "fill": "both",
-     "animations": [
-       {
-         "selector": "#scroll-top-button",
-         "keyframes": [
-           { "visibility": "visible", "opacity": "1" }
-         ]
-       }
-     ]
-   }
- </script>
+       "duration": "200ms",
+         "fill": "both",
+           "iterations": "1",
+             "direction": "alternate",
+               "animations": [
+                 {
+                   "selector": "#scrollToTopButton",
+                   "keyframes": [
+                     { "opacity": "1", "visibility": "visible" }
+                   ]
+                 }
+               ]
+     }
+   </script>
+ </amp-animation>
+ <!-- ... and the second one is for adding the button.-->
+ <amp-animation id="hideAnim" layout="nodisplay">
+  <script type="application/json">
+    {
+      "duration": "200ms",
+        "fill": "both",
+          "iterations": "1",
+            "direction": "alternate",
+              "animations": [
+                {
+                  "selector": "#scrollToTopButton",
+                  "keyframes": [
+                    { "opacity": "0", "visibility": "hidden" }
+                  ]
+                }
+              ]
+    }
+  </script>
 </amp-animation>
  <!-- We use `amp-position-observer` to start the animation when the user starts to scroll. -->
-<div>
- <amp-position-observer on="scroll:buttonAdmin.start;exit:buttonAdmin.pause" layout="nodisplay">
- </amp-position-observer>
+<div id="marker">
+  <amp-position-observer
+     on="enter:hideAnim.start; exit:showAnim.start"
+     layout="nodisplay">
+</amp-position-observer>
+ </div>
+ <!-- We use the `scrollTo` action to scroll the page when the button is tapped. -->
+     <button id="scrollToTopButton" on="tap:top-header.scrollTo(duration=200)" class="scrollToTop">↑</button>
 
- <button id="scroll-top-button" class="ampstart-btn caps m2 close-gallery-button" on="tap:product-pages.scrollTo">
-   Scroll to top
- </button>
-</div>
  <!--
 
     ## Product Category Page
