@@ -65,7 +65,7 @@ handlers:
   http_headers:
 
 - url: /polymer/detail/.*
-  static_files: dist/polymer/index.html
+  static_files: dist/polymer/src/index.html
   upload: index.html
   secure: always
 
@@ -74,21 +74,21 @@ handlers:
   secure: always
 
 - url: /polymer/list/.*
-  static_files: dist/polymer/index.html
+  static_files: dist/polymer/src/index.html
   upload: index.html
   secure: always
 
 - url: /polymer/service-worker\.js
   secure: always
   static_files: dist/polymer/service-worker.js
-  upload: dist/polymer/service-worker\.js
+  upload: dist/polymer/src/service-worker\.js
   expiration: 0
   http_headers:
     Access-Control-Allow-Origin: "*"
 
 - url: /polymer/
-  static_files: dist/polymer/index.html
-  upload: dist/polymer/index.html
+  static_files: dist/polymer/src/index.html
+  upload: dist/polymer/src/index.html
 
 - url: /.*
   script: _go_app

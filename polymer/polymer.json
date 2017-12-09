@@ -5,7 +5,7 @@
     "src/**/*"
   ],
   "extraDependencies": [
-    "node_modules/@webcomponents/webcomponentsjs/*.js"
+    "bower_components/webcomponentsjs/*"
   ],
   "lint": {
     "rules": [

@@ -34,7 +34,7 @@ const htmlMinifier = require('gulp-html-minifier');
 
 const paths = {
   dist: {
-    dir: 'dist'
+    dir: 'dist/src'
   },
   src: 'src'
 };
