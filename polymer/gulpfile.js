@@ -34,7 +34,7 @@ const htmlMinifier = require('gulp-html-minifier');
 
 const paths = {
   dist: {
-    dir: 'dist'
+    dir: 'dist/src'
   },
   src: 'src'
 };
@@ -71,7 +71,8 @@ function build() {
         let dependenciesStream = polymerProject.dependencies()
 
         // Okay, now let's merge your sources & dependencies together into a single build stream.
-        let buildStream = mergeStream(sourcesStream, dependenciesStream)
+        let buildStream = mergeStream(sourcesStream,
+            dependenciesStream)
           .once('data', () => {
             console.log('Analyzing build dependencies...');
           });

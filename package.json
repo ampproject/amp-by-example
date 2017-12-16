@@ -17,6 +17,7 @@
     "dev": "gulp"
   },
   "dependencies": {
+    "bower": "^1.8.2",
     "clean-css": "^4.1.4",
     "glob": "^7.1.1",
     "highlight.js": "^9.7.0",

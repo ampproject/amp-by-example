@@ -1,25 +1,32 @@
-<link rel="import" href="../node_modules/@npm-polymer/polymer/polymer-element.html">
-<link rel="import" href="../node_modules/@npm-polymer/app-route/app-location.html">
-<link rel="import" href="../node_modules/@npm-polymer/app-route/app-route.html">
-<link rel="import" href="../node_modules/@npm-polymer/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../node_modules/@npm-polymer/iron-media-query/iron-media-query.html">
-<link rel="import" href="../node_modules/@npm-polymer/iron-ajax/iron-ajax.html">
-<link rel="import" href="../node_modules/@npm-polymer/iron-pages/iron-pages.html">
-<link rel="import" href="../node_modules/@npm-polymer/iron-selector/iron-selector.html">
-<link rel="import" href="../node_modules/@npm-polymer/app-layout/app-scroll-effects/effects/waterfall.html">
-<link rel="import" href="../node_modules/@npm-polymer/app-layout/app-toolbar/app-toolbar.html">
-<link rel="import" href="../node_modules/@npm-polymer/app-layout/helpers/helpers.html">
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/app-layout/helpers/helpers.html">
 <link rel="import" href="sample-home.html">
-<link rel="import" href="sample-list.html">
 <link rel="import" href="sample-category-data.html">
+<link rel="import" href="sample-header.html">
 
 <dom-module id="abe-polymer-app">
+
+  <!-- Need to use absolute URL because of https://github.com/Polymer/polymer-cli/issues/892 -->
+  <link rel="import" type="css" href="https://www.ampbyexample.com/css/example.css">
+  <link rel="import" type="css" href="https://www.ampbyexample.com/css/ampstart.css">
+  <link rel="import" type="css" href="https://www.ampbyexample.com/css/styles.css">
+  <link rel="import" type="css" href="https://www.ampbyexample.com/css/shared.css">
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Montserrat" rel="stylesheet">
+
   <template>
   <style>
     :host {
       display: block;
       position: relative;
-      padding-top: 130px;
       padding-bottom: 64px;
       min-height: 100vh;
       --app-primary-color: #202020;
@@ -44,32 +51,23 @@
       display: none !important;
     }
 
-    iron-pages {
-      max-width: 1440px;
-      margin: 0 auto;
-    }
-
-    /* small screen */
-    @media (max-width: 767px) {
-      :host {
-        padding-top: 64px;
-      }
-    }
-
   </style>
-    <sample-category-data categories="{{categories}}"></sample-category-data>
+
+    <sample-category-data categories="{{categories}}" title="{{title}}" desc="{{desc}}"></sample-category-data>
     <app-location route="{{route}}"></app-location>
     <app-route
         route="{{route}}"
         pattern="/polymer/:page"
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
+   <sample-header></sample-header>
 
   <iron-pages role="main" selected="[[page]]" attr-for-selected="name" selected-attribute="visible" fallback-selection="404">
-    <sample-home name="home" categories="[[categories]]"></sample-home>
+    <sample-home name="home" categories="[[categories]]" title="[[title]]" desc="[[desc]]"></sample-home>
     <sample-list name="list" route="[[subroute]]" offline="[[offline]]"></sample-list>
     <sample-detail name="detail" route="[[subroute]]" offline="[[offline]]"></sample-detail>
   </iron-pages>
+
   </template>
 
   <script>
@@ -105,10 +103,12 @@
         this.removeAttribute('unresolved');
         // listen for custom events
         this.addEventListener('show-invalid-url-warning', (e)=>this._onFallbackSelectionTriggered(e));
+        this.addEventListener('change-section', (e)=>this._onChangeSection(e));
         // listen for online/offline
         Polymer.RenderStatus.afterNextRender(this, () => {
           window.addEventListener('online', (e)=>this._notifyNetworkStatus(e));
           window.addEventListener('offline', (e)=>this._notifyNetworkStatus(e));
+          this.dispatchEvent(new CustomEvent('data-loaded', {bubbles: true, composed: true}));
         });
       }
 
@@ -179,7 +179,7 @@
         // Scroll to the top of the page when navigating to a non-list page. For list view,
         // scroll to the last saved position only if the category has not changed.
         let scrollTop = 0;
-        if (this.page === 'list') {
+        if (this.page === 'list' || this.page === 'detail') {
           if (this.categoryName === detail.category) {
             scrollTop = this._listScrollTop;
           } else {
@@ -196,7 +196,6 @@
         // Announce the page's title
         if (detail.title) {
           document.title = detail.title + ' - SAMPLE';
-          this._announce(detail.title + ', loaded');
         }
       }
 

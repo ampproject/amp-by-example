@@ -14,13 +14,19 @@
  limitations under the License.
 -->
 
-<link rel="import" href="../node_modules/@npm-polymer/polymer/polymer-element.html">
-<link rel="import" href="../node_modules/@npm-polymer/app-route/app-route.html">
-<link rel="import" href="../node_modules/@npm-polymer/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="sample-category-data.html">
 <link rel="import" href="sample-list-item.html">
 
 <dom-module id="sample-list">
+
+  <!-- Need to use absolute URL because of https://github.com/Polymer/polymer-cli/issues/892 -->
+  <link rel="import" type="css" href="https://www.ampbyexample.com/css/ampstart.css">
+  <link rel="import" type="css" href="https://www.ampbyexample.com/css/example.css">
+  <link rel="import" type="css" href="https://www.ampbyexample.com/css/shared.css">
 
   <template>
 
@@ -60,7 +66,20 @@
         }
       }
 
+      paper-spinner-lite {
+        position: fixed;
+        width: 20%;
+        height: 20%;
+        top: 25%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        --paper-spinner-stroke-width: 6px;
+      }
+
     </style>
+
+    <!-- Show spinner when waiting for the server to repond -->
+    <paper-spinner-lite id="spinner" active="false"></paper-spinner-lite>
 
     <!--
       app-route provides the name of the category.
@@ -76,22 +95,42 @@
     <sample-category-data
         id="categoryData"
         category-name="[[routeData.category]]"
+        title="{{title}}"
+        desc="{{desc}}"
         category="{{category}}"
+        categories="{{categories}}"
         failure="{{failure}}"></sample-category-data>
-
-    <header>
-      <h1>[[category.id]]</h1>
+    <header class="www-header">
+      <h1 class="mb4 px2 col-12 sm-col-8 mx-auto">[[title]]</h1>
+      <span class="h3 block mb4 px2 col-12 sm-col-8 mx-auto">[[desc]]</span>
     </header>
+    <main class="flex pl2">
+      <aside class="www-components-sec-nav col-2 xs-hide sm-hide relative">
+        <ul class="www-component-anchors list-reset m0 pt0 pb3 px1 caps">
+            <template is="dom-repeat" items="{{categories}}">
+              <li class="clearfix mb3">
+                <a class="www-component-anchor text-decoration-none left" option="" href="/polymer/list/[[item.id]]">
+                  [[item.name]]
+                </a>
+                <paper-ripple></paper-ripple>
+              </li>
+            </template>
+        </ul>
+      </aside>
+      <article class="www-components flex-auto col-8">
 
-    <ul class="grid" hidden$="[[failure]]">
-      <dom-repeat items="[[_getListItems(category.items)]]" initial-count="4">
-        <template>
-          <li>
-            <a href$="[[_getItemHref(item)]]"><sample-list-item item="[[item]]"></sample-list-item></a>
-          </li>
-        </template>
-      </dom-repeat>
-    </ul>
+            <section class="www-component-desc">
+              <div class="abe-examples flex flex-wrap">
+                <dom-repeat items="[[_getListItems(category.items)]]" initial-count="4">
+                  <template strip-whitespace>
+                      <a class="text-decoration-none ampstart-card abe-sample-card flex flex-column flex-auto p1 mb1" href$="[[_getItemHref(item)]]"><sample-list-item item="[[item]]"></sample-list-item></a>
+                  </template>
+                </dom-repeat>
+              </div>
+            </section>
+      </article>
+    </main>
+
 
   </template>
 
@@ -119,7 +158,12 @@
           observer: '_offlineChanged'
         },
 
-        failure: Boolean
+        failure: Boolean,
+
+        waiting: {
+          type: Boolean,
+          notify: true
+        }
 
       }}
 
@@ -130,6 +174,7 @@
       connectedCallback() {
         super.connectedCallback();
         this.isAttached = true;
+        this.$.spinner.active = true;
       }
 
       disconnectedCallback() {
@@ -152,6 +197,7 @@
         if (!visible) {
           return;
         }
+        this.$.spinner.active = false;
         this._changeSectionDebouncer = Polymer.Debouncer.debounce(this._changeSectionDebouncer,
           Polymer.Async.microTask, () => {
             if (category) {

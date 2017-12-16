@@ -527,6 +527,7 @@ gulp.task('build:polymer', 'Build the polymer app', function() {
     'npm i && ' +
     'cd ' + paths.polymer + ' && ' +
     'npm i && ' +
+    'npm install && ' +
     'gulp build:polymer && ' +
     'mkdir -p ../dist && ' +
     'rm -rf ' + polymerDist + ' && ' +

@@ -136,6 +136,9 @@ a.abe-primary {
 .www-component-desc li a:not(.ampstart-btn),
 .www-component-desc p a:not(.ampstart-btn) {
   text-decoration: none;
+}
+.www-component-desc li a:not(.ampstart-btn),
+.www-component-desc p a:not(.ampstart-btn) {
   color: #b60845;
 }
 .ampstart-headerbar-nav .ampstart-nav-item.www-current-page {
@@ -238,4 +241,40 @@ a.ampstart-btn-secondary {
   color: #fff;
   background: #b60845;
   border: 1px solid #fff;
+}
+
+.abe-sample-card {
+  background: #f9f7f7;
+  min-width: 240px;
+  width: 0;
+  max-width: 380px;
+  flex: 1 1 240px;
+}
+@media (min-width: 600px) {
+  .abe-sample-card {
+    margin-right: 1rem;
+  }
+}
+.abe-sample-card .ampstart-btn {
+  padding: 8px;
+}
+.abe-sample-card .ampstart-btn:not(.ampstart-btn-secondary) {
+  background-color: transparent;
+}
+.abe-sample-card a.ampstart-btn-secondary:active,
+.abe-sample-card a.ampstart-btn-secondary:focus,
+.abe-sample-card a.ampstart-btn-secondary:hover,
+.abe-sample-card a.ampstart-btn-secondary,
+.abe-sample-card a.ampstart-btn-secondary.disabled,
+.abe-sample-card a.ampstart-btn-secondary.disabled:focus,
+.abe-sample-card a.ampstart-btn-secondary.disabled:hover,
+.abe-sample-card a.ampstart-btn-secondary {
+  border: 1px solid #b60845;
+}
+.abe-sample-card-actions {
+  margin-top: auto;
+}
+.abe-sample-card-filler {
+  height: 0;
+  background: none;
 }

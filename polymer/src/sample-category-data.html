@@ -14,8 +14,8 @@
  limitations under the License.
 -->
 
-<link rel="import" href="../node_modules/@npm-polymer/polymer/polymer-element.html">
-<link rel="import" href="../node_modules/@npm-polymer/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 
 <dom-module id="sample-category-data">
   <template>
@@ -26,11 +26,58 @@
   <script>
   (function() {
 
+    let sectionList = [
+      {
+        name: 'AMPHTML',
+        path: '/'
+      }
+    ];
+    let linkList = [
+        {
+          name: 'AMP for Ads',
+          path: '/amp-ads/'
+        },
+        {
+          name: 'Playground',
+          path: '/playground/'
+        },
+        {
+          name: 'GitHub',
+          path: 'https://github.com/ampproject/amp-by-example'
+        },
+        {
+          name: 'What is AMP?',
+          path: 'https://www.ampproject.org/learn/about-amp/'
+        }
+      ];
+
+    function sanitizeString(string) {
+      var htmlRegex = /(<([^>]+)>)/ig
+      return string.replace(htmlRegex, "")
+    }
+
+    function buildListUrl(relativeUrl) {
+      return "/polymer/list" + relativeUrl.replace('#','')
+    }
+
     class SampleCategoryData extends Polymer.Element {
 
       static get is() { return 'sample-category-data'; }
 
       static get properties() { return {
+
+        sections: {
+          type: Array,
+          notify: true,
+          value: sectionList
+        },
+
+        links: {
+          type: Array,
+          value: linkList,
+          readOnly: true,
+          notify: true
+        },
 
         categoryName: String,
 
@@ -61,20 +108,43 @@
 
         resource: {
           type: Object
+        },
+
+        title: {
+          type: String,
+          notify: true
+        },
+
+        desc: {
+          type: String,
+          notify: true
         }
 
       }}
 
       handleResponse(data) {
-        this.resource = data.detail.response[0]["categories"]
-        var catNames =  this.resource.map(function(cat) {
+        this.resources = data.detail.response
+        this._initializeSamples(data)
+      }
+
+      _initializeSamples(data) {
+        this.categories = this._getCategoriesFromJson(data.detail.response[0]["categories"])
+        this.title = data.detail.response[0]["title"]
+        this.desc = data.detail.response[0]["desc"]
+      }
+
+      _getCategoriesFromJson(resource) {
+        var categories =  resource.map(function(cat) {
           var category = {
             name:  cat["name"],
-            id: cat["id"]
+            url: buildListUrl(cat["url"]),
+            id: cat["id"],
+            desc: sanitizeString(cat["description"] || ""),
+            samples: cat["examples"]
           };
           return category;
         });
-        this.categories = catNames;
+        return categories;
       }
 
       _getCategory(categoryName, categories) {
@@ -114,13 +184,17 @@
         if (!category || category.items) {
           return;
         }
-
-        var categories = this.resource
-        categories = categories.filter(function(cat) {
-                return cat.name == category.name
+        var result
+        var categories = this.resources.filter(function(resource) {
+          resource["categories"].filter(function(cat) {
+            if (cat.id == category.id) {
+              result = cat
+            }
+          });
         });
 
-        var items =  categories[0]["examples"].map(function(itemJson) {
+
+        var items =  result["examples"].map(function(itemJson) {
           return {
             name:  itemJson["name"],
             title: itemJson["title"],

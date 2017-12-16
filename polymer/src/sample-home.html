@@ -14,9 +14,14 @@
  limitations under the License.
 -->
 
-<link rel="import" href="../node_modules/@npm-polymer/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
 
 <dom-module id="sample-home">
+
+  <!-- Need to use absolute URL because of https://github.com/Polymer/polymer-cli/issues/892 -->
+  <link rel="import" type="css" href="https://www.ampbyexample.com/css/ampstart.css">
+  <link rel="import" type="css" href="https://www.ampbyexample.com/css/example.css">
+  <link rel="import" type="css" href="https://www.ampbyexample.com/css/shared.css">
 
   <template>
 
@@ -59,11 +64,6 @@
         h2 {
           margin: 24px 0;
         }
-
-        .item:nth-of-type(3) > shop-button > a,
-        .item:nth-of-type(4) > shop-button > a {
-          padding: 8px 24px;
-        }
       }
       .container {
         display: flex;
@@ -71,18 +71,41 @@
         padding-top: 24px;
       }
 
+      article {
+        flex-flow: row wrap;
+      }
+
+      }
+
     </style>
-    <div class="container">
-      <dom-repeat items="[[categories]]">
-        <template strip-whitespace>
-              <a class="item" aria-label$="[[item.id]] item.name" href$="/polymer/list/[[item.id]]">[[item.name]]</a>
-        </template>
-      </dom-repeat>
-  </div>
+    <header class="www-header">
+      <h1 class="mb4 px2 col-12 sm-col-8 mx-auto">[[title]]</h1>
+      <span class="h3 block mb4 px2 col-12 sm-col-8 mx-auto">[[desc]]</span>
+    </header>
+    <main class="pl2 animate-in flex">
+      <article class="www-components flex-auto flex justify-center">
+            <section class="www-component-desc">
+                  <div class="abe-examples flex flex-wrap">
+                    <dom-repeat items="[[categories]]">
+                      <template strip-whitespace>
+                            <a class="text-decoration-none ampstart-card abe-sample-card flex flex-column flex-auto p1 mb1" href$="/polymer/list/[[item.id]]">
+                              <h3 class="mb1">[[item.name]]</h3>
+                              <p class="mb1">[[item.desc]]</p>
+                            </a>
+                      </template>
+                    </dom-repeat>
+                  </div>
+            </section>
+      </article>
+    </main>
+
+    <!-- Show spinner when waiting for the server to repond -->
+    <paper-spinner-lite active="[[waiting]]"></paper-spinner-lite>
 
   </template>
 
   <script>
+
 
     class SampleHome extends Polymer.Element {
 
@@ -97,6 +120,11 @@
         visible: {
           type: Boolean,
           observer: '_visibleChanged'
+        },
+
+        waiting: {
+          type: Boolean,
+          notify: true
         }
 
       }}

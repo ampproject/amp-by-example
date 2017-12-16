@@ -14,14 +14,16 @@
  limitations under the License.
 -->
 
-<link rel="import" href="../node_modules/@npm-polymer/polymer/polymer-element.html">
-<link rel="import" href="../node_modules/@npm-polymer/app-route/app-route.html">
-<link rel="import" href="../node_modules/@npm-polymer/iron-flex-layout/iron-flex-layout.html">
-
-<link rel="import" href="amp-page.html">
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="sample-category-data.html">
+<link rel="import" href="amp-viewer.html">
 
 <dom-module id="sample-detail">
+
+  <link rel="import" type="css" href="https://www.ampbyexample.com/css/example.css">
+  <link rel="import" type="css" href="https://www.ampbyexample.com/css/ampstart.css">
 
   <template>
 
@@ -86,26 +88,13 @@
         item="{{item}}"
         failure="{{failure}}"></sample-category-data>
 
-    <header>
+    <header class="www-header center">
           <h1>[[item.title]]</h1>
     </header>
 
-    <amp-page
-        item-url="[[item.url]]"
-        content="{{content}}"></amp-page>
+    <amp-viewer src="[[_computeFullUrl(item.url)]]">
 
-    <div>[[content]]</div>
-
-    <!--
-      shop-network-warning shows a warning message when the items can't be rendered due
-      to network conditions.
-    -->
-    <shop-network-warning
-        hidden$="[[!failure]]"
-        offline="[[offline]]"
-        on-try-reconnect="_tryReconnect"></shop-network-warning>
-
-  </template>
+    </template>
 
   <script>
 
@@ -131,7 +120,12 @@
           observer: '_offlineChanged'
         },
 
-        failure: Boolean
+        failure: Boolean,
+
+        url: {
+          type: String,
+          value: window.location.origin
+        }
 
       }}
 
@@ -171,6 +165,10 @@
         if (!offline) {
           this._tryReconnect();
         }
+      }
+
+      _computeFullUrl(itemUrl) {
+        return [this.url, itemUrl, "embed"].join('')
       }
 
     }
