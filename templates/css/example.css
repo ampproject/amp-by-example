@@ -64,9 +64,6 @@ code {
     margin-right: 0;
   }
 }
-.www-component-desc > pre > code {
-  padding: 0;
-}
 .www-header h1 {
   color: #fff;
 }
@@ -74,8 +71,9 @@ code {
 .abe-code pre {
   white-space: pre-wrap;
   overflow-x: auto;
-  padding: 0;
+  padding: 1rem;
   margin: 0;
+  max-height: 600px;
 }
 .abe-code-container {
   padding: 0;
