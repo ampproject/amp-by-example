@@ -40,8 +40,18 @@
   <!-- -->
 
   <style amp-custom>
-    amp-list {
-      max-height: calc(350px * 2);
+    amp-list#paged-amp-list {
+      min-width: 320px;
+    }
+    @media (min-width: 480px) {
+      amp-list#paged-amp-list {
+        min-width: 480px;
+      }
+    }
+    @media (min-width: 600px) {
+      amp-list#paged-amp-list {
+        min-width: 600px;
+      }
     }
     .info {
       text-align: right;
@@ -118,9 +128,9 @@
   -->
 <div>
 <amp-list
-  width="4"
-  height="5"
-  layout="responsive"
+  id="paged-amp-list"
+  layout="fixed-height"
+  height="700"
   src="/advanced/paged_list/search"
   [src]="'/advanced/paged_list/search?page=' + pageNumber"
   single-item
