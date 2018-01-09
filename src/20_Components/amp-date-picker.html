@@ -1,0 +1,58 @@
+<!---{
+    "experiments": ["amp-date-picker"]
+}--->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <!-- #### Introduction
+    AMP date picker...add intro here
+  -->
+  <!-- #### Setup -->
+  <!--
+    Include the amp-date-picker extended component.
+  -->
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+  <script async custom-element="amp-date-picker" src="https://cdn.ampproject.org/v0/amp-date-picker-0.1.js"></script>
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <style amp-custom>
+
+  .SingleDatePicker_picker, 
+.SingleDatePickerInput_clearDate {
+    position: static;
+  }
+
+  </style>
+</head>
+<body>
+
+  <!-- #### Single Date Picker -->
+  <!--
+    `amp-date-picker` with `type=single` can be used for selecting a single date.
+  -->
+  <div>
+    <button class="ampstart-btn mr1 caps" on="tap:simple-date-picker.clear">Clear</button>
+    <amp-date-picker
+      type="single"
+      layout="container"
+      width="300"
+      height="300"
+      on="select:AMP.setState({date: event.date, dateType: event.id})"
+      locale="en"
+      format="Y-MM-DD"
+      number-of-months="1"
+      show-clear-date
+      keep-open-on-date-select
+      id="simple-date-picker">
+      <input amp-date-placeholder placeholder="Pick a date!!"/>
+      <template type="amp-mustache" info-template>
+        <span [text]="date != null ? 'You picked ' + date + '.' : 'You will see your chosen date here.'">You will see your chosen date here.</span>
+      </template>
+    </amp-date-picker>
+  </div>
+
+</body>
+</html>
