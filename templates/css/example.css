@@ -71,9 +71,12 @@ code {
 .abe-code pre {
   white-space: pre-wrap;
   overflow-x: auto;
-  padding: 1rem;
   margin: 0;
   max-height: 600px;
+  padding: 0;
+}
+.abe-code pre {
+  padding: 1rem;
 }
 .abe-code-container {
   padding: 0;
