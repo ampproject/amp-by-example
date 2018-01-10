@@ -17,11 +17,12 @@
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <!-- ## Setup -->
-  <!-- We use `amp-bind` to coordinate the screen transitions... -->
+  <!-- We use `amp-bind` to coordinate the page transitions... -->
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-  <!-- We use `amp-selector` for implementing a simple survey. -->
+  <!-- ... and `amp-selector` for implementing a simple survey. -->
   <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
-  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hide}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hide}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hide}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hide}to{visibility:visible}}@keyframes -amp-start{from{visibility:hide}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+ 
 <style amp-custom>
 /* Simple Stepper */
 .stepper.simple .step-dots {
@@ -267,7 +268,7 @@ amp-selector.poll [option][selected]:focus {
   <h2 class="m0 p1 pt2">A simple mobile Stepper</h2>
   <div class="p1">Use the browser back button to go to the previous view.</div>
 <!-- ## A simple Dialog -->
-<!-- We use an implicit state variable `currentPage` to keep track of the current view. Views are identified by numbers starting with `0` in their order of appearance. The view state is bound to each view using AMP's [`hidden` attribute](https://www.google.com/url?q=https://github.com/ampproject/amphtml/blob/master/spec/amp-actions-and-events.md%23-all-elements&sa=D&ust=1511453284339000&usg=AFQjCNGNPlF6oqBMqazKdfPiav-tPxaq9Q):
+<!-- We use an implicit state variable `currentPage` to keep track of the current view. Views are identified by numbers starting with `0` in their order of appearance. The view state is bound to each view using AMP's [`hidden` attribute](https://www.ampproject.org/docs/reference/amp-actions-and-events#*-(all-elements)):
 
 ```html
 <section [hidden]="currentPage > 0"> ... </section>
@@ -279,7 +280,7 @@ amp-selector.poll [option][selected]:focus {
 <section hidden [hidden]="currentPage != 1"> ... </section>
 ```
 
-We update the `currentPage` variable to progress forward in the dialog. In this sample we're using `AMP.pushState(...)` instead of `AMP.setState(...)`. `AMP.pushState(...)` pushes a new entry onto the browser history stack, which allows the user to navigate back in the to use the browser's back button to move backwards in the dialog:
+We update the `currentPage` variable to progress forward in the dialog. In this sample we're using [`AMP.pushState(...)`](https://www.ampproject.org/docs/reference/components/amp-bind#modifying-history-with-amp.pushstate()) instead of `AMP.setState(...)`. `AMP.pushState(...)` pushes a new entry onto the browser history stack, which allows the user to navigate back in the to use the browser's back button to move backwards in the dialog:
 
 ```html
 <button on="tap:AMP.pushState({ currentPage: currentPage + 1 })">
@@ -360,7 +361,7 @@ Clicking on the title will go to the corresponding step (if already possible):
   </button>
   ```
 
-Another thing that's new in this sample is the continue buttons is disabled by default. Only when the step is completed (in this case when a selection has been made), the button will be enabled:
+By default, the continue buttons is disabled. Only when the step is completed (in this case when a selection has been made), the button will be enabled:
 
 ```html
   <button disabled [disabled]="!animalSelected"
@@ -446,7 +447,7 @@ Another thing that's new in this sample is the continue buttons is disabled by d
   templates from [ampstart.com](https://ampstart.com) for styling the input fields. The basic approach is 
   the same as in the previous two samples: a variable keeps track of the current page. The only difference is 
   that here we can't use the `hidden` attribute as we want to transition between the different pages. The `hidden`
-  attribute uses `display: none'` which cannot be animated in CSS. Instead we use three different CSS classes `active`, 
+  attribute uses `display: none` which cannot be animated in CSS. Instead we use three different CSS classes `active`, 
   `next` and `previous` to slide between the different pages:
   
 ```css
