@@ -16,13 +16,21 @@
   <script async custom-element="amp-date-picker" src="https://cdn.ampproject.org/v0/amp-date-picker-0.1.js"></script>
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <link rel="canonical" href="<%host%>/components/amp-date-picker/" >
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <style amp-custom>
 
-  .SingleDatePicker_picker, 
-.SingleDatePickerInput_clearDate {
-    position: static;
+  .highlight-corner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-top-color: red;
+    border-bottom: 0;
+    border-right: 0;
   }
 
   </style>
@@ -32,6 +40,8 @@
   <!-- #### Single Date Picker -->
   <!--
     `amp-date-picker` with `type=single` can be used for selecting a single date.
+    You can use amp-mustache to show an info-panel below the calendar, here we are showing the
+    date that you just selected.
   -->
   <div>
     <button class="ampstart-btn mr1 caps" on="tap:simple-date-picker.clear">Clear</button>
@@ -52,6 +62,95 @@
         <span [text]="date != null ? 'You picked ' + date + '.' : 'You will see your chosen date here.'">You will see your chosen date here.</span>
       </template>
     </amp-date-picker>
+  </div>
+  <!--
+    In addition, you can also use `amp-mustache` to create templates for custom date markup.
+    Here we are using a taco icon in place of the number of the month with a frequency of 2 weeks every Tuesday.
+  -->
+  <div>
+    <button class="ampstart-btn mr1 caps" on="tap:simple-date-picker.clear">Clear</button>
+    <amp-date-picker
+      type="single"
+      layout="container"
+      width="300"
+      height="300"
+      on="select:AMP.setState({date: event.date, dateType: event.id})"
+      locale="en"
+      format="Y-MM-DD"
+      number-of-months="1"
+      show-clear-date
+      keep-open-on-date-select
+      id="simple-date-picker-2">
+      <input amp-date-placeholder placeholder="Pick a date!!"/>
+      <template
+        type="amp-mustache"
+        date-template
+        dates="FREQ=WEEKLY;DTSTART=20170101T160000Z;INTERVAL=2;WKST=SU;BYDAY=TU 2017-10-30"
+        id="tacos1">
+        <span>🌮</span>
+        <span class="taco-tuesday"></span>
+      </template>
+      <template type="amp-mustache" info-template>
+        <span
+          [text]="'You picked ' + date + '.' +
+          (dateType == 'tacos1' ? ' Happy Taco Tuesday!' : '')"
+        >You will see your chosen date here.</span>
+      </template>
+    </amp-date-picker>
+  </div>
+  <!--
+    `amp-date-picker` supports a range of attributes, for example `highlighted` and `blocked`. Find the complete list int the official [doc](https://github.com/ampproject/amphtml/tree/master/extensions/amp-date-picker/0.1).
+    The `blocked` attribute allows to specify a space separated list of ISO 8601 dates and RFC 5545 RRULEs specifying disallowed dates.
+    The `highlighted` attributes a space separated list of ISO 8601 dates and RFC 5545 RRULEs specifying dates displayed with a highlight style.
+  -->
+  <div>
+    <button class="ampstart-btn mr1 caps" on="tap:simple-date-picker.clear">Clear</button>
+    <amp-date-picker
+      type="single"
+      layout="container"
+      width="300"
+      height="300"
+      on="select:AMP.setState({date: event.date, dateType: event.id})"
+      locale="en"
+      format="Y-MM-DD"
+      number-of-months="1"
+      show-clear-date
+      keep-open-on-date-select
+      highlighted="2017-10-10 2017-10-12"
+      blocked="2017-10-10 2017-10-17 2017-10-19 2017-10-21"
+      id="simple-date-picker-3">
+      <input amp-date-placeholder placeholder="Pick a date!!"/>
+      <template type="amp-mustache" info-template>
+        <span [text]="date != null ? 'You picked ' + date + '.' : 'You will see your chosen date here.'">You will see your chosen date here.</span>
+      </template>
+    </amp-date-picker>
+  </div>
+  <!-- #### Date Range Picker -->
+  <!--
+    `amp-date-picker` with `type=range` can be used for selecting a date range.
+  -->
+  <div>
+  <button on="tap:range-date-picker.setDates(startDate='2017-10-26',endDate='2017-11-04')">Set date range</button>
+  <button on="tap:range-date-picker.clear">Clear</button>
+  <amp-date-picker
+    type="range"
+    id="range-date-picker"
+    on="
+    select:
+      AMP.setState({
+          dates: event.dates
+      })"
+    locale="en"
+    format="Y-MM-DD"
+    keep-open-on-date-select
+    show-clear-dates
+  >
+    <input amp-date-placeholder-start placeholder="Start date" id="start" />
+    <input amp-date-placeholder-end placeholder="End date" id="end" />
+    <template type="amp-mustache" div info-template>
+      <span [text]="dates != null ? 'You picked ' + dates[0].date + '.' : 'You will see your chosen dates here.'">You will see your chosen dates here.</span>
+    </template>
+  </amp-date-picker>
   </div>
 
 </body>
