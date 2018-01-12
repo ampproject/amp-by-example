@@ -66,6 +66,10 @@
 
   <!-- ## Scroll to top
 
+  We add an element with id `top-page` that we can reference later for scrolling.-->
+  <div id="top-page"></div>
+
+  <!--
   We use 2 `amp-animation` elements to trigger the visibility of the button.
   The first one is for making the button visible...
   -->
@@ -122,8 +126,8 @@
     Aliquam tincidunt, quam nec fermentum viverra, orci dolor hendrerit ex, at suscipit tellus quam eu enim. Phasellus mollis dapibus nunc, vel sollicitudin dui consectetur id. Aliquam erat volutpat. Nunc arcu massa, fermentum in mauris sit amet, pulvinar feugiat tellus. Nam pretium tempus tortor sit amet venenatis. Aliquam hendrerit porta augue. Sed velit enim, rutrum vitae posuere at, suscipit in turpis. Sed porta diam sed arcu semper sollicitudin. Ut ac leo ut orci malesuada lobortis nec ac lorem. Cras nec turpis tellus. Nam vestibulum egestas ligula. Aliquam leo tortor, varius a iaculis vel, laoreet et neque. Vivamus sed mauris at sapien varius ultrices. Aliquam aliquam tincidunt ante, semper gravida nisl maximus vitae. In consectetur eleifend magna eu tincidunt.
 
   </p>
-  <!-- We use the `scrollTo` action to scroll the page when the button is tapped.   Find more about actions [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-actions-and-events.md).-->
-  <button id="scrollToTopButton" on="tap:top-header.scrollTo(duration=200)" class="scrollToTop">⌃</button>
+  <!-- We use the `scrollTo` action to scroll the page when the button is tapped. Find more about actions [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-actions-and-events.md).-->
+  <button id="scrollToTopButton" on="tap:top-page.scrollTo(duration=200)" class="scrollToTop">⌃</button>
 
 </body>
 
