@@ -138,7 +138,9 @@
     on="
     select:
       AMP.setState({
-          dates: event.dates
+          dates: event.dates,
+          startDate: event.dates[0].date,
+          endDate: event.dates[event.dates.length-1].date
       })"
     locale="en"
     format="Y-MM-DD"
@@ -148,9 +150,12 @@
     <input amp-date-placeholder-start placeholder="Start date" id="start" />
     <input amp-date-placeholder-end placeholder="End date" id="end" />
     <template type="amp-mustache" div info-template>
-      <span [text]="dates != null ? 'You picked ' + dates[0].date + '.' : 'You will see your chosen dates here.'">You will see your chosen dates here.</span>
+      <span [text]="'You picked ' + startDate + '.'">You will see your chosen dates here.</span>
     </template>
   </amp-date-picker>
+
+  <span [text]="'You picked ' + startDate + '.'">You will see your chosen dates here.</span>
+
   </div>
 
 </body>
