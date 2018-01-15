@@ -149,14 +149,43 @@
   >
     <input amp-date-placeholder-start placeholder="Start date" id="start" />
     <input amp-date-placeholder-end placeholder="End date" id="end" />
-    <template type="amp-mustache" div info-template>
+    <template type="amp-mustache" info-template>
       <span [text]="'You picked ' + startDate + '.'">You will see your chosen dates here.</span>
     </template>
   </amp-date-picker>
 
-  <span [text]="'You picked ' + startDate + '.'">You will see your chosen dates here.</span>
+  <span [text]="'You picked ' + startDate + ' as start date and ' + endDate + ' as end date.'">You will see your chosen dates here.</span>
 
   </div>
+
+  <!-- #### External configuration -->
+  <!--
+    It's possible to configure the `amp-date-picker` preferences by using an external json. We are using the following:
+```
+    {
+      "templates": [{
+      "id": "low",
+      "dates": [
+        "2017-11-01", "2017-11-03", "2017-11-05", "2017-11-06",
+        "FREQ=WEEKLY;DTSTART=20171101T150000Z;COUNT=30;WKST=MO;BYDAY=TU,SA"
+        ]
+      }]
+    }
+```
+  and we set the `src` of amp-date-picker with the filename amp-date-picker.json -->
+    <amp-date-picker
+    type="single"
+    locale="en"
+    format="Y-MM-DD"
+    show-clear-date
+    number-of-months="1"
+    src="json/amp-date-picker.json"
+    with-portal>
+    <input amp-date-placeholder placeholder="Pick a date!!" id="externalSrc"/>
+    <template type="amp-mustache" date-template id="spooky">
+      <span>🙀</span>
+    </template>
+  </amp-date-picker>
 
 </body>
 </html>
