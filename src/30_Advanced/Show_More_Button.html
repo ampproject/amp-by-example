@@ -49,34 +49,43 @@ This is a sample showing how to implement the "show more" design pattern. "Show 
     </script>
   </amp-state>
 
+
+  <!-- We bind the `src` attribute of the `amp-list` to the `amp-state` object containing the products
+      from that component as a `src`. We also dynamically change the height of the amp-list based on 
+      the number of items (each item has a height of `24px`). -->
+  <amp-list src="/json/related_products.json" 
+            [src]="productsState.items" 
+            width="320"
+            height="144"
+            [height]="productsState.items.length * 24"
+            class="m1">
+    <template type="amp-mustache">
+      <strong>Product</strong>: {{name}}
+      <strong>Price</strong>: ${{price}}
+    </template>
+  </amp-list>
+
   <!-- The show more button is implemented via a form which triggers a page update on the `submit-success` event.
       We are then merging the form results into the items already loaded by the `amp-state` using the `concat` function. -->
       <form method="GET"
-          action="/json/more_related_products_page"
-          action-xhr="/json/more_related_products_page"
-          target="_top"
-          on="submit-success: AMP.setState({
-            productsState: { items: productsState.items.concat(event.response.items)},
-            product: {moreItemsPageIndex: product.moreItemsPageIndex + 1,
-                      hasMorePages: event.response.hasMorePages}
-          });">
+            action="/json/more_related_products_page"
+            action-xhr="/json/more_related_products_page"
+            target="_top"
+            on="submit-success: AMP.setState({
+              productsState: { 
+                items: productsState.items.concat(event.response.items)
+              },
+              product: {
+                moreItemsPageIndex: product.moreItemsPageIndex + 1,
+                hasMorePages: event.response.hasMorePages
+              }
+            });">
         <input type="hidden" name="moreItemsPageIndex" value="0" [value]="product.moreItemsPageIndex">
-        <input type="submit" value="Show more"
-          class="ampstart-btn caps m1 mb3 show"
-          [class] = "(product.hasMorePages == false ? 'hide' : 'ampstart-btn caps m1 mb3 show')">
+        <input type="submit" 
+               value="Show more"
+               class="ampstart-btn caps m1 show"
+               [class] = "(product.hasMorePages == false ? 'hide' : 'ampstart-btn caps m1 mb3 show')">
     </form>
-
-  <!-- We bind the `src` attribute of the `amp-list` to the `amp-state` object containing the products
-      from that component as a `src`. -->
-  <amp-list src="/json/related_products.json" [src]="productsState.items" width="auto"
-                height="200"
-                layout="fixed-height"
-                class="m1">
-   <template type="amp-mustache">
-     <strong>Product</strong>: {{name}}
-     <strong>Price</strong>: ${{price}}
-   </template>
- </amp-list>
 
 </body>
 </html>
