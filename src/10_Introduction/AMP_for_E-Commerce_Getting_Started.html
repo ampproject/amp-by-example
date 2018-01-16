@@ -147,7 +147,9 @@
   <!-- ## Display personalized content
 
   It's common for e-commerce websites to display personalized content or recommendations in a carousel.
-  One way to implement this is to have an `amp-list` as the src of `amp-carousel` and the amp-list endpoint
+  The `amp-mustache` default behaviour for rendering `amp-list` data is to cycle inside `items` objects and adding
+  an `amp-carousel` inside the template this would make the template to render multiple carousels;
+  one way to implement this is to have an `amp-list` as the src of `amp-carousel` and the amp-list endpoint
   needs to return a single entry in `items`, like this:
 
   ```
