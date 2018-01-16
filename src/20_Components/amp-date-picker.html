@@ -40,11 +40,12 @@
   <!-- #### Single Date Picker -->
   <!--
     `amp-date-picker` with `type=single` can be used for selecting a single date.
-    You can use amp-mustache to show an info-panel below the calendar, here we are showing the
-    date that you just selected.
+    You can use `amp-mustache` with `info-template` attribute to show an info-panel below the calendar, here we are showing the
+    date that you just selected. `info-template` also enables AMP binding making available variables which
+    have been set with `AMP.setState`.
   -->
   <div>
-    <button class="ampstart-btn mr1 caps" on="tap:simple-date-picker.clear">Clear</button>
+    <button class="ampstart-btn m1 caps" on="tap:simple-date-picker.clear">Clear</button>
     <amp-date-picker
       type="single"
       layout="container"
@@ -68,7 +69,7 @@
     Here we are using a taco icon in place of the number of the month with a frequency of 2 weeks every Tuesday.
   -->
   <div>
-    <button class="ampstart-btn mr1 caps" on="tap:simple-date-picker.clear">Clear</button>
+    <button class="ampstart-btn m1 caps" on="tap:simple-date-picker.clear">Clear</button>
     <amp-date-picker
       type="single"
       layout="container"
@@ -104,7 +105,7 @@
     The `highlighted` attributes a space separated list of ISO 8601 dates and RFC 5545 RRULEs specifying dates displayed with a highlight style.
   -->
   <div>
-    <button class="ampstart-btn mr1 caps" on="tap:simple-date-picker.clear">Clear</button>
+    <button class="ampstart-btn m1 caps" on="tap:simple-date-picker.clear">Clear</button>
     <amp-date-picker
       type="single"
       layout="container"
@@ -130,8 +131,8 @@
     `amp-date-picker` with `type=range` can be used for selecting a date range.
   -->
   <div>
-  <button on="tap:range-date-picker.setDates(startDate='2017-10-26',endDate='2017-11-04')">Set date range</button>
-  <button on="tap:range-date-picker.clear">Clear</button>
+  <button class="ampstart-btn m1 caps" on="tap:range-date-picker.setDates(startDate='2017-10-26',endDate='2017-11-04')">Set date range</button>
+  <button class="ampstart-btn m1 caps" on="tap:range-date-picker.clear">Clear</button>
   <amp-date-picker
     type="range"
     id="range-date-picker"
@@ -150,11 +151,10 @@
     <input amp-date-placeholder-start placeholder="Start date" id="start" />
     <input amp-date-placeholder-end placeholder="End date" id="end" />
     <template type="amp-mustache" info-template>
-      <span [text]="'You picked ' + startDate + '.'">You will see your chosen dates here.</span>
+      <span [text]="'You picked ' + startDate + ' as start date and ' + endDate + ' as end date.'">You will see your chosen dates here.</span>
     </template>
   </amp-date-picker>
 
-  <span [text]="'You picked ' + startDate + ' as start date and ' + endDate + ' as end date.'">You will see your chosen dates here.</span>
 
   </div>
 
