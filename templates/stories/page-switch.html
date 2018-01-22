@@ -1,0 +1,13 @@
+<script>
+const story = document.querySelector('amp-story');
+const pageId = '{{storyPageId}}';
+story.addEventListener('ampstory:load', function() {
+  const event = new CustomEvent('ampstory:switchpage',  { 
+    bubbles: true, 
+    detail: { 
+      targetPageId: pageId
+    }
+  });
+  story.dispatchEvent(event);
+});
+</script>

@@ -207,6 +207,17 @@ describe("DocumentParser", function() {
     });
   });
 
+  describe('parses stories', function() {
+    it("sets isAmpStory to true", function() {
+      const document = parse('<body>', '<amp-story standalone>', '</amp-story>', '</body>');
+      expect(document.isAmpStory).toBe(true);
+    });
+    it("sets story id", function() {
+      const document = parse('<body>', '<amp-story standalone>', '<amp-story-page id="story-id">', '</amp-story-page>', '</amp-story>', '</body>');
+      expect(document.sections[0].storyPageId).toBe('story-id');
+    });
+  });
+
   function newSection(comment, doc, preview, isFirstSection, isLastSection) {
     const section = new CodeSection(comment, doc, preview);
     section.isLastSection = isLastSection;
