@@ -8,6 +8,9 @@
     {{#supportsAmpSelector}}
     <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
     {{/supportsAmpSelector}}
+    {{#document.isAmpStory}}
+    <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+    {{/document.isAmpStory}}
     {{> head.html}}
     <style amp-custom>
       {{> css/code.css}}
@@ -75,7 +78,16 @@
               {{^metadata.hidePreview}}{{#showPreview}}
               <h3 class="abe-code p1 caps h4">Example</h3>
               <div class="abe-preview fit">
+                {{^storyPageId}}
                 {{{preview}}}
+                {{/storyPageId}}
+                {{#storyPageId}}
+                <div class="abe-story-preview">
+                  <amp-iframe class="ampstart-card" src="{{config.api.host}}{{fileName}}index.html?id={{storyPageId}}" width="240" height="360" sandbox="allow-scripts allow-popups allow-same-origin">
+                    <div placeholder></div>
+                  </amp-iframe>
+                </div>
+                {{/storyPageId}}
               </div>
               {{/showPreview}}{{/metadata.hidePreview}}
               <div class="abe-code fit">
