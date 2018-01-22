@@ -20,11 +20,15 @@ const gutil = require('gulp-util');
 const path = require('path');
 const through = require('through2');
 const fs = require('fs');
+const mkdirp = require('mkdirp');
 const PluginError = gutil.PluginError;
 const DocumentParser = require('../lib/DocumentParser');
 const ExampleFile = require('../lib/ExampleFile');
 const Metadata = require('../lib/Metadata');
 const Templates = require('../lib/Templates');
+const storyController = fs.readFileSync(__dirname + '/../templates/stories/page-switch.html', 'utf8');
+
+const STORY_EMBED_DIR = __dirname + '/../api/dist/';
 
 /**
  * Collects a list of example files, renders them (using templateExample) and
@@ -256,12 +260,12 @@ module.exports = function(config, indexPath, updateTimestamp) {
       args.desc = "This is a live preview of the '" + example.title() + "' sample. " + args.desc;
       args.canonical = config.host + example.url() + 'preview/';
 
-      // generate preview
-      compileTemplate(stream, example, args, {
-        template: previewTemplate,
-        targetPath: example.targetPreviewPath(),
-        isEmbed: false
-      });
+      // generate story preview embed
+      if (document.isAmpStory) {
+        generateStoryPreviewEmbed(stream, example, args, {
+          targetPath: example.targetPreviewEmbedPath(),
+        })
+      }
 
       // generate preview embed
       compileTemplate(stream, example, args, {
@@ -323,6 +327,27 @@ module.exports = function(config, indexPath, updateTimestamp) {
         });
       });
     return sections;
+  }
+
+  function generateStoryPreviewEmbed(stream, example, args, options) {
+    const document = example.document;
+    const inputFile = example.file;
+    const sampleFile = inputFile.clone({contents: false});
+    const sampleHtml = inputFile.contents.toString().replace('</body>', storyController + '</body>');
+    const samplePath = path.join(STORY_EMBED_DIR, example.targetPath());
+    mkdirp(path.dirname(samplePath), err => {
+      if (err) {
+        gutil.log(err);
+        return;
+      }
+      gutil.log('creating story file', samplePath);
+      fs.writeFile(samplePath, sampleHtml, err => {
+        if (err) {
+          gutil.log(err);
+          return;
+        }
+      });
+    });
   }
 
   function compileTemplate(stream, example, args, options) {
