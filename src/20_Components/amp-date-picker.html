@@ -33,6 +33,10 @@
     border-right: 0;
   }
 
+  .DateRangePicker, .SingleDatePickerInput {
+    margin-bottom: 1rem;
+  }
+
   </style>
 </head>
 <body>
@@ -57,7 +61,8 @@
       number-of-months="1"
       show-clear-date
       keep-open-on-date-select
-      id="simple-date-picker">
+      id="simple-date-picker"
+      class="mr1 ml1">
       <input amp-date-placeholder placeholder="Pick a date!!"/>
       <template type="amp-mustache" info-template>
         <span [text]="date != null ? 'You picked ' + date + '.' : 'You will see your chosen date here.'">You will see your chosen date here.</span>
@@ -81,7 +86,8 @@
       number-of-months="1"
       show-clear-date
       keep-open-on-date-select
-      id="simple-date-picker-2">
+      id="simple-date-picker-2"
+      class="mr1 ml1">
       <input amp-date-placeholder placeholder="Pick a date!!"/>
       <template
         type="amp-mustache"
@@ -119,7 +125,8 @@
       keep-open-on-date-select
       highlighted="2017-10-10 2017-10-12"
       blocked="2017-10-10 2017-10-17 2017-10-19 2017-10-21"
-      id="simple-date-picker-3">
+      id="simple-date-picker-3"
+      class="mr1 ml1">
       <input amp-date-placeholder placeholder="Pick a date!!"/>
       <template type="amp-mustache" info-template>
         <span [text]="date != null ? 'You picked ' + date + '.' : 'You will see your chosen date here.'">You will see your chosen date here.</span>
@@ -128,7 +135,8 @@
   </div>
   <!-- #### Date Range Picker -->
   <!--
-    `amp-date-picker` with `type=range` can be used for selecting a date range.
+    `amp-date-picker` with `type=range` can be used for selecting a date range. The default css will disable
+    past dates, use `min` attribute to enable them.
   -->
   <div>
   <button class="ampstart-btn m1 caps" on="tap:range-date-picker.setDates(startDate='2017-10-26',endDate='2017-11-04')">Set date range</button>
@@ -147,7 +155,8 @@
     format="Y-MM-DD"
     keep-open-on-date-select
     show-clear-dates
-  >
+    min="2017-10-26"
+    class="mr1 ml1">
     <input amp-date-placeholder-start placeholder="Start date" id="start" />
     <input amp-date-placeholder-end placeholder="End date" id="end" />
     <template type="amp-mustache" info-template>
@@ -179,8 +188,10 @@
     format="Y-MM-DD"
     show-clear-date
     number-of-months="1"
-    src="json/amp-date-picker.json"
-    with-portal>
+    src="/json/amp-date-picker.json"
+    min="2017-11-01"
+    with-portal
+    class="m1">
     <input amp-date-placeholder placeholder="Pick a date!!" id="externalSrc"/>
     <template type="amp-mustache" date-template id="spooky">
       <span>🙀</span>
