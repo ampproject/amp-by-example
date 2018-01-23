@@ -39,7 +39,9 @@
           {{/metadata.disablePlayground}}
           {{#urlPreview}}
           <a class="ampstart-btn ampstart-btn-secondary caps mb1 mx2 text-decoration-none inline-block"
-             href="{{section}}{{urlPreview}}">View Demo</a>
+             href="{{section}}{{urlPreview}}">View 
+             {{#document.isAmpStory}}Story{{/document.isAmpStory}}
+             {{^document.isAmpStory}}Demo{{/document.isAmpStory}}</a>
           {{/urlPreview}}
       </div>
     </header>
@@ -79,11 +81,17 @@
               <h3 class="abe-code p1 caps h4">Example</h3>
               <div class="abe-preview fit">
                 {{^storyPageId}}
+                {{^document.isAmpStory}}
                 {{{preview}}}
+                {{/document.isAmpStory}}
                 {{/storyPageId}}
                 {{#storyPageId}}
                 <div class="abe-story-preview">
-                  <amp-iframe class="ampstart-card" src="{{config.api.host}}{{fileName}}index.html?id={{storyPageId}}" width="240" height="360" sandbox="allow-scripts allow-popups allow-same-origin">
+                  <amp-iframe 
+                    media="(min-width: 650px)"
+                    src="{{config.api.host}}{{fileName}}index.html?id={{storyPageId}}" 
+                    width="440" height="732" 
+                    sandbox="allow-scripts allow-popups allow-same-origin">
                     <div placeholder></div>
                   </amp-iframe>
                 </div>
