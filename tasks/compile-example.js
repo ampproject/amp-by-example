@@ -340,7 +340,6 @@ module.exports = function(config, indexPath, updateTimestamp) {
         gutil.log(err);
         return;
       }
-      gutil.log('creating story file', samplePath);
       fs.writeFile(samplePath, sampleHtml, err => {
         if (err) {
           gutil.log(err);
@@ -368,6 +367,9 @@ module.exports = function(config, indexPath, updateTimestamp) {
 
   function previewUrl(exampleFile) {
     const document = exampleFile.document;
+    if (document.isAmpStory) {
+      return exampleFile.urlPreviewEmbed();
+    }
     if (!document.metadata.preview) {
       return null;
     }
