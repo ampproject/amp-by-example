@@ -260,6 +260,13 @@ module.exports = function(config, indexPath, updateTimestamp) {
       args.desc = "This is a live preview of the '" + example.title() + "' sample. " + args.desc;
       args.canonical = config.host + example.url() + 'preview/';
 
+      // generate preview 
+      compileTemplate(stream, example, args, {
+        template: previewTemplate,
+        targetPath: example.targetPreviewPath(),
+        isEmbed: false
+      });
+
       // generate story preview embed
       if (document.isAmpStory) {
         generateStoryPreviewEmbed(stream, example, args, {
