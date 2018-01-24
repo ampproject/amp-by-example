@@ -23,6 +23,36 @@
     width: 160px;
     margin-left: auto;
   }
+  .list-placeholder {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    position: relative;
+    -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+    -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+    animation-name: loading-list;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+  }
+
+    /* Safari 4.0 - 8.0 */
+    @-webkit-keyframes loading-list {
+        0%   {background-color:red; left:0px; top:0px;}
+        25%  {background-color:yellow; left:200px; top:0px;}
+        50%  {background-color:blue; left:200px; top:200px;}
+        75%  {background-color:green; left:0px; top:200px;}
+        100% {background-color:red; left:0px; top:0px;}
+    }
+
+    @keyframes loading-list {
+        0%   {background-color:red; left:0px; top:0px;}
+        25%  {background-color:yellow; left:200px; top:0px;}
+        50%  {background-color:blue; left:200px; top:200px;}
+        75%  {background-color:green; left:0px; top:200px;}
+        100% {background-color:red; left:0px; top:0px;}
+    }
+
   </style>
 </head>
 <body>
@@ -67,6 +97,18 @@
   -->
   <amp-list width="auto" height="100" layout="fixed-height" src="<%host%>/json/examples.json"
       template="amp-template-id" class="m1">
+  </amp-list>
+
+  <!-- ## Using a placeholder animation -->
+  <!--
+    You can use a custom placeholder like an animation to improve the user experience while the list is loading.
+  -->
+  <amp-list width="auto" height="48" layout="fixed-height" src="<%host%>/json/examples.json" template="amp-template-id" class="m1">
+    <div placeholder class="list-placeholder">
+    </div>
+    <template type="amp-mustache">
+      <div><a href="{{url}}">{{title}}</a></div>
+    </template>
   </amp-list>
 
   <!-- ## Handling List Overflow -->
