@@ -5,15 +5,21 @@
 <html ⚡>
 <head>
   <meta charset="utf-8">
-  <!-- #### Introduction
-    AMP date picker...add intro here
+  <!-- ## Introduction
+    `amp-date-picker` is an AMP component which allows to select a single date or a range of dates.
   -->
-  <!-- #### Setup -->
+  <!-- ## Setup -->
   <!--
-    Include the amp-date-picker extended component.
+    Include the `amp-date-picker` component.
+  -->
+  <script async custom-element="amp-date-picker" src="https://cdn.ampproject.org/v0/amp-date-picker-0.1.js"></script>
+  <!--
+    Include the `amp-bind` component to set variables based on the selected date.
   -->
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-  <script async custom-element="amp-date-picker" src="https://cdn.ampproject.org/v0/amp-date-picker-0.1.js"></script>
+  <!--
+    Include the `amp-mustache` component to display an info panel below the date picker.
+  -->
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <link rel="canonical" href="<%host%>/components/amp-date-picker/" >
@@ -37,16 +43,26 @@
     margin-bottom: 1rem;
   }
 
+  .align-content-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex-direction: row;
+  }
+
   </style>
 </head>
 <body>
 
-  <!-- #### Single Date Picker -->
+  <!-- ## Single Date Picker -->
   <!--
     `amp-date-picker` with `type=single` can be used for selecting a single date.
     You can use `amp-mustache` with `info-template` attribute to show an info-panel below the calendar, here we are showing the
     date that you just selected. `info-template` also enables AMP binding making available variables which
     have been set with `AMP.setState`.
+    A placeholder is required for the component. For a single date, this can take the form:
+    `<input amp-date-placeholder placeholder="Pick a date"/>`.
   -->
   <div>
     <button class="ampstart-btn m1 caps" on="tap:simple-date-picker.clear">Clear</button>
@@ -70,7 +86,7 @@
     </amp-date-picker>
   </div>
   <!--
-    In addition, you can also use `amp-mustache` to create templates for custom date markup.
+    In addition, you can also use `amp-mustache` to create templates for custom date markup, such as an icon instead of the number of the month.
     Here we are using a taco icon in place of the number of the month with a frequency of 2 weeks every Tuesday.
   -->
   <div>
@@ -133,10 +149,10 @@
       </template>
     </amp-date-picker>
   </div>
-  <!-- #### Date Range Picker -->
+  <!-- ## Date Range Picker -->
   <!--
-    `amp-date-picker` with `type=range` can be used for selecting a date range. The default css will disable
-    past dates, use `min` attribute to enable them.
+    `amp-date-picker` with `type=range` can be used for selecting a date range.
+    By default, `amp-date-picker` disables past dates, use `min` attribute to enable them.
   -->
   <div>
   <button class="ampstart-btn m1 caps" on="tap:range-date-picker.setDates(startDate='2017-10-26',endDate='2017-11-04')">Set date range</button>
@@ -167,7 +183,7 @@
 
   </div>
 
-  <!-- #### External configuration -->
+  <!-- ## External Configuration -->
   <!--
     It's possible to configure the `amp-date-picker` preferences by using an external json. We are using the following:
 ```
@@ -194,7 +210,10 @@
     class="m1">
     <input amp-date-placeholder placeholder="Pick a date!!" id="externalSrc"/>
     <template type="amp-mustache" date-template id="spooky">
-      <span>🙀</span>
+      <div class="align-content-center">
+        <span>{{D}}</span>
+        <span>🙀</span>
+      <div>
     </template>
   </amp-date-picker>
 
