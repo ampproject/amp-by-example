@@ -7,6 +7,7 @@
   <meta charset="utf-8">
   <!-- ## Introduction
     `amp-date-picker` is an AMP component which allows to select a single date or a range of dates.
+    Its implementation is based on [react-dates](https://github.com/airbnb/react-dates)
   -->
   <!-- ## Setup -->
   <!--
@@ -25,6 +26,10 @@
   <link rel="canonical" href="<%host%>/components/amp-date-picker/" >
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!--
+    In order to personalize `amp-date-picker` style, you can use classes such `DateRangePicker` and `SingleDatePickerInput`
+    which are inherited from [react-dates](https://github.com/airbnb/react-dates). 
+  -->
   <style amp-custom>
 
   .highlight-corner {
@@ -87,7 +92,8 @@
   </div>
   <!--
     In addition, you can also use `amp-mustache` to create templates for custom date markup, such as an icon instead of the number of the month.
-    Here we are using a taco icon in place of the number of the month with a frequency of 2 weeks every Tuesday.
+    Here we are using a taco icon in place of the number of the month with a frequency of 2 weeks every Tuesday. Common use cases
+    could be dates of the month where the price of an item is fixed to a specific number.
   -->
   <div>
     <button class="ampstart-btn m1 caps" on="tap:simple-date-picker.clear">Clear</button>
@@ -122,7 +128,7 @@
     </amp-date-picker>
   </div>
   <!--
-    `amp-date-picker` supports a range of attributes, for example `highlighted` and `blocked`. Find the complete list int the official [doc](https://github.com/ampproject/amphtml/tree/master/extensions/amp-date-picker/0.1).
+    `amp-date-picker` supports a range of attributes, for example `highlighted` and `blocked`. Find the complete list in the official [doc](https://github.com/ampproject/amphtml/tree/master/extensions/amp-date-picker/0.1).
     The `blocked` attribute allows to specify a space separated list of ISO 8601 dates and RFC 5545 RRULEs specifying disallowed dates.
     The `highlighted` attributes a space separated list of ISO 8601 dates and RFC 5545 RRULEs specifying dates displayed with a highlight style.
   -->
@@ -197,7 +203,7 @@
       }]
     }
 ```
-  and we set the `src` of amp-date-picker with the filename amp-date-picker.json -->
+  Then we set the `src` of `amp-date-picker` with the filename `amp-date-picker.json` -->
     <amp-date-picker
     type="single"
     locale="en"
