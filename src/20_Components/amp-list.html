@@ -32,7 +32,7 @@
     -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
     -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
     animation-name: loading-list;
-    animation-duration: 4s;
+    animation-duration: 2s;
     animation-iteration-count: infinite;
   }
 
@@ -103,7 +103,7 @@
   <!--
     You can use a custom placeholder like an animation to improve the user experience while the list is loading.
   -->
-  <amp-list width="auto" height="48" layout="fixed-height" src="<%host%>/json/examples.json" template="amp-template-id" class="m1">
+  <amp-list noloading width="auto" height="48" layout="fixed-height" src="<%host%>/json/examples.json" template="amp-template-id" class="m1">
     <div placeholder class="list-placeholder">
     </div>
     <template type="amp-mustache">
