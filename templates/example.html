@@ -10,6 +10,7 @@
     {{/supportsAmpSelector}}
     {{#document.isAmpStory}}
     <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
     {{/document.isAmpStory}}
     {{> head.html}}
     <style amp-custom>
@@ -79,6 +80,7 @@
             <div class="abe-code-preview ampstart-card">
               {{^metadata.hidePreview}}{{#showPreview}}
               <h3 class="abe-code p1 caps h4">Example</h3>
+              <button class="story-reload" title="Reload Preview" on="tap:AMP.setState({ {{storyPageVariableId}}: '{{config.api.host}}{{fileName}}index.html?id={{storyPageId}}&' + random()})"></button>
               <div class="abe-preview fit">
                 {{^storyPageId}}
                 {{^document.isAmpStory}}
@@ -90,6 +92,7 @@
                   <amp-iframe 
                     media="(min-width: 650px)"
                     src="{{config.api.host}}{{fileName}}index.html?id={{storyPageId}}" 
+                    [src]="{{storyPageVariableId}}" 
                     width="440" height="732" 
                     sandbox="allow-scripts allow-popups allow-same-origin">
                     <div placeholder></div>

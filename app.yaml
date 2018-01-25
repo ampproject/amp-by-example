@@ -63,6 +63,7 @@ handlers:
   static_dir: dist/video
   secure: always
   http_headers:
+    Access-Control-Allow-Origin: "*"
 
 - url: /polymer/detail/.*
   static_files: dist/polymer/index.html
