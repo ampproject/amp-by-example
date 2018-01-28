@@ -356,7 +356,7 @@ gulp.task('create', 'create a new AMP example', function() {
   return file(examplePath, '', {
       src: true
     })
-    .pipe(createExample(config))
+    .pipe(createExample(paths, config))
     .pipe(gulp.dest(paths.src));
 });
 
@@ -541,14 +541,13 @@ function generateRobotsTxt(contents) {
     .pipe(gulp.dest('dist'));
 }
 
-/* adds a canonical link to sample files */
+/* adds a title link to all sample files */
 function performChange(content) {
   const exampleFile = ExampleFile.fromPath(this.file.path);
   const canonical = config.host + exampleFile.url();
-  if (!/<link rel="canonical"/.test(content)) {
+  if (!/<title>/.test(content)) {
     content = content.replace(/<meta charset="utf-8">/g,
-      '<meta charset="utf-8">\n  <link rel="canonical" href="' + canonical +
-      '">');
+      '<meta charset="utf-8">\n  <title>' + exampleFile.title() + '</title>');
     gutil.log("updating canonical: " + this.file.relative);
   }
   return content;
