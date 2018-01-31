@@ -11,13 +11,13 @@
 <html ⚡>
 <head>
   <meta charset="utf-8">
-  <link rel="canonical" href="<%host%>/../visual_effects/snackbar/toast/">
+  <link rel="canonical" href="<%host%>/visual_effects/animated_snackbar/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <!-- ## Setup -->
-  <!-- We use amp-bind to trigger the Snackbar...  -->
+  <!-- We use `amp-bind` to trigger the Snackbar...  -->
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-  <!-- ... and amp-animation to show and hide the Snackbar.  -->
+  <!-- ... and `amp-animation` to show and hide the Snackbar.  -->
   <script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 <style amp-custom>
@@ -57,9 +57,9 @@
 
   <!-- ## The Animation -->
   <!--
-    Our snackbar should dissapear after a few seconds. This could be easily accomplished by adding a CSS class using `amp-bind` to show the snackbar and then using CSS animations to hide the snackbar after a few seconds. However, with this approach it's not possible to trigger the snackbar multiple times (the newly added CSS class won't dissappear). 
+    We want to show a snackbar that disappears after a few seconds. This could be easily accomplished by adding a CSS class using `amp-bind` to show the snackbar and then using CSS animations to hide the snackbar after a few seconds. However, with this approach it's not possible to trigger the snackbar multiple times (the newly added CSS class won't dissappear). 
     
-    We can solve this problem by using the [`amp-animation`](https://www.ampproject.org/docs/reference/components/amp-animation)  extension, which makes it possible to execute animations repeatedly. We define an animation that will slide-in the snackbar and then hide it after a few seconds using the `offsset` attribute to time the different keyframes.
+    We can solve this problem by using the [`amp-animation`](https://www.ampproject.org/docs/reference/components/amp-animation)  extension, which makes it possible to execute animations repeatedly. We define an animation that will slide-in the snackbar and then hide it after a few seconds using the `offset` attribute to time the different keyframes.
   -->
   <amp-animation id="snackbarSlideIn" layout="nodisplay">
     <script type="application/json">
