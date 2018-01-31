@@ -121,10 +121,10 @@
 
   <!-- ## Using a placeholder animation -->
   <!--
-    You can use a custom placeholder like an animation to improve the user experience while the list is loading. In order to
-    see the placeholder, you can toggle a slow 3g network from the Chrome dev console network panel.
+    You can use a custom placeholder like an animation to improve the user experience while the list is loading.
+    We are using an endpoint which intentionally delays the response by 10 seconds.
   -->
-  <amp-list id="amp-list-placeholder" noloading width="auto" height="70" layout="fixed-height" src="http://localhost:8080/samples_templates/slow-json-with-items?delay=10000" template="amp-template-id">
+  <amp-list id="amp-list-placeholder" noloading width="auto" height="70" layout="fixed-height" src="<%host%>/slow-json-with-items?delay=10000" template="amp-template-id">
     <div placeholder class="card">
     </div>
     <template type="amp-mustache">
