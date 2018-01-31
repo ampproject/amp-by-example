@@ -20,33 +20,66 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+	"io/ioutil"
 )
 
 const (
 	SLOW_JSON_SAMPLE_PATH   = "/" + CATEGORY_SAMPLE_TEMPLATES + "/slow-json/"
+	SLOW_JSON_WITH_ITEMS_SAMPLE_PATH   = "/" + CATEGORY_SAMPLE_TEMPLATES + "/slow-json-with-items/"
 	SLOW_IFRAME_SAMPLE_PATH = "/" + CATEGORY_SAMPLE_TEMPLATES + "/slow-iframe/"
 )
 
 func InitSlowResponseSample() {
 	http.HandleFunc(SLOW_JSON_SAMPLE_PATH+"", slowJson)
+	http.HandleFunc(SLOW_JSON_WITH_ITEMS_SAMPLE_PATH+"", slowJsonWithItems)
 	http.HandleFunc(SLOW_IFRAME_SAMPLE_PATH+"", slowIframe)
 }
 
-func prepResponse(w http.ResponseWriter, r *http.Request, response string) string {
+func prepResponse(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
 	SetContentTypeJson(w)
-	delay, _ := strconv.ParseUint(r.URL.Query().Get("delay"), 0, 64)
+	addDelay(r)
+}
+
+func createResponse(responseContent string, r *http.Request) string{
+	return fmt.Sprintf(responseContent, getDelay(r))
+}
+
+func addDelay(r *http.Request) {
+	delay := getDelay(r)
 	duration := time.Duration(delay) * time.Millisecond
 	time.Sleep(duration)
-	return fmt.Sprintf(response, delay)
+}
+
+func getDelay(r *http.Request) uint64 {
+	delay, _ := strconv.ParseUint(r.URL.Query().Get("delay"), 0, 64)
+	return delay
 }
 
 func slowJson(w http.ResponseWriter, r *http.Request) {
-	response := prepResponse(w, r, "{\"items\":[{\"title\": \"This JSON response was delayed %v milliseconds. Hard-refresh the page (Ctrl/Cmd+Shift+R) if you didn't see the spinner.\"}]}")
+	prepResponse(w, r)
+	responseContent := "{\"items\":[{\"title\": \"This JSON response was delayed %v milliseconds. Hard-refresh the page (Ctrl/Cmd+Shift+R) if you didn't see the spinner.\"}]}"
+	response := fmt.Sprintf(createResponse(responseContent, r))
 	w.Write([]byte(response))
 }
 
+func slowJsonWithItems(w http.ResponseWriter, r *http.Request) {
+	products := readProducts(DIST_FOLDER + "/json/examples.json")
+	prepResponse(w, r)
+	w.Write([]byte(products))
+}
+
+func readProducts(path string) string {
+	productsFile, err := ioutil.ReadFile(path)
+	if err != nil {
+		panic(err)
+	}
+	return string(productsFile)
+	}
+
 func slowIframe(w http.ResponseWriter, r *http.Request) {
-	response := prepResponse(w, r, "This iframe was delayed %v milliseconds. Hard-refresh the page (Ctrl/Cmd+Shift+R) if you didn't see the spinner.")
+	prepResponse(w, r)
+	responseContent := "This iframe was delayed %v milliseconds. Hard-refresh the page (Ctrl/Cmd+Shift+R) if you didn't see the spinner."
+	response := fmt.Sprintf(createResponse(responseContent, r))
 	w.Write([]byte(response))
 }

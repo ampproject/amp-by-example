@@ -25,7 +25,7 @@
   }
   :root {
     --card-padding: 10px;
-    --card-height: 48px;
+    --card-height: 70px;
     --card-skeleton: linear-gradient(lightgrey var(--card-height), transparent 0);
     );
     --title-height: 10px;
@@ -67,6 +67,10 @@
     to {
       background-position: 350% 0, var(--title-position), var(--title-position2), 0 0;
     }
+  }
+
+  #amp-list-placeholder div[role=list] {
+    margin: 1rem;
   }
 
   </style>
@@ -120,7 +124,7 @@
     You can use a custom placeholder like an animation to improve the user experience while the list is loading. In order to
     see the placeholder, you can toggle a slow 3g network from the Chrome dev console network panel.
   -->
-  <amp-list noloading width="auto" height="48" layout="fixed-height" src="<%host%>/json/examples.json" template="amp-template-id" class="m1">
+  <amp-list id="amp-list-placeholder" noloading width="auto" height="70" layout="fixed-height" src="http://localhost:8080/samples_templates/slow-json-with-items?delay=10000" template="amp-template-id">
     <div placeholder class="card">
     </div>
     <template type="amp-mustache">
