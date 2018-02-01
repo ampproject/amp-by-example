@@ -19,26 +19,15 @@
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <style amp-custom>
+
   .list-overflow {
     width: 160px;
     margin-left: auto;
   }
-  :root {
-    --card-padding: 10px;
-    --card-height: 70px;
-    --card-skeleton: linear-gradient(lightgrey var(--card-height), transparent 0);
-    );
-    --title-height: 10px;
-    --title-width: 200px;
-    --title-position: var(--card-padding) var(--card-padding);
-    --title-position2: var(--card-padding) calc(var(--card-padding) *3);
-    --title-skeleton: linear-gradient(white var(--title-height), transparent 0);
-    --blur-width: 200px;
-    --blur-size: var(--blur-width) var(--card-height);
-  }
+
   .card {
     width: 100%;
-    height: var(--card-height);
+    height: 70px;
   }
   .card::after {
     content: "";
@@ -48,10 +37,10 @@
     border-radius: 6px;
     -webkit-box-shadow: 0 10px 45px rgba(0, 0, 0, 0.1);
             box-shadow: 0 10px 45px rgba(0, 0, 0, 0.1);
-    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, rgba(211, 211, 211, 0)), color-stop(50%, rgba(211, 211, 211, 0.8)), to(rgba(211, 211, 211, 0))), var(--title-skeleton), var(--title-skeleton), var(--card-skeleton);
-    background-image: linear-gradient(90deg, rgba(211, 211, 211, 0) 0, rgba(211, 211, 211, 0.8) 50%, rgba(211, 211, 211, 0) 100%), var(--title-skeleton), var(--title-skeleton), var(--card-skeleton);
-    background-size: var(--blur-size), var(--title-width) var(--title-height), var(--title-width) var(--title-height), 100% 100%;
-    background-position: -150% 0, var(--title-position), var(--title-position2), 0 0;
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, rgba(211, 211, 211, 0)), color-stop(50%, rgba(211, 211, 211, 0.8)), to(rgba(211, 211, 211, 0))), linear-gradient(white 10px, transparent 0), linear-gradient(white 10px, transparent 0), linear-gradient(lightgrey 70px, transparent 0);
+    background-image: linear-gradient(90deg, rgba(211, 211, 211, 0) 0, rgba(211, 211, 211, 0.8) 50%, rgba(211, 211, 211, 0) 100%), linear-gradient(white 10px, transparent 0), linear-gradient(white 10px, transparent 0), linear-gradient(lightgrey 70px, transparent 0);
+    background-size: 200px 70px, 200px 10px, 200px 10px, 100% 100%;
+    background-position: -150% 0, 10px 10px, 10px 30px, 0 0;
     background-repeat: no-repeat;
     -webkit-animation: loading 1.5s infinite;
             animation: loading 1.5s infinite;
@@ -59,13 +48,13 @@
 
   @-webkit-keyframes loading {
     to {
-      background-position: 350% 0, var(--title-position), var(--title-position2), 0 0;
+      background-position: 350% 0, 10px 10px, 10px 30px, 0 0;
     }
   }
 
   @keyframes loading {
     to {
-      background-position: 350% 0, var(--title-position), var(--title-position2), 0 0;
+      background-position: 350% 0, 10px 10px, 10px 30px, 0 0;
     }
   }
 
