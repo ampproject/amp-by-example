@@ -1,0 +1,96 @@
+#error-list {
+  display: block;
+  position: fixed;
+  z-index: 1000;
+  background: white;
+  top: 0;
+  right: 0;
+  margin-left: 8px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  pointer-events: none;
+  transform: translateX(110%);
+  transition: transform 0.2s cubic-bezier(0, 0, 0.3, 1);
+  max-width: calc(50% - 4px);
+  height: 100%;
+}
+#error-list .title {
+  display: flex;
+  align-items: center;
+}
+#error-list .title .close {
+  margin: 8px;
+}
+#error-list h2 {    
+  margin-left: 1rem;
+}
+#error-list.show {
+  transform: translateX(0%);
+  pointer-events: auto;
+}
+#error-list ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+#error-list li {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0.5rem;
+  padding-left: 3.5rem;
+  cursor: pointer;
+  background-color: white;
+  background-position: left 1rem center;
+  background-repeat: no-repeat;
+}
+#error-list li:hover,
+#error-list li:active {
+  background-color: var(--dark-bg-color);
+}
+#error-list li .category {
+  padding-top: 8px;
+  color: #aaa;
+}
+#error-list li .location {
+  padding-top: 8px;
+  line-height: 18px;
+  font-size: 14px;
+}
+#error-list li.error {
+  background-image: url(./icons/error.svg);
+}
+#error-list li.warning {
+  background-image: url(./icons/warning.svg);
+}
+#error-list li  {
+  border-bottom: 1px solid #ccc;
+}
+#error-list li:first-child  {
+  border-top: 1px solid #ccc;
+}
+
+#error-indicator.close {
+  width: 24px;
+  background-color: transparent;
+	color: transparent;
+  border: none;
+  background-image: url(./icons/close.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 767px) { 
+  #error-indicator {
+    margin-right: 0;
+  }
+  #error-list {
+    margin: 0;
+  }
+  #error-list li .category {
+    display: none;
+  }
+  #error-list {
+    max-width: 100%;
+  }
+}

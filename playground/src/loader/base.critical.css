@@ -1,0 +1,60 @@
+/* Loader */
+.loader {
+  position: absolute;
+  text-align: center;
+  display: block;
+  height: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  transform-origin: 50% 50%;
+  white-space: nowrap;
+  z-index: 1;
+  align-items: center;
+}
+
+.loader-dot {
+  position: relative;
+  display: inline-block;
+
+  height: 10px;
+  width: 10px;
+  margin: 2px;
+  border-radius: 100%;
+  background-color: #000;
+  opacity: 0.6;
+
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .2);
+  will-change: transform;
+  animation: loader-dots 2s infinite;
+}
+
+.loader .loader-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loader .loader-dot:nth-child(2) {
+  animation-delay: .1s;
+}
+
+.loader .loader-dot:nth-child(3) {
+  animation-delay: .2s;
+}
+
+@keyframes loader-dots {
+  0%, 100% {
+    transform: scale(.7);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(.8);
+    opacity: 0.9;
+  }
+}
+
+.loader-fadeOut {
+  animation: 0.25s ease-out fadeout;
+  animation-fill-mode: forwards;
+}
+

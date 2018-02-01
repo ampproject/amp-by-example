@@ -1,0 +1,84 @@
+{
+  "ads": [
+    {
+      "label": "Custom",
+      "width": "320px",
+      "height": "250px"
+    },
+    {
+      "label": "300x50",
+      "width": "300px",
+      "height": "50px"
+    },
+    {
+      "label": "300x250",
+      "width": "300px",
+      "height": "250px"
+    },
+    {
+      "label": "300x600",
+      "width": "300px",
+      "height": "600px"
+    },
+    {
+      "label": "320x50",
+      "width": "320px",
+      "height": "50px"
+    },
+    {
+      "label": "320x100",
+      "width": "320px",
+      "height": "100px"
+    },
+    {
+      "label": "320x250",
+      "width": "320px",
+      "height": "250px",
+      "selected": true
+    },
+    {
+      "label": "728x90",
+      "width": "728px",
+      "height": "90px"
+    }
+  ],
+  "devices": [
+    {
+      "label": "Custom",
+      "width": "320px",
+      "height": "80px",
+      "selected": true
+    },
+    {
+      "label": "iPhone 5",
+      "width": "320px",
+      "height": "568px"
+    },
+    {
+      "label": "iPhone 7",
+      "width": "375px",
+      "height": "667px"
+    },
+    {
+      "label": "iPhone 7 Plus",
+      "width": "414px",
+      "height": "736px"
+    },
+    {
+      "label": "Nexus 5",
+      "width": "360px",
+      "height": "598px"
+    },
+    {
+      "label": "Nexus 5X / 6p",
+      "width": "412px",
+      "height": "732px"
+    },
+    {
+      "label": "Responsive",
+      "width": "100%",
+      "height": "100%",
+      "selected": true
+    }
+  ]
+}
