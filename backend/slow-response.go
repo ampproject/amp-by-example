@@ -17,16 +17,16 @@ package backend
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"strconv"
 	"time"
-	"io/ioutil"
 )
 
 const (
-	SLOW_JSON_SAMPLE_PATH   = "/" + CATEGORY_SAMPLE_TEMPLATES + "/slow-json/"
-	SLOW_JSON_WITH_ITEMS_SAMPLE_PATH   = "/" + CATEGORY_SAMPLE_TEMPLATES + "/slow-json-with-items/"
-	SLOW_IFRAME_SAMPLE_PATH = "/" + CATEGORY_SAMPLE_TEMPLATES + "/slow-iframe/"
+	SLOW_JSON_SAMPLE_PATH            = "/" + CATEGORY_SAMPLE_TEMPLATES + "/slow-json/"
+	SLOW_JSON_WITH_ITEMS_SAMPLE_PATH = "/" + CATEGORY_SAMPLE_TEMPLATES + "/slow-json-with-items/"
+	SLOW_IFRAME_SAMPLE_PATH          = "/" + CATEGORY_SAMPLE_TEMPLATES + "/slow-iframe/"
 )
 
 func InitSlowResponseSample() {
@@ -41,7 +41,7 @@ func prepResponse(w http.ResponseWriter, r *http.Request) {
 	addDelay(r)
 }
 
-func createResponse(responseContent string, r *http.Request) string{
+func createResponse(responseContent string, r *http.Request) string {
 	return fmt.Sprintf(responseContent, getDelay(r))
 }
 
@@ -75,7 +75,7 @@ func readProducts(path string) string {
 		panic(err)
 	}
 	return string(productsFile)
-	}
+}
 
 func slowIframe(w http.ResponseWriter, r *http.Request) {
 	prepResponse(w, r)
