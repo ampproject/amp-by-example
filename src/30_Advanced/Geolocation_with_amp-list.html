@@ -46,6 +46,9 @@
       position: relative;
       box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     }
+    .abe-preview ul.results p {
+      margin: 0;
+    }
     .abe-preview ul.results amp-img {
       background-image: url(/img/geolocation_map_skeleton.png);
       background-size: 150px 100px;
@@ -93,7 +96,7 @@
   Since we need to have an initial fixed-size for amp-list we manually calculate
   that each card is 100 + 15px margin and the title is 16px + 20px margin:
 
-  > `16px + 10px + (5 * 115px) = 601px`
+  > `16px + 20px + (5 * (100 + 15px)) = 611px`
 
   The placeholder list items largely use CSS to draw the skeleton elements as
   described in [CSS-Tricks](https://css-tricks.com/building-skeleton-screens-css-custom-properties/).
@@ -101,7 +104,7 @@
   is also used while `<amp-img>` loads the actual images to prevent a
   flash when the placeholder is removed.
   -->
-  <amp-list width="auto" height="601" layout="fixed-height"
+  <amp-list class="abe-preview" width="auto" height="611" layout="fixed-height"
             src="https://caramel-wolf.glitch.me//location-specific-results.json"
             single-item items=".">
     <template type="amp-mustache" id="amp-template-id">
