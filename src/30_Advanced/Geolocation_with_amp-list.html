@@ -47,6 +47,8 @@
       box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     }
     .abe-preview ul.results amp-img {
+      background-image: url(/img/geolocation_map_skeleton.png);
+      background-size: 150px 100px;
       float: left;
       margin-right: 5px;
     }
@@ -113,11 +115,6 @@
               width="150"
               height="100"
               src="https://maps.googleapis.com/maps/api/staticmap?markers={{lat}},{{lng}}&zoom=9&size=150x100&maptype=roadmap&key=AIzaSyByT-0aYa-nEF0gGqJHNpEEK1bus00losI">
-              <img
-                src="/img/geolocation_map_skeleton.png"
-                width="150"
-                height="100">
-              </amp-img>
             </amp-img>
             <p>
               <strong>{{placeName}}</strong><br>
