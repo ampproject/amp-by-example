@@ -16,13 +16,14 @@
 package playground
 
 import (
-	"appengine"
-	"appengine/urlfetch"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
+
+	"appengine"
+	"appengine/urlfetch"
 )
 
 var validRequestUrlOrigins map[string]bool
@@ -39,14 +40,18 @@ func InitPlayground() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" ||
-		r.Header.Get("X-Requested-By") != "playground" {
+	if r.Method != "get" ||
+		r.Header.Get("x-requested-by") != "playground" {
 		http.Error(w, "Bad request.", http.StatusBadRequest)
 		return
 	}
-	param := r.FormValue("url")
-	u, err := url.Parse(param)
-	if param == "" || err != nil || (u.Scheme != "http" && u.Scheme != "https") {
+	param, _ := r.URL.Query()["url"]
+	if len(param) <= 0 {
+		http.Error(w, "Bad request.", http.StatusBadRequest)
+		return
+	}
+	u, err := url.Parse(param[0])
+	if err != nil || (u.Scheme != "http" && u.Scheme != "https") {
 		http.Error(w, "Bad request.", http.StatusBadRequest)
 		return
 	}

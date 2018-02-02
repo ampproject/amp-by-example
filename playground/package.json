@@ -54,5 +54,8 @@
       "fetch",
       "URL"
     ]
+  },
+  "dependencies": {
+    "copy-webpack-plugin": "^4.3.1"
   }
 }

@@ -6,6 +6,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const StyleExtHtmlWebpackPlugin = require('style-ext-html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const WorkboxBuildWebpackPlugin = require('workbox-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   context: path.resolve(__dirname, './src'),
@@ -17,7 +18,7 @@ module.exports = {
     filename: '[name].[hash].js',
     chunkFilename: '[name].[chunkhash].bundle.js',
     sourceMapFilename: '[name].map',
-    publicPath: '/', 
+    publicPath: '', 
   },
   module: {
     rules: [
@@ -70,9 +71,12 @@ module.exports = {
     }),
     new ScriptExtHtmlWebpackPlugin({
       defaultAttribute: 'async',
-      preload: [/app\.js/],
+      preload: [/app\..*\.js/],
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
+    new CopyWebpackPlugin([
+      { from: '../static' }
+    ]),
     new ExtractTextPlugin({
       filename: '[name].css',
       allChunks: true,

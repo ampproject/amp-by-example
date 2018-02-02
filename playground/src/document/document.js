@@ -19,7 +19,8 @@ class PlaygroundDocument {
   }
 
   fetchUrl(url) {
-    return fetch(url, {
+    const fetchUrl = '/playground/fetch?url=' + url;
+    return fetch(fetchUrl, {
       mode: 'cors',
     }).then(response => {
       if (!response.ok) {

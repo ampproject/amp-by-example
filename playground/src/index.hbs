@@ -36,13 +36,12 @@
   </head>
   <body>
     <header class="elevation-2dp">
-      <div id="logo" class="hide-on-mobile" ><b>AMP</b> Playground</div>
+      <div id="logo" class="hide-on-mobile" ><img src="images/logo.svg" height="32"></div>
       <div id="document-title" tabindex="0" role="button" class="button caret hidden">Untitled</div>
       <div id="toolbar">
         {{> button/button.hbs id="error-indicator" class="elevation-2dp" text="Valid" disabled=true}}
         {{> button/button.hbs id="save-document" class="hidden" class2="underline" hideOnMobile=true  text="Save"}}
         {{> button/button.hbs id="fork-document" class="border" text="Fork" hideOnMobile=true }}
-        <!-- {{> button/button.hbs id="load-template" text='Load <span class="hide-on-mobile">Templates</span>' disabled=true}} -->
 
         <div id="show-menu" class="hide-on-desktop button" tabindex="0" role="button" aria-label="Show Menu">
           <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">

@@ -370,6 +370,10 @@ main > .panel + .panel {
   animation-fill-mode: forwards;
 }
 
+#save-document, #fork-document {
+  display: none!important;
+}
+
 @keyframes fadein {
   from { opacity: 0; }
   to   { opacity: 1; }

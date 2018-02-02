@@ -511,10 +511,9 @@ Disallow:
 gulp.task('build:playground', 'Build the playground', function() {
   const playgroundDist = '../dist/' + paths.playground;
   return run(
-    'npm i && ' +
     'cd ' + paths.playground + ' && ' +
     'npm i && ' +
-    'gulp build && ' +
+    'npm run-script build && ' +
     'mkdir -p ../dist && ' +
     'rm -rf ' + playgroundDist + ' && ' +
     'cp -R dist ' + playgroundDist
