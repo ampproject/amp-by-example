@@ -6,6 +6,7 @@
   position: fixed;
   top: 0;
   right: 0;
+  padding: 0.5rem 0;
   animation: revealMenu 150ms ease-in-out forwards;
 }
 .menu.hide {
@@ -25,7 +26,11 @@
   }
 }
 .menu > * {
-  padding: 0.75rem 2rem;
+  padding: 0 2rem;
+  line-height: 32px;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: var(--font-family-monospace);
   margin: 0;
   opacity: 0;
   animation: revealMenuContent 100ms ease-out forwards 120ms;
@@ -37,6 +42,10 @@
   font-size: 1.2em;
 	margin: 0;
   color: var(--accent-color);
+}
+.menu > img {
+  padding: 0;
+  margin: 0 1.5rem;
 }
 .menu input {
   margin-right: 8px;
@@ -50,7 +59,7 @@
 .menu [role=separator] {
   padding: 0;
 	height: 0;
-	margin: 0;
+  margin: 0.5rem 0;
 	border: none;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }

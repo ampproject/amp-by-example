@@ -143,7 +143,8 @@ gulp.task('deploy:prod', 'deploy to production server', function(callback) {
 
 gulp.task('deploy:staging', 'deploy to staging server', function(callback) {
   config.env = PROD;
-  config.host = 'https://amp-by-example-staging.appspot.com';
+  config.appId = 'amp-by-example-sebastian';
+  config.host = 'https://' + config.appId + '.appspot.com';
   runSequence('clean',
     'robots:disallow',
     'build',
@@ -172,7 +173,7 @@ gulp.task('deploy:api:prod', 'deploy to production api app engine', function() {
 });
 
 gulp.task('deploy:site:staging', 'deploy to staging app engine', function() {
-  return run('goapp deploy -application  amp-by-example-staging -version 1')
+  return run('goapp deploy -application ' + config.appId + ' -version 1')
     .exec();
 });
 

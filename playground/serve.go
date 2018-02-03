@@ -1,5 +1,5 @@
 /**
- * Copyright 2016 The AMP HTML Authors. All Rights Reserved.
+ * Copyright 2018 The AMP HTML Authors. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 package playground
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -31,33 +30,37 @@ var validRequestUrlOrigins map[string]bool
 func InitPlayground() {
 	http.HandleFunc("/playground/fetch", handler)
 	validRequestUrlOrigins = map[string]bool{
-		"ampbyexample.com":                   true,
-		"ampstart.com":                       true,
-		"ampstart-staging.firebaseapp.com":   true,
-		"localhost:8080":                     true,
-		"amp-by-example-staging.appspot.com": true,
+		"ampbyexample.com":                     true,
+		"ampstart.com":                         true,
+		"ampstart-staging.firebaseapp.com":     true,
+		"localhost:8080":                       true,
+		"amp-by-example-staging.appspot.com":   true,
+		"amp-by-example-sebastian.appspot.com": true,
 	}
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "get" ||
-		r.Header.Get("x-requested-by") != "playground" {
-		http.Error(w, "Bad request.", http.StatusBadRequest)
+	if r.Method != "GET" {
+		http.Error(w, "only GET request supported", http.StatusBadRequest)
+		return
+	}
+	if r.Header.Get("x-requested-by") != "playground" {
+		http.Error(w, "x-requested-by invalid", http.StatusBadRequest)
 		return
 	}
 	param, _ := r.URL.Query()["url"]
 	if len(param) <= 0 {
-		http.Error(w, "Bad request.", http.StatusBadRequest)
+		http.Error(w, "No URL provided via 'url' query parameter", http.StatusBadRequest)
 		return
 	}
 	u, err := url.Parse(param[0])
 	if err != nil || (u.Scheme != "http" && u.Scheme != "https") {
-		http.Error(w, "Bad request.", http.StatusBadRequest)
+		http.Error(w, "Invalid URL scheme", http.StatusBadRequest)
 		return
 	}
 	// only allow URLs from trusted domains
 	if !validRequestUrlOrigins[u.Host] {
-		http.Error(w, "Bad request.", http.StatusBadRequest)
+		http.Error(w, "Untrusted origin", http.StatusBadRequest)
 		return
 	}
 	ctx := appengine.NewContext(r)
@@ -85,16 +88,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			http.StatusBadGateway)
 		return
 	}
-	type WebPage struct {
-		Contents string
-	}
-	p := WebPage{Contents: string(data)}
-	bytes, err := json.Marshal(p)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Problem formatting json (%v)",
 			err.Error()),
 			http.StatusInternalServerError)
 	}
 	w.Header().Set("Content-type", "application/json")
-	w.Write(bytes)
+	w.Write(data)
 }
