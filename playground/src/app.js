@@ -133,7 +133,6 @@ const templateDialog = createTemplateDialog(loadTemplateButton, {
   onStart: () => editor.showLoadingIndicator(),
   onSuccess: content => editor.setSource(content),
   onError: err => {
-    editor.setSource('');
     snackbar.show(err);
   }
 });

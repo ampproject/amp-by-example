@@ -41,6 +41,9 @@ class Validator {
   }
 
   validate(string) {
+    if (!string) {
+      return;
+    }
     validatorPromise.then(() => {
       if (!this.runtime.validator) {
         events.publish(EVENT_NEW_VALIDATION_RESULT, NO_VALIDATOR);

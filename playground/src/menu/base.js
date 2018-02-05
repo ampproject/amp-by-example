@@ -14,6 +14,7 @@
 
 import './base.css';
 import events from '../events/events.js';
+import '../../static/images/logo.svg';
 import {runtimes, EVENT_SET_RUNTIME} from '../runtime/runtimes.js';
 import {isDescendant} from '../node/base.js';
 

@@ -20,6 +20,8 @@ import absolutify from 'absolutify';
 import dialogHeader from './header.html';
 import events from '../events/events.js';
 
+const SITEMAP_URL = 'https://ampbyexample.com/sitemap.json';
+
 export default function createTemplateDialog(button, callback) {
   return new TemplateDialog(document, createDialog(), button, callback);
 }
@@ -35,9 +37,10 @@ class TemplateDialog {
 
   open(runtime) {
     this.runtime = runtime;
-    this.templates.then((sitemap) => this.renderTemplates(sitemap))
+    this.fetchTemplates()
+      .then((sitemap) => this.renderTemplates(sitemap))
       .catch(err => {
-        console.error(err);
+        console.log(err);
         this.callback.onError('Could not fetch templates');
       });
   }
@@ -50,12 +53,19 @@ class TemplateDialog {
   }
 
   fetchTemplates() {
-    this.templates = fetch('https://ampbyexample.com/sitemap.json', {
+    if (this.templates) {
+      return this.templates;
+    }
+    this.templates = fetch(SITEMAP_URL, {
       mode: 'cors'
     }).then(response => {
       this.button.enable();
       return response.json();
+    }).catch(err => {
+      console.error(err);
+      this.templates = null;
     });
+    return this.templates;
   }
 
   renderTemplates(sitemap) {
