@@ -25,67 +25,82 @@
     margin-left: auto;
   }
 
-  .card {
-    width: 100%;
-    height: 120px;
-  }
-  .card::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 100%;
-    border-radius: 6px;
-    -webkit-box-shadow: 0 10px 45px rgba(0, 0, 0, 0.1);
-            box-shadow: 0 10px 45px rgba(0, 0, 0, 0.1);
-    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, rgba(211, 211, 211, 0)), color-stop(50%, rgba(211, 211, 211, 0.8)), to(rgba(211, 211, 211, 0))),
-                      linear-gradient(white 10px, transparent 0),
-                      linear-gradient(white 100px, transparent 0),
-                      linear-gradient(white 10px, transparent 0),
-                      linear-gradient(white 10px, transparent 0),
-                      linear-gradient(lightgrey 120px, transparent 0);
-    background-image: linear-gradient(90deg, rgba(211, 211, 211, 0) 0, rgba(211, 211, 211, 0.8) 50%, rgba(211, 211, 211, 0) 100%),
-                      linear-gradient(white 10px, transparent 0),
-                      linear-gradient(white 100px, transparent 0),
-                      linear-gradient(white 10px, transparent 0),
-                      linear-gradient(white 10px, transparent 0),
-                      linear-gradient(lightgrey 120px, transparent 0);
-    background-size: 200px 120px, 100px 10px, 150px 100px, 100px 10px, 100px 10px, 100% 100%;
-    background-position: -150% 0, 200px 10px, 30px 10px, 200px 30px, 200px 50px, 0 0;
-    background-repeat: no-repeat;
-    -webkit-animation: loading 1.5s infinite;
-            animation: loading 1.5s infinite;
-  }
-
-  @-webkit-keyframes loading {
-    to {
-      background-position: 350% 0, 200px 10px, 30px 10px, 200px 30px, 200px 50px, 0 0;
-    }
-  }
-
-  @keyframes loading {
-    to {
-      background-position: 350% 0, 200px 10px, 30px 10px, 200px 30px, 200px 50px, 0 0;
-    }
-  }
-
   #amp-list-placeholder div[role=list] {
     margin: 1rem;
   }
 
-    .products {
+  .products {
       display: block;
       height: 100px;
-      padding: 0;
-      padding-right: 8px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+      background: #fff;
+      border-radius: 2px;
+      margin-bottom: 15px;
+      position: relative;
     }
-    .products amp-img {
-      line-height: 24px;
-      font-weight: 400;
-      font-size: 24px;
-      vertical-align: middle;
+
+  .products amp-img {
       float: left;
-      margin-right: 10px;
+      margin-right: 16px;
+  }
+
+  #amp-list-placeholder ul.results {
+      list-style: none;
+      overflow: auto;
+      margin-left: 1rem;
+      padding: 0;
     }
+
+  #amp-list-placeholder ul.results li {
+         height: 100px;
+         background: #fff;
+         border-radius: 2px;
+         margin-bottom: 15px;
+         position: relative;
+         box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  }
+
+  #amp-list-placeholder div[placeholder] ul.results li {
+      background:
+        linear-gradient(90deg, rgba(211, 211, 211, 0) 0, rgba(211, 211, 211, 0.8) 50%, rgba(211, 211, 211, 0) 100%),
+        linear-gradient(#cccccc 100%, transparent 0),
+        linear-gradient(#cccccc 100%, transparent 0),
+        linear-gradient(#cccccc 100%, transparent 0),
+        linear-gradient(#cccccc 100%, transparent 0);
+      background-size:
+        200px 100px,
+        150px 100px,
+        100px 10px,
+        100px 10px,
+        100px 10px;
+      background-position:
+        -150% 0,
+        0 0,
+        166px 4px,
+        166px 29px,
+        166px 53px;
+      background-repeat: no-repeat;
+      -webkit-animation: loading 1.5s infinite;
+      animation: loading 1.5s infinite;
+    }
+
+    @-webkit-keyframes loading {
+      to {
+        background-position: 350% 0, 0 0,
+        166px 4px,
+        166px 29px,
+        166px 53px;
+      }
+    }
+
+     @keyframes loading {
+       to {
+         background-position: 350% 0, 0 0,
+         166px 4px,
+         166px 29px,
+         166px 53px;
+       }
+     }
 
   </style>
 </head>
@@ -140,20 +155,24 @@
   -->
   <amp-list id="amp-list-placeholder" noloading width="auto"
             height="600"
-            layout="fixed-height" src="http://localhost:8080/samples_templates/slow-json-with-items/?delay=10000">
-    <div placeholder class="card">
+            layout="fixed-height" src="<%host%>/samples_templates/slow-json-with-items/?delay=10000">
+    <div placeholder>
+      <ul class="results">
+         <li></li><li></li><li></li><li></li><li></li>
+      </ul>
     </div>
     <template type="amp-mustache">
-      <div class="m1 text-decoration-none products">
-        <amp-img width="150"
-                 height="100"
-                 alt="{{name}}"
-                 src="{{img}}"></amp-img>
-               <p class="name">{{name}}</p>
-               <p class="star">{{{stars}}}</p>
-               <p class="price">${{price}}</p>
-      </div>
+        <div class="products">
+            <amp-img width="150"
+                   height="100"
+                   alt="{{name}}"
+                   src="{{img}}"></amp-img>
+            <p class="name">{{name}}</p>
+            <p class="star">{{{stars}}}</p>
+            <p class="price">${{price}}</p>
+        </div>
     </template>
+
   </amp-list>
 
   <!-- ## Handling List Overflow -->

@@ -24,6 +24,7 @@ const IGNORED_URLS = [
   /.*\/shopping_cart$/,
   /.*\/favorite$/,
   /.*\/favorite-with-count$/,
+  /.*\/slow-json-with-items$/
 ];
 
 config.filesToCache = [
@@ -41,7 +42,8 @@ config.filesToCache = [
  * Generates a placeholder SVG image of the given size.
  */
 function offlineImage(name, width, height) {
-  return `<?xml version="1.0"?>
+  return
+    `<?xml version="1.0"?>
 <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" version="1.1">
   <g fill="none" fill-rule="evenodd"><path fill="#F8BBD0" d="M0 0h${width}v${height}H0z"/></g>
   <text text-anchor="middle" x="${Math.floor(width / 2)}" y="${Math.floor(height / 2)}">image offline (${name})</text>
@@ -94,9 +96,11 @@ function ampByExampleHandler(request, values) {
       const url = request.url;
       const fileName = url.substring(url.lastIndexOf('/') + 1);
       // TODO use correct image dimensions
-      return new Response(offlineImage(fileName, 1080, 610),
-          { headers: { 'Content-Type': 'image/svg+xml' } }
-      );
+      return new Response(offlineImage(fileName, 1080, 610), {
+        headers: {
+          'Content-Type': 'image/svg+xml'
+        }
+      });
     });
   } else {
     // cache first for all other requests
@@ -114,9 +118,13 @@ function shouldNotCache(request) {
 
 toolbox.options.debug = false;
 toolbox.router.default = toolbox.networkFirst;
-toolbox.router.get('/(.*)', ampByExampleHandler, {origin: self.location.origin});
+toolbox.router.get('/(.*)', ampByExampleHandler, {
+  origin: self.location.origin
+});
 // network first amp runtime
-toolbox.router.get('/(.*)', toolbox.networkFirst, {origin: 'https://cdn.ampproject.org'});
+toolbox.router.get('/(.*)', toolbox.networkFirst, {
+  origin: 'https://cdn.ampproject.org'
+});
 
 toolbox.precache(config.filesToCache);
 
@@ -124,7 +132,9 @@ toolbox.precache(config.filesToCache);
 // "first" page the user visits is only cached on the second visit,
 // since the first load is uncontrolled.
 toolbox.precache(
-  clients.matchAll({includeUncontrolled: true}).then(l => {
+  clients.matchAll({
+    includeUncontrolled: true
+  }).then(l => {
     return l.map(c => c.url);
   })
 );
