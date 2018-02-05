@@ -25,20 +25,25 @@
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <style amp-custom>
-    .abe-preview p.title {
+    .geolist-preview {
+      width: 100vw;
+      max-width: 400px;
+    }
+
+    .geolist-preview p.title {
       font-weight: bold;
       line-height: 16px;
       margin: 10px;
     }
 
-    .abe-preview ul.results {
+    .geolist-preview ul.results {
       list-style: none;
       margin: 0;
       padding: 0 10px;
       overflow: auto; /* Fixes collapsing margins on the LIs */
     }
 
-    .abe-preview ul.results li {
+    .geolist-preview ul.results li {
       height: 100px;
       background: #fff;
       border-radius: 2px;
@@ -46,16 +51,16 @@
       position: relative;
       box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     }
-    .abe-preview ul.results p {
+    .geolist-preview ul.results p {
       margin: 0;
     }
-    .abe-preview ul.results amp-img {
+    .geolist-preview ul.results amp-img {
       background-image: url(/img/geolocation_map_skeleton.png);
       background-size: 150px 100px;
       float: left;
       margin-right: 5px;
     }
-    .abe-preview div[placeholder] ul.results li {
+    .geolist-preview div[placeholder] ul.results li {
       background: url(/img/geolocation_map_skeleton.png), /* Image */
         linear-gradient(#cccccc 100%, transparent 0), /* Image Placeholder */
         linear-gradient(#bbbbbb 100%, transparent 0), /* City */
@@ -73,7 +78,7 @@
         155px 53px; /* Country */
       background-repeat: no-repeat;
     }
-    .abe-preview span.placeholder {
+    .geolist-preview span.placeholder {
       display: inline-block;
       height: 14px;
       width: 150px;
@@ -104,7 +109,7 @@
   is also used while `<amp-img>` loads the actual images to prevent a
   flash when the placeholder is removed.
   -->
-  <amp-list class="abe-preview" width="auto" height="611" layout="fixed-height"
+  <amp-list class="geolist-preview" width="auto" height="611" layout="fixed-height"
             noloading
             src="https://caramel-wolf.glitch.me//location-specific-results.json"
             single-item items=".">
