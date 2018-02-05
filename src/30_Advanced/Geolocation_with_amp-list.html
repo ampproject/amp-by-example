@@ -5,7 +5,7 @@
   ## Introduction
 
   While the AMP Caches don't offer support for geolocation, you can enable
-  geo-based features with geolocation logic on your backaend and
+  geo-based features with geolocation logic on your backend and
   [amp-list](https://www.ampproject.org/docs/reference/components/amp-list).
   This adds an additional XHR request but you can mitigate the negative UX
   effects with a skeleton layout in the placeholder attribute.
@@ -105,6 +105,7 @@
   flash when the placeholder is removed.
   -->
   <amp-list class="abe-preview" width="auto" height="611" layout="fixed-height"
+            noloading
             src="https://caramel-wolf.glitch.me//location-specific-results.json"
             single-item items=".">
     <template type="amp-mustache" id="amp-template-id">
@@ -113,10 +114,8 @@
         {{#results}}
           <li>
             <amp-img
-              alt="{{placeName}} Map"
-              layout="fixed"
-              width="150"
-              height="100"
+              alt="{{placeName}} Map" noloading
+              layout="fixed" width="150" height="100"
               src="https://maps.googleapis.com/maps/api/staticmap?markers={{lat}},{{lng}}&zoom=9&size=150x100&maptype=roadmap&key=AIzaSyByT-0aYa-nEF0gGqJHNpEEK1bus00losI">
             </amp-img>
             <p>
