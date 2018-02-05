@@ -27,7 +27,7 @@
 
   .card {
     width: 100%;
-    height: 70px;
+    height: 120px;
   }
   .card::after {
     content: "";
@@ -37,10 +37,20 @@
     border-radius: 6px;
     -webkit-box-shadow: 0 10px 45px rgba(0, 0, 0, 0.1);
             box-shadow: 0 10px 45px rgba(0, 0, 0, 0.1);
-    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, rgba(211, 211, 211, 0)), color-stop(50%, rgba(211, 211, 211, 0.8)), to(rgba(211, 211, 211, 0))), linear-gradient(white 10px, transparent 0), linear-gradient(white 10px, transparent 0), linear-gradient(lightgrey 70px, transparent 0);
-    background-image: linear-gradient(90deg, rgba(211, 211, 211, 0) 0, rgba(211, 211, 211, 0.8) 50%, rgba(211, 211, 211, 0) 100%), linear-gradient(white 10px, transparent 0), linear-gradient(white 10px, transparent 0), linear-gradient(lightgrey 70px, transparent 0);
-    background-size: 200px 70px, 200px 10px, 200px 10px, 100% 100%;
-    background-position: -150% 0, 10px 10px, 10px 30px, 0 0;
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, rgba(211, 211, 211, 0)), color-stop(50%, rgba(211, 211, 211, 0.8)), to(rgba(211, 211, 211, 0))),
+                      linear-gradient(white 10px, transparent 0),
+                      linear-gradient(white 100px, transparent 0),
+                      linear-gradient(white 10px, transparent 0),
+                      linear-gradient(white 10px, transparent 0),
+                      linear-gradient(lightgrey 120px, transparent 0);
+    background-image: linear-gradient(90deg, rgba(211, 211, 211, 0) 0, rgba(211, 211, 211, 0.8) 50%, rgba(211, 211, 211, 0) 100%),
+                      linear-gradient(white 10px, transparent 0),
+                      linear-gradient(white 100px, transparent 0),
+                      linear-gradient(white 10px, transparent 0),
+                      linear-gradient(white 10px, transparent 0),
+                      linear-gradient(lightgrey 120px, transparent 0);
+    background-size: 200px 120px, 100px 10px, 150px 100px, 100px 10px, 100px 10px, 100% 100%;
+    background-position: -150% 0, 200px 10px, 30px 10px, 200px 30px, 200px 50px, 0 0;
     background-repeat: no-repeat;
     -webkit-animation: loading 1.5s infinite;
             animation: loading 1.5s infinite;
@@ -48,19 +58,34 @@
 
   @-webkit-keyframes loading {
     to {
-      background-position: 350% 0, 10px 10px, 10px 30px, 0 0;
+      background-position: 350% 0, 200px 10px, 30px 10px, 200px 30px, 200px 50px, 0 0;
     }
   }
 
   @keyframes loading {
     to {
-      background-position: 350% 0, 10px 10px, 10px 30px, 0 0;
+      background-position: 350% 0, 200px 10px, 30px 10px, 200px 30px, 200px 50px, 0 0;
     }
   }
 
   #amp-list-placeholder div[role=list] {
     margin: 1rem;
   }
+
+    .products {
+      display: block;
+      height: 100px;
+      padding: 0;
+      padding-right: 8px;
+    }
+    .products amp-img {
+      line-height: 24px;
+      font-weight: 400;
+      font-size: 24px;
+      vertical-align: middle;
+      float: left;
+      margin-right: 10px;
+    }
 
   </style>
 </head>
@@ -113,11 +138,21 @@
     You can use a custom placeholder like an animation to improve the user experience while the list is loading.
     We are using an endpoint which intentionally delays the response by 10 seconds.
   -->
-  <amp-list id="amp-list-placeholder" noloading width="auto" height="70" layout="fixed-height" src="<%host%>/slow-json-with-items?delay=10000" template="amp-template-id">
+  <amp-list id="amp-list-placeholder" noloading width="auto"
+            height="600"
+            layout="fixed-height" src="http://localhost:8080/samples_templates/slow-json-with-items/?delay=10000">
     <div placeholder class="card">
     </div>
     <template type="amp-mustache">
-      <div><a href="{{url}}">{{title}}</a></div>
+      <div class="m1 text-decoration-none products">
+        <amp-img width="150"
+                 height="100"
+                 alt="{{name}}"
+                 src="{{img}}"></amp-img>
+               <p class="name">{{name}}</p>
+               <p class="star">{{{stars}}}</p>
+               <p class="price">${{price}}</p>
+      </div>
     </template>
   </amp-list>
 

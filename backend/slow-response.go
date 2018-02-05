@@ -64,7 +64,7 @@ func slowJson(w http.ResponseWriter, r *http.Request) {
 }
 
 func slowJsonWithItems(w http.ResponseWriter, r *http.Request) {
-	products := readProducts(DIST_FOLDER + "/json/examples.json")
+	products := readProducts(DIST_FOLDER + "/json/related_products.json")
 	prepResponse(w, r)
 	w.Write([]byte(products))
 }
