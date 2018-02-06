@@ -92,9 +92,12 @@
     /*
      * Carousel transition styles
      */
-    .carousel-container {
+    .carousel-component {
       margin-right: -60%;
       margin-left: 60%;
+    }
+    .carousel-parent {
+      overflow: hidden;
     }
   </style>
 </head>
@@ -288,7 +291,7 @@
   -->
   <div class="parallax-image-window">
 
-    <amp-position-observer on="scroll:parallaxTransition.seekTo(percent=event.percent)" intersection-ratios="1" layout="nodisplay">
+    <amp-position-observer on="scroll:parallaxTransition.seekTo(percent=event.percent)" intersection-ratios="0" layout="nodisplay">
     </amp-position-observer>
 
     <amp-img id="parallaxImage" width="1280" height="873" layout="responsive" src="/img/elephant.jpg" alt="Picture of an elephant"></amp-img>
@@ -324,15 +327,17 @@
   when carousel becomes visible, it snaps back into place providing a visual "hint"
   that the carousel is horizontally scrollable.
   -->
-  <amp-carousel class="carousel-container" height="300" layout="fixed-height" type="carousel">
+  <div class="carousel-parent">
+    <amp-carousel class="carousel-component" height="300" layout="fixed-height" type="carousel">
 
-    <amp-position-observer on="enter:carouselTrasnsition.start" intersection-ratios="0.8" layout="nodisplay">
-    </amp-position-observer>
+      <amp-position-observer on="enter:carouselTrasnsition.start" intersection-ratios="0.8" layout="nodisplay">
+      </amp-position-observer>
 
-    <amp-img src="https://unsplash.it/800/600?image=1003" width="400" height="300" alt="a sample image"></amp-img>
-    <amp-img src="https://unsplash.it/800/600?image=1043" width="400" height="300" alt="another sample image"></amp-img>
-    <amp-img src="https://unsplash.it/800/600?image=1032" width="400" height="300" alt="and another sample image"></amp-img>
-  </amp-carousel>
+      <amp-img src="https://unsplash.it/800/600?image=1003" width="400" height="300" alt="a sample image"></amp-img>
+      <amp-img src="https://unsplash.it/800/600?image=1043" width="400" height="300" alt="another sample image"></amp-img>
+      <amp-img src="https://unsplash.it/800/600?image=1032" width="400" height="300" alt="and another sample image"></amp-img>
+    </amp-carousel>
+  </div>
 
   <!--
   Here we define our timebound animation with a delay of 200ms which will slide
@@ -349,7 +354,7 @@
         "delay": "200ms",
         "animations": [
           {
-            "selector": ".carousel-container",
+            "selector": ".carousel-component",
             "keyframes": [
               { "transform": "translateX(-60%)" }
             ]
