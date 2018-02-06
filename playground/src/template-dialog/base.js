@@ -117,7 +117,10 @@ class TemplateDialog {
       mode: 'cors'
     }).then(response => response.text())
       .then(body => {
-        this.callback.onSuccess(this.makeLinksAbsolute(url, body));
+        this.callback.onSuccess({
+          url: url,
+          content: this.makeLinksAbsolute(url, body)
+        });
       }).catch(err => {
         console.error(err);
         this.callback.onError('Could not fetch template');

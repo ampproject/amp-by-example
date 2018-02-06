@@ -34,6 +34,7 @@ import events from './events/events.js';
 import titleUpdater from './title-updater/base.js';
 import snackbar from './snackbar/base.js';
 import {runtimes, EVENT_SET_RUNTIME} from './runtime/runtimes.js';
+import detectRuntime from './runtime/detector.js';
 import addSplitPaneBehavior from './split-pane/base.js';
 
 import './service-worker/base.js';
@@ -83,7 +84,9 @@ events.subscribe(EVENT_SET_RUNTIME, newRuntime => {
   console.log(`runtime ${activeRuntime} ->: ${newRuntime.id}`);
   preview.setRuntime(newRuntime);
   // change editor input to new runtime default if current input is unchanged
-  if (activeRuntime && activeRuntime.template === editor.getSource()) {
+  if (activeRuntime && 
+    activeRuntime != newRuntime && 
+    activeRuntime.template === editor.getSource()) {
     editor.setSource(newRuntime.template);
   }
   validator.validate(editor.getSource());
@@ -100,11 +103,17 @@ const editorUpdateListener = () => {
   titleUpdater.update(source);
 };
 events.subscribe(
-  [Editor.EVENT_INPUT_CHANGE, Editor.EVENT_INPUT_NEW],
+  [Editor.EVENT_INPUT_CHANGE],
   editorUpdateListener
 );
 events.subscribe(Validator.EVENT_NEW_VALIDATION_RESULT, validationResult => {
   editor.setValidationResult(validationResult);
+});
+events.subscribe([Editor.EVENT_INPUT_NEW], () => {
+  const source = editor.getSource();
+  const runtime = detectRuntime(source);
+  runtimeChanged(runtime.id);
+  editorUpdateListener();
 });
 
 // setup document
@@ -131,7 +140,10 @@ const loadTemplateButton = Button.from(
 );
 const templateDialog = createTemplateDialog(loadTemplateButton, {
   onStart: () => editor.showLoadingIndicator(),
-  onSuccess: content => editor.setSource(content),
+  onSuccess: template => { 
+    editor.setSource(template.content);
+    params.replace('url', template.url);
+  },
   onError: err => {
     snackbar.show(err);
   }
