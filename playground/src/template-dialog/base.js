@@ -146,7 +146,7 @@ class TemplateDialog {
       return sitemap[0];
     } else if (this.runtime.id === 'amp4ads') {
       return sitemap[1];
-    } else if (this.runtime.id === 'amp4stories') {
+    } else if (this.runtime.id === 'amp4stories' && sitemap.length > 2) {
       return sitemap[2];
     } else {
       return {
