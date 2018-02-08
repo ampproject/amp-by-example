@@ -107,7 +107,6 @@ const config = {
     defaultLayout: 'fixed',
     defaultWidth: 300,
     defaultHeight: 250,
-    defaultForce3p: false,
   },
   host: 'https://ampbyexample.com'
 };

@@ -2,7 +2,7 @@
  "preview": "a4a",
  "skipValidation": true,
  "hidePreview": true,
- "experiments": ["amp-animation"],
+ "experiments": ["amp-google-vrview-image", "amp-lightbox-a4a-proto"],
  "width": 350,
  "height": 250,
  "layout": "responsive",
@@ -17,9 +17,8 @@
   <title>Scrollbound Slides 360 Ad</title>
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <script async src="https://amp-ads.firebaseapp.com/dist/amp-inabox.js"></script>
-  <script async custom-element="amp-animation" src="https://amp-ads.firebaseapp.com/dist/v0/amp-animation-0.1.max.js"></script>
   <script async custom-element="amp-lightbox" src="https://amp-ads.firebaseapp.com/dist/v0/amp-lightbox-0.1.max.js"></script>
-<script async custom-element="amp-google-vrview-image" src="https://amp-ads.firebaseapp.com/dist/v0/amp-google-vrview-image-0.1.max.js"></script>
+  <script async custom-element="amp-google-vrview-image" src="https://amp-ads.firebaseapp.com/dist/v0/amp-google-vrview-image-0.1.max.js"></script>
   <style amp4ads-boilerplate>
     body {
       visibility: hidden
@@ -166,40 +165,6 @@
 </head>
 
 <body>
-  <!-- ## Scrollbound Slide Change Animation -->
-  <!--
-    The animation is implemented using [amp-animation](https://www.ampproject.org/docs/reference/components/amp-animation)
-    which is an experimental AMP component that uses [Web Animations API](https://www.w3.org/TR/web-animations/)
-    to support both __time__ and __scroll__ based animations.
-  -->
-  <amp-animation layout="nodisplay" trigger="visibility">
-    <script type="application/json">
-      {
-      "ticker": "scroll",
-      "fill": "both",
-      "animations": [
-        {
-          "target": "slides",
-          "keyframes": [
-            { "transform": "translateY(0)" },
-            { "transform": "translateY(0)", "offset": 0.5 },
-            { "transform": "translateY(-100vh)", "offset": 0.5 },
-            { "transform": "translateY(-100vh)", "offset": 1 }
-          ]
-        }
-      ]
-    }
-    </script>
-  </amp-animation>
-  <!--
-    **scroll vs. time ticker**: Setting `"ticker": "scroll"` tells
-    `amp-animation` to advance the animation timeline based on scrolling rather than time.
-
-    **Sliding images**:
-    We have two images of 100vh height for this ad, we switch between them by moving
-    the parent container -100vh at the middle keyframe of the scrollbound animation as defined above.
-  -->
-
   <!-- ## Lightbox with 360 image -->
   <!--
   The amp-lightbox component defines the child elements that will be displayed in a full-viewport overlay.
@@ -231,11 +196,9 @@
     <div class="content-container fill">
       <div id="slides">
         <amp-img height="100vh" layout="fixed-height" src="<%host%>/img/car-side-bg.jpg"></amp-img>
-        <amp-img height="100vh" layout="fixed-height" src="<%host%>/img/car-tunnel.jpg"></amp-img>
       </div>
       <div class="title">
         <div>THE ALL NEW</div>
-        <div>HOWDY WS-X LUX</div>
       </div>
       <div class="vr360-button" on="tap:lightbox-vr.activate" role="button" tabindex="0">
         <div class="button">EXPLORE 360</div>
