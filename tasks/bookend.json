@@ -1,0 +1,12 @@
+{
+  "share-providers": {
+    "email": true,
+    "twitter": true,
+    "tumblr": true,
+    "facebook": {
+      "app_id": "254325784911610"
+    }
+  },
+  "related-articles": {
+  }
+}

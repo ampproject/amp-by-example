@@ -95,6 +95,24 @@ code {
 .abe-code-preview {
   background: #f9f7f7;
 }
+.abe-story-preview {
+  padding: 1rem;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.abe-story-preview amp-iframe {
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+  border-radius: 8px;
+}
+@media (max-width: 650px) {
+  .abe-story-preview {
+    display: none;
+  }
+}
 .abe-preview {
   background: #fff;
 }
