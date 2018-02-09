@@ -17,6 +17,7 @@
     "dev": "gulp"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
     "clean-css": "^4.1.9",
     "glob": "^7.1.1",
     "highlight.js": "^9.7.0",

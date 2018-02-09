@@ -16,6 +16,7 @@
 
 'use strict';
 
+const cheerio = require('cheerio');
 const gutil = require('gulp-util');
 const path = require('path');
 const through = require('through2');
@@ -27,6 +28,8 @@ const ExampleFile = require('../lib/ExampleFile');
 const Metadata = require('../lib/Metadata');
 const Templates = require('../lib/Templates');
 const storyController = fs.readFileSync(__dirname + '/../templates/stories/page-switch.html', 'utf8');
+const storyBookend = require('./bookend.json');
+const SAMPLE_THUMBNAIL = '/img/social.png';
 
 const STORY_EMBED_DIR = __dirname + '/../api/dist/';
 
@@ -118,6 +121,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
     compileIndex(stream, sections);
     compileSitemap(stream, sections);
     compileExamples(stream);
+    generateBookend(stream, sections);
     cb();
   }
 
@@ -330,6 +334,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
           metadata: exampleFile.document.metadata,
           experiments: experiments,
           experiment: experiments && experiments.length > 0,
+          firstImage: extractFirstImage(exampleFile),
           highlight: exampleFile.document.metadata.highlight
         });
       });
@@ -388,6 +393,43 @@ module.exports = function(config, indexPath, updateTimestamp) {
     }
   }
 
+  function generateBookend(stream, sections) {
+    const storiesSection = sections.find(s => s.name === 'AMPHTML stories');
+    if (!storiesSection) {
+      gutil.log('no stories section found');
+      return;
+    }
+    const relatedArticles = storyBookend['related-articles'];
+
+    storiesSection.categories.forEach(c => {
+      relatedArticles[c.name] = c.examples.map(e => {
+        gutil.log('firstimage', e.firstImage);
+        return {
+          title: e.title,
+          url: e.url,
+          image: e.firstImage 
+        };
+      });
+    });
+
+    const bookendFile = latestFile.clone({contents: false});
+    bookendFile.path = path.join(latestFile.base, 'json', 'bookend.json');
+    bookendFile.contents = new Buffer(JSON.stringify(storyBookend, null, 2));
+    stream.push(bookendFile);
+  }
+
+  function extractFirstImage(example) {
+    if (!example.contents) {
+      return SAMPLE_THUMBNAIL;
+    }
+    const $ = cheerio.load(example.contents);
+    const imageSrc = $('amp-img').attr('src');
+    if (!imageSrc) {
+      return SAMPLE_THUMBNAIL;
+    }
+    return imageSrc;
+  }
+
   function cachedUrl(url) {
     return 'https://ampbyexample-com.cdn.ampproject.org/c/s/ampbyexample.com' + url + '?exp=a4a:-1';
   }
@@ -397,6 +439,13 @@ module.exports = function(config, indexPath, updateTimestamp) {
       return a.filePath.localeCompare(b.filePath);
     });
     return examples;
+  }
+
+  function replaceAmpStoryRuntime(document, string) {
+    if (!document.isAmpStory) {
+      return string;
+    }
+    return string.replace(/<script\s+async\s+custom-element="amp-story"\s+src="https:\/\/cdn\.ampproject\.org\/v0\/amp-story-0\.1\.js">\s*<\/script>/, "");
   }
 
   function replaceAmpAdRuntime(document, string) {

@@ -154,7 +154,7 @@ describe("DocumentParser", function() {
     it("invalid metadata", function() {
       expect(function(){
         parse(COMMENT, DOCUMENT_METADATA_INVALID, HEAD, TITLE, HEAD_END, BODY, COMMENT, BODY_END);})
-          .toThrow(new Error("There is an error in the JSON metadata at line 5"));
+          .toThrowError(/line 5/);
     });
   });
 
