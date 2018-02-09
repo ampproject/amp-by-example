@@ -20,6 +20,9 @@
   "source": "/amp-facebook.html",
   "target": "/components/amp-facebook/"
 }, {
+  "source": "/components/amp-fx-parallax/",
+  "target": "/components/amp-fx-collection/"
+}, {
   "source": "/amp-iframe.html",
   "target": "/components/amp-iframe/"
 }, {
