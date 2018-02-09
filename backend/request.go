@@ -55,7 +55,10 @@ func GetOrigin(r *http.Request) string {
 	if origin != "" {
 		return origin
 	}
-	return GetHost(r)
+	if r.Header.Get("amp-same-origin") == "true" {
+		return GetSourceOrigin(r)
+	}
+	return "*"
 }
 
 func GetSourceOrigin(r *http.Request) string {

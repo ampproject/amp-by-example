@@ -1,0 +1,39 @@
+[
+  {
+    "label": "Custom",
+    "width": "320px",
+    "height": "80px",
+    "selected": true
+  },
+  {
+    "label": "iPhone 5",
+    "width": "320px",
+    "height": "568px"
+  },
+  {
+    "label": "iPhone 7",
+    "width": "375px",
+    "height": "667px"
+  },
+  {
+    "label": "iPhone 7 Plus",
+    "width": "414px",
+    "height": "736px"
+  },
+  {
+    "label": "Nexus 5",
+    "width": "360px",
+    "height": "598px"
+  },
+  {
+    "label": "Nexus 5X / 6p",
+    "width": "412px",
+    "height": "732px"
+  },
+  {
+    "label": "Responsive",
+    "width": "100%",
+    "height": "100%",
+    "selected": true
+  }
+]
