@@ -1,14 +1,11 @@
 <!---{
- "preview": "a4a",
- "skipValidation": true,
- "hidePreview": true,
- "experiments": ["amp-animation"],
- "width": 350,
- "height": 250,
- "layout": "responsive",
- "scrollToReveal": true
+  "preview": "a4a",
+  "hidePreview": true,
+  "skipValidation": "true",
+  "width": 350,
+  "height": 240,
+  "layout": "responsive"
 }--->
-<!-- -->
 <!doctype html>
 <html ⚡4ads>
 
@@ -16,20 +13,20 @@
   <meta charset="utf-8">
   <title>Scrollbound Video Ad</title>
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-  <script async src="https://amp-ads.firebaseapp.com/dist/amp-inabox.js"></script>
-  <script async custom-element="amp-animation" src="https://amp-ads.firebaseapp.com/dist/v0/amp-animation-0.1.max.js"></script>
-  <script async custom-element="amp-video" src="https://amp-ads.firebaseapp.com/dist/v0/amp-video-0.1.max.js"></script>
+  <script async src="https://cdn.ampproject.org/amp4ads-v0.js"></script>
+  <script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
+  <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
+  <script async custom-element="amp-position-observer" src="https://cdn.ampproject.org/v0/amp-position-observer-0.1.js"></script>
 
-  <style amp4ads-boilerplate>
-    body {
-      visibility: hidden
-    }
-  </style>
+
+  <style amp4ads-boilerplate>body{visibility:hidden}</style>
 
   <!-- ## Summary-->
   <!--
     Sample AMPHTML ad using [amp-animation](https://www.ampproject.org/docs/reference/components/amp-animation),
-    [amp-video](https://www.ampproject.org/docs/reference/components/amp-video) and [amp-img](https://www.ampproject.org/docs/reference/components/amp-img)
+    [amp-video](https://www.ampproject.org/docs/reference/components/amp-video)
+    [amp-img](https://www.ampproject.org/docs/reference/components/amp-img)
+    and [amp-position-observer](https://www.ampproject.org/docs/reference/components/amp-position-observer)
     to create an ad that animates based on scrolling.
 
 
@@ -83,7 +80,7 @@
       z-index: 3;
       width: 100px;
       height: 100px;
-      background-image: url(<%host%>/img/play-icon.png);
+      background-image: url(https://ampbyexample.com/img/play-icon.png);
       background-repeat: no-repeat;
       background-size: 100% 100%;
       /* Align to the middle */
@@ -161,35 +158,32 @@
 </head>
 
 <body>
-  <!-- ## Scrollbound Animations -->
+  <!-- ## Animations -->
   <!--
     There are two types of scrollbound animations that occur in this sample:
     **scaling** of the video container and **parallax** movement of the background image.
 
     The animations are implemented using [amp-animation](https://www.ampproject.org/docs/reference/components/amp-animation)
-    which is an experimental AMP component that uses [Web Animations API](https://www.w3.org/TR/web-animations/)
-    to support both __time__ and __scroll__ based animations.
+    which is an AMP component that uses [Web Animations API](https://www.w3.org/TR/web-animations/)
   -->
-  <amp-animation layout="nodisplay" trigger="visibility">
+  <amp-animation layout="nodisplay" id="videoAnim">
     <script type="application/json">
       {
-      "ticker": "scroll",
+      "duration": "10s",
       "fill": "both",
+      "direction": "alternate",
       "animations": [
         {
-          "target": "videoContainer",
+          "selector": "#videoContainer",
           "keyframes": [
             { "transform": "scale(1)" },
-            { "transform": "scale(1)", "offset": 0.1 },
-            { "transform": "scale(0.5)", "offset": 0.5 },
-            { "transform": "scale(0.5)", "offset": 1 }
-          ]
+            { "transform": "scale(0.5)"}          ]
         },
         {
-          "target": "backgroundImg",
+          "selector": "#backgroundImg",
           "keyframes": [
             { "transform": "translateY(0)" },
-            { "transform": "translateY(60px)", "offset": 1 }
+            { "transform": "translateY(60px)"}
           ]
         }
       ]
@@ -197,8 +191,6 @@
     </script>
   </amp-animation>
   <!--
-    **scroll vs. time ticker**: Setting `"ticker": "scroll"` tells
-    `amp-animation` to advance the animation timeline based on scrolling rather than time.
 
     **Scale down video to the corner when scrolling**:
     The video covers the whole ad initially and when the page scrolls,
@@ -216,6 +208,17 @@
     at the last keyframe.
   -->
 
+  <!-- ## Scrollbound Animations -->
+  <!--
+  The scrollbound animations are implemented using [amp-position-observer](https://www.ampproject.org/docs/reference/components/amp-position-observer) which is an AMP component that
+  Monitors the position of an element within the viewport as a user scrolls, and dispatches enter, exit and scroll events that can be used with other components
+  -->
+  <amp-position-observer
+    intersection-ratios="1"
+    on="scroll:videoAnim.seekTo(percent=event.percent)"
+    layout="nodisplay">
+  </amp-position-observer>
+
   <!-- ## Ad Container -->
   <!--
   Top level container: It fills the parent viewport that hosts the ad.
@@ -227,6 +230,8 @@
 
     The `amp-animation` scales down the `videoContainer` when the user scrolls.
     -->
+
+
     <div id="videoContainer" class="video-container fill">
       <div id="clickToPlayOverlay" class="fill">
         <div class="play-icon" role="button" tabindex="0" on="tap:clickToPlayOverlay.hide, video.play"></div>
@@ -255,11 +260,10 @@
       </div>
       <div class="footer">
         <span>36 months lease, $189/month, $2999 due at signing</span>
-        <a href="https://ampproject.org" target="blank_" class="learn-more">LEARN MORE</a>
+        <a href="https://ampproject.org" target="_blank" class="learn-more">LEARN MORE</a>
       </div>
     </div>
   </div>
 
 </body>
-
 </html>
