@@ -5,8 +5,15 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     {{> head.html}}
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-    <script async src="https://cdn.ampproject.org/v0.js"></script>
-    <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+    {{#metadata.adExp}}
+      <script async src="https://amp-ads.firebaseapp.com/dist/amp.js"></script>
+      <script async custom-element="amp-ad" src="https://amp-ads.firebaseapp.com/dist/v0/amp-ad-0.1.max.js"></script>
+      <script async custom-element="amp-ad-fake" src="https://amp-ads.firebaseapp.com/dist/v0/amp-ad-network-fake-impl-0.1.max.js"></script>
+    {{/metadata.adExp}}
+    {{^metadata.adExp}}
+      <script async src="https://cdn.ampproject.org/v0.js"></script>
+      <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+    {{/metadata.adExp}}
     <style amp-custom>
       {{> css/code.css}}
       {{> css/ampstart.css}}
@@ -144,16 +151,30 @@
                 layout="{{layout}}"
                 data-slot="{{metadata.adSlot}}"></amp-ad>
         {{/metadata.adSlot}}
-        {{^metadata.adSlot}}
-        <amp-ad layout="{{layout}}"
-          width="{{width}}"
-          height="{{height}}"
-          type="fake"
-          id="i-amphtml-demo-fake"
-          a4a-conversion="true"
-          disable3pfallback="false"
-          src="{{a4aEmbedUrl}}"></amp-ad>
-        {{/metadata.adSlot}}
+        {{#metadata.adExp}}
+        <amp-ad width="{{width}}"
+                height="{{height}}"
+                type="fake"
+                data-use-a4a="true"
+                force3p="false"
+                fakesig="true"
+                src="{{a4aEmbedUrl}}"
+                disable3pfallback="false">
+        <div placeholder="" class="amp-hidden"></div>
+        </amp-ad>
+        {{/metadata.adExp}}
+        {{^metadata.adExp}}
+          {{^metadata.adSlot}}
+          <amp-ad layout="{{layout}}"
+            width="{{width}}"
+            height="{{height}}"
+            type="fake"
+            id="i-amphtml-demo-fake"
+            a4a-conversion="true"
+            disable3pfallback="false"
+            src="{{a4aEmbedUrl}}"></amp-ad>
+          {{/metadata.adSlot}}
+        {{/metadata.adExp}}
       </div>
       <p class="pb1">
       Tempor neque nisl in fermentum, nulla duis duis feugiat. Leo aenean sit, laudantium fermentum aliquet sagittis nec ac ac, donec ac tincidunt sollicitudin lacus neque. Morbi tellus autem pede bibendum, natoque maecenas justo ac, nec aliquam taciti, pellentesque nam iaculis eros nec at. Proin in orci. Et eu nec montes rutrum nullam, nunc pharetra gravida elit, consectetuer consequatur, eros dignissim, justo vel suspendisse. Ipsum quis metus ultricies nullam nullam. Quis at luctus sit pede etiam, tellus vitae, maecenas mauris nibh lacinia est augue. Aenean nec cursus aptent sit odio tempor, felis duis nulla vel varius mauris, risus duis ac.</p>
