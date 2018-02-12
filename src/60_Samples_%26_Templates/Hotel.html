@@ -1,11 +1,12 @@
 <!---{
   "preview": "default",
-  "draft": true
+  "draft": true,
+  "experiments": ["amp-date-picker", "amp-lightbox-gallery"]
   }--->
   <!--
   ## Introduction
 
-  This is a sample template for a hotel listing in AMP.
+  This is a sample showing how to implement an hotel page.
 
 -->
 <!-- -->
@@ -17,279 +18,149 @@
 <script async src="https://cdn.ampproject.org/v0.js"></script>
 <!-- ## Setup -->
 <!--
-Import the additional AMP components. This sample uses fitted text, an image carousel, a form, mustache templates, an iframe, and a list.
+  Import the additional AMP components. We use `amp-form` to send a filter request to the server.
+-->
+<script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+<!--
+  We use `amp-mustache` as a template for `amp-list`.
+-->
+<script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+<!--
+  We use `amp-list` to show a list of items.
+-->
+<script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+<!--
+  We use `amp-bind` to bind the value of the room list to a variable that can change dinamically.
+-->
+<script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+<!--
+  We use `amp-date-picker` to implement a filter based on date selection.
+-->
+<script async custom-element="amp-date-picker" src="https://cdn.ampproject.org/v0/amp-date-picker-0.1.js"></script>
+<!--
+  We use `amp-lightbox-gallery` to implement a gallery of images.
+-->
+<script async custom-element="amp-lightbox-gallery" src="https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js"></script>
+<!--
+  We use `amp-fit-text` to fit the hotel name to the available space.
 -->
 <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
-<script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
-<script async custom-element="amp-access" src="https://cdn.ampproject.org/v0/amp-access-0.1.js"></script>
-<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
-<script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
-<script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
-<script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
-<script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
-<link rel="canonical" href="https://ampbyexample.com/samples_templates/hotel/">
+<link rel="canonical" href="<%host%>/samples_templates/hotel/">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-<!-- ## Access -->
-<!--
-Specify the endpoints required for `amp-access` to detect a signed-user. This will be used to display a special offer. Learn more about these attributes [here](/components/amp-access).
--->
-<script id="amp-access" type="application/json">
-    {
-        "authorization": "/samples_templates/hotel/authorization?rid=READER_ID&url=CANONICAL_URL&ref=DOCUMENT_REFERRER&_=RANDOM",
-        "pingback": "/samples_templates/hotel/pingback?rid=READER_ID&ref=DOCUMENT_REFERRER&url=CANONICAL_URL",
-        "login": "/samples_templates/hotel/login?rid=READER_ID&url=CANONICAL_URL",
-        "authorizationFallbackResponse": {
-            "error": true,
-            "access": false
-        }
-    }
-</script>
-<!-- ## Markup -->
-<!--
-  Provide the schema.org markup for the review of the hotel. Learn more about the format [here](https://developers.google.com/search/docs/data-types/reviews).
--->
-<script type="application/ld+json">
-    {
-        "@context": "http://schema.org/",
-        "@type": "Hotel",
-        "name": "Buckingham Palace",
-        "description": "Unique opportunity to stay in a piece of England's history.",
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.3",
-            "bestRating": "5",
-            "ratingCount": "250"
-        }
-    }
-</script>
+
 <style amp-custom>
-  form.amp-form-submit-success [submit-success],
-  form.amp-form-submit-error [submit-error]{
-    margin: 16px;
-  }
-  .star-rating {
-      padding: 2px;
-      margin: 2px 20px;
-  }
-  .star-rating span {
-      padding: 2px;
-      margin: 2px;
-      background: #f0f0f0;
-      color: #ffd700;
-      border: solid 2px #ffd700;
-      border-radius: 3px;
-  }
-  #hero-images-carousel {
-      object-fit: contain;
-  }
-  #hero-images-carousel .caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 8px;
-      background: rgba(0, 0, 0, 0.4);
-      color: #ddd;
-      font-size: smaller;
-      max-height: 30%;
-  }
-  .loyalty-message {
-      padding: 2px;
-      margin: 2px 20px 2px 20px;
-      background: #d0dff9;
-      color: #283b5e;
-      border: solid 2px #5077bd;
-      border-radius: 3px;
-  }
-  td {
-    padding-left: 5px;
-    padding-right: 5px;
-  }
-  #nearby-attractions a {
-    font-weight: normal;
-    color: #283b5e;
-  }
-  #nearby-attractions div {
-    padding-left: 16px;
-  }
-  #nearby-attractions div:before {
-    display: inline-block;
-    text-align: center;
-    width: 1.3em;
-    color: #283b5e;
-    font-size: 120%;
-  }
-  #nearby-attractions div.park:before {
-    content: "🌼";
-  }
-  #nearby-attractions div.gallery:before {
-    content: "🎨";
-  }
-  #nearby-attractions div.fancy:before {
-    content: "🎩";
-  }
-  #nearby-attractions div.theatre:before {
-    content: "🎭";
-  }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI ", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji ", "Segoe UI Emoji ", "Segoe UI Symbol ";
+    }
+    body > * {
+      margin: 16px;
+    }
+    .rooms [role=listitem] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .rooms [role=listitem] > * {
+      margin-right: 16px
+    }
+    .rooms [role=listitem] button {
+      margin-left: auto;
+    }
 </style>
 </head>
 <body>
-<!-- ## Hero Images -->
-<!--
-  The heading resizes to the available space using `amp-fit-text`. The `amp-carousel` element is used to add hero images for the property. To learn more about configuring these elements look at the [advanced carousel demo here](/advanced/image_galleries_with_amp-carousel/).
--->
-<div>
-    <h5><amp-fit-text layout="responsive" min-font-size="20px" max-font-size="80px" height="80" width="600">Buckingham Palace Guest Rooms</amp-fit-text></h5>
-    <div class="star-rating"><span>★★★★☆</span> 4.3 stars from 250 reviews</div>
-    <amp-carousel id="hero-images-carousel" width="640" height="383" layout="responsive" type="slides">
-        <div>
-            <amp-img src="/img/hotel01_2benny_640x383.jpg" layout="fill" alt="Buckingham Palace exterior" attribution="2benny on Flickr - CC BY 2.0"></amp-img>
-            <div class="caption">Photo by <a href="https://flic.kr/p/rAGfoE">2benny</a> / <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a></div>
-        </div>
-        <div>
-            <amp-img src="/img/hotel02_joepitha_640x383.jpg" layout="fill" alt="Buckingham Palace gate" attribution="Joe Pitha on Flickr - CC BY-SA 2.0"></amp-img>
-            <div class="caption">Photo by <a href="https://flic.kr/p/ew3kma">Joe Pitha</a> / <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a></div>
-        </div>
-        <div>
-            <amp-img src="/img/hotel03_muffinn_640x383.jpg" layout="fill" alt="The Victoria Memorial" attribution="muffinn on Flickr - CC BY 2.0"></amp-img>
-            <div class="caption">Photo by <a href="https://flic.kr/p/cuDKc3">muffinn</a> / <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a></div>
-        </div>
-        <div>
-            <amp-img src="/img/hotel04_robinhawkes_640x383.jpg" layout="fill" alt="Aerial view of Buckingham Palace" attribution="Robin Hawkes on Flickr - CC BY-SA 2.0"></amp-img>
-            <div class="caption">Photo by <a href="https://flic.kr/p/bw8B7r">Robin Hawkes</a> / <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a></div>
-        </div>
-    </amp-carousel>
-    <p>Located next to London's Belgrave district Buckingham Palace offers a unique opportunity to stay in a piece of England's history. Traditionally the home of the UK's ruling sovereign since 1837 a small number of rooms are now available for rent. Spacious
-        high-ceilinged rooms offer four poster beds and views across St James Park. WiFi is limited.</p>
-</div>
-<!-- ## User status -->
-<!--
-  The `amp-access` element checks the user's current session. The JSON response includes the user's loyalty status and how many free nights they have earned.
-  ```json
-  {
-    "username":"test-user",
-    "status":"Gold",
-    "freenights":2
-  }
-  ```
--->
-<div>
-    <section amp-access="status = 'Gold'">
-        <template amp-access-template type="amp-mustache">
-            <div class="loyalty-message">Congratulations <strong>{{username}}</strong>, your PAMPered <strong>{{status}}</strong> status has earned you <strong>{{freenights}}</strong> free nights you can apply to this stay.</div>
-        </template>
-    </section>
-</div>
-<!-- ## Dates of stay -->
-<!--
-  An amp-form is used to allow the user to change the dates of their stay. The `type="date"` is used to allow the browser to display a native date picker. Learn more about handling the result of a form submission in the [form example](/components/amp-form).
--->
-<div>
-  <h6>Your stay</h6>
-  <p>7 nights, from 12 Dec 2020 to 06 Jan 2021</p>
-  <form method="GET" class="px3 mb4"
-    action="/samples_templates/hotel/check-available"
-    action-xhr="/samples_templates/hotel/check-available"
-    target="_top">
-    <fieldset id="stay-input" class="border-none p0 m0">
-    <div class="ampstart-input relative m0 p0 mb3">
-      <label for="checkin">Check-in:</label>
-      <input name="checkin" id="checkin" type="date" class="block border-none p0 m0" value="2020-12-30">
-    </div>
-    <div class="ampstart-input relative m0 p0 mb3">
-      <label for="checkout">Check-out:</label>
-      <input name="checkout" type="date" class="block border-none p0 m0" value="2021-01-06">
-    </div>
-    <div class="ampstart-input relative m0 p0 mb3 ">
-      <label for="guests">Guests:</label>
-      <select name="guests" class="block border-none p0 m0">
-        <option value="1">1</option>
-        <option value="2" selected>2</option>
-        <option value="3">3</option>
-      </select>
-    </div>
-    </fieldset>
-    <input type="submit" value="Check availability" class="ampstart-btn caps">
-    <div submit-success>
-      <template type="amp-mustache">
-        Yay!
-      </template>
-    </div>
-    <div submit-error>
-      <template type="amp-mustache">
-        No rooms available.
-      </template>
-    </div>
-  </form>
-</div>
-<!-- ## Available rooms -->
-<!--
-  Another `amp-form` around the table allows for booking buttons.
--->
-<div>
-    <h6>Rooms</h6>
-  <form method="POST" action-xhr="/samples_templates/hotel/book" target="_top">
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Per night</th>
-          <th>Total</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Standard Room</td>
-          <td>$100 ave. per night</td>
-          <td>$700 total</td>
-          <td><input type="submit" value="Book it" class="ampstart-btn caps"></td>
-        </tr>
-        <tr>
-          <td>Junior Penthouse</td>
-          <td>$500 ave. per night</td>
-          <td>$3500 total</td>
-          <td><input type="submit" value="Book it" class="ampstart-btn caps"></td>
-        </tr>
-        <tr>
-          <td>Terrace Penthouse</td>
-          <td>$1000 ave. per night</td>
-          <td>$7000 total</td>
-          <td><input type="submit" value="Book it" class="ampstart-btn caps"></td>
-        </tr>
-      </tbody>
-    </table>
-  </form>
-</div>
-<!-- ## Embedding a map -->
-<!--
-  A standard `amp-iframe` is used to embed a Google Map. Learn more about other iframe embeds [here](/components/amp-iframe).
--->
-<div>
-    <h6>Location</h6>
-  <amp-iframe width="600" height="400"
-              layout="responsive" frameborder="0"
-              sandbox="allow-scripts allow-same-origin allow-popups"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2483.6459680494054!2d-0.14407868387219033!3d51.50136397963417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760520cd5b5eb5%3A0xa26abf514d902a7!2sBuckingham+Palace!5e0!3m2!1sen!2suk!4v1469804959011"></amp-iframe>
-</div>
-<!-- ## Dynamic list -->
-<!--
-  An `amp-list` is used to pull in the interesting attractions nearby. Learn more about the element [here](/components/amp-list).
--->
-<div>
-  <h6>Nearby attractions</h6>
-  <amp-list id="nearby-attractions"
-            width="auto"
-            height="100"
-            layout="fixed-height"
-            src="/json/nearby_attractions.json">
+  <h1 class="m1">
+    <amp-fit-text width="300" height="45" layout="responsive" max-font-size="45">
+      The Ampsterdam
+    </amp-fit-text>
+  </h1>
+  <p class="m1">The fastest hotel in town</p>
+  <h2 class="m1">When do you want to travel?</h2>
+  <!-- ## Date availability search -->
+  <!--
+  You can implement a date availability search by using the `amp-date-picker` as input of a form.
+  Here we are using `type=range` as we need 2 dates: the arriving and leaving date of an hotel reservation.
+  Upon receiving a `submit-succes` event from the form response, we set the value of a global variable `rooms`
+  to the form response.
+  -->
+  <form method="GET"
+        action="https://amp-by-example-live.glitch.me/rooms"
+        action-xhr="https://amp-by-example-live.glitch.me/rooms"
+        target="_top"
+        on="submit-success:AMP.setState({
+              rooms: event.response
+          })">
+      <amp-date-picker type="range"
+                        locale="en"
+                        format="Y-MM-DD"
+                        show-clear-dates
+                        min="2017-10-26"
+                        month-format="MMM"
+                        class="pt1 ml1">
+          <input amp-date-placeholder-start placeholder="arriving" id="arriving"/>
+          <input amp-date-placeholder-end placeholder="leaving" id="leaving"/>
+      </amp-date-picker>
+      <button class="ampstart-btn caps m1">Check Availability</button>
+    </form>
+
+    <!-- ## Additional filter -->
+    <!--
+    We implemented a filter to show only pet friendly rooms by adding a checkbox and
+    setting a new variable, `filterPetFriendly`, to the value of the filter.
+    -->
+    <labe class="ml1">Show only pet friendly rooms: 
+      <input type="checkbox" class="m1" on="change:AMP.setState({
+        showPetFriendlyOnly: event.checked
+      })">
+    </label>
+  <!-- ## Filter function -->
+  <!--
+    We use `amp-bind-macro` to implement a function which filter the `amp-list` content
+    based on the pet friendly selection filter. By using `amp-bind-macro` we avoid repeating
+    the filter expression multiple times across the page.
+  -->
+  <amp-bind-macro id="filteredRooms"
+    expression="rooms.filter(room => showPetFriendlyOnly ? room.petFriendly : true)">
+  </amp-bind-macro>
+
+  <!-- ## Initial State -->
+  <!--
+    We are using `amp-state` to set the initial value of the variable `rooms` to the list of rooms
+    returned by the server. 
+  -->
+  <amp-state id="rooms" src="https://amp-by-example-live.glitch.me/rooms"></amp-state>
+
+  <!-- ## Rooms list -->
+  <!--
+    We are using `amp-list` to show a list of rooms. We bind the value of the `src` variable
+    to the result of the function `filterRooms` so that we can show the resulting list after the user selection.
+
+    By clicking on an image, you can see an enlarged version: we are in fact using the `amp-lightbox-gallery`
+    by adding the `lightbox` parameter to every `amp-img` component; the `alt` parameter content adds also
+    a caption for every image in the lightbox gallery.
+
+    `amp-list` takes all the height specified by the `height` attribute and after filtering, it could take unused space:
+    we are resizing by binding the `height` attribute to the result of the height of the image plus the margins multiplied by
+    the length of the list.
+  -->
+  <amp-list class="rooms" 
+  layout="fixed-height" height="800"
+  src="https://amp-by-example-live.glitch.me/rooms" [src]="filteredRooms()" items="."
+  [height]="(80 + (16*2)) * filteredRooms().length">
     <template type="amp-mustache">
-      <div class="{{type}}">
-        <a href="{{url}}">{{attraction}}</a>
-      </div>
+    <amp-img width="108" height="80" src="{{img}}" lightbox alt="{{name}}-{{desc}}" class="m1"></amp-img>
+    <div class="m1">{{name}} {{#petFriendly}}&#128062;{{/petFriendly}}</div>
+    <button class="ampstart-btn caps m1 mb3">BOOK</button>
     </template>
   </amp-list>
-</div>
+    <!-- ## Rooms list Empty result -->
+    <!--
+      In case no rooms are available, we are showing a message to inform the user. We hide the
+      message by default and show it when the list is not empty. We are calling `filteredRooms()` function
+      from the `amp-bind-macro` to get the list of rooms filtered by user selection.
+    -->
+  <p hidden [hidden]="filteredRooms().length > 0">Sorry, no rooms available</p>
+
 </body>
 </html>
