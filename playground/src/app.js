@@ -81,8 +81,8 @@ runtimeSelector.show();
 
 let activeRuntime;
 events.subscribe(EVENT_SET_RUNTIME, newRuntime => {
-  console.log(`runtime ${activeRuntime} ->: ${newRuntime.id}`);
   preview.setRuntime(newRuntime);
+  runtimeSelector.selectOption(newRuntime.id);
   // change editor input to new runtime default if current input is unchanged
   if (activeRuntime && 
     activeRuntime != newRuntime && 

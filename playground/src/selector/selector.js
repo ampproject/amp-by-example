@@ -48,4 +48,12 @@ class Selector {
 
     this.container.appendChild(this.select);
   }
+
+  selectOption(value) {
+    const option = this.select.querySelector('[value=' + value + ']')
+    if (!option) {
+      return;
+    }
+    option.setAttribute('selected', '');;
+  }
 }
