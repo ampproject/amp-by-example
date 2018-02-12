@@ -142,7 +142,7 @@ gulp.task('deploy:prod', 'deploy to production server', function(callback) {
 
 gulp.task('deploy:staging', 'deploy to staging server', function(callback) {
   config.env = PROD;
-  config.appId = 'amp-by-example-sebastian';
+  config.appId = 'amp-by-example-staging';
   config.host = 'https://' + config.appId + '.appspot.com';
   runSequence('clean',
     'robots:disallow',
