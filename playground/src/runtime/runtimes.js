@@ -15,6 +15,7 @@
 import amphtmlTemplate from './templates/amphtml.template.html';
 import a4aTemplate from './templates/a4a.template.html';
 import storyTemplate from './templates/story.template.html';
+import emailTemplate from './templates/email.template.html';
 import events from '../events/events.js';
 import params from '../params/base.js';
 
@@ -52,6 +53,17 @@ class Runtimes {
       },
       validator: 'AMP',
       template: storyTemplate
+    },
+    {
+      id: 'amp4email',
+      name: 'AMP for Email',
+      preview: {
+        mode: 'devices',
+        default: 'Responsive'
+      },
+      validator: 'EXPERIMENTAL',
+      validatorUrl: 'https://cdn.ampproject.org/v0/validator-0AQfbeptpCkfqDKdiloGyw-amp4mail.js',
+      template: emailTemplate
     }];
     events.subscribe(EVENT_SET_RUNTIME, runtime => this.activeRuntime = runtime);
   }

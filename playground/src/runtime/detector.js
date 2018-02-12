@@ -16,6 +16,7 @@ import runtimes from './runtimes.js';
 
 const STORY_REGEX = /<amp-story\s+standalone\s*>/i;
 const AMPHTML_AD_REGEX = /amp4ads-boilerplate/i;
+const EMAIL_REGEX = /amp4email-boilerplate/i;
 
 const detectRuntime = string => {
   if (string.match(STORY_REGEX)) {
@@ -23,6 +24,9 @@ const detectRuntime = string => {
   }
   if (string.match(AMPHTML_AD_REGEX)) {
     return runtimes.get('amp4ads');
+  }
+  if (string.match(EMAIL_REGEX)) {
+    return runtimes.get('amp4email');
   }
   return runtimes.get('amphtml');
 };

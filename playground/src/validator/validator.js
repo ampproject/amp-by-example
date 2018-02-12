@@ -16,7 +16,7 @@ import events from '../events/events.js';
 import lazyLoad from '../lazy-load/base.js';
 import {runtimes, EVENT_SET_RUNTIME} from '../runtime/runtimes.js';
 
-const validatorPromise = lazyLoad('https://cdn.ampproject.org/v0/validator.js');
+const DEFAULT_VALIDATOR_URL = 'https://cdn.ampproject.org/v0/validator.js';
 
 export const NO_ERRORS = {
   errors: [],
@@ -41,10 +41,10 @@ class Validator {
   }
 
   validate(string) {
-    if (!string) {
+    if (!string || !validatorPromise) {
       return;
     }
-    validatorPromise.then(() => {
+    this.validatorPromise.then(() => {
       if (!this.runtime.validator) {
         events.publish(EVENT_NEW_VALIDATION_RESULT, NO_VALIDATOR);
         return;
@@ -58,6 +58,8 @@ class Validator {
   _setRuntime(runtime) {
     this.runtime = runtime;
     events.publish(EVENT_NEW_VALIDATION_RESULT, NO_ERRORS);
+    const validatorUrl = runtime.validatorUrl || DEFAULT_VALIDATOR_URL;
+    this.validatorPromise = lazyLoad(validatorUrl);
   }
 
   processErrors(validationResult) {

@@ -33,12 +33,17 @@
     {{/isEmbed}}
       {{#document.sections}}
       {{{preview}}}
+      {{#isAmpStoryTag}}
+      {{> analytics.html}}
+      {{/isAmpStoryTag}}
       {{/document.sections}}
     {{^isEmbed}}
       </div>
     </div>
     {{/isEmbed}}
+    {{^document.isAmpStory}}
     {{> analytics.html}}
     {{> serviceworker.html}}
+    {{/document.isAmpStory}}
   </body>
 </html>

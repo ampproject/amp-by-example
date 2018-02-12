@@ -11,13 +11,19 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+const cache = [];
 
 export default function lazyLoad(scriptUrl) {
-  return new Promise(resolve => {
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = scriptUrl;
-    script.onload = resolve;
-    document.head.appendChild(script);
-  });
+  let result = cache[scriptUrl];
+  if (!result) {
+    result = new Promise(resolve => {
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = scriptUrl;
+      script.onload = resolve;
+      document.head.appendChild(script);
+    });
+    cache[scriptUrl] = result;
+  }
+  return result;
 }
