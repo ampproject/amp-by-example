@@ -17,7 +17,6 @@ import lazyLoad from '../lazy-load/base.js';
 import {runtimes, EVENT_SET_RUNTIME} from '../runtime/runtimes.js';
 
 const DEFAULT_VALIDATOR_URL = 'https://cdn.ampproject.org/v0/validator.js';
-let validatorPromise;
 
 export const NO_ERRORS = {
   errors: [],
