@@ -1,0 +1,122 @@
+<!---{
+  "preview": "default",
+  "draft": true,
+  "experiments": ["amp-date-picker"]
+  }--->
+  <!--
+  ## Introduction
+
+  This is a sample showing how to implement an hotel landing page.
+
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+<meta charset="utf-8">
+  <title>Hotel Landing Page</title>
+<script async src="https://cdn.ampproject.org/v0.js"></script>
+<!-- ## Setup -->
+<!--
+Import the additional AMP components.
+-->
+<script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+<script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+<script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+<script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+<script async custom-element="amp-date-picker" src="https://cdn.ampproject.org/v0/amp-date-picker-0.1.js"></script>
+<link rel="canonical" href="<%host%>/samples_templates/hotel_landing_page/">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+<style amp-custom>
+
+</style>
+</head>
+<body>
+  <h1>The Ampsterdam</h1>
+  <p>When do you want to travel?</p>
+  <!-- ## Date availability search -->
+  <!--
+  You can implement a date availability search by using `amp-date-picker` as input of a form.
+  Here we are using `type=range` as we need the arriving and leaving date of the hotel reservation.
+  Upon receiving a `submit-succes` event from the form response, we set the value of a variable `rooms`
+  to the result of a function `filterRooms` by using `AMP.setState`.
+  `filterRooms` function is explained [below](/samples_templates/hotel_landing_page/#filter_function)
+  and it takes the response result as parameter.
+  -->
+  <form method="GET"
+        action="/rooms"
+        action-xhr="/rooms"
+        target="_top"
+        on="submit-success:AMP.setState({
+              rooms: filterRooms(filterPetFriendly, event.response)
+          })">
+      <amp-date-picker type="range"
+                        locale="en"
+                        format="Y-MM-DD"
+                        show-clear-dates
+                        min="2017-10-26"
+                        month-format="MMM">
+          <input amp-date-placeholder-start placeholder="Arriving" id="arriving"/>
+          <input amp-date-placeholder-end placeholder="Leaving" id="leaving"/>
+      </amp-date-picker>
+      <button class="amp-start-button">Check Availability</button>
+    </form>
+    <h2>Rooms</h2>
+
+    <!-- ## Additional filter -->
+    <!--
+      We implemented a filter to show only pet friendly rooms by adding a checkbox and
+      setting a new variable, `filterPetFriendly`, to the value of the filter.
+    -->
+  <div>
+    <label for="petFriendly">Pet friendly rooms only</label>
+    <input id="petFriendly" type="checkbox" on="change:AMP.setState({
+        isPetFriendly: event.checked,
+        rooms: filterRooms(event.checked, allRooms)
+    })">
+  <div>
+  <!-- ## Filter function -->
+  <!--
+    We use `amp-bind-macro` to implement a function which takes as parameters the value
+    of `isPetFriendly` and the list of rooms. By using `amp-bind-macro` we avoid repeating
+    the filter expression multiple times on the page.
+  -->
+  <amp-bind-macro id="filterRooms"
+                  arguments="isPetFriendly, roomsList"
+                  expression="roomsList.filter(h => isPetFriendly? h.petFriendly : true)" />
+
+  <!-- ## Initial State -->
+  <!--
+    We are using `amp-state` to set the initial value of the variable `rooms` to the value
+    returned by the server.
+  -->
+  <amp-state id="rooms" src="/rooms"></amp-state>
+
+  <!-- ## Rooms list -->
+  <!--
+    We are using `amp-list` to show the list of rooms. We bind the value of the `src` variable
+    to the result of the function `filterRooms`
+  -->
+  <amp-list height="480" layout="fixed-height"
+            src="/rooms"
+            items="."
+            [height]="(allRooms.length * (72 + 8))"
+            [src]="filterRooms(isPetFriendly, rooms)">
+    <template type="amp-mustache">
+      <div class="hotel">
+        <amp-img width="108" height="72" src="{{img}}"></amp-img>
+        <div>
+          {{name}}
+          {{#petFriendly}}&#128062;{{/petFriendly}}
+        </div>
+        <button>Book</button>
+      </div>
+    </template>
+  </amp-list>
+  <p>Content below amp-list</p>
+
+
+</body>
+</html>
