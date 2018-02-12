@@ -1,7 +1,7 @@
 <!-- 
   ## Introduction
 
-  Learn how to create your first AMP Story. The [amp-story](https://github.com/ampproject/amphtml/blob/master/extensions/amp-story/amp-story.md) extension provides a new format for displaying visual content. 
+  Learn how to create your first AMP Story. The [amp-story](https://www.ampproject.org/docs/reference/components/amp-story.html) extension provides a new format for displaying visual content. 
 -->
 <!-- -->
 <!doctype html>
@@ -12,13 +12,13 @@
     <!-- ## Setup -->
     <!-- AMP Stories are written using AMPHTML and they use their own AMP extension: `amp-story`. The first step is to import the `amp-story` in the header. -->
     <script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-0.1.js"></script>
-    <!-- AMP Stories can make use of other AMP extensions such as `amp-video`. Howeever, they support only a subset of the available AMP extensions. You can find a full list of the supported extensions [here](https://github.com/ampproject/amphtml/blob/master/extensions/amp-story/amp-story.md#children-of-amp-story-grid-layer). -->
+    <!-- AMP Stories can make use of other AMP extensions such as `amp-video`. However, AMP Stories supportonly a subset of the available AMP extensions. You can find a full list of the supported extensions [here](https://www.ampproject.org/docs/reference/components/amp-story.html#children-of-amp-story-grid-layer). -->
     <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
     <title>Stories in AMP - Hello World</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <link rel="canonical" href="/stories/introduction/amp_story_hello_world/">
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-    <!-- Stories can be styled using CSS -->
+    <!-- Stories can be styled using CSS: -->
     <style amp-custom>
       body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI ", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji ", "Segoe UI Emoji ", "Segoe UI Symbol ";
@@ -35,7 +35,7 @@
 
   <body>
     <!-- ## Writing the Story -->
-    <!-- Stories are declared inside the `amp-story` tag. You can link to other Stories on the last page of your story by linking to a [bookend JSON config](/json/bookend.json). -->
+    <!-- Stories are declared inside the `amp-story` tag. You can link to other Stories on the last screen of your story by linking to a [bookend JSON config](/json/bookend.json). -->
     <amp-story standalone bookend-config-src="<%host%>/json/bookend.json">
 
       <!-- A story consists of one or more pages. Each page is declared by an `amp-story-page` element. Pages are designed by layering videos, images and text. Here we have a page that uses two layers. One layer filling the available space with an image and one text layer that shows a heading. -->
@@ -65,7 +65,7 @@
         </amp-story-grid-layer>
       </amp-story-page>
 
-      <!-- Pre-defined entry animations make it possible to create dynamic pages without videos. The length and initial delay can be customized using the `animate-in-duration` and `animate-in-delay` property. The [animations sample](../features/animations/) shows all available in action. -->
+      <!-- Pre-defined entry animations make it possible to create dynamic pages without videos. The length and initial delay can be customized using the `animate-in-duration` and `animate-in-delay` properties. The [animations sample](../../features/animations/) shows all available animantions in action. -->
       <amp-story-page id="animation-demo">
         <amp-story-grid-layer template="fill">
           <amp-img src="<%host%>/img/story_dog4.jpg"
@@ -83,7 +83,7 @@
         </amp-story-grid-layer>
       </amp-story-page>
 
-      <!-- Stories can use predefined layouts to style the page. Here we're using the `thirds` template. For an overview about the available layouts take a look at the [layouts sample](../features/layouts/). -->
+      <!-- Stories can use predefined layouts to style the page. Here we're using the `thirds` template. For an overview about the available layouts take a look at the [layouts sample](../../features/layouts/). -->
       <amp-story-page id="layout-demo">
         <amp-story-grid-layer template="thirds">
           <amp-img grid-area="upper-third"
