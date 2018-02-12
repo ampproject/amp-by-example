@@ -4,7 +4,7 @@
 <!-- 
   ## Introduction
 
-  Stories support a wide range of different media elements.
+  Stories support only a [subset of the media types](https://github.com/ampproject/amphtml/blob/master/extensions/amp-story/amp-story.md#children-of-amp-story-grid-layer) available in AMPHTML. This samples gives an overview on which are supported.
 -->
 <!-- -->
 <!doctype html>
@@ -28,6 +28,11 @@
       body {
         font-family: 'Roboto', sans-serif;
       }
+      amp-story-page h1 {
+        background: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+      }
       amp-story-page {
         background: white;
       }
@@ -41,52 +46,9 @@
   <body>
     <amp-story standalone>
 
-      <!-- ## amp-audio -->
-      <amp-story-page id="amp-audio">
-        <amp-story-grid-layer template="thirds">
-          <h1 grid-area="upper-third">amp-audio</h1>
-        </amp-story-grid-layer>
-        <amp-story-grid-layer template="fill">
-          <amp-audio width="auto"
-                     height="50"
-                     autoplay
-                     src="https://ia801402.us.archive.org/16/items/EDIS-SRP-0197-06/EDIS-SRP-0197-06.mp3">
-          </amp-audio>
-        </amp-story-grid-layer>
-      </amp-story-page>
-
-      <!-- ## amp-gfycat -->
-      <amp-story-page id="amp-gfycat">
-        <amp-story-grid-layer template="vertical">
-          <h1 grid-area="upper-third">amp-gfycat</h1>
-        </amp-story-grid-layer>
-        <amp-story-grid-layer template="fill">
-            <amp-gfycat data-gfyid="TautWhoppingCougar"
-                        width="640"
-                        height="360"
-                        layout="responsive">
-            </amp-gfycat>
-        </amp-story-grid-layer>
-      </amp-story-page>
-
-      <!-- ## amp-google-vrview-image -->
-      <amp-story-page id="amp-google-vrview-image">
-        <amp-story-grid-layer template="thirds">
-          <h1 grid-area="upper-third">amp-google-vrview-image</h1>
-        </amp-story-grid-layer>
-        <amp-story-grid-layer template="fill">
-          <amp-google-vrview-image src="https://storage.googleapis.com/vrview/examples/coral.jpg"
-                                   width="400"
-                                   height="300"
-                                   layout="responsive">
-          </amp-google-vrview-image>
-        </amp-story-grid-layer>
-      </amp-story-page>
       <!-- ## amp-img -->
+      <!-- Images are fully supported via the `amp-img` extension. -->
       <amp-story-page id="amp-img">
-        <amp-story-grid-layer template="thirds">
-          <h1 grid-area="upper-third">amp-img</h1>
-        </amp-story-grid-layer>
         <amp-story-grid-layer template="fill">
           <amp-img  src="https://unsplash.it/720/320/?image=10"
                     grid-area="middle-third"
@@ -94,13 +56,14 @@
                     height="320" 
                     layout="responsive"></amp-img>
         </amp-story-grid-layer>
+        <amp-story-grid-layer template="thirds">
+          <h1 grid-area="upper-third">amp-img</h1>
+        </amp-story-grid-layer>
       </amp-story-page>
 
       <!-- ## amp-video -->
+      <!-- The only way to embed videos is currently via the [amp-video](https://www.ampproject.org/docs/reference/components/amp-video) extension. -->
       <amp-story-page id="amp-video">
-        <amp-story-grid-layer template="thirds">
-          <h1 grid-area="upper-third">amp-video</h1>
-        </amp-story-grid-layer>
         <amp-story-grid-layer template="fill">
           <amp-video autoplay loop
                               grid-area="middle-third"
@@ -110,6 +73,54 @@
                 layout="responsive">
                 <source src="<%host%>/video/story_video_dog.mp4" type="video/mp4">
           </amp-video>
+        </amp-story-grid-layer>
+        <amp-story-grid-layer template="thirds">
+          <h1 grid-area="upper-third">amp-video</h1>
+        </amp-story-grid-layer>
+      </amp-story-page>
+      <!-- ## amp-audio -->
+      <!-- You can embed audio content using the use the amp-audio componentAudio. However,
+      usually it's better to embed audio using the [`background-audio`](https://github.com/ampproject/amphtml/blob/master/extensions/amp-story/amp-story.md#background-audio-optional-1) attribute on the `amp-story-page` element.-->
+      <amp-story-page id="amp-audio">
+        <amp-story-grid-layer template="fill">
+          <amp-audio width="auto"
+                     height="50"
+                     autoplay
+                     src="https://ia801402.us.archive.org/16/items/EDIS-SRP-0197-06/EDIS-SRP-0197-06.mp3">
+          </amp-audio>
+        </amp-story-grid-layer>
+        <amp-story-grid-layer template="thirds">
+          <h1 grid-area="upper-third">amp-audio</h1>
+        </amp-story-grid-layer>
+      </amp-story-page>
+
+      <!-- ## amp-gfycat -->
+      <!-- Embed animated GIFs from https://gfycat.com/. -->
+      <amp-story-page id="amp-gfycat">
+        <amp-story-grid-layer template="fill">
+            <amp-gfycat data-gfyid="TautWhoppingCougar"
+                        width="640"
+                        height="360"
+                        layout="responsive">
+            </amp-gfycat>
+        </amp-story-grid-layer>
+        <amp-story-grid-layer template="vertical">
+          <h1 grid-area="upper-third">amp-gfycat</h1>
+        </amp-story-grid-layer>
+      </amp-story-page>
+
+      <!-- ## amp-google-vrview-image -->
+      <!-- Stories will support 360° Media, consisting of 360° videos and images, soon. Please note that the [amp-google-vrview-image](https://www.ampproject.org/docs/reference/components/amp-google-vrview-image) component is currently experimental. -->
+      <amp-story-page id="amp-google-vrview-image">
+        <amp-story-grid-layer template="fill">
+          <amp-google-vrview-image src="https://storage.googleapis.com/vrview/examples/coral.jpg"
+                                   width="400"
+                                   height="300"
+                                   layout="responsive">
+          </amp-google-vrview-image>
+        </amp-story-grid-layer>
+        <amp-story-grid-layer template="thirds">
+          <h1 grid-area="upper-third">amp-google-vrview-image</h1>
         </amp-story-grid-layer>
       </amp-story-page>
     </amp-story>
