@@ -1,3 +1,6 @@
+<!---{
+    "experiments": ["amp-google-vrview-image"]
+}--->
 <!-- 
   ## Introduction
 
@@ -19,7 +22,7 @@
     <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
     <meta name="viewport"
           content="width=device-width,minimum-scale=1,initial-scale=1">
-    <link rel="canonical" href="grid-layer-templates.html">
+    <link rel="canonical" href="/stories/features/media/">
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <style amp-custom>
       body {
@@ -41,7 +44,9 @@
       <!-- ## amp-audio -->
       <amp-story-page id="amp-audio">
         <amp-story-grid-layer template="thirds">
-          <h1>amp-audio</h1>
+          <h1 grid-area="upper-third">amp-audio</h1>
+        </amp-story-grid-layer>
+        <amp-story-grid-layer template="fill">
           <amp-audio width="auto"
                      height="50"
                      autoplay
@@ -53,21 +58,23 @@
       <!-- ## amp-gfycat -->
       <amp-story-page id="amp-gfycat">
         <amp-story-grid-layer template="vertical">
-          <h1>amp-gfycat</h1>
-          <div>
+          <h1 grid-area="upper-third">amp-gfycat</h1>
+        </amp-story-grid-layer>
+        <amp-story-grid-layer template="fill">
             <amp-gfycat data-gfyid="TautWhoppingCougar"
                         width="640"
                         height="360"
                         layout="responsive">
             </amp-gfycat>
-          </div>
         </amp-story-grid-layer>
       </amp-story-page>
 
       <!-- ## amp-google-vrview-image -->
       <amp-story-page id="amp-google-vrview-image">
         <amp-story-grid-layer template="thirds">
-          <h1>amp-google-vrview-image</h1>
+          <h1 grid-area="upper-third">amp-google-vrview-image</h1>
+        </amp-story-grid-layer>
+        <amp-story-grid-layer template="fill">
           <amp-google-vrview-image src="https://storage.googleapis.com/vrview/examples/coral.jpg"
                                    width="400"
                                    height="300"
@@ -78,7 +85,9 @@
       <!-- ## amp-img -->
       <amp-story-page id="amp-img">
         <amp-story-grid-layer template="thirds">
-          <h1>amp-img</h1>
+          <h1 grid-area="upper-third">amp-img</h1>
+        </amp-story-grid-layer>
+        <amp-story-grid-layer template="fill">
           <amp-img  src="https://unsplash.it/720/320/?image=10"
                     grid-area="middle-third"
                     width="720"
@@ -90,7 +99,9 @@
       <!-- ## amp-video -->
       <amp-story-page id="amp-video">
         <amp-story-grid-layer template="thirds">
-          <h1>amp-video</h1>
+          <h1 grid-area="upper-third">amp-video</h1>
+        </amp-story-grid-layer>
+        <amp-story-grid-layer template="fill">
           <amp-video autoplay loop
                               grid-area="middle-third"
                 width="720" 

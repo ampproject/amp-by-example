@@ -1,6 +1,10 @@
 amp-instagram {
   box-sizing: content-box;
 }
+.www-component-anchors {
+  height: calc(100vh - 112px);
+  overflow-y: auto;
+}
 .www-component-desc pre,
 pre, code {
   font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;

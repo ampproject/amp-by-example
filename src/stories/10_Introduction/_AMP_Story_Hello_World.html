@@ -16,7 +16,7 @@
     <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
     <title>Stories in AMP - Hello World</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-    <link rel="canonical" href="/stories/introduction/amp_story_hello_world/preview/embed/">
+    <link rel="canonical" href="/stories/introduction/amp_story_hello_world/">
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <!-- Stories can be styled using CSS -->
     <style amp-custom>
@@ -67,12 +67,11 @@
 
       <!-- Pre-defined entry animations make it possible to create dynamic pages without videos. The length and initial delay can be customized using the `animate-in-duration` and `animate-in-delay` property. The [animations sample](../features/animations/) shows all available in action. -->
       <amp-story-page id="animation-demo">
-        <amp-story-grid-layer template="fill" animate-in="fade-in">
+        <amp-story-grid-layer template="fill">
           <amp-img src="<%host%>/img/story_dog4.jpg"
                    animate-in="fly-in-top"
                    width="720" height="1280" 
-                   layout="responsive"
-                    animate-in="fly-in-right">
+                   layout="responsive">
           </amp-img>
         </amp-story-grid-layer>
         <amp-story-grid-layer template="thirds">
@@ -102,8 +101,7 @@
                    width="630" 
                    height="420" 
                    layout="responsive">
-            </amp-img>
-          </div>
+          </amp-img>
         </amp-story-grid-layer>
       </amp-story-page>
     </amp-story>

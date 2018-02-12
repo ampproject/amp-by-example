@@ -234,13 +234,14 @@ module.exports = function(config, indexPath, updateTimestamp) {
         template: config.templates.example,
         targetPath: example.targetPath(),
         isEmbed: false,
-        postProcessor: replaceAmpAdRuntime
+        postProcessors: [replaceAmpAdRuntime, replaceAmpStoryRuntime]
       });
 
       // compile embed
       compileTemplate(stream, example, args, {
         template: config.templates.example,
         targetPath: example.targetEmbedPath(),
+        postProcessors: [replaceAmpAdRuntime, replaceAmpStoryRuntime],
         isEmbed: true
       });
 
@@ -264,18 +265,19 @@ module.exports = function(config, indexPath, updateTimestamp) {
       args.desc = "This is a live preview of the '" + example.title() + "' sample. " + args.desc;
       args.canonical = config.host + example.url() + 'preview/';
 
-      // generate preview 
-      compileTemplate(stream, example, args, {
-        template: previewTemplate,
-        targetPath: example.targetPreviewPath(),
-        isEmbed: false
-      });
-
       // generate story preview embed
       if (document.isAmpStory) {
         generateStoryPreviewEmbed(stream, example, args, {
           targetPath: example.targetPreviewEmbedPath(),
         })
+      } else {
+        // generate preview 
+        compileTemplate(stream, example, args, {
+          template: previewTemplate,
+          targetPath: example.targetPreviewPath(),
+          postProcessors: [replaceAmpAdRuntime, replaceAmpStoryRuntime],
+          isEmbed: false
+        });
       }
 
       // generate preview embed
@@ -366,9 +368,10 @@ module.exports = function(config, indexPath, updateTimestamp) {
     const inputFile = example.file;
     args.isEmbed = options.isEmbed;
     let sampleHtml = pageTemplates.render(options.template, args);
-    if (options.postProcessor) {
-      sampleHtml = options.postProcessor(document, sampleHtml);
-    }
+    options.postProcessors = options.postProcessors || [];
+    options.postProcessors.forEach(p =>{
+      sampleHtml = p(document, sampleHtml);
+    });
     args.isEmbed = false;
     const sampleFile = inputFile.clone({contents: false});
     sampleFile.path = path.join(inputFile.base, options.targetPath);
@@ -403,7 +406,6 @@ module.exports = function(config, indexPath, updateTimestamp) {
 
     storiesSection.categories.forEach(c => {
       relatedArticles[c.name] = c.examples.map(e => {
-        gutil.log('firstimage', e.firstImage);
         return {
           title: e.title,
           url: e.url,
