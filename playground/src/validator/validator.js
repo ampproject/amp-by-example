@@ -41,7 +41,7 @@ class Validator {
   }
 
   validate(string) {
-    if (!string || !validatorPromise) {
+    if (!string || !this.validatorPromise) {
       return;
     }
     this.validatorPromise.then(() => {
