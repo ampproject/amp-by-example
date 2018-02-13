@@ -61,8 +61,7 @@ class Runtimes {
         mode: 'devices',
         default: 'Responsive'
       },
-      validator: 'EXPERIMENTAL',
-      validatorUrl: 'https://cdn.ampproject.org/v0/validator-0AQfbeptpCkfqDKdiloGyw-amp4mail.js',
+      validator: 'AMP4EMAIL',
       template: emailTemplate
     }];
     events.subscribe(EVENT_SET_RUNTIME, runtime => this.activeRuntime = runtime);
