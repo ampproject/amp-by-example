@@ -55,9 +55,6 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI ", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji ", "Segoe UI Emoji ", "Segoe UI Symbol ";
     }
-    body > * {
-      margin: 16px;
-    }
     .rooms [role=listitem] {
       display: flex;
       align-items: center;
@@ -107,21 +104,22 @@
       <button class="ampstart-btn caps m1">Check Availability</button>
     </form>
 
-    <!-- ## Additional filter -->
+    <!-- ## Client-side Filtering -->
     <!--
-    We implemented a filter to show only pet-friendly rooms by adding a checkbox and
-    setting a new variable, `filterPetFriendly`, to the value of the filter.
+    We want to make it possible for the user to filter rooms by pet friendliness. 
+    The filter shouldn't require an additional network request, instead it should work client-side.
+    We implement a filter by adding a checkbox which sets a new variable, `filterPetFriendly`, whenever the value changes.
     -->
     <label class="ml1">Show only pet friendly rooms: 
       <input type="checkbox" class="m1" on="change:AMP.setState({
         showPetFriendlyOnly: event.checked
       })">
     </label>
-  <!-- ## Filter function -->
+
   <!--
-    We use `amp-bind-macro` to implement implement a function which filter the `amp-list` content based on the pet-friendly selection filter.
-    By using `amp-bind-macro` we avoid repeating
-    the filter expression multiple times across the page.
+    We use `amp-bind-macro` to implement a function which filters the `amp-list` content based on the pet-friendly variable.
+    By using `amp-bind-macro` we avoid duplicating
+    the filter expression across the page.
   -->
   <amp-bind-macro id="filteredRooms"
     expression="rooms.filter(room => showPetFriendlyOnly ? room.petFriendly : true)">
@@ -130,7 +128,12 @@
   <!-- ## Rooms List Initial State -->
   <!--
     We are using `amp-state` to set the initial value of the variable `rooms` to the list of rooms
-    returned by the server. We are using the variable `rooms` throughout the sample to access this list from other AMP components.  
+    returned by the server.
+
+    This is necessary for client-side filtering to work after the initial
+    page load. We are using the variable `rooms` throughout the sample to access this list from other AMP components.  
+
+    Both, `amp-list` and `amp-state`, use the same endpoint.  
   -->
   <amp-state id="rooms" src="https://amp-by-example-live.glitch.me/rooms"></amp-state>
 
@@ -139,8 +142,8 @@
     We are using `amp-list` to show a list of rooms. We bind the value of the `src` variable
     to the result of the function `filterRooms` so that we can show the available rooms based on the user selection.
 
-    You can see an enlarged version of each image by clicking on it. We are using the `amp-lightbox-gallery`
-    by adding the `lightbox` parameter to every `amp-img` component; the `alt` parameter content adds also
+    The user can view an enlarged version of each image by clicking on it. This can be implemented using the `amp-lightbox-gallery`
+    by adding the `lightbox` attribute to every `amp-img`; the `alt` parameter content adds also
     a caption for every image in the lightbox gallery.
 
     `amp-list` content takes the entire height on the page from the `height` attribute; after filtering, it could take unused space:
@@ -154,10 +157,10 @@
     <template type="amp-mustache">
     <amp-img width="108" height="80" src="{{img}}" lightbox alt="{{name}}-{{desc}}" class="m1"></amp-img>
     <div class="m1">{{name}} {{#petFriendly}}&#128062;{{/petFriendly}}</div>
-    <button class="ampstart-btn caps m1 mb3">BOOK</button>
+    <button class="ampstart-btn caps m1 mb3">book</button>
     </template>
   </amp-list>
-    <!-- ## Rooms List empty Result -->
+    <!-- ## Handling Empty List Content -->
     <!--
       In case no rooms are available, we are showing a message to inform the user. We hide the
       message by default and show it when the list is not empty. We are calling `filteredRooms()` function
