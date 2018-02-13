@@ -161,11 +161,9 @@
     </template>
   </amp-list>
     <!-- ## Handling Empty List Content -->
-    <!--
-      In case no rooms are available, we are showing a message to inform the user. We hide the
+    <!-- In case no rooms are available, we are showing a message to inform the user. We hide the
       message by default and show it when the list is not empty. We are calling `filteredRooms()` function
-      from the `amp-bind-macro` to get the list of rooms filtered by user selection.
-    -->
+      from the `amp-bind-macro` to get the list of rooms filtered by user selection. -->
   <p hidden [hidden]="filteredRooms().length > 0">Sorry, no rooms available</p>
 
 </body>
