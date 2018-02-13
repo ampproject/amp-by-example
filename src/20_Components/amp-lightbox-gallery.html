@@ -17,8 +17,9 @@ The amp-lightbox-gallery component provides a "lightbox” experience for AMP co
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <title>amp-lightbox-gallery</title>
   <!-- ## Setup -->
-  <!-- Import the amp-lightbox-gallery component in the header. Only import amp-carousel if you are using a carousel. -->
+  <!-- Import the amp-lightbox-gallery component in the header.  -->
   <script async custom-element="amp-lightbox-gallery" src="https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js"></script>
+  <!-- Optionally import the amp-carousel component in the header if you are using lightbox with carousel.  -->
   <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <link rel="canonical" href="<%host%>/components/amp-lightbox-gallery/">
@@ -28,15 +29,17 @@ The amp-lightbox-gallery component provides a "lightbox” experience for AMP co
 
   <!-- ## Basic Usage -->
   <!--
-  This is a basic example. You have one or more `<amp-img>` elements on the page. Just add the "lightbox" attribute to each image that you wish to see in a lightbox.
+  This is a basic example that demonstrates lightboxed `<amp-img>`s. You have one or more `<amp-img>` elements on the page. Just add the "lightbox" attribute to each image that you wish to view in a lightbox.
   -->
   <div>
-    <amp-img lightbox src="/img/image1.jpg" width="400" height="300" layout="responsive" role="button"></amp-img>
+    <amp-img lightbox src="/img/image1.jpg" width="400" height="300" layout="responsive"></amp-img>
+    <amp-img lightbox src="/img/image2.jpg" width="400" height="300" layout="responsive"></amp-img>
+    <amp-img lightbox src="/img/image1.jpg" width="400" height="300" layout="responsive"></amp-img>
     <amp-img lightbox src="/img/image2.jpg" width="400" height="300" layout="responsive"></amp-img>
   </div>
   <!-- ## Usage with Carousel-->
   <!--
-  You can also use `<amp-lightbox-gallery>` with `<amp-carousel>`. Just simply include a `<amp-carousel>` with `<amp-img>`s, and add the "lightbox" attribute to the `<amp-carousel>`.
+  You can also use `<amp-lightbox-gallery>` with `<amp-carousel>` to view the contents of the carousel in a lightbox. Just simply include a `<amp-carousel>` with `<amp-img>`s, and add the "lightbox" attribute to the `<amp-carousel>`. The lightbox images will be sync-ed with the carousel slides.
   -->
   <div>
     <amp-carousel lightbox width="400" height="300" layout="responsive" type="slides">
