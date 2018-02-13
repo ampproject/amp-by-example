@@ -6,7 +6,9 @@
   <!--
   ## Introduction
 
-  This is a sample showing how to implement an hotel page.
+  This is a sample showing how to implement an hotel page. It features a room availability based on date selection 
+  and a pet friendly filter on page data. The room list resize automatically after filtering and a message to the user
+  is shown in case of empty result. The user can enlarge photoes and swipe rooms by using a gallery.
 
 -->
 <!-- -->
@@ -18,27 +20,27 @@
 <script async src="https://cdn.ampproject.org/v0.js"></script>
 <!-- ## Setup -->
 <!--
-  Import the additional AMP components. We use `amp-form` to send a filter request to the server.
+  We use a few AMP extensions to dynamically render a list of rooms. We use `amp-form` to send a filter request to the server.
 -->
 <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
 <!--
-  We use `amp-mustache` as a template for `amp-list`.
+  We use `amp-mustache` as a template rendering engine for `amp-list`.
 -->
 <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
 <!--
-  We use `amp-list` to show a list of items.
+  We use `amp-list` to dynamically show a list of rooms.
 -->
 <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
 <!--
-  We use `amp-bind` to bind the value of the room list to a variable that can change dinamically.
+  We use `amp-bind` to filter rooms based on their availability.
 -->
 <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
 <!--
-  We use `amp-date-picker` to implement a filter based on date selection.
+  We use `amp-date-picker` to simplify entering dates for checking room availability.
 -->
 <script async custom-element="amp-date-picker" src="https://cdn.ampproject.org/v0/amp-date-picker-0.1.js"></script>
 <!--
-  We use `amp-lightbox-gallery` to implement a gallery of images.
+  We use `amp-lightbox-gallery` to make it possible enlarge an image upon clicking ans swipe throughout all the images.
 -->
 <script async custom-element="amp-lightbox-gallery" src="https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js"></script>
 <!--
@@ -77,12 +79,13 @@
   </h1>
   <p class="m1">The fastest hotel in town</p>
   <h2 class="m1">When do you want to travel?</h2>
-  <!-- ## Date availability search -->
+  <!-- ## Searching for available Rooms -->
   <!--
-  You can implement a date availability search by using the `amp-date-picker` as input of a form.
+  This sample shows how to search for available rooms based on date selection. 
+  You can implement an availability search by using the `amp-date-picker` as input of a form.
   Here we are using `type=range` as we need 2 dates: the arriving and leaving date of an hotel reservation.
   Upon receiving a `submit-succes` event from the form response, we set the value of a global variable `rooms`
-  to the form response.
+  to the form response. We are using the variable `rooms` throughout the sample to access the response from other AMP components.
   -->
   <form method="GET"
         action="https://amp-by-example-live.glitch.me/rooms"
@@ -106,7 +109,7 @@
 
     <!-- ## Additional filter -->
     <!--
-    We implemented a filter to show only pet friendly rooms by adding a checkbox and
+    We implemented a filter to show only pet-friendly rooms by adding a checkbox and
     setting a new variable, `filterPetFriendly`, to the value of the filter.
     -->
     <label class="ml1">Show only pet friendly rooms: 
@@ -116,31 +119,31 @@
     </label>
   <!-- ## Filter function -->
   <!--
-    We use `amp-bind-macro` to implement a function which filter the `amp-list` content
-    based on the pet friendly selection filter. By using `amp-bind-macro` we avoid repeating
+    We use `amp-bind-macro` to implement implement a function which filter the `amp-list` content based on the pet-friendly selection filter.
+    By using `amp-bind-macro` we avoid repeating
     the filter expression multiple times across the page.
   -->
   <amp-bind-macro id="filteredRooms"
     expression="rooms.filter(room => showPetFriendlyOnly ? room.petFriendly : true)">
   </amp-bind-macro>
 
-  <!-- ## Initial State -->
+  <!-- ## Rooms List Initial State -->
   <!--
     We are using `amp-state` to set the initial value of the variable `rooms` to the list of rooms
-    returned by the server. 
+    returned by the server. We are using the variable `rooms` throughout the sample to access this list from other AMP components.  
   -->
   <amp-state id="rooms" src="https://amp-by-example-live.glitch.me/rooms"></amp-state>
 
-  <!-- ## Rooms list -->
+  <!-- ## Rooms List -->
   <!--
     We are using `amp-list` to show a list of rooms. We bind the value of the `src` variable
-    to the result of the function `filterRooms` so that we can show the resulting list after the user selection.
+    to the result of the function `filterRooms` so that we can show the available rooms based on the user selection.
 
-    By clicking on an image, you can see an enlarged version: we are in fact using the `amp-lightbox-gallery`
+    You can see an enlarged version of each image by clicking on it. We are using the `amp-lightbox-gallery`
     by adding the `lightbox` parameter to every `amp-img` component; the `alt` parameter content adds also
     a caption for every image in the lightbox gallery.
 
-    `amp-list` takes all the height specified by the `height` attribute and after filtering, it could take unused space:
+    `amp-list` content takes the entire height on the page from the `height` attribute; after filtering, it could take unused space:
     we are resizing by binding the `height` attribute to the result of the height of the image plus the margins multiplied by
     the length of the list.
   -->
@@ -154,7 +157,7 @@
     <button class="ampstart-btn caps m1 mb3">BOOK</button>
     </template>
   </amp-list>
-    <!-- ## Rooms list Empty result -->
+    <!-- ## Rooms List empty Result -->
     <!--
       In case no rooms are available, we are showing a message to inform the user. We hide the
       message by default and show it when the list is not empty. We are calling `filteredRooms()` function
