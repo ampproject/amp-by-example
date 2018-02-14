@@ -37,6 +37,41 @@ The amp-lightbox-gallery component provides a "lightbox” experience for AMP co
     <amp-img lightbox src="/img/image1.jpg" width="400" height="300" layout="responsive"></amp-img>
     <amp-img lightbox src="/img/image2.jpg" width="400" height="300" layout="responsive"></amp-img>
   </div>
+
+  <!-- ## Captions -->
+  <!--
+  Optionally, you can specify a caption for each element in the lightbox. These fields are automatically read and displayed by the `<amp-lightbox-gallery>` in the following order of priority:
+  - figcaption (if the lightboxed element is the child of a figure)
+  - aria-describedby
+  - alt
+  - aria-label
+  - aria-labelledby
+  This particular example uses the figcaption of a figure.
+  -->
+<div>
+  <figure>
+    <amp-img id="hero-img" lightbox="toronto" src="https://picsum.photos/1600/900?image=1075" layout="responsive" width="1600"
+      height="900" alt="Picture of CN tower.">
+    </amp-img>
+    <figcaption class="image">
+      Toronto's CN tower was built in 1976 and was the tallest free-standing structure until 2007.
+    </figcaption>
+  </figure>
+</div>
+  <!-- This example uses the alt attribute. -->
+<div>
+  <amp-img
+    id="hero-img"
+    lightbox="toronto"
+    src="https://picsum.photos/1600/900?image=1075"
+    layout="responsive"
+    width="1600"
+    height="900"
+    alt="Picture of CN tower">
+  </amp-img>
+</div>
+
+
   <!-- ## Usage with Carousel-->
   <!--
   You can also use `<amp-lightbox-gallery>` with `<amp-carousel>` to view the contents of the carousel in a lightbox. Just simply include a `<amp-carousel>` with `<amp-img>`s, and add the "lightbox" attribute to the `<amp-carousel>`. The lightbox images will be sync-ed with the carousel slides.
