@@ -42,7 +42,10 @@ func init() {
 	backend.InitPollSample()
 	backend.InitRatingSample()
 	backend.InitAutosuggestSample()
+	backend.InitPagedListSample()
 	backend.InitAmpAccess()
+	backend.InitFavoriteSample()
+	backend.InitCheckout()
 	playground.InitPlayground()
 	http.Handle("/", ServeStaticFiles(HandleNotFound(http.FileServer(http.Dir(DIST_DIR)))))
 }

@@ -1,0 +1,83 @@
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+    <title>AMP Playground</title>
+
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- Web Application Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="AMP Playground">
+    <link rel="icon" sizes="192x192" href="images/icons/icon-192x192.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="apple-mobile-web-app-title" content="AMP Playground">
+    <link rel="apple-touch-icon" href="images/icons/icon-192x192.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+
+    <!-- Color the status bar on mobile devices -->
+    <meta name="theme-color" content="#ffffff">
+    <link rel="manifest" href="manifest.json">
+    <link rel="preload" href="https://cdn.ampproject.org/v0.js" as="script">
+    <link rel="preload" href="https://cdn.ampproject.org/v0/validator.js" as="script">
+  </head>
+  <body>
+    <header class="elevation-2dp">
+      <div id="logo" class="hide-on-mobile" ><img src="images/logo.svg" height="32"></div>
+      <div id="document-title" tabindex="0" role="button" class="button caret hidden">Untitled</div>
+      <div id="toolbar">
+        {{> button/button.hbs id="error-indicator" class="elevation-2dp" text="Valid" disabled=true}}
+        {{> button/button.hbs id="save-document" class="hidden" class2="underline" hideOnMobile=true  text="Save"}}
+        {{> button/button.hbs id="fork-document" class="border" text="Fork" hideOnMobile=true }}
+
+        <div id="show-menu" class="hide-on-desktop button" tabindex="0" role="button" aria-label="Show Menu">
+          <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+          </svg>
+        </div>
+      </div>
+    </header>
+    <div id="error-list" class="elevation-8dp"></div>
+    <main class="elevation-2dp">
+    <section id="source" class="panel active">
+      <div class="panel-header hide-on-mobile">
+        <div id="runtime-select"></div>
+        <div class="flex-right">
+        {{> button/button.hbs id="format-source" class="" ariaLabel="format source code" text="{}"}}
+        </div>
+      </div>
+      {{> loader/loader.hbs }}
+    </section>
+    <div id="drag"></div>
+    <section id="preview" class="panel">
+      {{> loader/loader.hbs }}
+      <div class="panel-header">
+        <div id="preview-header-close" aria-label="close preview" title="close preview" tabindex="0" role="button">✕</div>
+        <div id="preview-header-refresh" aria-label="refresh preview" title="refresh preview" class="button flex-right" tabindex="0" role="button">
+          <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+          </svg>
+        </div>
+      </div>
+      <div id="preview-container">
+        <iframe frameborder="0" id="previewIframe" title="AMP Playground Output" class="elevation-4dp fadein" style="width: 375px; height: 667px;"></iframe>
+      </div>
+    </section>
+    </main>
+  </body>
+</html>

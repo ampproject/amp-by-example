@@ -16,6 +16,7 @@
 
 "use strict";
 
+const path = require('path');
 const through = require('through2');
 const gutil = require('gulp-util');
 const PluginError = gutil.PluginError;
@@ -26,7 +27,7 @@ const ExampleFile = require('../lib/ExampleFile');
 /**
  * Create an empty example.
  */
-module.exports = function(config) {
+module.exports = function(paths, config) {
   let templateName;
   let templates;
 
@@ -54,8 +55,9 @@ module.exports = function(config) {
             'Streams not supported!'));
     } else if (file.isBuffer()) {
       const stream = this;
-      const exampleFile = ExampleFile.fromPath(file.path);
-      gutil.log('Creating example ' + file.relative);
+      const exampleFilePath = path.join(paths.src, file.path);
+      const exampleFile = ExampleFile.fromPath(exampleFilePath);
+      gutil.log('Created ' + exampleFilePath);
       const args = {
         config: config,
         title: exampleFile.title(),

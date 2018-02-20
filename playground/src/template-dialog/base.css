@@ -1,0 +1,46 @@
+.textfield-fullwidth input {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  resize: none;
+  border: none !important;
+}
+.textfield-fullwidth input:focus {
+  outline: none;
+}
+.textfield-fullwidth {
+  height: 56px;
+  display: block;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  outline: none;
+}
+#templates ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#templates li {
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.75rem;
+  color: rgba(0, 0, 0, 0.87);
+  margin: 0;
+  margin-left: -8px;
+  padding: 8px;
+  list-style-type: none;
+  cursor: pointer;
+}
+#templates li:hover,
+#templates li:active {
+  background-color: var(--dark-bg-color);
+}
+#templates li.filtered {
+  display: none;
+}
+

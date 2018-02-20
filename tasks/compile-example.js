@@ -16,15 +16,22 @@
 
 'use strict';
 
+const cheerio = require('cheerio');
 const gutil = require('gulp-util');
 const path = require('path');
 const through = require('through2');
 const fs = require('fs');
+const mkdirp = require('mkdirp');
 const PluginError = gutil.PluginError;
 const DocumentParser = require('../lib/DocumentParser');
 const ExampleFile = require('../lib/ExampleFile');
 const Metadata = require('../lib/Metadata');
 const Templates = require('../lib/Templates');
+const storyController = fs.readFileSync(__dirname + '/../templates/stories/page-switch.html', 'utf8');
+const storyBookend = require('./bookend.json');
+const SAMPLE_THUMBNAIL = '/img/social.png';
+
+const STORY_EMBED_DIR = __dirname + '/../api/dist/';
 
 /**
  * Collects a list of example files, renders them (using templateExample) and
@@ -114,6 +121,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
     compileIndex(stream, sections);
     compileSitemap(stream, sections);
     compileExamples(stream);
+    generateBookend(stream, sections);
     cb();
   }
 
@@ -226,13 +234,14 @@ module.exports = function(config, indexPath, updateTimestamp) {
         template: config.templates.example,
         targetPath: example.targetPath(),
         isEmbed: false,
-        postProcessor: replaceAmpAdRuntime
+        postProcessors: [replaceAmpAdRuntime, replaceAmpStoryRuntime]
       });
 
       // compile embed
       compileTemplate(stream, example, args, {
         template: config.templates.example,
         targetPath: example.targetEmbedPath(),
+        postProcessors: [replaceAmpAdRuntime, replaceAmpStoryRuntime],
         isEmbed: true
       });
 
@@ -256,12 +265,20 @@ module.exports = function(config, indexPath, updateTimestamp) {
       args.desc = "This is a live preview of the '" + example.title() + "' sample. " + args.desc;
       args.canonical = config.host + example.url() + 'preview/';
 
-      // generate preview
-      compileTemplate(stream, example, args, {
-        template: previewTemplate,
-        targetPath: example.targetPreviewPath(),
-        isEmbed: false
-      });
+      // generate story preview embed
+      if (document.isAmpStory) {
+        generateStoryPreviewEmbed(stream, example, args, {
+          targetPath: example.targetPreviewEmbedPath(),
+        })
+      } else {
+        // generate preview 
+        compileTemplate(stream, example, args, {
+          template: previewTemplate,
+          targetPath: example.targetPreviewPath(),
+          postProcessors: [replaceAmpAdRuntime, replaceAmpStoryRuntime],
+          isEmbed: false
+        });
+      }
 
       // generate preview embed
       compileTemplate(stream, example, args, {
@@ -319,10 +336,31 @@ module.exports = function(config, indexPath, updateTimestamp) {
           metadata: exampleFile.document.metadata,
           experiments: experiments,
           experiment: experiments && experiments.length > 0,
+          firstImage: extractFirstImage(exampleFile),
           highlight: exampleFile.document.metadata.highlight
         });
       });
     return sections;
+  }
+
+  function generateStoryPreviewEmbed(stream, example, args, options) {
+    const document = example.document;
+    const inputFile = example.file;
+    const sampleFile = inputFile.clone({contents: false});
+    const sampleHtml = inputFile.contents.toString().replace('</body>', storyController + '</body>');
+    const samplePath = path.join(STORY_EMBED_DIR, example.targetPath());
+    mkdirp(path.dirname(samplePath), err => {
+      if (err) {
+        gutil.log(err);
+        return;
+      }
+      fs.writeFile(samplePath, sampleHtml, err => {
+        if (err) {
+          gutil.log(err);
+          return;
+        }
+      });
+    });
   }
 
   function compileTemplate(stream, example, args, options) {
@@ -330,9 +368,10 @@ module.exports = function(config, indexPath, updateTimestamp) {
     const inputFile = example.file;
     args.isEmbed = options.isEmbed;
     let sampleHtml = pageTemplates.render(options.template, args);
-    if (options.postProcessor) {
-      sampleHtml = options.postProcessor(document, sampleHtml);
-    }
+    options.postProcessors = options.postProcessors || [];
+    options.postProcessors.forEach(p =>{
+      sampleHtml = p(document, sampleHtml);
+    });
     args.isEmbed = false;
     const sampleFile = inputFile.clone({contents: false});
     sampleFile.path = path.join(inputFile.base, options.targetPath);
@@ -343,6 +382,9 @@ module.exports = function(config, indexPath, updateTimestamp) {
 
   function previewUrl(exampleFile) {
     const document = exampleFile.document;
+    if (document.isAmpStory) {
+      return exampleFile.urlPreviewEmbed();
+    }
     if (!document.metadata.preview) {
       return null;
     }
@@ -354,6 +396,42 @@ module.exports = function(config, indexPath, updateTimestamp) {
     }
   }
 
+  function generateBookend(stream, sections) {
+    const storiesSection = sections.find(s => s.name === 'AMPHTML stories');
+    if (!storiesSection) {
+      gutil.log('no stories section found');
+      return;
+    }
+    const relatedArticles = storyBookend['related-articles'];
+
+    storiesSection.categories.forEach(c => {
+      relatedArticles[c.name] = c.examples.map(e => {
+        return {
+          title: e.title,
+          url: e.url,
+          image: e.firstImage 
+        };
+      });
+    });
+
+    const bookendFile = latestFile.clone({contents: false});
+    bookendFile.path = path.join(latestFile.base, 'json', 'bookend.json');
+    bookendFile.contents = new Buffer(JSON.stringify(storyBookend, null, 2));
+    stream.push(bookendFile);
+  }
+
+  function extractFirstImage(example) {
+    if (!example.contents) {
+      return SAMPLE_THUMBNAIL;
+    }
+    const $ = cheerio.load(example.contents);
+    const imageSrc = $('amp-img').attr('src');
+    if (!imageSrc) {
+      return SAMPLE_THUMBNAIL;
+    }
+    return imageSrc;
+  }
+
   function cachedUrl(url) {
     return 'https://ampbyexample-com.cdn.ampproject.org/c/s/ampbyexample.com' + url + '?exp=a4a:-1';
   }
@@ -363,6 +441,13 @@ module.exports = function(config, indexPath, updateTimestamp) {
       return a.filePath.localeCompare(b.filePath);
     });
     return examples;
+  }
+
+  function replaceAmpStoryRuntime(document, string) {
+    if (!document.isAmpStory) {
+      return string;
+    }
+    return string.replace(/<script\s+async\s+custom-element="amp-story"\s+src="https:\/\/cdn\.ampproject\.org\/v0\/amp-story-0\.1\.js">\s*<\/script>/, "");
   }
 
   function replaceAmpAdRuntime(document, string) {

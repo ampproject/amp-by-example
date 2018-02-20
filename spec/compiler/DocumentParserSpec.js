@@ -154,7 +154,7 @@ describe("DocumentParser", function() {
     it("invalid metadata", function() {
       expect(function(){
         parse(COMMENT, DOCUMENT_METADATA_INVALID, HEAD, TITLE, HEAD_END, BODY, COMMENT, BODY_END);})
-          .toThrow(new Error("There is an error in the JSON metadata at line 5"));
+          .toThrowError(/line 5/);
     });
   });
 
@@ -204,6 +204,17 @@ describe("DocumentParser", function() {
     it("incomplete body", function() {
       const noBody = '<body';
       expect(parse('something').body).toEqual('');
+    });
+  });
+
+  describe('parses stories', function() {
+    it("sets isAmpStory to true", function() {
+      const document = parse('<body>', '<amp-story standalone>', '</amp-story>', '</body>');
+      expect(document.isAmpStory).toBe(true);
+    });
+    it("sets story id", function() {
+      const document = parse('<body>', '<amp-story standalone>', '<amp-story-page id="story-id">', '</amp-story-page>', '</amp-story>', '</body>');
+      expect(document.sections[0].storyPageId).toBe('story-id');
     });
   });
 

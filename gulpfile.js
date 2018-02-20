@@ -82,7 +82,7 @@ const paths = {
   tmp: {
     dir: 'tmp'
   },
-  videos: 'src/video/*.{mp4,webm}',
+  videos: 'src/video/*.{mp4,webm,m3u8,ts}',
   json: 'src/json/*.json',
   css: 'templates/css/*.css',
   scripts: 'src/scripts/*.js',
@@ -107,7 +107,6 @@ const config = {
     defaultLayout: 'fixed',
     defaultWidth: 300,
     defaultHeight: 250,
-    defaultForce3p: false,
   },
   host: 'https://ampbyexample.com'
 };
@@ -143,7 +142,8 @@ gulp.task('deploy:prod', 'deploy to production server', function(callback) {
 
 gulp.task('deploy:staging', 'deploy to staging server', function(callback) {
   config.env = PROD;
-  config.host = 'https://amp-by-example-staging.appspot.com';
+  config.appId = 'amp-by-example-staging';
+  config.host = 'https://' + config.appId + '.appspot.com';
   runSequence('clean',
     'robots:disallow',
     'build',
@@ -172,7 +172,7 @@ gulp.task('deploy:api:prod', 'deploy to production api app engine', function() {
 });
 
 gulp.task('deploy:site:staging', 'deploy to staging app engine', function() {
-  return run('goapp deploy -application  amp-by-example-staging -version 1')
+  return run('goapp deploy -application ' + config.appId + ' -version 1')
     .exec();
 });
 
@@ -356,7 +356,7 @@ gulp.task('create', 'create a new AMP example', function() {
   return file(examplePath, '', {
       src: true
     })
-    .pipe(createExample(config))
+    .pipe(createExample(paths, config))
     .pipe(gulp.dest(paths.src));
 });
 
@@ -511,10 +511,9 @@ Disallow:
 gulp.task('build:playground', 'Build the playground', function() {
   const playgroundDist = '../dist/' + paths.playground;
   return run(
-    'npm i && ' +
     'cd ' + paths.playground + ' && ' +
     'npm i && ' +
-    'gulp build && ' +
+    'npm run-script build && ' +
     'mkdir -p ../dist && ' +
     'rm -rf ' + playgroundDist + ' && ' +
     'cp -R dist ' + playgroundDist
@@ -541,14 +540,13 @@ function generateRobotsTxt(contents) {
     .pipe(gulp.dest('dist'));
 }
 
-/* adds a canonical link to sample files */
+/* adds a title link to all sample files */
 function performChange(content) {
   const exampleFile = ExampleFile.fromPath(this.file.path);
   const canonical = config.host + exampleFile.url();
-  if (!/<link rel="canonical"/.test(content)) {
+  if (!/<title>/.test(content)) {
     content = content.replace(/<meta charset="utf-8">/g,
-      '<meta charset="utf-8">\n  <link rel="canonical" href="' + canonical +
-      '">');
+      '<meta charset="utf-8">\n  <title>' + exampleFile.title() + '</title>');
     gutil.log("updating canonical: " + this.file.relative);
   }
   return content;

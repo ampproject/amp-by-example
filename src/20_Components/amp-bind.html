@@ -1,6 +1,3 @@
-<!---{
-    "preview": "default"
-}--->
 <!--
   ## Introduction
 
@@ -22,6 +19,7 @@
 <html ⚡>
 <head>
   <meta charset="utf-8">
+  <title>amp-bind</title>
   <link rel="canonical" href="<%host%>/components/amp-bind/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
@@ -51,6 +49,8 @@
     #amp-bind-sample > * + * {
       margin-top: 1rem;
     }
+    .bg-green { background-color: #2ecc40; }
+    .bg-yellow  { background-color: #ffdc00; }
   </style>
 </head>
 <body>
@@ -143,13 +143,16 @@
     <!--
       The `src` for iframes embedded with `amp-iframe` can be changed.
     -->
-    <amp-iframe id="amp-iframe" width="500" height="281"
-                            layout="responsive"
-                            sandbox="allow-scripts allow-same-origin allow-popups"
-                            allowfullscreen
-                            frameborder="0"
-                            src="https://player.vimeo.com/video/183849543"
-                            [src]="allAnimals[allAnimals.currentAnimal].iframeUrl">
+    <amp-iframe id="amp-iframe" 
+                title="Cute dog video"
+                width="500" 
+                height="281"
+                layout="responsive"
+                sandbox="allow-scripts allow-same-origin allow-popups"
+                allowfullscreen
+                frameborder="0"
+                src="https://player.vimeo.com/video/183849543"
+                [src]="allAnimals[allAnimals.currentAnimal].iframeUrl">
     </amp-iframe>
 
     <!-- ## Triggering updates -->
@@ -221,6 +224,24 @@
             [src]="remoteAnimals[remoteAnimals.currentAnimal].imageUrl">
     </amp-img>
   </section>
+
+    <!-- ## Hiding and showing things -->
+
+    <!-- This sample toggles the visibility of two divs based on a input selection. AMP provides the [`hidden` attribute](https://www.ampproject.org/docs/reference/amp-actions-and-events), which we use to hide and show the two divs.  -->
+    <div>
+      <select on="change:AMP.setState({ option: event.value })" class="m1">
+        <option value="0">No selection</option>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+      </select>
+      <div hidden [hidden]="option != 1" class="p1 m1 bg-yellow">
+        Option 1
+      </div>
+      <div hidden [hidden]="option != 2" class="p1 m1 bg-green" >
+        Option 2
+      </div>
+    </div>
+
 
 </body>
 </html>

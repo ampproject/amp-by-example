@@ -94,6 +94,7 @@ handlers:
   script: _go_app
 
 skip_files:
+- ^polymer(/.*)?
 - .well-known
 - ^node_modules(/.*)?
 - ^.*scripts(/.*)?
