@@ -1,4 +1,4 @@
-<!-- ## Products Filter -->
+<!-- ## Client-side Filter -->
 <!--
 This is a sample showing how to implement client-side filtering.
 -->
@@ -40,7 +40,7 @@ This is a sample showing how to implement client-side filtering.
     
     The `amp-state` is initially setup with data from an endpoint which returns a list of available products; 
     the user can choice between different colors and that selection sets the variable `filteredProducts` to the result of a filter expression.
-    The filter expression is a javascript expression which uses the `Array.filter` function.
+    The filter expression is an `amp-bind` expression which uses the `Array.filter` function.
     
     `filteredProducts` variable is then used as `src` of `amp-list`.
 
