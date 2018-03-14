@@ -17,6 +17,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"net/url"
 	"path"
 	"time"
 )
@@ -68,6 +69,10 @@ func handlePingback(w http.ResponseWriter, r *http.Request) {
 func handleLogin(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
 	returnURL := r.URL.Query().Get("return")
+	if !isValidURL(returnURL) {
+		http.Error(w, "Invalid return URL", http.StatusInternalServerError)
+		return
+	}
 	filePath := path.Join(DIST_FOLDER, "login.html")
 	t, _ := template.ParseFiles(filePath)
 	t.Execute(w, AccessData{ReturnURL: returnURL})
@@ -99,12 +104,20 @@ func handleLogout(w http.ResponseWriter, r *http.Request) {
 	}
 	http.SetCookie(w, cookie)
 	returnURL := r.FormValue("returnurl")
+	if !isValidURL(returnURL) {
+		http.Error(w, "Invalid return URL", http.StatusInternalServerError)
+		return
+	}
 	http.Redirect(w, r, fmt.Sprintf("%s#success=true", returnURL), http.StatusSeeOther)
 }
 
 func handleLogoutButton(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
 	returnURL := r.URL.Query().Get("return")
+	if !isValidURL(returnURL) {
+		http.Error(w, "Invalid return URL", http.StatusInternalServerError)
+		return
+	}
 	filePath := path.Join(DIST_FOLDER, "logout.html")
 	t, _ := template.ParseFiles(filePath)
 	t.Execute(w, AccessData{ReturnURL: returnURL})
@@ -120,5 +133,21 @@ func handleSubmit(w http.ResponseWriter, r *http.Request) {
 	}
 	http.SetCookie(w, cookie)
 	returnURL := r.FormValue("returnurl")
+	if !isValidURL(returnURL) {
+		http.Error(w, "Invalid return URL", http.StatusInternalServerError)
+		return
+	}
 	http.Redirect(w, r, fmt.Sprintf("%s#success=true", returnURL), http.StatusSeeOther)
+}
+
+func isValidURL(urlString string) bool {
+	u, err := url.Parse(urlString)
+	if err != nil {
+		return false
+	} else if u.Scheme == "" || u.Host == "" {
+		return false
+	} else if u.Scheme != "http" && u.Scheme != "https" {
+		return false
+	}
+	return true
 }
