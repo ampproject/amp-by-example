@@ -80,7 +80,9 @@
             <div class="abe-code-preview ampstart-card">
               {{^metadata.hidePreview}}{{#showPreview}}
               <h3 class="abe-code p1 caps h4">Example</h3>
-              <button class="story-reload" title="Reload Preview" on="tap:AMP.setState({ {{storyPageVariableId}}: '{{config.api.host}}{{fileName}}index.html?id={{storyPageId}}&' + random()})"></button>
+                {{#storyPageId}}
+                <button class="story-reload" title="Reload Preview" on="tap:AMP.setState({ {{storyPageVariableId}}: '{{config.api.host}}{{fileName}}index.html?id={{storyPageId}}&' + random()})"></button>
+                {{/storyPageId}}
               <div class="abe-preview fit">
                 {{^storyPageId}}
                 {{^document.isAmpStory}}
