@@ -215,48 +215,90 @@
         </div>
       </amp-story-grid-layer>
     </amp-story-page>
-
-    <!-- ## Ken Burns Effect -->
-    <!-- You can achieve a "Ken Burns" effect by combining the 'pan' and 'zoom' animations. Here's how to do it. -->
-    <!-- The general idea is to nest elements to combine the animations: the container element will animate the zoom, and the image inside the container will be animated with a panning. -->
-    <!-- * Start by creating a div which will act as the image container. Set its style class to set `position:absolute`.-->
-    <!-- * Set its animation to be `animate-in="zoom-in"` or `animate-in="zoom-out"` and its duration with `"animate-in-duration=30s"`. -->
-    <!-- > In this demo we use 30 seconds but your mileage may vary. Try experimenting with different values to see what works best for your desired results!-->
-    <!-- * Inside this container, add an `<amp-img>` element with the `src` attribute pointing at your image, describe the size of the image with the `width` and `height` attributes of the `<amp-img>` element. Set `layout="fixed"` so that the image outsizes the screen real estate (We want to use a large image that can be panned over. We recommend 1024 x 768 px or larger). -->
-    <!-- * Animate the `<amg-img>` element using the `animate-in="pan-right"`. You can also use `pan-left`, `pan-up`, and `pan-down`. -->
-    <!-- >  It's important that the **image** sets the **panning animation**, whereas the image **container** sets the **zoom animation**. Otherwise the dimensions of the image will change, causing undesired results in the animation. -->
-    <!-- * You can also achieve the effect with multiple images! Just combine the animations as described in the [combining animations section](/stories/features/animations/#combining-animations). Just remember all the elements being animated after certain animation must include the `animate-in-after` attribute. Including the children being animated. See below for the code sample. -->
-    <!-- Keep in mind results may vary depending on the image size and animations you use. Experiment with different animation durations and presets to see what you like best! -->
-    <amp-story-page id="ken-burns-effect">
+    
+    <!-- ## Zoom-In -->
+    <!-- You can also use animations on images to create visual effects. -->
+    <!-- **Tip:** Create a Ken Burns effect by combining these! Learn how in the [visual effects section.](/stories/features/visual_effects/)-->
+    <amp-story-page id="zoom-in">
       <amp-story-grid-layer template="vertical">
-        <h1>ken-burns-effect</h1>
-        <div animate-in="zoom-in" animate-in-duration="30s" class="img-container">
-            <amp-img id="ken-burns-img1"
-               src="https://picsum.photos/1024/768?image=1077"
-               animate-in="pan-left"
-               animate-in-duration="30s"
-               layout="fixed"
-               width="1024"
-               height="768">
-            </amp-img>
-        </div>
-        <div animate-in="fade-in" animate-in-after="ken-burns-img1" animate-in-delay="0.25s" animate-in-duration="1s">
-          <div
-            animate-in="zoom-out"
-            animate-in-duration="30s"
-            class="img-container"
-            animate-in-after="ken-burns-img1">
-            <amp-img id="ken-burns-img2"
-              src="https://picsum.photos/1024/768?image=1026"
-              layout="fixed"
-              width="1024"
-              height="768"
-              animate-in="pan-down"
-              animate-in-duration="30s"
-              animate-in-after="ken-burns-img1"
-            </amp-img>
-          </div>
-        </div>
+        <h1>zoom-in</h1>
+        <amp-img animate-in="zoom-in"
+                 animate-in-duration"30s"
+                 layout="fixed"
+                 src="https://picsum.photos/1024/768?image=1026"
+                 width="1024"
+                 height="768">
+        </amp-img>
+      </amp-story-grid-layer>
+    </amp-story-page>
+
+    <!-- ## Zoom-Out -->
+    <amp-story-page id="zoom-out">
+      <amp-story-grid-layer template="vertical">
+        <h1>zoom-out</h1>
+        <amp-img animate-in="zoom-out"
+                 animate-in-duration"30s"
+                 layout="fixed"
+                 src="https://picsum.photos/1024/768?image=1026"
+                 width="1024"
+                 height="768">
+        </amp-img>
+      </amp-story-grid-layer>
+    </amp-story-page>
+
+    <!-- ## Pan-Left -->
+    <amp-story-page id="pan-left">
+      <amp-story-grid-layer template="vertical">
+        <h1>pan-left</h1>
+        <amp-img animate-in="pan-left"
+                 animate-in-duration"30s"
+                 layout="fixed"
+                 src="https://picsum.photos/1024/768?image=1026"
+                 width="1024"
+                 height="768">
+        </amp-img>
+      </amp-story-grid-layer>
+    </amp-story-page>
+
+    <!-- ## Pan-Right -->
+    <amp-story-page id="pan-right">
+      <amp-story-grid-layer template="vertical">
+        <h1>pan-right</h1>
+        <amp-img animate-in="pan-right"
+                 animate-in-duration"30s"
+                 layout="fixed"
+                 src="https://picsum.photos/1024/768?image=1026"
+                 width="1024"
+                 height="768">
+        </amp-img>
+      </amp-story-grid-layer>
+    </amp-story-page>
+
+    <!-- ## Pan-Up -->
+    <amp-story-page id="pan-up">
+      <amp-story-grid-layer template="vertical">
+        <h1>pan-up</h1>
+        <amp-img animate-in="pan-up"
+                 animate-in-duration"30s"
+                 layout="fixed"
+                 src="https://picsum.photos/1024/768?image=1026"
+                 width="1024"
+                 height="768">
+        </amp-img>
+      </amp-story-grid-layer>
+    </amp-story-page>
+
+    <!-- ## Pan-Down -->
+    <amp-story-page id="pan-down">
+      <amp-story-grid-layer template="vertical">
+        <h1>pan-down</h1>
+        <amp-img animate-in="pan-down"
+                 animate-in-duration"30s"
+                 layout="fixed"
+                 src="https://picsum.photos/1024/768?image=1026"
+                 width="1024"
+                 height="768">
+        </amp-img>
       </amp-story-grid-layer>
     </amp-story-page>
   </amp-story>
