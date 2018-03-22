@@ -111,11 +111,13 @@
     -->
     <amp-selector role="tablist" layout="container" class="ampTabContainer">
         <div role="tab" class="tabButton" selected option="a">Tall Container</div>
-        <amp-carousel class="tabContent" height="300" layout="fixed-height" type="carousel">
+        <div role="tabpanel" class="tabContent">
+          <amp-carousel class="tabContent" height="300" layout="fixed-height" type="carousel">
             <amp-img src="/img/image1.jpg" width="400" height="300" alt="a sample image"></amp-img>
             <amp-img src="/img/image2.jpg" width="400" height="300" alt="another sample image"></amp-img>
             <amp-img src="/img/image3.jpg" width="400" height="300" alt="and another sample image"></amp-img>
-        </amp-carousel>
+          </amp-carousel>
+        </div>
         <div role="tab" class="tabButton" option="b">Short Container</div>
         <div role="tabpanel" class="tabContent">Hi! I'm content</div>
     </amp-selector>
