@@ -23,10 +23,17 @@
       align-items: center;
       justify-items: center;
     }
-    .square {
+    .square,
+    .circle {
       background: #b60845;
       width: 96px;
       height: 96px;
+    }
+    .circle {
+      border-radius: 80px;
+    }
+    .spacer {
+      height: 100px;
     }
     </style>
 </head>
@@ -215,16 +222,21 @@
     
     <!-- ## Zoom-In -->
     <!-- You can also use animations on images to create visual effects. -->
-    <!-- **Tip:** Create a Ken Burns effect by combining these! Learn how in the [visual effects section.](/stories/features/visual_effects/)-->
+    <!-- 
+    <div class="ampstart-card info">
+      **Tip:** Create a Ken Burns effect by combining these! Learn how in the [visual effects section.](/stories/visual_effects/ken_burns/)
+    </div>
+    -->
     <amp-story-page id="zoom-in">
       <amp-story-grid-layer template="vertical">
         <h1>zoom-in</h1>
+        <div class="spacer"></div>
         <amp-img animate-in="zoom-in"
-                 animate-in-duration"30s"
-                 layout="fixed"
+                 animate-in-duration="4s"
+                 layout="responsive"
                  src="https://picsum.photos/1024/768?image=1026"
-                 width="1024"
-                 height="768">
+                 width="720"
+                 height="320">
         </amp-img>
       </amp-story-grid-layer>
     </amp-story-page>
@@ -233,12 +245,13 @@
     <amp-story-page id="zoom-out">
       <amp-story-grid-layer template="vertical">
         <h1>zoom-out</h1>
+        <div class="spacer"></div>
         <amp-img animate-in="zoom-out"
-                 animate-in-duration"30s"
-                 layout="fixed"
+                 animate-in-duration="4s"
+                 layout="responsive"
                  src="https://picsum.photos/1024/768?image=1026"
-                 width="1024"
-                 height="768">
+                 width="720"
+                 height="320">
         </amp-img>
       </amp-story-grid-layer>
     </amp-story-page>
@@ -248,11 +261,11 @@
       <amp-story-grid-layer template="vertical">
         <h1>pan-left</h1>
         <amp-img animate-in="pan-left"
-                 animate-in-duration"30s"
+                 animate-in-duration="4s"
                  layout="fixed"
                  src="https://picsum.photos/1024/768?image=1026"
-                 width="1024"
-                 height="768">
+                 width="720"
+                 height="320">
         </amp-img>
       </amp-story-grid-layer>
     </amp-story-page>
@@ -262,11 +275,11 @@
       <amp-story-grid-layer template="vertical">
         <h1>pan-right</h1>
         <amp-img animate-in="pan-right"
-                 animate-in-duration"30s"
+                 animate-in-duration="4s"
                  layout="fixed"
                  src="https://picsum.photos/1024/768?image=1026"
-                 width="1024"
-                 height="768">
+                 width="720"
+                 height="320">
         </amp-img>
       </amp-story-grid-layer>
     </amp-story-page>
@@ -276,11 +289,11 @@
       <amp-story-grid-layer template="vertical">
         <h1>pan-up</h1>
         <amp-img animate-in="pan-up"
-                 animate-in-duration"30s"
+                 animate-in-duration="4s"
                  layout="fixed"
                  src="https://picsum.photos/1024/768?image=1026"
-                 width="1024"
-                 height="768">
+                 width="720"
+                 height="620">
         </amp-img>
       </amp-story-grid-layer>
     </amp-story-page>
@@ -290,11 +303,11 @@
       <amp-story-grid-layer template="vertical">
         <h1>pan-down</h1>
         <amp-img animate-in="pan-down"
-                 animate-in-duration"30s"
-                 layout="fixed"
-                 src="https://picsum.photos/1024/768?image=1026"
-                 width="1024"
-                 height="768">
+                  animate-in-duration="4s"
+                  layout="fixed"
+                  src="https://picsum.photos/720/620?image=1026"
+                  width="720"
+                  height="620">
         </amp-img>
       </amp-story-grid-layer>
     </amp-story-page>
