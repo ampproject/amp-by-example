@@ -24,6 +24,8 @@
     }
     .img-container {
       position: absolute;
+      width: 0px;
+      height: 0px;
     }
   </style>
   <title>Visual Effects</title>
@@ -33,7 +35,8 @@
   <amp-story standalone>
     <!-- ## Ken Burns Effect-->
     <!--The general idea is to nest elements to combine the animations: the container element will animate the zoom, and the image inside the container will be animated with a panning.
-* Start by creating a div which will act as the image container. Set its style class to `position:absolute`. This will remove the padding so that the image takes up the whole screen.
+* Start by creating an `<amp-story-page>` with a `<amp-story-grid-layer` using the fill template.
+* Add a `<div>` element which will act as the image container. Set its style class to `position:absolute`. This will ensure image coordinates correspond to those of the viewport, which is important for the animation.
 * Set its animation to be `animate-in="zoom-in"` or `animate-in="zoom-out"` and its duration with `"animate-in-duration=30s"`.
   
 
@@ -41,8 +44,8 @@
 **Tip:** In this demo we use 30 seconds but your mileage may vary. Try experimenting with different values to see what works best for your desired results.
 </div>
 
-* Inside this container, add an `<amp-img>` element with the `src` attribute pointing at your image, describe the size of the image with the `width` and `height` attributes of the `<amp-img>` element. Set `layout="fixed"` so that the image outsizes the screen real estate (We want to use a large image that can be panned over. We recommend 1600 x 1200 px or larger).     
-* Animate the `<amg-img>` element using the `animate-in="pan-right"`. (You can also use `pan-left`, `pan-up`, and `pan-down`. [See amp-story animations list.](/stories/features/animations/#zoom-in) 
+* Inside this container, add an `<amp-img>` element with the `src` attribute pointing at your image, describe the size of the image with the `width` and `height` attributes of the [`<amp-img>` element](/components/amp-img/). Set `layout="fixed"` so that the image outsizes the screen real estate (We want to use a large image that can be panned over. We recommend 1600 x 1200 px or larger).     
+* Animate the `<amg-img>` element using the `animate-in="pan-right"`. (You can also use `pan-left`, `pan-up`, and `pan-down`). [See amp-story animations list.](/stories/features/animations/#zoom-in) 
 
   
 <div class="ampstart-card info">
@@ -50,7 +53,7 @@
 </div>
     -->
     <amp-story-page id="ken-burns-effect1">
-      <amp-story-grid-layer template="vertical">
+      <amp-story-grid-layer template="fill">
         <div animate-in="zoom-in" animate-in-duration="30s" class="img-container">
             <amp-img id="ken-burns-img1"
               src="https://picsum.photos/1600/1200?image=1077"
@@ -69,22 +72,27 @@
       You can even implement a slideshow transitioning between multiple pages using this effect.
       
       Just combine the animations as described in the [combining animations section](/stories/features/animations/#combining-animations). Remember all the elements being animated after certain animation must include the `animate-in-after` attribute. Including the children being animated. See below for the code sample.
+
+      It's also important to note that when using the "fill" template in the grid layer, only the first child of the layer will be displayed. A workaround for this is to include all images inside a `<div>`, which is the first child element of the grid layer.
+
+      We also reset the sizes of the nested `<div>` elements so that they don't change the dimensions used for the animations. See the `img-container` style class in the code sample.  
           
       Keep in mind results may vary depending on the image size and animations you use. Experiment with different animation durations and presets to see what you like best!
     -->
     <amp-story-page id="ken-burns-effect2">
-        <amp-story-grid-layer template="fill">
+      <amp-story-grid-layer template="fill">
+        <div>
           <div animate-in="zoom-in" animate-in-duration="5s" class="img-container">
-              <amp-img id="ken-burns-img2"
-                src="https://picsum.photos/1600/1200?image=1078"
-                animate-in="pan-right"
-                animate-in-duration="5s"
-                layout="fixed"
-                width="1600"
-                height="1200">
-              </amp-img>
+            <amp-img id="ken-burns-img2"
+              src="https://picsum.photos/1600/1200?image=1078"
+              animate-in="pan-right"
+              animate-in-duration="5s"
+              layout="fixed"
+              width="1600"
+              height="1200">
+            </amp-img>
           </div>
-          <div animate-in="fade-in" animate-in-after="ken-burns-img2" animate-in-duration="1s">
+          <div animate-in="fade-in" animate-in-after="ken-burns-img2" animate-in-duration="1s" class="img-container">
             <div
               animate-in="zoom-out"
               animate-in-duration="5s"
@@ -101,59 +109,61 @@
               </amp-img>
             </div>
           </div>
-          <div animate-in="fade-in" animate-in-after="ken-burns-img3" animate-in-duration="1s">
+          <div animate-in="fade-in" animate-in-after="ken-burns-img3" animate-in-duration="1s" class="img-container">
+            <div
+              animate-in="zoom-in"
+              animate-in-duration="5s"
+              class="img-container"
+              animate-in-after="ken-burns-img3">
+              <amp-img id="ken-burns-img4"
+                src="https://picsum.photos/1600/1200?image=1029"
+                layout="fixed"
+                width="1600"
+                height="1200"
+                animate-in="pan-right"
+                animate-in-duration="5s"
+                animate-in-after="ken-burns-img3">
+              </amp-img>
+            </div>
+          </div>
+          <div animate-in="fade-in" animate-in-after="ken-burns-img4" animate-in-duration="1s" class="img-container">
               <div
-                animate-in="zoom-in"
+                animate-in="zoom-out"
                 animate-in-duration="5s"
                 class="img-container"
-                animate-in-after="ken-burns-img3">
-                <amp-img id="ken-burns-img4"
-                  src="https://picsum.photos/1600/1200?image=1029"
+                animate-in-after="ken-burns-img4">
+                <amp-img id="ken-burns-img5"
+                  src="https://picsum.photos/1600/1200?image=1033"
                   layout="fixed"
                   width="1600"
                   height="1200"
-                  animate-in="pan-right"
+                  animate-in="pan-up"
                   animate-in-duration="5s"
-                  animate-in-after="ken-burns-img3">
+                  animate-in-after="ken-burns-img4">
                 </amp-img>
               </div>
             </div>
-            <div animate-in="fade-in" animate-in-after="ken-burns-img4" animate-in-duration="1s">
-                <div
-                  animate-in="zoom-out"
-                  animate-in-duration="5s"
-                  class="img-container"
-                  animate-in-after="ken-burns-img4">
-                  <amp-img id="ken-burns-img5"
-                    src="https://picsum.photos/1600/1200?image=1033"
-                    layout="fixed"
-                    width="1600"
-                    height="1200"
-                    animate-in="pan-up"
-                    animate-in-duration="5s"
-                    animate-in-after="ken-burns-img4">
-                  </amp-img>
-                </div>
-              </div>
-        </amp-story-grid-layer>
-      </amp-story-page>
-  
-      <!-- 
-        If you don't want to wait until the first image is done animating to start animating the second one, you can use the `animate-in-delay` attribute on the second image.
-      -->
-      <amp-story-page id="ken-burns-effect3">
-        <amp-story-grid-layer template="vertical">
-          <div animate-in="zoom-in" animate-in-duration="30s" class="img-container">
-              <amp-img
-                src="https://picsum.photos/1600/1200?image=1078"
-                animate-in="pan-right"
-                animate-in-duration="30s"
-                layout="fixed"
-                width="1600"
-                height="1200">
-              </amp-img>
+        </div>
+      </amp-story-grid-layer>
+    </amp-story-page>
+
+    <!--
+      If you don't want to wait until the first image is done animating to start animating the second one, you can use the `animate-in-delay` attribute on the second image.
+    -->
+    <amp-story-page id="ken-burns-effect3">
+      <amp-story-grid-layer template="fill">
+        <div>
+          <div animate-in="zoom-in" animate-in-duration="30s" class="img-container" class="img-container">
+            <amp-img
+              src="https://picsum.photos/1600/1200?image=1078"
+              animate-in="pan-right"
+              animate-in-duration="30s"
+              layout="fixed"
+              width="1600"
+              height="1200">
+            </amp-img>
           </div>
-          <div animate-in="fade-in" animate-in-delay="5s" animate-in-duration="1s">
+          <div animate-in="fade-in" animate-in-delay="5s" animate-in-duration="1s" class="img-container">
             <div
               animate-in="zoom-out"
               animate-in-duration="30s"
@@ -170,42 +180,43 @@
               </amp-img>
             </div>
           </div>
-          <div animate-in="fade-in" animate-in-delay="10s" animate-in-duration="1s">
-              <div
-                animate-in="zoom-out"
+          <div animate-in="fade-in" animate-in-delay="10s" animate-in-duration="1s" class="img-container">
+            <div
+              animate-in="zoom-out"
+              animate-in-duration="30s"
+              class="img-container"
+              animate-in-delay="10s">
+              <amp-img
+                src="https://picsum.photos/1600/1200?image=1029"
+                layout="fixed"
+                width="1600"
+                height="1200"
+                animate-in="pan-right"
                 animate-in-duration="30s"
-                class="img-container"
                 animate-in-delay="10s">
-                <amp-img
-                  src="https://picsum.photos/1600/1200?image=1029"
-                  layout="fixed"
-                  width="1600"
-                  height="1200"
-                  animate-in="pan-right"
-                  animate-in-duration="30s"
-                  animate-in-delay="10s">
-                </amp-img>
-              </div>
+              </amp-img>
             </div>
-            <div animate-in="fade-in" animate-in-delay="15s" animate-in-duration="1s">
-                <div
-                  animate-in="zoom-out"
-                  animate-in-duration="30s"
-                  class="img-container"
-                  animate-in-delay="15s">
-                  <amp-img
-                    src="https://picsum.photos/1600/1200?image=1033"
-                    layout="fixed"
-                    width="1600"
-                    height="1200"
-                    animate-in="pan-left"
-                    animate-in-duration="30s"
-                    animate-in-delay="15s">
-                  </amp-img>
-                </div>
-              </div>
-        </amp-story-grid-layer>
-      </amp-story-page>
+          </div>
+          <div animate-in="fade-in" animate-in-delay="15s" animate-in-duration="1s" class="img-container">
+            <div
+              animate-in="zoom-out"
+              animate-in-duration="30s"
+              class="img-container"
+              animate-in-delay="15s">
+              <amp-img
+                src="https://picsum.photos/1600/1200?image=1033"
+                layout="fixed"
+                width="1600"
+                height="1200"
+                animate-in="pan-left"
+                animate-in-duration="30s"
+                animate-in-delay="15s">
+              </amp-img>
+            </div>
+          </div>
+        </div>
+      </amp-story-grid-layer>
+    </amp-story-page>
   </amp-story>
 </body>
 </html>
