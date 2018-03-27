@@ -74,22 +74,22 @@
   <div>
     <button class="ampstart-btn m1 caps" on="tap:simple-date-picker.clear">Clear</button>
     <amp-date-picker
+      id="simple-date-picker"
       type="single"
+      mode="overlay"
       layout="container"
-      width="300"
-      height="300"
       on="select:AMP.setState({date: event.date, dateType: event.id})"
       locale="en"
       format="Y-MM-DD"
-      number-of-months="1"
-      show-clear-date
-      keep-open-on-date-select
-      id="simple-date-picker"
+      open-after-select
+      input-selector="#date1"
       class="mr1 ml1">
-      <input amp-date-placeholder placeholder="Pick a date!!"/>
+      <input name="date1" placeholder="Pick a date"/>
+      <button on="tap: simple-date-picker.clear">Clear</button>
       <template type="amp-mustache" info-template>
         <span [text]="date != null ? 'You picked ' + date + '.' : 'You will see your chosen date here.'">You will see your chosen date here.</span>
       </template>
+
     </amp-date-picker>
   </div>
   <!--
@@ -100,19 +100,18 @@
   <div>
     <button class="ampstart-btn m1 caps" on="tap:simple-date-picker-2.clear">Clear</button>
     <amp-date-picker
+      id="simple-date-picker-2"
       type="single"
+      mode="overlay"
       layout="container"
-      width="300"
-      height="300"
       on="select:AMP.setState({date: event.date, dateType: event.id})"
       locale="en"
       format="Y-MM-DD"
-      number-of-months="1"
-      show-clear-date
-      keep-open-on-date-select
-      id="simple-date-picker-2"
+      open-after-select
+      input-selector="#date2"
       class="mr1 ml1">
-      <input amp-date-placeholder placeholder="Pick a date!!"/>
+      <input id="date2" placeholder="Pick a date"/>
+      <button on="tap: simple-date-picker.clear">Clear</button>
       <template
         type="amp-mustache"
         date-template
@@ -137,21 +136,19 @@
   <div>
     <button class="ampstart-btn m1 caps" on="tap:simple-date-picker-3.clear">Clear</button>
     <amp-date-picker
+      id="simple-date-picker-3"
       type="single"
+      mode="overlay"
       layout="container"
-      width="300"
-      height="300"
       on="select:AMP.setState({date: event.date, dateType: event.id})"
       locale="en"
       format="Y-MM-DD"
-      number-of-months="1"
-      show-clear-date
-      keep-open-on-date-select
+      open-after-select
       highlighted="2017-10-10 2017-10-12"
       blocked="2017-10-10 2017-10-17 2017-10-19 2017-10-21"
-      id="simple-date-picker-3"
+      input-selector="#date3"
       class="mr1 ml1">
-      <input amp-date-placeholder placeholder="Pick a date!!"/>
+      <input id="date3" placeholder="Pick a date"/>
       <template type="amp-mustache" info-template>
         <span [text]="date != null ? 'You picked ' + date + '.' : 'You will see your chosen date here.'">You will see your chosen date here.</span>
       </template>
@@ -167,22 +164,24 @@
   <button class="ampstart-btn m1 caps" on="tap:range-date-picker.clear">Clear</button>
   <amp-date-picker
     type="range"
+    mode="overlay"
     id="range-date-picker"
     on="
     select:
       AMP.setState({
           dates: event.dates,
-          startDate: event.dates[0].date,
-          endDate: event.dates[event.dates.length-1].date
+          startDate: event.start,
+          endDate: event.end
       })"
     locale="en"
     format="Y-MM-DD"
-    keep-open-on-date-select
-    show-clear-dates
+    open-after-select
     min="2017-10-26"
+    start-input-selector="#range-start"
+    end-input-selector="#range-end"
     class="mr1 ml1">
-    <input amp-date-placeholder-start placeholder="Start date" id="start" />
-    <input amp-date-placeholder-end placeholder="End date" id="end" />
+    <input placeholder="Start date" id="range-start" />
+    <input placeholder="End date" id="range-end" />
     <template type="amp-mustache" info-template>
       <span [text]="'You picked ' + startDate + ' as start date and ' + endDate + ' as end date.'">You will see your chosen dates here.</span>
     </template>
@@ -207,16 +206,18 @@
 ```
   Then we set the `src` of `amp-date-picker` with the filename `amp-date-picker.json` -->
     <amp-date-picker
+    id="src-picker"
     type="single"
+    mode="overlay"
+    layout="container"
     locale="en"
     format="Y-MM-DD"
-    show-clear-date
-    number-of-months="1"
     src="/json/amp-date-picker.json"
     min="2017-11-01"
-    with-portal
+    input-selector="#src-input"
     class="m1">
-    <input amp-date-placeholder placeholder="Pick a date!!" id="externalSrc"/>
+    <input placeholder="Pick a date" id="src-input"/>
+    <button on="tap: src-picker.clear">Clear</button>
     <template type="amp-mustache" date-template id="spooky">
       <div class="align-content-center">
         <span>{{D}}</span>
