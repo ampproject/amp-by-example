@@ -5,7 +5,7 @@
   <!--
   ## Introduction
 
-  This is a sample showing how to implement an hotel page. It features a room availability based on date selection 
+  This is a sample showing how to implement an hotel page. It features a room availability based on date selection
   and a pet friendly filter on page data. The room list resize automatically after filtering and a message to the user
   is shown in case of empty result. The user can enlarge photoes and swipe rooms by using a gallery.
 
@@ -77,7 +77,7 @@
   <h2 class="m1">When do you want to travel?</h2>
   <!-- ## Searching for available Rooms -->
   <!--
-  This sample shows how to search for available rooms based on date selection. 
+  This sample shows how to search for available rooms based on date selection.
   You can implement an availability search by using the `amp-date-picker` as input of a form.
   Here we are using `type=range` as we need 2 dates: the arriving and leaving date of an hotel reservation.
   Upon receiving a `submit-succes` event from the form response, we set the value of a global variable `rooms`
@@ -90,26 +90,30 @@
         on="submit-success:AMP.setState({
               rooms: event.response
           })">
-      <amp-date-picker type="range"
+      <amp-date-picker id="picker"
+                        type="range"
+                        mode="overlay"
                         locale="en"
                         format="Y-MM-DD"
-                        show-clear-dates
                         min="2017-10-26"
                         month-format="MMM"
+                        start-input-selector="#arriving"
+                        end-input-selector="#leaving"
                         class="pt1 ml1">
-          <input amp-date-placeholder-start placeholder="arriving" id="arriving"/>
-          <input amp-date-placeholder-end placeholder="leaving" id="leaving"/>
+          <input placeholder="arriving" id="arriving"/>
+          <input placeholder="leaving" id="leaving"/>
+          <button on="tap: picker.clear">Clear</button>
       </amp-date-picker>
       <button class="ampstart-btn caps m1">Check Availability</button>
     </form>
 
     <!-- ## Client-side Filtering -->
     <!--
-    We want to make it possible for the user to filter rooms by pet friendliness. 
+    We want to make it possible for the user to filter rooms by pet friendliness.
     The filter shouldn't require an additional network request, instead it should work client-side.
     We implement a filter by adding a checkbox which sets a new variable, `filterPetFriendly`, whenever the value changes.
     -->
-    <label class="ml1">Show only pet friendly rooms: 
+    <label class="ml1">Show only pet friendly rooms:
       <input type="checkbox" class="m1" on="change:AMP.setState({
         showPetFriendlyOnly: event.checked
       })">
@@ -130,9 +134,9 @@
     returned by the server.
 
     This is necessary for client-side filtering to work after the initial
-    page load. We are using the variable `rooms` throughout the sample to access this list from other AMP components.  
+    page load. We are using the variable `rooms` throughout the sample to access this list from other AMP components.
 
-    Both, `amp-list` and `amp-state`, use the same endpoint.  
+    Both, `amp-list` and `amp-state`, use the same endpoint.
   -->
   <amp-state id="rooms" src="https://amp-by-example-live.glitch.me/rooms"></amp-state>
 
@@ -149,7 +153,7 @@
     we are resizing by binding the `height` attribute to the result of the height of the image plus the margins multiplied by
     the length of the list.
   -->
-  <amp-list class="rooms" 
+  <amp-list class="rooms"
   layout="fixed-height" height="800"
   src="https://amp-by-example-live.glitch.me/rooms" [src]="filteredRooms()" items="."
   [height]="(80 + (16*2)) * filteredRooms().length">
