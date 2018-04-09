@@ -1,0 +1,10 @@
+{
+  "templateId": "video-template",
+  "data": {
+    "videoSource": "https://i.imgur.com/4wUqhsQ.jpg"
+  },
+  "vars": {
+    "ctaType": "BUY",
+    "ctaUrl": "https://ampproject.org"
+  }
+}
