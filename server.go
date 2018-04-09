@@ -46,6 +46,7 @@ func init() {
 	backend.InitAmpAccess()
 	backend.InitFavoriteSample()
 	backend.InitCheckout()
+	backend.InitAmpStoryAutoAds()
 	playground.InitPlayground()
 	http.Handle("/", ServeStaticFiles(HandleNotFound(http.FileServer(http.Dir(DIST_DIR)))))
 }
