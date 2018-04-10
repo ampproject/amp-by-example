@@ -1,0 +1,162 @@
+<!--
+  ## Introduction
+
+  Users today want additional control over their online experience. Additionally, publishers are
+  faced with a variety of different demands on how they provide notice and choice to their
+  users –  from vendor policies to evolving legal requirements. The open source AMP Project is working
+  to give publishers and tech vendors tools to implement their preferred user controls and to support their varied
+  individual compliance requirements on their AMP pages.
+  THis page demonstrates how a basic blocking consent flow can be built.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <link rel="canonical" href="/advanced/basic_user_consent_flow/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <title>Basic User Consent Flow</title>
+  <!-- ## Setup -->
+  <!-- Import the consent component in the header. -->
+  <script async custom-element="amp-consent" src="https://cdn.ampproject.org/v0/amp-consent-0.1.js"></script>
+  <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+  <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <style amp-custom>
+  .lightbox-close-button {
+      background: white;
+    }
+
+    #consentPopup {
+      margin: 70px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 5px;
+      width: 300px;
+      position: relative;
+    }
+
+    #ui1 {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    amp-consent button {
+      border: none;
+      border-radius: 2px;
+      color: #fafafa;
+      height: 26px;
+      min-width: 32px;
+      padding: 0 16px;
+      margin: 0 16px;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      cursor: pointer;
+      vertical-align: middle;
+      line-height: 26px;
+      text-align: center;
+      background: #3f51b5;
+    }
+
+    .buttonbar {
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!---{
+  "experiments": ["amp-consent"]
+  }--->
+
+  <!-- ## Important -->
+  <!--
+  The consent is saved to localstorage - after accepting/rejecting it once you will
+  only get the popup dialog again after deleting the localstorage content for this host.
+
+  -->
+
+  <!-- ## Basic Usage -->
+  <!--
+  The amp-consent component allows you:
+  * To ask a remote endpoint if consent is required
+  * Specify the UI to trigger the consents
+  * Specify the policy to be used for this consent
+  * You can dynamically load in the vendors to get consent for via amp-list
+  -->
+  <amp-consent id='amp-consent' layout='nodisplay'>
+        <script type="application/json">{
+          "consents": {
+            "DEF": {
+              "checkConsentHref": "/samples_templates/consent/getConsent",
+              "promptUI": "ui1"
+            }
+          },
+          "policy": {
+            "Policy_DEF": {
+              "waitFor": {
+                "DEF": []
+              }
+            }
+          }
+        }</script>
+        <div id="ui1">
+          <div id="consentPopup">
+             It is always good to give users the choice on data sharing.
+             Do you want to share your data with these 3rd parties?
+             <center>
+               <amp-list width="auto"
+                height="100"
+                layout="fixed-height"
+                src="/samples_templates/consent/getVendors">
+                <template type="amp-mustache">
+                  <div>
+                    {{name}}
+                  </div>
+                </template>
+              </amp-list>
+            </center>
+             <div class="buttonbar">
+               <button on="tap:ui1.hide,amp-consent.accept" >
+                  Accept
+              </button>
+              <button on="tap:ui1.hide,amp-consent.reject" >
+                  Reject
+              </button>
+          </div>
+          </div>
+        </div>
+      </amp-consent>
+
+    <!--
+    You can block content until consent is given by setting the data-block-on-consent
+    attribute to any AMP component.
+    Here is a blocked image.
+    -->
+    <amp-img data-block-on-consent src="/img/landscape_lake_1280x857.jpg" width="1280" height="857" layout="responsive">
+    </amp-img>
+
+    <!--
+    This ad will also be blocked until consent is given, and if consent
+    is denied the ad will default to non-personalized ads.
+    -->
+    <amp-ad data-block-on-consent width="300" height="200"
+                  type="doubleclick"
+                  data-slot="/4119129/doesnt-exist">
+      <div fallback>
+        <p>Thank you for trying AMP!</p>
+        <p>You got lucky! We have no ad to show to you!</p>
+      </div>
+    </amp-ad>
+
+
+</body>
+</html>
