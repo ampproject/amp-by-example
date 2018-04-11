@@ -1,7 +1,12 @@
 <!--
   ## Introduction
 
-  TODO: a quick intro
+  Users today want additional control over their online experience. Additionally, publishers are
+  faced with a variety of different demands on how they provide notice and choice to their
+  users –  from vendor policies to evolving legal requirements. The open source AMP Project is working
+  to give publishers and tech vendors tools to implement their preferred user controls and to support their varied
+  individual compliance requirements on their AMP pages.
+  This page demonstrates how an advanced blocking consent flow can be built.
 -->
 <!-- -->
 <!doctype html>
@@ -24,7 +29,7 @@
       background: white;
     }
 
-    #consentPopup {
+    .consentPopup {
       margin: 70px auto;
       padding: 20px;
       background: #fff;
@@ -33,7 +38,7 @@
       position: relative;
     }
 
-    #ui1 {
+    .popupOverlay {
       position: fixed;
       top: 0;
       bottom: 0;
@@ -99,7 +104,9 @@
   <!-- ## Important -->
   <!--
   The consent is saved to localstorage - after accepting/rejecting it once you will
-  only get the popup dialog again after deleting the localstorage content for this host.
+  only get the popup dialog again after deleting the localstorage content for this host,
+  for example via <a href="https://developers.google.com/web/tools/chrome-devtools/manage-data/local-storage#local-storage">
+  Chrome Dev Tools</a>.
 
   -->
 
@@ -115,7 +122,7 @@
           "consents": {
             "DEF": {
               "checkConsentHref": "/samples_templates/consent/getConsent",
-              "promptUI": "ui1"
+              "promptUI": "consentUI"
             }
           },
           "policy": {
@@ -126,8 +133,8 @@
             }
           }
         }</script>
-        <div id="ui1">
-          <div id="consentPopup">
+        <div class="popupOverlay" id="consentUI">
+          <div class="consentPopup">
              It is always good to give users the choice on data sharing.
              Do you want to share your data with these 3rd parties?
              <center>
@@ -163,7 +170,7 @@
       attribute to any AMP component.
       Here is a blocked image.
       -->
-      <amp-img data-block-on-consent src="/img/landscape_lake_1280x857.jpg" width="1280" height="857" layout="responsive">
+      <amp-img data-block-on-consent src="/img/landscape_lake_1280x857.jpg" width="1280" height="857" layout="fixed">
       </amp-img>
 
       <!--
