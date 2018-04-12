@@ -1,4 +1,4 @@
-<!-- 
+<!--
   ## Introduction
 
   AMP Stories support animations out-of-the-box.  Every element inside an `amp-story-page` can define an entrance animation. You can find a list of all supported animations [here](https://www.ampproject.org/docs/reference/components/amp-story.html#animations).
@@ -50,7 +50,7 @@
       </amp-story-grid-layer>
     </amp-story-page>
 
-    <!-- All animations can be can be customized using the `animate-in-duration` and `animate-in-delay` properties. -->  
+    <!-- All animations can be can be customized using the `animate-in-duration` and `animate-in-delay` properties. -->
     <amp-story-page id="delay-duration">
       <amp-story-grid-layer template="thirds">
         <h1>Wait for it ...</h1>
@@ -63,7 +63,7 @@
     </amp-story-page>
 
     <!-- ## Customizing Animations -->
-    <!-- Use the `animate-in-duration` and `animate-in-delay` properties to customize the entry animations. -->  
+    <!-- Use the `animate-in-duration` and `animate-in-delay` properties to customize the entry animations. -->
     <amp-story-page id="sequence">
       <amp-story-grid-layer template="vertical">
         <amp-img  id="image1"
@@ -72,7 +72,7 @@
                   animate-in-duration="1s"
                   src="https://unsplash.it/720/320/?image=10"
                   width="720"
-                  height="320" 
+                  height="320"
                   layout="responsive"></amp-img>
         <amp-img  id="image2"
                   animate-in="fade-in"
@@ -81,7 +81,7 @@
                   animate-in-after="image1"
                   src="https://unsplash.it/720/320/?image=11"
                   width="720"
-                  height="320" 
+                  height="320"
                   layout="responsive"></amp-img>
         <amp-img  id="image3"
                   animate-in="fade-in"
@@ -90,7 +90,7 @@
                   animate-in-after="image2"
                   src="https://unsplash.it/720/320/?image=12"
                   width="720"
-                  height="320" 
+                  height="320"
                   layout="responsive"></amp-img>
         <amp-img  id="image4"
                   animate-in="fade-in"
@@ -99,7 +99,7 @@
                   animate-in-after="image3"
                   src="https://unsplash.it/720/320/?image=13"
                   width="720"
-                  height="320" 
+                  height="320"
                   layout="responsive"></amp-img>
       </amp-story-grid-layer>
     </amp-story-page>
@@ -109,17 +109,17 @@
     <amp-story-page id="combining-animations">
       <amp-story-grid-layer template="thirds">
         <h1>fly-in-left + fade-in</h1>
-        <div animate-in="fly-in-left"                   
+        <div animate-in="fly-in-left"
              animate-in-duration="2s"
              grid-area="middle-third">
-          <div class="square" 
+          <div class="square"
                animate-in-duration="2s"
                animate-in="fade-in">
           </div>
         </div>
       </amp-story-grid-layer>
     </amp-story-page>
-      
+
     <!-- ## Twirl-In -->
     <amp-story-page id="twirl-in">
       <amp-story-grid-layer template="thirds">
@@ -219,18 +219,16 @@
         </div>
       </amp-story-grid-layer>
     </amp-story-page>
-    
+
     <!-- ## Zoom-In -->
     <!-- You can also use animations on images to create visual effects. -->
-    <!-- 
+    <!--
     <div class="ampstart-card info">
       **Tip:** Create a Ken Burns effect by combining these! Learn how in the [visual effects section.](/stories/visual_effects/ken_burns/)
     </div>
     -->
     <amp-story-page id="zoom-in">
       <amp-story-grid-layer template="vertical">
-        <h1>zoom-in</h1>
-        <div class="spacer"></div>
         <amp-img animate-in="zoom-in"
                  animate-in-duration="4s"
                  layout="responsive"
@@ -239,13 +237,14 @@
                  height="320">
         </amp-img>
       </amp-story-grid-layer>
+      <amp-story-grid-layer template="fill">
+        <h1>zoom-in</h1>
+      </amp-story-grid-layer>
     </amp-story-page>
 
     <!-- ## Zoom-Out -->
     <amp-story-page id="zoom-out">
       <amp-story-grid-layer template="vertical">
-        <h1>zoom-out</h1>
-        <div class="spacer"></div>
         <amp-img animate-in="zoom-out"
                  animate-in-duration="4s"
                  layout="responsive"
@@ -254,43 +253,29 @@
                  height="320">
         </amp-img>
       </amp-story-grid-layer>
+      <amp-story-grid-layer template="fill">
+          <h1>zoom-out</h1>
+      </amp-story-grid-layer>
     </amp-story-page>
 
     <!-- ## Pan-Left -->
-    <!--
-    <div class="ampstart-card info">
-      **Tip:** When using the `fill` template of the `amp-story-grid-layer` only the first element will be displayed. Wrap elements inside a `<div>` to display everything inside it.
-    </div>
-     -->
     <amp-story-page id="pan-left">
-      <amp-story-grid-layer template="fill">
-        <div>
-          <amp-img animate-in="pan-left"
-                   animate-in-duration="4s"
-                   layout="fixed"
-                   src="https://picsum.photos/720/320?image=1026"
-                   width="720"
-                   height="320">
+        <amp-story-grid-layer template="fill">
+          <amp-img animate-in="pan-left" id="img-pan-left" animate-in-duration="4s" layout="fixed" src="https://picsum.photos/720/320?image=1026"
+            width="720" height="320">
           </amp-img>
-        </div>
-      </amp-story-grid-layer>
-      <amp-story-grid-layer template="fill">
-        <h1>pan-left</h1>
-      </amp-story-grid-layer>
+        </amp-story-grid-layer>
+        <amp-story-grid-layer template="fill">
+          <h1>pan-left</h1>
+        </amp-story-grid-layer>
     </amp-story-page>
 
     <!-- ## Pan-Right -->
     <amp-story-page id="pan-right">
       <amp-story-grid-layer template="fill">
-        <div>
-          <amp-img animate-in="pan-right"
-                   animate-in-duration="4s"
-                   layout="fixed"
-                   src="https://picsum.photos/720/320?image=1026"
-                   width="720"
-                   height="320">
-          </amp-img>
-        </div>
+        <amp-img animate-in="pan-right" animate-in-duration="4s" layout="fixed" src="https://picsum.photos/720/320?image=1026" width="720"
+          height="320">
+        </amp-img>
       </amp-story-grid-layer>
       <amp-story-grid-layer template="fill">
         <h1>pan-right</h1>
@@ -300,15 +285,9 @@
     <!-- ## Pan-Up -->
     <amp-story-page id="pan-up">
       <amp-story-grid-layer template="fill">
-        <div>
-          <amp-img animate-in="pan-up"
-                   animate-in-duration="4s"
-                   layout="fixed"
-                   src="https://picsum.photos/720/320?image=1026"
-                   width="720"
-                   height="320">
-          </amp-img>
-        </div>
+        <amp-img animate-in="pan-up" animate-in-duration="4s" layout="fixed" src="https://picsum.photos/720/320?image=1026" width="720"
+          height="320">
+        </amp-img>
       </amp-story-grid-layer>
       <amp-story-grid-layer template="fill">
         <h1>pan-up</h1>
@@ -318,15 +297,9 @@
     <!-- ## Pan-Down -->
     <amp-story-page id="pan-down">
       <amp-story-grid-layer template="fill">
-        <div>
-          <amp-img animate-in="pan-down"
-                   animate-in-duration="4s"
-                   layout="fixed"
-                   src="https://picsum.photos/720/320?image=1026"
-                   width="720"
-                   height="320">
-          </amp-img>
-        </div>
+        <amp-img animate-in="pan-down" animate-in-duration="4s" layout="fixed" src="https://picsum.photos/720/320?image=1026" width="720"
+          height="320">
+        </amp-img>
       </amp-story-grid-layer>
       <amp-story-grid-layer template="fill">
         <h1>pan-down</h1>
