@@ -82,4 +82,7 @@
 }, {
   "source": "/advanced/integrating_videos_in_amp:_an_overview/",
   "target": "/advanced/integrating_videos_in_amp_an_overview/"
+}, {
+  "source": "/advanced/amp-user-notification_with_server_endpoint/",
+  "target": "/user_consent/integrating_videos_in_amp_an_overview/"
 }]
