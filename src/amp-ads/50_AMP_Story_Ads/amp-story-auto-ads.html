@@ -4,14 +4,13 @@
 
 <!--
   ## Introduction
-  In an AMP story, you cannot put an amp-ad directly onto the page, instead, all
+  In an AMP story, you cannot put an `amp-ad` directly onto the page, instead, all
   ads are fetched and displayed by the amp-story-auto-ads extension.
 
   For the complete documentation please see our
   [documentation](https://github.com/ampproject/amphtml/blob/master/extensions/amp-story/amp-story-ads.md)
   on Github.
 -->
-<!-- -->
 <!doctype html>
 <html ⚡>
 <head>
@@ -21,9 +20,10 @@
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <title>amp-story-auto-ads</title>
 
+  <script async custom-element="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
   <script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-0.1.js"></script>
   <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
-  <script async custom-element="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+
   <!-- ## Setup -->
   <!--
     Import the `amp-story-auto-ads` component.
@@ -134,26 +134,40 @@
         </script>
 
         <!-- After the script tag then inline any templates that you wish to include.
-        These templates will be populated from by a JSON response from the
+        These templates will be populated by a JSON response from the
         server indicated by the `data-url` key above.
         -->
-        <div>
-          <template type="amp-mustache" id="image-template">
-            <amp-img class="fill-img" layout="fill" src="{{imgSrc}}"></amp-img>
-          </template>
+        <!-- This first example template would be used to create a simple ad with a
+        full size background image.-->
+        <template type="amp-mustache" id="image-template">
+          <amp-img class="fill-img" layout="fill" src="{{imgSrc}}"></amp-img>
+        </template>
 
-          <template type="amp-mustache" id="video-template">
-            <amp-video autoplay loop
-              width="400"
-              height="750"
-              poster="{{poster}}"
-              layout="fill">
-              <source src="{{videoSrc}}" type="video/mp4">
-            </amp-video>
-          </template>
-        </div>
+        <!-- The second template is designed for a full screen video. You may
+        structure the templates however you wish, as long as they are valid
+        AMPHTML -->
+        <template type="amp-mustache" id="video-template">
+          <amp-video autoplay loop
+            width="400"
+            height="750"
+            poster="{{poster}}"
+            layout="fill">
+            <source src="{{videoSrc}}" type="video/mp4">
+          </amp-video>
+        </template>
       </amp-story-auto-ads>
 
+      <!-- See the full example below. -->
+      <!--
+        <div class="abe-story-preview">
+          <amp-iframe media="(min-width: 650px)"
+              src="/amp_story_hello_world/preview/embed/"
+              width="440" height="732" sandbox="allow-scripts
+              allow-popups allow-same-origin" >
+            <div placeholder></div>
+          </amp-iframe>
+        </div>
+      -->
       <amp-story-page id="page-1">
         <amp-story-grid-layer template="fill">
           <amp-video autoplay loop
