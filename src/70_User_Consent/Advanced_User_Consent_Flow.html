@@ -42,9 +42,20 @@
       background: #fff;
       border-radius: 5px;
       max-width: 700px;
-      width: 100%;
+      width: 95%;
       position: relative;
       margin: 70px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .message {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .message > * {
+      min-width: 200px;
     }
   </style>
 </head>
@@ -65,7 +76,7 @@
   * Specify the UI to trigger the consents
   * Specify the policy to be used for this consent
   -->
-  <amp-consent id="amp-consent" layout="nodisplay">
+  <amp-consent id="myConsent" layout="nodisplay">
         <script type="application/json">{
           "consents": {
             "DEF": {
@@ -83,33 +94,30 @@
         }</script>
         <div class="lightbox" id="consentDialog">
           <div class="lightbox-content">
-            <div class="h2 m1">We need your consent</div>
-            <p class="m1"> It is always good to give users the choice on data sharing.
-            Do you want to share your data with these 3rd parties?
-            </p>
-            <ul id="vendorList">
+            <div class="message">
+              <div class="h2 m1">Headline</div>
+              <p class="m1">This is an important message requiring you to make a choice.</p>
+            </div>
+            <div id="choice">
+              <button class="ampstart-btn ampstart-btn-secondary caps m1" on="tap:choice1.show,choice.hide">Choice 1</button>
+              <button class="ampstart-btn ampstart-btn-secondary caps m1" on="tap:choice2.show,choice.hide,vendorList.hide">Choice 2</button>
+            </div>
+            <div id="choice1" hidden class="message">
+              <p class="m1">This is some more information about this choice. Here's a list of items related to this choice.</p>
               <amp-list width="auto"
                         height="100"
                         layout="fixed-height"
-                        src="/samples_templates/consent/getVendors">
+                        src="/json/consent-items.json"
+                        class="m1">
                 <template type="amp-mustache">
-                  <li>
-                    {{name}}
-                  </li>
+                  <li>{{.}}</li>
                 </template>
               </amp-list>
-            </ul>
-            <div id="vendorConsent">
-              <button class="ampstart-btn ampstart-btn-secondary caps m1" on="tap:vendorCookieConsent.show,vendorConsent.hide">yes</button>
-              <button class="ampstart-btn ampstart-btn-secondary caps m1" on="tap:siteCookieConsent.show,vendorConsent.hide,vendorList.hide">no</button>
+              <button on="tap:myConsent.accept" class="ampstart-btn ampstart-btn-secondary caps m1">Accept</button>
             </div>
-            <div id="vendorCookieConsent" hidden>
-              <p class="m1">Your cookie will be shared with the vendors above.</p>
-              <button on="tap:amp-consent.accept" class="ampstart-btn ampstart-btn-secondary caps m1">Accept</button>
-            </div>
-            <div id="siteCookieConsent" hidden>
-              <p class="m1">This site will use your cookie.</p>
-              <button on="tap:amp-consent.reject" class="ampstart-btn ampstart-btn-secondary caps m1">Accept</button>
+            <div id="choice2" hidden class="message">
+              <p class="m1">This is some more information about this choice.</p>
+              <button on="tap:myConsent.reject" class="ampstart-btn ampstart-btn-secondary caps m1">Reject</button>
             </div>
           </div>
         </div>

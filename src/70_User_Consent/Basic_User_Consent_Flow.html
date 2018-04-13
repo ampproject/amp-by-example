@@ -35,7 +35,7 @@
       border-radius: 5px;
       position: relative;
       max-width: 700px;
-      width: 100%;
+      width: 95%;
     }
     .popupOverlay {
       position: fixed;
@@ -66,41 +66,31 @@
   * Specify the policy to be used for this consent
   * You can dynamically load in the vendors to get consent for via amp-list
   -->
-  <amp-consent id="amp-consent" layout="nodisplay">
+  <amp-consent id="myUserConsent" layout="nodisplay">
         <script type="application/json">{
           "consents": {
-            "DEF": {
+            "consent1": {
               "checkConsentHref": "/samples_templates/consent/getConsent",
               "promptUI": "consentDialog"
-            }
-          },
-          "policy": {
-            "Policy_DEF": {
-              "waitFor": {
-                "DEF": []
-              }
             }
           }
         }</script>
         <div class="popupOverlay" id="consentDialog">
           <div class="consentPopup">
-            <div class="h2 m1">We need your consent</div>
-            <p class="m1">
-             It is always good to give users the choice on data sharing.
-             Do you want to share your data with these 3rd parties?
-            </p>
-             <ul>
+            <div class="h2 m1">Headline</div>
+            <p class="m1">This is an important message requiring you to make a choice.</p>
+            <p class="m1">This is some more information about this choice. Here's a list of items related to this choice.</p>
              <amp-list width="auto"
                        height="100"
                        layout="fixed-height"
-                       src="/samples_templates/consent/getVendors">
+                       src="/json/consent-items.json"
+                       class="m1">
                <template type="amp-mustache">
-                 <li>{{name}}</li>
+                 <li>{{.}}</li>
                </template>
              </amp-list>
-             </ul>
-              <button on="tap:amp-consent.accept,consentDialog.hide" class="ampstart-btn ampstart-btn-secondary caps m1">Accept</button>
-              <button on="tap:amp-consent.reject,consentDialog.hide" class="ampstart-btn ampstart-btn-secondary caps m1">Reject</button>
+              <button on="tap:myUserConsent.accept,consentDialog.hide" class="ampstart-btn ampstart-btn-secondary caps m1">Accept</button>
+              <button on="tap:myUserConsent.reject,consentDialog.hide" class="ampstart-btn ampstart-btn-secondary caps m1">Reject</button>
           </div>
         </div>
       </amp-consent>
