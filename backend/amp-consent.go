@@ -26,17 +26,10 @@ func InitAmpConsent() {
 	http.HandleFunc(CONSENT_SAMPLE_PATH+"getConsent", func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, submitConsentXHR)
 	})
-	http.HandleFunc(CONSENT_SAMPLE_PATH+"getVendors", submitVendorsXHR)
 }
 
 func submitConsentXHR(w http.ResponseWriter, r *http.Request) {
 	EnableCors(w, r)
 	SetContentTypeJson(w)
-	w.Write([]byte("{\"consentRequired\": true}"))
-}
-
-func submitVendorsXHR(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	SetContentTypeJson(w)
-	w.Write([]byte("{\"items\": [{\"name\": \"Vendor1\"}, {\"name\": \"Vendor2\"}, {\"name\": \"Vendor3\"}]}"))
+	w.Write([]byte("{\"promptIfUnknown\": true}"))
 }
