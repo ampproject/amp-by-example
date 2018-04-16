@@ -60,11 +60,17 @@
 
   <!-- ## Basic Usage -->
   <!--
-  The amp-consent component allows you:
-  * To ask a remote endpoint if consent is required
-  * Specify the UI to trigger the consents
-  * Specify the policy to be used for this consent
-  * You can dynamically load in the vendors to get consent for via amp-list
+  The `amp-consent` component allows to specify the required user consent for this page.
+  A CORS endpoints can be specified via the `checkConsentHref`
+  attribute. This endpoint will be queried via a POST request to determine if the
+  consent UI specified for it needs to be shown. The response should look like this:
+  ```json
+  {
+    'promptIfUnknown': boolean (true/false)
+  }
+  ```
+  The response will indicate if the consent needs to be shown or not.
+  If it needs to be shown, the element with the id given in `promptUI` will be displayed.
   -->
   <amp-consent id="myUserConsent" layout="nodisplay">
         <script type="application/json">{
@@ -95,14 +101,19 @@
         </div>
       </amp-consent>
 
-    <!-- You can block content until consent is given by setting the data-block-on-consent
-    attribute to any AMP component.
-    Here is a blocked image. -->
+
+    <!--
+    Use `data-block-on-consent` attribute to block AMP components until consent is given.
+    Individual AMP components can override  blocking behavior and implement blocking logic themselves.
+
+    Here is an image which is blocked until consent is given:
+    -->
     <amp-img data-block-on-consent src="/img/landscape_lake_300x201.jpg" width="300" height="201">
     </amp-img>
 
-    <!-- This ad will also be blocked until consent is given, and if consent
-    is denied the ad will default to non-personalized ads. -->
+    <!--
+    This ad will also be blocked until consent is given:
+   -->
     <amp-ad data-block-on-consent width="300" height="200"
                   type="doubleclick"
                   data-slot="/4119129/doesnt-exist">
