@@ -447,7 +447,10 @@ module.exports = function(config, indexPath, updateTimestamp) {
     if (!document.isAmpStory) {
       return string;
     }
-    return string.replace(/<script\s+async\s+custom-element="amp-story"\s+src="https:\/\/cdn\.ampproject\.org\/v0\/amp-story-0\.1\.js">\s*<\/script>/, "");
+    string = string.replace(/<script\s+async\s+custom-element="amp-story"\s+src="https:\/\/cdn\.ampproject\.org\/v0\/amp-story-0\.1\.js">\s*<\/script>/, "");
+    string = string.replace(/<script\s+async\s+custom-element="amp-story-auto-ads"\s+src="https:\/\/cdn\.ampproject\.org\/v0\/amp-story-auto-ads-0\.1\.js">\s*<\/script>/, "");
+    return string;
+    amp-story-auto-ads
   }
 
   function replaceAmpAdRuntime(document, string) {
