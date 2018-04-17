@@ -104,8 +104,8 @@
               <p class="m1">This is an important message requiring you to make a choice.</p>
             </div>
             <div id="choice">
-              <button class="ampstart-btn ampstart-btn-secondary caps m1" on="tap:choice1.show,choice.hide">Choice 1</button>
-              <button class="ampstart-btn ampstart-btn-secondary caps m1" on="tap:choice2.show,choice.hide,vendorList.hide">Choice 2</button>
+              <button class="ampstart-btn ampstart-btn-secondary caps m1" on="tap:choice1.show,choice2.hide">Choice 1</button>
+              <button class="ampstart-btn ampstart-btn-secondary caps m1" on="tap:choice2.show,choice1.hide,vendorList.hide">Choice 2</button>
             </div>
             <div id="choice1" hidden class="message">
               <p class="m1">This is some more information about this choice. Here's a list of items related to this choice.</p>
@@ -118,11 +118,11 @@
                   <li>{{.}}</li>
                 </template>
               </amp-list>
-              <button on="tap:myConsent.accept" class="ampstart-btn ampstart-btn-secondary caps m1">Accept</button>
+              <button on="tap:myConsent.accept" class="ampstart-btn ampstart-btn-secondary caps m1">Confirm</button>
             </div>
             <div id="choice2" hidden class="message">
               <p class="m1">This is some more information about this choice.</p>
-              <button on="tap:myConsent.reject" class="ampstart-btn ampstart-btn-secondary caps m1">Reject</button>
+              <button on="tap:myConsent.reject" class="ampstart-btn ampstart-btn-secondary caps m1">Confirm</button>
             </div>
           </div>
         </div>

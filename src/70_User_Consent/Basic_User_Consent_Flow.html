@@ -69,7 +69,7 @@
   consent UI specified for it needs to be shown. The response should look like this:
   ```json
   {
-    'promptIfUnknown': boolean (true/false)
+    "promptIfUnknown": boolean (true/false)
   }
   ```
   The response will indicate if the consent needs to be shown or not.
@@ -98,8 +98,8 @@
                  <li>{{.}}</li>
                </template>
              </amp-list>
-              <button on="tap:myUserConsent.accept,consentDialog.hide" class="ampstart-btn ampstart-btn-secondary caps m1">Accept</button>
-              <button on="tap:myUserConsent.reject,consentDialog.hide" class="ampstart-btn ampstart-btn-secondary caps m1">Reject</button>
+              <button on="tap:myUserConsent.accept" class="ampstart-btn ampstart-btn-secondary caps m1">Accept</button>
+              <button on="tap:myUserConsent.reject" class="ampstart-btn ampstart-btn-secondary caps m1">Reject</button>
           </div>
         </div>
       </amp-consent>
