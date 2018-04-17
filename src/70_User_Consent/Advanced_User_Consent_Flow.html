@@ -10,7 +10,11 @@
   users –  from vendor policies to evolving legal requirements. The open source AMP Project is working
   to give publishers and tech vendors tools to implement their preferred user controls and to support their varied
   individual compliance requirements on their AMP pages.
-  This page demonstrates how an advanced blocking consent flow can be built.
+
+  This page demonstrates how a more advanced blocking consent flow can be built.
+  It will show accept and reject buttons, which on click will reveal more information,
+  like a list of used 3rd parties on user acceptance, or a general data usage notice
+  on user rejection.
 -->
 <!-- -->
 <!doctype html>
@@ -66,15 +70,22 @@
   The consent is saved to localstorage - after accepting/rejecting it once you will
   only get the popup dialog again after deleting the localstorage content for this host,
   for example via <a href="https://developers.google.com/web/tools/chrome-devtools/manage-data/local-storage#local-storage">
-  Chrome Dev Tools</a>.  
+  Chrome Dev Tools</a>.
   -->
 
   <!-- ## Basic Usage -->
   <!--
-  The amp-consent component allows you:
-  * To ask a remote endpoint if consent is required
-  * Specify the UI to trigger the consents
-  * Specify the policy to be used for this consent
+  The `amp-consent` component allows to specify the required user consent for this page.
+  A CORS endpoints can be specified via the `checkConsentHref`
+  attribute. This endpoint will be queried via a POST request to determine if the
+  consent UI specified for it needs to be shown. The response should look like this:
+  ```json
+  {
+    'promptIfUnknown': boolean (true/false)
+  }
+  ```
+  The response will indicate if the consent needs to be shown or not.
+  If it needs to be shown, the element with the id given in `promptUI` will be displayed.
   -->
   <amp-consent id="myConsent" layout="nodisplay">
         <script type="application/json">{
@@ -82,13 +93,6 @@
             "DEF": {
               "checkConsentHref": "/samples_templates/consent/getConsent",
               "promptUI": "consentDialog"
-            }
-          },
-          "policy": {
-            "Policy_DEF": {
-              "waitFor": {
-                "DEF": []
-              }
             }
           }
         }</script>
@@ -123,17 +127,22 @@
         </div>
   </amp-consent>
 
-  <!-- You can block content until consent is given by setting the data-block-on-consent
-    attribute to any AMP component. Here is a blocked image. -->
-    <amp-img data-block-on-consent src="/img/landscape_lake_300x201.jpg" width="300" height="201">
-    </amp-img>
+  <!--
+  Use `data-block-on-consent` attribute to block AMP components until consent is given.
+  Individual AMP components can override  blocking behavior and implement blocking logic themselves.
 
-    <!-- This ad will also be blocked until consent is given, and if consent
-      is denied the ad will default to non-personalized ads. -->
-      <amp-ad data-block-on-consent width="300" height="200"
-                                                type="doubleclick"
-                                                data-slot="/4119129/doesnt-exist">
-      </amp-ad>
+  Here is an image which is blocked until consent is given:
+  -->
+  <amp-img data-block-on-consent src="/img/landscape_lake_300x201.jpg" width="300" height="201">
+  </amp-img>
+
+  <!--
+  This ad will also be blocked until consent is given:
+ -->
+  <amp-ad data-block-on-consent width="300" height="200"
+                type="doubleclick"
+                data-slot="/4119129/doesnt-exist">
+  </amp-ad>
 
 
 </body>
