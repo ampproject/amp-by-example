@@ -62,6 +62,12 @@
     .message > * {
       min-width: 200px;
     }
+    .dismiss-button {
+      position: absolute;
+      right: 24px;
+      top: 16px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -95,17 +101,19 @@
               "checkConsentHref": "/samples_templates/consent/getConsent",
               "promptUI": "consentDialog"
             }
-          }
+          },
+          "postPromptUI": "post-consent-ui"
         }</script>
         <div class="lightbox" id="consentDialog">
           <div class="lightbox-content">
+            <div class="dismiss-button" role="button" tapindex="0" on="tap:myConsent.dismiss">X</div>
             <div class="message">
               <div class="h2 m1">Headline</div>
               <p class="m1">This is an important message requiring you to make a choice.</p>
             </div>
             <div id="choice">
               <button class="ampstart-btn ampstart-btn-secondary caps m1" on="tap:choice1.show,choice2.hide">Choice 1</button>
-              <button class="ampstart-btn ampstart-btn-secondary caps m1" on="tap:choice2.show,choice1.hide,vendorList.hide">Choice 2</button>
+              <button class="ampstart-btn ampstart-btn-secondary caps m1" on="tap:choice2.show,choice1.hide">Choice 2</button>
             </div>
             <div id="choice1" hidden class="message">
               <p class="m1">This is some more information about this choice. Here's a list of items related to this choice.</p>
@@ -125,6 +133,9 @@
               <button on="tap:myConsent.reject" class="ampstart-btn ampstart-btn-secondary caps m1">Confirm</button>
             </div>
           </div>
+        </div>
+        <div id="post-consent-ui">
+          <button on="tap:myConsent.prompt()" class="ampstart-btn caps m1">Settings</button> 
         </div>
   </amp-consent>
 

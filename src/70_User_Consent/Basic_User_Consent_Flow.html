@@ -1,5 +1,4 @@
   <!---{
-  "draft": true,
   "experiments": ["amp-consent"]
   }--->
 <!--
@@ -48,32 +47,39 @@
       right: 0;
       background: rgba(0, 0, 0, 0.7);
     }
+    .dismiss-button {
+      position: absolute;
+      right: 24px;
+      top: 16px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
 
-  <!-- ## Important -->
-  <!--
+  <!-- ## Important 
+
   The consent is saved to localstorage - after accepting/rejecting it once you will
   only get the popup dialog again after deleting the localstorage content for this host,
   for example via <a href="https://developers.google.com/web/tools/chrome-devtools/manage-data/local-storage#local-storage">
   Chrome Dev Tools</a>.
 
-  -->
-
-  <!-- ## Basic Usage -->
-  <!--
+  ## Basic Usage 
+  
   The `amp-consent` component allows to specify the required user consent for this page.
   A CORS endpoints can be specified via the `checkConsentHref`
-  attribute. This endpoint will be queried via a POST request to determine if the
-  consent UI specified for it needs to be shown. The response should look like this:
+  attribute. The `amp-consent` component will check via a POST request if the
+  consent UI needs to be shown. The response should look like this:
+
   ```json
   {
     "promptIfUnknown": boolean (true/false)
   }
   ```
-  The response will indicate if the consent needs to be shown or not.
-  If it needs to be shown, the element with the id given in `promptUI` will be displayed.
+
+  It is possible, to re-trigger the consent dialog using the `myConsent.prompt()` action. One use case for this is giving users the option
+  to change their settings after consent dialog has been dismissed. For this to work, the post consent UI needs to be specified in the
+  `amp-consent` JSON config: `"promptUI": "consentDialog"`.
   -->
   <amp-consent id="myUserConsent" layout="nodisplay">
         <script type="application/json">{
@@ -82,10 +88,12 @@
               "checkConsentHref": "/samples_templates/consent/getConsent",
               "promptUI": "consentDialog"
             }
-          }
+          },
+          "postPromptUI": "post-consent-ui"
         }</script>
         <div class="popupOverlay" id="consentDialog">
           <div class="consentPopup">
+            <div class="dismiss-button" role="button" tapindex="0" on="tap:myUserConsent.dismiss">X</div>
             <div class="h2 m1">Headline</div>
             <p class="m1">This is an important message requiring you to make a choice.</p>
             <p class="m1">This is some more information about this choice. Here's a list of items related to this choice.</p>
@@ -102,8 +110,10 @@
               <button on="tap:myUserConsent.reject" class="ampstart-btn ampstart-btn-secondary caps m1">Reject</button>
           </div>
         </div>
+        <div id="post-consent-ui">
+          <button on="tap:myUserConsent.prompt()" class="ampstart-btn caps m1">Settings</button> 
+        </div>
       </amp-consent>
-
 
     <!--
     Use `data-block-on-consent` attribute to block AMP components until consent is given.
