@@ -1,7 +1,7 @@
-<!-- 
+<!--
   ## Introduction
 
-  Learn how to create your first AMP Story. The [amp-story](https://www.ampproject.org/docs/reference/components/amp-story.html) extension provides a new format for displaying visual content. 
+  Learn how to create your first AMP Story. The [amp-story](https://www.ampproject.org/docs/reference/components/amp-story.html) extension provides a new format for displaying visual content.
 -->
 <!-- -->
 <!doctype html>
@@ -11,7 +11,7 @@
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <!-- ## Setup -->
     <!-- AMP Stories are written using AMPHTML and they use their own AMP extension: `amp-story`. The first step is to import the `amp-story` in the header. -->
-    <script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-0.1.js"></script>
+    <script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-1.0.js"></script>
     <!-- AMP Stories can make use of other AMP extensions such as `amp-video`. However, AMP Stories supportonly a subset of the available AMP extensions. You can find a full list of the supported extensions [here](https://www.ampproject.org/docs/reference/components/amp-story.html#children-of-amp-story-grid-layer). -->
     <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
     <title>Stories in AMP - Hello World</title>
@@ -42,7 +42,7 @@
       <amp-story-page id="page-1">
         <amp-story-grid-layer template="fill">
           <amp-img src="<%host%>/img/story_dog2.jpg"
-                   width="720" height="1280" 
+                   width="720" height="1280"
                    layout="responsive">
           </amp-img>
         </amp-story-grid-layer>
@@ -56,7 +56,7 @@
       <amp-story-page id="page-2">
         <amp-story-grid-layer template="fill">
           <amp-video autoplay loop
-                width="720" 
+                width="720"
                 height="960"
                 poster="<%host%>/img/story_video_dog_cover.jpg"
                 layout="responsive">
@@ -70,7 +70,7 @@
         <amp-story-grid-layer template="fill">
           <amp-img src="<%host%>/img/story_dog4.jpg"
                    animate-in="fly-in-top"
-                   width="720" height="1280" 
+                   width="720" height="1280"
                    layout="responsive">
           </amp-img>
         </amp-story-grid-layer>
@@ -88,18 +88,18 @@
         <amp-story-grid-layer template="thirds">
           <amp-img grid-area="upper-third"
                    src="<%host%>/img/story_thirds_1.jpg"
-                   width="560" height="420" 
+                   width="560" height="420"
                                layout="responsive">
           </amp-img>
           <amp-img grid-area="middle-third"
                    src="<%host%>/img/story_thirds_2.jpg"
-                   width="560" height="420" 
+                   width="560" height="420"
                                layout="responsive">
           </amp-img>
           <amp-img grid-area="lower-third"
                    src="<%host%>/img/story_thirds_3.jpg"
-                   width="560" 
-                   height="420" 
+                   width="560"
+                   height="420"
                    layout="responsive">
           </amp-img>
         </amp-story-grid-layer>
