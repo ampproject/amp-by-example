@@ -1,6 +1,6 @@
 <!---{
   "skipValidation": "true",
-  "experiments": ["amp-fx-fade-in"]
+  "experiments": ["amp-fx-fade-in", "amp-fx-fade-in-scroll"]
 }--->
 
 <!--
@@ -132,5 +132,32 @@
     <amp-img amp-fx="fade-in" data-easing="linear" width="1280" height="873" layout="responsive" src="/img/windsor-castle_960x642.jpg" alt="Picture of a Windsor castle"></amp-img>
   </div>
   <div class="spacer"></div>
-</body>
+  <!-- ## Scroll dependent fade-in -->
+  <!-- The `fade-in-scroll` effect allows an element to fade in as the user scrolls in the viewport.
+
+    Scroll dependent fade in effect can be added to any element by adding `amp-fx="fade-in-scroll"` attribute to an element.
+    You can control the animation via the following attributes:
+    * `data-margin-start` - This parameter determines when to trigger the timed animation. The value specified in `<percent>` dictates that the animation should be triggered when the element is above the specified percentage of the viewport. The default value is `0%`
+    * `data-margin-end` - This parameter determines when to stop the timed animation. The value specified in `<percent>` dictates that the animation should be fully visible when the element crosses this threshold. The default value is `50%`
+    * `data-repeat` - By default once the element is fully visible the opacity of the element is locked in. If the developer wants to change the opacity even after it the element is fully visible please specify this attribute on the element. 
+  -->
+  <!-- **Example 1: Animation starts when the element is 30% above the viewport** -->
+  <div class="header">
+    <h1 amp-fx="fade-in-scroll" data-margin-start='30%'>
+        <span class="title">Lorem Ipsum</span>
+    </h1>
+    <amp-img width="1600" height="900" layout="responsive" src="https://picsum.photos/1600/900?image=981"></amp-img>
+  </div>
+
+  <!-- **Example 2: Animation stops when the element is 80% above the viewport** -->
+  <div>
+    <amp-img amp-fx="fade-in-scroll" data-margin-end="80%" width="1280" height="873" layout="responsive" src="/img/Border_Collie.jpg" alt="Picture of an elephant"></amp-img>
+  </div>
+  <div class="spacer"></div>
+
+  <!-- **Example 3: Make the animation full dependent on the scroll action** -->
+  <div>
+    <amp-img amp-fx="fade-in-scroll" data-repeat width="1280" height="873" layout="responsive" src="/img/windsor-castle_960x642.jpg" alt="Picture of a Windsor castle"></amp-img>
+  </div>
+  <div class="spacer"></div></body>
 </html>
