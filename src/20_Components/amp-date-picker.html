@@ -341,20 +341,21 @@
 
   <!-- ## Date picker in a form-->
   <!--
-    `amp-date-picker` integrates with AMP forms.
+    `amp-date-picker` integrates with AMP forms. If you don't provide an
+    input for a static picker, it will create a hidden input to submit in the
+    form.
   -->
   <form method="post"
     class="p2"
     action-xhr="/components/amp-form/submit-form-xhr"
     target="_top">
     <amp-date-picker
-      id="static-picker"
+      id="form-picker"
       type="single"
       mode="static"
       layout="fixed-height"
       height="360"
-      format="YYYY-MM-DD"
-      input-selector="#static-picker-input">
+      format="YYYY-MM-DD">
     </amp-date-picker>
     <input type="submit" class="ampstart-btn caps">
     <div submit-success>
