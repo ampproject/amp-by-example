@@ -1,6 +1,8 @@
 <!---{
-    "skipValidation": "true"
+  "skipValidation": "true",
+  "experiments": ["amp-fx-fade-in"]
 }--->
+
 <!--
   #### Introduction
   The [amp-fx-collection](https://www.ampproject.org/docs/reference/components/amp-fx-collection) extension
@@ -16,7 +18,7 @@
 <html ⚡>
 <head>
   <meta charset="utf-8">
-  <title>amp-fx-parallax</title>
+  <title>amp-fx</title>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <!-- #### Setup -->
   <!--
@@ -89,6 +91,45 @@
   <!-- **Example 2: Parallax image window** -->
   <div class="parallax-image-window">
     <amp-img amp-fx="parallax" data-parallax-factor="1.1" width="1280" height="873" layout="responsive" src="/img/elephant.jpg" alt="Picture of an elephant"></amp-img>
+  </div>
+  <div class="spacer"></div>
+  <!-- ## Scroll triggered fade-in -->
+  <!-- The `fade-in` effect allows an element to fade in once the element being targetted is visible in the viewport.
+
+    Scroll triggered fade in effect can be added to any element by adding `amp-fx="fade-in"` attribute to an element.
+    Currently, only a scroll triggered timed animation is supported. That is, once the element is within the viewport a timed animation will start that fades in the element. You can control the animation via the following attributes:
+    * `data-duration` - This is the duration over which the animation takes places. The default value is `1000ms`.
+    * `data-easing` - This parameter lets you vary the animation's speed over the course of its duration. The default is `ease-in` which is `cubic-bezier(0.40, 0.00, 0.40, 1.00)`. You can also choose from one of the presets available:
+      * “linear” - cubic-bezier(0.00, 0.00, 1.00, 1.00),
+      * “ease-in-out” - cubic-bezier(0.80, 0.00, 0.20, 1.00),
+      * “ease-in” - cubic-bezier(0.80, 0.00, 0.60, 1.00),
+      * “ease-out” - cubic-bezier(0.40, 0.00, 0.40, 1.00) (default),
+      * or specify a `custom-bezier()` input.
+    * `data-margin-start` - This parameter determines when to trigger the timed animation. The value specified in `<percent>` dictates that the animation should be triggered when the element is above the specified percentage of the viewport. The default value is `5%`
+  -->
+  <!-- **Example 1: Title fade in with default attributes** -->
+  <div class="header">
+    <h1 amp-fx="fade-in">
+        <span class="title">Lorem Ipsum</span>
+    </h1>
+    <amp-img width="1600" height="900" layout="responsive" src="https://picsum.photos/1600/900?image=981"></amp-img>
+  </div>
+
+  <!-- **Example 2: Slow animation** -->
+  <div>
+    <amp-img amp-fx="fade-in" data-duration="2000ms" width="1280" height="873" layout="responsive" src="/img/Border_Collie.jpg" alt="Picture of an elephant"></amp-img>
+  </div>
+  <div class="spacer"></div>
+
+  <!-- **Example 3: Animation triggers when the element is past 50% of the viewport** -->
+  <div>
+    <amp-img amp-fx="fade-in" data-margin-start="50%" width="1280" height="873" layout="responsive" src="/img/windsor-castle_960x642.jpg" alt="Picture of a Windsor castle"></amp-img>
+  </div>
+  <div class="spacer"></div>
+
+  <!-- **Example 4: Change the easing curve of the animation to a preset linear curve.** -->
+  <div>
+    <amp-img amp-fx="fade-in" data-easing="linear" width="1280" height="873" layout="responsive" src="/img/windsor-castle_960x642.jpg" alt="Picture of a Windsor castle"></amp-img>
   </div>
   <div class="spacer"></div>
 </body>
