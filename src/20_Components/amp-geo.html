@@ -57,10 +57,10 @@
         }
       </script>
     </amp-geo>
-    <!-- `amp-geo` makes available a class `amp-iso-country-XX` where XX is the name of the country. 
-    In the following example, we determine if the user is in Canada, and if so, we display a maple leaf flag, otherwise the American flag. 
-    If you want to force the country to be Canada, you could append `#amp-geo=ca` to the URL like [https://ampbyexample.com/components/amp-geo#amp-geo=ca](https://ampbyexample.com/components/amp-geo#amp-geo=ca) and enable the development dev channel. 
-    Read more about debugging `amp-geo` on the official [doc](https://www.ampproject.org/docs/reference/components/amp-geo)-->
+
+<!-- `amp-geo` makes available a class `amp-iso-country-XX` where XX is an ISO Country Code.
+In the following example, the component determines the ISO Country Code corresponding to the user's approximate location. If this is "ca" (Canada), the page displays a maple leaf flag, otherwise the American flag.
+If you want to force the country to be Canada, you could append `#amp-geo=ca` to the URL like [https://ampbyexample.com/components/amp-geo#amp-geo=ca](https://ampbyexample.com/components/amp-geo#amp-geo=ca) and enable the dev channel.  Read more about debugging amp-geo on the [official doc](https://www.ampproject.org/docs/reference/components/amp-geo). -->
     <div class="flag p1"></div>
   <!--
      ## Grouping
