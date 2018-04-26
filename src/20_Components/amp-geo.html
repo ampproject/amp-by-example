@@ -3,9 +3,9 @@
 }--->
 <!--
   #### Introduction
-  The [amp-geo](https://www.ampproject.org/docs/reference/components/amp-geo) extension
-  provides country-level geolocation. The `amp-geo` component also provides a simple mechanism to group countries, 
-  making it easier to apply attributes to several countries at once.
+  The [amp-geo](https://www.ampproject.org/docs/reference/components/amp-geo) extension extension
+  makes it possible to vary small sections of content based on an approximation of the users' country-level location, similar to the level of an ISO Country Code. 
+  The `amp-geo` component also provides a simple mechanism to group locations, making it easier to apply attributes to several geos at once.
 -->
 <!-- -->
 <!doctype html>
@@ -57,21 +57,20 @@
         }
       </script>
     </amp-geo>
-    <!-- `amp-geo` makes available a class `amp-iso-country-XX` where XX is the name of the country. 
-    In the following example, we determine if the user is in Canada, and if so, we display a maple leaf flag, otherwise the American flag. 
-    If you want to force the country to be Canada, you could append `#amp-geo=ca` to the URL like [https://ampbyexample.com/components/amp-geo#amp-geo=ca](https://ampbyexample.com/components/amp-geo#amp-geo=ca) and enable the development dev channel. 
-    Read more about debugging `amp-geo` on the official [doc](https://www.ampproject.org/docs/reference/components/amp-geo)-->
+  <!-- `amp-geo` makes available a class `amp-iso-country-XX` where XX is an ISO Country Code. 
+    In the following example, the component determines the ISO Country Code corresponding to the user's approximate location. If this is "ca" (Canada), the page displays a maple leaf flag, otherwise the American flag.
+    If you want to force the country to be Canada, you could append #amp-geo=ca to the URL like [https://ampbyexample.com/components/amp-geo#amp-geo=ca](https://ampbyexample.com/components/amp-geo#amp-geo=ca) and enable the development dev channel.
+    Read more about debugging amp-geo on the official [doc](https://www.ampproject.org/docs/reference/components/amp-geo) -->
     <div class="flag p1"></div>
   <!--
      ## Grouping
   -->
   <!--
-    Here we are using the `amp-geo` grouping feature to group countries in 2 different groups: one for countries who play soccer and one
-    for countries who play football.
+    Here we are using the `amp-geo` grouping feature to define two different groups of ISO country codes: one for those who play soccer and one for those who play football.
     Notice how we have a group containing 'unknown' in the `amp-geo` tag: if the country cannot be determined, the value is set to 'unknown'. 
     When using the grouping feature with `amp-geo` at least one group must contain 'unknown'. When using grouping, `amp-geo` makes available
     a class `amp-geo-group-XX` where XX is the name of the group determined by `amp-geo`.
--->
+  -->
   <div>
     The game is called <span class="football"></span>
   </div>
@@ -80,11 +79,11 @@
      ## Integration with amp-bind
   -->
   <!--
-    If the `AMPBind` key is present in the `amp-geo` json configuration, `amp-geo` inserts an `amp-state` tag containing the current country and group information.
+    If the `AMPBind` key is present in the `amp-geo` json configuration, `amp-geo` inserts an `amp-state` tag containing the current ISOCountry and group information.
   -->
   <div class="m1">
     <button class="ampstart-btn caps" on="tap:AMP.setState({myCountry: ampGeo.ISOCountry})">Where am I?</button>
-    <p [text]="'The country code is: ' + myCountry "></p>
+    <p [text]="'The ISOCountry code is: ' + myCountry "></p>
     <p [text]="'Matched country groups: ' + ampGeo.ISOCountryGroups.join(', ') "></p>
   </div>
 
