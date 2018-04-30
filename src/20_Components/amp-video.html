@@ -67,7 +67,7 @@
     [HLS](https://en.wikipedia.org/wiki/HTTP_Live_Streaming) provided it is
     supported by the browser. (Note that whilst HLS is supported by most mobile
     browsers—including Chrome and Safari—few desktop browsers support it.)
-    
+
     The videos below have the bitrate burnt into the video files themselves to
     make it easier to discover when the browser switches between streams. If
     your browser does not support HLS, you will see "No HLS". If you need to
@@ -112,5 +112,23 @@
     controls>
   </amp-video>
 
+  <!-- ## Rotate to fullscreen -->
+  <!--
+    <strong>This example is experimental. Feature is not valid AMP yet.</strong>
+
+    Setting `rotate-to-fullscreen` will automatically show the video on
+    fullscreen when the user rotates their device into landscape mode, if it's
+    playing manually and visible.
+  -->
+  <amp-video width="480" height="270" src="/video/tokyo.mp4"
+             poster="/img/tokyo.jpg"
+             layout="responsive"
+             controls
+             rotate-to-fullscreen>
+    <div fallback>
+      <p>Your browser doesn't support HTML5 video.</p>
+    </div>
+    <source type="video/webm" src="/video/tokyo.webm">
+  </amp-video>
 </body>
 </html>
