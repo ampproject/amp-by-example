@@ -1,3 +1,6 @@
+<!---{
+  "skipValidation": true
+}--->
 <!--
   ## Introduction
 
@@ -12,8 +15,13 @@
   <!-- ## Setup -->
   <!--
     Import the `amp-video` component.
+
+    Note that we're also including `amp-animation` for the rotate-to-fullscreen
+    example. It's not needed in any of the other examples outlined here.
   -->
   <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
+  <script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
+  <script async custom-element="amp-position-observer" src="https://cdn.ampproject.org/v0/amp-position-observer-0.1.js"></script>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <link rel="canonical" href="<%host%>/components/amp-video/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -114,21 +122,27 @@
 
   <!-- ## Rotate to fullscreen -->
   <!--
-    <strong>This example is experimental. Feature is not valid AMP yet.</strong>
+    **This example is experimental. Feature is not valid AMP yet.**
 
     Setting `rotate-to-fullscreen` will automatically show the video on
     fullscreen when the user rotates their device into landscape mode, if it's
     playing manually and visible.
+
+    See a [more advanced example](/advanced/video_rotate_to_fullscreen_with_hint/) for displaying a user hint signaling that the device
+    can be rotated to enter fullscreen.
   -->
-  <amp-video width="480" height="270" src="/video/tokyo.mp4"
-             poster="/img/tokyo.jpg"
-             layout="responsive"
-             controls
-             rotate-to-fullscreen>
-    <div fallback>
-      <p>Your browser doesn't support HTML5 video.</p>
-    </div>
-    <source type="video/webm" src="/video/tokyo.webm">
-  </amp-video>
+    <amp-video width="480" height="270" src="/video/tokyo.mp4"
+               poster="/img/tokyo.jpg"
+               layout="responsive"
+               controls
+               rotate-to-fullscreen>
+      <div class="video-hint-container" id="video-hint">
+        <div class="video-hint">Rotate for fullscreen</div>
+      </div>
+      <div fallback>
+        <p>Your browser doesn't support HTML5 video.</p>
+      </div>
+      <source type="video/webm" src="/video/tokyo.webm">
+    </amp-video>
 </body>
 </html>
