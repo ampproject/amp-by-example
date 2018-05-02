@@ -455,11 +455,11 @@ gulp.task('backend:watch', 'run the go backend and watch for changes', function(
 });
 
 gulp.task('backend:serve', 'Run the go backend', function() {
-  return run('goapp serve').exec();
+  return run('dev_appserver.py app.yaml').exec();
 });
 
 gulp.task('api:serve', 'Run the go api backend', function() {
-  return run('cd api && goapp serve -admin_port=8100').exec();
+  return run('cd api && dev_appserver.py app.yaml --admin_port=8100').exec();
 });
 
 gulp.task('validate', 'runs all checks', function(callback) {
