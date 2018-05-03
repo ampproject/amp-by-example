@@ -22,6 +22,7 @@
     "glob": "^7.1.1",
     "handlebars": "^4.0.11",
     "highlight.js": "^9.7.0",
+    "hoek": "^5.0.3",
     "hogan.js": "^3.0.2",
     "html-minifier": "^3.5.15",
     "js-beautify": "1.6.14",
