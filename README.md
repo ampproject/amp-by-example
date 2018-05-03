@@ -214,7 +214,7 @@ If it doesn't make sense for your sample to provide a playground link, you can d
 
 If you need to run or write a sample that depends on the backend server, you can run a local version.
 
-1. Install the [Google App Engine SDK](https://cloud.google.com/appengine/downloads) for Go and follow the instructions for adding `goapp` to your `PATH`.
+1. Install the [Google App Engine SDK for Go](https://cloud.google.com/appengine/docs/flexible/go/download).
 2. Run the backend server in watch mode so it will recompile on change.
 
     ```none
