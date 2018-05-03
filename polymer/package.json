@@ -31,19 +31,19 @@
     "@npm-polymer/paper-spinner": "2.0.0",
     "@npm-polymer/polymer": "2.0.1",
     "@npm-polymer/shadycss": "1.0.1",
-    "@webcomponents/webcomponentsjs": "^1.0.10",
+    "@webcomponents/webcomponentsjs": "^1.2.0",
     "webcomponents.js": "^0.7.22"
   },
   "devDependencies": {
     "gulp-clean-css": "^2.3.2",
+    "gulp-html-minifier": "^0.1.8",
+    "gulp-if": "^2.0.0",
     "gulp-minify-inline": "^0.2.1",
+    "gulp-serviceworker": "0.0.3",
     "gulp-uglify": "^2.0.1",
     "gulp-util": "^3.0.8",
-    "pump": "^1.0.2",
-    "gulp-serviceworker": "0.0.3",
-    "gulp-html-minifier": "^0.1.8",
-    "polymer-build": "2.0.0",
     "merge-stream": "^1.0.1",
-    "gulp-if": "^2.0.0"
+    "polymer-build": "2.0.0",
+    "pump": "^1.0.3"
   }
 }
