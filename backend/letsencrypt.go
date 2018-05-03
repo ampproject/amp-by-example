@@ -38,7 +38,7 @@ func InitLetsEncrypt() {
 		ctx := appengine.NewContext(r)
 		client := urlfetch.Client(ctx)
 		url := ACME_CHALLENGE_PREFIX + r.URL.Path
-		log.Printf("Proxying request to [%s]", url)
+		log.Printf("Proxying request for [%s] to [%s]", r.URL.Path, url)
 		res, err := client.Get(url)
 		if err != nil {
 			log.Fatal(err)
@@ -47,6 +47,9 @@ func InitLetsEncrypt() {
 		body, err := ioutil.ReadAll(res.Body)
 		if err != nil {
 			log.Fatal(err)
+		}
+		if res.StatusCode != 200 {
+			log.Fatalf("Fatal error: GET %s returned status code %d", url, res.StatusCode)
 		}
 		w.WriteHeader(res.StatusCode)
 		w.Header().Set("content-type", res.Header.Get("content-type"))
