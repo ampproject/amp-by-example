@@ -57,6 +57,7 @@
   },
   "dependencies": {
     "copy-webpack-plugin": "^4.5.1",
-    "handlebars": "^4.0.11"
+    "handlebars": "^4.0.11",
+    "hoek": "^5.0.3"
   }
 }
