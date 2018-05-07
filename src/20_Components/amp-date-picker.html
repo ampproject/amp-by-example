@@ -73,7 +73,7 @@
     date that you just selected. `info-template` also enables AMP binding making available variables which
     have been set with `AMP.setState`.
     A placeholder is required for the component. For a single date, this can take the form:
-    `<input amp-date-placeholder placeholder="Pick a date"/>`.
+    `<input amp-date-placeholder placeholder="Pick a date">`.
     `amp-date-picker` introduces the `clear` action that can be called after clicking on a button to clear the date selection;
     it requires the `show-clear-date` attribute.
   -->
@@ -88,7 +88,7 @@
     input-selector="[name=date1]"
     class="mr1 ml1 flex picker">
     <div class="ampstart-input inline-block mt1">
-      <input class="border-none p0" name="date1" placeholder="Pick a date"/>
+      <input class="border-none p0" name="date1" placeholder="Pick a date">
     </div>
     <button class="ampstart-btn m1 caps" on="tap: simple-date-picker.clear">Clear</button>
     <template type="amp-mustache" info-template>
@@ -113,7 +113,7 @@
     input-selector="[name=date2]"
     class="mr1 ml1 flex picker">
     <div class="ampstart-input inline-block mt1">
-      <input class="border-none p0" name="date2" placeholder="Pick a date"/>
+      <input class="border-none p0" name="date2" placeholder="Pick a date">
     </div>
     <button class="ampstart-btn m1 caps" on="tap: simple-date-picker-2.clear">Clear</button>
     <template
@@ -153,7 +153,7 @@
     class="mr1 ml1 flex picker">
 
     <div class="ampstart-input inline-block mt1">
-        <input class="border-none p0" name="date3" placeholder="Pick a date"/>
+        <input class="border-none p0" name="date3" placeholder="Pick a date">
       </div>
     <button class="ampstart-btn m1 caps" on="tap:simple-date-picker-3.clear">Clear</button>
     <template type="amp-mustache" info-template>
@@ -186,10 +186,10 @@
     end-input-selector="#range-end"
     class="mr1 ml1 flex picker">
     <div class="ampstart-input inline-block mt1">
-      <input class="border-none p0" id="range-start" placeholder="Start date"/>
+      <input class="border-none p0" id="range-start" placeholder="Start date">
     </div>
     <div class="ampstart-input inline-block mt1">
-      <input class="border-none p0" id="range-end" placeholder="End date"/>
+      <input class="border-none p0" id="range-end" placeholder="End date">
     </div>
     <button class="ampstart-btn m1 caps" on="tap:range-date-picker.clear">Clear</button>
     <template type="amp-mustache" info-template>
@@ -227,11 +227,11 @@
     mode="overlay"
     layout="container"
     format="YYYY-MM-DD"
-    src="/json/amp-date-picker.json"
+    src="<%host%>/json/amp-date-picker.json"
     input-selector="#src-input"
     class="m1 flex">
     <div class="ampstart-input inline-block mt1">
-      <input class="border-none p0" id="src-input" placeholder="Pick a date"/>
+      <input class="border-none p0" id="src-input" placeholder="Pick a date">
     </div>
     <button class="ampstart-btn m1 caps" on="tap: src-picker.clear">Clear</button>
     <template type="amp-mustache" date-template id="spooky">
@@ -249,7 +249,7 @@
   <div>
     <div class="flex align-content-center">
       <div class="ampstart-input inline-block mt1">
-        <input class="border-none p0" id="static-picker-input" placeholder="Pick a date"/>
+        <input class="border-none p0" id="static-picker-input" placeholder="Pick a date">
       </div>
       <button class="ampstart-btn m1 caps" on="tap:static-picker.clear">Clear</button>
     </div>
@@ -278,10 +278,10 @@
     <p>Choose your travel dates</p>
     <div class="flex">
       <div class="ampstart-input inline-block mt1">
-        <input class="border-none p0" id="lb-start" placeholder="Start date" on="tap:lb.open" />
+        <input class="border-none p0" id="lb-start" placeholder="Start date" on="tap:lb.open" role="textbox" tabindex="0">
       </div>
       <div class="ampstart-input inline-block mt1">
-        <input class="border-none p0" id="lb-end" placeholder="End date" on="tap:lb.open" />
+        <input class="border-none p0" id="lb-end" placeholder="End date" on="tap:lb.open" role="textbox" tabindex="0">
       </div>
       <button class="ampstart-btn m1 caps" on="tap:lb-picker.clear">Clear</button>
     </div>
@@ -314,10 +314,10 @@
       <p>Choose your travel dates</p>
       <div class="flex">
         <div class="ampstart-input inline-block mt1">
-          <input class="border-none p0" id="lb-fullscreen-start" placeholder="Start date" on="tap:lb-fullscreen.open" />
+          <input class="border-none p0" id="lb-fullscreen-start" placeholder="Start date" on="tap:lb-fullscreen.open" role="textbox" tabindex="0">
         </div>
         <div class="ampstart-input inline-block mt1">
-          <input class="border-none p0" id="lb-fullscreen-end" placeholder="End date" on="tap:lb-fullscreen.open" />
+          <input class="border-none p0" id="lb-fullscreen-end" placeholder="End date" on="tap:lb-fullscreen.open" role="textbox" tabindex="0">
         </div>
         <button class="ampstart-btn m1 caps" on="tap:lb-fullscreen-picker.clear">Clear</button>
       </div>
