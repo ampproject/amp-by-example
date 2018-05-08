@@ -128,7 +128,7 @@
           </div>
         </div>
         <div id="post-consent-ui">
-          <button on="tap:myConsent.prompt()" class="ampstart-btn caps m1">Update Consent</button> 
+          <button on="tap:myConsent.prompt()" class="ampstart-btn caps m1">Update Consent</button>
         </div>
   </amp-consent>
 
@@ -142,7 +142,10 @@
   </amp-img>
 
   <!--
-  This ad will also be blocked until consent is given:
+  Ads can also be blocked until consent is given, but ad networks can implement own behavior
+  (e.g. default to non-personalized ads without consent, as seen <a href="https://support.google.com/dfp_premium/answer/7678538#amp-pages" target="_blank">
+  documented here</a> for Doubleclick).<br/>
+  Here is an example of `amp-ad` depending on `amp-consent`:
  -->
   <amp-ad data-block-on-consent data-slot="/30497360/a4a/a4a_native"
     height="250"
