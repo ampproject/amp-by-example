@@ -19,22 +19,81 @@ The amp-lightbox-gallery component provides a "lightbox” experience for AMP co
   <!-- ## Setup -->
   <!-- Import the amp-lightbox-gallery component in the header.  -->
   <script async custom-element="amp-lightbox-gallery" src="https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js"></script>
-  <!-- Optionally import the amp-carousel component in the header if you are using lightbox with carousel.  -->
+  <!-- Optionally import the amp-carousel component in the header if you are using lightbox with carousel. -->
   <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+  <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+  <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+  <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
+
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <style amp-custom>
+
+  </style>
 </head>
 <body>
+
 
   <!-- ## Basic Usage -->
   <!--
   This is a basic example that demonstrates lightboxed `<amp-img>`s. You have one or more `<amp-img>` elements on the page. Just add the "lightbox" attribute to each image that you wish to view in a lightbox.
   -->
   <div>
-    <amp-img lightbox src="/img/image1.jpg" width="400" height="300" layout="responsive"></amp-img>
-    <amp-img lightbox src="/img/image2.jpg" width="400" height="300" layout="responsive"></amp-img>
-    <amp-img lightbox src="/img/image3.jpg" width="400" height="300" layout="responsive"></amp-img>
+    <amp-img lightbox src="/img/image1.jpg" width="400" height="300" layout="fixed"></amp-img>
+    <amp-img lightbox src="/img/image2.jpg" width="400" height="300" layout="fixed"></amp-img>
+    <amp-img lightbox src="/img/image3.jpg" width="400" height="300" layout="fixed"></amp-img>
   </div>
 
+  <!-- You can also have invisible elements that are lightboxed as well as `<amp-video>`, `<amp-youtube>` and `<amp-ad>` -->
+
+  <div>
+      <amp-img lightbox="toronto"
+        src="https://picsum.photos/1600/900?image=1075"
+        layout="responsive"
+        width="1600"
+        height="900"
+        alt="Picture of CN tower.">
+      </amp-img>
+    <div hidden>
+      <amp-youtube
+        lightbox="toronto"
+        width="480"
+        height="270"
+        layout="responsive"
+        data-videoid="UsZ2dXf7qh4"
+        autoplay>
+      </amp-youtube>
+      <amp-img
+        lightbox="toronto"
+        src="https://picsum.photos/900/1600?image=948"
+        layout="responsive"
+        width="900"
+        height="1600">
+      </amp-img>
+      <amp-ad data-slot="/30497360/a4a/a4a_native"
+        lightbox="toronto"
+        height="250"
+        type="doubleclick"
+        width="300">
+      </amp-ad>
+      <amp-img lightbox="toronto"
+        src="https://picsum.photos/1600/1600?image=430"
+        layout="responsive"
+        width="1600"
+        height="1600"
+        alt="Picture of new york city skyline">
+      </amp-img>
+      <amp-video lightbox="toronto"
+        width="480"
+        height="270"
+        src="/video/tokyo.mp4"
+        poster="/img/tokyo.jpg"
+        layout="responsive"
+        controls>
+        <source type="video/mp4" src="/video/tokyo.mp4">
+        <source type="video/webm" src="/video/tokyo.webm">
+      </amp-video>
+    </div>
+  </div>
   <!-- ## Captions -->
   <!--
   Optionally, you can specify a caption for each element in the lightbox. These fields are automatically read and displayed by the `<amp-lightbox-gallery>` in the following order of priority:
