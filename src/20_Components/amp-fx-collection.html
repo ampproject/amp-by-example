@@ -18,7 +18,7 @@
 <html ⚡>
 <head>
   <meta charset="utf-8">
-  <title>amp-fx</title>
+  <title>amp-fx-collection</title>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <!-- #### Setup -->
   <!--
@@ -132,18 +132,15 @@
     * `data-margin-end` - This parameter determines when to stop the timed animation. The value specified in `<percent>` dictates that the animation should be fully visible when the element crosses this threshold. The default value is `50%`
     * `data-repeat` - By default once the element is fully visible the opacity of the element is locked in. If the developer wants to change the opacity even after it the element is fully visible please specify this attribute on the element. 
   -->
-  <!-- **Example 1: Animation starts when the element is 30% above the viewport** -->
+  <!-- **Example 1: Title scroll based fade in with default attribute** -->
   <div class="header">
-    <h1 amp-fx="fade-in-scroll" data-margin-start="30%">
+    <h1 amp-fx="fade-in-scroll">
         <span class="title">Lorem Ipsum</span>
     </h1>
     <amp-img width="1600" height="900" layout="responsive" src="https://picsum.photos/1600/900?image=981"></amp-img>
   </div>
 
-  <!-- **Example 2: Animation stops when the element is 80% above the viewport** -->
-  <amp-img amp-fx="fade-in-scroll" data-margin-end="80%" width="1280" height="873" layout="responsive" src="/img/Border_Collie.jpg" alt="Picture of an elephant"></amp-img>
-
-  <!-- **Example 3: Make the animation full dependent on the scroll action** -->
+  <!-- **Example 2: Make the animation full dependent on the scroll action** -->
   <amp-img amp-fx="fade-in-scroll" data-repeat width="1280" height="873" layout="responsive" src="/img/windsor-castle_960x642.jpg" alt="Picture of a Windsor castle"></amp-img>
 </body>
 </html>
