@@ -1,6 +1,6 @@
 <!---{
   "skipValidation": "true",
-  "experiments": ["amp-fx-fade-in"]
+  "experiments": ["amp-fx-fade-in", "amp-fx-fade-in-scroll"]
 }--->
 
 <!--
@@ -18,7 +18,7 @@
 <html ⚡>
 <head>
   <meta charset="utf-8">
-  <title>amp-fx</title>
+  <title>amp-fx-collection</title>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <!-- #### Setup -->
   <!--
@@ -116,21 +116,34 @@
   </div>
 
   <!-- **Example 2: Slow animation** -->
-  <div>
-    <amp-img amp-fx="fade-in" data-duration="2000ms" width="1280" height="873" layout="responsive" src="/img/Border_Collie.jpg" alt="Picture of an elephant"></amp-img>
-  </div>
-  <div class="spacer"></div>
+  <amp-img amp-fx="fade-in" data-duration="2000ms" width="1280" height="873" layout="responsive" src="/img/Border_Collie.jpg" alt="Picture of an elephant"></amp-img>
 
   <!-- **Example 3: Animation triggers when the element is past 50% of the viewport** -->
-  <div>
-    <amp-img amp-fx="fade-in" data-margin-start="50%" width="1280" height="873" layout="responsive" src="/img/windsor-castle_960x642.jpg" alt="Picture of a Windsor castle"></amp-img>
-  </div>
-  <div class="spacer"></div>
+  <amp-img amp-fx="fade-in" data-margin-start="50%" width="1280" height="873" layout="responsive" src="/img/windsor-castle_960x642.jpg" alt="Picture of a Windsor castle"></amp-img>
 
   <!-- **Example 4: Change the easing curve of the animation to a preset linear curve.** -->
-  <div>
-    <amp-img amp-fx="fade-in" data-easing="linear" width="1280" height="873" layout="responsive" src="/img/windsor-castle_960x642.jpg" alt="Picture of a Windsor castle"></amp-img>
+  <amp-img amp-fx="fade-in" data-easing="linear" width="1280" height="873" layout="responsive" src="/img/windsor-castle_960x642.jpg" alt="Picture of a Windsor castle"></amp-img>
+  <!-- ## Scroll dependent fade-in -->
+  <!-- The `fade-in-scroll` effect allows an element to fade in as the user scrolls in the viewport.
+
+    Scroll dependent fade in effect can be added to any element by adding `amp-fx="fade-in-scroll"` attribute to an element.
+    You can control the animation via the following attributes:
+    * `data-margin-start` - This parameter determines when to trigger the timed animation. The value specified in `<percent>` dictates that the animation should be triggered when the element is above the specified percentage of the viewport. The default value is `0%`
+    * `data-margin-end` - This parameter determines when to stop the timed animation. The value specified in `<percent>` dictates that the animation should be fully visible when the element crosses this threshold. The default value is `50%`
+    * `data-repeat` - By default once the element is fully visible the opacity of the element is locked in. If the developer wants to change the opacity even after it the element is fully visible please specify this attribute on the element. 
+  -->
+  <!-- **Example 1: Title scroll based fade in with default attribute** -->
+  <div class="header">
+    <h1 amp-fx="fade-in-scroll">
+        <span class="title">Lorem Ipsum</span>
+    </h1>
+    <amp-img width="1600" height="900" layout="responsive" src="https://picsum.photos/1600/900?image=981"></amp-img>
   </div>
-  <div class="spacer"></div>
+
+  <!-- **Example 2: Animation triggers when the element is past 20% of the viewport and ends when it is past 80% of the viewport. ** -->
+  <amp-img amp-fx="fade-in-scroll" data-margin-start="20%" data-margin-end="80%" width="1600" height="900" layout="responsive" src="/img/Border_Collie.jpg"></amp-img>
+
+  <!-- **Example 3: Make the animation full dependent on the scroll action** -->
+  <amp-img amp-fx="fade-in-scroll" data-repeat width="1280" height="873" layout="responsive" src="/img/windsor-castle_960x642.jpg" alt="Picture of a Windsor castle"></amp-img>
 </body>
 </html>
