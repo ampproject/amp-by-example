@@ -82,7 +82,7 @@ const paths = {
   tmp: {
     dir: 'tmp'
   },
-  videos: 'src/video/*.{mp4,webm,m3u8,ts}',
+  videos: 'src/video/*.{mp4,webm,m3u8,ts,vtt}',
   json: 'src/json/*.json',
   css: 'templates/css/*.css',
   scripts: 'src/scripts/*.js',

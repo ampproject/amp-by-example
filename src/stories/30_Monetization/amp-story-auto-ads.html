@@ -12,7 +12,7 @@
   on Github.
 -->
 <!doctype html>
-<html ⚡>
+<html ⚡ lang="en">
 <head>
   <meta charset="utf-8">
   <link rel="canonical" href="/amp_story_ads/amp-story-auto-ads/">
@@ -114,10 +114,20 @@
     amp-ad[template="image-template"] img {
       object-fit: cover;
     }
+    ::cue {
+      background-color: rgba(0, 0, 0, 0.75);
+      font-size: 24px;
+      line-height: 1.5;
+    }
   </style>
 </head>
   <body>
-    <amp-story standalone bookend-config-src="<%host%>/json/bookend.json">
+    <amp-story standalone
+      title="Key Highlights of AMP Conf 2018"
+      publisher="The AMP team"
+      publisher-logo-src="/img/AMP-Brand-White-Icon.svg"
+      poster-portrait-src="/img/overview.jpg">
+    >
       <!-- ## Configuration -->
       <!-- Include the `amp-story-auto-ads` tag on your page. -->
       <!-- It's first child should be a `script` tag with a JSON configuration object
@@ -129,10 +139,10 @@
       <amp-story-auto-ads>
         <script type="application/json">
           {
-              "ad-attributes": {
-                "type": "custom",
-                "data-url": "https://www.ampbyexample.com/json/amp-story-auto-ads/"
-              }
+            "ad-attributes": {
+              "type": "custom",
+              "data-url": "<%host%>/json/amp-story-auto-ads/"
+            }
           }
         </script>
 
@@ -155,7 +165,7 @@
             height="750"
             poster="{{poster}}"
             layout="fill">
-            <source src="{{videoSrc}}" type="video/mp4">
+            <source src="{{videoSource}}" type="video/mp4">
           </amp-video>
         </template>
       </amp-story-auto-ads>
@@ -230,14 +240,16 @@
         </amp-story-grid-layer>
       </amp-story-page>
 
-      <amp-story-page id="page-5">
+      <amp-story-page id="page-5" auto-advance-after="stamp-vid">
         <amp-story-grid-layer template="fill">
-          <amp-video autoplay loop
+          <amp-video autoplay
+            id="stamp-vid"
             width="400"
             height="750"
             poster="/img/poster2.jpg"
             layout="fill">
             <source src="/video/stamp.mp4" type="video/mp4">
+            <track default src="/video/stamp.vtt" srclang="en">
           </amp-video>
         </amp-story-grid-layer>
         <amp-story-grid-layer template="thirds">
@@ -278,14 +290,16 @@
         </amp-story-grid-layer>
       </amp-story-page>
 
-      <amp-story-page id="page-8">
+      <amp-story-page id="page-8" auto-advance-after="gmail-vid">
         <amp-story-grid-layer template="fill">
-          <amp-video autoplay loop
+          <amp-video autoplay
+            id="gmail-vid"
             width="400"
             height="750"
             poster="/img/poster4.jpg"
             layout="fill">
             <source src="/video/gmail.mp4" type="video/mp4">
+            <track default src="/video/gmail.vtt" srclang="en">
           </amp-video>
         </amp-story-grid-layer>
         <amp-story-grid-layer template="thirds">
@@ -319,14 +333,16 @@
         </amp-story-grid-layer>
       </amp-story-page>
 
-      <amp-story-page id="page-11">
+      <amp-story-page id="page-11" auto-advance-after="ecomm-vid">
         <amp-story-grid-layer template="fill">
-          <amp-video autoplay loop
+          <amp-video autoplay
+            id="ecomm-vid"
             width="400"
             height="750"
             poster="/img/poster5.jpg"
             layout="fill">
             <source src="/video/ecommerce.mp4" type="video/mp4">
+            <track default src="/video/ecommerce.vtt" srclang="en">
           </amp-video>
         </amp-story-grid-layer>
         <amp-story-grid-layer template="thirds">
@@ -351,6 +367,8 @@
           </a>
         </amp-story-cta-layer>
       </amp-story-page>
+
+      <amp-story-bookend src="<%host%>/json/bookend.json" layout="nodisplay"></amp-story-bookend>
     </amp-story>
   </body>
 </html>
