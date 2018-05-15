@@ -5,7 +5,7 @@
 }--->
 <!--
 ## Introduction
-**This example is experimental. Setting `rotate-to-fullscreen` is not valid AMP yet.** [Enable dev channel](https://www.ampproject.org/experiments.html) in order for this feature to work.
+**This example is experimental. Setting `rotate-to-fullscreen` is not valid AMP yet.** [Enable dev channel](https://cdn.ampproject.org/experiments.html) in order for this feature to work.
 
 This is a sample template for implementing rotate-to-fullscreen with a user hint in AMP.
 -->
@@ -23,11 +23,6 @@ This is a sample template for implementing rotate-to-fullscreen with a user hint
     - `amp-video` to render the video itself.
     -->
     <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
-    <!--
-    - `amp-position-observer` to trigger an animation showing the hint once the
-       user scrolls into view.
-    -->
-    <script async custom-element="amp-position-observer" src="https://cdn.ampproject.org/v0/amp-position-observer-0.1.js"></script>
     <!--
     - `amp-animation` to describe the animation to be triggered.
     -->
@@ -55,31 +50,34 @@ This is a sample template for implementing rotate-to-fullscreen with a user hint
       line-height: 1;
       font-size: 13px;
       /* Borders, colors and sizing */
-      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
       border-radius: 16px 0 0 16px;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.8);
       color: white;
       padding: 10px 16px;
       /* Position on top of the video: */
       z-index: 100;
       /* Translate-x by 100% to displace out of view: */
       transform: translateX(100%);
+      pointer-events: none;
+      display: none;
+    }
+    /* Display hint only on touch devices */
+    .amp-mode-touch #video-hint {
+      display: block;
     }
     </style>
   </head>
   <body>
-    <!-- ## Add the video, hint, and position observer -->
+    <!-- ## Add the video and hint -->
     <!--
-    `amp-position-observer` will trigger the animation as described in its
-    `on` attribute. We're including this element right below the video
-    element so it won't be triggered while scrolling up until the video
-    is fully visible.
-
     Set `rotate-to-fullscreen` on the video element to actually
     enter fullscreen when the user rotates their device into landscape mode.
 
-    Note that this only works if the user has previously interacted with the
-    video.
+    `amp-video` will trigger the animation as described in its
+    `on` attribute when the `firstPlay` event occurs. This event is fired as
+    soon as the user starts playing the video. In the case of an autoplay video like
+    this one, the event will be fired as soon as the user taps on the video.
     -->
     <div class="video-container">
       <div id="video-hint">Rotate for fullscreen</div>
@@ -90,18 +88,14 @@ This is a sample template for implementing rotate-to-fullscreen with a user hint
           poster="/img/tokyo.jpg"
           layout="responsive"
           controls
-          rotate-to-fullscreen>
+          on="firstPlay:hint-animation.start"
+          rotate-to-fullscreen
+          autoplay>
         <div fallback>
           <p>Your browser doesn't support HTML5 video.</p>
         </div>
         <source type="video/webm" src="/video/tokyo.webm">
       </amp-video>
-      <amp-position-observer
-          layout="nodisplay"
-          intersection-ratios="1"
-          viewport-margins="10vh"
-          on="enter:hint-animation.start">
-      </amp-position-observer>
     </div>
     <!-- ## Define the animation -->
     <!--
@@ -109,18 +103,18 @@ This is a sample template for implementing rotate-to-fullscreen with a user hint
     slide it out.
 
     It's important that the animation element has the `hint-animation` id, as
-    that's the name which the position observer component uses to start the animation.
+    that's the name which the video component uses to start the animation.
     -->
     <amp-animation layout="nodisplay" id="hint-animation">
       <script type="application/json">
       {
         "selector": "#video-hint",
-        "duration": "3s",
-        "delay": "100ms",
+        "duration": "4.5s",
+        "delay": "300ms",
         "fill": "both",
         "keyframes": [
           {"offset": 0, "transform": "translateX(100%)"},
-          {"offset": 0.2, "transform": "translateX(0)"},
+          {"offset": 0.15, "transform": "translateX(0)"},
           {"offset": 0.8, "transform": "translateX(0)"},
           {"offset": 1, "transform": "translateX(100%)"}
         ]
