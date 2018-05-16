@@ -86,6 +86,7 @@ func InitProductBrowse() {
 	RegisterSample("samples_templates/product_page", renderProduct)
 	RegisterSampleEndpoint("samples_templates/product_browse_page", SEARCH, handleSearchRequest)
 	http.HandleFunc("/samples_templates/products", handleProductsRequest)
+	http.HandleFunc("/samples_templates/products_autosuggest", handleProductsAutosuggestRequest)
 	http.HandleFunc(SHOW_MORE_PATH, handleLoadMoreRequest)
 	http.HandleFunc(ADD_TO_CART_PATH, func(w http.ResponseWriter, r *http.Request) {
 		handlePost(w, r, addToCart)
@@ -322,6 +323,31 @@ func handleProductsRequest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Write(jsonProducts)
+}
+
+func handleProductsAutosuggestRequest(w http.ResponseWriter, r *http.Request) {
+	EnableCors(w, r)
+	SetContentTypeJson(w)
+	query := r.URL.Query().Get("search")
+
+	var productDescs []string
+	for _, productDescription := range products {
+        productDescs = append(productDescs, productDescription.Name)
+    }
+
+	filteredStrs := Filter(productDescs, func(v string) bool {
+		return CaseInsensitiveContains(v, query)
+	})
+
+	if len(filteredStrs) > 0 {
+		results := Min(len(filteredStrs), 4)
+		joinedStrs := strings.Join(filteredStrs[:results], "\",\"")
+		response := fmt.Sprintf("{\"items\": [{\"query\": \"%s\", \"results\":[\"%s\"]}]}", query, joinedStrs)
+		w.Write([]byte(response))
+	} else {
+		response := fmt.Sprintf("{\"items\": [{\"query\": \"%s\"}]}", query)
+		w.Write([]byte(response))
+	}
 }
 
 type ByPriceAsc []Product
