@@ -27,6 +27,20 @@ The amp-lightbox-gallery component provides a "lightbox” experience for AMP co
 
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <style amp-custom>
+    .overlay-text {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      z-index: 1;
+      pointer-events: none;
+      color: white;
+      font-family: sans-serif;
+      font-size: 0.8em;
+    }
+
+    amp-img[lightbox] {
+      cursor: pointer;
+    }
 
   </style>
 </head>
@@ -38,70 +52,53 @@ The amp-lightbox-gallery component provides a "lightbox” experience for AMP co
   This is a basic example that demonstrates lightboxed `<amp-img>`s. You have one or more `<amp-img>` elements on the page. Just add the "lightbox" attribute to each image that you wish to view in a lightbox.
   -->
   <div>
-    <amp-img lightbox src="/img/image1.jpg" width="400" height="300" layout="fixed"></amp-img>
-    <amp-img lightbox src="/img/image2.jpg" width="400" height="300" layout="fixed"></amp-img>
-    <amp-img lightbox src="/img/image3.jpg" width="400" height="300" layout="fixed"></amp-img>
+    <amp-img lightbox src="/img/image1.jpg" width="200" height="150" layout="fixed"></amp-img>
+    <amp-img lightbox src="/img/image2.jpg" width="200" height="150" layout="fixed"></amp-img>
+    <amp-img lightbox src="/img/image3.jpg" width="200" height="150" layout="fixed"></amp-img>
   </div>
 
-  <!-- You can also have invisible elements that are lightboxed as well as `<amp-video>`, `<amp-youtube>` and `<amp-ad>` -->
-
+  <!-- ## Usage with Carousel-->
+  <!--
+  You can also use `<amp-lightbox-gallery>` with `<amp-carousel>` to view the contents of the carousel in a lightbox. Just simply include a `<amp-carousel>` with `<amp-img>`s, and add the "lightbox" attribute to the `<amp-carousel>`. The lightbox images will be sync-ed with the carousel slides.
+  -->
   <div>
-      <amp-img lightbox="toronto"
-        src="https://picsum.photos/1600/900?image=1075"
-        layout="responsive"
-        width="1600"
-        height="900"
-        alt="Picture of CN tower.">
+    <amp-carousel lightbox width="300" height="200" layout="responsive" type="slides">
+      <amp-img src="/img/road-1.jpg" width="300" height="200" layout="responsive"></amp-img>
+      <amp-img src="/img/road-2.jpg" width="300" height="200" layout="responsive"></amp-img>
+      <amp-img src="/img/road-3.jpg" width="300" height="200" layout="responsive"></amp-img>
+    </amp-carousel>
+  </div>
+
+    <!-- ## Lightbox Groups -->
+    <!-- By default, all lightboxed elements will be grouped into the same lightbox unless they belong to a carousel. All elements in the same lightboxed carousel belong to the same lightbox. You can override this behavior by setting the lightbox attribute to a unique string. One common pattern is to have one hero image that opens up into a lightbox gallery of several images. -->
+
+    <div>
+      <amp-img lightbox="hero"
+        src="/img/clean-2.jpg"
+        width="400"
+        height="300"
+        layout="responsive">
+        <span class="overlay-text">See photo gallery</span>
       </amp-img>
     <div hidden>
-      <amp-youtube
-        lightbox="toronto"
-        width="480"
-        height="270"
+      <amp-img lightbox="hero"
+        src="/img/clean-1.jpg"
         layout="responsive"
-        data-videoid="UsZ2dXf7qh4"
-        autoplay>
-      </amp-youtube>
-      <amp-img
-        lightbox="toronto"
-        src="https://picsum.photos/900/1600?image=948"
-        layout="responsive"
-        width="900"
-        height="1600">
-      </amp-img>
-      <amp-ad data-slot="/30497360/a4a/a4a_native"
-        lightbox="toronto"
-        height="250"
-        type="doubleclick"
-        width="300">
-      </amp-ad>
-      <amp-img lightbox="toronto"
-        src="https://picsum.photos/1600/1600?image=430"
-        layout="responsive"
-        width="1600"
-        height="1600"
-        alt="Picture of new york city skyline">
-      </amp-img>
-      <amp-video lightbox="toronto"
-        width="480"
-        height="270"
-        src="/video/tokyo.mp4"
-        poster="/img/tokyo.jpg"
-        layout="responsive"
-        controls>
-        <source type="video/mp4" src="/video/tokyo.mp4">
-        <source type="video/webm" src="/video/tokyo.webm">
-      </amp-video>
+        width="400"
+        height="710"></amp-img>
+      <amp-img lightbox="hero"
+        src="/img/clean-3.jpg"
+        width="400"
+        height="300"
+        layout="responsive" ></amp-img>
     </div>
   </div>
+
   <!-- ## Captions -->
   <!--
   Optionally, you can specify a caption for each element in the lightbox. These fields are automatically read and displayed by the `<amp-lightbox-gallery>` in the following order of priority:
   - figcaption (if the lightboxed element is the child of a figure)
   - aria-describedby
-  - alt
-  - aria-label
-  - aria-labelledby
   This particular example uses the figcaption of a figure.
   -->
   <div>
@@ -114,30 +111,24 @@ The amp-lightbox-gallery component provides a "lightbox” experience for AMP co
       </figcaption>
     </figure>
   </div>
-  <!-- This example uses the alt attribute. -->
+  <!-- This example uses the aria-describedby attribute. -->
   <div>
     <amp-img
       lightbox
-      src="https://picsum.photos/1600/900?image=1075"
+      src="/img/cat-looking-up-300x200.jpg"
       layout="responsive"
-      width="1600"
-      height="900"
-      alt="Picture of CN tower">
+      width="300"
+      height="200"
+      aria-describedby="desc">
     </amp-img>
+    <div hidden id="desc">
+      Look at me I'm a cat.
+    </div>
   </div>
 
 
-  <!-- ## Usage with Carousel-->
-  <!--
-  You can also use `<amp-lightbox-gallery>` with `<amp-carousel>` to view the contents of the carousel in a lightbox. Just simply include a `<amp-carousel>` with `<amp-img>`s, and add the "lightbox" attribute to the `<amp-carousel>`. The lightbox images will be sync-ed with the carousel slides.
-  -->
-  <div>
-    <amp-carousel lightbox width="400" height="300" layout="responsive" type="slides">
-      <amp-img src="/img/image1.jpg" width="400" height="300" layout="responsive"></amp-img>
-      <amp-img src="/img/image2.jpg" width="400" height="300" layout="responsive"></amp-img>
-      <amp-img src="/img/image3.jpg" width="400" height="300" layout="responsive"></amp-img>
-    </amp-carousel>
-  </div>
+
+
 
 </body>
 </html>
