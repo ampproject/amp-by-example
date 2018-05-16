@@ -332,8 +332,8 @@ func handleProductsAutosuggestRequest(w http.ResponseWriter, r *http.Request) {
 
 	var productDescs []string
 	for _, productDescription := range products {
-        productDescs = append(productDescs, productDescription.Name)
-    }
+		productDescs = append(productDescs, productDescription.Name)
+	}
 
 	filteredStrs := Filter(productDescs, func(v string) bool {
 		return CaseInsensitiveContains(v, query)
