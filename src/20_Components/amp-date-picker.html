@@ -86,7 +86,7 @@
     format="YYYY-MM-DD"
     open-after-select
     input-selector="[name=date1]"
-    class="mr1 ml1 flex picker">
+    class="mr1 ml1 flex">
     <div class="ampstart-input inline-block mt1">
       <input class="border-none p0" name="date1" placeholder="Pick a date">
     </div>
@@ -111,7 +111,7 @@
     format="YYYY-MM-DD"
     open-after-select
     input-selector="[name=date2]"
-    class="mr1 ml1 flex picker">
+    class="mr1 ml1 flex">
     <div class="ampstart-input inline-block mt1">
       <input class="border-none p0" name="date2" placeholder="Pick a date">
     </div>
@@ -150,7 +150,7 @@
     highlighted="FREQ=YEARLY;DTSTART=20171124T110000Z;UNTIL=20171126T040000Z;BYMONTH=11;BYDAY=+4TH;WKST=SU"
     blocked="FREQ=YEARLY;WKST=SU;BYMONTH=12;BYMONTHDAY=25"
     input-selector="[name=date3]"
-    class="mr1 ml1 flex picker">
+    class="mr1 ml1 flex">
 
     <div class="ampstart-input inline-block mt1">
         <input class="border-none p0" name="date3" placeholder="Pick a date">
@@ -184,11 +184,11 @@
     min="2017-10-26"
     start-input-selector="#range-start"
     end-input-selector="#range-end"
-    class="mr1 ml1 flex picker">
+    class="mr1 ml1 flex">
     <div class="ampstart-input inline-block mt1">
       <input class="border-none p0" id="range-start" placeholder="Start date">
     </div>
-    <div class="ampstart-input inline-block mt1">
+    <div class="ampstart-input inline-block mt1 ml1">
       <input class="border-none p0" id="range-end" placeholder="End date">
     </div>
     <button class="ampstart-btn m1 caps" on="tap:range-date-picker.clear">Clear</button>
@@ -247,22 +247,24 @@
   `amp-date-picker` with mode="static" can display a calendar view.
   The static picker can be used with or without an attached input. -->
   <div>
-    <div class="flex align-content-center">
+    <div class="flex justify-center">
       <div class="ampstart-input inline-block mt1">
         <input class="border-none p0" id="static-picker-input" placeholder="Pick a date">
       </div>
       <button class="ampstart-btn m1 caps" on="tap:static-picker.clear">Clear</button>
     </div>
-    <amp-date-picker
-      id="static-picker"
-      type="single"
-      mode="static"
-      layout="fixed-height"
-      height="360"
-      format="YYYY-MM-DD"
-      input-selector="#static-picker-input"
-      class="align-content-center">
-    </amp-date-picker>
+    <div class="flex justify-center">
+      <amp-date-picker
+        id="static-picker"
+        type="single"
+        mode="static"
+        layout="fixed-height"
+        height="360"
+        format="YYYY-MM-DD"
+        input-selector="#static-picker-input"
+        class="justify-center">
+      </amp-date-picker>
+    </div>
   </div>
 
   <!-- ## Lightbox date picker -->
@@ -280,7 +282,7 @@
       <div class="ampstart-input inline-block mt1">
         <input class="border-none p0" id="lb-start" placeholder="Start date" on="tap:lb.open" role="textbox" tabindex="0">
       </div>
-      <div class="ampstart-input inline-block mt1">
+      <div class="ampstart-input inline-block mt1 ml1">
         <input class="border-none p0" id="lb-end" placeholder="End date" on="tap:lb.open" role="textbox" tabindex="0">
       </div>
       <button class="ampstart-btn m1 caps" on="tap:lb-picker.clear">Clear</button>
@@ -316,7 +318,7 @@
         <div class="ampstart-input inline-block mt1">
           <input class="border-none p0" id="lb-fullscreen-start" placeholder="Start date" on="tap:lb-fullscreen.open" role="textbox" tabindex="0">
         </div>
-        <div class="ampstart-input inline-block mt1">
+        <div class="ampstart-input inline-block mt1 ml1">
           <input class="border-none p0" id="lb-fullscreen-end" placeholder="End date" on="tap:lb-fullscreen.open" role="textbox" tabindex="0">
         </div>
         <button class="ampstart-btn m1 caps" on="tap:lb-fullscreen-picker.clear">Clear</button>
