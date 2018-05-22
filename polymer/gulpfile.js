@@ -18,7 +18,7 @@
 
 const gulp = require('gulp-help')(require('gulp'));
 const del = require('del');
-const gls = require('gulp-live-server');
+const serve = require('serve')
 const uglify = require('gulp-uglify');
 const pump = require('pump');
 const cleanCSS = require('gulp-clean-css');
