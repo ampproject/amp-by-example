@@ -107,13 +107,8 @@
       * or specify a `custom-bezier()` input.
     * `data-margin-start` - This parameter determines when to trigger the timed animation. The value specified in `<percent>` dictates that the animation should be triggered when the element is above the specified percentage of the viewport. The default value is `5%`
   -->
-  <!-- **Example 1: Title fade in with default attributes** -->
-  <div class="header">
-    <h1 amp-fx="fade-in">
-        <span class="title">Lorem Ipsum</span>
-    </h1>
-    <amp-img width="1600" height="900" layout="responsive" src="https://picsum.photos/1600/900?image=981"></amp-img>
-  </div>
+  <!-- **Example 1: Animation with default attribute** -->
+  <amp-img amp-fx="fade-in" width="1600" height="900" layout="responsive" src="https://picsum.photos/1600/900?image=981"></amp-img>
 
   <!-- **Example 2: Slow animation** -->
   <amp-img amp-fx="fade-in" data-duration="2000ms" width="1280" height="873" layout="responsive" src="/img/Border_Collie.jpg" alt="Picture of an elephant"></amp-img>
@@ -132,13 +127,8 @@
     * `data-margin-end` - This parameter determines when to stop the timed animation. The value specified in `<percent>` dictates that the animation should be fully visible when the element crosses this threshold. The default value is `50%`
     * `data-repeat` - By default once the element is fully visible the opacity of the element is locked in. If the developer wants to change the opacity even after it the element is fully visible please specify this attribute on the element. 
   -->
-  <!-- **Example 1: Title scroll based fade in with default attribute** -->
-  <div class="header">
-    <h1 amp-fx="fade-in-scroll">
-        <span class="title">Lorem Ipsum</span>
-    </h1>
-    <amp-img width="1600" height="900" layout="responsive" src="https://picsum.photos/1600/900?image=981"></amp-img>
-  </div>
+  <!-- **Example 1: Animation with default attribute** -->
+  <amp-img amp-fx="fade-in-scroll" width="1600" height="900" layout="responsive" src="https://picsum.photos/1600/900?image=981"></amp-img>
 
   <!-- **Example 2: Animation triggers when the element is past 20% of the viewport and ends when it is past 80% of the viewport. ** -->
   <amp-img amp-fx="fade-in-scroll" data-margin-start="20%" data-margin-end="80%" width="1600" height="900" layout="responsive" src="/img/Border_Collie.jpg"></amp-img>
