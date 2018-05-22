@@ -30,6 +30,9 @@ const storyController = fs.readFileSync(__dirname + '/../templates/stories/page-
 const storyBookend = require('./bookend.json');
 
 const STORY_EMBED_DIR = __dirname + '/../api/dist/';
+const AMP_STORY_CLEANER_REGEX = ['amp-story', 'amp-story-auto-ads', 'amp-consent'].map(extension =>
+  new RegExp('<script\\s+async\\s+custom-element="' + extension + '"\\s+src="https:\\/\\/cdn\\.ampproject\\.org\\/v0\\/' + extension + '-\\d\\.\\d\\.js"><\\/script>')
+);
 
 /**
  * Collects a list of example files, renders them (using templateExample) and
@@ -435,8 +438,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
     if (!document.isAmpStory) {
       return string;
     }
-    string = string.replace(/<script\s+async\s+custom-element="amp-story"\s+src="https:\/\/cdn\.ampproject\.org\/v0\/amp-story-1\.0\.js">\s*<\/script>/, "");
-    string = string.replace(/<script\s+async\s+custom-element="amp-story-auto-ads"\s+src="https:\/\/cdn\.ampproject\.org\/v0\/amp-story-auto-ads-0\.1\.js">\s*<\/script>/, "");
+    AMP_STORY_CLEANER_REGEX.forEach(r => string = string.replace(r, ''));
     return string;
   }
 
