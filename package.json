@@ -17,7 +17,6 @@
     "dev": "gulp"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
     "clean-css": "^4.1.11",
     "glob": "^7.1.1",
     "handlebars": "^4.0.11",
@@ -56,7 +55,6 @@
     "gulp-if": "^2.0.0",
     "gulp-ignore": "^2.0.2",
     "gulp-jasmine": "^2.2.1",
-    "gulp-live-server": "0.0.30",
     "gulp-rename": "^1.2.2",
     "gulp-run": "^1.7.1",
     "gulp-util": "^3.0.7",
@@ -69,6 +67,7 @@
     "pngjs": "^3.3.3",
     "resize-img": "^1.1.2",
     "run-sequence": "^1.1.5",
+    "serve": "^6.5.7",
     "sitemap": "^1.5.0",
     "stream-to-buffer": "^0.1.0",
     "sw-toolbox": "^3.5.1",
