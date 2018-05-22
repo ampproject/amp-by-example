@@ -207,6 +207,21 @@ describe("DocumentParser", function() {
     });
   });
 
+  describe('parses lang', function() {
+    it("defaults to en", function() {
+      const document = parse('<html>');
+      expect(document.lang).toBe('en');
+    });
+    it("uses lang attr otherwise", function() {
+      const document = parse('<html ⚡ lang="de">');
+      expect(document.lang).toBe('de');
+    });
+    it("handles comments before", function() {
+      const document = parse('<!-- -->', '<html ⚡ lang="de">');
+      expect(document.lang).toBe('de');
+    });
+  })
+
   describe('parses stories', function() {
     it("sets isAmpStory to true", function() {
       const document = parse('<body>', '<amp-story standalone>', '</amp-story>', '</body>');
