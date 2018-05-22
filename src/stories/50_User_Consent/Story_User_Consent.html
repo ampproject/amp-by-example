@@ -94,31 +94,32 @@
       The `amp-consent` component allows to specify the required user consent for this page.  A CORS endpoint can be specified via the `checkConsentHref` attribute. This endpoint will be queried via a POST request to determine if the consent UI specified for it needs to be shown. The response should look like this:
       ```json
       {
-        'promptIfUnknown': boolean (true/false)
+        "promptIfUnknown": [true|false]
       }
       ```
-      The response will indicate if the consent needs to be shown or not. If it needs to be shown, the element with the id given in `promptUI` will be displayed.
-
-      You can specify title, message and a list of vendors inside the `story-consent` section.
+      The response will indicate if the consent needs to be shown or not. If it needs to be shown, the element with the id given in `promptUI` will be displayed. For AMP Stories, you can specify consent title, message and a list of vendors inside a nested `amp-story-consent` element.
       -->
-      <amp-consent id="ABC" layout="nodisplay">
-       <script type="application/json">
-       {
-         "consents": {
-            "ABC": {
-               "checkConsentHref": "/samples_templates/consent/getConsent",
-               "promptUI": "consentUI"
-             }
-          },
-         "story-consent": {
-             "title": "Header",
-             "message": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
-             "vendors": ["Vendor", "Vendor", "Vendor", "Vendor"]
-         }
-       }
-       </script>
-       <amp-story-consent id="consentUI" layout="nodisplay"></amp-story-consent>
-     </amp-consent>
+      <amp-consent id="myConsent" layout="nodisplay">
+        <script type="application/json">
+          {
+             "consents": {
+                "myConsent": {
+                   "checkConsentHref": "/samples_templates/consent/getConsent",
+                   "promptUI": "consentUI"
+                 }
+              }
+           }
+        </script>
+        <amp-story-consent id="consentUI" layout="nodisplay">
+          <script type="application/json">
+            {
+              "title": "Headline",
+              "message": "This is some more information about this choice. Here's a list of items related to this choice.",
+              "vendors": ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10"]
+            }
+          </script>
+        </amp-story-consent>
+      </amp-consent>
 
       <amp-story-page id="page-1"  auto-advance-after="1s">
         <amp-story-grid-layer template="fill">
