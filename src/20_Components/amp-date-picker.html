@@ -55,12 +55,42 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
     flex-direction: row;
+  }
+
+  .space-between > * + * {
+    margin-left: 1em;
   }
 
   amp-lightbox {
     background: rgba(0, 0, 0, .75);
+  }
+
+  amp-lightbox .align-content-center {
+    height: 100%;
+  }
+
+  .example-picker {
+    display: flex;
+  }
+
+  .example-picker[mode="overlay"] {
+    padding: 1em;
+  }
+
+  .small-button {
+    font-size: .75em;
+    line-height: .75em;
+    margin: .75em;
+  }
+
+  .icon-input {
+    background-image: url('data:image/svg+xml,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1393.1 1500" style="enable-background:new 0 0 1393.1 1500;" xml:space="preserve"><path d="M107.2,1392.9h241.1v-241.1H107.2V1392.9z M401.9,1392.9h267.9v-241.1H401.9V1392.9z M107.2,1098.2h241.1V830.4H107.2 V1098.2z M401.9,1098.2h267.9V830.4H401.9V1098.2z M107.2,776.8h241.1V535.7H107.2V776.8z M723.4,1392.9h267.9v-241.1H723.4V1392.9z M401.9,776.8h267.9V535.7H401.9V776.8z M1044.8,1392.9H1286v-241.1h-241.1V1392.9z M723.4,1098.2h267.9V830.4H723.4V1098.2z M428.7,375V133.9c0-7.3-2.7-13.5-8-18.8c-5.3-5.3-11.6-8-18.8-8h-53.6c-7.3,0-13.5,2.7-18.8,8c-5.3,5.3-8,11.6-8,18.8V375 c0,7.3,2.7,13.5,8,18.8c5.3,5.3,11.6,8,18.8,8h53.6c7.3,0,13.5-2.7,18.8-8C426,388.5,428.7,382.3,428.7,375z M1044.8,1098.2H1286 V830.4h-241.1V1098.2z M723.4,776.8h267.9V535.7H723.4V776.8z M1044.8,776.8H1286V535.7h-241.1V776.8z M1071.6,375V133.9 c0-7.3-2.7-13.5-8-18.8c-5.3-5.3-11.6-8-18.8-8h-53.6c-7.3,0-13.5,2.7-18.8,8c-5.3,5.3-8,11.6-8,18.8V375c0,7.3,2.7,13.5,8,18.8 c5.3,5.3,11.6,8,18.8,8h53.6c7.3,0,13.5-2.7,18.8-8C1069,388.5,1071.6,382.3,1071.6,375z M1393.1,321.4v1071.4 c0,29-10.6,54.1-31.8,75.3c-21.2,21.2-46.3,31.8-75.3,31.8H107.2c-29,0-54.1-10.6-75.3-31.8C10.6,1447,0,1421.9,0,1392.9V321.4 c0-29,10.6-54.1,31.8-75.3s46.3-31.8,75.3-31.8h107.2v-80.4c0-36.8,13.1-68.4,39.3-94.6S311.4,0,348.3,0h53.6 c36.8,0,68.4,13.1,94.6,39.3c26.2,26.2,39.3,57.8,39.3,94.6v80.4h321.5v-80.4c0-36.8,13.1-68.4,39.3-94.6 C922.9,13.1,954.4,0,991.3,0h53.6c36.8,0,68.4,13.1,94.6,39.3s39.3,57.8,39.3,94.6v80.4H1286c29,0,54.1,10.6,75.3,31.8 C1382.5,267.3,1393.1,292.4,1393.1,321.4z"/></svg>');
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+    height: 28px;
+    margin-top: 8px;
+    width: 27px;
   }
   </style>
 </head>
@@ -86,11 +116,12 @@
     format="YYYY-MM-DD"
     open-after-select
     input-selector="[name=date1]"
-    class="mr1 ml1 flex">
-    <div class="ampstart-input inline-block mt1">
+    class="example-picker space-between">
+    <div class="icon-input"></div>
+    <div class="ampstart-input">
       <input class="border-none p0" name="date1" placeholder="Pick a date">
     </div>
-    <button class="ampstart-btn m1 caps" on="tap: simple-date-picker.clear">Clear</button>
+    <button class="ampstart-btn caps" on="tap: simple-date-picker.clear">Clear</button>
     <template type="amp-mustache" info-template>
       <span [text]="date1 != null ? 'You picked ' + date1 + '.' : 'You will see your chosen date here.'">You will see your chosen date here.</span>
     </template>
@@ -111,11 +142,11 @@
     format="YYYY-MM-DD"
     open-after-select
     input-selector="[name=date2]"
-    class="mr1 ml1 flex">
-    <div class="ampstart-input inline-block mt1">
+    class="example-picker space-between">
+    <div class="ampstart-input">
       <input class="border-none p0" name="date2" placeholder="Pick a date">
     </div>
-    <button class="ampstart-btn m1 caps" on="tap: simple-date-picker-2.clear">Clear</button>
+    <button class="ampstart-btn caps" on="tap: simple-date-picker-2.clear">Clear</button>
     <template
       type="amp-mustache"
       date-template
@@ -132,42 +163,11 @@
     </template>
   </amp-date-picker>
 
-  <!--
-    `amp-date-picker` supports a range of attributes, for example `highlighted` and `blocked`. Find the complete list in the official [doc](https://github.com/ampproject/amphtml/tree/master/extensions/amp-date-picker/0.1).
-    The `blocked` attribute allows to specify a space separated list of ISO 8601 dates and RFC 5545 RRULEs specifying disallowed dates.
-    The `highlighted` attributes a space separated list of ISO 8601 dates and RFC 5545 RRULEs specifying dates displayed with a highlight style.
-    Here every Black Friday is `highlighted`, while every Christmas is `blocked`.
-  -->
-  <amp-date-picker
-    id="simple-date-picker-3"
-    type="single"
-    mode="overlay"
-    layout="container"
-    on="select:AMP.setState({date3: event.date ? event.date : ''})"
-    locale="en"
-    format="YYYY-MM-DD"
-    open-after-select
-    highlighted="FREQ=YEARLY;DTSTART=20171124T110000Z;UNTIL=20171126T040000Z;BYMONTH=11;BYDAY=+4TH;WKST=SU"
-    blocked="FREQ=YEARLY;WKST=SU;BYMONTH=12;BYMONTHDAY=25"
-    input-selector="[name=date3]"
-    class="mr1 ml1 flex">
-
-    <div class="ampstart-input inline-block mt1">
-        <input class="border-none p0" name="date3" placeholder="Pick a date">
-      </div>
-    <button class="ampstart-btn m1 caps" on="tap:simple-date-picker-3.clear">Clear</button>
-    <template type="amp-mustache" info-template>
-      <span [text]="date3 ? 'You picked ' + date3 + '.' : 'You will see your chosen date here.'">You will see your chosen date here.</span>
-    </template>
-  </amp-date-picker>
-
   <!-- ## Date Range Picker -->
   <!--
     `amp-date-picker` with `type=range` can be used for selecting a date range.
     By default, `amp-date-picker` disables past dates, use `min` attribute to enable them.
   -->
-  <div>
-  <button class="ampstart-btn m1 caps" on="tap:range-date-picker.setDates(startDate='2017-10-26',endDate='2017-11-04')">Set date range</button>
   <amp-date-picker
     type="range"
     mode="overlay"
@@ -184,14 +184,14 @@
     min="2017-10-26"
     start-input-selector="#range-start"
     end-input-selector="#range-end"
-    class="mr1 ml1 flex">
-    <div class="ampstart-input inline-block mt1">
+    class="example-picker space-between">
+    <div class="ampstart-input">
       <input class="border-none p0" id="range-start" placeholder="Start date">
     </div>
-    <div class="ampstart-input inline-block mt1 ml1">
+    <div class="ampstart-input">
       <input class="border-none p0" id="range-end" placeholder="End date">
     </div>
-    <button class="ampstart-btn m1 caps" on="tap:range-date-picker.clear">Clear</button>
+    <button class="ampstart-btn caps" on="tap:range-date-picker.clear">Clear</button>
     <template type="amp-mustache" info-template>
       <span [text]="(startDate && endDate ?
         'You picked ' + startDate.date + ' as start date and ' + endDate.date + ' as end date.' :
@@ -200,7 +200,6 @@
       </span>
     </template>
   </amp-date-picker>
-  </div>
 
   <!-- ## External Configuration -->
   <!--
@@ -211,6 +210,7 @@
       "templates": [{
         "id": "spooky",
         "dates": [
+          "FREQ=WEEKLY;DTSTART=20180101T160000Z;BYDAY=MO",
           "FREQ=YEARLY;DTSTART=20180101T160000Z;WKST=SU;BYMONTH=10;BYMONTHDAY=31",
           "FREQ=MONTHLY;DTSTART=20180101T160000Z;WKST=SU;BYDAY=FR;BYMONTHDAY=13"
         ]
@@ -219,7 +219,7 @@
 ```
   For dates that match the list of dates in the JSON blob, the template with
   `id="spooky"` will be used to render that day in the calendar. In this case,
-  these dates are Friday the 13ths, and Halloween.
+  these dates are Mondays, Friday the 13ths, and Halloween.
    -->
   <amp-date-picker
     id="src-picker"
@@ -229,16 +229,13 @@
     format="YYYY-MM-DD"
     src="<%host%>/json/amp-date-picker.json"
     input-selector="#src-input"
-    class="m1 flex">
-    <div class="ampstart-input inline-block mt1">
+    class="example-picker space-between">
+    <div class="ampstart-input">
       <input class="border-none p0" id="src-input" placeholder="Pick a date">
     </div>
-    <button class="ampstart-btn m1 caps" on="tap: src-picker.clear">Clear</button>
+    <button class="ampstart-btn caps" on="tap: src-picker.clear">Clear</button>
     <template type="amp-mustache" date-template id="spooky">
-      <div class="align-content-center">
-        <span>🙀</span>
-        <span>{{D}}</span>
-      </div>
+      <span>🙀</span>
     </template>
   </amp-date-picker>
 
@@ -246,14 +243,7 @@
   <!--
   `amp-date-picker` with mode="static" can display a calendar view.
   The static picker can be used with or without an attached input. -->
-  <div>
-    <div class="flex justify-center">
-      <div class="ampstart-input inline-block mt1">
-        <input class="border-none p0" id="static-picker-input" placeholder="Pick a date">
-      </div>
-      <button class="ampstart-btn m1 caps" on="tap:static-picker.clear">Clear</button>
-    </div>
-    <div class="flex justify-center">
+  <div class="align-content-center">
       <amp-date-picker
         id="static-picker"
         type="single"
@@ -261,11 +251,51 @@
         layout="fixed-height"
         height="360"
         format="YYYY-MM-DD"
-        input-selector="#static-picker-input"
-        class="justify-center">
+        input-selector="#static-picker-input">
+      </amp-date-picker>
+  </div>
+
+  <!--
+    `amp-date-picker` supports a range of attributes, for example `highlighted` and `blocked`. Find the complete list in the official [doc](https://github.com/ampproject/amphtml/tree/master/extensions/amp-date-picker/0.1).
+    The `blocked` attribute allows to specify a space separated list of ISO 8601 dates and RFC 5545 RRULEs specifying disallowed dates.
+    The `highlighted` attributes a space separated list of ISO 8601 dates and RFC 5545 RRULEs specifying dates displayed with a highlight style.
+    Here every Thursday is `highlighted`, while every weekend is `blocked`.
+  -->
+  <div class="align-content-center">
+    <amp-date-picker
+      id="simple-date-picker-3"
+      type="single"
+      mode="static"
+      layout="fixed-height"
+      height="360"
+      on="select:AMP.setState({date3: event.date ? event.date : ''})"
+      locale="en"
+      format="YYYY-MM-DD"
+      highlighted="FREQ=WEEKLY;WKST=SU;BYDAY=TH"
+      blocked="FREQ=WEEKLY;WKST=SU;BYDAY=SA,SU">
+    </amp-date-picker>
+  </div>
+
+  <!--
+    If the date picker uses `type="range"` and there are blocked dates that are
+    allowed to be part of the range, the `allow-blocked-dates` attribute
+    allows users to select ranges that include blocked dates.
+  -->
+  <div class="align-content-center">
+      <amp-date-picker
+        id="simple-date-picker-4"
+        type="range"
+        mode="static"
+        layout="fixed-height"
+        height="360"
+        on="select:AMP.setState({date4: event.date ? event.date : ''})"
+        locale="en"
+        format="YYYY-MM-DD"
+        allow-blocked-ranges
+        highlighted="FREQ=WEEKLY;WKST=SU;BYDAY=TH"
+        blocked="FREQ=WEEKLY;WKST=SU;BYDAY=SA,SU">
       </amp-date-picker>
     </div>
-  </div>
 
   <!-- ## Lightbox date picker -->
   <!--
@@ -276,19 +306,19 @@
     view. For a touch-only interface box, the `on="tap:..."` attribute opens the
     picker when the user taps on the input.
   -->
-  <div>
+  <div class="p1">
     <p>Choose your travel dates</p>
-    <div class="flex">
-      <div class="ampstart-input inline-block mt1">
+    <div class="align-content-center space-between">
+      <div class="ampstart-input">
         <input class="border-none p0" id="lb-start" placeholder="Start date" on="tap:lb.open" role="textbox" tabindex="0">
       </div>
-      <div class="ampstart-input inline-block mt1 ml1">
+      <div class="ampstart-input">
         <input class="border-none p0" id="lb-end" placeholder="End date" on="tap:lb.open" role="textbox" tabindex="0">
       </div>
-      <button class="ampstart-btn m1 caps" on="tap:lb-picker.clear">Clear</button>
+      <button class="ampstart-btn caps" on="tap:lb-picker.clear">Clear</button>
     </div>
     <amp-lightbox id="lb" layout="nodisplay">
-      <button class="ampstart-btn absolute m1 caps" on="tap:lb.close" tabindex="0">Close</button>
+      <button class="ampstart-btn absolute m1 caps small-button" on="tap:lb.close" tabindex="0">Close</button>
       <div class="align-content-center">
         <amp-date-picker
           id="lb-picker"
@@ -312,19 +342,19 @@
     The `fullscreen` attribute tells the date picker to take up the space in
     its container and allow its content to scroll vertically.
   -->
-  <div>
+  <div class="p1">
       <p>Choose your travel dates</p>
-      <div class="flex">
-        <div class="ampstart-input inline-block mt1">
+      <div class="align-content-center space-between">
+        <div class="ampstart-input">
           <input class="border-none p0" id="lb-fullscreen-start" placeholder="Start date" on="tap:lb-fullscreen.open" role="textbox" tabindex="0">
         </div>
-        <div class="ampstart-input inline-block mt1 ml1">
+        <div class="ampstart-input">
           <input class="border-none p0" id="lb-fullscreen-end" placeholder="End date" on="tap:lb-fullscreen.open" role="textbox" tabindex="0">
         </div>
-        <button class="ampstart-btn m1 caps" on="tap:lb-fullscreen-picker.clear">Clear</button>
+        <button class="ampstart-btn caps" on="tap:lb-fullscreen-picker.clear">Clear</button>
       </div>
       <amp-lightbox id="lb-fullscreen" layout="nodisplay" scrollable>
-        <button class="ampstart-btn m1 absolute caps z3" on="tap:lb-fullscreen.close" tabindex="0">Close</button>
+        <button class="ampstart-btn m1 absolute caps z3 small-button" on="tap:lb-fullscreen.close" tabindex="0">Close</button>
         <amp-date-picker
           id="lb-fullscreen-picker"
           fullscreen
@@ -348,7 +378,7 @@
     form.
   -->
   <form method="post"
-    class="p2"
+    class="p1"
     action-xhr="/components/amp-form/submit-form-xhr"
     target="_top">
     <amp-date-picker
