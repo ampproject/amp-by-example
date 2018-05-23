@@ -1,7 +1,7 @@
 <!--
   ## Introduction
 
-  The amp-facebook-page component allows embedding Facebook pages into AMP files.
+  The [amp-facebook-page](https://www.ampproject.org/docs/reference/components/amp-facebook-page) component allows embedding Facebook pages into AMP files.
 -->
 <!-- -->
 <!doctype html>
@@ -20,7 +20,7 @@
   <body>
 
     <!-- ## Basic Usage -->
-    <!-- The `amp-facebook-page` component only requires the href of the facebook post... -->
+    <!-- The `amp-facebook-page` component only requires the href of the facebook post. -->
     <amp-facebook-page width="340" height="130"
         layout="responsive"
         data-href="https://www.facebook.com/imdb/">
@@ -29,20 +29,23 @@
     <!-- ## Customizing the embed -->
     <!-- The `amp-facebook-page` component allows you to customize the embed via several attributes: -->
 
-    <!-- **Example 1: You can set the locale to render the page in a different language, for example French.** -->
+    <!-- ## Internationalization support -->
+    <!-- **You can set the locale to render the page in a different language, for example French.** -->
     <amp-facebook-page width="340" height="130"
         layout="responsive"
         data-href="https://www.facebook.com/imdb/"
         data-locale="fr_FR">
     </amp-facebook-page>
 
-    <!-- **Example 2: Render the `timeline` and `events` tab for a particular Facebook page.** -->
+    <!-- ## Show different tabs -->
+    <!-- **Render the `timeline` and `events` tab for a particular Facebook page.** -->
     <amp-facebook-page width="552" height="310"
         layout="responsive"
         data-tabs="timeline, events"
         data-href="https://www.facebook.com/barackobama/">
     </amp-facebook-page>
 
+    <!-- ## Facebook page cover -->
     <!-- **Example 3: Hide the cover of a particular Facebook page.** -->
     <amp-facebook-page width="552" height="310"
         layout="responsive"
@@ -50,6 +53,7 @@
         data-href="https://www.facebook.com/manchesterunited/">
     </amp-facebook-page>
 
+    <!-- ## Friends -->
     <!-- **Example 4: Hide the friends who follow a particular Facebook page. (Need to be logged in to see this)** -->
     <amp-facebook-page width="300" height="300"
         layout="responsive"
@@ -57,6 +61,7 @@
         data-href="https://www.facebook.com/itsdougthepug">
     </amp-facebook-page>
 
+    <!-- ## Call to action -->
     <!-- **Example 5: Hide the call to action for a particular Facebook page.** -->
     <amp-facebook-page width="300" height="300"
         layout="responsive"
@@ -64,6 +69,7 @@
         data-href="https://www.facebook.com/TCF.Pak/">
     </amp-facebook-page>
 
+    <!-- ## Change header size -->
     <!-- **Example 6: Show a small header for the page.** -->
     <amp-facebook-page width="300" height="300"
         layout="responsive"
