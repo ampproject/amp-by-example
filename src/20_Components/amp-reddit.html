@@ -1,7 +1,7 @@
 <!--
   ## Introduction
 
-  The amp-reddit component allows embedding both reddit posts and comments into AMP files.
+  The [amp-reddit](https://www.ampproject.org/docs/reference/components/amp-reddit) component allows embedding both reddit posts and comments into AMP files.
 -->
 <!-- -->
 <!doctype html>
@@ -21,7 +21,7 @@
 
     <!-- ## Basic Usage -->
     <!-- The `amp-reddit` component requires to be told that the embed is a post/comment as well as the source of the embed -->
-    <!-- **Example 1: Embedding a post.** -->
+    <!-- ### Embedding a post -->
     <amp-reddit
       layout="responsive"
       width="300"
@@ -30,7 +30,7 @@
       data-src="https://www.reddit.com/r/me_irl/comments/52rmir/me_irl/?ref=share&amp;ref_source=embed">
     </amp-reddit>
 
-    <!-- **Example 2: Embedding comments.** -->
+    <!-- ### Embedding comments -->
     <amp-reddit
       layout="responsive"
       width="400"
@@ -41,7 +41,7 @@
 
   <!-- ## Customization for embedding comments -->
 
-  <!-- **Example 3: The following comment also embeds the parent comment.** -->
+  <!-- ### Embed the parent comment. -->
     <amp-reddit
       layout="responsive"
       width="400"
@@ -51,7 +51,7 @@
       data-embedparent="true">
     </amp-reddit>
 
-  <!-- **Example 4: The following comment updates when the original comment is updated.** -->
+  <!-- ### Update comment when the original comment is updated. -->
   <amp-reddit
     layout="responsive"
     width="400"
