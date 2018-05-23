@@ -1,7 +1,7 @@
 <!--
   ## Introduction
 
-  The amp-facebook-comments component allows embedding Facebook comments into AMP files.
+  The [amp-facebook-comments](https://www.ampproject.org/docs/reference/components/amp-facebook-comments) component allows embedding Facebook comments into AMP files.
 -->
 <!-- -->
 <!doctype html>
@@ -29,7 +29,8 @@
     <!-- ## Customizing the embed -->
     <!-- The `amp-facebook-comments` component allows you to customize the embed via several attributes: -->
 
-    <!-- **Example 1: You can set the locale to render the comments in a different language, for example French.** -->
+    <!-- ### Internationalization support -->
+    <!-- ** You can set the locale to render the comments in a different language, for example French.** -->
     <amp-facebook-comments width="552" height="310"
         layout="responsive"
         data-order-by="social"
@@ -37,22 +38,24 @@
         data-locale="fr_FR">
     </amp-facebook-comments>
 
-    <!-- **Example 2: You can restrict the number of comments to show at a time.** -->
+    <!-- ### Limit number of comments -->
+    <!-- **You can restrict the number of comments to show at a time.** -->
     <amp-facebook-comments width="552" height="310"
         layout="responsive"
         data-numposts="5"
         data-href="http://www.directlyrics.com/adele-25-complete-album-lyrics-news.html">
     </amp-facebook-comments>
 
-    <!-- **Example 3: Set the color scheme of the comments to be dark.** -->
+    <!-- ### Theming -->
+    <!-- **Set the color scheme of the comments to be dark.** -->
     <amp-facebook-comments width="552" height="310"
         layout="responsive"
         data-colorscheme="dark"
         data-href="http://www.directlyrics.com/adele-25-complete-album-lyrics-news.html">
     </amp-facebook-comments>
 
-
-    <!-- **Example 4: By default the comments are ordered in order of most popular, you can change that to be time based.** -->
+    <!-- ### Comment ordering -->
+    <!-- **By default the comments are ordered in order of most popular, you can change that to be time based.** -->
     <amp-facebook-comments width="552" height="310"
         layout="responsive"
         data-order-by="time"
