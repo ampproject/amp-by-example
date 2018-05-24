@@ -22,7 +22,7 @@ import (
 	"path"
 )
 
-const NUMBER_OF_CONFIGS = 2
+const NUMBER_OF_CONFIGS = 5
 
 func InitAmpStoryAutoAds() {
 	http.HandleFunc("/json/amp-story-auto-ads/", serveRandomAdConfig)
