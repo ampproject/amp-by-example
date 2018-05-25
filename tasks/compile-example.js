@@ -304,6 +304,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
           currentSection.categories = [];
           sections.push(currentSection);
           currentSection.selected = false;
+          currentCategory = null;
         }
         // add example to categories instance
         if (!currentCategory ||
