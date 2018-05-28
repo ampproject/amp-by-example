@@ -44,6 +44,9 @@ module.exports = function(config, indexPath, updateTimestamp) {
   let examples;
   let timestamp = new Date().toISOString();
 
+  const postProcessors = [
+    replaceAmpAdRuntime, replaceAmpStoryRuntime, replaceAmpHtmlEmailRuntimeAddViewport];
+
   if (typeof config.templates.root === 'string') {
     pageTemplates = Templates.get(config.templates.root,/* minify */ true);
     sampleTemplates = Templates.get(config.templates.root,/* minify */ false, '<% %>');
@@ -210,6 +213,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
         includesAnalytics: document.importsComponent('amp-analytics'),
         includesLiveList: document.importsComponent('amp-live-list'),
         includesAccordion: document.importsComponent('amp-accordion'),
+        includesIframe: document.importsComponent('amp-iframe'),
         includesSelector: document.importsComponent('amp-selector'),
         includesSidebar: document.importsComponent('amp-sidebar'),
         includesServiceWorker: document.importsComponent('amp-install-serviceworker') || document.metadata.skipServiceWorker
@@ -232,14 +236,14 @@ module.exports = function(config, indexPath, updateTimestamp) {
         template: config.templates.example,
         targetPath: example.targetPath(),
         isEmbed: false,
-        postProcessors: [replaceAmpAdRuntime, replaceAmpStoryRuntime]
+        postProcessors: postProcessors
       });
 
       // compile embed
       compileTemplate(stream, example, args, {
         template: config.templates.example,
         targetPath: example.targetEmbedPath(),
-        postProcessors: [replaceAmpAdRuntime, replaceAmpStoryRuntime],
+        postProcessors: postProcessors,
         isEmbed: true
       });
 
@@ -259,6 +263,13 @@ module.exports = function(config, indexPath, updateTimestamp) {
         args.a4aEmbedUrl = example.urlSource();
       }
 
+      // amp4email preview embeds the original sample via iframe
+      if (document.isAmpHtmlEmail()) {
+        previewTemplate = config.amp4email.template;
+        args.width = document.metadata.width || config.amp4email.defaultWidth;
+        args.height = document.metadata.height || config.amp4email.defaultHeight;
+      }
+
       args.title = example.title() + ' (Preview) - ' + 'AMP by Example';
       args.desc = "This is a live preview of the '" + example.title() + "' sample. " + args.desc;
       args.canonical = config.host + example.url() + 'preview/';
@@ -273,7 +284,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
         compileTemplate(stream, example, args, {
           template: previewTemplate,
           targetPath: example.targetPreviewPath(),
-          postProcessors: [replaceAmpAdRuntime, replaceAmpStoryRuntime],
+          postProcessors: postProcessors,
           isEmbed: false
         });
       }
@@ -443,6 +454,16 @@ module.exports = function(config, indexPath, updateTimestamp) {
       return string;
     }
     return string.replace("https://amp-ads.firebaseapp.com/dist/amp-inabox.js", "https://amp-ads.firebaseapp.com/dist/amp.js");
+  }
+
+  function replaceAmpHtmlEmailRuntimeAddViewport(document, string) {
+    if (!document.isAmpHtmlEmail) {
+      return string;
+    }
+    return string.replace(
+      `<style amp4email-boilerplate>body{visibility:hidden}</style>`,
+      `<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+       <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">`);
   }
 
   function clone(obj) {
