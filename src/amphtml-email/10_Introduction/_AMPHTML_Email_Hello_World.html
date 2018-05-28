@@ -43,8 +43,12 @@ The AMPHTML Email format provides a subset of AMP components that you can use in
     </p>
   -->
   <style amp-custom>
-    h1 {
+    .hello {
       color: red;
+      font-size: 24px;
+    }
+    .images {
+      max-width: 100%;
     }
   </style>
 </head>
@@ -54,7 +58,7 @@ The AMPHTML Email format provides a subset of AMP components that you can use in
   <!--
     Just like in AMP HTML, in AMPHTML Email, most HTML tags can be used directly.
   -->
-  <h1>Hello World!</h1>
+  <div class="hello">Hello World!</div>
   <!--
     Certain tags, such as the `<img>` tag, are replaced
     with equivalent or slightly enhanced custom AMP HTML tags (see
@@ -64,42 +68,44 @@ The AMPHTML Email format provides a subset of AMP components that you can use in
       <div class="p1 ampstart-card abe-info"><strong>Important:</strong> URLs most use absolut paths in AMPHTML email.</div>
     </p>
   -->
-  <amp-img src="https://ampbyexample.com/img/amp.jpg" width="400" height="300"></amp-img>
-  <!--
-    ### AMP Components
-  
-    The following AMP components are supported in AMPHTML email messages.
-    <h4>Dynamic Content </h4>
-    <ul>
-      <li>[`<amp-form>`](https://ampbyexample.com/components/amp-form/)</li>
-      <li>[`<amp-selector>`](https://ampbyexample.com/components/amp-selector/)</li>
-      <li>[`<amp-bind>` and `<amp-state>`](https://ampbyexample.com/components/amp-bind/)</li>
-      <li>[`<amp-list>`](https://ampbyexample.com/components/amp-list/)</li>
-      <li>[`<template type="amp-mustache">`](https://ampbyexample.com/components/amp-mustache/)</li>
-    </ul>
-    <h4>Layout</h4>
-    <ul>
-      <li>[`<amp-accordion>`](https://ampbyexample.com/components/amp-accordion/)</li>
-      <li>[`<amp-carousel>`](https://ampbyexample.com/components/amp-carousel/)</li>
-      <li>[`<amp-sidebar>`](https://ampbyexample.com/components/amp-sidebar/)</li>
-      <li>[`<amp-image-lightbox>`](https://ampbyexample.com/components/amp-image-lightbox/)</li>
-      <li>[`<amp-lightbox>`](https://ampbyexample.com/components/amp-lightbox/)</li>
-      <li>[`<amp-fit-text>`](https://ampbyexample.com/components/amp-fit-text/)</li>
-      <li>[`<amp-timeago>`](https://ampbyexample.com/components/amp-timeago/)</li>
-    </ul>
-    <h4>Media</h4>
-    <ul>
-      <li>[`<amp-img>`](https://ampbyexample.com/components/amp-img/)</li>
-      <li>[`<amp-anim>`](https://ampbyexample.com/components/amp-anim/)</li>
-    </ul>
+  <div class="images">
+    <amp-img src="https://ampbyexample.com/img/amp.jpg" width="800" height="600" layout="responsive"></amp-img>
+    <!--
+      ### AMP Components
+    
+      The following AMP components are supported in AMPHTML email messages.
+      <h4>Dynamic Content </h4>
+      <ul>
+        <li>[`<amp-form>`](https://ampbyexample.com/components/amp-form/)</li>
+        <li>[`<amp-selector>`](https://ampbyexample.com/components/amp-selector/)</li>
+        <li>[`<amp-bind>` and `<amp-state>`](https://ampbyexample.com/components/amp-bind/)</li>
+        <li>[`<amp-list>`](https://ampbyexample.com/components/amp-list/)</li>
+        <li>[`<template type="amp-mustache">`](https://ampbyexample.com/components/amp-mustache/)</li>
+      </ul>
+      <h4>Layout</h4>
+      <ul>
+        <li>[`<amp-accordion>`](https://ampbyexample.com/components/amp-accordion/)</li>
+        <li>[`<amp-carousel>`](https://ampbyexample.com/components/amp-carousel/)</li>
+        <li>[`<amp-sidebar>`](https://ampbyexample.com/components/amp-sidebar/)</li>
+        <li>[`<amp-image-lightbox>`](https://ampbyexample.com/components/amp-image-lightbox/)</li>
+        <li>[`<amp-lightbox>`](https://ampbyexample.com/components/amp-lightbox/)</li>
+        <li>[`<amp-fit-text>`](https://ampbyexample.com/components/amp-fit-text/)</li>
+        <li>[`<amp-timeago>`](https://ampbyexample.com/components/amp-timeago/)</li>
+      </ul>
+      <h4>Media</h4>
+      <ul>
+        <li>[`<amp-img>`](https://ampbyexample.com/components/amp-img/)</li>
+        <li>[`<amp-anim>`](https://ampbyexample.com/components/amp-anim/)</li>
+      </ul>
 
-    Since we imported the `amp-carousel` component in the header as example, let's try it here.
-  -->
-  <amp-carousel width="400" height="300" type="slides">
-    <amp-img src="https://ampbyexample.com/img/image1.jpg" width="400" height="300" alt="a sample image"></amp-img>
-    <amp-img src="https://ampbyexample.com/img/image2.jpg" width="400" height="300" alt="another sample image"></amp-img>
-    <amp-img src="https://ampbyexample.com/img/image3.jpg" width="400" height="300" alt="and another sample image"></amp-img>
-  </amp-carousel>
+      Since we imported the `amp-carousel` component in the header as example, let's try it here.
+    -->
+  <amp-carousel width="800" height="600" layout="responsive" type="slides">
+      <amp-img src="https://ampbyexample.com/img/image1.jpg" width="800" height="600" alt="a sample image"></amp-img>
+      <amp-img src="https://ampbyexample.com/img/image2.jpg" width="800" height="600" alt="another sample image"></amp-img>
+      <amp-img src="https://ampbyexample.com/img/image3.jpg" width="800" height="600" alt="and another sample image"></amp-img>
+    </amp-carousel>
+  </div>
   <!--
     ### Document dimensions
     **Optimal width**: 800px or less (any wider and content may be unexpectedly truncated on some clients).
