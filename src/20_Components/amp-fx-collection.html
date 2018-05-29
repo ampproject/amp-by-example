@@ -1,6 +1,6 @@
 <!---{
   "skipValidation": "true",
-  "experiments": ["amp-fx-fade-in", "amp-fx-fade-in-scroll"]
+  "experiments": ["amp-fx-fly-in"]
 }--->
 
 <!--
@@ -80,7 +80,7 @@
     * A value greater than 1 scrolls the element upward (element scrolls faster) when the user scrolls down the page.
     * A value less than 1 scrolls the element downward (element scrolls slower) when the user scrolls downward.
   -->
-  <!-- **Example 1: Title parallax** -->
+  <!-- ### Title parallax -->
   <div class="header">
     <h1 amp-fx="parallax" data-parallax-factor="1.3">
         <span class="title">Lorem Ipsum</span>
@@ -88,7 +88,7 @@
     <amp-img width="1600" height="900" layout="responsive" src="https://picsum.photos/1600/900?image=1069"></amp-img>
   </div>
 
-  <!-- **Example 2: Parallax image window** -->
+  <!-- ### Parallax image window -->
   <div class="parallax-image-window">
     <amp-img amp-fx="parallax" data-parallax-factor="1.1" width="1280" height="873" layout="responsive" src="/img/elephant.jpg" alt="Picture of an elephant"></amp-img>
   </div>
@@ -107,7 +107,9 @@
       * or specify a `custom-bezier()` input.
     * `data-margin-start` - This parameter determines when to trigger the timed animation. The value specified in `<percent>` dictates that the animation should be triggered when the element is above the specified percentage of the viewport. The default value is `5%`
   -->
-  <!-- **Example 1: Title fade in with default attributes** -->
+  <!-- ### Default attributes
+    Scroll triggered fade in animation with default attributes
+  -->
   <div class="header">
     <h1 amp-fx="fade-in">
         <span class="title">Lorem Ipsum</span>
@@ -115,13 +117,19 @@
     <amp-img width="1600" height="900" layout="responsive" src="https://picsum.photos/1600/900?image=981"></amp-img>
   </div>
 
-  <!-- **Example 2: Slow animation** -->
+  <!-- ### Slow animation
+    Fade in animation that lasts longer by specifying `data-duration="2000ms"`.
+   -->
   <amp-img amp-fx="fade-in" data-duration="2000ms" width="1280" height="873" layout="responsive" src="/img/Border_Collie.jpg" alt="Picture of an elephant"></amp-img>
 
-  <!-- **Example 3: Animation triggers when the element is past 50% of the viewport** -->
+  <!-- ### Delayed animations
+    Animation triggers when the element is past 50% of the viewport by specifying `data-margin-start="50%"`.
+  -->
   <amp-img amp-fx="fade-in" data-margin-start="50%" width="1280" height="873" layout="responsive" src="/img/windsor-castle_960x642.jpg" alt="Picture of a Windsor castle"></amp-img>
 
-  <!-- **Example 4: Change the easing curve of the animation to a preset linear curve.** -->
+  <!--### Different bezier curves
+   Change the easing curve of the animation to a preset linear curve by specifying `data-easing="linear"`.
+  -->
   <amp-img amp-fx="fade-in" data-easing="linear" width="1280" height="873" layout="responsive" src="/img/windsor-castle_960x642.jpg" alt="Picture of a Windsor castle"></amp-img>
   <!-- ## Scroll dependent fade-in -->
   <!-- The `fade-in-scroll` effect allows an element to fade in as the user scrolls in the viewport.
@@ -132,7 +140,9 @@
     * `data-margin-end` - This parameter determines when to stop the timed animation. The value specified in `<percent>` dictates that the animation should be fully visible when the element crosses this threshold. The default value is `50%`
     * `data-repeat` - By default once the element is fully visible the opacity of the element is locked in. If the developer wants to change the opacity even after it the element is fully visible please specify this attribute on the element. 
   -->
-  <!-- **Example 1: Title scroll based fade in with default attribute** -->
+  <!-- ### Default attributes
+    Scroll based fade in animation with default attributes
+  -->
   <div class="header">
     <h1 amp-fx="fade-in-scroll">
         <span class="title">Lorem Ipsum</span>
@@ -140,10 +150,66 @@
     <amp-img width="1600" height="900" layout="responsive" src="https://picsum.photos/1600/900?image=981"></amp-img>
   </div>
 
-  <!-- **Example 2: Animation triggers when the element is past 20% of the viewport and ends when it is past 80% of the viewport. ** -->
+  <!-- ### Custom start/end points
+    Animation triggers when the element is past 20% of the viewport and ends when it is past 80% of the viewport by specifying `data-margin-start="20%"` and `data-margin-end="80%"` attributes.
+  -->
   <amp-img amp-fx="fade-in-scroll" data-margin-start="20%" data-margin-end="80%" width="1600" height="900" layout="responsive" src="/img/Border_Collie.jpg"></amp-img>
 
-  <!-- **Example 3: Make the animation full dependent on the scroll action** -->
+  <!-- ### Fully scroll dependent animations
+    Make the animation full dependent on the scroll action by specifying `data-repeat` attribute.
+  -->
   <amp-img amp-fx="fade-in-scroll" data-repeat width="1280" height="873" layout="responsive" src="/img/windsor-castle_960x642.jpg" alt="Picture of a Windsor castle"></amp-img>
+
+  <!-- ## Scroll triggered fly-in -->
+  <!-- The `fly-in-bottom`, `fly-in-top`, `fly-in-left` and `fly-in-right` effects allow an element to fly in once the element being targetted is visible in the viewport.
+
+    Scroll triggered fly in effect can be added to any element by adding `amp-fx="fly-in-bottom"`, `amp-fx="fly-in-top"`, `amp-fx="fly-in-left"` or `amp-fx="fly-in-right"` attribute to an element.
+    This is a scroll triggered timed animation, i.e., once the element is within the viewport a timed animation will start that translates the element along the X/Y axis. You can control the animation via the following attributes:
+    * `data-duration` - This is the duration over which the animation takes places. The default value is ... TODO ... .
+    * `data-fly-in-distance` - ... TODO ... .
+    * `data-easing` - This parameter lets you vary the animation's speed over the course of its duration. The default is `ease-in` which is `cubic-bezier(0.40, 0.00, 0.40, 1.00)`. You can also choose from one of the presets available:
+      * “linear” - cubic-bezier(0.00, 0.00, 1.00, 1.00),
+      * “ease-in-out” - cubic-bezier(0.80, 0.00, 0.20, 1.00),
+      * “ease-in” - cubic-bezier(0.80, 0.00, 0.60, 1.00),
+      * “ease-out” - cubic-bezier(0.40, 0.00, 0.40, 1.00) (default),
+      * or specify a `custom-bezier()` input.
+    * `data-margin-start` - This parameter determines when to trigger the timed animation. The value specified in `<percent>` dictates that the animation should be triggered when the element is above the specified percentage of the viewport. The default value is `5%`
+  -->
+  <!-- ### Default attributes
+    Scroll triggered fly in animation with default attributes
+  -->
+
+  <!-- <amp-fx=`fly-in-left`> -->
+  <amp-img amp-fx="fly-in-left" width="1600" height="900" layout="responsive" src="https://images.unsplash.com/photo-1521229478162-4a20534cdec5?ixlib=rb-0.3.5&s=e93c4d12f98243f12b52a430bdb84720&auto=format&fit=crop&w=1661&q=80"></amp-img>
+
+  <!-- <amp-fx=`fly-in-right`> -->
+  <amp-img amp-fx="fly-in-right" width="1600" height="900" layout="responsive" src="https://images.unsplash.com/photo-1527092035324-6319ef0fcf7a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=969edced71a03ef57558006151596c1b&auto=format&fit=crop&w=1651&q=80"></amp-img>
+
+  <!-- <amp-fx=`fly-in-top`> -->
+  <amp-img amp-fx="fly-in-top" width="1600" height="900" layout="responsive" src="https://images.unsplash.com/photo-1527048322413-4e4e56c8ab3b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=69287e502ab9e858262921ee9dfcd271&auto=format&fit=crop&w=1650&q=80"></amp-img>
+
+  <!-- <amp-fx=`fly-in-bottom`> -->
+  <amp-img amp-fx="fly-in-bottom" width="1600" height="900" layout="responsive" src="https://images.unsplash.com/photo-1527016856658-ab68a6bad3a1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=46287f1f2996d26e5f8fde5a3f6dd7da&auto=format&fit=crop&w=1650&q=80"></amp-img>
+
+  <!-- ### Slow animation
+    Fly in animation that lasts longer by specifying `data-duration="2000ms"`.
+   -->
+  <amp-img amp-fx="fly-in-left" data-duration="2000ms" width="1280" height="873" layout="responsive" src="https://images.unsplash.com/photo-1523255971896-2c08d93dd3a8?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=f1f0f9ab94d2d65d964b1b8681563d93&auto=format&fit=crop&w=1650&q=80" alt="Picture of a starry sky"></amp-img>
+
+  <!-- ### Animation distance
+    Animation that takes place over a larger distance by specifying `data-fly-in-distance="50%"`.
+   -->
+  <amp-img amp-fx="fly-in-right" data-fly-in-distance="50%" width="1280" height="873" layout="responsive" src="https://images.unsplash.com/photo-1522426266214-ec2d2abb9ce0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=87c5df0ba70b2f9971f35c31e5ba71b8&auto=format&fit=crop&w=1653&q=80" alt="Picture of a starry sky"></amp-img>
+
+
+  <!-- ### Delayed animations
+    Animation triggers when the element is past 50% of the viewport by specifying `data-margin-start="50%"`.
+  -->
+  <amp-img amp-fx="fly-in-top" data-margin-start="50%" width="1280" height="873" layout="responsive" src="https://images.unsplash.com/photo-1521934283989-acaa8ceb335a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=4c3188079fb9f2e4e364fd2dc43adb68&auto=format&fit=crop&w=668&q=80" alt="Picture of a starry sky"></amp-img>
+
+  <!--### Different bezier curves
+   Change the easing curve of the animation to a preset linear curve by specifying `data-easing="linear"`.
+  -->
+  <amp-img amp-fx="fly-in-bottom" data-easing="linear" width="1280" height="873" layout="responsive" src="https://images.unsplash.com/photo-1473806189829-9641421a59f1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=75ddee8b694c5bef8cb935f6d0effa3a&auto=format&fit=crop&w=1650&q=80" alt="Picture of a starry sky"></amp-img>
 </body>
 </html>
