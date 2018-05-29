@@ -1,0 +1,81 @@
+<!--
+  ## Introduction
+
+  The [amp-facebook-page](https://www.ampproject.org/docs/reference/components/amp-facebook-page) component allows embedding Facebook pages into AMP files.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+  <title>amp-facebook-page</title>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <!-- ## Setup -->
+    <!-- Import the amp-facebook-page component -->
+    <script async custom-element="amp-facebook-page" src="https://cdn.ampproject.org/v0/amp-facebook-page-0.1.js"></script>
+  <link rel="canonical" href="<%host%>/components/amp-facebook-page/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  </head>
+  <body>
+
+    <!-- ## Basic Usage -->
+    <!-- The `amp-facebook-page` component only requires the href of the facebook post. -->
+    <amp-facebook-page width="340" height="130"
+        layout="responsive"
+        data-href="https://www.facebook.com/imdb/">
+    </amp-facebook-page>
+
+    <!-- ## Customizing the embed -->
+    <!-- The `amp-facebook-page` component allows you to customize the embed via several attributes: -->
+
+    <!-- ## Internationalization support -->
+    <!-- You can set the locale to render the page in a different language, for example French. -->
+    <amp-facebook-page width="340" height="130"
+        layout="responsive"
+        data-href="https://www.facebook.com/imdb/"
+        data-locale="fr_FR">
+    </amp-facebook-page>
+
+    <!-- ## Show different tabs -->
+    <!-- Render the `timeline` and `events` tab for a particular Facebook page by specifying  `data-tabs="timeline, events"`. -->
+    <amp-facebook-page width="552" height="310"
+        layout="responsive"
+        data-tabs="timeline, events"
+        data-href="https://www.facebook.com/barackobama/">
+    </amp-facebook-page>
+
+    <!-- ## Facebook page cover -->
+    <!-- Hide the cover of a particular Facebook page by specifying `data-hide-cover="true"`. -->
+    <amp-facebook-page width="552" height="310"
+        layout="responsive"
+        data-hide-cover="true"
+        data-href="https://www.facebook.com/manchesterunited/">
+    </amp-facebook-page>
+
+    <!-- ## Friends -->
+    <!-- Hide the friends who follow a particular Facebook page by specifying `data-show-facepile="false"`. (Need to be logged in to see this.) -->
+    <amp-facebook-page width="300" height="300"
+        layout="responsive"
+        data-show-facepile="false"
+        data-href="https://www.facebook.com/itsdougthepug">
+    </amp-facebook-page>
+
+    <!-- ## Call to action -->
+    <!-- Hide the call to action for a particular Facebook page by specifying `data-hide-cta="true"`. -->
+    <amp-facebook-page width="300" height="300"
+        layout="responsive"
+        data-hide-cta="true"
+        data-href="https://www.facebook.com/TCF.Pak/">
+    </amp-facebook-page>
+
+    <!-- ## Change header size -->
+    <!-- Show a small header for the page by specifying `data-small-header="true"`. -->
+    <amp-facebook-page width="300" height="300"
+        layout="responsive"
+        data-small-header="true"
+        data-href="https://www.facebook.com/itsdougthepug">
+    </amp-facebook-page>
+
+  </body>
+</html>
