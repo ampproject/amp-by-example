@@ -100,7 +100,7 @@
     The layout="fill" attribute value indicates that the element should fill the space within the parent that it can, based on the space provided by the parent, and the space allocated to siblings. Width and height are not used with fill layouts. For an element to fill its parent container, ensure the parent container specifies `position:relative` or `position:absolute`.
   -->
   <div>
-    <div class="square relative">
+    <div class="square relative" [class]="['square relative', deviceClass, sizeClass].join(' ')">
       <amp-fit-text layout="fill">
         Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.
       </amp-fit-text>
