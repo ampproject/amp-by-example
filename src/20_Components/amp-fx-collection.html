@@ -164,9 +164,10 @@
   <!-- The `fly-in-bottom`, `fly-in-top`, `fly-in-left` and `fly-in-right` effects allow an element to fly in once the element being targetted is visible in the viewport.
 
     Scroll triggered fly in effect can be added to any element by adding `amp-fx="fly-in-bottom"`, `amp-fx="fly-in-top"`, `amp-fx="fly-in-left"` or `amp-fx="fly-in-right"` attribute to an element.
+
     This is a scroll triggered timed animation, i.e., once the element is within the viewport a timed animation will start that translates the element along the X/Y axis. You can control the animation via the following attributes:
-    * `data-duration` - This is the duration over which the animation takes places. The default value is ... TODO ... .
-    * `data-fly-in-distance` - ... TODO ... .
+    * `data-duration` - This is the duration over which the animation takes places. The default value is determined by your device size to allow for the best preset values across mobile, tablet and desktop devices. For more details on this read the documentation on the [`data-duration`](https://www.ampproject.org/docs/reference/components/amp-fx-collection) property.
+    * `data-fly-in-distance` - This parameter determines the <percent> of viewport over which the translation is to take place. The default value is determined by your device size to allow for the best preset values across mobile, tablet and desktop devices. For more details on this read the documentation on the [`data-fly-in-distance`](https://www.ampproject.org/docs/reference/components/amp-fx-collection) property.
     * `data-easing` - This parameter lets you vary the animation's speed over the course of its duration. The default is `ease-in` which is `cubic-bezier(0.40, 0.00, 0.40, 1.00)`. You can also choose from one of the presets available:
       * “linear” - cubic-bezier(0.00, 0.00, 1.00, 1.00),
       * “ease-in-out” - cubic-bezier(0.80, 0.00, 0.20, 1.00),
