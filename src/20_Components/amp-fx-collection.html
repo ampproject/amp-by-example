@@ -212,5 +212,19 @@
    Change the easing curve of the animation to a preset linear curve by specifying `data-easing="linear"`.
   -->
   <amp-img amp-fx="fly-in-bottom" data-easing="linear" width="1280" height="873" layout="responsive" src="https://images.unsplash.com/photo-1473806189829-9641421a59f1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=75ddee8b694c5bef8cb935f6d0effa3a&auto=format&fit=crop&w=1650&q=80" alt="Picture of a starry sky"></amp-img>
+
+  <!-- ## Combining presets
+    Developers can also combine different presets by providing a space separated list of presets to the `amp-fx` argument.
+  -->
+
+  <!-- For example you can have an image both fade and fly in from the bottom. -->
+  <amp-img amp-fx="fade-in fly-in-bottom" width="804" height="803" layout="responsive" src="https://images.unsplash.com/photo-1526992466365-5a54e3fbb3be?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=f03dcdf63c5cb1d1279051e73208ad78&auto=format&fit=crop&w=1402&q=80" alt="Picture of a starry sky"></amp-img>
+
+  <!-- You can also combine parallax and fade-in on the same title. -->
+  <div class="parallax-image-window">
+    <amp-img amp-fx="parallax fade-in-scroll" data-parallax-factor="1.1" data-margin-start="10%" data-margin-end="80%" data-repeat width="536" height="803" layout="responsive" src="https://images.unsplash.com/photo-1522303225746-3037391fba31?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b479bafa8a280f911e127e36dfaed9f7&auto=format&fit=crop&w=934&q=80" alt="Picture of a starry sky"></amp-img>
+  </div>
+  <div class="spacer"></div>
+
 </body>
 </html>
