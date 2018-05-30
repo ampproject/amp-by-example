@@ -16,7 +16,6 @@
 
 'use strict';
 
-const cheerio = require('cheerio');
 const gutil = require('gulp-util');
 const path = require('path');
 const through = require('through2');
@@ -29,7 +28,6 @@ const Metadata = require('../lib/Metadata');
 const Templates = require('../lib/Templates');
 const storyController = fs.readFileSync(__dirname + '/../templates/stories/page-switch.html', 'utf8');
 const storyBookend = require('./bookend.json');
-const SAMPLE_THUMBNAIL = '/img/social.png';
 
 const STORY_EMBED_DIR = __dirname + '/../api/dist/';
 
@@ -271,7 +269,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
           targetPath: example.targetPreviewEmbedPath(),
         })
       } else {
-        // generate preview 
+        // generate preview
         compileTemplate(stream, example, args, {
           template: previewTemplate,
           targetPath: example.targetPreviewPath(),
@@ -306,6 +304,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
           currentSection.categories = [];
           sections.push(currentSection);
           currentSection.selected = false;
+          currentCategory = null;
         }
         // add example to categories instance
         if (!currentCategory ||
@@ -336,7 +335,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
           metadata: exampleFile.document.metadata,
           experiments: experiments,
           experiment: experiments && experiments.length > 0,
-          firstImage: extractFirstImage(exampleFile),
+          firstImage: exampleFile.document.firstImage,
           highlight: exampleFile.document.metadata.highlight
         });
       });
@@ -409,7 +408,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
         return {
           title: e.title,
           url: e.url,
-          image: e.firstImage 
+          image: e.firstImage
         };
       });
     });
@@ -418,18 +417,6 @@ module.exports = function(config, indexPath, updateTimestamp) {
     bookendFile.path = path.join(latestFile.base, 'json', 'bookend.json');
     bookendFile.contents = new Buffer(JSON.stringify(storyBookend, null, 2));
     stream.push(bookendFile);
-  }
-
-  function extractFirstImage(example) {
-    if (!example.contents) {
-      return SAMPLE_THUMBNAIL;
-    }
-    const $ = cheerio.load(example.contents);
-    const imageSrc = $('amp-img').attr('src');
-    if (!imageSrc) {
-      return SAMPLE_THUMBNAIL;
-    }
-    return imageSrc;
   }
 
   function cachedUrl(url) {
@@ -450,7 +437,6 @@ module.exports = function(config, indexPath, updateTimestamp) {
     string = string.replace(/<script\s+async\s+custom-element="amp-story"\s+src="https:\/\/cdn\.ampproject\.org\/v0\/amp-story-0\.1\.js">\s*<\/script>/, "");
     string = string.replace(/<script\s+async\s+custom-element="amp-story-auto-ads"\s+src="https:\/\/cdn\.ampproject\.org\/v0\/amp-story-auto-ads-0\.1\.js">\s*<\/script>/, "");
     return string;
-    amp-story-auto-ads
   }
 
   function replaceAmpAdRuntime(document, string) {

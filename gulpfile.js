@@ -17,7 +17,7 @@
 "use strict";
 
 const gulp = require('gulp-help')(require('gulp'));
-const gls = require('gulp-live-server');
+const serve = require('serve')
 const file = require('gulp-file');
 const rename = require('gulp-rename');
 const del = require('del');
@@ -82,7 +82,7 @@ const paths = {
   tmp: {
     dir: 'tmp'
   },
-  videos: 'src/video/*.{mp4,webm,m3u8,ts}',
+  videos: 'src/video/*.{mp4,webm,m3u8,ts,vtt}',
   json: 'src/json/*.json',
   css: 'templates/css/*.css',
   scripts: 'src/scripts/*.js',
@@ -117,17 +117,10 @@ const sampleTemplates = Templates.get(config.templates.root, /* minify */ false,
 
 gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
   function() {
-    const port = argv.port || 8000;
-    const server = gls.static(paths.dist.dir, port);
-    config.host = "http://localhost:" + port;
-    server.start();
-    gulp.watch([paths.dist.html, paths.dist.scripts], function(file) {
-      setTimeout(function() {
-        /* eslint-disable */
-        server.notify.apply(server, [file]);
-        /* eslint-enable */
-      }, 500);
-    });
+    const server = serve(paths.dist.dir, {
+      port: argv.port || 8000,
+      ignore: ['node_modules']
+    })
   });
 
 gulp.task('deploy:prod', 'deploy to production server', function(callback) {
@@ -381,6 +374,7 @@ gulp.task('watch', 'watch for changes in the examples', function() {
     'compile:example'
   ]);
   gulp.watch(paths.images, ['copy:images']);
+  gulp.watch(paths.json, ['copy:json']);
   gulp.watch(paths.videos, ['copy:videos']);
   gulp.watch(paths.scripts, ['copy:scripts']);
   gulp.watch(paths.static, ['copy:static']);
