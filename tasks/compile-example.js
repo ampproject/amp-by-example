@@ -209,12 +209,13 @@ module.exports = function(config, indexPath, updateTimestamp) {
         includesManifest: document.includesLink('manifest'),
         includesAnalytics: document.importsComponent('amp-analytics'),
         includesLiveList: document.importsComponent('amp-live-list'),
+        includesLightboxGallery: document.importsComponent('amp-lightbox-gallery'),
         includesAccordion: document.importsComponent('amp-accordion'),
         includesSelector: document.importsComponent('amp-selector'),
         includesSidebar: document.importsComponent('amp-sidebar'),
         includesServiceWorker: document.importsComponent('amp-install-serviceworker') || document.metadata.skipServiceWorker
       };
-      sampleArgs.supportsAmpSelector = !sampleArgs.includesLiveList && !sampleArgs.includesSelector;
+      sampleArgs.supportsAmpSelector = !sampleArgs.includesLiveList && !sampleArgs.includesSelector && !sampleArgs.includesLightboxGallery;
       Object.assign(args, sampleArgs);
       Metadata.add(args);
 
