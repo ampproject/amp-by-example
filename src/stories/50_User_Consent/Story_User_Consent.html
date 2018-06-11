@@ -22,8 +22,8 @@
   <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
 
   <!-- ## Setup -->
-  <!-- Import the `amp-story` extension for creating an AMP Story. -->
-  <script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-0.1.js"></script>
+  <!-- Import the `amp-story` extension for creating an AMP Story... -->
+  <script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-1.0.js"></script>
 
   <!-- ... and the `amp-consent` extension. -->
   <script async custom-element="amp-consent" src="https://cdn.ampproject.org/v0/amp-consent-0.1.js"></script>
@@ -91,13 +91,13 @@
                publisher-logo-src="<%host%>/img/amp_logo_pink.svg">
 
       <!--
-      The `amp-consent` component allows to specify the required user consent for this page.  A CORS endpoint can be specified via the `checkConsentHref` attribute. This endpoint will be queried via a POST request to determine if the consent UI specified for it needs to be shown. The response should look like this:
+      The `amp-consent` component supports specifying a CORS endpoint via the `checkConsentHref` attribute, which the component queries via a POST request to determine if the consent UI specified for it needs to be shown. The response should look like this:
       ```json
       {
         "promptIfUnknown": [true|false]
       }
       ```
-      The response will indicate if the consent needs to be shown or not. If it needs to be shown, the element with the id given in `promptUI` will be displayed. For AMP Stories, you can specify consent title, message and a list of vendors inside a nested `amp-story-consent` element.
+      The response will indicate if the consent needs to be shown or not. If it needs to be shown, the element with the id given in `promptUI` will be displayed. For AMP Stories, you can specify [consent title, message and a list of vendors](https://www.ampproject.org/docs/reference/components/amp-consent#prompt-ui-for-stories) inside a nested `amp-story-consent` element.
       -->
       <amp-consent id="myConsent" layout="nodisplay">
         <script type="application/json">
