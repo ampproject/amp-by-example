@@ -70,6 +70,9 @@
     div.half * {
       transform: scale(1);
     }
+    .relative {
+      position: relative;
+    }
   </style>
 </head>
 <body>
@@ -91,6 +94,16 @@
       <button on="tap:AMP.setState({sizeClass: 'half'})">Half size</button>
       <button on="tap:AMP.setState({sizeClass: ''})">Regular size</button>
       <button on="tap:AMP.setState({sizeClass: 'double'})">Double size</button>
+    </div>
+  </div>
+    <!-- #### fill
+    The layout="fill" attribute value indicates that the element should fill the space within the parent that it can, based on the space provided by the parent, and the space allocated to siblings. Width and height are not used with fill layouts. For an element to fill its parent container, ensure the parent container specifies `position:relative` or `position:absolute`.
+  -->
+  <div>
+    <div class="square relative" [class]="['square relative', deviceClass, sizeClass].join(' ')">
+      <amp-fit-text layout="fill">
+        Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.
+      </amp-fit-text>
     </div>
   </div>
 
