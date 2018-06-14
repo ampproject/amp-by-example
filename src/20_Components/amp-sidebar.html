@@ -57,6 +57,12 @@
     #sidebar-right nav.amp-sidebar-toolbar-target-shown {
         display: none;
     }
+
+    @media(min-width: 784px) {
+      .control-button {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -103,7 +109,7 @@
     <button on="tap:sidebar.close" class="ampstart-btn caps m2">Close sidebar</button>
 
     <p class="previewOnly m2">
-      Please resize the browser window to view the responsiveness for amp-sidebar's toolbar.
+      Please resize the browser window to view the responsiveness for amp-sidebar's toolbar. Toggle buttons should only be visible when toolbar is not.
     </p>
 
   <!-- ## Toolbar (experimental) -->
@@ -146,7 +152,7 @@
       </amp-sidebar>
 
 
-      <button on="tap:sidebar-left.toggle" class="ampstart-btn caps m2">Toggle sidebar</button>
+      <button on="tap:sidebar-left.toggle" class="ampstart-btn caps m2 control-button">Toggle sidebar</button>
 
 
       <div id="target-element-left">
@@ -194,9 +200,7 @@
       </amp-sidebar>
 
 
-      <button on="tap:sidebar-right.toggle" class="ampstart-btn caps m2">Toggle sidebar</button>
-
-
+      <button on="tap:sidebar-right.toggle" class="ampstart-btn caps m2 control-button">Toggle sidebar</button>
       <div id="target-element-right">
       </div>
     </div>
