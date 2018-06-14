@@ -51,12 +51,11 @@
         line-height: 52px;
       }
       .email-headers {
-        margin: 4px 16px 4px 16px;
+        margin: 16px;
         font-size: 18px;
       }
       .email-body {
         margin: 0;
-        padding: 1rem;
       }
       @media (max-width: 600px) {
         .email-headers {
@@ -85,8 +84,10 @@
           </a>
           <a id="sample-logo" href="/">Email Client</a>
         </div>
-        <div class="email-headers"><strong>{{subHeading}}</strong></div>
-        <div class="email-headers">From: <strong>person &lt;person@domain.com&gt;</strong></div>
+        <div class="email-headers">
+          <p><strong>{{subHeading}}</strong></p>
+          <p>From: <strong>person &lt;person@domain.com&gt;</strong></p>
+        </div>
         <div class="email-body">
     {{/isEmbed}}
         <amp-iframe src="{{urlSource}}"

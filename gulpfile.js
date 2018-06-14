@@ -111,7 +111,7 @@ const config = {
   amp4email: {
     template: 'preview-amp4email.html',
     defaultLayout: 'fixed',
-    defaultWidth: 864,
+    defaultWidth: 832,
   },
   host: 'https://ampbyexample.com'
 };
