@@ -1,0 +1,52 @@
+<!--
+  ## Introduction
+
+  The `amp-3d-gltf` component displays 3D models that are in glTF format. The doc describing this element can be found [here](https://github.com/ampproject/amphtml/blob/master/extensions/amp-3d-gltf/amp-3d-gltf.md)
+
+  **Note**: A WebGL capable browser is required to display these models.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <link rel="canonical" href="/components/amp-3d-gltf/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <title>amp-3d-gltf</title>
+  <!-- ## Setup -->
+  <!--
+    Import the `amp-3d-gltf` component in the header.
+  -->
+  <script async custom-element="amp-3d-gltf" src="https://cdn.ampproject.org/v0/amp-3d-gltf-0.1.js"></script>
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+</head>
+<body>
+
+  <!-- ## Basic Usage -->
+  <!-- Embed 3d model via the `src` attribute -->
+  <amp-3d-gltf layout="fixed"
+               width="320"
+               height="240"
+               src="/glTF/DamagedHelmet.glb"></amp-3d-gltf>
+  <!-- ## Attributes -->
+  <!--
+    This section covers how you can customize the viewer for your needs.
+    * `src` - A required attribute that specifies the URL to the glTF file.
+    * `alpha` - A Boolean attribute that specifies whether free space on canvas is transparent. By default, free space is filled with black. Default value is `false`.
+    * `antialiasing` - A Boolean attribute that specifies whether to turn on antialiasing. Default value is `false`.
+    * `maxPixelRatio` - A numeric value that specifies the upper limit for the pixelRatio render option. The default is `window.devicePixelRatio`.
+    * `autoRotate` - A Boolean attribute that specifies whether to automatically rotate the camera around the model's center. Default value is `false`.
+    * `enableZoom` - A Boolean attribute that specifies whether to turn on zoom. Default value is `true`.
+  -->
+  <amp-3d-gltf layout="fixed"
+               width="320"
+               height="240"
+               alpha="true"
+               antialiasing="true"
+               autoRotate="true"
+               enableZoom="false"
+               src="/glTF/DamagedHelmet.glb"></amp-3d-gltf>
+
+</body>
+</html>
