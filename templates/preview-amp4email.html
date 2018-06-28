@@ -1,0 +1,105 @@
+<!doctype html>
+<html ⚡>
+  <head>
+    {{{head}}}
+    {{> head.html}}
+    <style amp-custom>
+      {{> css/code.css}}
+      {{> css/ampstart.css}}
+      {{> css/shared.css }}
+      {{> css/preview.css}}
+      {{{exampleStyles}}}
+      #abe-preview {
+        {{^isEmbed}}
+        margin-top: 56px;
+        {{/isEmbed}}
+      }
+      .email-client {
+        position: absolute;
+        top: 0px;
+        width: {{width}}px;
+      }
+      .header {
+        position: relative;
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+        padding-top: 52px;
+      }
+      .header {
+        background-color: #607D8B;
+      }
+      .header #sample-menu {
+        position:absolute;
+        top:0;
+        left: 0;
+        font-size: 18px;
+        font-weight: 700;
+        color: white;
+        text-transform: uppercase;
+        padding: 13px;
+      }
+      .header #sample-logo {
+        position:absolute;
+        top:0;
+        left:36px;
+        font-size: 18px;
+        font-weight: 400;
+        color: white;
+        text-transform: uppercase;
+        margin: 0 16px;
+        height: 32px;
+        text-decoration: none;
+        line-height: 52px;
+      }
+      .email-headers {
+        margin: 16px;
+        font-size: 18px;
+      }
+      .email-body {
+        margin: 0;
+      }
+      @media (max-width: 600px) {
+        .email-headers {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {{{elementsAfterBody}}}
+    {{^isEmbed}}
+      <div id="abe-preview-header" class="ampstart-headerbar fixed flex justify-start items-center top-0 left-0 right-0 pl2 pr4">
+        <a href=".." class="caps text-decoration-none">
+          <i class="align-middle inline-block mr1"><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg></i>
+        </a>
+        <h1 id="abe-preview-header-title" class="h3 center truncate caps">Demo: {{subHeading}}</h1>
+      </div>
+    <div id="abe-preview">
+      <div class="email-client">
+        <div class="header">
+          <a id="sample-menu">
+            <amp-img srcset="/img/ic_menu_white_1x_web_24dp.png 1x, /img/ic_menu_white_2x_web_24dp.png 2x" width="24" height="24" alt="navigation"></amp-img>
+          </a>
+          <a id="sample-logo" href="/">Email Client</a>
+        </div>
+        <div class="email-headers">
+          <p><strong>{{subHeading}}</strong></p>
+          <p>From: <strong>person &lt;person@domain.com&gt;</strong></p>
+        </div>
+        <div class="email-body">
+    {{/isEmbed}}
+        <amp-iframe src="{{urlSource}}"
+         sandbox="allow-scripts" width="800px" height="1400px" layout="responsive">
+         <div placeholder></div>
+        </amp-iframe>
+    {{^isEmbed}}
+        </div>
+      </div>
+    </div>
+    {{/isEmbed}}
+    {{> analytics.html}}
+    {{> serviceworker.html}}
+  </body>
+</html>

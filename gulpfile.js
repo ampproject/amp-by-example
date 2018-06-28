@@ -108,6 +108,11 @@ const config = {
     defaultWidth: 300,
     defaultHeight: 250,
   },
+  amp4email: {
+    template: 'preview-amp4email.html',
+    defaultLayout: 'fixed',
+    defaultWidth: 832,
+  },
   host: 'https://ampbyexample.com'
 };
 
@@ -160,7 +165,7 @@ gulp.task('deploy:site:prod', 'deploy to production site', function() {
 
 gulp.task('deploy:api:prod', 'deploy to production api app engine', function() {
   return run(
-      'cd api && goapp deploy -application  amp-by-example-api -version 1')
+    'cd api && goapp deploy -application  amp-by-example-api -version 1')
     .exec();
 });
 
@@ -291,13 +296,13 @@ gulp.task('validate:example', 'validate example html files', function() {
   return gulp.src(paths.samples)
     .pipe(compileExample(config))
     .pipe(gulpIgnore.exclude(shouldIgnoreSample))
-    // Valide the input and attach the validation result to the "amp" property
-    // of the file object.
+  // Valide the input and attach the validation result to the "amp" property
+  // of the file object.
     .pipe(gulpAmpValidator.validate())
-    // Print the validation results to the console.
+  // Print the validation results to the console.
     .pipe(gulpAmpValidator.format())
-    // Exit the process with error code (1) if an AMP validation error
-    // occurred.
+  // Exit the process with error code (1) if an AMP validation error
+  // occurred.
     .pipe(gulpAmpValidator.failAfterError());
 });
 
@@ -347,8 +352,8 @@ gulp.task('create', 'create a new AMP example', function() {
     throwInvalidArgumentError('example category or directory missing');
   }
   return file(examplePath, '', {
-      src: true
-    })
+    src: true
+  })
     .pipe(createExample(paths, config))
     .pipe(gulp.dest(paths.src));
 });
@@ -357,10 +362,10 @@ function throwInvalidArgumentError(message) {
   throw new gutil.PluginError({
     plugin: 'create',
     message: gutil.colors.red('\nError: ' + message + '\n\n') +
-      gutil.colors.blue('create a new category:\n') +
-      'gulp create -n "The Name" -c "The Category"\n\n' +
-      gutil.colors.blue('add to existing category:\n') +
-      'gulp create -n "The Name" -d src/directory'
+    gutil.colors.blue('create a new category:\n') +
+    'gulp create -n "The Name" -c "The Category"\n\n' +
+    gutil.colors.blue('add to existing category:\n') +
+    'gulp create -n "The Name" -d src/directory'
   });
 }
 
@@ -396,8 +401,8 @@ gulp.task('lint', function() {
   const hasFixFlag = argv.fix;
   let errorsFound = false;
   return gulp.src(paths.scripts, {
-      base: './'
-    })
+    base: './'
+  })
     .pipe(eslint({
       fix: hasFixFlag
     }))
@@ -432,11 +437,16 @@ gulp.task('lint:html', 'checks the hmtl source', function() {
     .pipe(htmlhint.failReporter());
 });
 
-gulp.task('default', 'Run a webserver and watch for changes', [
-  'build',
-  'watch',
-  'serve'
-]);
+
+gulp.task('default', 'Run a webserver and watch for changes', function(
+  callback) {
+  config.host = 'http://localhost:8000';
+  runSequence(
+    'serve',
+    'build',
+    'watch',
+    callback);
+});
 
 gulp.task('backend:watch', 'run the go backend and watch for changes', function(
   callback) {
@@ -491,15 +501,15 @@ gulp.task('snapshot:verify',
 gulp.task('robots:disallow', 'generate robots.txt disallowing robots to access',
   function() {
     return generateRobotsTxt(`User-Agent: *
-Disallow: /
-`);
+      Disallow: /
+      `);
   });
 
 gulp.task('robots:allow', 'generate robots.txt allowing robots to access',
   function() {
     return generateRobotsTxt(`User-Agent: *
-Disallow:
-`);
+      Disallow:
+      `);
   });
 
 gulp.task('build:playground', 'Build the playground', function() {
@@ -529,8 +539,8 @@ gulp.task('build:polymer', 'Build the polymer app', function() {
 
 function generateRobotsTxt(contents) {
   return file('robots.txt', contents, {
-      src: true
-    })
+    src: true
+  })
     .pipe(gulp.dest('dist'));
 }
 

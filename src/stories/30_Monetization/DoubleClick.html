@@ -5,7 +5,7 @@
 <!--
   ## Introduction
   In an AMP story, you cannot put an `amp-ad` directly onto the page, instead, all
-  ads are fetched and displayed by the amp-story-auto-ads extension.
+  ads are fetched and displayed by the `amp-story-auto-ads` extension.
 
   For the complete documentation please see our
   [documentation](https://github.com/ampproject/amphtml/blob/master/extensions/amp-story/amp-story-ads.md)
@@ -15,13 +15,12 @@
 <html ⚡ lang="en">
 <head>
   <meta charset="utf-8">
-  <link rel="canonical" href="https://ampbyexample.com/stories/monetization/amp-story-auto-ads/">
+  <link rel="canonical" href="https://ampbyexample.com/stories/monetization/doubleclick/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
-  <title>amp-story-auto-ads</title>
+  <title>DoubleClick Ads for AMP Stories</title>
 
-  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
-  <script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-0.1.js"></script>
+  <script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-1.0.js"></script>
   <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
 
   <!-- ## Setup -->
@@ -111,7 +110,8 @@
       font-size: 20px;
       width: 100%;
     }
-    amp-ad[template="image-template"] img {
+    amp-ad[template="image-template"] img,
+    amp-ad[template="video-template"] {
       object-fit: cover;
     }
     ::cue {
@@ -134,45 +134,25 @@
       `ad-attributes` is a map of key-value pairs, which correspond to the
       attributes of the amp-ad element to be inserted.
       -->
+      <!-- For ads served from DoubleClick one should set `"type": "doubleclick"`
+      and  `"data-slot"`  to the full path of the ad unit with the network code
+      and unit code.` -->
 
-      <amp-story-auto-ads>
-        <script type="application/json">
-          {
-            "ad-attributes": {
-              "type": "custom",
-              "data-url": "<%host%>/json/amp-story-auto-ads/"
-            }
+    <amp-story-auto-ads>
+      <script type="application/json">
+        {
+          "ad-attributes": {
+            "type": "doubleclick",
+            "data-slot": "/30497360/a4a/amp_story_dfp_example"
           }
-        </script>
-
-        <!-- After the script tag then inline any templates that you wish to include.
-        These templates will be populated by a JSON response from the
-        server indicated by the `data-url` key above.
-        -->
-        <!-- This first example template would be used to create a simple ad with a
-        full size background image.-->
-        <template type="amp-mustache" id="image-template">
-          <amp-img class="fill-img" layout="fill" src="{{imgSrc}}"></amp-img>
-        </template>
-
-        <!-- The second template is designed for a full screen video. You may
-        structure the templates however you wish, as long as they are valid
-        AMPHTML. -->
-        <template type="amp-mustache" id="video-template">
-          <amp-video autoplay loop
-            width="400"
-            height="750"
-            poster="{{poster}}"
-            layout="fill">
-            <source src="{{videoSource}}" type="video/mp4">
-          </amp-video>
-        </template>
-      </amp-story-auto-ads>
+        }
+      </script>
+    </amp-story-auto-ads>
 
       <!-- See the full example below:
        <div class="abe-story-preview">
           <amp-iframe media="(min-width: 650px)"
-              src="https://amp-by-example-api.appspot.com/stories/monetization/amp-story-auto-ads/index.html"
+              src="https://amp-by-example-api.appspot.com/stories/monetization/doubleclick/index.html"
               width="440" height="732" sandbox="allow-scripts allow-popups allow-same-origin">
             <div placeholder></div>
           </amp-iframe>
@@ -367,7 +347,7 @@
         </amp-story-cta-layer>
       </amp-story-page>
 
-      <amp-story-bookend src="<%host%>/json/bookend.json"></amp-story-bookend>
+      <amp-story-bookend src="<%host%>/json/bookend.json" layout="nodisplay"></amp-story-bookend>
     </amp-story>
   </body>
 </html>

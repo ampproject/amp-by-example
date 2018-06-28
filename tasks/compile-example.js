@@ -30,6 +30,9 @@ const storyController = fs.readFileSync(__dirname + '/../templates/stories/page-
 const storyBookend = require('./bookend.json');
 
 const STORY_EMBED_DIR = __dirname + '/../api/dist/';
+const AMP_STORY_CLEANER_REGEX = ['amp-story', 'amp-story-auto-ads', 'amp-consent'].map(extension =>
+  new RegExp('<script\\s+async\\s+custom-element="' + extension + '"\\s+src="https:\\/\\/cdn\\.ampproject\\.org\\/v0\\/' + extension + '-\\d\\.\\d\\.js"><\\/script>')
+);
 
 /**
  * Collects a list of example files, renders them (using templateExample) and
@@ -43,6 +46,9 @@ module.exports = function(config, indexPath, updateTimestamp) {
   let latestMod;
   let examples;
   let timestamp = new Date().toISOString();
+
+  const postProcessors = [
+    replaceAmpAdRuntime, replaceAmpStoryRuntime, replaceAmpHtmlEmailRuntimeAddViewport];
 
   if (typeof config.templates.root === 'string') {
     pageTemplates = Templates.get(config.templates.root,/* minify */ true);
@@ -209,12 +215,14 @@ module.exports = function(config, indexPath, updateTimestamp) {
         includesManifest: document.includesLink('manifest'),
         includesAnalytics: document.importsComponent('amp-analytics'),
         includesLiveList: document.importsComponent('amp-live-list'),
+        includesLightboxGallery: document.importsComponent('amp-lightbox-gallery'),
         includesAccordion: document.importsComponent('amp-accordion'),
+        includesIframe: document.importsComponent('amp-iframe'),
         includesSelector: document.importsComponent('amp-selector'),
         includesSidebar: document.importsComponent('amp-sidebar'),
         includesServiceWorker: document.importsComponent('amp-install-serviceworker') || document.metadata.skipServiceWorker
       };
-      sampleArgs.supportsAmpSelector = !sampleArgs.includesLiveList && !sampleArgs.includesSelector;
+      sampleArgs.supportsAmpSelector = !sampleArgs.includesLiveList && !sampleArgs.includesSelector && !sampleArgs.includesLightboxGallery;
       Object.assign(args, sampleArgs);
       Metadata.add(args);
 
@@ -232,14 +240,14 @@ module.exports = function(config, indexPath, updateTimestamp) {
         template: config.templates.example,
         targetPath: example.targetPath(),
         isEmbed: false,
-        postProcessors: [replaceAmpAdRuntime, replaceAmpStoryRuntime]
+        postProcessors: postProcessors
       });
 
       // compile embed
       compileTemplate(stream, example, args, {
         template: config.templates.example,
         targetPath: example.targetEmbedPath(),
-        postProcessors: [replaceAmpAdRuntime, replaceAmpStoryRuntime],
+        postProcessors: postProcessors,
         isEmbed: true
       });
 
@@ -259,6 +267,13 @@ module.exports = function(config, indexPath, updateTimestamp) {
         args.a4aEmbedUrl = example.urlSource();
       }
 
+      // amp4email preview embeds the original sample via iframe
+      if (document.isAmpHtmlEmail()) {
+        previewTemplate = config.amp4email.template;
+        args.width = document.metadata.width || config.amp4email.defaultWidth;
+        args.height = document.metadata.height || config.amp4email.defaultHeight;
+      }
+
       args.title = example.title() + ' (Preview) - ' + 'AMP by Example';
       args.desc = "This is a live preview of the '" + example.title() + "' sample. " + args.desc;
       args.canonical = config.host + example.url() + 'preview/';
@@ -273,7 +288,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
         compileTemplate(stream, example, args, {
           template: previewTemplate,
           targetPath: example.targetPreviewPath(),
-          postProcessors: [replaceAmpAdRuntime, replaceAmpStoryRuntime],
+          postProcessors: postProcessors,
           isEmbed: false
         });
       }
@@ -434,8 +449,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
     if (!document.isAmpStory) {
       return string;
     }
-    string = string.replace(/<script\s+async\s+custom-element="amp-story"\s+src="https:\/\/cdn\.ampproject\.org\/v0\/amp-story-0\.1\.js">\s*<\/script>/, "");
-    string = string.replace(/<script\s+async\s+custom-element="amp-story-auto-ads"\s+src="https:\/\/cdn\.ampproject\.org\/v0\/amp-story-auto-ads-0\.1\.js">\s*<\/script>/, "");
+    AMP_STORY_CLEANER_REGEX.forEach(r => string = string.replace(r, ''));
     return string;
   }
 
@@ -444,6 +458,16 @@ module.exports = function(config, indexPath, updateTimestamp) {
       return string;
     }
     return string.replace("https://amp-ads.firebaseapp.com/dist/amp-inabox.js", "https://amp-ads.firebaseapp.com/dist/amp.js");
+  }
+
+  function replaceAmpHtmlEmailRuntimeAddViewport(document, string) {
+    if (!document.isAmpHtmlEmail) {
+      return string;
+    }
+    return string.replace(
+      `<style amp4email-boilerplate>body{visibility:hidden}</style>`,
+      `<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+       <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">`);
   }
 
   function clone(obj) {
