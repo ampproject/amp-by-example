@@ -7,7 +7,7 @@
 <!--
   ## Introduction
 
-  [amp-next-page](https://github.com/ampproject/amphtml/blob/master/extensions/amp-next-page/amp-next-page.md)
+  [amp-next-page](https://www.ampproject.org/docs/reference/components/amp-next-page)
   allows you to add an infinite scroll style experience to your AMP pages.
   The component configuration takes an ordered list of pages to be displayed,
   and as the user approaches the end of the document the next page will be
@@ -76,7 +76,12 @@
           {
             "title": "News article",
             "image": "<%host%>/img/social.png",
-	    "ampUrl": "<%host%>samples_templates/news_article/preview/"
+	          "ampUrl": "<%host%>samples_templates/news_article/preview/"
+          },
+          {
+            "title": "Recipe",
+            "image": "<%host%>/img/social.png",
+            "ampUrl": "<%host%>samples_templates/recipe/preview/"
           }
         ]
       }
@@ -88,14 +93,15 @@
     By default a line will be displayed between pages to act as a separator.
     The style of this separator can be adjusted by styling the
     `amp-next-page-default-separator` class.
-  -->
-  <style amp-custom>
+
+  ```css
     .amp-next-page-default-separator {
       border-bottom 2px solid red;
     }
-  </style>
+  ```
+  -->
 
-  <!-- Custom page separators ->>
+  <!-- ## Custom page separators -->
   <!--
     It is also possible to define a custom page separator containing
     arbitrary content, such as some text, an image, or an `<amp-ad>`. Create
