@@ -1,5 +1,6 @@
 <!---
   {
+    "skipValidation": "true",
     "preview": "default",
     "experiments": ["amp-next-page"]
   }
@@ -16,7 +17,7 @@
   The component can be used to provide a user-friendly interaction for
   paginated content, or to promote other related content on your site.
 
-  **Note:** For performance reasons amp-next-page will currently load and
+  **Note:** For performance reasons `amp-next-page` will currently load and
   display a maximum of three pages on screen at once, so cannot be used to
   provide a true infinite scroll.
 -->
@@ -68,6 +69,10 @@
     same origin (protocol, domain and port) as the parent document. Canonical
     URLs will automatically be rewritten to cache URLs when served from the
     cache.
+
+    Only one `amp-next-page` component is allowed in a document. If a child
+    document also contains an instance of `amp-next-page` the document will
+    render and the second instance will be ignored.
   -->
   <amp-next-page>
     <script type="application/json">
