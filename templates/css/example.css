@@ -152,3 +152,47 @@ code {
 .abe-preview>p {
   padding: 1rem;
 }
+.abe-code .has-hint {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  background-color: rgba(132, 183, 232, 0.25);
+  border-radius: 5px;
+  transition: background-color .3s;
+}
+.abe-code .has-hint:hover {
+  background-color: rgba(132, 183, 232, 0.5);
+}
+.abe-code .has-hint:before {
+  content: "🛈";
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  font-size: 1.3em;
+}
+.abe-code .has-hint > .hint {
+  opacity: 0;
+  position: absolute;
+  top: 100%;
+  border-radius: 5px;
+  padding: 5px;
+  width: 100%;
+  text-align: center;
+  margin-top: 3px;
+  background: #fff;
+  color: #4a4a4a;
+  line-height: 1.5rem;
+  font-family: Montserrat,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Arial,sans-serif;
+  box-shadow: 0 0 1px 0 rgba(50,68,78,.5), 0 0 2px 0 rgba(0,0,0,.07), 0 3px 8px 0 rgba(0,0,0,.1);
+  transform: scale(0);
+  transition: transform .7s, opacity .7s;
+  transform-origin: top;
+  user-select: none;
+}
+.abe-code .has-hint > .show-hint {
+  display: none;
+}
+.abe-code .has-hint > .show-hint:checked + .hint {
+  opacity: 1;
+  transform: scale(1);
+}
