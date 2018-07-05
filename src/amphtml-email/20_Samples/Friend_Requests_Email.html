@@ -1,0 +1,202 @@
+<!---{
+ "preview": "amp4email",
+ "skipValidation": "true",
+ "draft": "true"
+}--->
+<!--
+## Introduction
+
+This sample showcases how to use AMPHTML email to create an email that lets
+you approve or delete of friend requests on a social network.
+-->
+
+<!-- -->
+<!-- Doctype declaration is required. -->
+<!doctype html>
+<!-- This tells everyone that this is an AMPHTML email. `<html amp4email>` works too. -->
+<html ⚡4email>
+<!-- ## Head -->
+<!-- -->
+<head>
+  <!-- The charset definition must be the first child of the `<head>` tag. -->
+  <meta charset="utf-8">
+  <!-- The AMP runtime.-->
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!--
+    The AMPHTML Email boilerplate.
+  -->
+  <style amp4email-boilerplate>body{visibility:hidden}</style>
+  <title>AMPHTML Email - Friend Requests</title>
+  <!-- ## Setup -->
+  <!--
+    Additionally used AMP components must be imported in the header. We use
+    `amp-form` to communicate the user's choice to the server.
+  -->
+  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+  <!--
+    We use `amp-list` to retrieve the list of friends.
+  -->
+  <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+  <!--
+    We use `amp-mustache` to render data.
+  -->
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+  <style amp-custom>
+    h1 {
+      margin: 1rem;
+    }
+
+    fieldset {
+      border: 0;
+    }
+
+    .list-overflow[overflow] {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    .friendrequest {
+      background-color: #fff5e3;
+      color: #3D3527;
+      border: 1px solid #3D3527;
+      padding: 0.5em;
+      border-radius: 5px;
+      font-family: sans-serif;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      margin: 0.5em;
+    }
+
+    .friendrequest .name {
+      flex-grow: 1;
+    }
+
+    .friendrequest .photo {
+      display: inline-block;
+      margin-right: 1em;
+      flex-shrink: 0;
+      background: #fff;
+    }
+
+    .friendrequest form {
+      text-align: center;
+      flex-shrink: 0;
+      font-size: 0.7em;
+    }
+
+    .friendrequest form input {
+      display: none;
+    }
+
+    .friendrequest form fieldset {
+      padding: 0;
+    }
+
+    .friendrequest form.amp-form-submitting fieldset,
+    .friendrequest form.amp-form-submit-success fieldset {
+      display: none;
+    }
+
+    .friendrequest form .button-confirm {
+      background: #b60845;
+      color: white;
+    }
+
+    .friendrequest form .button-delete {
+      background: #eee;
+    }
+
+    .friendrequest form label {
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0.5em;
+      display: inline-block;
+      text-align: center;
+      border: 1px solid black;
+      transition: background-color .3s;
+    }
+
+    .friendrequest form div[submit-error] {
+      margin-top: .4em;
+    }
+
+    .friendrequest form div[submitting],
+    .friendrequest form div[submit-success] {
+      padding-right: 2em;
+      font-size: 2em;
+    }
+  </style>
+</head>
+<!-- ## Body -->
+<!-- -->
+<body>
+  <!--
+    The list of friend requests is fetched remotely from the server:
+  -->
+  <amp-list src="<%host%>/json/friend_requests.json?auth_token=REPLACE_WITH_YOUR_TOKEN"
+    width="auto"
+    height="300"
+    layout="fixed-height">
+    <div placeholder>Loading ...</div>
+    <div fallback>Failed to load data.</div>
+    <template type="amp-mustache">
+      <div class="friendrequest">
+        <amp-img src="{{photo}}"
+          class="photo"
+          width="32"
+          height="32"
+          layout="fixed"></amp-img>
+        <div class="name">{{name}}</div>
+        <form action-xhr="https://ampbyexample.com/components/amp-form/submit-form-xhr"
+          id="request-{{id}}"
+          method="post"
+          on="submit-error:request-{{id}}.clear">
+          <fieldset>
+            <input type="hidden"
+              name="id"
+              value="{{id}}">
+            <input type="hidden"
+              name="auth_token"
+              value="REPLACE_WITH_YOUR_TOKEN">
+            <label class="button-confirm">
+              Confirm
+              <input name="choice"
+                type="radio"
+                value="confirm"
+                on="change:request-{{id}}.submit">
+            </label>
+            <label class="button-delete">
+              Delete
+              <input name="choice"
+                type="radio"
+                value="delete"
+                on="change:request-{{id}}.submit">
+            </label>
+          </fieldset>
+          <div submitting>Sending...</div>
+          <div submit-success>Done.</div>
+          <div submit-error>An error occurred.</div>
+        </form>
+      </div>
+    </template>
+    <div overflow class="list-overflow">
+      See more
+    </div>
+  </amp-list>
+</body>
+
+</html>
+
+<!--
+  ## Server-side considerations
+
+  Because there is no authentication for outgoing XHR calls from AMP email
+  messages, all authentication should be done using access tokens.
+
+  In the sample above, `REPLACE_WITH_YOUR_TOKEN` represents an access token.
+  This token has to be provided both in the `src` field inside `<amp-list>` and
+  when submitting the form (as a hidden `<input>` field).
+-->

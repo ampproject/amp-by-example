@@ -1,0 +1,14 @@
+{
+  "items": [
+    {
+      "id": "FgAIFAsF",
+      "name": "Jane Roe",
+      "photo": "https://ampbyexample.com/img/face.png"
+    },
+    {
+      "id": "GhULChUD",
+      "name": "John Doe",
+      "photo": "https://ampbyexample.com/img/face.png"
+    }
+  ]
+}
