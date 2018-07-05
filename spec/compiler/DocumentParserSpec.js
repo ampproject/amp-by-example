@@ -38,8 +38,10 @@ describe("DocumentParser", function() {
   <div>hello</div>
 </div>`.trim();
   var COMMENT = '<!--comment-->';
+  var HINT = '<!--~hint~-->';
   var LINK = ' <link href="Hello World" />';
   var META = ' <meta href="Hello World" />';
+  var BASE = ' <base href="/">';
   var DOCUMENT_METADATA = `<!---{
     "experiments": ["amp-accordion"]
   }--->`;
@@ -62,6 +64,19 @@ describe("DocumentParser", function() {
       .toEqual([
           newSection('comment\n', TAG + '\n', "", true, true),
       ]);
+  });
+
+  it("adds hint", function() {
+    const expected = newSection(
+      '',
+      `<!--START_HINT_0-->\n${TAG}\n<!--END_HINT-->\n`,
+      '',
+      true,
+      true
+    );
+    expected.hints = ['hint'];
+
+    expect(parse(HINT, TAG).sections).toEqual([expected]);
   });
 
   it("supports wrapped attributes", function() {
@@ -140,6 +155,13 @@ describe("DocumentParser", function() {
     });
   });
 
+  describe("void tags", function() {
+    it("base", function() {
+      var doc = parse(HEAD, COMMENT, BASE, TITLE, HEAD_END);
+      expect(doc.sections.length).toEqual(3);
+    });
+  });
+
   it("adds title to document", function() {
     var doc = parse(HEAD, TITLE, HEAD_END);
     expect(doc.title).toEqual('hello');
@@ -177,6 +199,7 @@ describe("DocumentParser", function() {
       expect(parser.extractTag('<!--- -->')).toEqual('');
       expect(parser.extractTag('  <h4>Hello World</h4>')).toEqual('h4');
       expect(parser.extractTag('<amp-ad width="300"')).toEqual('amp-ad');
+      expect(parser.extractTag('<input type="text">')).toEqual('input');
     });
 
     it("end tag", function() {
