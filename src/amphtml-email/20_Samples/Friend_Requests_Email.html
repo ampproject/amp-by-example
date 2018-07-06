@@ -7,7 +7,7 @@
 ## Introduction
 
 This sample showcases how to use AMPHTML email to create an email that lets
-you approve or delete of friend requests on a social network.
+you approve or delete friend requests on a social network.
 -->
 
 <!-- -->
@@ -30,7 +30,7 @@ you approve or delete of friend requests on a social network.
   <!-- ## Setup -->
   <!--
     Additionally used AMP components must be imported in the header. We use
-    `amp-form` to communicate the user's choice to the server.
+    `amp-form` to submit the user's choice to the server.
   -->
   <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
   <!--
@@ -134,7 +134,7 @@ you approve or delete of friend requests on a social network.
 <!-- -->
 <body>
   <!--
-    The list of friend requests is fetched remotely from the server:
+    The list of friend requests is fetched remotely from the server.
   -->
   <amp-list src="<%host%>/json/friend_requests.json?auth_token=REPLACE_WITH_YOUR_TOKEN"
     width="auto"
@@ -197,6 +197,6 @@ you approve or delete of friend requests on a social network.
   messages, all authentication should be done using access tokens.
 
   In the sample above, `REPLACE_WITH_YOUR_TOKEN` represents an access token.
-  This token has to be provided both in the `src` field inside `<amp-list>` and
+  This token must be provided both in the `src` field inside `<amp-list>` and
   when submitting the form (as a hidden `<input>` field).
 -->
