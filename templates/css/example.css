@@ -173,12 +173,12 @@ code {
 .abe-code .has-hint > .hint {
   opacity: 0;
   position: absolute;
-  top: 100%;
+  bottom: 100%;
   border-radius: 5px;
   padding: 5px;
   width: 100%;
   text-align: center;
-  margin-top: 3px;
+  margin-bottom: 7px;
   background: #fff;
   color: #4a4a4a;
   line-height: 1.5rem;
@@ -186,7 +186,7 @@ code {
   box-shadow: 0 0 1px 0 rgba(50,68,78,.5), 0 0 2px 0 rgba(0,0,0,.07), 0 3px 8px 0 rgba(0,0,0,.1);
   transform: scale(0);
   transition: transform .7s, opacity .7s;
-  transform-origin: top;
+  transform-origin: bottom;
   user-select: none;
 }
 .abe-code .has-hint > .show-hint {
