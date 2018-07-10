@@ -35,8 +35,14 @@
 
   <body>
     <!-- ## Writing the Story -->
-    <!-- Stories are declared inside the `amp-story` tag. You can link to other Stories on the last screen of your story by linking to a [bookend JSON config](/json/bookend.json). -->
-    <amp-story standalone bookend-config-src="<%host%>/json/bookend.json">
+    <!-- Stories are declared inside the `amp-story` tag. Story-level metadata is provided via attributes. (The first four attributes are mandatory; the final two are optional, but recommended.) Note that this metadata augments, but does not replace, [Structured Data](https://developers.google.com/search/docs/data-types/article#amp). -->
+    <amp-story standalone
+      title="Stories in AMP - Hello World"
+      publisher="AMP Project"
+      publisher-logo-src="<%host%>/favicons/coast-228x228.png"
+      poster-portrait-src="<%host%>/img/story_dog2_portrait.jpg"
+      poster-square-src="<%host%>/img/story_dog2_square.jpg"
+      poster-landscape-src="<%host%>/img/story_dog2_landscape.jpg">
 
       <!-- A story consists of one or more pages. Each page is declared by an `amp-story-page` element. Pages are designed by layering videos, images and text. Here we have a page that uses two layers. One layer filling the available space with an image and one text layer that shows a heading. -->
       <amp-story-page id="page-1">
@@ -104,6 +110,10 @@
           </amp-img>
         </amp-story-grid-layer>
       </amp-story-page>
+
+      <!-- A "bookend" panel containing links to other resources will appear on the last page of your story if you include an `amp-story-bookend` that references a [bookend JSON config](/json/bookend.json). -->
+      <amp-story-bookend src="<%host%>/json/bookend.json" layout="nodisplay">
+      </amp-story-bookend>
     </amp-story>
   </body>
 </html>

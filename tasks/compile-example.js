@@ -416,15 +416,20 @@ module.exports = function(config, indexPath, updateTimestamp) {
       gutil.log('no stories section found');
       return;
     }
-    const relatedArticles = storyBookend['related-articles'];
+    const bookendComponents = storyBookend['components'];
 
     storiesSection.categories.forEach(c => {
-      relatedArticles[c.name] = c.examples.map(e => {
-        return {
+      bookendComponents.push({
+        type: "heading",
+        text: c.name
+      });
+      c.examples.forEach(e => {
+        bookendComponents.push({
+          type: "small",
           title: e.title,
           url: e.url,
           image: e.firstImage
-        };
+        });
       });
     });
 
