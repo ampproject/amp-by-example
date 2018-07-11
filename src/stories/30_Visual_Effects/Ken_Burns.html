@@ -36,7 +36,13 @@
 </head>
 
 <body>
-  <amp-story standalone bookend-config-src="<%host%>/json/bookend.json">
+  <amp-story standalone
+  title="Stories in AMP - Ken Burns"
+  publisher="AMP Project"
+  publisher-logo-src="<%host%>/favicons/coast-228x228.png"
+  poster-portrait-src="https://picsum.photos/300/400"
+  poster-square-src="https://picsum.photos/300/300"
+  poster-landscape-src="https://picsum.photos/400/300">
     <!-- ## Ken Burns Effect-->
     <!--The general idea is to nest elements to combine the animations: the container element will animate the zoom, and the image inside the container will be animated with a panning.
 * Start by creating an `<amp-story-page>` with a `<amp-story-grid-layer` using the fill template.
@@ -142,6 +148,10 @@
         </div>
       </amp-story-grid-layer>
     </amp-story-page>
+
+    <amp-story-bookend src="<%host%>/json/bookend.json" layout="nodisplay">
+    </amp-story-bookend>
+
   </amp-story>
 </body>
 
