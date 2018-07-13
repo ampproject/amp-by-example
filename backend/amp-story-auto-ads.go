@@ -25,7 +25,7 @@ import (
 const NUMBER_OF_CONFIGS = 5
 
 func InitAmpStoryAutoAds() {
-	http.HandleFunc("/json/amp-story-auto-ads/", serveRandomAdConfig)
+	http.HandleFunc("/json/amp-story-auto-ads/", EnableCors(serveRandomAdConfig))
 }
 
 func getConfigNumber() int {
@@ -37,12 +37,5 @@ func serveRandomAdConfig(w http.ResponseWriter, r *http.Request) {
 	configName := fmt.Sprintf("amp-story-auto-ads-%v.json", configNumber)
 	filePath := path.Join(DIST_FOLDER, "json", configName)
 
-	json, err := ioutil.ReadFile(filePath)
-	if err != nil {
-		panic(err)
-	}
-
-	EnableCors(w, r)
-	SetContentTypeJson(w)
-	w.Write(json)
+	SendJsonFile(w, filePath)
 }

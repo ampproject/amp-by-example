@@ -81,7 +81,7 @@ var pollQuestions PollQuestions
 func InitPollSample() {
 	questions = []string{"Penguins", "Ostriches", "Kiwis", "Wekas"}
 	pollQuestions = PollQuestions{questions}
-	http.HandleFunc(POLL_SAMPLE_PATH+"submit", submitPoll)
+	http.HandleFunc(POLL_SAMPLE_PATH+"submit", EnableCors(submitPoll))
 	RegisterSample(CATEGORY_SAMPLE_TEMPLATES+"/poll", handlePoll)
 }
 
@@ -105,8 +105,6 @@ func createPollResult(answers []int, message string) PollResult {
 }
 
 func submitPoll(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	SetContentTypeJson(w)
 	context := appengine.NewContext(r)
 	pollForm, error := parsePollForm(w, r, context)
 	if error != nil {
@@ -118,7 +116,7 @@ func submitPoll(w http.ResponseWriter, r *http.Request) {
 		handleError(error, w)
 		return
 	}
-	json.NewEncoder(w).Encode(pollResult)
+	SendJsonResponse(w, pollResult)
 }
 
 func parsePollForm(w http.ResponseWriter, r *http.Request, context context.Context) (PollForm, error) {

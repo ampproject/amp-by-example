@@ -24,15 +24,12 @@ const (
 )
 
 func InitRatingSample() {
-	http.HandleFunc(RATING_SAMPLE_PATH+"set", func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, submitRatingXHR)
-	})
+	http.HandleFunc(RATING_SAMPLE_PATH+"set", onlyPost(EnableCors(submitRatingXHR)))
 }
 
 func submitRatingXHR(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	SetContentTypeJson(w)
 	rating := r.FormValue("rating")
-	response := fmt.Sprintf("{\"rating\":\"%s\"}", rating)
-	w.Write([]byte(response))
+	SendJsonResponse(w, map[string]string{
+		"rating": rating,
+	})
 }

@@ -34,7 +34,7 @@ type MortgageForm struct {
 }
 
 func InitHousingForm() {
-	http.HandleFunc(HOUSING_SAMPLE_PATH+"calculate-mortgage-xhr", calculateMortgageXHR)
+	http.HandleFunc(HOUSING_SAMPLE_PATH+"calculate-mortgage-xhr", EnableCors(calculateMortgageXHR))
 	http.HandleFunc(HOUSING_SAMPLE_PATH+"calculate-mortgage", calculateMortgage)
 }
 
@@ -60,18 +60,18 @@ func parseForm(r *http.Request) (MortgageForm, error) {
 }
 
 func calculateMortgageXHR(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	SetContentTypeJson(w)
 	response := ""
 	mortgageForm, err := parseForm(r)
 	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		response = fmt.Sprintf("{\"err\":\"%s\"}", err)
-		w.Write([]byte(response))
+		SendJsonError(w, http.StatusBadRequest, map[string]string{
+			"err": err.Error(),
+		})
+		return
 	}
 	monthlyPayment := calculateMonthlyPayment(mortgageForm)
-	response = fmt.Sprintf("{\"monthly_repayment\":\"£%.2f\"}", monthlyPayment)
-	w.Write([]byte(response))
+	SendJsonResponse(w, map[string]string{
+		"monthly_repayment": fmt.Sprintf("£%.2f", monthlyPayment),
+	})
 }
 
 func calculateMortgage(w http.ResponseWriter, r *http.Request) {
