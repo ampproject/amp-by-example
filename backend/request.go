@@ -50,11 +50,10 @@ func EnableCors(next http.HandlerFunc) http.HandlerFunc {
 		w.Header().Set("Access-Control-Allow-Credentials", "true")
 
 		sourceOrigin := GetSourceOrigin(r)
-		if sourceOrigin == "" {
-			return
+		if sourceOrigin != "" {
+			w.Header().Set("Access-Control-Expose-Headers", "AMP-Access-Control-Allow-Source-Origin")
+			w.Header().Set("AMP-Access-Control-Allow-Source-Origin", sourceOrigin)
 		}
-		w.Header().Set("Access-Control-Expose-Headers", "AMP-Access-Control-Allow-Source-Origin")
-		w.Header().Set("AMP-Access-Control-Allow-Source-Origin", sourceOrigin)
 
 		next.ServeHTTP(w, r)
 	}

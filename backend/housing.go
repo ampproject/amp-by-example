@@ -60,7 +60,6 @@ func parseForm(r *http.Request) (MortgageForm, error) {
 }
 
 func calculateMortgageXHR(w http.ResponseWriter, r *http.Request) {
-	response := ""
 	mortgageForm, err := parseForm(r)
 	if err != nil {
 		SendJsonError(w, http.StatusBadRequest, map[string]string{

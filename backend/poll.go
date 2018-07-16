@@ -15,7 +15,6 @@
 package backend
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"golang.org/x/net/context"

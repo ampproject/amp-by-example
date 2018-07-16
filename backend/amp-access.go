@@ -13,7 +13,6 @@
 package backend
 
 import (
-	"encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
