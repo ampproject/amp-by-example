@@ -452,10 +452,8 @@ article#preview {
       </amp-carousel>
       <!-- -->
       <h3 class="pl1 pt2 pb2">Bestsellers</h3>
-      <!--
-        With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
-        Learn more about `amp-list` [here](/components/amp-list/)
-      -->
+      <!-- With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
+        Learn more about `amp-list` [here](/components/amp-list/) -->
       <amp-list class="items"
                 width="auto"
                 height="160"
@@ -474,9 +472,7 @@ article#preview {
           </a>
         </template>
       </amp-list>
-      <!--
-        The initial state and helper variables for the product autosuggest are configured by amp-state.
-      -->
+      <!-- The initial state and helper variables for the product autosuggest are configured by amp-state. -->
     <amp-state id="autosuggest">
         <script type="application/json">
         {
@@ -491,9 +487,7 @@ article#preview {
       <!--
         ## User Analytics
       -->
-      <!--
-        Analytics must be configured in the body. Here we use Google Analytics to track pageviews.
-      -->
+      <!-- Analytics must be configured in the body. Here we use Google Analytics to track pageviews. -->
       <amp-analytics type="googleanalytics">
         <script type="application/json">
 {
