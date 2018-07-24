@@ -24,8 +24,8 @@ const SHOPPING_CART_TOTAL = 9.94
 var discounts map[string]float32
 
 func InitCheckout() {
-	http.HandleFunc("/checkout/shopping-cart", EnableCors(handleShoppingCart))
-	http.HandleFunc("/checkout/apply-code", EnableCors(handleApplyCode))
+	RegisterHandler("/checkout/shopping-cart", handleShoppingCart)
+	RegisterHandler("/checkout/apply-code", handleApplyCode)
 	discounts = make(map[string]float32)
 }
 

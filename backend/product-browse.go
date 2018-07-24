@@ -85,10 +85,10 @@ func InitProductBrowse() {
 	RegisterSample("samples_templates/product_browse_page", renderProductBrowsePage)
 	RegisterSample("samples_templates/product_page", renderProduct)
 	RegisterSampleEndpoint("samples_templates/product_browse_page", SEARCH, handleSearchRequest)
-	http.HandleFunc("/samples_templates/products", handleProductsRequest)
-	http.HandleFunc("/samples_templates/products_autosuggest", EnableCors(handleProductsAutosuggestRequest))
-	http.HandleFunc(SHOW_MORE_PATH, EnableCors(handleLoadMoreRequest))
-	http.HandleFunc(ADD_TO_CART_PATH, onlyPost(EnableCors(addToCart)))
+	RegisterHandler("/samples_templates/products", handleProductsRequest)
+	RegisterHandler("/samples_templates/products_autosuggest", handleProductsAutosuggestRequest)
+	RegisterHandler(SHOW_MORE_PATH, handleLoadMoreRequest)
+	RegisterHandler(ADD_TO_CART_PATH, onlyPost(addToCart))
 	cache = NewLRUCache(100)
 }
 

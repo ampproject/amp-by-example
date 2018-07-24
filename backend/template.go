@@ -59,13 +59,13 @@ func RegisterTemplate(route string, mode string, templatePath string,
 		template: parseTemplate(templatePath),
 		Route:    route,
 	}
-	http.HandleFunc(route, EnableCors(func(w http.ResponseWriter, r *http.Request) {
+	RegisterHandler(route, func(w http.ResponseWriter, r *http.Request) {
 		if IsInsecureRequest(r) {
 			RedirectToSecureVersion(w, r)
 			return
 		}
 		handler(w, r, page)
-	}))
+	})
 }
 
 func registerSampleEndpointHandler(samplePath string, mode string, endpoint string,
@@ -75,7 +75,7 @@ func registerSampleEndpointHandler(samplePath string, mode string, endpoint stri
 		Route: route,
 		Mode:  mode,
 	}
-	http.HandleFunc(route, func(w http.ResponseWriter, r *http.Request) {
+	RegisterHandler(route, func(w http.ResponseWriter, r *http.Request) {
 		handler(w, r, page)
 	})
 }

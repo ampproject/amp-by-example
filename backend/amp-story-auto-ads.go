@@ -24,7 +24,7 @@ import (
 const NUMBER_OF_CONFIGS = 5
 
 func InitAmpStoryAutoAds() {
-	http.HandleFunc("/json/amp-story-auto-ads/", EnableCors(serveRandomAdConfig))
+	RegisterHandler("/json/amp-story-auto-ads/", serveRandomAdConfig)
 }
 
 func getConfigNumber() int {

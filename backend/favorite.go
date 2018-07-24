@@ -26,8 +26,8 @@ const (
 )
 
 func InitFavoriteSample() {
-	http.HandleFunc("/favorite", EnableCors(handleFavorite))
-	http.HandleFunc("/favorite-with-count", EnableCors(handleFavoriteWithCount))
+	RegisterHandler("/favorite", handleFavorite)
+	RegisterHandler("/favorite-with-count", handleFavoriteWithCount)
 }
 
 func handleFavorite(w http.ResponseWriter, r *http.Request) {

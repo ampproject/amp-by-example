@@ -45,12 +45,12 @@ type Comment struct {
 }
 
 func InitCommentSection() {
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"submit-comment-xhr", onlyPost(EnableCors(submitCommentXHR)))
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"authorization", EnableCors(handleCommentAuthorization))
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"login", EnableCors(handleLogin))
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"submit-logout", EnableCors(handleLogout))
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"logout", EnableCors(handleLogoutButton))
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"submit", EnableCors(handleSubmit))
+	RegisterHandler(COMMENT_SAMPLE_PATH+"submit-comment-xhr", onlyPost(submitCommentXHR))
+	RegisterHandler(COMMENT_SAMPLE_PATH+"authorization", handleCommentAuthorization)
+	RegisterHandler(COMMENT_SAMPLE_PATH+"login", handleLogin)
+	RegisterHandler(COMMENT_SAMPLE_PATH+"submit-logout", handleLogout)
+	RegisterHandler(COMMENT_SAMPLE_PATH+"logout", handleLogoutButton)
+	RegisterHandler(COMMENT_SAMPLE_PATH+"submit", handleSubmit)
 }
 
 func submitCommentXHR(w http.ResponseWriter, r *http.Request) {

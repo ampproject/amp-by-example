@@ -75,7 +75,7 @@ func GeneratePagedResponse(page int) AmpListResponse {
 }
 
 func InitPagedListSample() {
-	http.HandleFunc(PAGED_LIST_SAMPLE_PATH+"search", EnableCors(func(w http.ResponseWriter, r *http.Request) {
+	RegisterHandler(PAGED_LIST_SAMPLE_PATH+"search", func(w http.ResponseWriter, r *http.Request) {
 		pageString := r.URL.Query().Get("page")
 		if pageString == "" {
 			pageString = "1"
@@ -90,5 +90,5 @@ func InitPagedListSample() {
 				"error": "Invalid page",
 			})
 		}
-	}))
+	})
 }

@@ -29,11 +29,11 @@ const (
 )
 
 func InitHotelSample() {
-	http.HandleFunc(HOTEL_SAMPLE_PATH+"authorization", EnableCors(handleHotelAuthorization))
-	http.HandleFunc(HOTEL_SAMPLE_PATH+"pingback", EnableCors(handlePingback))
-	http.HandleFunc(HOTEL_SAMPLE_PATH+"login", EnableCors(handleLogin))
-	http.HandleFunc(HOTEL_SAMPLE_PATH+"book", onlyPost(EnableCors(book)))
-	http.HandleFunc(HOTEL_SAMPLE_PATH+"check-available", EnableCors(checkAvailability))
+	RegisterHandler(HOTEL_SAMPLE_PATH+"authorization", handleHotelAuthorization)
+	RegisterHandler(HOTEL_SAMPLE_PATH+"pingback", handlePingback)
+	RegisterHandler(HOTEL_SAMPLE_PATH+"login", handleLogin)
+	RegisterHandler(HOTEL_SAMPLE_PATH+"book", onlyPost(book))
+	RegisterHandler(HOTEL_SAMPLE_PATH+"check-available", checkAvailability)
 }
 
 func (h HotelAuthorizationResponse) CreateAuthorizationResponse() AuthorizationResponse {

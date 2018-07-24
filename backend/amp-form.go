@@ -25,10 +25,10 @@ const (
 )
 
 func InitAmpForm() {
-	http.HandleFunc(SAMPLE_NAME+"submit-form-input-text-xhr", onlyPost(EnableCors(submitFormXHRInputText)))
-	http.HandleFunc(SAMPLE_NAME+"verify-form-input-text-xhr", onlyPost(EnableCors(verifyFormXHRInputText)))
-	http.HandleFunc(SAMPLE_NAME+"submit-form-xhr", onlyPost(EnableCors(submitFormXHR)))
-	http.HandleFunc(SAMPLE_NAME+"submit-form", submitForm)
+	RegisterHandler(SAMPLE_NAME+"submit-form-input-text-xhr", onlyPost(submitFormXHRInputText))
+	RegisterHandler(SAMPLE_NAME+"verify-form-input-text-xhr", onlyPost(verifyFormXHRInputText))
+	RegisterHandler(SAMPLE_NAME+"submit-form-xhr", onlyPost(submitFormXHR))
+	RegisterHandler(SAMPLE_NAME+"submit-form", submitForm)
 }
 
 func submitFormXHRInputText(w http.ResponseWriter, r *http.Request) {

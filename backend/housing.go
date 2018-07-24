@@ -34,8 +34,8 @@ type MortgageForm struct {
 }
 
 func InitHousingForm() {
-	http.HandleFunc(HOUSING_SAMPLE_PATH+"calculate-mortgage-xhr", EnableCors(calculateMortgageXHR))
-	http.HandleFunc(HOUSING_SAMPLE_PATH+"calculate-mortgage", calculateMortgage)
+	RegisterHandler(HOUSING_SAMPLE_PATH+"calculate-mortgage-xhr", calculateMortgageXHR)
+	RegisterHandler(HOUSING_SAMPLE_PATH+"calculate-mortgage", calculateMortgage)
 }
 
 func calculateMonthlyPayment(mortgageForm MortgageForm) float64 {

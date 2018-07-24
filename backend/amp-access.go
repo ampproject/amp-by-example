@@ -41,11 +41,11 @@ const (
 )
 
 func InitAmpAccess() {
-	http.HandleFunc(AMP_ACCESS_SAMPLE_PATH+"authorization", EnableCors(handleAuthorization))
-	http.HandleFunc(AMP_ACCESS_SAMPLE_PATH+"login", EnableCors(handleLogin))
-	http.HandleFunc(AMP_ACCESS_SAMPLE_PATH+"logout", EnableCors(handleLogout))
-	http.HandleFunc(AMP_ACCESS_SAMPLE_PATH+"pingback", EnableCors(handlePingback))
-	http.HandleFunc(AMP_ACCESS_SAMPLE_PATH+"submit", EnableCors(handleSubmit))
+	RegisterHandler(AMP_ACCESS_SAMPLE_PATH+"authorization", handleAuthorization)
+	RegisterHandler(AMP_ACCESS_SAMPLE_PATH+"login", handleLogin)
+	RegisterHandler(AMP_ACCESS_SAMPLE_PATH+"logout", handleLogout)
+	RegisterHandler(AMP_ACCESS_SAMPLE_PATH+"pingback", handlePingback)
+	RegisterHandler(AMP_ACCESS_SAMPLE_PATH+"submit", handleSubmit)
 }
 
 func handlePingback(w http.ResponseWriter, r *http.Request) {

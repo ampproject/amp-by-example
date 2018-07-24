@@ -29,9 +29,9 @@ const (
 )
 
 func InitSlowResponseSample() {
-	http.HandleFunc(SLOW_JSON_SAMPLE_PATH+"", EnableCors(slowJson))
-	http.HandleFunc(SLOW_JSON_WITH_ITEMS_SAMPLE_PATH+"", slowJsonWithItems)
-	http.HandleFunc(SLOW_IFRAME_SAMPLE_PATH+"", slowIframe)
+	RegisterHandler(SLOW_JSON_SAMPLE_PATH+"", slowJson)
+	RegisterHandler(SLOW_JSON_WITH_ITEMS_SAMPLE_PATH+"", slowJsonWithItems)
+	RegisterHandler(SLOW_IFRAME_SAMPLE_PATH+"", slowIframe)
 }
 
 func addDelay(r *http.Request) {

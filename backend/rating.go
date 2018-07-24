@@ -23,7 +23,7 @@ const (
 )
 
 func InitRatingSample() {
-	http.HandleFunc(RATING_SAMPLE_PATH+"set", onlyPost(EnableCors(submitRatingXHR)))
+	RegisterHandler(RATING_SAMPLE_PATH+"set", onlyPost(submitRatingXHR))
 }
 
 func submitRatingXHR(w http.ResponseWriter, r *http.Request) {

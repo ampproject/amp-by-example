@@ -78,7 +78,7 @@ func InitAutosuggestSample() {
 		"Cheyenne, Wyoming",
 	}
 
-	http.HandleFunc(AUTOSUGGEST_SAMPLE_PATH+"search_list", EnableCors(func(w http.ResponseWriter, r *http.Request) {
+	RegisterHandler(AUTOSUGGEST_SAMPLE_PATH+"search_list", func(w http.ResponseWriter, r *http.Request) {
 		query := r.URL.Query().Get("q")
 
 		filteredStrs := Filter(US_CAPITAL_CITIES, func(v string) bool {
@@ -96,9 +96,9 @@ func InitAutosuggestSample() {
 				"query": query,
 			})
 		}
-	}))
+	})
 
-	http.HandleFunc(AUTOSUGGEST_SAMPLE_PATH+"address", EnableCors(func(w http.ResponseWriter, r *http.Request) {
+	RegisterHandler(AUTOSUGGEST_SAMPLE_PATH+"address", func(w http.ResponseWriter, r *http.Request) {
 		city := r.FormValue("city")
 
 		for i := range US_CAPITAL_CITIES {
@@ -113,7 +113,7 @@ func InitAutosuggestSample() {
 		SendJsonError(w, http.StatusBadRequest, map[string]interface{}{
 			"result": fmt.Sprintf("Sorry! We don't ship to %s.", city),
 		})
-	}))
+	})
 }
 
 func Filter(vs []string, f func(string) bool) []string {

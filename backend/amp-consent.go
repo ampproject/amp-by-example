@@ -23,7 +23,7 @@ const (
 )
 
 func InitAmpConsent() {
-	http.HandleFunc(CONSENT_SAMPLE_PATH+"getConsent", onlyPost(EnableCors(submitConsentXHR)))
+	RegisterHandler(CONSENT_SAMPLE_PATH+"getConsent", onlyPost(submitConsentXHR))
 }
 
 func submitConsentXHR(w http.ResponseWriter, r *http.Request) {

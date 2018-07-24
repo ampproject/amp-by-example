@@ -80,7 +80,7 @@ var pollQuestions PollQuestions
 func InitPollSample() {
 	questions = []string{"Penguins", "Ostriches", "Kiwis", "Wekas"}
 	pollQuestions = PollQuestions{questions}
-	http.HandleFunc(POLL_SAMPLE_PATH+"submit", EnableCors(submitPoll))
+	RegisterHandler(POLL_SAMPLE_PATH+"submit", submitPoll)
 	RegisterSample(CATEGORY_SAMPLE_TEMPLATES+"/poll", handlePoll)
 }
 
