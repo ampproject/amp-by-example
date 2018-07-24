@@ -1,0 +1,158 @@
+<!---
+  {
+    "skipValidation": "true",
+    "preview": "default",
+    "experiments": ["amp-next-page"]
+  }
+--->
+<!--
+  ## Introduction
+
+  [amp-next-page](https://www.ampproject.org/docs/reference/components/amp-next-page)
+  allows you to add an infinite scroll style experience to your AMP pages.
+  The component configuration takes an ordered list of pages to be displayed,
+  and as the user approaches the end of the document the next page will be
+  preloaded and automatically added to the end.
+
+  The component can be used to provide a user-friendly interaction for
+  paginated content, or to promote other related content on your site.
+
+  **Note:** For performance reasons `amp-next-page` will currently load and
+  display a maximum of three pages on screen at once, so cannot be used to
+  provide a true infinite scroll.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <link rel="canonical" href="/components/amp-next-page/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <title>amp-next-page</title>
+  <!-- ## Setup -->
+  <!--
+    Import the `amp-next-page` component.
+  -->
+  <script async custom-element="amp-next-page" src="https://cdn.ampproject.org/v0/amp-next-page-0.1.js"></script>
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+</head>
+<body>
+
+  <p class="previewOnly m2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis venenatis, metus a tristique aliquet, enim nibh efficitur sem, ut iaculis urna justo eu diam. Nullam cursus sapien et sodales posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Donec vitae ornare risus. Maecenas eleifend ante vel dui laoreet, et porttitor libero rutrum. Nam arcu mi, ullamcorper at risus et, pulvinar ultrices erat. In pellentesque sem vel purus auctor, ut venenatis tellus tristique. Phasellus molestie diam orci, nec gravida turpis bibendum ut. Sed sagittis aliquet lorem sed dictum.
+  </p>
+  <p class="previewOnly m2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis venenatis, metus a tristique aliquet, enim nibh efficitur sem, ut iaculis urna justo eu diam. Nullam cursus sapien et sodales posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Donec vitae ornare risus. Maecenas eleifend ante vel dui laoreet, et porttitor libero rutrum. Nam arcu mi, ullamcorper at risus et, pulvinar ultrices erat. In pellentesque sem vel purus auctor, ut venenatis tellus tristique. Phasellus molestie diam orci, nec gravida turpis bibendum ut. Sed sagittis aliquet lorem sed dictum.
+  </p>
+  <p class="previewOnly m2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis venenatis, metus a tristique aliquet, enim nibh efficitur sem, ut iaculis urna justo eu diam. Nullam cursus sapien et sodales posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Donec vitae ornare risus. Maecenas eleifend ante vel dui laoreet, et porttitor libero rutrum. Nam arcu mi, ullamcorper at risus et, pulvinar ultrices erat. In pellentesque sem vel purus auctor, ut venenatis tellus tristique. Phasellus molestie diam orci, nec gravida turpis bibendum ut. Sed sagittis aliquet lorem sed dictum.
+  </p>
+  <p class="previewOnly m2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis venenatis, metus a tristique aliquet, enim nibh efficitur sem, ut iaculis urna justo eu diam. Nullam cursus sapien et sodales posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Donec vitae ornare risus. Maecenas eleifend ante vel dui laoreet, et porttitor libero rutrum. Nam arcu mi, ullamcorper at risus et, pulvinar ultrices erat. In pellentesque sem vel purus auctor, ut venenatis tellus tristique. Phasellus molestie diam orci, nec gravida turpis bibendum ut. Sed sagittis aliquet lorem sed dictum.
+  </p>
+  <p class="previewOnly m2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis venenatis, metus a tristique aliquet, enim nibh efficitur sem, ut iaculis urna justo eu diam. Nullam cursus sapien et sodales posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Donec vitae ornare risus. Maecenas eleifend ante vel dui laoreet, et porttitor libero rutrum. Nam arcu mi, ullamcorper at risus et, pulvinar ultrices erat. In pellentesque sem vel purus auctor, ut venenatis tellus tristique. Phasellus molestie diam orci, nec gravida turpis bibendum ut. Sed sagittis aliquet lorem sed dictum.
+  </p>
+  <p class="previewOnly m2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis venenatis, metus a tristique aliquet, enim nibh efficitur sem, ut iaculis urna justo eu diam. Nullam cursus sapien et sodales posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse potenti. Donec vitae ornare risus. Maecenas eleifend ante vel dui laoreet, et porttitor libero rutrum. Nam arcu mi, ullamcorper at risus et, pulvinar ultrices erat. In pellentesque sem vel purus auctor, ut venenatis tellus tristique. Phasellus molestie diam orci, nec gravida turpis bibendum ut. Sed sagittis aliquet lorem sed dictum.
+  </p>
+
+  <!-- ## Basic Usage -->
+  <!--
+    The `amp-next-page` component can be placed anywhere in the document
+    `body`. Subsequent pages will be added to the document as children of the
+    component, so it should usually be placed at the end of your content,
+    before any footers.
+
+    All page URLs specified in the component config must be served from the
+    same origin (protocol, domain and port) as the parent document. Canonical
+    URLs will automatically be rewritten to cache URLs when served from the
+    cache.
+
+    Only one `amp-next-page` component is allowed in a document. If a child
+    document also contains an instance of `amp-next-page` the document will
+    render and the second instance will be ignored.
+  -->
+  <amp-next-page>
+    <script type="application/json">
+      {
+        "pages": [
+          {
+            "title": "News article",
+            "image": "<%host%>/img/social.png",
+	          "ampUrl": "<%host%>samples_templates/news_article/preview/"
+          },
+          {
+            "title": "Recipe",
+            "image": "<%host%>/img/social.png",
+            "ampUrl": "<%host%>samples_templates/recipe/preview/"
+          }
+        ]
+      }
+    </script>
+  </amp-next-page>
+
+  <!-- ## Styling the page separator -->
+  <!--
+    By default a line will be displayed between pages to act as a separator.
+    The style of this separator can be adjusted by styling the
+    `amp-next-page-default-separator` class.
+
+  ```css
+    .amp-next-page-default-separator {
+      border-bottom 2px solid red;
+    }
+  ```
+  -->
+
+  <!-- ## Custom page separators -->
+  <!--
+    It is also possible to define a custom page separator containing
+    arbitrary content, such as some text, an image, or an `<amp-ad>`. Create
+    a `<div>` element as a direct child of the `<amp-next-page>` tag with the
+    `separator` attribute.
+  -->
+  <amp-next-page>
+    <div separator>
+      Keep reading...
+    </div>
+    <script type="application/json">
+      {
+        "pages": [
+          {
+            "title": "News article",
+            "image": "<%host%>/img/social.png",
+            "ampUrl": "<%host%>/samples_templates/news_article/preview/"
+          }
+        ]
+      }
+    </script>
+  </amp-next-page>
+
+  <!-- ## Hiding Elements -->
+  <!--
+    Elements such as page footers may be present on all pages. Instead of
+    having these duplicated on all pages, you can hide elements on child
+    pages by specifying a list of CSS selectors in the element config.
+  -->
+  <amp-next-page>
+    <script type="application/json">
+      {
+        "pages": [
+          {
+            "title": "News article",
+            "image": "<%host%>/img/social.png",
+            "ampUrl": "<%host%>/samples_templates/news_article/preview/"
+          }
+        ],
+        "hideSelectors": [
+          ".footer",
+          "article .logo"
+        ]
+      }
+    </script>
+  </amp-next-page>
+
+</body>
+</html>

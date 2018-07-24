@@ -84,7 +84,7 @@
 
    The `amp-consent` will display the logo specified by `publisher-logo-src` in the consent dialog.
     -->
-    <amp-story standalone bookend-config-src="<%host%>/json/bookend.json"
+    <amp-story standalone
                title="Story With User Consent"
                publisher="Google"
                poster-portrait-src="<%host%>/img/story_video_dog_cover.jpg"
@@ -104,7 +104,7 @@
           {
              "consents": {
                 "myConsent": {
-                   "checkConsentHref": "/samples_templates/consent/getConsent",
+                   "checkConsentHref": "https://ampbyexample.com/samples_templates/consent/getConsent",
                    "promptUI": "consentUI"
                  }
               }
@@ -150,6 +150,9 @@
           <p class="last">Here are the key launches by the AMP team and others this year</p>
         </amp-story-grid-layer>
       </amp-story-page>
+
+      <amp-story-bookend src="<%host%>/json/bookend.json" layout="nodisplay">
+      </amp-story-bookend>
 
     </amp-story>
 

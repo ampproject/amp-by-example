@@ -1,6 +1,3 @@
-<!---{
-    "experiments": ["amp-date-picker"]
-}--->
 <!doctype html>
 <html ⚡>
 <head>
@@ -104,8 +101,10 @@
     have been set with `AMP.setState`.
     A placeholder is required for the component. For a single date, this can take the form:
     `<input amp-date-placeholder placeholder="Pick a date">`.
-    `amp-date-picker` introduces the `clear` action that can be called after clicking on a button to clear the date selection;
-    it requires the `show-clear-date` attribute.
+    `amp-date-picker` introduces the `clear` and `today` actions.
+    `clear` can be called after clicking on a button to clear the date selection.
+    The `today` action allows users to quickly select the current date, and its
+    `offset` argument chooses how many days from today to set the date.
   -->
   <amp-date-picker
     id="simple-date-picker"
@@ -122,6 +121,8 @@
       <input class="border-none p0" name="date1" placeholder="Pick a date">
     </div>
     <button class="ampstart-btn caps" on="tap: simple-date-picker.clear">Clear</button>
+    <button class="ampstart-btn caps" on="tap: simple-date-picker.today">Today</button>
+    <button class="ampstart-btn caps" on="tap: simple-date-picker.today(offset=1)">Tomorrow</button>
     <template type="amp-mustache" info-template>
       <span [text]="date1 != null ? 'You picked ' + date1 + '.' : 'You will see your chosen date here.'">You will see your chosen date here.</span>
     </template>
