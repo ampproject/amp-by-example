@@ -1,0 +1,726 @@
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+    <title>amp-list + amp-pan-zoom</title>
+    <link rel="canonical" href="amps.html" >
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
+    <script async custom-element="amp-pan-zoom" src="https://cdn.ampproject.org/v0/amp-pan-zoom-0.1.js"></script>
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+    <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+    <script async custom-element="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+    <style amp-custom>
+      :root {
+      --light-blue: rgb(74,167,246);
+      --light-grey: rgb(215, 215, 215);
+      --lightest-grey: rgb(235, 235, 235);
+      --orange-theme: rgb(255, 115, 0);
+      --blue-theme: rgb(8,90,164);
+      --dark-grey: rgb(51, 62, 71);
+      --medium-grey: rgb(94,100,105);
+      --medium-blue: rgb(52,120,193);
+      --scrim-grey: rgba(0,0,0,0.5);
+      }
+      .lightest-grey-background {
+      background-color: var(--lightest-grey);
+      }
+      *:focus {
+      outline: none;
+      }
+      html {
+      -webkit-tap-highlight-color: transparent;
+      }
+      .padding-15-lat-container {
+      padding: 0 15px;
+      }
+      .margin-top-60 {
+      margin-top: 60px;
+      }
+      .lightblue-background {
+      background-color: var(--light-blue);
+      }
+      .grey-background {
+      background-color: var(--light-grey);
+      }
+      .orange-background, .selected {
+      background-color: var(--orange-theme);
+      }
+      .blue-background, .accessible {
+      background-color: var(--blue-theme);
+      }
+      .seat {
+      fill: var(--light-blue);
+      }
+      .unavailable {
+      fill: var(--light-grey);
+      pointer-events: none;
+      }
+      .seat-banner {
+      margin: auto;
+      width: 70%;
+      }
+      .special-seat {
+      fill: white;
+      }
+      .special-seat-image {
+      background-color: var(--blue-theme);
+      fill: var(--blue-theme);
+      }
+      .selected.special-seat-image {
+      fill: var(--orange-theme);
+      background-color: var(--orange-theme);
+      }
+      .container {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      background: white;
+      border-radius: 5px;
+      }
+      .seat-selector-page .seat.selected {
+      fill: var(--orange-theme);
+      }
+      .disabled-seat {
+      pointer-events: none;
+      cursor: default;
+      }
+      .content {
+      background: white;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      border-radius: 5px;
+      }
+      a {
+      text-decoration: none;
+      }
+      button.next-button:enabled {
+      background: var(--orange-theme);
+      }
+      .disabled {
+      pointer-events: none;
+      opacity: 0.5;
+      cursor: default;
+      }
+      .hidden {
+      display: none;
+      }
+      svg.center {
+      display: block;
+      margin: 0 auto;
+      width: 50%;
+      height: auto;
+      }
+      .clickable {
+      cursor: pointer;
+      }
+      .zoom-0 svg text {
+      display: none;
+      }
+      .zoom-1 #screen-label-container {
+      margin: 0;
+      height: 0;
+      }
+      .info-icon {
+      margin-top: -3px;
+      position: absolute;
+      right: 12px;
+      }
+      #content-container {
+      background-color: white;
+      border-radius: 4px;
+      }
+      .real-content {
+      position: absolute;
+      width: 100%;
+      margin-bottom: 75px;
+      }
+      .real-content-zoomed {
+      margin-top: 10px;
+      margin-bottom: 55px;
+      }
+      #content-shadow {
+      height: 55px;
+      background-color: white;
+      border-radius: 4px 4px 0 0;
+      margin-left: 11px;
+      margin-right: 11px;
+      margin-top: -35px;
+      right: 11px;
+      box-shadow: 0px -2px 3px 1px rgba(0, 0, 0, 0.24);
+      }
+      .content-no-margin {
+      left: 0;
+      right: 0;
+      }
+      .content-margin {
+      margin-left: 10px;
+      margin-right: 10px;
+      }
+      #white-background {
+      position: fixed;
+      background-color: white;
+      overflow: hidden;
+      z-index: -1;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      }
+      .zoom-button {
+
+      bottom: 60px;
+      right: 0px;
+      z-index: 1;
+      border-color: Transparent;
+      background-color: Transparent;
+      margin: 8px;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border-width: 0;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+      background-color: white;
+      border-radius: 3px;
+      }
+      #screen-label-container {
+      margin-left: 11px;
+      margin-top: -55px;
+      margin-right: 11px;
+      padding-top: 30px;
+      }
+      .scrollable-container-ext {
+      padding: 0 20px;
+      }
+      .orange-text {
+      color: var(--orange-theme);
+      }
+      .grey-delimiter {
+      margin-top: 25px;
+      margin-bottom: 25px;
+      height: 1px;
+      background-color: var(--light-grey);
+      }
+      svg text {
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 13px;
+      fill: var(--orange-theme);
+      }
+      .default-amp-loader {
+      position: absolute;
+      display: block;
+      height: 10px;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      transform-origin: 50% 50%;
+      white-space: nowrap;
+      }
+      .default-amp-loader-dot {
+      position: relative;
+      display: inline-block;
+      height: 10px;
+      width: 10px;
+      margin: 2px;
+      border-radius: 100%;
+      background-color: rgba(0, 0, 0, .3);
+      box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .2);
+      will-change: transform;
+      animation: default-amp-loader-dots 2s infinite;
+      }
+      .default-amp-loader .default-amp-loader-dot:nth-child(1) {
+      animation-delay: 0s;
+      }
+      .default-amp-loader .default-amp-loader-dot:nth-child(2) {
+      animation-delay: .1s;
+      }
+      .default-amp-loader .default-amp-loader-dot:nth-child(3) {
+      animation-delay: .2s;
+      }
+      @keyframes default-amp-loader-dots {
+      0%, 100% {
+      transform: scale(.7);
+      background-color: rgba(0, 0, 0, .3);
+      }
+      50% {
+      transform: scale(.8);
+      background-color: rgba(0, 0, 0, .5);
+      }
+      }
+      .centered {
+      top: 50%;
+      left: 50%;
+      margin: -20px 0 0 -20px;
+      right: 0;
+      position: absolute;
+      }
+      .opaque {
+      opacity: 0.5;
+      filter: alpha(opacity=50);
+      }
+      #choose-seats-button {
+      padding-bottom: 15px;
+      padding-right: 10px;
+      }
+      .seat-map-svg {
+      padding: 0 30px;
+      box-sizing: border-box;
+      }
+      .container {
+      height: 600;
+      width: 600;
+      }
+      .seat-free,
+      .seat-taken,
+      .seat-selected {
+      width: 10px;
+      height: 10px;
+      transition: fill .4s ease;
+      }
+      .area-free,
+      .area-half,
+      .area-full {
+      width: 40px;
+      height: 40px;
+      fill: black;
+      }
+      .area-free {
+      opacity: 0.1;
+      }
+      .area-half {
+      opacity: 0.5;
+      }
+      .area-full {
+      opacity: 0.8;
+      }
+      .hide {
+      display: none;
+      }
+      .seat-free {
+      fill: #ccc;
+      }
+      .seat-free:hover {
+      fill: #999;
+      cursor: pointer;
+      }
+      .seat-taken {
+      fill: #000;
+      }
+      .seat-selected {
+      fill: red;
+      }
+      #square {
+      height: 300px;
+      width: 300px;
+      background-color: green;
+      border: 20px red solid;
+      box-sizing: border-box;
+      }
+      amp-pan-zoom {
+      border: #000 2px solid;
+      }
+      .list-container {
+        height: inherit;
+        position: relative;
+      }
+      article {
+        height: 100vh;
+      }
+    </style>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript>
+      <style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style>
+    </noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+  </head>
+  <body>
+    <amp-state id="seats">
+      <script type="application/json">
+        [
+          {}
+        ]
+      </script>
+    </amp-state>
+
+    <article>
+      <h1>AMP Pan Zoom</h1>
+
+      <button class="zoom-button" on="tap:pan-zoom.transform(scale=1)">-</button>
+      <button class="zoom-button" on="tap:pan-zoom.transform(scale=3, x=50, y=10)">+</button>
+     <div class="list-container">
+     <amp-list layout="fill" src="/json/seats.json" items="." single-item noloading>
+          <template type="amp-mustache">
+
+          <amp-pan-zoom layout="fill" id="pan-zoom"
+            on="transformEnd:AMP.setState({transform: {scale: event.scale, x: event.x, y: event.y}, zoom: event.scale <= 1 ? 0 : 1})">
+            <svg class="seat-map-svg" preserveAspectRatio="xMidYMin slice" viewBox="0 0 1305.79 1225.25">
+                {{#seats}}                
+                {{#wheelchair }}
+                  <rect x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}" class="special-seat" rx="{{rx}}" ry="{{ry}}"/>
+                  {{#available }}
+                    <image class="special-seat-image"
+                            [class]="userState.cart.seats.length == flowState.limitTicketsReservedSeating ? 'special-seat-image disabled-seat' : 'special-seat-image'"
+                            x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
+                            {{{{/rawHelper}}}}
+                            xlink:href="{{baseUrl}}/assets/images/Accessible_Wheelchair.svg"
+                            {{{{rawHelper}}}} 
+                            [hidden]="userState.cart.seats.includes('{{id}}')"
+                            on="tap:{{type}}-popup, AMP.setState({
+                              lastSelectedSeat: '{{id}}',
+                              userState: {
+                                cart: {seats: userState.cart.seats.concat('{{id}}')},
+                                loyalty: {error: false, valid: false, errorMessage: '', advantages: {exhibitorFeeWaivedTotal: 0, discountTotal: 0}}
+                              }
+                            })"
+                            tabindex="0"
+                            role="button">
+                    </image>
+                  {{/available }}
+                    <image class="selected special-seat-image"
+                          x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
+                          hidden [hidden]="!userState.cart.seats.includes('{{id}}')"
+                          x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
+                            {{{{/rawHelper}}}}
+                            xlink:href="{{baseUrl}}/assets/images/Accessible_Wheelchair_Orange.svg"
+                            {{{{rawHelper}}}} 
+                          on="tap:AMP.setState({
+                            userState: {
+                              cart: {seats: copyAndSplice(userState.cart.seats, userState.cart.seats.indexOf({{lastSelectedSeat}}), 1)},
+                              loyalty: {error: false, valid: false, errorMessage: '', advantages: {exhibitorFeeWaivedTotal: 0, discountTotal: 0}}
+                            }
+                          })"
+                          tabindex="0"
+                          role="button">
+                    </image>
+                  {{^available}}
+                    <image class="special-seat-image" 
+                            x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
+                            {{{{/rawHelper}}}}
+                            xlink:href="{{baseUrl}}/assets/images/Accessible_Wheelchair_Grey.svg"
+                            {{{{rawHelper}}}} 
+                            tabindex="0"
+                            role="button">
+                    </image>
+                  {{/available }}
+                {{/wheelchair}}
+                {{#companion }}
+                  <rect x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}" class="special-seat" rx="{{rx}}" ry="{{ry}}"/>
+                    {{#available }}
+                      <image class="special-seat-image"
+                            [class]="userState.cart.seats.length == flowState.limitTicketsReservedSeating ? 'special-seat-image disabled-seat' : 'special-seat-image'"
+                            x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
+                            {{{{/rawHelper}}}}
+                            xlink:href="{{baseUrl}}/assets/images/Accessible_Companion.svg"
+                            {{{{rawHelper}}}} 
+                            [hidden]="userState.cart.seats.includes('{{id}}')"
+                            on="tap:{{type}}-popup, AMP.setState({
+                              lastSelectedSeat: '{{id}}',
+                              userState: {
+                                cart: {seats: userState.cart.seats.concat('{{id}}')},
+                                loyalty: {error: false, valid: false, errorMessage: '', advantages: {exhibitorFeeWaivedTotal: 0, discountTotal: 0}}
+                              }})"
+                            tabindex="0"
+                            role="button">
+                      </image>
+                    {{/available }}
+                      <image class="selected special-seat-image"
+                          x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
+                          hidden [hidden]="!userState.cart.seats.includes('{{id}}')"
+                          x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
+                            {{{{/rawHelper}}}}
+                            xlink:href="{{baseUrl}}/assets/images/Accessible_Companion_Orange.svg"
+                            {{{{rawHelper}}}} 
+                          on="tap:AMP.setState({
+                            userState: {
+                              cart: {seats: copyAndSplice(userState.cart.seats, userState.cart.seats.indexOf({{lastSelectedSeat}}), 1)},
+                              loyalty: {error: false, valid: false, errorMessage: '', advantages: {exhibitorFeeWaivedTotal: 0, discountTotal: 0}}
+                            }
+                          })"
+                          tabindex="0"
+                          role="button">
+                      </image>
+                    {{^available}}
+                      <image class="special-seat-image" 
+                            x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
+                            {{{{/rawHelper}}}}
+                            xlink:href="{{baseUrl}}/assets/images/Accessible_Companion_Grey.svg"
+                            {{{{rawHelper}}}} 
+                            tabindex="0"
+                            role="button">
+                      </image>
+                    {{/available }}
+                  {{/companion}}
+                  {{#standard }}
+                    <rect class="seat selected"
+                          hidden [hidden]="!userState.cart.seats.includes('{{id}}')"
+                          x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
+                          on="tap:AMP.setState({
+                            userState: {
+                              cart: {seats: copyAndSplice(userState.cart.seats, userState.cart.seats.indexOf('{{id}}'), 1)},
+                              loyalty: {error: false, valid: false, errorMessage: '', advantages: {exhibitorFeeWaivedTotal: 0, discountTotal: 0}}
+                            }
+                          })"
+                          role="button"
+                          tabindex="0" rx="{{rx}}" ry="{{ry}}"></rect>
+                    {{#available }}
+                      <rect class="seat" 
+                          [class]= "userState.cart.seats.length ==  flowState.limitTicketsReservedSeating ? 'seat disabled-seat' : 'seat'"
+                          x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
+                          [hidden]="userState.cart.seats.includes('{{id}}')"
+                          on="tap:AMP.setState({
+                            lastSelectedSeat: '{{id}}',
+                            userState: {
+                              cart: {seats: userState.cart.seats.concat('{{id}}')},
+                              loyalty: {error: false, valid: false, errorMessage: '', advantages: {exhibitorFeeWaivedTotal: 0, discountTotal: 0}}
+                            }
+                          })"
+                          role="button"
+                          tabindex="0" rx="{{rx}}" ry="{{ry}}"></rect>  
+                    {{/available }}
+                    {{^available}}
+                          <rect class="seat unavailable" 
+                          x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
+                          role="button"
+                          tabindex="0" rx="{{rx}}" ry="{{ry}}">   
+                          </rect>            
+                    {{/available }}
+                  {{/standard }}
+                {{/seats}}
+              <!-- Use mustache's inverted sections to render 'unavailable' CSS class for seats that do NOT have a key in the data. -->
+              <!--<rect class="seat {{^seat001}}unavailable{{/seat001}}" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="380" y="0"></rect>
+              <rect class="seat {{^seat002}}unavailable{{/seat002}}" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="360" y="0"></rect>
+              <rect class="seat {{^seat003}}unavailable{{/seat003}}" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="340" y="0"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="320" y="0"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="520" y="0"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="300" y="0"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="280" y="0"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="260" y="0"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="240" y="0"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="500" y="0"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="200" y="0"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="180" y="0"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="160" y="0"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="140" y="0"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="120" y="0"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="100" y="0"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="480" y="0"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="460" y="0"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="440" y="0"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="420" y="0"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="560" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="400" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="380" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="360" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="340" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="320" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="540" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="300" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="280" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="260" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="240" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="220" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="520" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="180" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="160" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="140" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="120" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="100" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="80" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="60" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="500" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="480" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="460" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="440" y="20"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="600" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="420" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="400" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="380" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="360" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="340" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="320" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="580" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="300" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="280" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="260" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="240" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="220" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="200" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="560" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="160" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="140" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="120" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="100" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="80" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="60" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="40" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="20" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="540" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="520" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="500" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="480" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="460" y="40"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="620" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="440" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="420" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="400" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="380" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="360" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="340" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="320" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="600" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="300" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="280" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="260" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="240" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="220" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="200" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="180" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="580" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="140" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="120" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="100" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="80" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="60" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="40" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="20" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="560" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="540" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="520" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="500" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="480" y="60"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="500" y="100"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="460" y="100"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="440" y="100"></rect>
+              <rect class="special-seat" height="18" rx="3" ry="3" width="18" x="420" y="100"></rect>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="420" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Companion.svg" y="100"></image>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="420" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Companion_Grey.svg" y="100"></image>
+              <rect class="special-seat" height="18" rx="3" ry="3" width="18" x="400" y="100"></rect>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="400" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Wheelchair.svg" y="100"></image>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="400" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Wheelchair_Grey.svg" y="100"></image>
+              <rect class="special-seat" height="18" rx="3" ry="3" width="18" x="380" y="100"></rect>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="380" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Wheelchair.svg" y="100"></image>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="380" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Wheelchair_Grey.svg" y="100"></image>
+              <rect class="special-seat" height="18" rx="3" ry="3" width="18" x="360" y="100"></rect>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="360" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Companion.svg" y="100"></image>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="360" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Companion_Grey.svg" y="100"></image>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="340" y="100"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="320" y="100"></rect>
+              <rect class="special-seat" height="18" rx="3" ry="3" width="18" x="300" y="100"></rect>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="300" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Companion.svg" y="100"></image>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="300" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Companion_Grey.svg" y="100"></image>
+              <rect class="special-seat" height="18" rx="3" ry="3" width="18" x="280" y="100"></rect>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="280" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Wheelchair.svg" y="100"></image>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="280" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Wheelchair_Grey.svg" y="100"></image>
+              <rect class="special-seat" height="18" rx="3" ry="3" width="18" x="260" y="100"></rect>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="260" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Wheelchair.svg" y="100"></image>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="260" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Wheelchair_Grey.svg" y="100"></image>
+              <rect class="special-seat" height="18" rx="3" ry="3" width="18" x="240" y="100"></rect>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="240" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Companion.svg" y="100"></image>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="240" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Companion_Grey.svg" y="100"></image>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="220" y="100"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="200" y="100"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="160" y="100"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="140" y="100"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="120" y="100"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="100" y="100"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="80" y="100"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="60" y="100"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="40" y="100"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="20" y="100"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="0" y="100"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="620" y="100"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="600" y="100"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="580" y="100"></rect>
+              <rect class="special-seat" height="18" rx="3" ry="3" width="18" x="560" y="100"></rect>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="560" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Companion.svg" y="100"></image>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="560" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Companion_Grey.svg" y="100"></image>
+              <rect class="special-seat" height="18" rx="3" ry="3" width="18" x="540" y="100"></rect>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="540" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Wheelchair.svg" y="100"></image>
+              <image class="special-seat-image" height="18" role="button" tabindex="0" width="18" x="540" xlink:href="https://amp-actions-io-fandango.appspot.com/assets/images/Accessible_Wheelchair_Grey.svg" y="100"></image>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="520" y="100"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="560" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="540" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="500" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="480" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="460" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="440" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="420" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="400" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="380" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="360" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="340" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="320" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="300" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="280" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="260" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="240" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="220" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="200" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="160" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="140" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="120" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="100" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="80" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="60" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="40" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="20" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="600" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="580" y="120"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="480" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="460" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="440" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="420" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="400" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="380" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="360" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="340" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="320" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="300" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="280" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="260" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="240" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="220" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="200" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="180" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="160" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="120" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="100" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="80" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="60" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="40" y="140"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="420" y="160"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="400" y="160"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="380" y="160"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="360" y="160"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="340" y="160"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="320" y="160"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="300" y="160"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="280" y="160"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="260" y="160"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="240" y="160"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="220" y="160"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="200" y="160"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="180" y="160"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="160" y="160"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="140" y="160"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="120" y="160"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="400" y="180"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="380" y="180"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="360" y="180"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="340" y="180"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="320" y="180"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="300" y="180"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="280" y="180"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="260" y="180"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="240" y="180"></rect>
+              <rect class="seat unavailable" height="18" role="button" rx="3" ry="3" tabindex="0" width="18" x="220" y="180"></rect>-->
+            </svg>
+          </amp-pan-zoom>
+
+          </template>
+          </amp-list>
+      </div>
+    </article>
+  </body>
+</html>
