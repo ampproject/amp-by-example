@@ -155,7 +155,7 @@ describe("DocumentParser", function() {
     });
   });
 
-  describe("void tags", function() {
+  describe("ends void tags automatically", function() {
     it("base", function() {
       var doc = parse(HEAD, COMMENT, BASE, TITLE, HEAD_END);
       expect(doc.sections.length).toEqual(3);

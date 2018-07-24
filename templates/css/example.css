@@ -7,7 +7,7 @@ amp-instagram {
 }
 .www-component-desc pre,
 pre, code {
-  font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
+  font-family: var(--font-family-monospace);
   font-size: 0.9rem;
   white-space: pre-wrap;
 }
@@ -164,7 +164,7 @@ code {
   background-color: rgba(132, 183, 232, 0.5);
 }
 .abe-code .has-hint:before {
-  content: "🛈";
+  content: "💡";
   position: absolute;
   right: 7px;
   top: 7px;
@@ -182,7 +182,7 @@ code {
   background: #fff;
   color: #4a4a4a;
   line-height: 1.5rem;
-  font-family: Montserrat,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Arial,sans-serif;
+  font-family: var(--font-family-serif);
   box-shadow: 0 0 1px 0 rgba(50,68,78,.5), 0 0 2px 0 rgba(0,0,0,.07), 0 3px 8px 0 rgba(0,0,0,.1);
   transform: scale(0);
   transition: transform .7s, opacity .7s;
