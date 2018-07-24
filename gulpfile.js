@@ -77,7 +77,8 @@ const paths = {
     html: 'templates/**/*.html'
   },
   api: {
-    conf: 'api/conf.json'
+    conf: 'api/conf.json',
+    dir: 'api',
   },
   tmp: {
     dir: 'tmp'
@@ -125,7 +126,15 @@ gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
     const server = serve(paths.dist.dir, {
       port: argv.port || 8000,
       ignore: ['node_modules']
-    })
+    });
+  });
+
+gulp.task('serve:api', 'starts a local webserver for api iframe files',
+  function() {
+    const server = serve(paths.api.dir, {
+      port: argv.port || 8800,
+      ignore: ['node_modules']
+    });
   });
 
 gulp.task('deploy:prod', 'deploy to production server', function(callback) {
@@ -441,8 +450,10 @@ gulp.task('lint:html', 'checks the hmtl source', function() {
 gulp.task('default', 'Run a webserver and watch for changes', function(
   callback) {
   config.host = 'http://localhost:8000';
+  config.api.host = 'http://localhost:8800';
   runSequence(
     'serve',
+    'serve:api',
     'build',
     'watch',
     callback);
@@ -451,7 +462,9 @@ gulp.task('default', 'Run a webserver and watch for changes', function(
 gulp.task('backend:watch', 'run the go backend and watch for changes', function(
   callback) {
   config.host = 'http://localhost:8080';
+  config.api.host = 'http://localhost:8800';
   runSequence(
+    'serve:api',
     'build',
     'watch',
     'backend:serve',
