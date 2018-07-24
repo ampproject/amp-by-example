@@ -17,7 +17,6 @@ package backend
 
 import (
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"strconv"
 	"time"
@@ -30,19 +29,9 @@ const (
 )
 
 func InitSlowResponseSample() {
-	http.HandleFunc(SLOW_JSON_SAMPLE_PATH+"", slowJson)
-	http.HandleFunc(SLOW_JSON_WITH_ITEMS_SAMPLE_PATH+"", slowJsonWithItems)
-	http.HandleFunc(SLOW_IFRAME_SAMPLE_PATH+"", slowIframe)
-}
-
-func prepResponse(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	SetContentTypeJson(w)
-	addDelay(r)
-}
-
-func createResponse(responseContent string, r *http.Request) string {
-	return fmt.Sprintf(responseContent, getDelay(r))
+	RegisterHandler(SLOW_JSON_SAMPLE_PATH+"", slowJson)
+	RegisterHandler(SLOW_JSON_WITH_ITEMS_SAMPLE_PATH+"", slowJsonWithItems)
+	RegisterHandler(SLOW_IFRAME_SAMPLE_PATH+"", slowIframe)
 }
 
 func addDelay(r *http.Request) {
@@ -57,29 +46,18 @@ func getDelay(r *http.Request) uint64 {
 }
 
 func slowJson(w http.ResponseWriter, r *http.Request) {
-	prepResponse(w, r)
-	responseContent := "{\"items\":[{\"title\": \"This JSON response was delayed %v milliseconds. Hard-refresh the page (Ctrl/Cmd+Shift+R) if you didn't see the spinner.\"}]}"
-	response := fmt.Sprintf(createResponse(responseContent, r))
-	w.Write([]byte(response))
+	addDelay(r)
+	SendAmpListItems(w, map[string]string{
+		"title": fmt.Sprintf("This JSON response was delayed %v milliseconds. Hard-refresh the page (Ctrl/Cmd+Shift+R) if you didn't see the spinner.", getDelay(r)),
+	})
 }
 
 func slowJsonWithItems(w http.ResponseWriter, r *http.Request) {
-	products := readProducts(DIST_FOLDER + "/json/related_products.json")
-	prepResponse(w, r)
-	w.Write([]byte(products))
-}
-
-func readProducts(path string) string {
-	productsFile, err := ioutil.ReadFile(path)
-	if err != nil {
-		panic(err)
-	}
-	return string(productsFile)
+	addDelay(r)
+	SendJsonFile(w, DIST_FOLDER+"/json/related_products.json")
 }
 
 func slowIframe(w http.ResponseWriter, r *http.Request) {
-	prepResponse(w, r)
-	responseContent := "This iframe was delayed %v milliseconds. Hard-refresh the page (Ctrl/Cmd+Shift+R) if you didn't see the spinner."
-	response := fmt.Sprintf(createResponse(responseContent, r))
-	w.Write([]byte(response))
+	addDelay(r)
+	fmt.Fprintf(w, "This iframe was delayed %v milliseconds. Hard-refresh the page (Ctrl/Cmd+Shift+R) if you didn't see the spinner.", getDelay(r))
 }

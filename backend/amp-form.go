@@ -25,56 +25,51 @@ const (
 )
 
 func InitAmpForm() {
-	http.HandleFunc(SAMPLE_NAME+"submit-form-input-text-xhr", func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, submitFormXHRInputText)
-	})
-	http.HandleFunc(SAMPLE_NAME+"verify-form-input-text-xhr", func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, verifyFormXHRInputText)
-	})
-	http.HandleFunc(SAMPLE_NAME+"submit-form-xhr", func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, submitFormXHR)
-	})
-	http.HandleFunc(SAMPLE_NAME+"submit-form", func(w http.ResponseWriter, r *http.Request) {
-		submitForm(w, r)
-	})
-
+	RegisterHandler(SAMPLE_NAME+"submit-form-input-text-xhr", onlyPost(submitFormXHRInputText))
+	RegisterHandler(SAMPLE_NAME+"verify-form-input-text-xhr", onlyPost(verifyFormXHRInputText))
+	RegisterHandler(SAMPLE_NAME+"submit-form-xhr", onlyPost(submitFormXHR))
+	RegisterHandler(SAMPLE_NAME+"submit-form", submitForm)
 }
 
 func submitFormXHRInputText(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	SetContentTypeJson(w)
-	response := ""
+	email := r.FormValue("email")
 	name := r.FormValue("name")
 	if isUserTryingTheInputTextErrorDemo(name) {
-		w.WriteHeader(http.StatusBadRequest)
+		SendJsonError(w, http.StatusBadRequest, map[string]string{
+			"name":  name,
+			"email": email,
+		})
+		return
 	}
-	email := r.FormValue("email")
-	response = fmt.Sprintf("{\"name\":\"%s\", \"email\":\"%s\"}", name, email)
-	w.Write([]byte(response))
+
+	SendJsonResponse(w, map[string]string{
+		"name":  name,
+		"email": email,
+	})
 }
 
 func verifyFormXHRInputText(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	SetContentTypeJson(w)
-	response := ""
 	name := r.FormValue("username")
 	if isUserTryingTheInputTextErrorDemo(name) {
-		w.WriteHeader(http.StatusBadRequest)
-		response = fmt.Sprintf("{\"verifyErrors\": [{ "+
-			"\"name\": \"username\", "+
-			"\"message\":\"The username \\\"%s\\\" is already taken\""+
-			"}]}", name)
-	} else {
-		response = fmt.Sprintf("{\"username\":\"%s\"}", name)
+		SendJsonError(w, http.StatusBadRequest, map[string]interface{}{
+			"verifyErrors": []interface{}{
+				map[string]string{
+					"name":    "username",
+					"message": fmt.Sprintf("The username %q is already taken", name),
+				},
+			},
+		})
+		return
 	}
-	w.Write([]byte(response))
+	SendJsonResponse(w, map[string]string{
+		"username": name,
+	})
 }
 
 func submitFormXHR(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	SetContentTypeJson(w)
-	response := "{\"result\":\"ok\"}"
-	w.Write([]byte(response))
+	SendJsonResponse(w, map[string]string{
+		"result": "ok",
+	})
 }
 
 func submitForm(w http.ResponseWriter, r *http.Request) {

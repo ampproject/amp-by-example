@@ -64,12 +64,11 @@ func HandleNotFound(h http.Handler) http.HandlerFunc {
 }
 
 func ServeStaticFiles(h http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	return backend.EnableCors(func(w http.ResponseWriter, r *http.Request) {
 		if r.Host == OLD_ADDRESS || backend.IsInsecureRequest(r) {
 			backend.RedirectToSecureVersion(w, r)
 			return
 		}
-		backend.EnableCors(w, r)
 		backend.SetDefaultMaxAge(w)
 		h.ServeHTTP(w, r)
 	})

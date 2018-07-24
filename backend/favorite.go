@@ -15,7 +15,6 @@
 package backend
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -27,13 +26,11 @@ const (
 )
 
 func InitFavoriteSample() {
-	http.HandleFunc("/favorite", handleFavorite)
-	http.HandleFunc("/favorite-with-count", handleFavoriteWithCount)
+	RegisterHandler("/favorite", handleFavorite)
+	RegisterHandler("/favorite-with-count", handleFavoriteWithCount)
 }
 
 func handleFavorite(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	SetContentTypeJson(w)
 	SetMaxAge(w, 0)
 	if r.Method == "POST" {
 		setFavorite(w, r)
@@ -44,18 +41,16 @@ func handleFavorite(w http.ResponseWriter, r *http.Request) {
 
 func getFavorite(w http.ResponseWriter, r *http.Request) {
 	favorite := readFavoriteFromCookie(r, AMP_FAVORITE_COOKIE)
-	writeFavorite(w, favorite)
+	SendJsonResponse(w, favorite)
 }
 
 func setFavorite(w http.ResponseWriter, r *http.Request) {
 	favorite := !readFavoriteFromCookie(r, AMP_FAVORITE_COOKIE)
 	writeFavoriteCookie(w, r, AMP_FAVORITE_COOKIE, favorite)
-	writeFavorite(w, favorite)
+	SendJsonResponse(w, favorite)
 }
 
 func handleFavoriteWithCount(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	SetContentTypeJson(w)
 	SetMaxAge(w, 0)
 	if r.Method == "POST" {
 		setFavoriteWithCount(w, r)
@@ -82,13 +77,10 @@ func writeFavoriteWithCount(w http.ResponseWriter, favorite bool) {
 	} else {
 		count = 123
 	}
-	response := fmt.Sprintf("{ \"value\": %t, \"count\": %d}", favorite, count)
-	w.Write([]byte(response))
-}
-
-func writeFavorite(w http.ResponseWriter, favorite bool) {
-	response := fmt.Sprintf("%t", favorite)
-	w.Write([]byte(response))
+	SendJsonResponse(w, map[string]interface{}{
+		"value": favorite,
+		"count": count,
+	})
 }
 
 func writeFavoriteCookie(w http.ResponseWriter, r *http.Request, name string, value bool) {

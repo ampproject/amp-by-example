@@ -78,9 +78,7 @@ func InitAutosuggestSample() {
 		"Cheyenne, Wyoming",
 	}
 
-	http.HandleFunc(AUTOSUGGEST_SAMPLE_PATH+"search_list", func(w http.ResponseWriter, r *http.Request) {
-		EnableCors(w, r)
-		SetContentTypeJson(w)
+	RegisterHandler(AUTOSUGGEST_SAMPLE_PATH+"search_list", func(w http.ResponseWriter, r *http.Request) {
 		query := r.URL.Query().Get("q")
 
 		filteredStrs := Filter(US_CAPITAL_CITIES, func(v string) bool {
@@ -89,30 +87,32 @@ func InitAutosuggestSample() {
 
 		if len(filteredStrs) > 0 {
 			results := Min(len(filteredStrs), 4)
-			joinedStrs := strings.Join(filteredStrs[:results], "\",\"")
-			response := fmt.Sprintf("{\"items\": [{\"query\": \"%s\", \"results\":[\"%s\"]}]}", query, joinedStrs)
-			w.Write([]byte(response))
+			SendAmpListItems(w, map[string]interface{}{
+				"query":   query,
+				"results": filteredStrs[:results],
+			})
 		} else {
-			response := fmt.Sprintf("{\"items\": [{\"query\": \"%s\"}]}", query)
-			w.Write([]byte(response))
+			SendAmpListItems(w, map[string]interface{}{
+				"query": query,
+			})
 		}
 	})
 
-	http.HandleFunc(AUTOSUGGEST_SAMPLE_PATH+"address", func(w http.ResponseWriter, r *http.Request) {
-		EnableCors(w, r)
-		SetContentTypeJson(w)
-
+	RegisterHandler(AUTOSUGGEST_SAMPLE_PATH+"address", func(w http.ResponseWriter, r *http.Request) {
 		city := r.FormValue("city")
 
 		for i := range US_CAPITAL_CITIES {
 			if US_CAPITAL_CITIES[i] == city {
-				w.Write([]byte(fmt.Sprintf("{\"result\": \"Success! Your package is on it's way to %s.\"}", city)))
+				SendAmpListItems(w, map[string]interface{}{
+					"result": fmt.Sprintf("Success! Your package is on it's way to %s.", city),
+				})
 				return
 			}
 		}
 
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(fmt.Sprintf("{\"result\": \"Sorry! We don't ship to %s.\"}", city)))
+		SendJsonError(w, http.StatusBadRequest, map[string]interface{}{
+			"result": fmt.Sprintf("Sorry! We don't ship to %s.", city),
+		})
 	})
 }
 

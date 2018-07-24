@@ -23,13 +23,11 @@ const (
 )
 
 func InitAmpConsent() {
-	http.HandleFunc(CONSENT_SAMPLE_PATH+"getConsent", func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, submitConsentXHR)
-	})
+	RegisterHandler(CONSENT_SAMPLE_PATH+"getConsent", onlyPost(submitConsentXHR))
 }
 
 func submitConsentXHR(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	SetContentTypeJson(w)
-	w.Write([]byte("{\"promptIfUnknown\": true}"))
+	SendJsonResponse(w, map[string]bool{
+		"promptIfUnknown": true,
+	})
 }
