@@ -42,14 +42,6 @@ you approve or delete friend requests on a social network.
   -->
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
   <style amp-custom>
-    h1 {
-      margin: 1rem;
-    }
-
-    fieldset {
-      border: 0;
-    }
-
     .list-overflow[overflow] {
       position: absolute;
       bottom: 0;
@@ -58,7 +50,6 @@ you approve or delete friend requests on a social network.
     }
 
     .friendrequest {
-      background-color: #fff5e3;
       color: #3D3527;
       border: 1px solid #3D3527;
       padding: 0.5em;
@@ -87,46 +78,22 @@ you approve or delete friend requests on a social network.
       font-size: 0.7em;
     }
 
-    .friendrequest form input {
-      display: none;
-    }
-
-    .friendrequest form fieldset {
-      padding: 0;
-    }
-
     .friendrequest form.amp-form-submitting fieldset,
     .friendrequest form.amp-form-submit-success fieldset {
       display: none;
     }
 
-    .friendrequest form .button-confirm {
-      background: #b60845;
-      color: white;
-    }
-
-    .friendrequest form .button-delete {
-      background: #eee;
-    }
-
-    .friendrequest form label {
-      text-transform: uppercase;
+    .friendrequest form .ampstart-btn {
       letter-spacing: 1px;
       padding: 0.5em;
       display: inline-block;
-      text-align: center;
-      border: 1px solid black;
+      font-size: 1em;
       transition: background-color .3s;
-    }
-
-    .friendrequest form div[submit-error] {
-      margin-top: .4em;
     }
 
     .friendrequest form div[submitting],
     .friendrequest form div[submit-success] {
-      padding-right: 2em;
-      font-size: 2em;
+      font-size: 1.2em;
     }
   </style>
 </head>
@@ -154,30 +121,30 @@ you approve or delete friend requests on a social network.
           id="request-{{id}}"
           method="post"
           on="submit-error:request-{{id}}.clear">
-          <fieldset>
+          <fieldset class="p0 border-none">
             <input type="hidden"
               name="id"
               value="{{id}}">
             <input type="hidden"
               name="auth_token"
               value="REPLACE_WITH_YOUR_TOKEN">
-            <label class="button-confirm">
+            <label class="ampstart-btn caps">
               Confirm
-              <input name="choice"
+              <input hidden name="choice"
                 type="radio"
                 value="confirm"
                 on="change:request-{{id}}.submit">
             </label>
-            <label class="button-delete">
+            <label class="ampstart-btn ampstart-btn-secondary caps">
               Delete
-              <input name="choice"
+              <input hidden name="choice"
                 type="radio"
                 value="delete"
                 on="change:request-{{id}}.submit">
             </label>
           </fieldset>
-          <div submitting>Sending...</div>
-          <div submit-success>Done.</div>
+          <div class="pr2" submitting>Sending...</div>
+          <div class="pr2" submit-success>Done.</div>
           <div submit-error>An error occurred.</div>
         </form>
       </div>
