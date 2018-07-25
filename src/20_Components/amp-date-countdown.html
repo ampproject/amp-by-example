@@ -32,7 +32,7 @@
     The number of days, hours, minutes and seconds remaining is bound to `{{d}}`, `{{h}}`, `{{m}}` and `{{s}}` respectively.
     Double digit format variants (`{{dd}}`, `{{hh}}`, `{{mm}}` and `{{ss}}`) are also available.
   -->
-  <amp-date-countdown timestamp-seconds="2147483648" layout="flex-item">
+  <amp-date-countdown timestamp-seconds="2147483648" layout="fixed-height" height="100">
     <template type="amp-mustache">
       <p class="p1">
         {{d}} days, {{h}} hours, {{m}} minutes and {{s}} seconds until <a href="https://en.wikipedia.org/wiki/Year_2038_problem">Y2K38</a>.
@@ -45,7 +45,7 @@
 
     You can optionally specify `offset-seconds` to offset the provided date.
   -->
-  <amp-date-countdown end-date="2038-01-19T03:14:08.000Z" offset-seconds="-10" layout="flex-item">
+  <amp-date-countdown end-date="2038-01-19T03:14:08.000Z" offset-seconds="-10" layout="fixed-height" height="100">
     <template type="amp-mustache">
       <p class="p1">
         {{d}} days, {{h}} hours, {{m}} minutes and {{s}} seconds until 10 before <a href="https://en.wikipedia.org/wiki/Year_2038_problem">Y2K38</a>.
@@ -58,7 +58,7 @@
     If `locale` is specified, `{{days}}`, `{{hours}}`, `{{minutes}}` and `{{seconds}}` are bound to
     the word(s) used to represent the given unit of time in the specified locale.
   -->
-  <amp-date-countdown timestamp-seconds="2147483648" locale="ru" layout="flex-item">
+  <amp-date-countdown timestamp-seconds="2147483648" locale="ru" layout="fixed-height" height="100">
     <template type="amp-mustache">
       <p class="p1">
         {{d}} {{days}}, {{h}} {{hours}}, {{m}} {{minutes}}, {{s}} {{seconds}}
@@ -73,7 +73,7 @@
     For example, when `biggest-unit="minutes"` is set, "2 days, 3 hours, 4 minutes, 5 seconds" becomes
     "0 days, 0 hours, 3064 minutes, 5 seconds", as 2 days and 3 hours are added to minutes.
   -->
-  <amp-date-countdown timestamp-seconds="2147483648" biggest-unit="minutes" layout="flex-item">
+  <amp-date-countdown timestamp-seconds="2147483648" biggest-unit="minutes" layout="fixed-height" height="100">
     <template type="amp-mustache">
       <p class="p1">
         {{m}} minutes and {{s}} seconds until <a href="https://en.wikipedia.org/wiki/Year_2038_problem">Y2K38</a>.

@@ -50,6 +50,7 @@ you approve or delete friend requests on a social network.
     }
 
     .friendrequest {
+      background-color: #fff5e3;
       color: #3D3527;
       border: 1px solid #3D3527;
       padding: 0.5em;
@@ -83,12 +84,27 @@ you approve or delete friend requests on a social network.
       display: none;
     }
 
-    .friendrequest form .ampstart-btn {
+    .friendrequest form .button-confirm {
+      background: #b60845;
+      color: white;
+    }
+
+    .friendrequest form .button-delete {
+      background: #eee;
+    }
+
+    .friendrequest form label {
+      text-transform: uppercase;
       letter-spacing: 1px;
       padding: 0.5em;
       display: inline-block;
-      font-size: 1em;
+      text-align: center;
+      border: 1px solid black;
       transition: background-color .3s;
+    }
+
+    .friendrequest form div[submit-error] {
+      margin-top: .4em;
     }
 
     .friendrequest form div[submitting],
@@ -128,23 +144,27 @@ you approve or delete friend requests on a social network.
             <input type="hidden"
               name="auth_token"
               value="REPLACE_WITH_YOUR_TOKEN">
-            <label class="ampstart-btn caps">
+            <label class="button-confirm">
               Confirm
-              <input hidden name="choice"
+              <input hidden name="action"
                 type="radio"
                 value="confirm"
                 on="change:request-{{id}}.submit">
             </label>
-            <label class="ampstart-btn ampstart-btn-secondary caps">
+            <label class="button-delete">
               Delete
-              <input hidden name="choice"
+              <input hidden name="action"
                 type="radio"
                 value="delete"
                 on="change:request-{{id}}.submit">
             </label>
           </fieldset>
           <div class="pr2" submitting>Sending...</div>
-          <div class="pr2" submit-success>Done.</div>
+          <div class="pr2" submit-success>
+            <template type="amp-mustache">
+              {{result}}
+            </template>
+          </div>
           <div submit-error>An error occurred.</div>
         </form>
       </div>
