@@ -27,7 +27,7 @@
     "js-beautify": "1.7.5",
     "marked": "^0.3.19",
     "mkdirp": "^0.5.1",
-    "phantom": "^4.0.12",
+    "phantom": "^6.0.0",
     "pygmentize-bundled": "^2.3.0",
     "slug": "^0.9.1",
     "string": "^3.3.1"
