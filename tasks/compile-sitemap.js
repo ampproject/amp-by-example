@@ -23,7 +23,6 @@ const PluginError = gutil.PluginError;
 const sm = require('sitemap');
 const ExampleFile = require('../lib/ExampleFile');
 const DocumentParser = require('../lib/DocumentParser');
-const Metadata = require('../lib/Metadata');
 
 /**
  * Collects a list of example files and generates a sitemap.xml file.
@@ -43,7 +42,7 @@ module.exports = function(config) {
     // we don't do streams
     if (file.isStream()) {
       this.emit('error', new PluginError('gulp-index',
-            'Streaming not supported'));
+          'Streaming not supported'));
       cb();
       return;
     }
@@ -60,7 +59,7 @@ module.exports = function(config) {
       if (!document.metadata.draft) {
         files.push({
           path: file.path,
-          url: exampleFile.url()
+          url: exampleFile.url(),
         });
       }
     }
@@ -87,7 +86,7 @@ module.exports = function(config) {
       changefreq: 'daily',
       priority: 1.0,
       lastmodrealtime: true,
-      lastmodfile: latestFile.path
+      lastmodfile: latestFile.path,
     }];
     // add example urls
     files.forEach(function(file) {
@@ -96,14 +95,14 @@ module.exports = function(config) {
         changefreq: 'daily',
         priority: 0.8,
         lastmodrealtime: true,
-        lastmodfile: file.path
+        lastmodfile: file.path,
       });
     });
 
     const sitemap = sm.createSitemap({
       hostname: config.host,
-      cacheTime: 600000,  //600 sec (10 min) cache purge period
-      urls: urls
+      cacheTime: 600000, //600 sec (10 min) cache purge period
+      urls,
     });
 
     const sitemapFile = latestFile.clone({contents: false});
