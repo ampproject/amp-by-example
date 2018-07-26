@@ -224,14 +224,14 @@ module.exports = function(config, indexPath, updateTimestamp) {
         includesAnalytics: document.importsComponent('amp-analytics'),
         includesLiveList: document.importsComponent('amp-live-list'),
         includesLightboxGallery:
-          document.importsComponent('amp-lightbox-gallery'),
+        document.importsComponent('amp-lightbox-gallery'),
         includesAccordion: document.importsComponent('amp-accordion'),
         includesIframe: document.importsComponent('amp-iframe'),
         includesSelector: document.importsComponent('amp-selector'),
         includesSidebar: document.importsComponent('amp-sidebar'),
         includesServiceWorker:
-          document.importsComponent('amp-install-serviceworker')
-            || document.metadata.skipServiceWorker,
+        document.importsComponent('amp-install-serviceworker')
+        || document.metadata.skipServiceWorker,
       };
       sampleArgs.supportsAmpSelector = !sampleArgs.includesLiveList &&
         !sampleArgs.includesSelector &&
@@ -327,11 +327,11 @@ module.exports = function(config, indexPath, updateTimestamp) {
     let currentSection;
     sort(examples)
         .filter(exampleFile => exampleFile.category() &&
-          !exampleFile.document.metadata.draft)
+        !exampleFile.document.metadata.draft)
         .forEach(function(exampleFile) {
         // add new section
           if (!currentSection ||
-            currentSection.path !== exampleFile.section().path) {
+          currentSection.path !== exampleFile.section().path) {
             currentSection = exampleFile.section();
             currentSection.categories = [];
             sections.push(currentSection);
@@ -346,12 +346,11 @@ module.exports = function(config, indexPath, updateTimestamp) {
             currentSection.categories.push(currentCategory);
             currentCategory.selected = false;
           }
-          const selected = currentExample &&
-          exampleFile.title() == currentExample.title();
-          if (selected) {
-            currentCategory.selected = selected;
-            currentSection.selected = selected;
-          }
+          currentSection.selected = currentExample &&
+            currentSection.path === currentExample.section().path;
+          currentCategory.selected = currentExample &&
+            exampleFile.title() == currentExample.title() &&
+            currentSection.selected;
 
           const experiments = exampleFile.document.metadata.experiments;
 
@@ -363,7 +362,6 @@ module.exports = function(config, indexPath, updateTimestamp) {
             urlPreview: previewUrl(exampleFile),
             urlPreviewEmbed: exampleFile.urlPreviewEmbed(),
             urlEmbed: exampleFile.urlEmbed(),
-            selected,
             metadata: exampleFile.document.metadata,
             experiments,
             experiment: experiments && experiments.length > 0,
