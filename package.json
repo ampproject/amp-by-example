@@ -24,7 +24,7 @@
     "hoek": "^5.0.3",
     "hogan.js": "^3.0.2",
     "html-minifier": "^3.5.15",
-    "js-beautify": "1.6.14",
+    "js-beautify": "1.7.5",
     "marked": "^0.3.19",
     "mkdirp": "^0.5.1",
     "phantom": "^4.0.12",
