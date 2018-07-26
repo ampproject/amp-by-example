@@ -21,7 +21,10 @@ This sample demonstrates which events can be measured and how they can be config
   <!-- ## Setup -->
   <!--  Import the amp-analytics component in the header. -->
   <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+  <!--  Import the amp-carousel component in the header. -->
   <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+  <!--  Import the amp-bind component in the header. -->
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
   <!--
     We need `amp-iframe` to embed an analytics dashboard.
   -->
@@ -307,23 +310,34 @@ The `amp-carousel-prev` event is issued when there is a traversal to the previou
   </script>
   </amp-analytics>
 
-    <!--  Only one of these links will trigger the `clickOnSpecialAnchor` event. -->
-    <amp-img id="an-image" src="/img/amp.jpg" width="1080" height="610" layout="responsive" alt="AMP">
-    </amp-img>
+    <!-- ## UI elements appearance tracking -->
+      <!--
+    It is possible to track the appearance of an UI element. Here we have an image which is by default hidden and gets displayed 
+    after an amp-bind event. For simplicity, we are using a button. 
+      -->
+      <div>
+        <button class="ampstart-btn caps m1" on="tap:AMP.setState({hideImageTracking: false})">
+          Enable image
+        </button>
+        <amp-img hidden [hidden]="hideImageTracking" id="an-image" src="/img/amp.jpg" width="1080" height="610" layout="responsive" alt="AMP">
+        </amp-img>
+    </div>
     <!--
-The `amp-carousel-prev` event is issued when there is a traversal to the previous slide: -->
+  The `elementview` event is issued when the image becomes visible -->
 <amp-analytics>
     <script type="application/json">
     {
       "requests": {
-        "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
+        "elementview": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
       },
-      "defaultPageview": {
-        "on": "visible",
-        "request": "elementview",
-        "selector": "#an-image",
-        "vars": {
-          "eventId": "element-ui"
+      "triggers": {
+        "defaultPageview": {
+          "on": "visible",
+          "request": "elementview",
+          "selector": "#an-image",
+          "vars": {
+            "eventId": "element-ui"
+          }
         }
       }
     }
