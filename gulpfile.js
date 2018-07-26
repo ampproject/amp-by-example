@@ -67,7 +67,6 @@ const paths = {
   samples: 'src/**/*.html',
   metadata: 'src/**/*.json',
   playground: 'playground',
-  polymer: 'polymer',
   src: 'src',
   scripts: ['tasks/**/*.js', 'gulpfile.js'],
   static: 'static/**/*.*',
@@ -524,18 +523,6 @@ gulp.task('build:playground', 'Build the playground', function() {
   ).exec();
 });
 
-gulp.task('build:polymer', 'Build the polymer app', function() {
-  const polymerDist = '../dist/' + paths.polymer;
-  return run(
-    'npm i && ' +
-    'cd ' + paths.polymer + ' && ' +
-    'npm i && ' +
-    'gulp build:polymer && ' +
-    'mkdir -p ../dist && ' +
-    'rm -rf ' + polymerDist + ' && ' +
-    'cp -R dist ' + polymerDist
-  ).exec();
-});
 
 function generateRobotsTxt(contents) {
   return file('robots.txt', contents, {
@@ -576,8 +563,7 @@ gulp.task('build', 'build all resources', [
   'compile:sitemap',
   'compile:example',
   'copy:well-known',
-  'build:playground',
-  'build:polymer'
+  'build:playground'
 ]);
 
 function run(command) {
