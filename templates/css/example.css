@@ -156,43 +156,53 @@ code {
   display: block;
   position: relative;
   cursor: pointer;
-  background-color: rgba(132, 183, 232, 0.25);
+  background-color: #eb407a18;
   border-radius: 5px;
   transition: background-color .3s;
+  padding: 0.5rem 0;
+  margin: 0.5rem 0;
 }
 .abe-code .has-hint:hover {
-  background-color: rgba(132, 183, 232, 0.5);
+  background-color: #eb407a28;
 }
 .abe-code .has-hint:before {
-  content: "💡";
+  content: " ";
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="#eb407a"/></svg>') no-repeat;
   position: absolute;
-  right: 7px;
-  top: 7px;
-  font-size: 1.3em;
+  right: 5px;
+  top: 5px;
+  width: 24px;
+  height: 24px;
 }
 .abe-code .has-hint > .hint {
-  opacity: 0;
   position: absolute;
   bottom: 100%;
   border-radius: 5px;
-  padding: 5px;
+  padding: 0.5rem;
   width: 100%;
-  text-align: center;
   margin-bottom: 7px;
   background: #fff;
-  color: #4a4a4a;
+  color: transparent;
   line-height: 1.5rem;
   font-family: var(--font-family-serif);
   box-shadow: 0 0 1px 0 rgba(50,68,78,.5), 0 0 2px 0 rgba(0,0,0,.07), 0 3px 8px 0 rgba(0,0,0,.1);
-  transform: scale(0);
-  transition: transform .7s, opacity .7s;
+  transform: scaleY(0);
+  transition: transform .7s, color .3s;
   transform-origin: bottom;
   user-select: none;
+}
+.abe-code .has-hint > .hint:before {
+  content: "🗙";
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  font-size: 0.8em;
+  line-height: 10px;
 }
 .abe-code .has-hint > .show-hint {
   display: none;
 }
 .abe-code .has-hint > .show-hint:checked + .hint {
-  opacity: 1;
-  transform: scale(1);
+  color: #4a4a4a;
+  transform: scaleY(1);
 }
