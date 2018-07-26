@@ -42,14 +42,6 @@ you approve or delete friend requests on a social network.
   -->
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
   <style amp-custom>
-    h1 {
-      margin: 1rem;
-    }
-
-    fieldset {
-      border: 0;
-    }
-
     .list-overflow[overflow] {
       position: absolute;
       bottom: 0;
@@ -87,14 +79,6 @@ you approve or delete friend requests on a social network.
       font-size: 0.7em;
     }
 
-    .friendrequest form input {
-      display: none;
-    }
-
-    .friendrequest form fieldset {
-      padding: 0;
-    }
-
     .friendrequest form.amp-form-submitting fieldset,
     .friendrequest form.amp-form-submit-success fieldset {
       display: none;
@@ -125,8 +109,7 @@ you approve or delete friend requests on a social network.
 
     .friendrequest form div[submitting],
     .friendrequest form div[submit-success] {
-      padding-right: 2em;
-      font-size: 2em;
+      font-size: 1.2em;
     }
   </style>
 </head>
@@ -154,7 +137,7 @@ you approve or delete friend requests on a social network.
           id="request-{{id}}"
           method="post"
           on="submit-error:request-{{id}}.clear">
-          <fieldset>
+          <fieldset class="p0 border-none">
             <input type="hidden"
               name="id"
               value="{{id}}">
@@ -163,21 +146,25 @@ you approve or delete friend requests on a social network.
               value="REPLACE_WITH_YOUR_TOKEN">
             <label class="button-confirm">
               Confirm
-              <input name="choice"
+              <input hidden name="action"
                 type="radio"
                 value="confirm"
                 on="change:request-{{id}}.submit">
             </label>
             <label class="button-delete">
               Delete
-              <input name="choice"
+              <input hidden name="action"
                 type="radio"
                 value="delete"
                 on="change:request-{{id}}.submit">
             </label>
           </fieldset>
-          <div submitting>Sending...</div>
-          <div submit-success>Done.</div>
+          <div class="pr2" submitting>Sending...</div>
+          <div class="pr2" submit-success>
+            <template type="amp-mustache">
+              {{result}}
+            </template>
+          </div>
           <div submit-error>An error occurred.</div>
         </form>
       </div>
