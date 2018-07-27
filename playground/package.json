@@ -28,7 +28,7 @@
     "extract-text-webpack-plugin": "2.1.2",
     "firebase": "4.13.1",
     "firebase-admin": "5.12.0",
-    "firebase-functions": "0.5.9",
+    "firebase-functions": "2.0.2",
     "handlebars-loader": "1.7.0",
     "html-loader": "0.4.5",
     "html-webpack-plugin": "2.30.1",
