@@ -31,6 +31,7 @@ const (
 func init() {
 	backend.InitRedirects()
 	backend.InitAmpLiveList()
+	backend.InitAmpEmail()
 	backend.InitAmpForm()
 	backend.InitAmpCache()
 	backend.InitProductBrowse()
