@@ -19,6 +19,8 @@ while a placeholder button remains visible.
   <!-- We use `amp-iframe` to load a copy button, replacing a placeholder button.-->
   <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
 
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+
   <link rel="canonical" href="<%host%>/advanced/copy_button/">
   <title>Copy Button</title>
 
@@ -47,46 +49,67 @@ button#copy {
   width: 100%;
   height: 100%;
 }
-/* misc page CSS */
-body {
-  font-family: Sans-Serif;
-}
-main {
+/* misc demo CSS */
+main.copy-button-example {
   display: flex;
   align-items: center;
   padding: 1em;
+  font-family: Sans-Serif;
 }
-main span {
-  margin: 0 1em;
+main.copy-button-example span {
+  margin: 0 0.5em;
+}
+main.copy-button-example span div {
+  margin-top: 0.25em;
 }
   </style>
 </head>
 <body>
 
-<main>
-  <span>
-    Copy Me!
-  </span>
-
+<main class="copy-button-example">
   <!-- ## How a "Copy" button works -->
-  <!-- By including `amp-iframe` with custom JS (this is in `Copy_Button__copier.html`), we can
-       perform any operation from vanilla JS, including copy.
+  <!-- By including `amp-iframe` with custom JS (this is in `static/copier.html`), we can perform
+       any operation from vanilla JS, including copy.
        The iframe is allowed to load anywhere on your AMP as it has a placeholder, and in our case,
        this placeholder has exactly the same presentation as the final display so it's not obvious
        when it is "swapped out". Users who hover over the button before it loads will see a
        "disabled" indicator.
-       We pass the data to be copied via the `#` param. The copier "helper" page can always serve
-       the same HTML and can be cached in its own right.
+       We pass the data to be copied via the hash. The copier "helper" page can always serve the
+       same HTML and can be cached in its own right.
   -->
   <amp-iframe
       sandbox="allow-scripts"
       width="64"
       height="42"
       frameborder="0"
-      src="<% api.host %>/iframe/resizable-iframe.html#This text was copied from &quot;AMP by Example&quot;!">
+      src="/copier.html#This text was copied from &quot;AMP by Example&quot;!">
     <button id="copy" placeholder disabled>Copy</button>
   </amp-iframe>
+  <span>
+    Copy some fixed text
+  </span>
+</main>
 
+<main class="copy-button-example">
+  <!-- ## Change the value to copy -->
+  <!-- We can use `amp-bind` to update the value being passed to the copier iframe. Whenever
+       the value is changed (via `input-debounced`), we update the hash param on the iframe so
+       the copier can copy the new value. -->
+  <amp-iframe
+      sandbox="allow-scripts"
+      width="64"
+      height="42"
+      frameborder="0"
+      src="/copier.html?t#Hello World" [src]="'/copier.html#' + textToCopy">
+    <button id="copy" placeholder disabled>Copy</button>
+  </amp-iframe>
+  <span>
+    <input name="text-to-copy"
+           type="text"
+           value="Hello World"
+           on="input-debounced: AMP.setState({ textToCopy: event.value })">
+    <div>Copy the contents of the input</div>
+  </span>
 </main>
 
 </body>

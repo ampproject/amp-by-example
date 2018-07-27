@@ -40,17 +40,22 @@ button#copy:focus {
 <input type="text" id="_i" hidden />
 <script>
 /*
-  Decode the location from the hash, placing it in our hidden text element. To copy, we show the
-  input, focus it, and call `execCommand('copy')`, before hiding it again.
+  When the copy button is pressed, we:
+  * decode the text from the hash, as that's how the text is passed to us
+  * place it in our hidden text element,
+  * show and focus the input, so the browser lets us copy it
+  * call `execCommand('copy')`, to perform the actual copy
+  * before hiding it again.
   See: https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard
  */
-_i.value = window.decodeURIComponent(window.location.hash.substr(1));
 copy.onclick = function() {
+  _i.value = window.decodeURIComponent(window.location.hash.substr(1));
   _i.hidden = false;
   _i.select();
   _i.focus();
   document.execCommand('copy');
   _i.hidden = true;
+  _i.value = '';
 };
 </script>
 </body>
