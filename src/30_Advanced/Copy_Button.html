@@ -1,0 +1,86 @@
+<!---{
+  "preview": "default",
+  "default": "preview"
+}--->
+<!-- ## Introduction -->
+<!--
+This is a sample showing how to add a "copy" button to your page, allowing the user to copy some
+fixed item per-page. This uses an `amp-iframe`, running custom JS, that loads in the background
+while a placeholder button remains visible.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+  <!-- ## Setup -->
+  <!-- We use `amp-iframe` to load a copy button, replacing a placeholder button.-->
+  <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <title>Copy Button</title>
+
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+  <style amp-custom>
+/* common styles for button */
+button#copy{
+  box-sizing: border-box;
+  font: inherit;
+  font-size: 18px;
+  line-height: 2em;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background: #555;
+  padding: 0 8px;
+  color: #fff;
+  display: block;
+}
+/* disable for placeholder */
+button#copy {
+  cursor: not-allowed;
+  width: 100%;
+  height: 100%;
+}
+/* misc page CSS */
+body {
+  font-family: Sans-Serif;
+}
+main {
+  display: flex;
+  align-items: center;
+  padding: 1em;
+}
+main span {
+  margin: 0 1em;
+}
+  </style>
+</head>
+<body>
+
+<main>
+  <span>
+    Copy Me!
+  </span>
+
+  <!-- ## How a "Copy" button works -->
+  <!-- By including `amp-iframe` with custom JS (this is in `Copy_Button__copier.html`), we can
+       perform an action in JS, including copy.
+       The iframe is allowed to load anywhere on your AMP as it has a placeholder, and in our case,
+       this placeholder has exactly the same presentation as the final display so it's not obvious
+       when it is "swapped out". Users who hover over the button before it loads will see a
+       "disabled" indicator.
+       We pass the data to be copied via the `#` param.
+  -->
+  <amp-iframe sandbox="allow-scripts" id="copier" width="64" height="42" sandbox="allow-scripts" frameborder="0" src="./Copy_Button__copier.html#This text was copied from &quot;AMP By Example&quot;!">
+    <button id="copy" placeholder disabled>Copy</button>
+  </amp-iframe>
+</main>
+
+</body>
+</html>
