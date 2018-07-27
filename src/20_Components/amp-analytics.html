@@ -138,20 +138,20 @@ This sample demonstrates which events can be measured and how they can be config
           </amp-img>
       </div>
       <!--
-    The `elementview` event is issued when the image becomes visible -->
+    The `elementShown` event is issued when the image becomes visible -->
   <amp-analytics>
       <script type="application/json">
       {
         "requests": {
-          "elementview": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
+          "elementShown": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
         },
         "triggers": {
           "defaultPageview": {
             "on": "visible",
-            "request": "elementview",
+            "request": "elementShown",
             "selector": "#an-image",
             "vars": {
-              "eventId": "element-ui"
+              "eventId": "imageview"
             }
           }
         }
