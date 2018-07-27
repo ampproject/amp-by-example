@@ -39,7 +39,11 @@ button#copy:focus {
 <button id="copy">Copy</button>
 <input type="text" id="_i" hidden />
 <script>
-console.info(window.location);
+/*
+  Decode the location from the hash, placing it in our hidden text element. To copy, we show the
+  input, focus it, and call `execCommand('copy')`, before hiding it again.
+  See: https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard
+ */
 _i.value = window.decodeURIComponent(window.location.hash.substr(1));
 copy.onclick = function() {
   _i.hidden = false;
