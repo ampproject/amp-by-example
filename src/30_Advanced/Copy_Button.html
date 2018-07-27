@@ -19,7 +19,7 @@ while a placeholder button remains visible.
   <!-- We use `amp-iframe` to load a copy button, replacing a placeholder button.-->
   <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
 
-  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <link rel="canonical" href="<%host%>/advanced/copy_button/">
   <title>Copy Button</title>
 
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -78,7 +78,12 @@ main span {
        We pass the data to be copied via the `#` param. The copier "helper" page can always serve
        the same HTML and can be cached in its own right.
   -->
-  <amp-iframe sandbox="allow-scripts" id="copier" width="64" height="42" sandbox="allow-scripts" frameborder="0" src="./Copy_Button__copier.html#This text was copied from &quot;AMP by Example&quot;!">
+  <amp-iframe
+      sandbox="allow-scripts"
+      width="64"
+      height="42"
+      frameborder="0"
+      src="<% api.host %>/iframe/resizable-iframe.html#This text was copied from &quot;AMP by Example&quot;!">
     <button id="copy" placeholder disabled>Copy</button>
   </amp-iframe>
 
