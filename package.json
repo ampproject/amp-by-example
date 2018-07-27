@@ -67,7 +67,7 @@
     "pngjs": "3.3.3",
     "resize-img": "1.1.2",
     "run-sequence": "1.2.2",
-    "serve": "6.5.8",
+    "serve": "9.4.0",
     "sitemap": "1.13.0",
     "stream-to-buffer": "0.1.0",
     "sw-toolbox": "3.6.0",
