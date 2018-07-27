@@ -72,7 +72,7 @@
     "stream-to-buffer": "0.1.0",
     "sw-toolbox": "3.6.0",
     "through2": "2.0.3",
-    "url-join": "2.0.5",
+    "url-join": "4.0.0",
     "url-regex": "4.1.1"
   }
 }
