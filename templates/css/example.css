@@ -177,22 +177,21 @@ code {
 .abe-code .has-hint > .hint {
   position: absolute;
   bottom: 100%;
-  border-radius: 5px;
-  padding: 0.5rem;
+  padding: 1rem;
   width: 100%;
   margin-bottom: 7px;
-  background: #fff;
+  background: #fffde7;
   color: transparent;
   line-height: 1.5rem;
   font-family: var(--font-family-serif);
-  box-shadow: 0 0 1px 0 rgba(50,68,78,.5), 0 0 2px 0 rgba(0,0,0,.07), 0 3px 8px 0 rgba(0,0,0,.1);
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
   transform: scaleY(0);
-  transition: transform .7s, color .3s;
+  transition: transform .25s ease-in-out, color .1s;
   transform-origin: bottom;
   user-select: none;
 }
 .abe-code .has-hint > .hint:before {
-  content: "🗙";
+  content: "❌";
   position: absolute;
   right: 7px;
   top: 7px;
