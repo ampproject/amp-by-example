@@ -30,7 +30,7 @@ while a placeholder button remains visible.
 
   <style amp-custom>
 /* common styles for button */
-button#copy{
+button.copy-button {
   box-sizing: border-box;
   font: inherit;
   font-size: 18px;
@@ -44,7 +44,7 @@ button#copy{
   display: block;
 }
 /* disable for placeholder */
-button#copy {
+button.copy-button {
   cursor: not-allowed;
   width: 100%;
   height: 100%;
@@ -83,7 +83,7 @@ main.copy-button-example span div {
       height="42"
       frameborder="0"
       src="/copier.html#This text was copied from &quot;AMP by Example&quot;!">
-    <button id="copy" placeholder disabled>Copy</button>
+    <button class="copy-button" placeholder disabled>Copy</button>
   </amp-iframe>
   <span>
     Copy some fixed text
@@ -101,7 +101,7 @@ main.copy-button-example span div {
       height="42"
       frameborder="0"
       src="/copier.html?t#Hello World" [src]="'/copier.html#' + textToCopy">
-    <button id="copy" placeholder disabled>Copy</button>
+    <button class="copy-button" placeholder disabled>Copy</button>
   </amp-iframe>
   <span>
     <input name="text-to-copy"
