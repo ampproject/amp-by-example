@@ -1,0 +1,210 @@
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+    <title>SeatMap</title>
+    <link rel="canonical" href="<%host%>/advanced/seatmap.html" >
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
+    <script async custom-element="amp-pan-zoom" src="https://cdn.ampproject.org/v0/amp-pan-zoom-0.1.js"></script>
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+    <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <style amp-custom>
+      :root {
+
+      --abe-light-pink: rgba(182, 8, 69, 0.5);
+      --abe-pink: rgb(182, 8, 69);
+      }
+      *:focus {
+      outline: none;
+      }
+      .seat {
+        stroke-width: 3;
+        stroke: rgb(0,0,0);
+        fill:white;
+      }
+      .unavailable {
+      fill: var(--abe-light-pink);
+      pointer-events: none;
+      }
+      .special-seat {
+      fill: white;
+      }
+      .special-seat-image {
+        stroke-width: 3;
+        stroke: rgb(0,0,0);
+        fill:white;
+      }
+      .selected.special-seat-image {
+      fill: var(--abe-pink);
+      background-color: var(--abe-pink);
+      }
+      .container {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      background: white;
+      border-radius: 5px;
+      }
+      .seat.selected {
+      fill: var(--abe-pink);
+      }
+      .disabled-seat {
+      pointer-events: none;
+      cursor: default;
+      }
+      .content {
+      background: white;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      border-radius: 5px;
+      }
+      .disabled {
+      pointer-events: none;
+      opacity: 0.5;
+      cursor: default;
+      }
+      .hidden {
+      display: none;
+      }
+      .clickable {
+      cursor: pointer;
+      }
+      .zoom-button {
+
+      bottom: 60px;
+      right: 0px;
+      z-index: 1;
+      border-color: Transparent;
+      background-color: Transparent;
+      margin: 8px;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      border-width: 0;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+      background-color: white;
+      border-radius: 3px;
+      }
+      .opaque {
+      opacity: 0.5;
+      filter: alpha(opacity=50);
+      }
+      #choose-seats-button {
+      padding-bottom: 15px;
+      padding-right: 10px;
+      }
+      .seat-map-svg {
+      padding: 0 30px;
+      box-sizing: border-box;
+      }
+      .hide {
+      display: none;
+      }
+      .list-container {
+        position: relative;
+        height: 70vh;
+      }
+    </style>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript>
+      <style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style>
+    </noscript>
+
+  </head>
+  <body>
+    <amp-state id="user">
+      <script type="application/json">
+        {
+          "seats": []
+        }
+      </script>
+    </amp-state>
+
+      <h1>Seat map</h1>
+     <div class="list-container">
+     <amp-list layout="fill" src="/json/seats.json" items="." single-item noloading>
+          <template type="amp-mustache">
+
+          <amp-pan-zoom layout="fill" id="pan-zoom"
+            on="transformEnd:AMP.setState({transform: {scale: event.scale, x: event.x, y: event.y}, zoom: event.scale <= 1 ? 0 : 1})">
+            <svg class="seat-map-svg" preserveAspectRatio="xMidYMin slice" viewBox="0 0 {{width}} {{height}}">
+                {{#seats}}                
+                {{#wheelchair }}
+                  <rect x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}" class="special-seat" rx="{{rx}}" ry="{{ry}}"/>
+                  {{#available }}
+                    <image class="special-seat-image"
+                            [class]="user.seats.length == flowState.limitTicketsReservedSeating ? 'special-seat-image disabled-seat' : 'special-seat-image'"
+                            x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
+                            xlink:href="/img/accessible-unselected-24px.svg"
+                            [hidden]="user.seats.includes('{{id}}')"
+                            on="tap:{{type}}-popup, AMP.setState({
+                              lastSelectedSeat: {{id}},
+                                user: {seats: user.seats.concat('{{id}}')}
+                            })"
+                            tabindex="0"
+                            role="button">
+                    </image>
+                  {{/available }}
+                    <image class="selected special-seat-image"
+                          x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
+                          hidden [hidden]="!user.seats.includes('{{id}}')"
+                          x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
+                            xlink:href="/img/accessible-24px.svg"
+                          on="tap:AMP.setState({
+                              user: {seats: copyAndSplice(user.seats, user.seats.indexOf({{lastSelectedSeat}}), 1)}
+                          })"
+                          tabindex="0"
+                          role="button">
+                    </image>
+                  {{^available}}
+                    <image class="special-seat-image" 
+                            x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
+                            xlink:href="/img/accessible-unavailable-24px.svg"
+                            tabindex="0"
+                            role="button">
+                    </image>
+                  {{/available }}
+                {{/wheelchair}}
+                {{#standard }}
+                    <rect class="seat selected"
+                          hidden [hidden]="!user.seats.includes('{{id}}')"
+                          x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
+                          on="tap:AMP.setState({
+                              user: {seats: copyAndSplice(user.seats, user.seats.indexOf('{{id}}'), 1)}
+                          })"
+                          role="button"
+                          tabindex="0" rx="{{rx}}" ry="{{ry}}"></rect>
+                    {{#available }}
+                      <rect class="seat" 
+                          [class]= "user.seats.length ==  limitTicketsReservedSeating ? 'seat disabled-seat' : 'seat'"
+                          x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
+                          [hidden]="user.seats.includes('{{id}}')"
+                          on="tap:AMP.setState({
+                            lastSelectedSeat: '{{id}}',
+                              user: {seats: user.seats.concat('{{id}}')}
+                          })"
+                          role="button"
+                          tabindex="0" rx="{{rx}}" ry="{{ry}}"></rect>  
+                    {{/available }}
+                    {{^available}}
+                          <rect class="seat unavailable" 
+                          x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
+                          role="button"
+                          tabindex="0" rx="{{rx}}" ry="{{ry}}">   
+                          </rect>            
+                    {{/available }}
+                  {{/standard }}
+                {{/seats}}
+            </svg>
+          </amp-pan-zoom>
+
+          </template>
+          </amp-list>
+      </div>
+      <button class="zoom-button" on="tap:pan-zoom.transform(scale=1)">-</button>
+      <button class="zoom-button" on="tap:pan-zoom.transform(scale=3, x=50, y=10)">+</button>
+  </body>
+</html>
