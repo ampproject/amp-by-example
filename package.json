@@ -46,7 +46,7 @@
     "gulp-change": "1.0.0",
     "gulp-clean": "0.4.0",
     "gulp-diff": "1.0.0",
-    "gulp-eslint": "4.0.2",
+    "gulp-eslint": "5.0.0",
     "gulp-favicons": "2.2.7",
     "gulp-file": "0.4.0",
     "gulp-help": "1.6.1",
