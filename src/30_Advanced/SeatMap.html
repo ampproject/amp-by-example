@@ -1,3 +1,12 @@
+<!---{
+  "preview": "default",
+  "default": "preview"
+}--->
+<!-- ## Introduction -->
+<!--
+This is a sample showing how to implement a seatmap that can be used for theaters, cinemas, airplanes and more.
+-->
+<!-- -->
 <html ⚡>
   <head>
     <meta charset="utf-8">
@@ -5,14 +14,18 @@
     <link rel="canonical" href="<%host%>/advanced/seatmap.html" >
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
-    <script async custom-element="amp-pan-zoom" src="https://cdn.ampproject.org/v0/amp-pan-zoom-0.1.js"></script>
-    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-    <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
-    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <!-- ## Setup -->
+    <!-- Additionally used AMP components must be imported in the header. We use `amp-pan-zoom` to make the seatmap zoomable and scrollable -->
+    <script async custom-element="amp-pan-zoom" src="https://cdn.ampproject.org/v0/amp-pan-zoom-0.1.js"></script>
+    <!-- We use `amp-bind` for enabling seat selection -->
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+    <!-- We use `amp-list` for showing a list of seats -->
+    <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+    <!-- We use `amp-mustache` for rendering the `amp-list` content -->
+    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
     <style amp-custom>
       :root {
-
       --abe-light-pink: rgba(182, 8, 69, 0.5);
       --abe-pink: rgb(182, 8, 69);
       }
@@ -115,19 +128,23 @@
 
   </head>
   <body>
+    <!-- ## How to implement a seat map -->
+    <!-- Here we are using an `amp-state` called `user`
+    to keep a list of selected seat ids in the `selectedSeats` array -->
     <amp-state id="user">
       <script type="application/json">
         {
-          "seats": []
+          "selectedSeats": []
         }
       </script>
     </amp-state>
 
-      <h1>Seat map</h1>
+    <h1>Seat map</h1>
+    <!-- You can implement a seat map by using `amp-list`, `amp-bind` and `amp-pan-zoom` where
+    `amp-list` loads the list of seats. -->
      <div class="list-container">
      <amp-list layout="fill" src="/json/seats.json" items="." single-item noloading>
           <template type="amp-mustache">
-
           <amp-pan-zoom layout="fill" id="pan-zoom"
             on="transformEnd:AMP.setState({transform: {scale: event.scale, x: event.x, y: event.y}, zoom: event.scale <= 1 ? 0 : 1})">
             <svg class="seat-map-svg" preserveAspectRatio="xMidYMin slice" viewBox="0 0 {{width}} {{height}}">
@@ -136,13 +153,13 @@
                   <rect x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}" class="special-seat" rx="{{rx}}" ry="{{ry}}"/>
                   {{#available }}
                     <image class="special-seat-image"
-                            [class]="user.seats.length == flowState.limitTicketsReservedSeating ? 'special-seat-image disabled-seat' : 'special-seat-image'"
+                            [class]="user.selectedSeats.length == flowState.limitTicketsReservedSeating ? 'special-seat-image disabled-seat' : 'special-seat-image'"
                             x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
                             xlink:href="/img/accessible-unselected-24px.svg"
-                            [hidden]="user.seats.includes('{{id}}')"
+                            [hidden]="user.selectedSeats.includes('{{id}}')"
                             on="tap:{{type}}-popup, AMP.setState({
                               lastSelectedSeat: {{id}},
-                                user: {seats: user.seats.concat('{{id}}')}
+                                user: {selectedSeats: user.selectedSeats.concat('{{id}}')}
                             })"
                             tabindex="0"
                             role="button">
@@ -150,11 +167,11 @@
                   {{/available }}
                     <image class="selected special-seat-image"
                           x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
-                          hidden [hidden]="!user.seats.includes('{{id}}')"
+                          hidden [hidden]="!user.selectedSeats.includes('{{id}}')"
                           x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
                             xlink:href="/img/accessible-24px.svg"
                           on="tap:AMP.setState({
-                              user: {seats: copyAndSplice(user.seats, user.seats.indexOf({{lastSelectedSeat}}), 1)}
+                              user: {selectedSeats: copyAndSplice(user.selectedSeats, user.selectedSeats.indexOf({{lastSelectedSeat}}), 1)}
                           })"
                           tabindex="0"
                           role="button">
@@ -170,21 +187,21 @@
                 {{/wheelchair}}
                 {{#standard }}
                     <rect class="seat selected"
-                          hidden [hidden]="!user.seats.includes('{{id}}')"
+                          hidden [hidden]="!user.selectedSeats.includes('{{id}}')"
                           x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
                           on="tap:AMP.setState({
-                              user: {seats: copyAndSplice(user.seats, user.seats.indexOf('{{id}}'), 1)}
+                              user: {selectedSeats: copyAndSplice(user.selectedSeats, user.selectedSeats.indexOf('{{id}}'), 1)}
                           })"
                           role="button"
                           tabindex="0" rx="{{rx}}" ry="{{ry}}"></rect>
                     {{#available }}
                       <rect class="seat" 
-                          [class]= "user.seats.length ==  limitTicketsReservedSeating ? 'seat disabled-seat' : 'seat'"
+                          [class]= "user.selectedSeats.length ==  limitTicketsReservedSeating ? 'seat disabled-seat' : 'seat'"
                           x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
-                          [hidden]="user.seats.includes('{{id}}')"
+                          [hidden]="user.selectedSeats.includes('{{id}}')"
                           on="tap:AMP.setState({
                             lastSelectedSeat: '{{id}}',
-                              user: {seats: user.seats.concat('{{id}}')}
+                              user: {selectedSeats: user.selectedSeats.concat('{{id}}')}
                           })"
                           role="button"
                           tabindex="0" rx="{{rx}}" ry="{{ry}}"></rect>  
