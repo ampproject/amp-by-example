@@ -80,6 +80,7 @@ you approve or delete friend requests on a social network.
     }
 
     .friendrequest form.amp-form-submitting fieldset,
+    .friendrequest form:not(.amp-form-submitting) div.submitting,
     .friendrequest form.amp-form-submit-success fieldset {
       display: none;
     }
@@ -107,7 +108,7 @@ you approve or delete friend requests on a social network.
       margin-top: .4em;
     }
 
-    .friendrequest form div[submitting],
+    .friendrequest form div.submitting,
     .friendrequest form div[submit-success] {
       font-size: 1.2em;
     }
@@ -133,7 +134,7 @@ you approve or delete friend requests on a social network.
           height="32"
           layout="fixed"></amp-img>
         <div class="name">{{name}}</div>
-        <form action-xhr="https://ampbyexample.com/components/amp-form/submit-form-xhr"
+        <form action-xhr="<%host%>/amphtml-email/submit-form-friend-request"
           id="request-{{id}}"
           method="post"
           on="submit-error:request-{{id}}.clear">
@@ -159,7 +160,7 @@ you approve or delete friend requests on a social network.
                 on="change:request-{{id}}.submit">
             </label>
           </fieldset>
-          <div class="pr2" submitting>Sending...</div>
+          <div class="pr2 submitting">Sending...</div>
           <div class="pr2" submit-success>
             <template type="amp-mustache">
               {{result}}
