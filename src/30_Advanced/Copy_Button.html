@@ -66,6 +66,7 @@ main.copy-button-example span div {
 </head>
 <body>
 
+<h2 class="m1"> Simple copy button</h2>
 <main class="copy-button-example">
   <!-- ## How a "Copy" button works -->
   <!-- By including `amp-iframe` with custom JS (this is in `static/copier.html`), we can perform
@@ -90,26 +91,31 @@ main.copy-button-example span div {
   </span>
 </main>
 
+<h2 class="m1">Dynamic copy button</h2>
 <main class="copy-button-example">
-  <!-- ## Change the value to copy -->
+  <!-- ## Dynamically change the value to copy -->
   <!-- We can use `amp-bind` to update the value being passed to the copier iframe. Whenever
        the value is changed (via `input-debounced`), we update the hash param on the iframe so
-       the copier can copy the new value. -->
+       the copier can copy the new value. 
+       
+       First we define an input field which updates an `amp-state`
+       variable called `textToCopy`:-->
+  <span>
+    <input type="text"
+           value="Hello World"
+           on="input-debounced: AMP.setState({ textToCopy: event.value })">
+    <div>Copy the contents of the input</div>
+  </span>
+  <!-- Then we bind the iframe's `src` attribute to the value of the `textToCopy`
+       `amp-state` variable. -->
   <amp-iframe
       sandbox="allow-scripts"
       width="64"
       height="42"
       frameborder="0"
-      src="/copier.html?t#Hello World" [src]="'/copier.html#' + textToCopy">
+      src="/copier.html#Hello World" [src]="'/copier.html#' + textToCopy">
     <button class="copy-button" placeholder disabled>Copy</button>
   </amp-iframe>
-  <span>
-    <input name="text-to-copy"
-           type="text"
-           value="Hello World"
-           on="input-debounced: AMP.setState({ textToCopy: event.value })">
-    <div>Copy the contents of the input</div>
-  </span>
 </main>
 
 </body>
