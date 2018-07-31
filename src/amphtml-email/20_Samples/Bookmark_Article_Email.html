@@ -12,20 +12,11 @@ them for later reading.
 -->
 
 <!-- -->
-<!-- Doctype declaration is required. -->
 <!doctype html>
-<!-- This tells everyone that this is an AMPHTML email. `<html amp4email>` works too. -->
 <html ⚡4email>
-<!-- ## Head -->
-<!-- -->
 <head>
-  <!-- The charset definition must be the first child of the `<head>` tag. -->
   <meta charset="utf-8">
-  <!-- The AMP runtime.-->
   <script async src="https://cdn.ampproject.org/v0.js"></script>
-  <!--
-    The AMPHTML Email boilerplate.
-  -->
   <style amp4email-boilerplate>body{visibility:hidden}</style>
   <title>AMPHTML Email - Article List</title>
   <!-- ## Setup -->
@@ -117,31 +108,6 @@ them for later reading.
             <input type="hidden"
                    name="id"
                    value="LINK_ID_2">
-            <input type="hidden"
-                   name="auth_token"
-                   value="REPLACE_WITH_YOUR_TOKEN">
-
-            <button type="submit"
-                    class="ampstart-btn submit-button">
-              Bookmark
-            </button>
-            <div class="pr2 submitting">Bookmarking...</div>
-            <div class="pr2" submit-success>
-              <template type="amp-mustache">
-                {{result}}
-              </template>
-            </div>
-            <div submit-error>An error occurred.</div>
-          </form>
-        </div>
-      </li>
-      <li class="item">
-        <a class="link" href="<%host%>/components/amp-ad/">amp-ad</a>
-        <div class="bookmark">
-          <form action-xhr="<%host%>/amphtml-email/submit-form-bookmark" method="post">
-            <input type="hidden"
-                   name="id"
-                   value="LINK_ID_3">
             <input type="hidden"
                    name="auth_token"
                    value="REPLACE_WITH_YOUR_TOKEN">
