@@ -1,0 +1,178 @@
+<!---{
+ "preview": "amp4email",
+ "skipValidation": "true",
+ "draft": "true"
+}--->
+<!--
+## Introduction
+
+This sample showcases how to use AMPHTML email to create an email with a
+personalized digest of articles, giving the user an ability to bookmark some of
+them for later reading.
+-->
+
+<!-- -->
+<!-- Doctype declaration is required. -->
+<!doctype html>
+<!-- This tells everyone that this is an AMPHTML email. `<html amp4email>` works too. -->
+<html ⚡4email>
+<!-- ## Head -->
+<!-- -->
+<head>
+  <!-- The charset definition must be the first child of the `<head>` tag. -->
+  <meta charset="utf-8">
+  <!-- The AMP runtime.-->
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!--
+    The AMPHTML Email boilerplate.
+  -->
+  <style amp4email-boilerplate>body{visibility:hidden}</style>
+  <title>AMPHTML Email - Article List</title>
+  <!-- ## Setup -->
+  <!--
+    Additionally used AMP components must be imported in the header. We use
+    `amp-form` to submit bookmark requests to the server.
+  -->
+  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+  <!--
+    We use `amp-mustache` to render the result of a form submission.
+  -->
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+  <style amp-custom>
+    .items {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .item {
+      border-bottom: 1px solid #e6e6e6;
+      display: flex;
+      padding: 0 1rem;
+    }
+
+    .item > .link {
+      padding: 1.5rem 0.5rem;
+      flex-grow: 1;
+    }
+
+    .bookmark {
+      margin: auto 1rem;
+    }
+
+    .bookmark .submit-button {
+      float: right;
+    }
+
+    .bookmark form.amp-form-submitting button,
+    .bookmark form:not(.amp-form-submitting) div.submitting,
+    .bookmark form.amp-form-submit-success button {
+      display: none;
+    }
+
+    .bookmark form div[submit-error] {
+      margin-top: .4em;
+      clear: right;
+    }
+  </style>
+</head>
+<!-- ## Body -->
+<!-- -->
+<body>
+  <!--
+    Each list item has a normal link as well as an `amp-form` which is only used for sending an
+    async request to the server to bookmark the given link.
+  -->
+  <div>
+    <ul class="items">
+      <li class="item">
+        <a class="link" href="<%host%>/components/amp-carousel/">amp-carousel</a>
+        <div class="bookmark">
+          <form action-xhr="<%host%>/amphtml-email/submit-form-bookmark" method="post">
+            <input type="hidden"
+                   name="id"
+                   value="LINK_ID_1">
+            <input type="hidden"
+                   name="auth_token"
+                   value="REPLACE_WITH_YOUR_TOKEN">
+
+            <button type="submit"
+                    class="ampstart-btn submit-button">
+              Bookmark
+            </button>
+            <div class="pr2 submitting">Bookmarking...</div>
+            <div class="pr2" submit-success>
+              <template type="amp-mustache">
+                {{result}}
+              </template>
+            </div>
+            <div submit-error>An error occurred.</div>
+          </form>
+        </div>
+      </li>
+      <li class="item">
+        <a class="link" href="<%host%>/components/amp-img/">amp-img</a>
+        <div class="bookmark">
+          <form action-xhr="<%host%>/amphtml-email/submit-form-bookmark" method="post">
+            <input type="hidden"
+                   name="id"
+                   value="LINK_ID_2">
+            <input type="hidden"
+                   name="auth_token"
+                   value="REPLACE_WITH_YOUR_TOKEN">
+
+            <button type="submit"
+                    class="ampstart-btn submit-button">
+              Bookmark
+            </button>
+            <div class="pr2 submitting">Bookmarking...</div>
+            <div class="pr2" submit-success>
+              <template type="amp-mustache">
+                {{result}}
+              </template>
+            </div>
+            <div submit-error>An error occurred.</div>
+          </form>
+        </div>
+      </li>
+      <li class="item">
+        <a class="link" href="<%host%>/components/amp-ad/">amp-ad</a>
+        <div class="bookmark">
+          <form action-xhr="<%host%>/amphtml-email/submit-form-bookmark" method="post">
+            <input type="hidden"
+                   name="id"
+                   value="LINK_ID_3">
+            <input type="hidden"
+                   name="auth_token"
+                   value="REPLACE_WITH_YOUR_TOKEN">
+
+            <button type="submit"
+                    class="ampstart-btn submit-button">
+              Bookmark
+            </button>
+            <div class="pr2 submitting">Bookmarking...</div>
+            <div class="pr2" submit-success>
+              <template type="amp-mustache">
+                {{result}}
+              </template>
+            </div>
+            <div submit-error>An error occurred.</div>
+          </form>
+        </div>
+      </li>
+    </ul>
+  </div>
+</body>
+
+</html>
+
+<!--
+  ## Server-side considerations
+
+  Because there is no authentication for outgoing XHR calls from AMP email
+  messages, all authentication should be done using access tokens.
+
+  In the sample above, `REPLACE_WITH_YOUR_TOKEN` represents an access token.
+  This token must be provided as a hidden `<input>` field for each link in
+  the sample above.
+-->
