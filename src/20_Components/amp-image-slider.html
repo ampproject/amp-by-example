@@ -1,0 +1,86 @@
+<!---{
+  "draft": true,
+  "experiments": ["amp-image-slider"]
+}--->
+<!--
+  ## Introduction
+
+  The amp-image-slider component allows comparing 2 images by moving the vertical slider bar.
+  Users can click/touch and drag to move the bar to compare the images.
+
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <title>amp-image-slider</title>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!-- ## Setup -->
+  <!--
+    Import the `amp-image-slider` component in the header.
+  -->
+  <script async custom-element="amp-image-slider" src="https://cdn.ampproject.org/v0/amp-image-slider-0.1.js"></script>
+  <link rel="canonical" href="<%host%>/components/amp-image-slider/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <style amp-custom>
+    .left-label {
+      top: 5px;
+      color: white;
+      border: 4px solid rgb(255, 0, 0);
+      padding: 1em;
+      font-family: Arial, Helvetica, sans-serif;
+      box-shadow: 2px 2px 27px 5px rgba(0,0,0,0.75);
+    }
+
+    .right-label {
+      bottom: 5px;
+      color: white;
+      border: 4px solid rgb(30, 255, 0);
+      padding: 1em;
+      font-family: Arial, Helvetica, sans-serif;
+      box-shadow: 2px 2px 27px 5px rgba(0,0,0,0.75);
+    }
+  </style>
+  <script custom-element="amp-image-slider" src="<%host%>/amp-image-slider-0.1.max.js"></script>
+</head>
+<body>
+
+  <!-- ## Basic Usage -->
+
+  <!--
+    Build a basic image slider by placing 2 `amp-img`s inside.
+    The first `amp-img` will be the left image, and the second will be the right one.
+  -->
+  <amp-image-slider width="300" height="200" layout="responsive">
+    <amp-img
+      src="/img/canoe_blur_900x600.jpg"
+      aria-valuetext="A blurry image about canoeing"
+      layout="fill"></amp-img>
+    <amp-img
+      src="/img/canoe_900x600.jpg"
+      aria-valuetext="An image about canoeing"
+      layout="fill"></amp-img>
+  </amp-image-slider>
+
+  <!--
+    You can add customizable labels to your images, by providing extra `div`s,
+    labeled with `before` and `after` attributes, for left and right images correspondingly.
+    You can customize your labels with classes.
+  -->
+  <amp-image-slider width="300" height="200" layout="responsive">
+    <amp-img
+      src="/img/red_apple_1_1024x682.jpg"
+      aria-valuetext="A red apple"
+      layout="fill"></amp-img>
+    <amp-img
+      src="/img/green_apple_1_1024x682.jpg"
+      aria-valuetext="A green apple"
+      layout="fill"></amp-img>
+    <div before class="left-label">Red</div>
+    <div after class="right-label">Green</div>
+  </amp-image-slider>
+
+</body>
+</html>
