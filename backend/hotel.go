@@ -29,9 +29,6 @@ const (
 )
 
 func InitHotelSample() {
-	RegisterHandler(HOTEL_SAMPLE_PATH+"authorization", handleHotelAuthorization)
-	RegisterHandler(HOTEL_SAMPLE_PATH+"pingback", handlePingback)
-	RegisterHandler(HOTEL_SAMPLE_PATH+"login", handleLogin)
 	RegisterHandler(HOTEL_SAMPLE_PATH+"book", onlyPost(book))
 	RegisterHandler(HOTEL_SAMPLE_PATH+"check-available", checkAvailability)
 }
