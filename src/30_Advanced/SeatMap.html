@@ -7,6 +7,7 @@
 This is a sample showing how to implement a seatmap that can be used for theaters, cinemas, airplanes and more.
 -->
 <!-- -->
+<!doctype html>
 <html ⚡>
   <head>
     <meta charset="utf-8">
@@ -138,12 +139,54 @@ This is a sample showing how to implement a seatmap that can be used for theater
         }
       </script>
     </amp-state>
+    <!-- `transform` state is used to keep track of the scale of the content being zoomed using by `amp-pan-zoom`. -->
+    <amp-state id="transform">
+      <script type="application/json">
+        {
+          "scale": 1
+        }
+      </script>
+    </amp-state>
+
+    <!-- `zoom` state is used to keep track of the seat map is in a zoomed state or not. This variable is used to
+    decide whether to show a + or - button -->
+    <amp-state id="zoom ">
+          <script type="application/json">
+            0
+          </script>
+    </amp-state>
 
     <h1>Seat map</h1>
     <!-- You can implement a seat map by using `amp-list`, `amp-bind` and `amp-pan-zoom` where
-    `amp-list` loads the list of seats. -->
+    `amp-list` loads the list of seats. 
+    We are using the `transformEnd` action from [amp-pan-zoom](https://www.ampproject.org/docs/reference/components/amp-pan-zoom)
+    to update the value of transform.scale variable.
+    We display 2 types of seats: wheelchair and standard. Each seat can be available, unavailable and selected. Everytime a seat is 
+    selected we add the seat id to the `user.selectedSeats` variable.
+    -->
      <div class="list-container">
      <amp-list layout="fill" src="/json/seats.json" items="." single-item noloading>
+      <div placeholder>
+        <svg class="opaque disabled-seat seat-map-svg" viewBox="0 0 [[.Width]] [[.Height]]" preserveAspectRatio="xMidYMin slice">
+          [[range .Seats]] 
+          [[if .Wheelchair]]             
+            <rect x="[[.X]]" y="[[.Y]]" width="[[.Width]]" height="[[.Height]]" class="special-seat" rx="[[.RX]]" ry="[[.RY]]"/>
+              <image class="special-seat-image"
+                x="[[.X]]" y="[[.Y]]" width="[[.Width]]" height="[[.Height]]"
+                      xlink:href="/img/accessible-unavailable-24px.svg"
+                      tabindex="0"
+                      role="button"></image>
+          [[end]]
+          [[if .Standard]]  
+           <rect class="seat unavailable" 
+                           x="[[.X]]" y="[[.Y]]" width="[[.Width]]" height="[[.Height]]"
+                          role="button"
+                          tabindex="0" rx="[[.RX]]" ry="[[.RY]]">   
+            [[end]]
+            [[end]]
+              
+        </svg>
+      </div>
           <template type="amp-mustache">
           <amp-pan-zoom layout="fill" id="pan-zoom"
             on="transformEnd:AMP.setState({transform: {scale: event.scale, x: event.x, y: event.y}, zoom: event.scale <= 1 ? 0 : 1})">
@@ -215,13 +258,14 @@ This is a sample showing how to implement a seatmap that can be used for theater
                     {{/available }}
                   {{/standard }}
                 {{/seats}}
-            </svg>
-          </amp-pan-zoom>
-
+              </svg>
+            </amp-pan-zoom>
           </template>
-          </amp-list>
+        </amp-list>
       </div>
-      <button class="zoom-button" on="tap:pan-zoom.transform(scale=1)">-</button>
-      <button class="zoom-button" on="tap:pan-zoom.transform(scale=3, x=50, y=10)">+</button>
+      <!-- To enable desktop users, we provide + and - buttons. We use `amp-bind` to decide whether to show the + or - button depending
+      on the state of the zooming -->
+    <button class="zoom-button" on="tap:pan-zoom.transform(scale=1)" hidden [hidden]="zoom==0">-</button>
+    <button class="zoom-button" on="tap:pan-zoom.transform(scale=3, x=50, y=10)" [hidden]="zoom==1">+</button>
   </body>
 </html>

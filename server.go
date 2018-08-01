@@ -50,6 +50,7 @@ func init() {
 	backend.InitAmpConsent()
 	backend.InitAmpStoryAutoAds()
 	backend.InitLetsEncrypt()
+	backend.InitSeatmapPage()
 	playground.InitPlayground()
 	http.Handle("/", ServeStaticFiles(HandleNotFound(http.FileServer(http.Dir(DIST_DIR)))))
 }
