@@ -47,7 +47,11 @@ func InitAmpAccess() {
 	RegisterHandler(AMP_ACCESS_SAMPLE_PATH+"authorization", handleAuthorization)
 	RegisterHandler(AMP_ACCESS_SAMPLE_PATH+"login", handleLogin)
 	RegisterHandler(AMP_ACCESS_SAMPLE_PATH+"logout", handleLogout)
+	RegisterHandler(AMP_ACCESS_SAMPLE_PATH+"pingback", handlePingback)
 	RegisterHandler(AMP_ACCESS_SAMPLE_PATH+"submit", handleSubmit)
+}
+
+func handlePingback(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleLogin(w http.ResponseWriter, r *http.Request) {

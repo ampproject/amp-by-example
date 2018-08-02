@@ -2,6 +2,8 @@
   The [amp-access](https://www.ampproject.org/docs/reference/components/amp-access) component adds support for authentication and authorization,
   allowing you to limit access to parts of your AMP pages as well as display customized content for the logged in user.
 
+  It also allows the implementation of view counting, paywalls and subscriptions.
+
   For sample `amp-access` server endpoints, see the [amp-publisher-sample](https://github.com/ampproject/amp-publisher-sample) project.
 -->
 <!-- -->
@@ -25,13 +27,14 @@
   <!-- Add the configuration for the `authorization` and the `login` endpoints. We provide two login endpoints, one for sign-in and one for sign-out. It is
     also possible to create a fallback response that will be used if the authorization fails with the `authorizationFallbackResponse` attribute.
 
-    Because the [Pingback Endpoint](https://www.ampproject.org/docs/reference/components/amp-access#pingback-endpoint) is not used in this sample,
-    we set `noPingback` to true.
+    The [Pingback Endpoint](https://www.ampproject.org/docs/reference/components/amp-access#pingback-endpoint) is also defined,
+    but is unused in this sample. Check out the [official amp-access sample](https://rocky-sierra-1919.herokuapp.com/) to
+    see the pingback endpoint used to limit the number of page views before a paywall is displayed.
   -->
   <script id="amp-access" type="application/json">
     {
         "authorization": "<%host%>/components/amp-access/authorization?rid=READER_ID&url=CANONICAL_URL&ref=DOCUMENT_REFERRER&_=RANDOM",
-        "noPingback": true,
+        "pingback": "<%host%>/components/amp-access/authorization?rid=READER_ID&url=CANONICAL_URL&ref=DOCUMENT_REFERRER&_=RANDOM",
         "login": {
           "sign-in": "<%host%>/components/amp-access/login?rid=READER_ID&url=CANONICAL_URL",
           "sign-out": "<%host%>/components/amp-access/logout"
@@ -106,6 +109,6 @@
   <section class="p1" amp-access="loggedIn" amp-access-hide role="button" tabindex="0">
     <a class="ampstart-btn caps" on="tap:amp-access.login-sign-out">Logout</a>
   </section>
-  <!-- Checkout the [official amp-access sample](https://rocky-sierra-1919.herokuapp.com/) for demos of first-click-free and view counting. -->
+  <!-- Check out the [official amp-access sample](https://rocky-sierra-1919.herokuapp.com/) for demos of first-click-free and view counting. -->
 </body>
 </html>
