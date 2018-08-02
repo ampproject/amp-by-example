@@ -21,18 +21,22 @@ import (
 )
 
 type Seat struct {
-	Id           string    `json:"id"`
-	Standard     bool      `json:"standard"`
-	X        	 float64   `json:"x"`
-	Y       	 float64   `json:"y"`
-	Wheelchair   bool      `json:"wheelchair"`
-	Availability bool      `json:"availability"`
+	Id           string  `json:"id"`
+	Standard     bool    `json:"standard"`
+	X            float64 `json:"x"`
+	Y            float64 `json:"y"`
+	Rx           string  `json:"rx"`
+	Ry           string  `json:"ry"`
+	Height       float64 `json:"height"`
+	Width        float64 `json:"width"`
+	Wheelchair   bool    `json:"wheelchair"`
+	Availability bool    `json:"availability"`
 }
 
 type SeatJsonRoot struct {
-	Seats     []Seat     `json:"seats"`
-	Height    float64    `json:"height"`
-	Width     float64    `json:"width"`
+	Seats  []Seat  `json:"seats"`
+	Height float64 `json:"height"`
+	Width  float64 `json:"width"`
 }
 
 var seats []Seat
@@ -40,14 +44,14 @@ var seatsRoot SeatJsonRoot
 
 func InitSeatmapPage() {
 	initSeatmap(DIST_FOLDER + "/json/seats.json")
-	RegisterSample("samples_templates/seatmap", renderSeatmap)
+	RegisterSample("advanced/seatmap", renderSeatmap)
 }
 
 func renderSeatmap(w http.ResponseWriter, r *http.Request, page Page) {
-	page.Render(w, SeatJsonRoot {
-		Seats: seatsRoot.Seats,
+	page.Render(w, SeatJsonRoot{
+		Seats:  seatsRoot.Seats,
 		Height: seatsRoot.Height,
-		Width: seatsRoot.Width,
+		Width:  seatsRoot.Width,
 	})
 }
 

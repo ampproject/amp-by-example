@@ -170,7 +170,7 @@ This is a sample showing how to implement a seatmap that can be used for theater
         <svg class="opaque disabled-seat seat-map-svg" viewBox="0 0 [[.Width]] [[.Height]]" preserveAspectRatio="xMidYMin slice">
           [[range .Seats]] 
           [[if .Wheelchair]]             
-            <rect x="[[.X]]" y="[[.Y]]" width="[[.Width]]" height="[[.Height]]" class="special-seat" rx="[[.RX]]" ry="[[.RY]]"/>
+            <rect x="[[.X]]" y="[[.Y]]" width="[[.Width]]" height="[[.Height]]" class="special-seat" rx="[[.Rx]]" ry="[[.Ry]]"/>
               <image class="special-seat-image"
                 x="[[.X]]" y="[[.Y]]" width="[[.Width]]" height="[[.Height]]"
                       xlink:href="/img/accessible-unavailable-24px.svg"
@@ -181,7 +181,7 @@ This is a sample showing how to implement a seatmap that can be used for theater
            <rect class="seat unavailable" 
                            x="[[.X]]" y="[[.Y]]" width="[[.Width]]" height="[[.Height]]"
                           role="button"
-                          tabindex="0" rx="[[.RX]]" ry="[[.RY]]">   
+                          tabindex="0" rx="[[.Rx]]" ry="[[.Ry]]"/>   
             [[end]]
             [[end]]
               
