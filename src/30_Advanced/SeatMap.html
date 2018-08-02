@@ -14,7 +14,6 @@ This is a sample showing how to implement a seatmap that can be used for theater
     <title>SeatMap</title>
     <link rel="canonical" href="<%host%>/advanced/seatmap.html" >
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <!-- ## Setup -->
     <!-- Additionally used AMP components must be imported in the header. We use `amp-pan-zoom` to make the seatmap zoomable and scrollable -->
@@ -211,7 +210,6 @@ This is a sample showing how to implement a seatmap that can be used for theater
                     <image class="selected special-seat-image"
                           x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
                           hidden [hidden]="!user.selectedSeats.includes('{{id}}')"
-                          x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
                             xlink:href="/img/accessible-24px.svg"
                           on="tap:AMP.setState({
                               user: {selectedSeats: copyAndSplice(user.selectedSeats, user.selectedSeats.indexOf({{lastSelectedSeat}}), 1)}
