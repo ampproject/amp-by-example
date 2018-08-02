@@ -27,9 +27,9 @@
   <!-- Add the configuration for the `authorization` and the `login` endpoints. We provide two login endpoints, one for sign-in and one for sign-out. It is
     also possible to create a fallback response that will be used if the authorization fails with the `authorizationFallbackResponse` attribute.
 
-    The [Pingback Endpoint](https://www.ampproject.org/docs/reference/components/amp-access#pingback-endpoint) is also defined,
-    but is unused in this sample. Check out the [official amp-access sample](https://rocky-sierra-1919.herokuapp.com/) to
-    see the pingback endpoint used to limit the number of page views before a paywall is displayed.
+    The [Pingback Endpoint](https://www.ampproject.org/docs/reference/components/amp-access#pingback-endpoint) is called
+    when a user views the document, which can be used to update metering information. This functionality is not used
+    in this sample.
   -->
   <script id="amp-access" type="application/json">
     {
@@ -100,7 +100,7 @@
 
   `amp-access-hide` will default the component to be hidden and enabled later
   if the `amp-access` expression is evaluated to `TRUE` -->
-  <section class="p1" amp-access="NOT loggedIn" role="button" tabindex="0">
+  <section class="p1" amp-access="NOT loggedIn" amp-access-hide role="button" tabindex="0">
     <a class="ampstart-btn caps" on="tap:amp-access.login-sign-in">Login</a>
   </section>
   <!-- The logout link will only be shown for logged in subscribers. We use a trick here: the logout is a
