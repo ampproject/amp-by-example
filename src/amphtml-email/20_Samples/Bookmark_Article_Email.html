@@ -6,9 +6,11 @@
 <!--
 ## Introduction
 
-This sample showcases how to use AMPHTML email to create an email with a
-short summary of an article, giving the user an ability to go to the website
-to read more or bookmark it to their account for later reading.
+This sample demonstrates how to let users perform an asynchronous action (bookmarking an article)
+in an AMPHTML email.
+
+It leverages the [`amp-form`](https://www.ampproject.org/docs/reference/components/amp-form) extension to
+send a request to the server without the user leaving their e-mail client.
 -->
 
 <!-- -->
@@ -89,10 +91,14 @@ to read more or bookmark it to their account for later reading.
           <input type="hidden"
                   name="id"
                   value="ARTICLE_UNIQUE_ID">
+          <!--~
+            Because there is no authentication for outgoing XHR calls from AMP email
+            messages, all authentication should be done using access tokens. In a real-life
+            scenario, this hidden input field should contain one such limited-use access token.
+          ~-->
           <input type="hidden"
                   name="auth_token"
                   value="REPLACE_WITH_YOUR_TOKEN">
-
           <button type="submit"
                   class="ampstart-btn submit-button">
             Bookmark
@@ -110,14 +116,3 @@ to read more or bookmark it to their account for later reading.
 </body>
 
 </html>
-
-<!--
-  ## Server-side considerations
-
-  Because there is no authentication for outgoing XHR calls from AMP email
-  messages, all authentication should be done using access tokens.
-
-  In the sample above, `REPLACE_WITH_YOUR_TOKEN` represents an access token.
-  This token must be provided as a hidden `<input>` field for each link in
-  the sample above.
--->
