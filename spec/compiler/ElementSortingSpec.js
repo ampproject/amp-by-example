@@ -60,6 +60,12 @@ describe('ElementSorting', function() {
       elementSorting.apply(doc);
       expect(sectionWithSidebar.preview).toBe('');
     });
+    it('removes multiple sidebars', function() {
+      addSection(sidebar);
+      const secondSection = addSection(sidebar);
+      elementSorting.apply(doc);
+      expect(secondSection.preview).toBe('');
+    });
     it('appends amp-sidebar after body', function() {
       addSection(body);
       addSection(sidebar);
