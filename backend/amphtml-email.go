@@ -15,6 +15,7 @@
 package backend
 
 import (
+	"fmt"
 	"net/http"
 )
 
@@ -24,6 +25,7 @@ const (
 
 func InitAmpEmail() {
 	RegisterHandler(EMAIL_BASE_PATH+"submit-form-friend-request", onlyPost(submitFormFriendRequest))
+	RegisterHandler(EMAIL_BASE_PATH+"submit-form-bookmark", onlyPost(submitFormBookmark))
 }
 
 func submitFormFriendRequest(w http.ResponseWriter, r *http.Request) {
@@ -42,4 +44,11 @@ func submitFormFriendRequest(w http.ResponseWriter, r *http.Request) {
 			"result": "Invalid request",
 		})
 	}
+}
+
+func submitFormBookmark(w http.ResponseWriter, r *http.Request) {
+	id := r.FormValue("id")
+	SendJsonResponse(w, map[string]string{
+		"result": fmt.Sprintf("Item with ID %q bookmarked.", id),
+	})
 }

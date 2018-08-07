@@ -281,6 +281,9 @@ const shouldIgnoreSample = function(file) {
   if (!file.path.endsWith('.html')) {
     return true;
   }
+  if (file.path.endsWith('/source/index.html')) {
+    return true;
+  }
   const metadata = file.metadata;
   if (!metadata) {
     return false;
