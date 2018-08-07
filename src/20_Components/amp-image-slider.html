@@ -24,23 +24,32 @@
   <link rel="canonical" href="<%host%>/components/amp-image-slider/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <!--
+    For this example, we will create some classes for positioning labels. (we will revisit in the following section)
+  -->
   <style amp-custom>
-    .left-label {
-      top: 5px;
+    .label {
       color: white;
-      border: 4px solid rgb(255, 0, 0);
-      padding: 1em;
+      border: 4px solid white;
+      width: 5rem;
+      padding: 1rem 0;
+      text-align: center;
       font-family: Arial, Helvetica, sans-serif;
       box-shadow: 2px 2px 27px 5px rgba(0,0,0,0.75);
     }
-
-    .right-label {
-      bottom: 5px;
-      color: white;
-      border: 4px solid rgb(30, 255, 0);
-      padding: 1em;
-      font-family: Arial, Helvetica, sans-serif;
-      box-shadow: 2px 2px 27px 5px rgba(0,0,0,0.75);
+    .dark {
+      color: lightgray;
+      border: 4px solid lightgray;
+      box-shadow: 2px 2px 27px 5px rgba(200, 200, 200, 0.4);
+    }
+    .bottom-right {
+      bottom: 0;
+      right: 0;
+    }
+    .label-center {
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
     }
   </style>
   <script custom-element="amp-image-slider" src="<%host%>/amp-image-slider-0.1.max.js"></script>
@@ -55,32 +64,66 @@
   -->
   <amp-image-slider width="300" height="200" layout="responsive">
     <amp-img
-      src="/img/canoe_blur_900x600.jpg"
-      aria-valuetext="A blurry image about canoeing"
+      src="/img/canoe_900x600_blur.jpg"
+      alt="A blurry image about canoeing"
       layout="fill"></amp-img>
     <amp-img
       src="/img/canoe_900x600.jpg"
-      aria-valuetext="An image about canoeing"
+      alt="An image about canoeing"
       layout="fill"></amp-img>
   </amp-image-slider>
 
   <!--
-    You can add customizable labels to your images, by providing extra `div`s,
-    labeled with `before` and `after` attributes, for left and right images correspondingly.
-    You can customize your labels with classes.
+    You can add customizable text labels to your images, by providing extra `div`s,
+    labeled with `first` and `second` attributes, for left and right images correspondingly.
+    You can customize the style of your labels with classes.
   -->
   <amp-image-slider width="300" height="200" layout="responsive">
     <amp-img
       src="/img/red_apple_1_1024x682.jpg"
-      aria-valuetext="A red apple"
+      alt="A red apple"
       layout="fill"></amp-img>
     <amp-img
       src="/img/green_apple_1_1024x682.jpg"
-      aria-valuetext="A green apple"
+      alt="A green apple"
       layout="fill"></amp-img>
-    <div before class="left-label">Red</div>
-    <div after class="right-label">Green</div>
+    <div first class="label">Red</div>
+    <div second class="label dark bottom-right">Green</div>
   </amp-image-slider>
 
+  <!--
+    To place the label at exactly center of the images, other than `left` and `right` rules, you may want `translate` tricks.
+    Check the Setup section for CSS rules.
+  -->
+  <amp-image-slider width="300" height="200" layout="responsive">
+    <amp-img
+      src="/img/red_apple_1_1024x682.jpg"
+      alt="A red apple"
+      layout="fill"></amp-img>
+    <amp-img
+      src="/img/green_apple_1_1024x682.jpg"
+      alt="A green apple"
+      layout="fill"></amp-img>
+    <div first class="label label-center">Red</div>
+    <div second class="label label-center">Green</div>
+  </amp-image-slider>
+
+  <!--
+    Arrow hints about moving the image slider will always show by default.
+    Once user starts to interact with the slider (such as clicking and touching), the hint would fade out.
+    The hints would then reappear if slider leaves the viewport and later comes back again.
+    To disable this default behavior, add `disable-hint-reappear` attribute to the slider.
+  -->
+  <amp-image-slider width="300" height="200" layout="responsive"
+      disable-hint-reappear>
+    <amp-img
+      src="/img/canoe_900x600_blur.jpg"
+      alt="A blurry image about canoeing"
+      layout="fill"></amp-img>
+    <amp-img
+      src="/img/canoe_900x600.jpg"
+      alt="An image about canoeing"
+      layout="fill"></amp-img>
+  </amp-image-slider>
 </body>
 </html>
