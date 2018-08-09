@@ -32,7 +32,7 @@
   <meta charset="utf-8">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <!-- ## Setup -->
-  <!--  Import amp-position-observer extension -->
+  <!--  Import amp-orientation-observer extension -->
   <script async custom-element="amp-orientation-observer" src="https://cdn.ampproject.org/v0/amp-orientation-observer-0.1.js"></script>
 
   <!--  Import amp-animation extension -->
@@ -62,10 +62,6 @@
 
     #ipsum {
       background-image: linear-gradient(white, deeppink);
-    }
-
-    amp-img img {
-      object-fit: cover;
     }
 
     .clock-hand {
@@ -117,7 +113,9 @@
   - **`beta-range`**: Each axis has a range of degrees it tracks. 
   For the `beta` axis the default range is -180 to 180 degrees. 
   If you want to set the range to something custom as we do in this 
-  case you can specify it using the `beta-range` attribute here.
+  case you can specify it using the `beta-range` attribute here. 
+  In this sample we set the `beta-range` to "0 180" to make sure that 
+  the text doesn't scroll beyond it's first paragraph.
   -->
   <main id="scrollText">
     <div>
@@ -169,14 +167,9 @@
   ## Tilt based translation animations
 
   Let's create a tilt based animation where the clock's hand moves 
-  as you tilt the device along a specific axis.
-  -->
-
-  <!--
-  The first animation is along the `beta` axis, to see this in action rotate your phone along the y axis. 
-
-  Here you can see that we are using the `beta` event to progress through the animation.
-  -->
+  as you tilt the device along a specific axis. The first animation 
+  is along the `beta` axis, to see this in action rotate your phone along the y axis. 
+-->
 
   <div id="clock-scene-1" class="clock-scene">
     <amp-orientation-observer
@@ -184,7 +177,7 @@
       on="beta:clockAnim1.seekTo(percent=event.percent)"
       layout="nodisplay">
     </amp-orientation-observer>
-    <amp-img layout="responsive" width=2 height=1.5 src="/img/clock.jpg">
+    <amp-img layout="responsive" width="2" height="1.5" src="/img/clock.jpg">
       <div class="clock-hand rotate-1"></div>
     </amp-img>
   </div>
@@ -216,16 +209,14 @@
 
   <!--
   The second animation is along the `gamma` axis, to see this in action rotate your phone along the x axis:
-  
-  Here you can see that we are using the `gamma` event to progress through the animation.
   -->  
 
-  <div id="clock-scene-1" class="clock-scene">
+  <div id="clock-scene-2" class="clock-scene">
     <amp-orientation-observer
       on="gamma:clockAnim2.seekTo(percent=event.percent)"
       layout="nodisplay">
     </amp-orientation-observer>
-    <amp-img layout="responsive" width=2 height=1.5 src="/img/clock.jpg">
+    <amp-img layout="responsive" width="2" height="1.5" src="/img/clock.jpg">
       <div class="clock-hand rotate-2"></div>
     </amp-img>
   </div>
@@ -245,7 +236,7 @@
       "direction": "alternate",
       "animations": [
         {
-          "selector": "#clock-scene-1 .rotate-2",
+          "selector": "#clock-scene-2 .rotate-2",
           "keyframes": [
             { "transform": "rotate(-270deg)" },
             { "transform": "rotate(-90deg)" }
@@ -258,17 +249,15 @@
 
   <!--
   The third animation is along the `alpha` axis, to see this in action rotate your phone along the horizontal axis:
-
-  Here you can see that we are using the `alpha` event to progress through the animation.
   -->  
 
-  <div id="clock-scene-1" class="clock-scene">
+  <div id="clock-scene-3" class="clock-scene">
     <amp-orientation-observer
       alpha-range="0 360"
       on="alpha:clockAnim3.seekTo(percent=event.percent)"
       layout="nodisplay">
     </amp-orientation-observer>
-    <amp-img layout="responsive" width=2 height=1.5 src="/img/clock.jpg">
+    <amp-img layout="responsive" width="2" height="1.5" src="/img/clock.jpg">
       <div class="clock-hand rotate-3"></div>
     </amp-img>
   </div>
@@ -279,7 +268,6 @@
   the 12 o' clock position.
   -->
 
-
   <amp-animation id="clockAnim3" layout="nodisplay">
     <script type="application/json">
       {
@@ -288,7 +276,7 @@
       "direction": "alternate",
       "animations": [
         {
-          "selector": "#clock-scene-1 .rotate-3",
+          "selector": "#clock-scene-3 .rotate-3",
           "keyframes": [
             { "transform": "rotate(90deg)" },
             { "transform": "rotate(-270deg)" }
