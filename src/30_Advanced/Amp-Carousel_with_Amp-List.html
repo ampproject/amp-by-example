@@ -3,11 +3,8 @@
   }--->
 <!--
   #### Introduction
-  AMP users might want to pull data from an endpoint to display in a carousel. This example incoporates a dynamic amp-carousel as well as showing how to not only rely on the images served from the endpoint
-   
+  AMP users might want to pull data from an endpoint to display in a carousel. This example incoporates a dynamic amp-carousel as well as showing how to not only rely on the images served from the endpoint. 
 -->
-<!-- -->
-
 
 <!doctype html>
 <html ⚡>
@@ -19,76 +16,56 @@
    <script async src="https://cdn.ampproject.org/v0.js"></script>
    <!-- #### Setup -->
   <!--
-    Import the `amp-list` and `amp-mustache` and `amp-carousel` and `amp-bind` components.
+    Import `amp-list` to get an array of images from an API.
   -->
   <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
-  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
-  <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
-  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-   <!--
-    #### CSS Styles
+  <!--
+    Import `amp-mustache` to use template syntax and display (dynamically) the images from an API.
   -->
-   <style amp-custom>
-       #alternate-images-carousel {
-    max-width:300px;
-    height:250px;
-    margin:0 auto;
-}
-    .carousel-wrapper {
-        height:260px;position:relative;
-    }
-    .hero-carousel-image {
-        max-width:225px;
-        height:auto;
-        width:100%;
-    }
-   </style>
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+  <!--
+    Import `amp-carousel` to place the API's images into a carosuel.
+  -->
+  <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
  </head>
  <body>
-    <amp-state id="selected">
-        <script type="application/json">
-            {
-            "slide": 0
-            }
-        </script>
-    </amp-state>
-
-    <!-- This is a simplified version of our production release, 
-         some code is missing, but concepts will be explained -->
-    <div class="carousel-wrapper" >
-        <amp-list 
-            width="325" height="325" 
-            layout="fill" 
-            src="/amp-carousel_with_amp-list.json" >
-            <template type="amp-mustache">
-                <amp-carousel id="alternate-images-carousel" width="325" height="325" 
-                    type="slides" 
-                    layout="responsive" 
-                    controls
-                    on="slideChange:AMP.setState({selected: { slide: event.index }})">
-                    <!-- in production, this primary image is set from the modelId, 
-                         and can change based on selectedSku with [src] binding,
-                         it doesn't have to come from the amp-list -->
+    <!-- ## Usage -->
+    <!-- Using amp-list with amp-carousel we are able to dynamically fill the carousel with images and content from an API. -->
+    <amp-list 
+        width="325" height="325" 
+        layout="fixed" 
+        src="/json/related_products.json" >
+        <template type="amp-mustache">
+            <amp-carousel id="alternate-images-carousel" width="325" height="325" 
+                type="slides" 
+                layout="responsive" 
+                controls>
+                <amp-img 
+                    src="https://images-na.ssl-images-amazon.com/images/I/812sFBmqQbL._UX385_.jpg"
+                    width="325"
+                    height="325"
+                    layout="responsive"
+                    alt="product image">
+                </amp-img>
+                {{#items}}
                     <amp-img 
-                        src="https://images-na.ssl-images-amazon.com/images/I/812sFBmqQbL._UX385_.jpg"
-                        width="325"
-                        height="325"
-                        layout="responsive"
-                        alt="product image"
-                        class="hero-carousel-image">
+                        src="{{img}}" 
+                        layout="responsive" 
+                        width="325" height="325" alt="product image -">
                     </amp-img>
-                    <!-- Loop through the array of alternate images from api -->
-                    {{#altImages}}
-                        <amp-img 
-                            src="{{altHeroImg}}" 
-                            class="hero-carousel-image" 
-                            layout="responsive" 
-                            width="325" height="325" alt="product image -">
-                        </amp-img>
-                    {{/altImages}}
-                </amp-carousel>
-            </template>
-        </amp-list>
-    </div>
+                {{/items}}
+            </amp-carousel>
+        </template>
+    </amp-list>
  </body>
+
+ <!-- ## Explanation -->
+ <!-- 
+    1. We reach out to an API with amp-list.
+    2. We use ```<template type="amp-mustache"``` to be able to access to amp-list data.
+    3. We use amp-carosuel inside the <template> to indicate we want a carosuel (type="slides").
+    OPTIONAL. We define a primary image to always be first in the carousel (usefull for e-commerce and different sku's).
+    4. We use {{#altImages}} to indicated within this mustache we want to loop through the array of 'altImages'.
+    5. We use {{img}} mustache syntax to add the API's image array into the carosuel.
+ -->
 </html>
