@@ -220,6 +220,8 @@ module.exports = function(config, indexPath, updateTimestamp) {
         includesIframe: document.importsComponent('amp-iframe'),
         includesSelector: document.importsComponent('amp-selector'),
         includesSidebar: document.importsComponent('amp-sidebar'),
+        includesConsent: document.importsComponent('amp-consent'),
+        includesGeo: document.importsComponent('amp-geo'),
         includesServiceWorker: document.importsComponent('amp-install-serviceworker') || document.metadata.skipServiceWorker
       };
       sampleArgs.supportsAmpSelector = !sampleArgs.includesLiveList && !sampleArgs.includesSelector && !sampleArgs.includesLightboxGallery;
