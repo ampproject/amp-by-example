@@ -45,6 +45,23 @@
       right: 1rem;
       transform: translateY(-50%);
     }
+    .triangle-hint .amp-image-slider-hint-left {
+      width: 10px;
+      height: 20px;
+      background-size: 10px 20px;
+      margin-right: 10px;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='10' height='20' viewBox='0 0 10 20'%3e%3cpolygon points='10,0 0,10 10,20' style='fill:white' /%3e%3c/svg%3e");
+    }
+    .triangle-hint .amp-image-slider-hint-right {
+      width: 10px;
+      height: 20px;
+      background-size: 10px 20px;
+      margin-left: 10px;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='10' height='20' viewBox='0 0 10 20'%3e%3cpolygon points='0,0 10,10 0,20' style='fill:white' /%3e%3c/svg%3e");
+    }
+    .slider-no-display .amp-image-slider-hint-left, .slider-no-display .amp-image-slider-hint-right {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -101,6 +118,38 @@
     <amp-img
       src="/img/canoe_900x600.jpg"
       alt="An image about canoeing"
+      layout="fill"></amp-img>
+  </amp-image-slider>
+
+  <!-- ## Customize Hint -->
+
+  <!--
+    By overwriting `.amp-image-slider-hint-left` and `.amp-image-slider-hint-right` classes,
+    you can change the styling of the left and right hint icons.
+    Specially, you can overwrite `background-image` to provide your own.
+  -->
+  <amp-image-slider class="triangle-hint" width="300" height="200" layout="responsive">
+    <amp-img
+      src="/img/canoe_900x600_blur.jpg"
+      alt="A blurry image about canoeing"
+      layout="fill"></amp-img>
+    <amp-img
+      src="/img/canoe_900x600.jpg"
+      alt="An image about canoeing"
+      layout="fill"></amp-img>
+  </amp-image-slider>
+
+  <!--
+    To hide hint, you can simply set `display: none;` for these classes.
+  -->
+  <amp-image-slider class="slider-no-display" width="300" height="200" layout="responsive">
+    <amp-img
+      src="/img/red_apple_1_1024x682.jpg"
+      alt="A red apple"
+      layout="fill"></amp-img>
+    <amp-img
+      src="/img/green_apple_1_1024x682.jpg"
+      alt="A green apple"
       layout="fill"></amp-img>
   </amp-image-slider>
 </body>
