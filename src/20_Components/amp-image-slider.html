@@ -5,7 +5,7 @@
 <!--
   ## Introduction
 
-  The amp-image-slider component allows comparing 2 images by moving the vertical slider bar.
+  The [amp-image-slider](https://www.ampproject.org/docs/reference/components/amp-image-slider) component allows comparing 2 images by moving the vertical slider bar.
   Users can click/touch and drag to move the bar to compare the images.
 
 -->
@@ -55,7 +55,7 @@
 
   <!--
     Build a basic image slider by placing 2 `amp-img`s inside.
-    The first `amp-img` will be the left image, and the second will be the right one.
+    The first `amp-img` would be the left image, and the second would be the right one.
   -->
   <amp-image-slider width="300" height="200" layout="responsive">
     <amp-img
@@ -71,9 +71,9 @@
   <!--
     You can add customizable text labels to your images, by providing extra `div`s,
     labeled with `first` and `second` attributes, for left and right images correspondingly.
-    You can customize the style of your labels with classes.
-    If you want to place the label at exactly center of the images, other than `left` and `right` rules, you may want `translate` tricks.
-    Check the Setup section for CSS rules.
+    You can customize the style and positioning of your labels with classes.
+    For example, to center the label vertically on the images, you can use `top/bottom` and `transform` rules.
+    Check the Setup section for details.
   -->
   <amp-image-slider width="300" height="200" layout="responsive">
     <amp-img
@@ -89,9 +89,9 @@
   </amp-image-slider>
 
   <!--
-    Arrow hints about moving the image slider will always show by default.
-    Once user starts to interact with the slider (such as clicking and touching), the hint would fade out.
-    The hints would then reappear if slider leaves the viewport and later comes back again.
+    Arrow hints about moving the image slider would always show by default.
+    Once user interacts with the slider (such as clicking and touching), the hint would fade out.
+    The hints reappear if the slider leaves the viewport and later comes back again.
     To disable this default behavior, add `disable-hint-reappear` attribute to the slider.
   -->
   <amp-image-slider width="300" height="200" layout="responsive"
