@@ -40,7 +40,7 @@
     "eslint": "4.19.1",
     "eslint-plugin-google-camelcase": "0.0.2",
     "exif-parser": "0.1.12",
-    "gulp": "3.9.1",
+    "gulp": "^3.9.1",
     "gulp-amphtml-validator": "1.0.2",
     "gulp-cached": "1.1.1",
     "gulp-change": "1.0.0",
