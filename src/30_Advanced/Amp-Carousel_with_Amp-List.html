@@ -1,0 +1,72 @@
+<!doctype html>
+<html ⚡>
+ <head>
+   <meta charset="utf-8">
+   <link rel="canonical" href="hello-world.html">
+   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+   <script async src="https://cdn.ampproject.org/v0.js"></script>
+   <style amp-custom>
+       #alternate-images-carousel {
+    max-width:300px;
+    height:250px;
+    margin:0 auto;
+}
+    .carousel-wrapper {
+        height:260px;position:relative;
+    }
+    .hero-carousel-image {
+        max-width:225px;
+        height:auto;
+        width:100%;
+    }
+   </style>
+ </head>
+ <body>
+    <amp-state id="selected">
+        <script type="application/json">
+            {
+            "slide": 0
+            }
+        </script>
+    </amp-state>
+
+    <!-- This is a simplified version of our production release, 
+         some code is missing, but concepts will be explained -->
+    <div class="carousel-wrapper" >
+        <amp-list 
+            width="325" height="325" 
+            layout="fill" 
+            src="/amp-carousel_with_amp-list.json" >
+            <template type="amp-mustache">
+                <amp-carousel id="alternate-images-carousel" width="325" height="325" 
+                    type="slides" 
+                    layout="responsive" 
+                    controls
+                    on="slideChange:AMP.setState({selected: { slide: event.index }})">
+                    <!-- in production, this primary image is set from the modelId, 
+                         and can change based on selectedSku with [src] binding,
+                         it doesn't have to come from the amp-list -->
+                    <amp-img 
+                        src="https://images-na.ssl-images-amazon.com/images/I/812sFBmqQbL._UX385_.jpg"
+                        width="325"
+                        height="325"
+                        layout="responsive"
+                        alt="product image"
+                        class="hero-carousel-image">
+                    </amp-img>
+                    <!-- Loop through the array of alternate images from api -->
+                    {{#altImages}}
+                        <amp-img 
+                            src="{{altHeroImg}}" 
+                            class="hero-carousel-image" 
+                            layout="responsive" 
+                            width="325" height="325" alt="product image -">
+                        </amp-img>
+                    {{/altImages}}
+                </amp-carousel>
+            </template>
+        </amp-list>
+    </div>
+ </body>
+</html>
