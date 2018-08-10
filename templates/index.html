@@ -6,8 +6,6 @@
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
     <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
-    <script async custom-element="amp-consent" src="https://cdn.ampproject.org/v0/amp-consent-0.1.js"></script>
-    <script async custom-element="amp-geo" src="https://cdn.ampproject.org/v0/amp-geo-0.1.js"></script>    
     {{> head.html}}
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <meta name="amp-google-client-id-api" content="googleanalytics">
@@ -119,8 +117,6 @@
   </main>
   </amp-selector>
     {{> ampstart/footer.snip.html}}
-    {{> analytics.html}}
-    {{> serviceworker.html}}
-    {{> consent.html}}
+    {{> footer-boilerplate.html}}
   </body>
 </html>

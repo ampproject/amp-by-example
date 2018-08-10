@@ -8,6 +8,7 @@
       {{> css/ampstart.css}}
       {{> css/shared.css }}
       {{> css/preview.css}}
+      {{> css/consent.css}}
       {{{exampleStyles}}}
     </style>
   </head>
@@ -44,6 +45,7 @@
     {{^document.isAmpStory}}
     {{> analytics.html}}
     {{> serviceworker.html}}
+    {{> consent.html}}
     {{/document.isAmpStory}}
   </body>
 </html>

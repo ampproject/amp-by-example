@@ -17,7 +17,8 @@
     <style amp-custom>
       {{> css/code.css}}
       {{> css/ampstart.css}}
-      {{> css/shared.css }}
+      {{> css/shared.css}}
+      {{> css/consent.css}}
       {{> css/example.css}}
       {{{exampleStyles}}}
    </style>
@@ -124,7 +125,6 @@
     {{^isEmbed}}
     {{> ampstart/footer.snip.html}}
     {{/isEmbed}}
-    {{> analytics.html}}
-    {{> serviceworker.html}}
+    {{> footer-boilerplate.html}}
   </body>
 </html>
