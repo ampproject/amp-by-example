@@ -45,19 +45,15 @@ type Comment struct {
 }
 
 func InitCommentSection() {
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"submit-comment-xhr", func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, submitCommentXHR)
-	})
-
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"authorization", handleCommentAuthorization)
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"login", handleLogin)
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"submit-logout", handleLogout)
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"logout", handleLogoutButton)
-	http.HandleFunc(COMMENT_SAMPLE_PATH+"submit", handleSubmit)
+	RegisterHandler(COMMENT_SAMPLE_PATH+"submit-comment-xhr", onlyPost(submitCommentXHR))
+	RegisterHandler(COMMENT_SAMPLE_PATH+"authorization", handleCommentAuthorization)
+	RegisterHandler(COMMENT_SAMPLE_PATH+"login", handleLogin)
+	RegisterHandler(COMMENT_SAMPLE_PATH+"submit-logout", handleLogout)
+	RegisterHandler(COMMENT_SAMPLE_PATH+"logout", handleLogoutButton)
+	RegisterHandler(COMMENT_SAMPLE_PATH+"submit", handleSubmit)
 }
 
 func submitCommentXHR(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
 	response := ""
 	text := r.FormValue("text")
 	if text != "" {
@@ -78,8 +74,8 @@ func submitCommentXHR(w http.ResponseWriter, r *http.Request) {
 func handleCommentAuthorization(w http.ResponseWriter, r *http.Request) {
 	_, err := r.Cookie(AMP_ACCESS_COOKIE)
 	if err != nil {
-		handleAuthorization(w, r, new(CommentAuthorizationResponse).CreateInvalidAuthorizationResponse())
+		SendJsonResponse(w, new(CommentAuthorizationResponse).CreateInvalidAuthorizationResponse())
 		return
 	}
-	handleAuthorization(w, r, new(CommentAuthorizationResponse).CreateAuthorizationResponse())
+	SendJsonResponse(w, new(CommentAuthorizationResponse).CreateAuthorizationResponse())
 }

@@ -26,13 +26,18 @@ const DocumentParser = require('../lib/DocumentParser');
 const ExampleFile = require('../lib/ExampleFile');
 const Metadata = require('../lib/Metadata');
 const Templates = require('../lib/Templates');
-const storyController = fs.readFileSync(__dirname + '/../templates/stories/page-switch.html', 'utf8');
+const storyController =
+  fs.readFileSync(__dirname + '/../templates/stories/page-switch.html', 'utf8');
 const storyBookend = require('./bookend.json');
 
 const STORY_EMBED_DIR = __dirname + '/../api/dist/';
-const AMP_STORY_CLEANER_REGEX = ['amp-story', 'amp-story-auto-ads', 'amp-consent'].map(extension =>
-  new RegExp('<script\\s+async\\s+custom-element="' + extension + '"\\s+src="https:\\/\\/cdn\\.ampproject\\.org\\/v0\\/' + extension + '-\\d\\.\\d\\.js"><\\/script>')
-);
+const AMP_STORY_CLEANER_REGEX =
+  ['amp-story', 'amp-story-auto-ads', 'amp-consent']
+      .map(extension =>
+        new RegExp('<script\\s+async\\s+custom-element="' + extension
+      + '"\\s+src="https:\\/\\/cdn\\.ampproject\\.org\\/v0\\/' + extension
+      + '-\\d\\.\\d\\.js"><\\/script>')
+      );
 
 /**
  * Collects a list of example files, renders them (using templateExample) and
@@ -48,11 +53,15 @@ module.exports = function(config, indexPath, updateTimestamp) {
   let timestamp = new Date().toISOString();
 
   const postProcessors = [
-    replaceAmpAdRuntime, replaceAmpStoryRuntime, replaceAmpHtmlEmailRuntimeAddViewport];
+    replaceAmpAdRuntime,
+    replaceAmpStoryRuntime,
+    replaceAmpHtmlEmailRuntimeAddViewport,
+  ];
 
   if (typeof config.templates.root === 'string') {
     pageTemplates = Templates.get(config.templates.root,/* minify */ true);
-    sampleTemplates = Templates.get(config.templates.root,/* minify */ false, '<% %>');
+    sampleTemplates =
+      Templates.get(config.templates.root,/* minify */ false, '<% %>');
   } else {
     throw new PluginError('compile-index-example',
         'Missing template root in template options for compile-example');
@@ -82,7 +91,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
     // we don't do streams
     if (file.isStream()) {
       this.emit('error', new PluginError('compile-example',
-            'Streaming not supported'));
+          'Streaming not supported'));
       cb();
       return;
     }
@@ -138,14 +147,14 @@ module.exports = function(config, indexPath, updateTimestamp) {
       section.selected = true;
 
       const indexArgs = {
-        config: config,
+        config,
         title: section.title,
         desc: section.desc,
-        sections: sections,
+        sections,
         categories: section.categories,
-        timestamp: timestamp,
-        github: "https://github.com/ampproject/amp-by-example/",
-        fileName: '/'
+        timestamp,
+        github: 'https://github.com/ampproject/amp-by-example/',
+        fileName: '/',
       };
       Object.assign(args, indexArgs);
 
@@ -153,7 +162,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
       args.fileName = '';
       const html = pageTemplates.render(config.templates.index, args);
       const indexFile = latestFile.clone({contents: false});
-      indexFile.path = path.join(latestFile.base, section.path, "index.html");
+      indexFile.path = path.join(latestFile.base, section.path, 'index.html');
 
       indexFile.contents = new Buffer(html);
       stream.push(indexFile);
@@ -162,7 +171,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
 
   function compileSitemap(stream, sections) {
     const indexFile = latestFile.clone({contents: false});
-    indexFile.path = path.join(latestFile.base, "sitemap.json");
+    indexFile.path = path.join(latestFile.base, 'sitemap.json');
     indexFile.contents = new Buffer(JSON.stringify(sections, null, 2));
     stream.push(indexFile);
   }
@@ -174,7 +183,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
     }
     const metadata = next.document.metadata;
     if (!next.category() || (metadata && metadata.draft)) {
-      return findNextExample(examples, index+1);
+      return findNextExample(examples, index + 1);
     }
     return next;
   }
@@ -182,7 +191,6 @@ module.exports = function(config, indexPath, updateTimestamp) {
   function compileExamples(stream) {
     examples.forEach(function(example, index) {
       const document = example.document;
-      const file = example.file;
       let nextExample = '';
       if (example.category()) {
         nextExample = findNextExample(examples, index + 1);
@@ -190,13 +198,13 @@ module.exports = function(config, indexPath, updateTimestamp) {
       const sections = createSections(examples, example);
       const args = require('../data/index.json');
       const sampleArgs = {
-        config: config,
-        index: index,
-        document: document,
+        config,
+        index,
+        document,
         head: document.head,
-        title: example.title() + ' - ' + 'AMP by Example',
+        title: example.title() + ' - AMP by Example',
         desc: document.description(),
-        timestamp: timestamp,
+        timestamp,
         fileName: example.url(),
         host: config.host,
         urlSource: example.urlSource(),
@@ -207,24 +215,29 @@ module.exports = function(config, indexPath, updateTimestamp) {
         component: document.metadata.component,
         bodyTag: document.body,
         elementsAfterBody: document.elementsAfterBody,
-        sections: sections,
+        sections,
         headings: document.headings(),
         metadata: document.metadata,
-        nextExample: nextExample,
+        nextExample,
         skipCanonical: document.hasCanonical(),
         includesManifest: document.includesLink('manifest'),
         includesAnalytics: document.importsComponent('amp-analytics'),
         includesLiveList: document.importsComponent('amp-live-list'),
-        includesLightboxGallery: document.importsComponent('amp-lightbox-gallery'),
+        includesLightboxGallery:
+        document.importsComponent('amp-lightbox-gallery'),
         includesAccordion: document.importsComponent('amp-accordion'),
         includesIframe: document.importsComponent('amp-iframe'),
         includesSelector: document.importsComponent('amp-selector'),
         includesSidebar: document.importsComponent('amp-sidebar'),
         includesConsent: document.importsComponent('amp-consent'),
         includesGeo: document.importsComponent('amp-geo'),
-        includesServiceWorker: document.importsComponent('amp-install-serviceworker') || document.metadata.skipServiceWorker
+        includesServiceWorker:
+        document.importsComponent('amp-install-serviceworker')
+        || document.metadata.skipServiceWorker,
       };
-      sampleArgs.supportsAmpSelector = !sampleArgs.includesLiveList && !sampleArgs.includesSelector && !sampleArgs.includesLightboxGallery;
+      sampleArgs.supportsAmpSelector = !sampleArgs.includesLiveList &&
+        !sampleArgs.includesSelector &&
+        !sampleArgs.includesLightboxGallery;
       Object.assign(args, sampleArgs);
       Metadata.add(args);
 
@@ -232,7 +245,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
       const inputFile = example.file;
       inputFile.path = path.join(inputFile.base, example.targetSourcePath());
       inputFile.contents = new Buffer(
-        example.contents.replace(/\<\!\-\-\-\{(.|[\n\r])*\}\-\-\-\>/, '').trim());
+          example.contents.replace(/\<\!\-\-\-\{(.|[\n\r])*\}\-\-\-\>/, '').trim());
       inputFile.metadata = document.metadata;
       //gutil.log('Generated ' + inputFile.relative);
       stream.push(inputFile);
@@ -242,15 +255,15 @@ module.exports = function(config, indexPath, updateTimestamp) {
         template: config.templates.example,
         targetPath: example.targetPath(),
         isEmbed: false,
-        postProcessors: postProcessors
+        postProcessors,
       });
 
       // compile embed
       compileTemplate(stream, example, args, {
         template: config.templates.example,
         targetPath: example.targetEmbedPath(),
-        postProcessors: postProcessors,
-        isEmbed: true
+        postProcessors,
+        isEmbed: true,
       });
 
       // compile example preview
@@ -273,25 +286,27 @@ module.exports = function(config, indexPath, updateTimestamp) {
       if (document.isAmpHtmlEmail()) {
         previewTemplate = config.amp4email.template;
         args.width = document.metadata.width || config.amp4email.defaultWidth;
-        args.height = document.metadata.height || config.amp4email.defaultHeight;
+        args.height = document.metadata.height ||
+          config.amp4email.defaultHeight;
       }
 
-      args.title = example.title() + ' (Preview) - ' + 'AMP by Example';
-      args.desc = "This is a live preview of the '" + example.title() + "' sample. " + args.desc;
+      args.title = example.title() + ' (Preview) - AMP by Example';
+      args.desc = "This is a live preview of the '" +
+        example.title() + "' sample. " + args.desc;
       args.canonical = config.host + example.url() + 'preview/';
 
       // generate story preview embed
       if (document.isAmpStory) {
         generateStoryPreviewEmbed(stream, example, args, {
           targetPath: example.targetPreviewEmbedPath(),
-        })
+        });
       } else {
         // generate preview
         compileTemplate(stream, example, args, {
           template: previewTemplate,
           targetPath: example.targetPreviewPath(),
-          postProcessors: postProcessors,
-          isEmbed: false
+          postProcessors,
+          isEmbed: false,
         });
       }
 
@@ -299,7 +314,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
       compileTemplate(stream, example, args, {
         template: previewTemplate,
         targetPath: example.targetPreviewEmbedPath(),
-        isEmbed: true
+        isEmbed: true,
       });
     });
   }
@@ -313,57 +328,57 @@ module.exports = function(config, indexPath, updateTimestamp) {
     let currentCategory;
     let currentSection;
     sort(examples)
-      .filter(exampleFile => exampleFile.category() && !exampleFile.document.metadata.draft)
-      .forEach(function(exampleFile) {
+        .filter(exampleFile => exampleFile.category() &&
+        !exampleFile.document.metadata.draft)
+        .forEach(function(exampleFile) {
         // add new section
-        if (!currentSection || currentSection.path !== exampleFile.section().path) {
-          currentSection = exampleFile.section();
-          currentSection.categories = [];
-          sections.push(currentSection);
-          currentSection.selected = false;
-          currentCategory = null;
-        }
-        // add example to categories instance
-        if (!currentCategory ||
+          if (!currentSection ||
+          currentSection.path !== exampleFile.section().path) {
+            currentSection = exampleFile.section();
+            currentSection.categories = [];
+            sections.push(currentSection);
+            currentSection.selected = false;
+            currentCategory = null;
+          }
+          // add example to categories instance
+          if (!currentCategory ||
           currentCategory.name !== exampleFile.category().name) {
-          currentCategory = exampleFile.category();
-          currentCategory.examples = [];
-          currentSection.categories.push(currentCategory);
-          currentCategory.selected = false;
-        }
-        const selected = currentExample &&
-          exampleFile.title() == currentExample.title();
-        if (selected) {
-          currentCategory.selected = selected;
-          currentSection.selected = selected;
-        }
+            currentCategory = exampleFile.category();
+            currentCategory.examples = [];
+            currentSection.categories.push(currentCategory);
+            currentCategory.selected = false;
+          }
+          currentSection.selected = currentExample &&
+            currentSection.path === currentExample.section().path;
+          currentCategory.selected = currentExample &&
+            exampleFile.title() == currentExample.title() &&
+            currentSection.selected;
 
-        const experiments = exampleFile.document.metadata.experiments;
+          const experiments = exampleFile.document.metadata.experiments;
 
-        currentCategory.examples.push({
-          title: exampleFile.title(),
-          name: exampleFile.name(),
-          description: exampleFile.document.description(),
-          url: exampleFile.url(),
-          urlPreview: previewUrl(exampleFile),
-          urlPreviewEmbed: exampleFile.urlPreviewEmbed(),
-          urlEmbed: exampleFile.urlEmbed(),
-          selected: selected,
-          metadata: exampleFile.document.metadata,
-          experiments: experiments,
-          experiment: experiments && experiments.length > 0,
-          firstImage: exampleFile.document.firstImage,
-          highlight: exampleFile.document.metadata.highlight
+          currentCategory.examples.push({
+            title: exampleFile.title(),
+            name: exampleFile.name(),
+            description: exampleFile.document.description(),
+            url: exampleFile.url(),
+            urlPreview: previewUrl(exampleFile),
+            urlPreviewEmbed: exampleFile.urlPreviewEmbed(),
+            urlEmbed: exampleFile.urlEmbed(),
+            metadata: exampleFile.document.metadata,
+            experiments,
+            experiment: experiments && experiments.length > 0,
+            firstImage: exampleFile.document.firstImage,
+            highlight: exampleFile.document.metadata.highlight,
+          });
         });
-      });
     return sections;
   }
 
-  function generateStoryPreviewEmbed(stream, example, args, options) {
-    const document = example.document;
+  function generateStoryPreviewEmbed(stream, example) {
     const inputFile = example.file;
-    const sampleFile = inputFile.clone({contents: false});
-    const sampleHtml = inputFile.contents.toString().replace('</body>', storyController + '</body>');
+    const sampleHtml =
+      inputFile.contents.toString()
+          .replace('</body>', storyController + '</body>');
     const samplePath = path.join(STORY_EMBED_DIR, example.targetPath());
     mkdirp(path.dirname(samplePath), err => {
       if (err) {
@@ -385,7 +400,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
     args.isEmbed = options.isEmbed;
     let sampleHtml = pageTemplates.render(options.template, args);
     options.postProcessors = options.postProcessors || [];
-    options.postProcessors.forEach(p =>{
+    options.postProcessors.forEach(p => {
       sampleHtml = p(document, sampleHtml);
     });
     args.isEmbed = false;
@@ -418,15 +433,20 @@ module.exports = function(config, indexPath, updateTimestamp) {
       gutil.log('no stories section found');
       return;
     }
-    const relatedArticles = storyBookend['related-articles'];
+    const bookendComponents = storyBookend['components'];
 
     storiesSection.categories.forEach(c => {
-      relatedArticles[c.name] = c.examples.map(e => {
-        return {
+      bookendComponents.push({
+        type: 'heading',
+        text: c.name,
+      });
+      c.examples.forEach(e => {
+        bookendComponents.push({
+          type: 'small',
           title: e.title,
           url: e.url,
-          image: e.firstImage
-        };
+          image: e.firstImage,
+        });
       });
     });
 
@@ -459,7 +479,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
     if (!document.isAmpAdSample()) {
       return string;
     }
-    return string.replace("https://amp-ads.firebaseapp.com/dist/amp-inabox.js", "https://amp-ads.firebaseapp.com/dist/amp.js");
+    return string.replace('https://amp-ads.firebaseapp.com/dist/amp-inabox.js', 'https://amp-ads.firebaseapp.com/dist/amp.js');
   }
 
   function replaceAmpHtmlEmailRuntimeAddViewport(document, string) {
@@ -467,13 +487,8 @@ module.exports = function(config, indexPath, updateTimestamp) {
       return string;
     }
     return string.replace(
-      `<style amp4email-boilerplate>body{visibility:hidden}</style>`,
-      `<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-       <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">`);
-  }
-
-  function clone(obj) {
-    return JSON.parse(JSON.stringify(obj));
+        '<style amp4email-boilerplate>body{visibility:hidden}</style>',
+        '<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript><meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">'); // eslint-disable-line max-len
   }
 
   return through.obj(bufferContents, endStream);

@@ -1,5 +1,5 @@
 <!doctype html>
-<html ⚡  lang="{{document.lang}}">
+<html ⚡ lang="{{document.lang}}">
   <head>
     <link as=script href=https://cdn.ampproject.org/v0.js rel=preload>
     {{{head}}}
@@ -42,7 +42,7 @@
           {{/metadata.disablePlayground}}
           {{#urlPreview}}
           <a class="ampstart-btn ampstart-btn-secondary caps mb1 mx2 text-decoration-none inline-block"
-             href="{{section}}{{urlPreview}}">View 
+             href="{{section}}{{urlPreview}}">View
              {{#document.isAmpStory}}Story{{/document.isAmpStory}}
              {{^document.isAmpStory}}Demo{{/document.isAmpStory}}</a>
           {{/urlPreview}}
@@ -67,6 +67,12 @@
       </ul>
     </aside>
     <article class="www-components flex-auto col-9">
+      {{#document.isAmpHtmlEmail}}
+      <section class="www-component-desc">
+        {{> about-amp4email.html}}
+      </section>
+      {{/document.isAmpHtmlEmail}}
+
       {{^isEmbed}} {{#metadata.experiments.length}}
       <section class="www-component-desc pb4">
         <div> {{> experiment.html}} </div>
@@ -76,42 +82,42 @@
       {{#document.sections}}
       {{^metadata.hideDoc}} {{#markedDoc}}
       <section class="www-component-desc">
-          {{{markedDoc}}}
-          {{^isEmptyCodeSection}}
-          <div class="abe-code-container">
-            <div class="abe-code-preview ampstart-card">
-              {{^metadata.hidePreview}}{{#showPreview}}
-              <h3 class="abe-code p1 caps h4">Example</h3>
-                {{#storyPageId}}
-                <button class="story-reload" title="Reload Preview" on="tap:AMP.setState({ {{storyPageVariableId}}: '{{config.api.host}}{{fileName}}index.html?id={{storyPageId}}&' + random()})"></button>
-                {{/storyPageId}}
-              <div class="abe-preview fit">
-                {{^storyPageId}}
-                {{^document.isAmpStory}}
-                {{{preview}}}
-                {{/document.isAmpStory}}
-                {{/storyPageId}}
-                {{#storyPageId}}
-                <div class="abe-story-preview">
-                  <amp-iframe 
-                    media="(min-width: 650px)"
-                    src="{{config.api.host}}{{fileName}}index.html?id={{storyPageId}}" 
-                    [src]="{{storyPageVariableId}}" 
-                    width="440" height="732" 
-                    sandbox="allow-scripts allow-popups allow-same-origin">
-                    <div placeholder></div>
-                  </amp-iframe>
-                </div>
-                {{/storyPageId}}
+        {{{markedDoc}}}
+        {{^isEmptyCodeSection}}
+        <div class="abe-code-container">
+          <div class="abe-code-preview ampstart-card">
+            {{^metadata.hidePreview}}{{#showPreview}}
+            <h3 class="abe-code p1 caps h4">Example</h3>
+              {{#storyPageId}}
+              <button class="story-reload" title="Reload Preview" on="tap:AMP.setState({ {{storyPageVariableId}}: '{{config.api.host}}{{fileName}}index.html?id={{storyPageId}}&' + random()})"></button>
+              {{/storyPageId}}
+            <div class="abe-preview fit">
+              {{^storyPageId}}
+              {{^document.isAmpStory}}
+              {{{preview}}}
+              {{/document.isAmpStory}}
+              {{/storyPageId}}
+              {{#storyPageId}}
+              <div class="abe-story-preview">
+                <amp-iframe
+                  media="(min-width: 650px)"
+                  src="{{config.api.host}}{{fileName}}index.html?id={{storyPageId}}"
+                  [src]="{{storyPageVariableId}}"
+                  width="440" height="732"
+                  sandbox="allow-scripts allow-popups allow-same-origin">
+                  <div placeholder></div>
+                </amp-iframe>
               </div>
-              {{/showPreview}}{{/metadata.hidePreview}}
-              <div class="abe-code fit">
-                <pre class="hljs html p0 m0">{{{escapedCode}}}</pre>
-              </div>
+              {{/storyPageId}}
+            </div>
+            {{/showPreview}}{{/metadata.hidePreview}}
+            <div class="abe-code fit">
+              <pre class="hljs html p0 m0">{{{escapedCode}}}</pre>
             </div>
           </div>
-          {{/isEmptyCodeSection}}
-        </section>
+        </div>
+        {{/isEmptyCodeSection}}
+      </section>
       {{/markedDoc}} {{/metadata.hideDoc}}
       {{/document.sections}}
 

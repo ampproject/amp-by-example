@@ -15,7 +15,6 @@
 package backend
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 )
@@ -25,14 +24,12 @@ const SHOPPING_CART_TOTAL = 9.94
 var discounts map[string]float32
 
 func InitCheckout() {
-	http.HandleFunc("/checkout/shopping-cart", handleShoppingCart)
-	http.HandleFunc("/checkout/apply-code", handleApplyCode)
+	RegisterHandler("/checkout/shopping-cart", handleShoppingCart)
+	RegisterHandler("/checkout/apply-code", handleApplyCode)
 	discounts = make(map[string]float32)
 }
 
 func handleApplyCode(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	SetContentTypeJson(w)
 	SetMaxAge(w, 0)
 	if r.Method == "POST" {
 		clientId := r.FormValue("clientId")
@@ -42,8 +39,6 @@ func handleApplyCode(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleShoppingCart(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	SetContentTypeJson(w)
 	SetMaxAge(w, 0)
 	if r.Method == "GET" {
 		clientId := r.URL.Query().Get("clientId")
@@ -52,7 +47,6 @@ func handleShoppingCart(w http.ResponseWriter, r *http.Request) {
 }
 
 func writeShoppingCart(w http.ResponseWriter, r *http.Request, clientId string) {
-	SetContentTypeJson(w)
 	discount := discounts[clientId]
 	total := SHOPPING_CART_TOTAL - SHOPPING_CART_TOTAL*discount
 	cart := createShoppingCart()
@@ -60,8 +54,7 @@ func writeShoppingCart(w http.ResponseWriter, r *http.Request, clientId string) 
 	if discount > 0 {
 		cart["discount"] = fmt.Sprintf("%g%%", (discount * 100))
 	}
-	jsonString, _ := json.Marshal(cart)
-	w.Write([]byte(jsonString))
+	SendJsonResponse(w, cart)
 }
 
 func createShoppingCart() map[string]interface{} {

@@ -21,7 +21,10 @@ This sample demonstrates which events can be measured and how they can be config
   <!-- ## Setup -->
   <!--  Import the amp-analytics component in the header. -->
   <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+  <!--  Import the amp-carousel component in the header. -->
   <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+  <!--  Import the amp-bind component in the header. -->
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
   <!--
     We need `amp-iframe` to embed an analytics dashboard.
   -->
@@ -90,7 +93,7 @@ This sample demonstrates which events can be measured and how they can be config
   }
   </script>
   </amp-analytics>
-
+  <!-- ## UI elements appearance tracking -->
   <!--
     This is a more sophisticated view tracking. This sample fires an analytics request when a specific element becomes visible. The element is specified via `id` and must be an AMP element (amp-img, amp-iframe, amp-ad,...). 
   -->
@@ -123,6 +126,38 @@ This sample demonstrates which events can be measured and how they can be config
     This image will trigger an analytics request, if at least 20% of it are visible for 500ms with a minimum time of 200ms continuous visibility.
   -->
   <amp-img id="cat-image-id" src="/img/cat-looking-up-300x200.jpg" width="300" height="200" attribution="visualhunt" alt="a cat" layout="responsive"></amp-img>
+
+  <!--
+    This sample fires an analytics request when the image becomes visible as a result of an action. 
+      -->
+      <div>
+          <button class="ampstart-btn caps m1" on="tap:an-image.toggleVisibility">
+             Toggle image
+          </button>
+          <amp-img hidden id="an-image" src="/img/amp.jpg" width="1080" height="610" layout="responsive" alt="AMP">
+          </amp-img>
+      </div>
+      <!--
+    The `elementShown` event is issued when the image becomes visible -->
+  <amp-analytics>
+      <script type="application/json">
+      {
+        "requests": {
+          "elementShown": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
+        },
+        "triggers": {
+          "defaultPageview": {
+            "on": "visible",
+            "request": "elementShown",
+            "selector": "#an-image",
+            "vars": {
+              "eventId": "imageShownAfterButtonClick"
+            }
+          }
+        }
+      }
+      </script>
+      </amp-analytics>
 
   <!-- ## Anchor Clicks -->
   <!--
@@ -306,5 +341,6 @@ The `amp-carousel-prev` event is issued when there is a traversal to the previou
   }
   </script>
   </amp-analytics>
+
 </body>
 </html>

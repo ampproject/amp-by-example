@@ -15,13 +15,19 @@
 package backend
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"strings"
 )
 
 const NEW_ADDRESS = "https://ampbyexample.com"
 const DEFAULT_MAX_AGE = 60
+
+func RegisterHandler(pattern string, handler http.HandlerFunc) {
+	http.HandleFunc(pattern, EnableCors(handler))
+}
 
 func RedirectToSecureVersion(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, NEW_ADDRESS+r.URL.Path, http.StatusMovedPermanently)
@@ -39,19 +45,22 @@ func isFormPostRequest(method string, w http.ResponseWriter) bool {
 	return true
 }
 
-func EnableCors(w http.ResponseWriter, r *http.Request) {
-	origin := GetOrigin(r)
-	w.Header().Set("Access-Control-Allow-Origin", origin)
-	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token")
-	w.Header().Set("Access-Control-Allow-Credentials", "true")
-
-	sourceOrigin := GetSourceOrigin(r)
-	if sourceOrigin == "" {
-		return
+func EnableCors(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		origin := GetOrigin(r)
+		w.Header().Set("Access-Control-Allow-Origin", origin)
+		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token")
+		w.Header().Set("Access-Control-Allow-Credentials", "true")
+		sourceOrigin := GetSourceOrigin(r)
+		if sourceOrigin == "" {
+			next.ServeHTTP(w, r)
+			return
+		}
+		w.Header().Set("Access-Control-Expose-Headers", "AMP-Access-Control-Allow-Source-Origin")
+		w.Header().Set("AMP-Access-Control-Allow-Source-Origin", sourceOrigin)
+		next.ServeHTTP(w, r)
 	}
-	w.Header().Set("Access-Control-Expose-Headers", "AMP-Access-Control-Allow-Source-Origin")
-	w.Header().Set("AMP-Access-Control-Allow-Source-Origin", sourceOrigin)
 }
 
 func GetOrigin(r *http.Request) string {
@@ -81,6 +90,43 @@ func SetContentTypeJson(w http.ResponseWriter) {
 	w.Header().Set("Content-Type", "application/json")
 }
 
+func SendJsonResponse(w http.ResponseWriter, data interface{}) {
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	SetContentTypeJson(w)
+	w.Write(jsonData)
+}
+
+func SendJsonError(w http.ResponseWriter, code int, data interface{}) {
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	SetContentTypeJson(w)
+	w.WriteHeader(code)
+	w.Write(jsonData)
+}
+
+func SendAmpListItems(w http.ResponseWriter, data ...interface{}) {
+	SendJsonResponse(w, map[string]interface{}{
+		"items": data,
+	})
+}
+
+func SendJsonFile(w http.ResponseWriter, filePath string) {
+	jsonData, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	SetContentTypeJson(w)
+	w.Write(jsonData)
+}
+
 func SetDefaultMaxAge(w http.ResponseWriter) {
 	SetMaxAge(w, DEFAULT_MAX_AGE)
 }
@@ -89,10 +135,12 @@ func SetMaxAge(w http.ResponseWriter, age int) {
 	w.Header().Set("cache-control", fmt.Sprintf("max-age=%d, public, must-revalidate", age))
 }
 
-func handlePost(w http.ResponseWriter, r *http.Request, postHandler func(http.ResponseWriter, *http.Request)) {
-	if r.Method != "POST" {
-		http.Error(w, "post only", http.StatusMethodNotAllowed)
-		return
+func onlyPost(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != "POST" {
+			http.Error(w, "post only", http.StatusMethodNotAllowed)
+			return
+		}
+		next.ServeHTTP(w, r)
 	}
-	postHandler(w, r)
 }

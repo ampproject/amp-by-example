@@ -44,7 +44,13 @@
   </head>
 
   <body>
-    <amp-story standalone bookend-config-src="<%host%>/json/bookend.json">
+    <amp-story standalone
+    title="Stories in AMP - Media"
+    publisher="AMP Project"
+    publisher-logo-src="<%host%>/favicons/coast-228x228.png"
+    poster-portrait-src="https://picsum.photos/300/400"
+    poster-square-src="https://picsum.photos/300/300"
+    poster-landscape-src="https://picsum.photos/400/300">
 
       <!-- ## amp-img -->
       <!-- Images are fully supported via the `amp-img` extension. -->
@@ -124,6 +130,10 @@
           <h1 grid-area="upper-third">amp-google-vrview-image</h1>
         </amp-story-grid-layer>
       </amp-story-page>
+
+      <amp-story-bookend src="<%host%>/json/bookend.json" layout="nodisplay">
+      </amp-story-bookend>
+
     </amp-story>
   </body>
 </html>

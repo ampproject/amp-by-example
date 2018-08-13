@@ -22,7 +22,7 @@ This is a sample showing how to implement client-side filtering.
   <!--
     We use `amp-mustache` to render data.
   -->
-  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
 
   <link rel="canonical" href="<%host%>/dynamic_amp/client-side_filtering/">
   <title>Products Filter</title>
@@ -36,16 +36,16 @@ This is a sample showing how to implement client-side filtering.
   <!--
     ## Client-side Filter
 
-    It is possible to implement client-side filtering by using `amp-list`, `amp-state` and `amp-bind`. 
-    
-    The `amp-state` is initially setup with data from an endpoint which returns a list of available products; 
-    the user can choice between different colors and that selection sets the variable `filteredProducts` to the result of a filter expression.
+    It is possible to implement client-side filtering by using `amp-list`, `amp-state` and `amp-bind`.
+
+    The `amp-state` is initially setup with data from an endpoint which returns a list of available products;
+    the user can choose between different colors and that selection sets the variable `filteredProducts` to the result of a filter expression.
     The filter expression is an `amp-bind` expression which uses the `Array.filter` function.
-    
-    `filteredProducts` variable is then used as `src` of `amp-list`.
+
+    The `filteredProducts` variable is then used as `src` of `amp-list`.
 
     The alternative to this approach is using server-side filtering which we explain in the [product sample](https://ampbyexample.com/samples_templates/product_browse_page/).
-    `amp-list` does not resize automatically, it is possible to calculate it and update it by using `amp-bind`: here we are binding the
+    `amp-list` does not resize automatically, but it is possible to calculate its height in the filtered state by using `amp-bind`: here we are binding the
     `[height]` to the length of the `filteredProducts` array times the height of a single element.
   -->
   <div class="m1">
