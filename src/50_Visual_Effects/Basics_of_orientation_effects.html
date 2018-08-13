@@ -1,3 +1,7 @@
+<!---{
+  "preview": "default",
+  "default": "preview"
+}--->
 <!--
   ## Introduction
 
@@ -117,6 +121,9 @@
   In this sample we set the `beta-range` to "0 180" to make sure that 
   the text doesn't scroll beyond it's first paragraph.
   -->
+
+  <h1> Tilt based scroll animations </h1>
+
   <main id="scrollText">
     <div>
       <amp-orientation-observer
@@ -171,6 +178,9 @@
   is along the `beta` axis, to see this in action rotate your phone along the y axis. 
 -->
 
+  <h1>Tilt based translation animations</h1>
+  <h2>Rotate phone along Y axis</h2>
+
   <div id="clock-scene-1" class="clock-scene">
     <amp-orientation-observer
       beta-range="0 180"
@@ -211,6 +221,8 @@
   The second animation is along the `gamma` axis, to see this in action rotate your phone along the x axis:
   -->  
 
+  <h2>Rotate phone along X axis</h2>
+
   <div id="clock-scene-2" class="clock-scene">
     <amp-orientation-observer
       on="gamma:clockAnim2.seekTo(percent=event.percent)"
@@ -250,6 +262,8 @@
   <!--
   The third animation is along the `alpha` axis, to see this in action rotate your phone along the horizontal axis:
   -->  
+
+  <h2>Rotate phone horizontally</h2>
 
   <div id="clock-scene-3" class="clock-scene">
     <amp-orientation-observer
