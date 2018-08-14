@@ -122,16 +122,14 @@
   the text doesn't scroll beyond it's first paragraph.
   -->
 
-  <h1> Tilt based scroll animations </h1>
+  Tilt based scroll animations
 
-  <main id="scrollText">
-    <div>
-      <amp-orientation-observer
-        beta-range="0 180"
-        on="beta:anim.seekTo(percent=event.percent)"
-        layout="nodisplay">
-      </amp-orientation-observer>
-    </div>
+  <div id="scrollText">
+    <amp-orientation-observer
+    beta-range="0 180"
+    on="beta:anim.seekTo(percent=event.percent)"
+    layout="nodisplay">
+  </amp-orientation-observer>
     <div id="ipsum">
       <h3>Move phone along y axis to scroll</h3>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id est et dui maximus sagittis vel imperdiet nibh. Nam finibus nisl sit amet neque gravida pellentesque. Phasellus vulputate, tortor ut pretium ultricies, nibh massa vestibulum nisi, a vestibulum orci velit eget nisl. Maecenas dui nulla, consectetur sed porttitor ac, varius quis nibh. In pellentesque nisi quis ligula fringilla, non lobortis felis tincidunt. Nullam hendrerit sodales purus, nec rhoncus urna ultricies ac. Cras vestibulum pulvinar libero, quis faucibus nisi. Quisque ut lacus vitae justo faucibus mollis vel bibendum neque. Quisque pretium nunc in nunc vulputate, interdum ullamcorper nisl convallis. Cras vitae finibus urna. Sed enim turpis, consectetur eu velit nec, sodales mollis justo. Curabitur pretium luctus felis sagittis rhoncus. Donec vitae vehicula erat, non pellentesque odio. Vestibulum accumsan rhoncus placerat. Donec rutrum ullamcorper sodales. Vestibulum pretium ut diam faucibus tincidunt.
@@ -145,7 +143,7 @@
       In mattis at eros id ullamcorper. Aenean ac hendrerit magna. Sed volutpat sapien quis justo accumsan eleifend. Praesent lobortis, velit sed elementum molestie, urna nibh malesuada lacus, vitae efficitur tellus elit ac augue. Aliquam erat volutpat. Praesent ultricies felis erat, ut luctus nulla pellentesque in. Etiam lacinia neque id neque egestas tempor.      
       <h3>End of text</h3>
     </div>
-  </main>
+  </div>
 
   <!--
   The animation here is a translation along the Y axis to mimic the scrolling action.
@@ -178,8 +176,8 @@
   is along the `beta` axis, to see this in action rotate your phone along the y axis. 
 -->
 
-  <h1>Tilt based translation animations</h1>
-  <h2>Rotate phone along Y axis</h2>
+  Tilt based translation animations
+  Rotate phone along Y axis
 
   <div id="clock-scene-1" class="clock-scene">
     <amp-orientation-observer
@@ -221,7 +219,7 @@
   The second animation is along the `gamma` axis, to see this in action rotate your phone along the x axis:
   -->  
 
-  <h2>Rotate phone along X axis</h2>
+  Rotate phone along X axis
 
   <div id="clock-scene-2" class="clock-scene">
     <amp-orientation-observer
@@ -263,7 +261,7 @@
   The third animation is along the `alpha` axis, to see this in action rotate your phone along the horizontal axis:
   -->  
 
-  <h2>Rotate phone horizontally</h2>
+  Rotate phone horizontally
 
   <div id="clock-scene-3" class="clock-scene">
     <amp-orientation-observer
