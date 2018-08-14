@@ -1,0 +1,103 @@
+<!--
+  ## Introduction
+
+  Sometimes publishers want to collect user consent using external prompt UI flow with iframes. This sample demonstrates
+  how you can use `amp-consent` together with `amp-iframe` to achieve this. In this sample we'll build a
+  consent dialog from an iframe.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <link rel="canonical" href="/user_consent/external_user_consent_flow/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <title>External Consent Prompt Dialog</title>
+  <!-- ## Setup -->
+  <!--
+  We need to import both, the `amp-consent` ...
+  -->
+  <script async custom-element="amp-consent" src="https://cdn.ampproject.org/v0/amp-consent-0.1.js"></script>
+
+  <!--
+  ... and the `amp-iframe` extension.
+  -->
+  <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <style amp-custom>
+    .consentPopup {
+      margin: 0 auto;
+      padding: 20px;
+      background: #fff;
+      position: relative;
+      max-width: 700px;
+      width: 65vw;
+      height: 65vh;
+    }
+    .popupOverlay {
+      height: 100vh;
+      width: 100vw;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 5% 0;
+    }
+
+    amp-iframe {
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <!-- ## Defining the Consent Flow -->
+  <!--
+    We define a basic consent flow, similar to [this sample](/user_consent/basic_user_consent_flow/).
+    The consent dialog is from a CORS iframe loaded with the `amp-iframe` component
+  -->
+  <amp-consent id="myUserConsent" layout="nodisplay">
+    <script type="application/json">{
+      "consents": {
+          "consent1": {
+            "checkConsentHref": "/samples_templates/consent/getConsent",
+            "promptUI": "myConsentFlow"
+          }
+      },
+      "postPromptUI": "post-consent-ui"
+    }</script>
+    <div id="myConsentFlow" class="popupOverlay">
+      <div class="consentPopup">
+        <amp-iframe
+          layout="fill"
+          sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+            src="<% api.host %>/iframe/external-consent-iframe.html">
+            <div placeholder>Loading</div>
+        </amp-iframe>
+      </div>
+    </div>
+    <div id="post-consent-ui">
+      <button on="tap:myUserConsent.prompt()" class="ampstart-btn caps m1">Update Consent</button>
+    </div>
+  </amp-consent>
+
+  <!-- ## Consent Dialog Iframe -->
+  <!--
+    The consent dialog iframe can inform  the `amp-consent` component user's choice through postMessages.
+    ```html
+    window.parent.postMessage({
+      type: 'consent-response',
+      action: 'accept'
+    }, '*');
+    ```
+    Here action can be either `'accept'`, `'reject'` or `'dismiss'`.
+  -->
+
+    <!--
+    Use `data-block-on-consent` attribute to block AMP components until consent is given.
+    Individual AMP components can override  blocking behavior and implement blocking logic themselves.
+
+    Here is an image which is blocked until consent is given:
+  -->
+  <amp-img data-block-on-consent src="/img/landscape_lake_300x201.jpg" width="300" height="201">
+  </amp-img>
+
+</body>
+</html>

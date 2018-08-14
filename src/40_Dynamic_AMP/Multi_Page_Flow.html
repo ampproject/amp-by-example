@@ -341,8 +341,8 @@ We update the `currentPage` variable to progress forward in the dialog. In this 
   <div class="p1">Use the browser back button to go to the previous view.</div>
 <!-- ## A vertical Stepper -->
 <!-- Vertical steppers work well if steps depend on each other. The stepper is implemented similar to the first sample using a 
-  variable `currentStep` to keep track of the currently active step. We additionally define a step title button which is always visible 
-  and shows the status of the current step. The title needs to reflect three different states (active, complete, disabled). To avoid too complex amp-bind expressions the three states are split into three different bindings:    
+  `currentStep` variable to keep track of the currently active step. We additionally define a step title button which is always visible 
+  and shows the status of the current step. The title needs to reflect three different states (active, complete, disabled). To avoid too complex amp-bind expressions, the three states are split into three different bindings:    
 
   * The title class gets updated if the current step is active.
   * The title gets a `disabled` attribute if the **previous** step has not yet been completed
@@ -361,7 +361,7 @@ Clicking on the title will go to the corresponding step (if already possible):
   </button>
   ```
 
-By default, the continue buttons is disabled. Only when the step is completed (in this case when a selection has been made), the button will be enabled:
+By default, the Continue button is disabled. Only when the step is completed (in this case when a selection has been made), will the button be enabled:
 
 ```html
   <button disabled [disabled]="!animalSelected"
@@ -443,12 +443,12 @@ By default, the continue buttons is disabled. Only when the step is completed (i
   <h2 class="m0 p1">Stepper with Sliding Animation</h2>
   <div class="p1">Use the browser back button to go to the previous view.</div>
   <!-- ## Stepper with Sliding Animation -->
-  <!-- This sample demonstrates a simple sliding animations visualising the dialog progress. We're using 
+  <!-- This sample demonstrates a simple sliding animation visualising the dialog progress. We're using 
   templates from [ampstart.com](https://ampstart.com) for styling the input fields. The basic approach is 
   the same as in the previous two samples: a variable keeps track of the current page. The only difference is 
   that here we can't use the `hidden` attribute as we want to transition between the different pages. The `hidden`
-  attribute uses `display: none` which cannot be animated in CSS. Instead we use three different CSS classes `active`, 
-  `next` and `previous` to slide between the different pages:
+  attribute uses `display: none`, which cannot be animated in CSS. Instead we use three different CSS classes (`active`, 
+  `next` and `previous`) to slide between the different pages:
   
 ```css
   .page.active {

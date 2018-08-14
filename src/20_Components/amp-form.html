@@ -24,7 +24,7 @@
     Import the library.
   -->
   <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
-  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
   <link rel="canonical" href="<%host%>/components/amp-form/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
@@ -121,7 +121,7 @@
         custom-validation-reporting="show-all-on-submit">
     <p>Form Custom Validation: <code>show-all-on-submit</code></p>
     <div class="ampstart-input inline-block relative m0 p0 mb3">
-      <input type="text" class="block border-none p0 m0" id="show-all-on-submit-name" name="name" placeholder="Name..." required pattern="\w+\s\w+">
+      <input type="text" class="block border-none p0 m0" id="show-all-on-submit-name" name="name" placeholder="Name..." required pattern="\p{L}+\s\p{L}+">
       <span visible-when-invalid="valueMissing"
         validation-for="show-all-on-submit-name"></span>
       <span visible-when-invalid="patternMismatch"
@@ -155,7 +155,7 @@
         custom-validation-reporting="show-first-on-submit">
     <p>Form Custom Validation: <code>show-first-on-submit</code></p>
     <div class="ampstart-input inline-block relative m0 p0 mb3">
-      <input type="text" class="block border-none p0 m0" id="show-first-on-submit-name"  name="name" placeholder="Name..." required pattern="\w+\s\w+">
+      <input type="text" class="block border-none p0 m0" id="show-first-on-submit-name"  name="name" placeholder="Name..." required pattern="\p{L}+\s\p{L}+">
       <span visible-when-invalid="valueMissing"
         validation-for="show-first-on-submit-name"></span>
       <span visible-when-invalid="patternMismatch"
@@ -189,7 +189,7 @@
         custom-validation-reporting="as-you-go">
     <p>Form Custom Validation: <code>as-you-go</code></p>
     <div class="ampstart-input inline-block relative m0 p0 mb3">
-      <input type="text" class="block border-none p0 m0" id="as-you-go-name" name="name" placeholder="Name..." required pattern="\w+\s\w+">
+      <input type="text" class="block border-none p0 m0" id="as-you-go-name" name="name" placeholder="Name..." required pattern="\p{L}+\s\p{L}+">
       <span visible-when-invalid="valueMissing"
         validation-for="as-you-go-name"></span>
       <span visible-when-invalid="patternMismatch"

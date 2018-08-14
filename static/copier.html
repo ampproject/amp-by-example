@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style> 
+/* so button can go to edge */
+body {
+  margin: 0;
+  font-family: Sans-Serif;
+}
+/* common styles for button */
+button#copy{
+  box-sizing: border-box;
+  font: inherit;
+  font-size: 18px;
+  line-height: 2em;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background: #555;
+  padding: 0 8px;
+  color: #fff;
+  display: block;
+}
+/* cursor/size for within iframe */
+button#copy {
+  cursor: copy;
+  width: 100vw;
+  height: 100vh;
+}
+/* custom focus effect (outline would be cropped) */
+button#copy:active,
+button#copy:focus {
+  outline:0;
+  border-color:#0afaca;
+}
+  </style>
+</head>
+<body>
+<button id="copy">Copy</button>
+<input type="text" id="_i" hidden />
+<script>
+/*
+  When the copy button is pressed, we:
+  * decode the text from the hash, as that's how the text is passed to us
+  * place it in our hidden text element,
+  * show and focus the input, so the browser lets us copy it
+  * call `execCommand('copy')`, to perform the actual copy
+  * before hiding it again.
+  See: https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Interact_with_the_clipboard
+ */
+copy.onclick = function() {
+  _i.value = window.decodeURIComponent(window.location.hash.substr(1));
+  _i.hidden = false;
+  _i.select();
+  _i.focus();
+  document.execCommand('copy');
+  _i.hidden = true;
+  _i.value = '';
+};
+</script>
+</body>

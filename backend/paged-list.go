@@ -15,7 +15,6 @@
 package backend
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -76,10 +75,7 @@ func GeneratePagedResponse(page int) AmpListResponse {
 }
 
 func InitPagedListSample() {
-	http.HandleFunc(PAGED_LIST_SAMPLE_PATH+"search", func(w http.ResponseWriter, r *http.Request) {
-		EnableCors(w, r)
-		SetContentTypeJson(w)
-
+	RegisterHandler(PAGED_LIST_SAMPLE_PATH+"search", func(w http.ResponseWriter, r *http.Request) {
 		pageString := r.URL.Query().Get("page")
 		if pageString == "" {
 			pageString = "1"
@@ -88,10 +84,11 @@ func InitPagedListSample() {
 
 		if page <= MAX_PAGE_COUNT && page > 0 {
 			response := GeneratePagedResponse(page)
-			jsonBytes, _ := json.Marshal(&response)
-			w.Write([]byte(jsonBytes))
+			SendJsonResponse(w, &response)
 		} else {
-			w.Write([]byte("{\"error\": \"Invalid page\"}"))
+			SendJsonResponse(w, map[string]string{
+				"error": "Invalid page",
+			})
 		}
 	})
 }
