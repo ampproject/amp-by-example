@@ -1,0 +1,304 @@
+<!---{
+  "preview": "default",
+  "default": "preview"
+}--->
+<!--
+  ## Introduction
+
+  [amp-orientation-observer](https://www.ampproject.org/docs/reference/components/amp-orientation-observer)
+  combined with [amp-animation](https://www.ampproject.org/docs/reference/components/amp-animation) is
+  a powerful building block that can handle various uses-cases that are dependent on the orientation of the device.
+
+  In this tutorial, we will go through some of these use-cases in detail.
+-->
+
+<!--
+  ## Components
+  [amp-orientation-observer](https://www.ampproject.org/docs/reference/components/amp-orientation-observer) is a
+  functional component that monitors the orientation of the device as it moves,
+  and dispatches `alpha`, `beta` and `gamma` events dependant on what axis the device has moved in. 
+  For more details on DeviceOrientationEvents read: https://developer.mozilla.org/en-US/docs/Web/API/Detecting_device_orientation
+
+  These events in return can be used to `seek` animation timelines
+  defined by [amp-animation](https://www.ampproject.org/docs/reference/components/amp-animation)
+  to create orientation based effects.
+
+  [amp-animation](https://www.ampproject.org/docs/reference/components/amp-animation) is a UI component
+  that relies on [Web Animations API](https://www.w3.org/TR/web-animations/) to define and
+  run keyframe animations in AMP documents.
+-->
+
+<!-- -->
+<!doctype html>
+<html ⚡>
+
+<head>
+  <meta charset="utf-8">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!-- ## Setup -->
+  <!--  Import amp-orientation-observer extension -->
+  <script async custom-element="amp-orientation-observer" src="https://cdn.ampproject.org/v0/amp-orientation-observer-0.1.js"></script>
+
+  <!--  Import amp-animation extension -->
+  <script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
+
+  <link rel="canonical" href="<%host%>/visual_effects/basics_of_orientation_effects/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+  <!--
+    ## Styles
+
+    The CSS used for these samples are included here for reference.
+
+    These rules are simply needed to make the samples work but are not fundamental
+    to the concepts covered here.
+  -->
+  <style amp-custom>
+    #scrollText {
+      font-family: Helvetica, sans-serif;
+      padding: 10px;
+      max-width: 412px;
+      height: 500px;
+      margin: auto;
+      overflow: hidden;
+    }
+
+    #ipsum {
+      background-image: linear-gradient(white, deeppink);
+    }
+
+    .clock-hand {
+      position: absolute;
+      width: 2vw;
+      height: 20vw;
+      max-height: 90px;
+      max-width: 10px;
+      top: 50%;
+      left: 50%;
+      z-index: 2;
+      background: #FAFAFA;
+      transform-origin: 50% 0%;
+      border-radius: 10px;
+      transform: rotate(-180deg)
+    }
+
+    .rotate-2 {
+      transform: rotate(-270deg)
+    }
+  </style>
+</head>
+
+<body>
+
+  <!--
+  ## Tilt based scroll animations
+
+  Let's create a tilt based scroll animation where you can scroll up 
+  and down on a page as you tilt a device along the y axis.
+
+  This sample showcases the core concept behind combining
+  `amp-orientation-observer` and `amp-animation`: The ability to progress
+  through a keyframe animation timeline as the device is tilted.
+  -->
+
+  <!--
+  Our scroll scene is a `div` with some Lorem Ipsum text in it. We add an
+  `amp-orientation-observer` element as child of the scene to monitor the device's position. 
+  Let's take a look at the details:
+  - **`on:beta`**: This event is triggered by orientation observer as deivce orientation 
+  along the `beta` axis changes. The event provides a percentage value
+  (decimal between 0 and 1) representing how far the device is within the `beta` axis.
+  - **`anim.seekTo(percent=event.percent)`**: We will define an `amp-animation`
+  that will do the spinning in the next step, here we are coupling `amp-orientation-observer` and
+  `amp-animation` by triggering a `seekTo` action on the animation as `beta` events occurs.
+  This is how we specify that we like to progress through the animation
+  timeline as the device moves along the `beta` axis.
+  - **`beta-range`**: Each axis has a range of degrees it tracks. 
+  For the `beta` axis the default range is -180 to 180 degrees. 
+  If you want to set the range to something custom as we do in this 
+  case you can specify it using the `beta-range` attribute here. 
+  In this sample we set the `beta-range` to "0 180" to make sure that 
+  the text doesn't scroll beyond it's first paragraph.
+  -->
+
+  Tilt based scroll animations
+
+  <div id="scrollText">
+    <amp-orientation-observer
+    beta-range="0 180"
+    on="beta:anim.seekTo(percent=event.percent)"
+    layout="nodisplay">
+  </amp-orientation-observer>
+    <div id="ipsum">
+      <h3>Move phone along y axis to scroll</h3>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id est et dui maximus sagittis vel imperdiet nibh. Nam finibus nisl sit amet neque gravida pellentesque. Phasellus vulputate, tortor ut pretium ultricies, nibh massa vestibulum nisi, a vestibulum orci velit eget nisl. Maecenas dui nulla, consectetur sed porttitor ac, varius quis nibh. In pellentesque nisi quis ligula fringilla, non lobortis felis tincidunt. Nullam hendrerit sodales purus, nec rhoncus urna ultricies ac. Cras vestibulum pulvinar libero, quis faucibus nisi. Quisque ut lacus vitae justo faucibus mollis vel bibendum neque. Quisque pretium nunc in nunc vulputate, interdum ullamcorper nisl convallis. Cras vitae finibus urna. Sed enim turpis, consectetur eu velit nec, sodales mollis justo. Curabitur pretium luctus felis sagittis rhoncus. Donec vitae vehicula erat, non pellentesque odio. Vestibulum accumsan rhoncus placerat. Donec rutrum ullamcorper sodales. Vestibulum pretium ut diam faucibus tincidunt.
+
+      Aenean vestibulum nisl nec arcu eleifend posuere. Aliquam nec feugiat nibh. Cras pretium ut purus quis pharetra. Morbi urna augue, lobortis ac porttitor vitae, feugiat eget dui. Nam lacinia commodo tellus vel sagittis. Aliquam id pharetra metus. Nam tristique vulputate maximus. Donec consequat aliquam lacus, ac fermentum magna iaculis tristique. In urna dolor, rutrum non mattis at, luctus nec lectus. Maecenas consequat, massa at placerat convallis, arcu elit consequat nulla, vel egestas justo augue vitae mauris. Nullam est diam, aliquam sit amet posuere non, condimentum et ante. Ut at ullamcorper ipsum. Nullam non efficitur sapien. Praesent vitae odio diam. Nullam dignissim hendrerit neque non tempor.
+
+      Praesent non arcu volutpat, maximus risus in, rutrum tellus. Quisque nec porttitor purus. Quisque hendrerit erat consequat dignissim vehicula. Quisque tortor orci, bibendum et lacinia at, porttitor nec est. Nunc venenatis sollicitudin dui, et fermentum lectus euismod vitae. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus diam ante, sagittis non finibus sed, pulvinar id dolor. Maecenas ac facilisis lacus. Suspendisse potenti.
+
+      Curabitur dignissim consequat ante, quis facilisis ipsum faucibus nec. Suspendisse potenti. Mauris lorem eros, finibus id tincidunt quis, bibendum at urna. Aenean quis tortor ultricies, sodales ipsum id, imperdiet felis. Maecenas vestibulum cursus est convallis imperdiet. In convallis tempus lacus, suscipit tempus turpis mattis id. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin massa massa, molestie eu pretium in, eleifend vel erat. Pellentesque dictum turpis sit amet neque elementum aliquam a sed metus. Donec dignissim laoreet massa vel vehicula. Praesent pretium arcu consequat augue dignissim, at ultrices quam placerat. Proin justo odio, fermentum sed malesuada eu, facilisis non quam. In molestie enim nec ligula tempus, sed condimentum dui molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lobortis, lacus cursus varius malesuada, lacus enim blandit ipsum, non hendrerit est sapien et ex. Nullam quis pulvinar nulla, vitae venenatis massa.
+
+      In mattis at eros id ullamcorper. Aenean ac hendrerit magna. Sed volutpat sapien quis justo accumsan eleifend. Praesent lobortis, velit sed elementum molestie, urna nibh malesuada lacus, vitae efficitur tellus elit ac augue. Aliquam erat volutpat. Praesent ultricies felis erat, ut luctus nulla pellentesque in. Etiam lacinia neque id neque egestas tempor.      
+      <h3>End of text</h3>
+    </div>
+  </div>
+
+  <!--
+  The animation here is a translation along the Y axis to mimic the scrolling action.
+  -->
+
+  <amp-animation id="anim" layout="nodisplay">
+    <script type="application/json">
+      {
+      "duration": "3s",
+      "fill": "both",
+      "direction": "alternate",
+      "animations": [
+        {
+          "selector": "#ipsum",
+          "keyframes": [
+            { "transform": "translateY(0)" },
+            { "transform": "translateY(-1170px)" }
+          ]
+        }
+      ]
+    }
+    </script>
+  </amp-animation>
+
+  <!--
+  ## Tilt based translation animations
+
+  Let's create a tilt based animation where the clock's hand moves 
+  as you tilt the device along a specific axis. The first animation 
+  is along the `beta` axis, to see this in action rotate your phone along the y axis. 
+-->
+
+  Tilt based translation animations
+  Rotate phone along Y axis
+
+  <div id="clock-scene-1" class="clock-scene">
+    <amp-orientation-observer
+      beta-range="0 180"
+      on="beta:clockAnim1.seekTo(percent=event.percent)"
+      layout="nodisplay">
+    </amp-orientation-observer>
+    <amp-img layout="responsive" width="2" height="1.5" src="/img/clock.jpg">
+      <div class="clock-hand rotate-1"></div>
+    </amp-img>
+  </div>
+
+  <!--
+  The animation in this case is a rotation of the clock hand from 
+  -180 degrees to 180 degrees to allow the hand to start and end at 
+  the 12 o' clock position.
+  -->
+
+  <amp-animation id="clockAnim1" layout="nodisplay">
+    <script type="application/json">
+      {
+      "duration": "3s",
+      "fill": "both",
+      "direction": "alternate",
+      "animations": [
+        {
+          "selector": "#clock-scene-1 .rotate-1",
+          "keyframes": [
+            { "transform": "rotate(-180deg)" },
+            { "transform": "rotate(180deg)" }
+          ]
+        }
+      ]
+    }
+    </script>
+  </amp-animation>
+
+  <!--
+  The second animation is along the `gamma` axis, to see this in action rotate your phone along the x axis:
+  -->  
+
+  Rotate phone along X axis
+
+  <div id="clock-scene-2" class="clock-scene">
+    <amp-orientation-observer
+      on="gamma:clockAnim2.seekTo(percent=event.percent)"
+      layout="nodisplay">
+    </amp-orientation-observer>
+    <amp-img layout="responsive" width="2" height="1.5" src="/img/clock.jpg">
+      <div class="clock-hand rotate-2"></div>
+    </amp-img>
+  </div>
+
+  <!--
+  The animation in this case is a rotation of the clock hand from 
+  -270 degrees to 90 degrees to allow the hand to start and end at 
+  the 12 o' clock position. The motion here is limited from the 
+  9 o' clock position to the 3 o' clock position.
+  -->
+
+  <amp-animation id="clockAnim2" layout="nodisplay">
+    <script type="application/json">
+      {
+      "duration": "3s",
+      "fill": "both",
+      "direction": "alternate",
+      "animations": [
+        {
+          "selector": "#clock-scene-2 .rotate-2",
+          "keyframes": [
+            { "transform": "rotate(-270deg)" },
+            { "transform": "rotate(-90deg)" }
+          ]
+        }
+      ]
+    }
+    </script>
+  </amp-animation>
+
+  <!--
+  The third animation is along the `alpha` axis, to see this in action rotate your phone along the horizontal axis:
+  -->  
+
+  Rotate phone horizontally
+
+  <div id="clock-scene-3" class="clock-scene">
+    <amp-orientation-observer
+      alpha-range="0 360"
+      on="alpha:clockAnim3.seekTo(percent=event.percent)"
+      layout="nodisplay">
+    </amp-orientation-observer>
+    <amp-img layout="responsive" width="2" height="1.5" src="/img/clock.jpg">
+      <div class="clock-hand rotate-3"></div>
+    </amp-img>
+  </div>
+
+  <!--
+  The animation in this case is a rotation of the clock hand from 
+  90 degrees to -270 degrees to allow the hand to start and end at 
+  the 12 o' clock position.
+  -->
+
+  <amp-animation id="clockAnim3" layout="nodisplay">
+    <script type="application/json">
+      {
+      "duration": "3s",
+      "fill": "both",
+      "direction": "alternate",
+      "animations": [
+        {
+          "selector": "#clock-scene-3 .rotate-3",
+          "keyframes": [
+            { "transform": "rotate(90deg)" },
+            { "transform": "rotate(-270deg)" }
+          ]
+        }
+      ]
+    }
+    </script>
+  </amp-animation>
+
+</body>
+
+</html>
