@@ -1,4 +1,6 @@
-<amp-geo layout="nodisplay">
+{{^includesconsent}}
+{{^includesgeo}}
+<amp-geo layout="n<amp-geo layout="nodisplay">
   <script type="application/json">
     {
       "ISOCountryGroups": {
@@ -30,3 +32,5 @@
     </div>
   </div>
 </amp-consent>
+{{/includesgeo}}
+{{/includesconsent}}
