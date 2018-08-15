@@ -1,12 +1,14 @@
 {
-  "share-providers": {
-    "email": true,
-    "twitter": true,
-    "tumblr": true,
-    "facebook": {
+  "bookendVersion": "v1.0",
+  "shareProviders": [
+    "email",
+    "twitter",
+    "tumblr",
+    {
+      "provider": "facebook",
       "app_id": "254325784911610"
     }
-  },
-  "related-articles": {
-  }
+  ],
+  "components": [
+  ]
 }

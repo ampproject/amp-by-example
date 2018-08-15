@@ -29,13 +29,11 @@ const (
 )
 
 func InitHotelSample() {
-	http.HandleFunc(HOTEL_SAMPLE_PATH+"authorization", handleHotelAuthorization)
-	http.HandleFunc(HOTEL_SAMPLE_PATH+"pingback", handlePingback)
-	http.HandleFunc(HOTEL_SAMPLE_PATH+"login", handleLogin)
-	http.HandleFunc(HOTEL_SAMPLE_PATH+"book", func(w http.ResponseWriter, r *http.Request) {
-		handlePost(w, r, book)
-	})
-	http.HandleFunc(HOTEL_SAMPLE_PATH+"check-available", checkAvailability)
+	RegisterHandler(HOTEL_SAMPLE_PATH+"authorization", handleHotelAuthorization)
+	RegisterHandler(HOTEL_SAMPLE_PATH+"pingback", handlePingback)
+	RegisterHandler(HOTEL_SAMPLE_PATH+"login", handleLogin)
+	RegisterHandler(HOTEL_SAMPLE_PATH+"book", onlyPost(book))
+	RegisterHandler(HOTEL_SAMPLE_PATH+"check-available", checkAvailability)
 }
 
 func (h HotelAuthorizationResponse) CreateAuthorizationResponse() AuthorizationResponse {
@@ -43,19 +41,17 @@ func (h HotelAuthorizationResponse) CreateAuthorizationResponse() AuthorizationR
 }
 
 func handleHotelAuthorization(w http.ResponseWriter, r *http.Request) {
-	handleAuthorization(w, r, new(HotelAuthorizationResponse).CreateAuthorizationResponse())
+	SendJsonResponse(w, new(HotelAuthorizationResponse).CreateAuthorizationResponse())
 }
 
 func checkAvailability(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	SetContentTypeJson(w)
-	response := "{\"result\":\"Available\"}"
-	w.Write([]byte(response))
+	SendJsonResponse(w, map[string]string{
+		"result": "Available",
+	})
 }
 
 func book(w http.ResponseWriter, r *http.Request) {
-	EnableCors(w, r)
-	SetContentTypeJson(w)
-	response := "{\"result\":\"OK\"}"
-	w.Write([]byte(response))
+	SendJsonResponse(w, map[string]string{
+		"result": "OK",
+	})
 }

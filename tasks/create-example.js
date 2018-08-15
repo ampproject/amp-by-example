@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-"use strict";
+'use strict';
 
 const path = require('path');
 const through = require('through2');
@@ -52,16 +52,16 @@ module.exports = function(paths, config) {
     }
     if (file.isStream()) {
       this.emit('error', new PluginError('create-example',
-            'Streams not supported!'));
+          'Streams not supported!'));
     } else if (file.isBuffer()) {
       const stream = this;
       const exampleFilePath = path.join(paths.src, file.path);
       const exampleFile = ExampleFile.fromPath(exampleFilePath);
       gutil.log('Created ' + exampleFilePath);
       const args = {
-        config: config,
+        config,
         title: exampleFile.title(),
-        fileName: exampleFile.url()
+        fileName: exampleFile.url(),
       };
       Metadata.add(args);
       const html = templates.render(templateName, args);

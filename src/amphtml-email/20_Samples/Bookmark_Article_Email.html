@@ -1,0 +1,118 @@
+<!---{
+ "preview": "amp4email",
+ "skipValidation": "true",
+ "draft": "true"
+}--->
+<!--
+## Introduction
+
+This sample demonstrates how to let users perform an asynchronous action (bookmarking an article)
+in an AMPHTML email.
+
+It leverages the [`amp-form`](https://www.ampproject.org/docs/reference/components/amp-form) extension to
+send a request to the server without the user leaving their e-mail client.
+-->
+
+<!-- -->
+<!doctype html>
+<html ⚡4email>
+<head>
+  <meta charset="utf-8">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <style amp4email-boilerplate>body{visibility:hidden}</style>
+  <title>AMPHTML Email - Article Bookmark</title>
+  <!-- ## Setup -->
+  <!--
+    Additionally used AMP components must be imported in the header. We use
+    `amp-form` to submit bookmark requests to the server.
+  -->
+  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+  <!--
+    We use `amp-mustache` to render the result of a form submission.
+  -->
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+  <style amp-custom>
+    h1 {
+      margin-bottom: 1rem;
+      letter-spacing: inherit;
+      font-family: inherit;
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
+
+    .buttons {
+      display: flex;
+    }
+
+    .bookmark {
+      margin-left: 1rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .link {
+      display: block;
+    }
+
+    .bookmark form.amp-form-submit-success button {
+      display: none;
+    }
+
+    .bookmark form div[submit-error] {
+      margin-top: .4em;
+    }
+  </style>
+</head>
+<!-- ## Body -->
+<!-- -->
+<body>
+  <div class="article">
+    <!--
+      We display a simple summary of the article in the email.
+	-->
+    <div>
+      <h1>Sample article</h1>
+      <p>
+        This is a short summary of a sample article. The user can choose to continue
+        reading on the website or bookmark it to their account for later.
+      </p>
+    </div>
+    <!--
+      We show two buttons under the article:
+      -   A "read more" button, which is a regular link to the article.
+      -   A "bookmark" button, which sends a request to bookmark the article to the server asynchronously via `amp-form`.
+    -->
+    <div class="buttons">
+      <div>
+        <a class="ampstart-btn link" href="https://www.ampproject.org/docs/interaction_dynamic/amp-email-format">Read more</a>
+      </div>
+      <div class="bookmark">
+        <form action-xhr="<%host%>/amphtml-email/submit-form-bookmark" method="post">
+          <input type="hidden"
+                  name="id"
+                  value="ARTICLE_UNIQUE_ID">
+          <!--~
+            Because there is no authentication for outgoing XHR calls from AMP email
+            messages, all authentication should be done using access tokens. In a real-life
+            scenario, this hidden input field should contain one such limited-use access token.
+          ~-->
+          <input type="hidden"
+                  name="auth_token"
+                  value="REPLACE_WITH_YOUR_TOKEN">
+          <button type="submit"
+                  class="ampstart-btn submit-button">
+            Bookmark
+          </button>
+          <div class="pr2" submit-success>
+            <template type="amp-mustache">
+              {{result}}
+            </template>
+          </div>
+          <div submit-error>An error occurred.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

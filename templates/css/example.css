@@ -7,7 +7,7 @@ amp-instagram {
 }
 .www-component-desc pre,
 pre, code {
-  font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
+  font-family: var(--font-family-monospace);
   font-size: 0.9rem;
   white-space: pre-wrap;
 }
@@ -151,4 +151,60 @@ code {
 .abe-preview>section,
 .abe-preview>p {
   padding: 1rem;
+}
+.abe-code .has-hint {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  background-color: #eb407a18;
+  border-radius: 5px;
+  transition: background-color .3s;
+  padding: 0.5rem 0;
+  margin: 0.5rem 0;
+}
+.abe-code .has-hint:hover {
+  background-color: #eb407a28;
+}
+.abe-code .has-hint:before {
+  content: " ";
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="#eb407a"/></svg>') no-repeat;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 24px;
+  height: 24px;
+}
+.abe-code .has-hint > .hint {
+  position: absolute;
+  bottom: 100%;
+  border-radius: 5px;
+  padding: 1rem;
+  width: 100%;
+  margin-bottom: 7px;
+  background: #fff;
+  color: transparent;
+  line-height: 1.5rem;
+  font-family: var(--font-family-serif);
+  box-shadow: 0 0 1px 0 rgba(50,68,78,.5), 0 0 2px 0 rgba(0,0,0,.07), 0 3px 8px 0 rgba(0,0,0,.1);
+  transform: scaleY(0);
+  transition: transform .25s ease-in-out, color .1s;
+  transform-origin: bottom;
+  user-select: none;
+}
+.abe-code .has-hint > .hint:before {
+  content: " ";
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#757575"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/><path fill="none" d="M0 0h24v24H0V0z"/></svg>') no-repeat;
+  background-size: contain;
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  width: 16px;
+  height: 16px;
+}
+.abe-code .has-hint > .show-hint {
+  display: none;
+}
+.abe-code .has-hint > .show-hint:checked + .hint {
+  color: #4a4a4a;
+  transform: scaleY(1);
 }

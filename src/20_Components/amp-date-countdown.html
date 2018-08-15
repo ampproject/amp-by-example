@@ -1,0 +1,84 @@
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <!-- ## Introduction
+    `amp-date-countdown` is an AMP component which creates a dynamic timer that counts
+    down to the given date and time which you can render in your AMP page.
+  -->
+  <!-- ## Setup -->
+  <!-- Include the `amp-date-countdown` component ... -->
+  <script async custom-element="amp-date-countdown" src="https://cdn.ampproject.org/v0/amp-date-countdown-0.1.js"></script>
+  <!-- ... and the `amp-mustache` component in the header -->
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <link rel="canonical" href="<%host%>/components/amp-date-countdown/" >
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <style amp-custom>
+    amp-date-countdown {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- ## Basic use -->
+  <!--
+    You must specify one of `timestamp-seconds`, `timestamp-ms` or `end-date` attributes.
+    This indicates the date and time to count down to.
+
+    The countdown content is rendered via an [amp-mustache template](https://www.ampproject.org/docs/reference/components/amp-mustache).
+
+    The number of days, hours, minutes and seconds remaining is bound to `{{d}}`, `{{h}}`, `{{m}}` and `{{s}}` respectively.
+    Double digit format variants (`{{dd}}`, `{{hh}}`, `{{mm}}` and `{{ss}}`) are also available.
+  -->
+  <amp-date-countdown timestamp-seconds="2147483648" layout="fixed-height" height="100">
+    <template type="amp-mustache">
+      <p class="p1">
+        {{d}} days, {{h}} hours, {{m}} minutes and {{s}} seconds until <a href="https://en.wikipedia.org/wiki/Year_2038_problem">Y2K38</a>.
+      </p>
+    </template>
+  </amp-date-countdown>
+
+  <!--
+    When using `end-date`, specify the date in the ISO 8601 format.
+
+    You can optionally specify `offset-seconds` to offset the provided date.
+  -->
+  <amp-date-countdown end-date="2038-01-19T03:14:08.000Z" offset-seconds="-10" layout="fixed-height" height="100">
+    <template type="amp-mustache">
+      <p class="p1">
+        {{d}} days, {{h}} hours, {{m}} minutes and {{s}} seconds until 10 before <a href="https://en.wikipedia.org/wiki/Year_2038_problem">Y2K38</a>.
+      </p>
+    </template>
+  </amp-date-countdown>
+
+  <!-- ## Locale -->
+  <!--
+    If `locale` is specified, `{{days}}`, `{{hours}}`, `{{minutes}}` and `{{seconds}}` are bound to
+    the word(s) used to represent the given unit of time in the specified locale.
+  -->
+  <amp-date-countdown timestamp-seconds="2147483648" locale="ru" layout="fixed-height" height="100">
+    <template type="amp-mustache">
+      <p class="p1">
+        {{d}} {{days}}, {{h}} {{hours}}, {{m}} {{minutes}}, {{s}} {{seconds}}
+      </p>
+    </template>
+  </amp-date-countdown>
+
+  <!-- ## Biggest unit -->
+  <!--
+    The `biggest-unit` attribute specifies the biggest unit used inside the template.
+
+    For example, when `biggest-unit="minutes"` is set, "2 days, 3 hours, 4 minutes, 5 seconds" becomes
+    "0 days, 0 hours, 3064 minutes, 5 seconds", as 2 days and 3 hours are added to minutes.
+  -->
+  <amp-date-countdown timestamp-seconds="2147483648" biggest-unit="minutes" layout="fixed-height" height="100">
+    <template type="amp-mustache">
+      <p class="p1">
+        {{m}} minutes and {{s}} seconds until <a href="https://en.wikipedia.org/wiki/Year_2038_problem">Y2K38</a>.
+      </p>
+    </template>
+  </amp-date-countdown>
+</body>
+</html>

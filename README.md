@@ -142,6 +142,26 @@ You can use [markdown](https://help.github.com/articles/github-flavored-markdown
 <amp-img src="img/image1.jpg" width="200" height="100" layout="responsive"></amp-img>
 ```
 
+#### Hints
+
+If you'd like to add additional information about a single element inside a section, use the `<!--~ hint syntax ~-->`:
+
+```html
+<!-- A comment about the form. -->
+<form method="post"
+  action-xhr="https://example.com/subscribe"
+  target="_top">
+  <fieldset>
+    <input type="text" name="username">
+
+    <!--~ Addition explanation about the hidden field. ~-->
+    <input type="hidden" name="id" value="abc">
+  </fieldset>
+</form>
+```
+
+This will make the `<input>` element clickable, with the additional explanation appearing on click.
+
 #### Drafts
 
 You can mark samples as drafts if they are still work-in-progress. This means the samples won't show up in the start page.
@@ -227,8 +247,8 @@ If you need to run or write a sample that depends on the backend server, you can
     # install the google.goland.org/appengine package
     $ go get google.golang.org/appengine
     # explicitly set the GOROOT and APPENGINE_DEV_APPSERVER env vars
-    $ export GOROOT=$HOME/local/google-cloud-sdk/platform/google_appengine/goroot 
-    $ export APPENGINE_DEV_APPSERVER=$(which dev_appserver.py) 
+    $ export GOROOT=$HOME/local/google-cloud-sdk/platform/google_appengine/goroot
+    $ export APPENGINE_DEV_APPSERVER=$(which dev_appserver.py)
     ```
 
 3. If everything went well, the full site should now be running on <http://localhost:8080/>

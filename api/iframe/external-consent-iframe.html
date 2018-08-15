@@ -1,0 +1,67 @@
+<!doctype html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <link rel="stylesheet" href="https://ampbyexample.com/css/ampstart.css">
+    <style>
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin-top: 1rem;
+}
+li {
+  margin-left: 1rem;
+}
+.dismiss-button {
+  position: absolute;
+  right: 24px;
+  top: 16px;
+  cursor: pointer;
+}
+    </style>
+  </head>
+  <body>
+    <div class="dismiss-button" role="button" tabindex="0" id='d'>X</div>
+    <div class="h2 m1">Headline</div>
+    <p class="m1">This is an important message requiring you to make a choice.</p>
+    <p class="m1">This is some more information about this choice. Here's a list of items related to this choice.</p>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+    <li>Item 4</li>
+    <li>Item 5</li>
+    <p></p>
+    <button id='a' class="ampstart-btn ampstart-btn-secondary caps mx1">Accept</button>
+    <button id='r' class="ampstart-btn ampstart-btn-secondary caps">Reject</button>
+
+    <script type="text/javascript">
+    document.querySelector('#a').onclick = function () {
+        // parent.postMessage("message to be sent", "http://the-website-that-will-receive-the-msg.com")
+        parent.postMessage({
+          type: 'consent-response',
+          action: 'accept'
+        }, '*');
+      };
+    document.querySelector('#r').onclick = function () {
+        // parent.postMessage("message to be sent", "http://the-website-that-will-receive-the-msg.com")
+        parent.postMessage({
+          type: 'consent-response',
+          action: 'reject'
+        }, '*');
+      };
+    document.querySelector('#d').onclick = function () {
+        // parent.postMessage("message to be sent", "http://the-website-that-will-receive-the-msg.com")
+        parent.postMessage({
+          type: 'consent-response',
+          action: 'dismiss'
+        }, '*');
+      };
+    </script>
+  </body>
+</html>
