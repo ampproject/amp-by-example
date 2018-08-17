@@ -46,6 +46,7 @@ a {
 }
 button {
   color: var(--color-accent);
+  background-color: #fff;
   border: 1px solid var(--color-accent);
   font-family: inherit;
   text-transform: uppercase;
