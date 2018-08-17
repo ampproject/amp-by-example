@@ -66,6 +66,7 @@ const paths = {
   samples: 'src/**/*.html',
   metadata: 'src/**/*.json',
   playground: 'playground',
+  boilerplate: 'boilerplate-generator',
   src: 'src',
   scripts: ['tasks/**/*.js', 'gulpfile.js'],
   static: 'static/**/*.*',
@@ -522,13 +523,28 @@ gulp.task('build:playground', 'Build the playground', function() {
   const playgroundDist = '../dist/' + paths.playground;
   return run(
       'cd ' + paths.playground + ' && ' +
-    'npm i && ' +
-    'npm run-script build && ' +
-    'mkdir -p ../dist && ' +
-    'rm -rf ' + playgroundDist + ' && ' +
-    'cp -R dist ' + playgroundDist
+      'npm i && ' +
+      'npm run-script build && ' +
+      'mkdir -p ../' + paths.dist.dir + ' && ' +
+      'rm -rf ' + playgroundDist + ' && ' +
+      'cp -R dist ' + playgroundDist
   ).exec();
 });
+
+gulp.task('build:boilerplate-generator',
+    'Build the AMP boilerplate generator',
+    function() {
+      const boilerplateDist = '../dist/' + paths.boilerplate;
+      return run(
+          'cd ' + paths.boilerplate + ' && ' +
+          'npm i && ' +
+          'node build.js && ' +
+          'mkdir -p ../' + paths.dist.dir + ' && ' +
+          'rm -rf ' + boilerplateDist + ' && ' +
+          'cp -R dist ' + boilerplateDist
+      ).exec();
+    }
+);
 
 
 function generateRobotsTxt(contents) {
@@ -569,6 +585,7 @@ gulp.task('build', 'build all resources', [
   'compile:example',
   'copy:well-known',
   'build:playground',
+  'build:boilerplate-generator',
 ]);
 
 function run(command) {

@@ -1,0 +1,27 @@
+{
+  "bookendVersion": "v1.0",
+  "shareProviders": [
+    "email",
+    "tumblr",
+    {
+      "provider": "twitter",
+      "text": "This is custom share text that I would like for the Twitter platform"
+    },
+    {
+      "provider": "facebook",
+      "app_id": "MY_FACEBOOK_APP_ID"
+    }
+  ],
+  "components": [
+    {
+      "type": "heading",
+      "text": "More to read"
+    },
+    {
+      "type": "small",
+      "title": "This is India an the best places you should go",
+      "url": "http://example.com/article.html",
+      "image": "http://placehold.it/256x128"
+    }
+  ]
+}

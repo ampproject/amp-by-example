@@ -27,12 +27,14 @@
     "js-beautify": "1.7.5",
     "marked": "^0.4.0",
     "mkdirp": "^0.5.1",
+    "mustache": "^2.3.2",
     "phantom": "^6.0.0",
     "pygmentize-bundled": "^2.3.0",
     "slug": "^0.9.1",
     "string": "^3.3.1"
   },
   "devDependencies": {
+    "amp-toolbox-optimizer": "^0.3.1",
     "amphtml-validator": "1.0.23",
     "bignumber.js": "4.1.0",
     "del": "3.0.0",
