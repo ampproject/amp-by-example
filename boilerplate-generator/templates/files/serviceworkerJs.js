@@ -9,7 +9,7 @@ const OFFLINE_PAGE = '/offline.html';
 // Pre-cache the AMP Runtime
 self.addEventListener('install', event => {
   const urls = [
-    'https://cdn.ampproject.org/v0.js'
+    'https://cdn.ampproject.org/v0.js',
     // Add AMP extensions used on your pages
     // Add fonts, icons, logos used on your pages
   ];
@@ -17,7 +17,7 @@ self.addEventListener('install', event => {
     urls.push(OFFLINE_PAGE);
   }
   event.waitUntil(
-    caches.open(workbox.core.cacheNames.runtime).then(cache => cache.addAll(urls))
+      caches.open(workbox.core.cacheNames.runtime).then(cache => cache.addAll(urls))
   );
 });
 
@@ -53,8 +53,8 @@ workbox.routing.setDefaultHandler(workbox.strategies.networkFirst());
 
 // Serve the AMP Runtime from cache and check for an updated version in the background
 workbox.routing.registerRoute(
-  /https:\/\/cdn\.ampproject\.org\/.*/,
-  workbox.strategies.staleWhileRevalidate()
+    /https:\/\/cdn\.ampproject\.org\/.*/,
+    workbox.strategies.staleWhileRevalidate()
 );
 
 /* uncomment to enable
@@ -70,7 +70,7 @@ workbox.routing.registerRoute(
       })
     ]
   }),
-); 
+);
 */
 
 /* uncomment to enable

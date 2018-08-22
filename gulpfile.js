@@ -68,7 +68,12 @@ const paths = {
   playground: 'playground',
   boilerplate: 'boilerplate-generator',
   src: 'src',
-  scripts: ['tasks/**/*.js', 'gulpfile.js'],
+  scripts: [
+    'tasks/**/*.js',
+    'gulpfile.js',
+    'boilerplate-generator/*.js',
+    'boilerplate-generator/lib/**/*.js',
+  ],
   static: 'static/**/*.*',
   templates: {
     dir: 'templates',

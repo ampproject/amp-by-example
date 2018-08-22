@@ -36,7 +36,7 @@ function initConfig() {
     styles: io.readFile('./templates/styles.css'),
     categories: require('./data/categories.json'),
     formats: require('./data/formats.json'),
-    templates: templates.find('./templates/files')
+    templates: templates.find('./templates/files'),
   };
   // assign default template
   let defaultTemplate;
@@ -61,6 +61,6 @@ async function optimizeAmp(html) {
   const ampRuntimeVersion = await runtimeVersion.currentVersion();
   return await ampOptimizer.transformHtml(html, {
     ampUrl: './' + AMP_PATH,
-    ampRuntimeVersion: ampRuntimeVersion
+    ampRuntimeVersion,
   });
 }
