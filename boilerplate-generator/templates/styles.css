@@ -50,28 +50,32 @@ button {
   border: 1px solid var(--color-accent);
   font-family: inherit;
   text-transform: uppercase;
-  letter-spacing: .2em;
+  letter-spacing: .1em;
   font-weight: inherit;
-  font-size: 1rem;
-  line-height: 1.125rem;
-  padding: .35em .8em;
+  font-size: 0.9rem;
+  line-height: 1rem;
+  padding: .5em;
   text-decoration: none;
   white-space: nowrap;
   word-wrap: normal;
   vertical-align: middle;
   cursor: pointer;
+  min-width: 56px;
+  border-radius: 8px;
 }
 button.active {
   color: #fff;
   background-color: var(--color-accent);
 }
 .button-list {
-  padding: 8px 0;
+  margin-bottom: 16px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 .button-list > * {
-  margin: 8px 0;
+  flex: 0 0 auto;
+  margin: 8px 4px;
 }
 header {
   position: fixed;
@@ -111,19 +115,19 @@ section.boilerplate {
   width: 500px;
   height: 100%;
 }
-section {
-}
-pre {
+pre, code {
   font-family: var(--font-family-monospace);
   background-color: var(--color-bg-light);
-  padding: 1rem;
   font-size: 14px;
-  overflow: scroll;
   -moz-tab-size: 2;
   -o-tab-size: 2;
   tab-size: 2;
   word-break: normal;
   line-height: 1.8;
+}
+pre {
+  padding: 1rem;
+  overflow: scroll;
   margin: 0;
   margin-bottom: 1rem;
 }
@@ -164,6 +168,7 @@ pre {
   position: relative;
 }
 
+.option input[type=radio],
 .option input[type=checkbox] {
   font-size: 100%;
   line-height: 1.5rem;
@@ -182,19 +187,45 @@ pre {
   margin-right: .5rem;
   text-align: center;
 }
-.option input[type=checkbox]:checked:after {
+.option input[type=radio]:after,
+.option input[type=checkbox]:after {
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   content: " ";
+  line-height: 1.4rem;
+  vertical-align: middle;
+  text-align: center;
+  background-color: #fff;
+}
+.option input[type=checkbox]:checked:after {
   line-height: 1.2rem;
   vertical-align: middle;
   text-align: center;
   background-color: var(--color-accent);
   color: #fff;
   content: "✓";
+}
+
+.option input[type=radio]:checked {
+  background-color: #fff;
+}
+.option input[type=radio] {
+  border-radius: 20px;
+}
+.option input[type=radio]:checked:after {
+  content: "";
+  font-size: 3rem;
+  background-color: var(--color-accent);
+}
+.option input[type=radio]:after {
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  right: 3px;
+  border-radius: 12px;
 }
 .help {
   box-shadow: var(--box-shadow);
@@ -243,7 +274,7 @@ a.anchor {
 }
 
 .highlight-block {
-  display:inline-block;
+  padding: 4.5px 0;
   width:100%;
   background-color: #eb407a18;
 }

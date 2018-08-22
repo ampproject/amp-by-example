@@ -57,6 +57,7 @@ workbox.routing.registerRoute(
   workbox.strategies.staleWhileRevalidate()
 );
 
+/* uncomment to enable
 // Cache Images
 workbox.routing.registerRoute(
   /\.(?:png|gif|jpg|jpeg|svg)$/,
@@ -69,8 +70,10 @@ workbox.routing.registerRoute(
       })
     ]
   }),
-);
+); 
+*/
 
+/* uncomment to enable
 // Google Font Caching
 // see https://developers.google.com/web/tools/workbox/guides/common-recipes#google_fonts
 workbox.routing.registerRoute(
@@ -87,3 +90,4 @@ workbox.routing.registerRoute(
     ]
   }),
 );
+*/

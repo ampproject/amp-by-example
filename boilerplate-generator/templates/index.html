@@ -8,7 +8,7 @@
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
     <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
-    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
     <script async custom-element="amp-position-observer" src="https://cdn.ampproject.org/v0/amp-position-observer-0.1.js"></script>
     <script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
     <style amp-custom>{{{ styles }}}</style>
@@ -103,6 +103,7 @@
       {{/help}}
       {{#options}}
       <div class="option">
+        {{#checkbox}}
         <input id="{{id}}" type="checkbox" on="change:{{id}}-values.toggleVisibility,AMP.setState({
           config: {
             {{id}}: {
@@ -113,7 +114,27 @@
             {{/component}}
             changed: true
           }
-        })"><label for="{{id}}">{{{label}}}</label>
+        })">
+        {{/checkbox}}
+        {{#radio}}
+        <input id="{{id}}" type="radio" name="{{categoryId}}" on="change:{{id}}-values.toggleVisibility,AMP.setState({
+          config: {
+            {{#options}}
+              {{id}}: {
+                selected: false
+              },
+              {{#component}}
+              {{.}}: config.{{.}} || event.checked,
+              {{/component}}
+            {{/options}}
+              {{id}}: {
+                selected: event.checked
+              },
+              changed: true
+          }
+        })">
+        {{/radio}}
+        <label for="{{id}}">{{{label}}}</label>
         {{#description}}
         <span on="tap:{{id}}-help.toggleVisibility" tabindex="0" role="button" aria-label="Show help" class="help-toggle">?</span>
         <div id="{{id}}-help" class="help" hidden>{{{.}}}</div>
@@ -142,11 +163,12 @@
     <section class="boilerplate">
       <a id="boilerplate" class="anchor"></a>
       <amp-position-observer on="enter:hideAnim.start; exit:showAnim.start"
+                             intersection-ratios="0.5"
         layout="nodisplay">
       </amp-position-observer>
       <h3>Boilerplate</h3>
       <p>Start your AMP page by copying and pasting this code:</p>
-      <pre  [hidden]="config.changed">{{{initialCode}}}</pre>
+      <pre  [hidden]="config.changed"><code>{{{initialCode}}}</code></pre>
       <amp-list width="auto"
                 height="3240"
                 layout="fixed-height"
@@ -156,22 +178,22 @@
                 hidden [hidden]="!config.changed">
         <template type="amp-mustache">
           {{#formats}}
-          <pre hidden [hidden]="config.format != '{{id}}'">{{{template}}}</pre>
+          <pre hidden [hidden]="config.format != '{{id}}'"><code>{{{template}}}</code></pre>
           {{/formats}}
           <section [hidden]="!config.serviceworker.selected">
             <h3>Serviceworker Iframe</h3>
             <p>The webdocument that <a href="https://www.ampproject.org/docs/reference/components/amp-install-serviceworker#data-iframe-src-(optional)">installs your service worker</a>. Copy this code and serve it together with your serviceworker implemenation.</p>
-            <pre>{{{templates.serviceworkerIframe}}}</pre>
+            <pre><code>{{{templates.serviceworkerIframe}}}</code></pre>
           </section>
           <section [hidden]="!config.serviceworker.selected">
             <h3>Serviceworker Boilerplate</h3>
             <p>A sample serviceworker implementation using <a href="https://developers.google.com/web/tools/workbox/">Workbox</a>. Copy this code and from the specified path.</p>
-            <pre>{{{templates.serviceworkerJs}}}</pre>
+            <pre><code>{{{templates.serviceworkerJs}}}</code></pre>
           </section>
           <section [hidden]="config.format != 'amp4stories'">
             <h3>Bookend Sample</h3>
             <p>A sample <a href="https://www.ampproject.org/docs/reference/components/amp-story#bookend:-amp-story-bookend">AMP Story bookend</a> JSON configuration.</p>
-            <pre>{{{templates.bookend}}}</pre>
+            <pre><code>{{{templates.bookend}}}</code></pre>
           </section>
         </template>
         <div tabindex="0" role="button" overflow>Show More</div>
@@ -181,6 +203,6 @@
     <div id="scrollToBoilerplate" 
          tabindex="0" role="button"
          on="tap:boilerplate.scrollTo(duration=200)"
-         class="fab">View Boilerplate</div>
+         class="fab">View Code</div>
   </body>
 </html>

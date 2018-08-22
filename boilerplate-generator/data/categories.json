@@ -2,6 +2,7 @@
   {
     "label": "PWA",
     "formats": [ "amphtml"],
+    "checkbox": true,
     "options": [
       {
         "id": "manifest",
@@ -43,6 +44,7 @@
   {
     "label": "Media",
     "formats": [ "amphtml", "amp4stories"],
+    "checkbox": true,
     "options": [
       {
         "id": "heroImage",
@@ -76,6 +78,7 @@
   {
     "label": "Fonts",
     "formats": [ "amphtml", "amp4stories", "amp4ads"],
+    "checkbox": true,
     "options": [
       {
         "id": "googleFonts", 
@@ -88,6 +91,7 @@
   {
     "label": "Analytics",
     "formats": [ "amphtml", "amp4stories", "amp4ads"],
+    "checkbox": true,
     "options": [
       {
         "id": "adobeAnalytics",
@@ -124,8 +128,9 @@
   },
   {
     "label": "Structured Data",
+    "categoryId": "structured-data",
     "formats": [ "amphtml"],
-    "unique": true,
+    "radio": "true",
     "help": "Provide information about your page and classify the page content using <a href=\"https://developers.google.com/search/docs/guides/intro-structured-data\">structured data</a>.",
     "options": [
       {
@@ -154,6 +159,7 @@
     "id": "render-delaying-extensions",
     "formats": [ "amphtml", "amp4stories", "amp4ads"],
     "label": "Render-delaying Extensions",
+    "checkbox": true,
     "help": "<a href=\"https://github.com/ampproject/amphtml/blob/7d307ab8a12e4d58360d430b2d61327e39b4846b/src/render-delaying-services.js\">Render-delaying extensions</a> affect the static layout of the page. Hence, the AMP runtime must wait until these are downloaded, before it can start rendering the page to avoid annoying page jumps. To improve page load time, it's best to download these extensions with a higher priority using a <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content\">preload directive</a>.",
     "options": [
       {

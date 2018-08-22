@@ -19,7 +19,6 @@
   "dependencies": {
     "clean-css": "^4.1.11",
     "glob": "^7.1.1",
-    "handlebars": "^4.0.11",
     "highlight.js": "^9.7.0",
     "hoek": "^5.0.3",
     "hogan.js": "^3.0.2",
@@ -60,6 +59,7 @@
     "gulp-rename": "1.4.0",
     "gulp-run": "1.7.1",
     "gulp-util": "3.0.8",
+    "handlebars": "^4.0.11",
     "htmllint": "0.7.2",
     "ip-regex": "2.1.0",
     "jpeg-js": "0.3.4",

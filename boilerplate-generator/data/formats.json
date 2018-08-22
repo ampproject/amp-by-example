@@ -1,19 +1,19 @@
 [
   {
     "id": "amphtml",
-    "name": "AMP Websites",
+    "name": "Website",
     "default": true
   },
   {
-    "id": "amp4ads",
-    "name": "AMP Ads"
+    "id": "amp4stories",
+    "name": "Story"
   },
   {
     "id": "amp4email",
-    "name": "AMP Emails"
+    "name": "Email"
   },
   {
-    "id": "amp4stories",
-    "name": "AMP Stories"
+    "id": "amp4ads",
+    "name": "Ad"
   }
 ]
