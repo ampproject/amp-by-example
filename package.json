@@ -17,12 +17,12 @@
     "dev": "gulp"
   },
   "dependencies": {
-    "clean-css": "^4.1.11",
+    "clean-css": "^4.2.1",
     "glob": "^7.1.1",
     "highlight.js": "^9.7.0",
-    "hoek": "^5.0.3",
+    "hoek": "^5.0.4",
     "hogan.js": "^3.0.2",
-    "html-minifier": "^3.5.15",
+    "html-minifier": "^3.5.20",
     "js-beautify": "1.7.5",
     "marked": "^0.4.0",
     "mkdirp": "^0.5.1",
