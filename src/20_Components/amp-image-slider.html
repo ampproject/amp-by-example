@@ -180,5 +180,39 @@
       <button class="ampstart-btn" on="tap:seekable.seekTo(percent=0)">SHOW RIGHT</button>
     </div>
   </div>
+
+  <!-- ## Other Customization -->
+
+  <!--
+    By default, the slider bar would be initially placed at the center of the slider.
+    You can change its initial position with `initial-slider-position` attribute.
+  -->
+  <amp-image-slider width="300" height="200" layout="responsive"
+    initial-slider-position="0.3">
+    <amp-img
+      src="/img/red_apple_1_1024x682.jpg"
+      alt="A red apple"
+      layout="fill"></amp-img>
+    <amp-img
+      src="/img/green_apple_1_1024x682.jpg"
+      alt="A green apple"
+      layout="fill"></amp-img>
+  </amp-image-slider>
+
+  <!--
+    By setting `step-size` to a value between 0 and 1,
+    you can move the slider bar by a custom percentage every time you press left and right arrow keys when the slider is focused.
+  -->
+  <amp-image-slider tabindex="0" width="300" height="200" layout="responsive"
+    step-size="0.2">
+    <amp-img
+      src="/img/red_apple_1_1024x682.jpg"
+      alt="A red apple"
+      layout="fill"></amp-img>
+    <amp-img
+      src="/img/green_apple_1_1024x682.jpg"
+      alt="A green apple"
+      layout="fill"></amp-img>
+  </amp-image-slider>
 </body>
 </html>
