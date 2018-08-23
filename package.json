@@ -32,7 +32,7 @@
     "string": "^3.3.1"
   },
   "devDependencies": {
-    "amp-toolbox-optimizer": "^0.3.1",
+    "amp-toolbox-optimizer": "0.3.1",
     "amphtml-validator": "1.0.23",
     "bignumber.js": "4.1.0",
     "del": "3.0.0",
@@ -58,7 +58,7 @@
     "gulp-rename": "1.4.0",
     "gulp-run": "1.7.1",
     "gulp-util": "3.0.8",
-    "handlebars": "^4.0.11",
+    "handlebars": "4.0.11",
     "htmllint": "0.7.2",
     "ip-regex": "2.1.0",
     "jpeg-js": "0.3.4",
