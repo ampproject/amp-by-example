@@ -38,83 +38,78 @@ This is a sample showing how to implement a seatmap that can be used for theater
         fill:white;
       }
       .unavailable {
-      fill: var(--abe-light-pink);
-      pointer-events: none;
-      }
-      .special-seat {
-      fill: white;
-      }
-      .special-seat-image {
-        stroke-width: 3;
-        stroke: rgb(0,0,0);
-        fill:white;
-      }
-      .selected.special-seat-image {
-      fill: var(--abe-pink);
-      background-color: var(--abe-pink);
+        fill: var(--abe-light-pink);
+        pointer-events: none;
       }
       .container {
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      background: white;
-      border-radius: 5px;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        background: white;
+        border-radius: 5px;
       }
       .seat.selected {
-      fill: var(--abe-pink);
+        fill: var(--abe-pink);
       }
       .disabled-seat {
-      pointer-events: none;
-      cursor: default;
+        pointer-events: none;
+        cursor: default;
       }
       .content {
-      background: white;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      border-radius: 5px;
+        background: white;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        border-radius: 5px;
       }
       .disabled {
-      pointer-events: none;
-      opacity: 0.5;
-      cursor: default;
+        pointer-events: none;
+        opacity: 0.5;
+        cursor: default;
       }
       .hidden {
-      display: none;
+        display: none;
       }
       .clickable {
-      cursor: pointer;
+        cursor: pointer;
       }
       .zoom-button {
-
-      bottom: 60px;
-      right: 0px;
-      z-index: 1;
-      border-color: Transparent;
-      background-color: Transparent;
-      margin: 8px;
-      width: 40px;
-      height: 40px;
-      padding: 0;
-      border-width: 0;
-      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
-      background-color: white;
-      border-radius: 3px;
+        bottom: 60px;
+        right: 0px;
+        z-index: 1;
+        border-color: Transparent;
+        background-color: Transparent;
+        margin: 8px;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border-width: 0;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+        background-color: white;
+        border-radius: 3px;
       }
       .opaque {
-      opacity: 0.5;
-      filter: alpha(opacity=50);
+        opacity: 0.5;
+        filter: alpha(opacity=50);
       }
       #choose-seats-button {
-      padding-bottom: 15px;
-      padding-right: 10px;
+        padding-bottom: 15px;
+        padding-right: 10px;
       }
       .seat-map-svg {
-      padding: 0 30px;
-      box-sizing: border-box;
+        box-sizing: border-box;
+        padding-top: 30px;
+      }
+      #pan-zoom {
+        display: initial;
+      }
+      #pan-zoom > svg {
+        left: 0;
+        right: 0;
+        margin: auto;
       }
       .hide {
-      display: none;
+        display: none;
       }
       .list-container {
         position: relative;
@@ -122,6 +117,7 @@ This is a sample showing how to implement a seatmap that can be used for theater
       }
       .ampstart-card {
         min-width: 100%;
+        padding: 1rem;
       }
     </style>
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
@@ -131,31 +127,20 @@ This is a sample showing how to implement a seatmap that can be used for theater
 
   </head>
   <body>
-    <!-- ## How to implement a seat map -->
-    <!-- Here we are using an `amp-state` called `user`
-    to keep a list of selected seat ids in the `selectedSeats` array -->
-    <amp-state id="user">
-      <script type="application/json">
-        {
-          "selectedSeats": []
-        }
-      </script>
-    </amp-state>
-    <!-- `transform` state is used to keep track of the scale of the content being zoomed using by `amp-pan-zoom`. -->
-    <amp-state id="transform">
-      <script type="application/json">
-        {
-          "scale": 1
-        }
-      </script>
-    </amp-state>
 
-    <!-- `zoom` state is used to keep track of the seat map is in a zoomed state or not. This variable is used to
-    decide whether to show a + or - button -->
-    <amp-state id="zoom ">
-          <script type="application/json">
-            0
-          </script>
+    <!-- Here we are using an `amp-state` called `seatmap`.
+      `scale` variable is used to keep track of the scale of the content being zoomed using by `amp-pan-zoom`.
+      `zoom` variable is used to keep track of the seat map is in a zoomed state or not. This variable is used to
+    decide whether to show a + or - button.
+    `selectedSeats` variables keeps a  list of selected seat ids.  -->
+    <amp-state id="seatmap">
+      <script type="application/json">
+        {
+          "scale": 1,
+          "selectedSeats": [],
+          "zoom": 0
+        }
+      </script>
     </amp-state>
 
     <h1>Seat map</h1>
@@ -164,7 +149,7 @@ This is a sample showing how to implement a seatmap that can be used for theater
     We are using the `transformEnd` action from [amp-pan-zoom](https://www.ampproject.org/docs/reference/components/amp-pan-zoom)
     to update the value of transform.scale variable.
     We display 2 types of seats: wheelchair and standard. Each seat can be available, unavailable and selected. Everytime a seat is 
-    selected we add the seat id to the `user.selectedSeats` variable.
+    selected we add the seat id to the `seatmap.selectedSeats` variable.
     -->
      <div class="list-container">
      <amp-list layout="fill" src="/json/seats.json" items="." single-item noloading>
@@ -191,61 +176,26 @@ This is a sample showing how to implement a seatmap that can be used for theater
       </div>
           <template type="amp-mustache">
           <amp-pan-zoom layout="fill" id="pan-zoom"
-            on="transformEnd:AMP.setState({transform: {scale: event.scale, x: event.x, y: event.y}, zoom: event.scale <= 1 ? 0 : 1})">
+            on="transformEnd:AMP.setState({seatmap: {scale: event.scale, x: event.x, y: event.y, zoom: event.scale <= 1 ? 0 : 1}})">
             <svg class="seat-map-svg" preserveAspectRatio="xMidYMin slice" viewBox="0 0 {{width}} {{height}}">
                 {{#seats}}                
-                {{#wheelchair }}
-                  <rect x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}" class="special-seat" rx="{{rx}}" ry="{{ry}}"/>
-                  {{#available }}
-                    <image class="special-seat-image"
-                            [class]="user.selectedSeats.length == flowState.limitTicketsReservedSeating ? 'special-seat-image disabled-seat' : 'special-seat-image'"
-                            x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
-                            xlink:href="/img/accessible-unselected-24px.svg"
-                            [hidden]="user.selectedSeats.includes('{{id}}')"
-                            on="tap:{{type}}-popup, AMP.setState({
-                              lastSelectedSeat: {{id}},
-                                user: {selectedSeats: user.selectedSeats.concat('{{id}}')}
-                            })"
-                            tabindex="0"
-                            role="button">
-                    </image>
-                  {{/available }}
-                    <image class="selected special-seat-image"
-                          x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
-                          hidden [hidden]="!user.selectedSeats.includes('{{id}}')"
-                            xlink:href="/img/accessible-24px.svg"
-                          on="tap:AMP.setState({
-                              user: {selectedSeats: copyAndSplice(user.selectedSeats, user.selectedSeats.indexOf({{lastSelectedSeat}}), 1)}
-                          })"
-                          tabindex="0"
-                          role="button">
-                    </image>
-                  {{^available}}
-                    <image class="special-seat-image" 
-                            x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
-                            xlink:href="/img/accessible-unavailable-24px.svg"
-                            tabindex="0"
-                            role="button">
-                    </image>
-                  {{/available }}
-                {{/wheelchair}}
                 {{#standard }}
                     <rect class="seat selected"
-                          hidden [hidden]="!user.selectedSeats.includes('{{id}}')"
+                          hidden [hidden]="!seatmap.selectedSeats.includes('{{id}}')"
                           x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
                           on="tap:AMP.setState({
-                              user: {selectedSeats: copyAndSplice(user.selectedSeats, user.selectedSeats.indexOf('{{id}}'), 1)}
+                            seatmap: {selectedSeats: copyAndSplice(seatmap.selectedSeats, seatmap.selectedSeats.indexOf('{{id}}'), 1)}
                           })"
                           role="button"
                           tabindex="0" rx="{{rx}}" ry="{{ry}}"></rect>
                     {{#available }}
                       <rect class="seat" 
-                          [class]= "user.selectedSeats.length ==  limitTicketsReservedSeating ? 'seat disabled-seat' : 'seat'"
+                          [class]= "seatmap.selectedSeats.length ==  limitTicketsReservedSeating ? 'seat disabled-seat' : 'seat'"
                           x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
-                          [hidden]="user.selectedSeats.includes('{{id}}')"
+                          [hidden]="seatmap.selectedSeats.includes('{{id}}')"
                           on="tap:AMP.setState({
                             lastSelectedSeat: '{{id}}',
-                              user: {selectedSeats: user.selectedSeats.concat('{{id}}')}
+                            seatmap: {selectedSeats: seatmap.selectedSeats.concat('{{id}}')}
                           })"
                           role="button"
                           tabindex="0" rx="{{rx}}" ry="{{ry}}"></rect>  
@@ -266,7 +216,9 @@ This is a sample showing how to implement a seatmap that can be used for theater
       </div>
       <!-- To enable desktop users, we provide + and - buttons. We use `amp-bind` to decide whether to show the + or - button depending
       on the state of the zooming -->
-    <button class="zoom-button" on="tap:pan-zoom.transform(scale=1)" hidden [hidden]="zoom==0">-</button>
-    <button class="zoom-button" on="tap:pan-zoom.transform(scale=3, x=50, y=10)" [hidden]="zoom==1">+</button>
+      <div>
+        <button class="zoom-button" on="tap:pan-zoom.transform(scale=1)" hidden [hidden]="seatmap.zoom==0">-</button>
+        <button class="zoom-button" on="tap:pan-zoom.transform(scale=3, x=50, y=10)" [hidden]="seatmap.zoom==1">+</button>
+      </div>
   </body>
 </html>
