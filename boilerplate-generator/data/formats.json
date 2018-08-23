@@ -1,0 +1,19 @@
+[
+  {
+    "id": "amphtml",
+    "name": "Website",
+    "default": true
+  },
+  {
+    "id": "amp4stories",
+    "name": "Story"
+  },
+  {
+    "id": "amp4email",
+    "name": "Email"
+  },
+  {
+    "id": "amp4ads",
+    "name": "Ad"
+  }
+]
