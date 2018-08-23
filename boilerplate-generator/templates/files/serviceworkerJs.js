@@ -21,7 +21,7 @@ self.addEventListener('install', event => {
   );
 });
 
-// Enable navigation preload . This is only necessary if navigation routes are not cached,
+// Enable navigation preload. This is only necessary if navigation routes are not cached,
 // see: https://developers.google.com/web/tools/workbox/modules/workbox-navigation-preload
 workbox.navigationPreload.enable();
 

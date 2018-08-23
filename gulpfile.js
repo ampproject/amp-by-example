@@ -539,7 +539,7 @@ gulp.task('build:playground', 'Build the playground', function() {
 gulp.task('build:boilerplate-generator',
     'Build the AMP boilerplate generator',
     function() {
-      const boilerplateDist = '../dist/' + paths.boilerplate;
+      const boilerplateDist = '../dist/boilerplate';
       return run(
           'cd ' + paths.boilerplate + ' && ' +
           'npm i && ' +
