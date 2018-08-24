@@ -5,6 +5,8 @@
 <!-- ## Introduction -->
 <!--
 This is a sample showing how to implement a seatmap that can be used for theaters, cinemas, airplanes and more.
+We are showing how to pan & zoom on the seatmap to better select seats, how to keep the availability up to date and
+how to dinamically select and unselect seats.
 -->
 <!-- -->
 <!doctype html>
@@ -29,9 +31,6 @@ This is a sample showing how to implement a seatmap that can be used for theater
       --abe-light-pink: rgba(182, 8, 69, 0.5);
       --abe-pink: rgb(182, 8, 69);
       }
-      *:focus {
-      outline: none;
-      }
       .seat {
         stroke-width: 3;
         stroke: rgb(0,0,0);
@@ -40,13 +39,6 @@ This is a sample showing how to implement a seatmap that can be used for theater
       .unavailable {
         fill: var(--abe-light-pink);
         pointer-events: none;
-      }
-      .container {
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        background: white;
-        border-radius: 5px;
       }
       .seat.selected {
         fill: var(--abe-pink);
@@ -70,9 +62,6 @@ This is a sample showing how to implement a seatmap that can be used for theater
       .hidden {
         display: none;
       }
-      .clickable {
-        cursor: pointer;
-      }
       .zoom-button {
         bottom: 60px;
         right: 0px;
@@ -92,10 +81,6 @@ This is a sample showing how to implement a seatmap that can be used for theater
         opacity: 0.5;
         filter: alpha(opacity=50);
       }
-      #choose-seats-button {
-        padding-bottom: 15px;
-        padding-right: 10px;
-      }
       .seat-map-svg {
         box-sizing: border-box;
         padding-top: 30px;
@@ -107,9 +92,6 @@ This is a sample showing how to implement a seatmap that can be used for theater
         left: 0;
         right: 0;
         margin: auto;
-      }
-      .hide {
-        display: none;
       }
       .list-container {
         position: relative;
@@ -144,32 +126,26 @@ This is a sample showing how to implement a seatmap that can be used for theater
     </amp-state>
 
     <h1>Seat map</h1>
-    <!-- You can implement a seat map by using `amp-list`, `amp-bind` and `amp-pan-zoom` where
-    `amp-list` loads the list of seats. 
+    <!-- You can implement a seat map by using `amp-list`, `amp-bind` and `amp-pan-zoom`.
+    `amp-list` is used to keep the availability of the seatmap up to date.
+    `amp-bind` is used to update the status of the seats: when a seat is selected or unselected we update the color and 
+    we add the seat id to the `seatmap.selectedSeats` variable. 
+    `amp-pan-zoom` is used to make possible to pan & zoom on mobile devices.
     We are using the `transformEnd` action from [amp-pan-zoom](https://www.ampproject.org/docs/reference/components/amp-pan-zoom)
     to update the value of transform.scale variable.
-    We display 2 types of seats: wheelchair and standard. Each seat can be available, unavailable and selected. Everytime a seat is 
-    selected we add the seat id to the `seatmap.selectedSeats` variable.
     -->
      <div class="list-container">
      <amp-list layout="fill" src="/json/seats.json" items="." single-item noloading>
+      <!--~
+      We display a placeholder for the seatmap by using server-side templating. 
+      ~-->
       <div placeholder>
         <svg class="opaque disabled-seat seat-map-svg" viewBox="0 0 [[.Width]] [[.Height]]" preserveAspectRatio="xMidYMin slice">
           [[range .Seats]] 
-          [[if .Wheelchair]]             
-            <rect x="[[.X]]" y="[[.Y]]" width="[[.Width]]" height="[[.Height]]" class="special-seat" rx="[[.Rx]]" ry="[[.Ry]]"/>
-              <image class="special-seat-image"
-                x="[[.X]]" y="[[.Y]]" width="[[.Width]]" height="[[.Height]]"
-                      xlink:href="/img/accessible-unavailable-24px.svg"
-                      tabindex="0"
-                      role="button"></image>
-          [[end]]
-          [[if .Standard]]  
            <rect class="seat unavailable" 
                            x="[[.X]]" y="[[.Y]]" width="[[.Width]]" height="[[.Height]]"
                           role="button"
                           tabindex="0" rx="[[.Rx]]" ry="[[.Ry]]"/>   
-            [[end]]
             [[end]]
               
         </svg>
@@ -180,6 +156,9 @@ This is a sample showing how to implement a seatmap that can be used for theater
             <svg class="seat-map-svg" preserveAspectRatio="xMidYMin slice" viewBox="0 0 {{width}} {{height}}">
                 {{#seats}}                
                 {{#standard }}
+                    <!--~
+                    If a seat is selected, when the user selects it again, it's removed from the seatmap.selectedSeats list
+                    ~-->
                     <rect class="seat selected"
                           hidden [hidden]="!seatmap.selectedSeats.includes('{{id}}')"
                           x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
@@ -190,7 +169,6 @@ This is a sample showing how to implement a seatmap that can be used for theater
                           tabindex="0" rx="{{rx}}" ry="{{ry}}"></rect>
                     {{#available }}
                       <rect class="seat" 
-                          [class]= "seatmap.selectedSeats.length ==  limitTicketsReservedSeating ? 'seat disabled-seat' : 'seat'"
                           x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
                           [hidden]="seatmap.selectedSeats.includes('{{id}}')"
                           on="tap:AMP.setState({
