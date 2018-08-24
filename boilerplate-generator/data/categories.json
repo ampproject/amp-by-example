@@ -84,6 +84,13 @@
         "id": "googleFonts", 
         "formats": [ "amphtml", "amp4stories", "amp4ads"],
         "label": "Google Fonts",
+        "values": [
+          {
+            "key": "fonts",
+            "label": "Font(s)",
+            "value": "Montserrat"
+          }
+        ],
         "default": false
       }
     ]
