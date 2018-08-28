@@ -60,7 +60,7 @@ workbox.routing.registerRoute(
 /* uncomment to enable
 // Cache Images
 workbox.routing.registerRoute(
-  /\.(?:png|gif|jpg|jpeg|svg)$/,
+  /\.(?:png|gif|jpg|jpeg|svg|webp)$/,
   workbox.strategies.cacheFirst({
     cacheName: 'images',
     plugins: [
@@ -76,18 +76,28 @@ workbox.routing.registerRoute(
 /* uncomment to enable
 // Google Font Caching
 // see https://developers.google.com/web/tools/workbox/guides/common-recipes#google_fonts
+// Cache the Google Fonts stylesheets with a stale while revalidate strategy.
 workbox.routing.registerRoute(
-  new RegExp('https://fonts.(?:googleapis|gstatic).com/(.*)'),
+  /^https:\/\/fonts\.googleapis\.com/,
+  workbox.strategies.staleWhileRevalidate({
+    cacheName: 'google-fonts-stylesheets',
+  }),
+);
+
+// Cache the Google Fonts webfont files with a cache first strategy for 1 year.
+workbox.routing.registerRoute(
+  /^https:\/\/fonts\.gstatic\.com/,
   workbox.strategies.cacheFirst({
-    cacheName: 'googleapis',
+    cacheName: 'google-fonts-webfonts',
     plugins: [
       new workbox.cacheableResponse.Plugin({
-        statuses: [0, 200]
+        statuses: [0, 200],
       }),
       new workbox.expiration.Plugin({
-        maxEntries: 30
-      })
-    ]
+        maxAgeSeconds: 60 * 60 * 24 * 365,
+        maxEntries: 30,
+      }),
+    ],
   }),
 );
 */
