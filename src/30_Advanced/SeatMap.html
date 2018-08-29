@@ -47,6 +47,8 @@ how to dynamically select and unselect seats.
       .disabled {
         pointer-events: none;
         cursor: default;
+        opacity: 0.5;
+        filter: alpha(opacity=50);
       }
       .zoom-button {
         bottom: 60px;
@@ -62,10 +64,6 @@ how to dynamically select and unselect seats.
         box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
         background-color: white;
         border-radius: 3px;
-      }
-      .opaque {
-        opacity: 0.5;
-        filter: alpha(opacity=50);
       }
       .seat-map-svg {
         box-sizing: border-box;
@@ -96,11 +94,11 @@ how to dynamically select and unselect seats.
   </head>
   <body>
     <!-- ## Seatmap -->
-    <!-- Here we are using an `amp-state` called `seatmap`.
-      `scale` variable is used to keep track of the scale of the content being zoomed using by `amp-pan-zoom`.
-      `zoom` variable is used to keep track of the seat map is in a zoomed state or not. This variable is used to
+    <!-- Here we are using an `amp-state` called `seatmap` to keep track of some variables that will be used throughout the sample:
+      * `scale` variable is used to keep track of the scale of the content being zoomed using by `amp-pan-zoom`.
+      * `zoom` variable is used to keep track of the seat map is in a zoomed state or not. This variable is used to
     decide whether to show a + or - button.
-    `selectedSeats` variables keeps a  list of selected seat ids.  -->
+      * `selectedSeats` variables keeps a  list of selected seat ids.  -->
     <amp-state id="seatmap">
       <script type="application/json">
         {
@@ -111,9 +109,11 @@ how to dynamically select and unselect seats.
       </script>
     </amp-state>
 
-    <!-- You can implement a seat map by using `amp-list`, `amp-bind` and `amp-pan-zoom`.
-    `amp-list` is used to keep the availability of the seatmap up to date.
-    `amp-bind` is used to update the status of the seats: when a seat is selected or unselected we update the color and 
+    <!-- 
+    We combine `amp-list`, `amp-bind` and `amp-pan-zoom` to implement a seatmap:
+
+    * `amp-list` is used to keep the availability of the seatmap up to date.
+    * `amp-bind` is used to update the status of the seats: when a seat is selected or unselected we update the color and 
     we add the seat id to the `seatmap.selectedSeats` variable. 
     `amp-pan-zoom` is used to make possible to pan & zoom on mobile devices.
     We are using the `transformEnd` action from [amp-pan-zoom](https://www.ampproject.org/docs/reference/components/amp-pan-zoom)
@@ -152,7 +152,7 @@ how to dynamically select and unselect seats.
       the information about the layout of the theater.
       ~-->
       <div placeholder>
-        <svg class="opaque disabled seat-map-svg" viewBox="0 0 [[.Width]] [[.Height]]" preserveAspectRatio="xMidYMin slice">
+        <svg class="disabled seat-map-svg" viewBox="0 0 [[.Width]] [[.Height]]" preserveAspectRatio="xMidYMin slice">
           [[range .Seats]] 
            <rect class="seat unavailable" 
                           x="[[.X]]" y="[[.Y]]" width="[[.Width]]" height="[[.Height]]"
