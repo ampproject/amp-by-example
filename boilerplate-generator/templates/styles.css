@@ -62,6 +62,7 @@ button {
   cursor: pointer;
   min-width: 56px;
   border-radius: 8px;
+  transition: opacity 100ms ease-in-out;
 }
 button.active {
   color: #fff;
@@ -260,6 +261,7 @@ pre {
   right: 16px;
   position: fixed;
   text-transform: uppercase;
+  transform: scale(.0000001);
 }
 @media (min-width: 930px) {
   .fab {
@@ -277,6 +279,30 @@ a.anchor {
   padding: 4.5px 0;
   width:100%;
   background-color: #eb407a18;
+}
+
+/* Disable inputs while AMP Runtime is still loading */
+body.amp-mode-mouse .fab,
+body.amp-mode-touch .fab {
+  animation: expand .25s ease-in-out .25s forwards;
+  pointer-events: auto;
+}
+@keyframes expand {
+  0% {
+    transform: scale(.0000001);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+body:not(.amp-mode-mouse):not(.amp-mode-touch) label,
+body:not(.amp-mode-mouse):not(.amp-mode-touch) input,
+body:not(.amp-mode-mouse):not(.amp-mode-touch) button {
+  opacity: 0.3;
+  pointer-events: none;
+}
+body:not(.amp-mode-mouse):not(.amp-mode-touch) button.active {
+  opacity: 0.5;
 }
 
 /* github.com style (c) Vasily Polovnyov <vast@whiteants.net> */
