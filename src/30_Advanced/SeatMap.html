@@ -124,6 +124,30 @@ how to dynamically select and unselect seats.
      <div class="list-container">
      <amp-list layout="fill" src="/json/seats.json" items="." single-item noloading>
       <!--~
+      The seatmap with the availability of the seats is rendered via `amp-list` so that we make sure always the latest
+      data are available to the user.
+      ~-->
+      <template type="amp-mustache">
+        <amp-pan-zoom layout="fill" id="pan-zoom"
+          on="transformEnd:AMP.setState({seatmap: {scale: event.scale, x: event.x, y: event.y, zoom: event.scale <= 1 ? 0 : 1}})">
+          <svg class="seat-map-svg" preserveAspectRatio="xMidYMin slice" viewBox="0 0 {{width}} {{height}}">
+          {{#seats}}                
+          <!--~
+          If a seat is selected, when the user selects it again, it's removed from the seatmap.selectedSeats list
+          ~-->
+            <rect class="seat {{unavailable}}" [class]="seatmap.selectedSeats.includes('{{id}}')? 'seat selected' : 'seat'" 
+              x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}" role="button" tabindex="0" rx="{{rx}}" ry="{{ry}}"
+              on="{{#available}} tap:AMP.setState({
+                seatmap: {
+                  selectedSeats: !seatmap.selectedSeats.includes('{{id}}') ? 
+                  seatmap.selectedSeats.concat('{{id}}') : copyAndSplice(seatmap.selectedSeats, seatmap.selectedSeats.indexOf('{{id}}'), 1)
+                }
+              }) {{/available}}"></rect>  
+            {{/seats}}
+          </svg>
+        </amp-pan-zoom>
+      </template>
+      <!--~
       We display a placeholder for the seatmap by using server-side templating. This is possible because we have
       the information about the layout of the theater.
       ~-->
@@ -138,30 +162,6 @@ how to dynamically select and unselect seats.
               
         </svg>
       </div>
-          <!--~
-            The seatmap with the availability of the seats is rendered via `amp-list` so that we make sure always the latest
-            data are available to the user.
-          ~-->
-          <template type="amp-mustache">
-            <amp-pan-zoom layout="fill" id="pan-zoom"
-              on="transformEnd:AMP.setState({seatmap: {scale: event.scale, x: event.x, y: event.y, zoom: event.scale <= 1 ? 0 : 1}})">
-              <svg class="seat-map-svg" preserveAspectRatio="xMidYMin slice" viewBox="0 0 {{width}} {{height}}">
-                {{#seats}}                
-                    <!--~
-                    If a seat is selected, when the user selects it again, it's removed from the seatmap.selectedSeats list
-                    ~-->
-                    <rect class="seat {{unavailable}}" [class]="seatmap.selectedSeats.includes('{{id}}')? 'seat selected' : 'seat'" 
-                          x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}" role="button" tabindex="0" rx="{{rx}}" ry="{{ry}}"
-                          on="{{#available}} tap:AMP.setState({
-                            seatmap: {
-                              selectedSeats: !seatmap.selectedSeats.includes('{{id}}') ? 
-                              seatmap.selectedSeats.concat('{{id}}') : copyAndSplice(seatmap.selectedSeats, seatmap.selectedSeats.indexOf('{{id}}'), 1)
-                            }
-                          }) {{/available}}"></rect>  
-                {{/seats}}
-              </svg>
-            </amp-pan-zoom>
-          </template>
         </amp-list>
       </div>
     </div>
