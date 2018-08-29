@@ -18,13 +18,13 @@ how to dinamically select and unselect seats.
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <!-- ## Setup -->
-    <!-- Additionally used AMP components must be imported in the header. We use `amp-pan-zoom` to make the seatmap zoomable and scrollable -->
+    <!-- Additionally used AMP components must be imported in the header: `amp-pan-zoom` for making the seatmap zoomable and scrollable -->
     <script async custom-element="amp-pan-zoom" src="https://cdn.ampproject.org/v0/amp-pan-zoom-0.1.js"></script>
-    <!-- We use `amp-bind` for enabling seat selection -->
+    <!-- `amp-bind` for enabling seat selection -->
     <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-    <!-- We use `amp-list` for showing a list of seats -->
+    <!-- `amp-list` for showing a list of seats -->
     <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
-    <!-- We use `amp-mustache` for rendering the `amp-list` content -->
+    <!-- `amp-mustache` for rendering the `amp-list` content -->
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
     <style amp-custom>
       :root {
@@ -155,37 +155,20 @@ how to dinamically select and unselect seats.
             on="transformEnd:AMP.setState({seatmap: {scale: event.scale, x: event.x, y: event.y, zoom: event.scale <= 1 ? 0 : 1}})">
             <svg class="seat-map-svg" preserveAspectRatio="xMidYMin slice" viewBox="0 0 {{width}} {{height}}">
                 {{#seats}}                
-                {{#standard }}
                     <!--~
                     If a seat is selected, when the user selects it again, it's removed from the seatmap.selectedSeats list
                     ~-->
-                    <rect class="seat selected"
-                          hidden [hidden]="!seatmap.selectedSeats.includes('{{id}}')"
+                    <rect class="seat {{unavailable}}" [class]="seatmap.selectedSeats.includes('{{id}}')? 'seat selected' : 'seat'"
                           x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
-                          on="tap:AMP.setState({
-                            seatmap: {selectedSeats: copyAndSplice(seatmap.selectedSeats, seatmap.selectedSeats.indexOf('{{id}}'), 1)}
-                          })"
-                          role="button"
-                          tabindex="0" rx="{{rx}}" ry="{{ry}}"></rect>
-                    {{#available }}
-                      <rect class="seat" 
-                          x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
-                          [hidden]="seatmap.selectedSeats.includes('{{id}}')"
-                          on="tap:AMP.setState({
-                            lastSelectedSeat: '{{id}}',
-                            seatmap: {selectedSeats: seatmap.selectedSeats.concat('{{id}}')}
-                          })"
+                          on="{{#available}} tap:AMP.setState({
+                            lastSelectedSeat: !seatmap.selectedSeats.includes('{{id}}') ? '{{id}}' : lastSelectedSeat,
+                            seatmap: {
+                              selectedSeats: !seatmap.selectedSeats.includes('{{id}}') ? 
+                            seatmap.selectedSeats.concat('{{id}}') : copyAndSplice(seatmap.selectedSeats, seatmap.selectedSeats.indexOf('{{id}}'), 1)
+                            }
+                          }) {{/available}}"
                           role="button"
                           tabindex="0" rx="{{rx}}" ry="{{ry}}"></rect>  
-                    {{/available }}
-                    {{^available}}
-                          <rect class="seat unavailable" 
-                          x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}"
-                          role="button"
-                          tabindex="0" rx="{{rx}}" ry="{{ry}}">   
-                          </rect>            
-                    {{/available }}
-                  {{/standard }}
                 {{/seats}}
               </svg>
             </amp-pan-zoom>
