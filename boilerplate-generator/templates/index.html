@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="description" content="This is the AMP Boilerplate.">
-    <link rel="preload" as="script" href="https://cdn.ampproject.org/v0.js">
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
     <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
@@ -163,10 +162,7 @@
     </section>
     <section class="boilerplate">
       <a id="boilerplate" class="anchor"></a>
-      <amp-position-observer on="enter:hideAnim.start; exit:showAnim.start"
-                             intersection-ratios="0.5"
-        layout="nodisplay">
-      </amp-position-observer>
+      <amp-position-observer on="enter:hideAnim.start; exit:showAnim.start" layout="nodisplay"></amp-position-observer>
       <h3>Boilerplate</h3>
       <p>Start your AMP page by copying and pasting this code:</p>
       <pre  [hidden]="config.changed"><code>{{{initialCode}}}</code></pre>
