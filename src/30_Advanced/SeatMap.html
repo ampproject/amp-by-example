@@ -69,6 +69,9 @@ how to dynamically select and unselect seats.
         box-sizing: border-box;
         padding-top: 30px;
       }
+      /* `amp-pan-zoom` has a default display: flex to center positioning the child. 
+      In this sample we are going to use a seatmap placeholder and for correctly positioning it, we are overwriting the
+      `amp-pan-zoom` display to `initial` */
       #pan-zoom {
         display: initial;
       }
@@ -80,8 +83,6 @@ how to dynamically select and unselect seats.
       .list-container {
         position: relative;
         height: 50vh;
-      }
-      .ampstart-card {
         min-width: 100%;
         padding: 1rem;
       }
@@ -129,8 +130,8 @@ how to dynamically select and unselect seats.
       ~-->
       <template type="amp-mustache">
          <!--~
-          We are using `layout=fill` to allow the seatmap to use all the available space in the page, this is because
-          we don't know the height or the ratio od the seatmap.
+          We are using `layout=fill` to allow the seatmap to use all the available space in its container that we set at 5vh, this is because
+          we don't know the height or the ratio of the seatmap.
           ~-->
         <amp-pan-zoom layout="fill" id="pan-zoom"
           on="transformEnd:AMP.setState({seatmap: {scale: event.scale, x: event.x, y: event.y, zoom: event.scale <= 1 ? 0 : 1}})">
@@ -140,7 +141,9 @@ how to dynamically select and unselect seats.
           If a seat is selected, when the user selects it again, it's removed from the seatmap.selectedSeats list
           ~-->
             <rect class="seat {{unavailable}}" [class]="seatmap.selectedSeats.includes('{{id}}')? 'seat selected' : 'seat'" 
-              x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}" role="button" tabindex="0" rx="{{rx}}" ry="{{ry}}"
+              x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}" 
+              role="button" 
+              tabindex="0" rx="{{rx}}" ry="{{ry}}"
               on="{{#available}} tap:AMP.setState({
                 seatmap: {
                   selectedSeats: !seatmap.selectedSeats.includes('{{id}}') ? 
@@ -152,8 +155,8 @@ how to dynamically select and unselect seats.
         </amp-pan-zoom>
       </template>
       <!--~
-      We display a placeholder for the seatmap by using server-side templating. This is possible because we have
-      the information about the layout of the theater.
+      To improve the loading experience, we'll show a seatmap skeleton without the actual seat availability. 
+      The skeleton is rendered server-side as a placeholder element.
       ~-->
       <div placeholder>
         <svg class="disabled seat-map-svg" viewBox="0 0 [[.Width]] [[.Height]]" preserveAspectRatio="xMidYMin slice">
