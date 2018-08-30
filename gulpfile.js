@@ -16,7 +16,7 @@
 
 'use strict';
 
-const gulp = require('gulp-help')(require('gulp'));
+const gulp = require('gulp');
 const serve = require('serve');
 const file = require('gulp-file');
 const rename = require('gulp-rename');
@@ -28,7 +28,6 @@ const gutil = require('gulp-util');
 const gulpIf = require('gulp-if');
 const gulpIgnore = require('gulp-ignore');
 const favicons = require('gulp-favicons');
-const runSequence = require('run-sequence');
 const argv = require('yargs').argv;
 const path = require('path');
 const diff = require('gulp-diff');
@@ -124,87 +123,83 @@ const sampleTemplates = Templates.get(config.templates.root, /* minify */ false,
     '<% %>');
 
 
-gulp.task('serve', 'starts a local webserver (--port specifies bound port)',
-    function() {
-      serve(paths.dist.dir, {
-        port: argv.port || 8000,
-        ignore: ['node_modules'],
-      });
-    });
+gulp.task('serve', function() {
+  serve(paths.dist.dir, {
+    port: argv.port || 8000,
+    ignore: ['node_modules'],
+  });
+});
 
-gulp.task('serve:api', 'starts a local webserver for api iframe files',
-    function() {
-      serve(paths.api.dir, {
-        port: 8800,
-        ignore: ['node_modules'],
-      });
-    });
+gulp.task('serve:api', function() {
+  serve(paths.api.dir, {
+    port: 8800,
+    ignore: ['node_modules'],
+  });
+});
 
-gulp.task('deploy:prod', 'deploy to production server', function(callback) {
+gulp.task('deploy:prod', function(callback) {
   config.env = PROD;
-  runSequence('clean',
+  return gulp.series('clean',
       'robots:allow',
       'build',
       'deploy:site:prod',
-      'deploy:api:prod',
-      callback);
+      'deploy:api:prod')(callback);
 });
 
-gulp.task('deploy:staging', 'deploy to staging server', function(callback) {
+gulp.task('deploy:staging', function(callback) {
   config.env = PROD;
   config.appId = 'amp-by-example-staging';
   config.host = 'https://' + config.appId + '.appspot.com';
-  runSequence('clean',
+  return gulp.series('clean',
       'robots:disallow',
       'build',
-      'deploy:site:staging',
-      callback);
+      'deploy:site:staging')(callback);
 });
 
-gulp.task('conf:encode', 'encode the config file', function() {
+gulp.task('conf:encode', function() {
   return run('openssl aes-256-cbc -e -in ' + paths.api.conf + ' -out ' +
     paths.api.conf + '.enc -pass env:AMP_BY_EXAMPLE_DEPLOY_KEY').exec();
 });
 
-gulp.task('conf:decode', 'decode the config file', function() {
+gulp.task('conf:decode', function() {
   return run('openssl aes-256-cbc -d -in ' + paths.api.conf + '.enc -out ' +
     paths.api.conf + ' -pass env:AMP_BY_EXAMPLE_DEPLOY_KEY').exec();
 });
 
-gulp.task('deploy:site:prod', 'deploy to production site', function() {
+gulp.task('deploy:site:prod', function() {
   return run('goapp deploy -application  amp-by-example -version 1').exec();
 });
 
-gulp.task('deploy:api:prod', 'deploy to production api app engine', function() {
+gulp.task('deploy:api:prod', function() {
   return run(
       'cd api && goapp deploy -application  amp-by-example-api -version 1')
       .exec();
 });
 
-gulp.task('deploy:site:staging', 'deploy to staging app engine', function() {
+gulp.task('deploy:site:staging', function() {
   return run('goapp deploy -application ' + config.appId + ' -version 1')
       .exec();
 });
 
-gulp.task('copy:images', 'copy example images', function() {
+gulp.task('copy:images', function() {
   return gulp.src(paths.images)
       .pipe(cache('img'))
       .pipe(gulp.dest(paths.dist.img));
 });
 
-gulp.task('copy:videos', 'copy example videos', function() {
+gulp.task('copy:videos', function() {
   return gulp.src(paths.videos)
       .pipe(cache('video'))
       .pipe(gulp.dest(paths.dist.video));
 });
 
-gulp.task('copy:json', 'copy example json', function() {
+gulp.task('copy:json', function() {
   return gulp.src(paths.json)
       .pipe(cache('json'))
       .pipe(gulp.dest(paths.dist.json));
 });
 
-gulp.task('copy:css', 'copy css', function() {
+gulp.task('copy:css', function() {
   return gulp.src(paths.css)
       .pipe(cache('css'))
       .pipe(gulp.dest(paths.dist.css));
@@ -219,19 +214,19 @@ gulp.task('copy:node-modules', function() {
   }).pipe(gulp.dest(paths.dist.dir));
 });
 
-gulp.task('copy:fonts', 'copy example fonts', function() {
+gulp.task('copy:fonts', function() {
   return gulp.src(paths.fonts)
       .pipe(cache('fonts'))
       .pipe(gulp.dest(paths.dist.fonts));
 });
 
-gulp.task('copy:well-known', 'copy well-known folder', function() {
+gulp.task('copy:well-known', function() {
   return gulp.src(paths.wellknown)
       .pipe(cache('wellknown'))
       .pipe(gulp.dest(paths.dist.wellknown));
 });
 
-gulp.task('copy:license', 'copy license', function() {
+gulp.task('copy:license', function() {
   return gulp.src('LICENSE')
       .pipe(cache('license'))
       .pipe(rename(function(path) {
@@ -240,7 +235,7 @@ gulp.task('copy:license', 'copy license', function() {
       .pipe(gulp.dest(paths.dist.dir));
 });
 
-gulp.task('copy:static', 'copy static files', function() {
+gulp.task('copy:static', function() {
   return gulp.src(paths.static)
       .pipe(gulpIf(isHtml, change(prerenderTemplates)))
       .pipe(cache('static'))
@@ -301,7 +296,7 @@ const shouldIgnoreSample = function(file) {
   return true;
 };
 
-gulp.task('validate:example', 'validate example html files', function() {
+gulp.task('validate:example', function() {
   return gulp.src(paths.samples)
       .pipe(compileExample(config))
       .pipe(gulpIgnore.exclude(shouldIgnoreSample))
@@ -328,7 +323,7 @@ function shouldMinifyHtml(file) {
   return true;
 }
 
-gulp.task('compile:example', 'generate index.html and examples', function() {
+gulp.task('compile:example', function() {
   return gulp.src(paths.samples)
       .pipe(compileExample(config))
       .pipe(gulpIf(shouldMinifyHtml, htmlmin({
@@ -338,13 +333,13 @@ gulp.task('compile:example', 'generate index.html and examples', function() {
       .pipe(gulp.dest(paths.dist.dir));
 });
 
-gulp.task('compile:sitemap', 'generate sitemap.xml', function() {
+gulp.task('compile:sitemap', function() {
   return gulp.src(paths.samples)
       .pipe(sitemap(config))
       .pipe(gulp.dest(paths.dist.dir));
 });
 
-gulp.task('create', 'create a new AMP example', function() {
+gulp.task('create', function() {
   const title = argv.n || argv.name;
   const fileName = FileName.fromString(title);
   if (!fileName) {
@@ -378,19 +373,20 @@ function throwInvalidArgumentError(message) {
   });
 }
 
-gulp.task('clean', 'delete all generated resources', function() {
+gulp.task('clean', function() {
   cache.caches = {};
   return del([paths.dist.dir, config.api.dist]);
 });
 
-gulp.task('watch', 'watch for changes in the examples', function() {
-  gulp.watch([paths.samples, paths.templates.files, paths.metadata], [
-    'compile:example',
-  ]);
-  gulp.watch(paths.images, ['copy:images']);
-  gulp.watch(paths.json, ['copy:json']);
-  gulp.watch(paths.videos, ['copy:videos']);
-  gulp.watch(paths.static, ['copy:static']);
+gulp.task('watch', function() {
+  gulp.watch(
+      [paths.samples, paths.templates.files, paths.metadata],
+      gulp.series('compile:example')
+  );
+  gulp.watch(paths.images, gulp.series('copy:images'));
+  gulp.watch(paths.json, gulp.series('copy:json'));
+  gulp.watch(paths.videos, gulp.series('copy:videos'));
+  gulp.watch(paths.static, gulp.series('copy:static'));
 });
 
 gulp.task('test', function() {
@@ -430,12 +426,12 @@ gulp.task('lint', function() {
       });
 });
 
-gulp.task('lint:backend', 'lint go backend code', function() {
+gulp.task('lint:backend', function() {
   /* gofmt only returns non zero status on syntax error */
   return run('test -z $(gofmt -l $(find . -name \'*.go\'))').exec();
 });
 
-gulp.task('lint:html', 'checks the hmtl source', function() {
+gulp.task('lint:html', function() {
   return gulp.src([paths.samples].join(paths.dist.samples))
       .pipe(htmlhint({
         'doctype-first': false,
@@ -446,85 +442,74 @@ gulp.task('lint:html', 'checks the hmtl source', function() {
 });
 
 
-gulp.task('default', 'Run a webserver and watch for changes', function(
-  callback) {
+gulp.task('default', function(callback) {
   config.host = 'http://localhost:8000';
   config.api.host = 'http://localhost:8800';
-  runSequence(
+  return gulp.parallel(
       'serve',
       'serve:api',
       'build',
-      'watch',
-      callback);
+      'watch')(callback);
 });
 
-gulp.task('backend:watch', 'run the go backend and watch for changes', function(
-  callback) {
+gulp.task('backend:watch', function(callback) {
   config.host = 'http://localhost:8080';
   config.api.host = 'http://localhost:8800';
-  runSequence(
+  return gulp.parallel(
       'serve:api',
       'build',
       'watch',
-      'backend:serve',
-      callback);
+      'backend:serve')(callback);
 });
 
-gulp.task('backend:serve', 'Run the go backend', function() {
+gulp.task('backend:serve', function() {
   return run('dev_appserver.py app.yaml').exec();
 });
 
-gulp.task('api:serve', 'Run the go api backend', function() {
+gulp.task('api:serve', function() {
   return run('cd api && dev_appserver.py app.yaml --admin_port=8100').exec();
 });
 
-gulp.task('validate', 'runs all checks', function(callback) {
-  runSequence('test',
-      'validate:example',
-      'lint',
-      'lint:backend',
-      'lint:html',
-      'test',
-      callback);
-});
+gulp.task('validate', gulp.series(
+    'test',
+    'validate:example',
+    'lint',
+    'lint:backend',
+    'lint:html',
+    'test'
+));
 
 
-gulp.task('snapshot',
-    'Saves a snapshot of the generated sample files',
-    function() {
-      return gulp.src(paths.samples)
-          .pipe(compileExample(config, false))
-          .pipe(gulp.dest(paths.tmp.dir));
-    }
+gulp.task('snapshot', function() {
+  return gulp.src(paths.samples)
+      .pipe(compileExample(config, false))
+      .pipe(gulp.dest(paths.tmp.dir));
+}
 );
 
-gulp.task('snapshot:verify',
-    'Compares generated samples against snapshot',
-    function() {
-      return gulp.src(paths.samples)
-          .pipe(compileExample(config, false))
-          .pipe(diff(paths.tmp.dir))
-          .pipe(diff.reporter({
-            fail: true,
-          }));
-    }
+gulp.task('snapshot:verify', function() {
+  return gulp.src(paths.samples)
+      .pipe(compileExample(config, false))
+      .pipe(diff(paths.tmp.dir))
+      .pipe(diff.reporter({
+        fail: true,
+      }));
+}
 );
 
-gulp.task('robots:disallow', 'generate robots.txt disallowing robots to access',
-    function() {
-      return generateRobotsTxt(`User-Agent: *
+gulp.task('robots:disallow', function() {
+  return generateRobotsTxt(`User-Agent: *
       Disallow: /
       `);
-    });
+});
 
-gulp.task('robots:allow', 'generate robots.txt allowing robots to access',
-    function() {
-      return generateRobotsTxt(`User-Agent: *
+gulp.task('robots:allow', function() {
+  return generateRobotsTxt(`User-Agent: *
       Disallow:
       `);
-    });
+});
 
-gulp.task('build:playground', 'Build the playground', function() {
+gulp.task('build:playground', function() {
   const playgroundDist = '../dist/' + paths.playground;
   return run(
       'cd ' + paths.playground + ' && ' +
@@ -536,19 +521,17 @@ gulp.task('build:playground', 'Build the playground', function() {
   ).exec();
 });
 
-gulp.task('build:boilerplate-generator',
-    'Build the AMP boilerplate generator',
-    function() {
-      const boilerplateDist = '../dist/boilerplate';
-      return run(
-          'cd ' + paths.boilerplate + ' && ' +
+gulp.task('build:boilerplate-generator', function() {
+  const boilerplateDist = '../dist/boilerplate';
+  return run(
+      'cd ' + paths.boilerplate + ' && ' +
           'npm i && ' +
           'node build.js && ' +
           'mkdir -p ../' + paths.dist.dir + ' && ' +
           'rm -rf ' + boilerplateDist + ' && ' +
           'cp -R dist ' + boilerplateDist
-      ).exec();
-    }
+  ).exec();
+}
 );
 
 
@@ -570,28 +553,28 @@ function performChange(content) {
   return content;
 }
 
-gulp.task('change', 'use this task to batch change samples', function() {
+gulp.task('change', function() {
   return gulp.src('src/**/*.html')
       .pipe(change(performChange))
       .pipe(gulp.dest('src/'));
 });
 
-gulp.task('build', 'build all resources', [
-  'copy:images',
-  'copy:videos',
-  'copy:json',
-  'copy:css',
-  'copy:fonts',
-  'copy:node-modules',
-  'copy:license',
-  'copy:static',
-  'compile:favicons',
-  'compile:sitemap',
-  'compile:example',
-  'copy:well-known',
-  'build:playground',
-  'build:boilerplate-generator',
-]);
+gulp.task('build', gulp.parallel(
+    'copy:images',
+    'copy:videos',
+    'copy:json',
+    'copy:css',
+    'copy:fonts',
+    'copy:node-modules',
+    'copy:license',
+    'copy:static',
+    'compile:favicons',
+    'compile:sitemap',
+    'compile:example',
+    'copy:well-known',
+    'build:playground',
+    'build:boilerplate-generator'
+));
 
 function run(command) {
   return grun(command, {
