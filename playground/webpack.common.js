@@ -19,8 +19,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const StyleExtHtmlWebpackPlugin = require('style-ext-html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-const WorkboxBuildWebpackPlugin = require('workbox-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const {GenerateSW} = require('workbox-webpack-plugin');
+const {InjectManifest} = require('workbox-webpack-plugin');
 
 module.exports = {
   context: path.resolve(__dirname, './src'),
@@ -96,11 +97,11 @@ module.exports = {
       allChunks: true,
     }),
     new StyleExtHtmlWebpackPlugin(),
-    new WorkboxBuildWebpackPlugin({
+    new InjectManifest({
       globPatterns: ['**\/*.{html,js,css}'],
       globIgnores: ['**\/sw.js'],
       swSrc: './src/sw.js',
-      swDest: './dist/sw.js',
+      swDest: 'sw.js',
     }),
   ],
   devServer: {
