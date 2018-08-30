@@ -128,6 +128,10 @@ how to dynamically select and unselect seats.
       data are available to the user.
       ~-->
       <template type="amp-mustache">
+         <!--~
+          We are using `layout=fill` to allow the seatmap to use all the available space in the page, this is because
+          we don't know the height or the ratio od the seatmap.
+          ~-->
         <amp-pan-zoom layout="fill" id="pan-zoom"
           on="transformEnd:AMP.setState({seatmap: {scale: event.scale, x: event.x, y: event.y, zoom: event.scale <= 1 ? 0 : 1}})">
           <svg class="seat-map-svg" preserveAspectRatio="xMidYMin slice" viewBox="0 0 {{width}} {{height}}">
