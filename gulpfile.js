@@ -573,7 +573,7 @@ gulp.task('build', gulp.parallel(
     'compile:example',
     'copy:well-known',
     'build:playground',
-    'build:boilerplate-generator',
+    'build:boilerplate-generator'
 ));
 
 function run(command) {
