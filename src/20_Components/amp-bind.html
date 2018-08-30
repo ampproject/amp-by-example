@@ -265,13 +265,11 @@
     </div>
 
 
-    <!--
-      `amp-lightbox` can be opened as a result of `amp-bind` evaluation.
-    -->
+    <!-- `amp-lightbox` can be opened as a result of `amp-bind` evaluation. -->
     <div>
       <amp-lightbox id="my-lightbox" [open]="showLightbox" layout="nodisplay">
-        <div class="lightbox"  on="tap:my-lightbox.close" 
-        on="lightboxClose: AMP.setState({showLightbox: false})" role="button" tabindex="0">
+        <div class="lightbox"
+        on="lightboxClose: AMP.setState({showLightbox: false}); tap:my-lightbox.close" role="button" tabindex="0">
           <h1>Hello World!</h1>
         </div>
       </amp-lightbox>
