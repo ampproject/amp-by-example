@@ -404,6 +404,14 @@ module.exports = function(config, indexPath, updateTimestamp) {
     args.isEmbed = false;
     const sampleFile = inputFile.clone({contents: false});
     sampleFile.path = path.join(inputFile.base, options.targetPath);
+    const isPreview = sampleFile.path.endsWith('preview/embed/index.html');
+    if (document.isAmpStory && isPreview) {
+      // AMP Stories need a self-referential canonical
+      sampleHtml = sampleHtml.replace(
+          /\<link\s+rel=\"canonical\"\s+href=\"(.*)\"\>/,
+          '<link rel="canonical" href="$1preview/embed/">'
+      );
+    }
     sampleFile.metadata = document.metadata;
     sampleFile.contents = new Buffer(sampleHtml);
     stream.push(sampleFile);
