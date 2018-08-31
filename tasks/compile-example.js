@@ -308,12 +308,14 @@ module.exports = function(config, indexPath, updateTimestamp) {
         });
       }
 
-      // generate preview embed
-      compileTemplate(stream, example, args, {
-        template: previewTemplate,
-        targetPath: example.targetPreviewEmbedPath(),
-        isEmbed: true,
-      });
+      if (!document.isAmpStory) {
+        // generate preview embed
+        compileTemplate(stream, example, args, {
+          template: previewTemplate,
+          targetPath: example.targetPreviewEmbedPath(),
+          isEmbed: true,
+        });
+      }
     });
   }
 

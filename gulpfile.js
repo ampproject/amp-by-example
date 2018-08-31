@@ -311,9 +311,6 @@ gulp.task('validate:example', function() {
 });
 
 function shouldMinifyHtml(file) {
-  if (config.env !== PROD) {
-    return false;
-  }
   if (!file.path.endsWith('.html')) {
     return false;
   }
@@ -328,6 +325,7 @@ gulp.task('compile:example', function() {
       .pipe(compileExample(config))
       .pipe(gulpIf(shouldMinifyHtml, htmlmin({
         collapseWhitespace: true,
+        minifyCSS: true,
         caseSensitive: true,
       })))
       .pipe(gulp.dest(paths.dist.dir));
