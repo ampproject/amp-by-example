@@ -408,7 +408,6 @@ module.exports = function(config, indexPath, updateTimestamp) {
     const sampleFile = inputFile.clone({contents: false});
     sampleFile.path = path.join(inputFile.base, options.targetPath);
     if (document.isAmpStory && options.isPreview) {
-      console.log('is preview', args.urlPreview);
       // AMP Stories need a self-referential canonical
       sampleHtml = sampleHtml.replace(
           /\<link\s+rel=\"canonical\"\s+href=\"(.*)\"\>/,
