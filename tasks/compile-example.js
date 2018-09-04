@@ -375,7 +375,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
   function generateStoryPreviewEmbed(stream, example) {
     const inputFile = example.file;
     const sampleHtml = inputFile.contents.toString()
-      .replace('</body>', storyController + '</body>');
+        .replace('</body>', storyController + '</body>');
     const samplePath = path.join(STORY_EMBED_DIR, example.targetPath());
     mkdirp(path.dirname(samplePath), err => {
       if (err) {
