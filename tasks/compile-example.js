@@ -295,10 +295,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
 
       // generate story preview embed
       if (document.isAmpStory) {
-        generateStoryPreviewEmbed(stream, example, args, {
-          targetPath: example.targetPreviewEmbedPath(),
-          isPreview: true,
-        });
+        generateStoryPreviewEmbed(stream, example);
       } else {
         // generate preview
         compileTemplate(stream, example, args, {
@@ -377,9 +374,8 @@ module.exports = function(config, indexPath, updateTimestamp) {
 
   function generateStoryPreviewEmbed(stream, example) {
     const inputFile = example.file;
-    const sampleHtml =
-      inputFile.contents.toString()
-          .replace('</body>', storyController + '</body>');
+    const sampleHtml = inputFile.contents.toString()
+      .replace('</body>', storyController + '</body>');
     const samplePath = path.join(STORY_EMBED_DIR, example.targetPath());
     mkdirp(path.dirname(samplePath), err => {
       if (err) {

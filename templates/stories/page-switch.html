@@ -1,6 +1,7 @@
 <script>
-  var COOKIE_AMP_EXP = 'AMP_EXP';
+var COOKIE_AMP_EXP = 'AMP_EXP';
 var AMP_STORY = 'amp-story';
+var COOKIE_EXPIRY_TIME = 356; // one year
 
 // Move story to the selected page
 var pageId = getUrlParameter('id');
@@ -41,12 +42,12 @@ function enableExperiment() {
     if (expCookie.indexOf(AMP_STORY) != -1) {
       return;
     } else {
-      expCookie += '%2C' + AMP_STORY;
+      expCookie += encodeURIComponent(' ') + AMP_STORY;
     }
   } else {
     expCookie = AMP_STORY;
   }
-  setCookie(COOKIE_AMP_EXP, expCookie, 356);
+  setCookie(COOKIE_AMP_EXP, expCookie, COOKIE_EXPIRY_TIME);
 }
 
 function setCookie(name, value, days) {
