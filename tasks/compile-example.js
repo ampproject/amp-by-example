@@ -411,7 +411,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
       // AMP Stories need a self-referential canonical
       sampleHtml = sampleHtml.replace(
           /\<link\s+rel=\"canonical\"\s+href=\"(.*)\"\>/,
-          '<link rel="canonical" href="' + args.urlPreview + '/">'
+          '<link rel="canonical" href="' + args.urlPreview + '">'
       );
     }
     sampleFile.metadata = document.metadata;
