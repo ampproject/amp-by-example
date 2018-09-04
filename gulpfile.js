@@ -82,6 +82,8 @@ const paths = {
   api: {
     conf: 'api/conf.json',
     dir: 'api',
+    src: 'api/src/**/*.*',
+    dist: 'api/dist',
   },
   tmp: {
     dir: 'tmp',
@@ -131,7 +133,7 @@ gulp.task('serve', function() {
 });
 
 gulp.task('serve:api', function() {
-  serve(paths.api.dir, {
+  serve(paths.api.dist, {
     port: 8800,
     ignore: ['node_modules'],
   });
@@ -240,6 +242,12 @@ gulp.task('copy:static', function() {
       .pipe(gulpIf(isHtml, change(prerenderTemplates)))
       .pipe(cache('static'))
       .pipe(gulp.dest(paths.dist.dir));
+});
+
+gulp.task('copy:api', function() {
+  return gulp.src(paths.api.src)
+      .pipe(cache('api'))
+      .pipe(gulp.dest(paths.api.dist));
 });
 
 function isHtml(file) {
@@ -562,6 +570,7 @@ gulp.task('build', gulp.parallel(
     'copy:videos',
     'copy:json',
     'copy:css',
+    'copy:api',
     'copy:fonts',
     'copy:node-modules',
     'copy:license',
