@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package backend
+package datastore
 
 import (
 	"io/ioutil"
@@ -22,7 +22,7 @@ import (
 	"google.golang.org/appengine/file"
 )
 
-func readFileFromDatastore(ctx context.Context, filename string) ([]byte, error) {
+func ReadFile(ctx context.Context, filename string) ([]byte, error) {
 	bucketName, err := file.DefaultBucketName(ctx)
 	if err != nil {
 		return nil, err
