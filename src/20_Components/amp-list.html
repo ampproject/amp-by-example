@@ -154,6 +154,7 @@
     We are using an endpoint which intentionally delays the response by 10 seconds.
   -->
   <amp-list id="amp-list-placeholder" noloading width="auto"
+            reset-on-refresh
             height="600"
             layout="fixed-height" src="<%host%>/samples_templates/slow-json-with-items/?delay=10000">
     <div placeholder>
@@ -172,8 +173,14 @@
             <p class="price">${{price}}</p>
         </div>
     </template>
-
   </amp-list>
+
+  <!-- ## Triggering refresh -->
+  <!--
+    You can use the refresh action to trigger a refresh on `amp-list`. Notice how we are using `reset-on-refresh` attribute
+    to ensure that the placeholder is reloaded.
+  -->
+  <button class="ampstart-btn caps m1" on="tap:amp-list-placeholder.refresh">Refresh list</button>
 
   <!-- ## Handling List Overflow -->
   <!--

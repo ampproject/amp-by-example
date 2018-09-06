@@ -12,22 +12,10 @@
 # limitations under the License.
 
 runtime: go
-api_version: go1
+api_version: go1.9
 threadsafe: yes
 
 handlers:
-- url: /iframe
-  static_dir: iframe
-  secure: always
-- url: /img
-  static_dir: img
-  secure: always
-- url: /scripts
-  static_dir: scripts
-  secure: always
-- url: /third_party
-  static_dir: third_party
-  secure: always
 - url: /
   static_dir: dist
   secure: always
@@ -38,3 +26,4 @@ handlers:
 skip_files:
 - ^(.*/)?.*\.DS_Store$
 - ^(.*/)?.*\.swp$
+- ^src(/.*)?

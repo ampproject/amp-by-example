@@ -1,7 +1,7 @@
 sudo: false
 language: node_js
 node_js:
-- '6.1'
+- '8.11.3'
 cache:
   directories:
   - "$HOME/google-cloud-sdk/"

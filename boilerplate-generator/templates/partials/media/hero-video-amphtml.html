@@ -1,0 +1,14 @@
+\{{#heroVideo.selected}}
+<amp-video width="640"
+           height="360"
+           layout="responsive"
+           poster="\{{heroVideo.heroVideoPoster}}"
+           artwork="artwork.png"
+           title="My video"
+           artist="The artist"
+           album="The album">
+  <source src="video.m3u8" type="application/vnd.apple.mpegurl">
+  <source src="video.mp4" type="video/mp4">
+  <div fallback>This browser does not support the video element.</div>
+</amp-video>
+\{{/heroVideo.selected}}

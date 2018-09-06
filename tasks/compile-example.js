@@ -297,9 +297,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
 
       // generate story preview embed
       if (document.isAmpStory) {
-        generateStoryPreviewEmbed(stream, example, args, {
-          targetPath: example.targetPreviewEmbedPath(),
-        });
+        generateStoryPreviewEmbed(stream, example);
       } else {
         // generate preview
         compileTemplate(stream, example, args, {
@@ -307,6 +305,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
           targetPath: example.targetPreviewPath(),
           postProcessors,
           isEmbed: false,
+          isPreview: true,
         });
       }
 
@@ -315,6 +314,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
         template: previewTemplate,
         targetPath: example.targetPreviewEmbedPath(),
         isEmbed: true,
+        isPreview: true,
       });
     });
   }
@@ -376,9 +376,8 @@ module.exports = function(config, indexPath, updateTimestamp) {
 
   function generateStoryPreviewEmbed(stream, example) {
     const inputFile = example.file;
-    const sampleHtml =
-      inputFile.contents.toString()
-          .replace('</body>', storyController + '</body>');
+    const sampleHtml = inputFile.contents.toString()
+        .replace('</body>', storyController + '</body>');
     const samplePath = path.join(STORY_EMBED_DIR, example.targetPath());
     mkdirp(path.dirname(samplePath), err => {
       if (err) {
@@ -406,6 +405,13 @@ module.exports = function(config, indexPath, updateTimestamp) {
     args.isEmbed = false;
     const sampleFile = inputFile.clone({contents: false});
     sampleFile.path = path.join(inputFile.base, options.targetPath);
+    if (document.isAmpStory && options.isPreview) {
+      // AMP Stories need a self-referential canonical
+      sampleHtml = sampleHtml.replace(
+          /\<link\s+rel=\"canonical\"\s+href=\"(.*)\"\>/,
+          '<link rel="canonical" href="' + args.urlPreview + '">'
+      );
+    }
     sampleFile.metadata = document.metadata;
     sampleFile.contents = new Buffer(sampleHtml);
     stream.push(sampleFile);
