@@ -157,7 +157,7 @@ class AutoImporter {
    *   [lastTag]: CodeMirror.Pos,
    *   [baseScriptTagEnd]: CodeMirror.Pos,
    *   [indent]: number
-   * }
+   * }}
    *
    * tags: A dictionary of existing AMP components found in the <head> tag, if
    *     any, e.g. "amp-bind", "amp-geo", with corresponding start and end.

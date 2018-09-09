@@ -50,6 +50,7 @@ const HINT_IGNORE_ENDS = new Set([
   "[", "]"
 ]);
 
+
 export const EVENT_INPUT_CHANGE = 'editor-input-change';
 export const EVENT_INPUT_NEW = 'editor-input-new';
 
