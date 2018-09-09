@@ -50,7 +50,6 @@ const HINT_IGNORE_ENDS = new Set([
   "[", "]"
 ]);
 
-
 export const EVENT_INPUT_CHANGE = 'editor-input-change';
 export const EVENT_INPUT_NEW = 'editor-input-new';
 
@@ -142,6 +141,14 @@ class Editor {
     this.codeMirror.focus();
   }
 
+  setCursor(line, col) {
+    this.codeMirror.setCursor(line, col);
+  }
+
+  getCursor() {
+    return this.codeMirror.getCursor();
+  }
+
   setValidationResult(validationResult) {
     this.codeMirror.clearGutter('CodeMirror-error-markers');
     this.codeMirror.operation(() => {
@@ -159,4 +166,17 @@ class Editor {
     this.codeMirror.setValue('');
     this.loader.show();
   }
+
+  lineCount() {
+    return this.codeMirror.lineCount();
+  }
+
+  getLineTokens(lineNumber) {
+    return this.codeMirror.getLineTokens(lineNumber);
+  }
+
+  replaceRange(replacement, from, to, origin) {
+    this.codeMirror.replaceRange(replacement, from, to, origin);
+  }
+
 }
