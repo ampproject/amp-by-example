@@ -77,7 +77,7 @@ func InitPlayground() {
 		"localhost:8080":                       true,
 		"amp-by-example-staging.appspot.com":   true,
 		"amp-by-example-sebastian.appspot.com": true,
-		"0.1.0.1":                              true,
+		"0.1.0.1": true,
 	}
 }
 
