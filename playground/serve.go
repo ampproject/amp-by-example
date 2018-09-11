@@ -30,8 +30,8 @@ import (
 	"google.golang.org/appengine/datastore"
 	"google.golang.org/appengine/log"
 	"google.golang.org/appengine/memcache"
-	"google.golang.org/appengine/urlfetch"
 	"google.golang.org/appengine/taskqueue"
+	"google.golang.org/appengine/urlfetch"
 )
 
 const (
@@ -45,24 +45,24 @@ var componentRegex = regexp.MustCompile("extensions/(amp-[^/]+)/([0-9]+.[0-9]+)$
 var validRequestUrlOrigins map[string]bool
 
 type GitHubBlob struct {
-	Path string `json:"path"`
-	Mode string `json:"mode"`
+	Path     string `json:"path"`
+	Mode     string `json:"mode"`
 	BlobType string `json:"type"`
-	Sha string `json:"sha"`
-	Size int `json:"size"`
-	Url string `json:"url"`
+	Sha      string `json:"sha"`
+	Size     int    `json:"size"`
+	Url      string `json:"url"`
 }
 
 type GitHubApiResponse struct {
-	Sha string `json:"sha"`
-	Url string `json:"url"`
-	Tree []GitHubBlob `json:"tree"`
-	Truncated bool `json:"truncated"`
+	Sha       string       `json:"sha"`
+	Url       string       `json:"url"`
+	Tree      []GitHubBlob `json:"tree"`
+	Truncated bool         `json:"truncated"`
 }
 
 type AmpComponentsList struct {
-	Id int64
-	Timestamp int
+	Id         int64
+	Timestamp  int
 	Components []byte
 }
 
@@ -114,8 +114,8 @@ func getComponentsAndUpdateIfStale(r *http.Request) *AmpComponentsList {
 		timestamp = latest.Timestamp
 	}
 
-	if curTime - timestamp > COMPONENTS_UPDATE_FREQ_SECONDS {
-	  createTaskQueueUpdate(ctx, timestamp)
+	if curTime-timestamp > COMPONENTS_UPDATE_FREQ_SECONDS {
+		createTaskQueueUpdate(ctx, timestamp)
 	}
 	return latest
 }
@@ -166,8 +166,8 @@ func getComponentsFromDataStore(ctx context.Context) (*AmpComponentsList, error)
 		COMPONENTS_DATASTORE_KEY_ID, nil)
 	err := datastore.Get(ctx, key, &list)
 	if err != nil {
-	  log.Infof(ctx, "Error retrieving components from datastore")
-	  return nil, err
+		log.Infof(ctx, "Error retrieving components from datastore")
+		return nil, err
 	}
 	return &list, err
 }
@@ -175,7 +175,7 @@ func getComponentsFromDataStore(ctx context.Context) (*AmpComponentsList, error)
 func getComponentsFromMemCache(ctx context.Context) (*AmpComponentsList, error) {
 	log.Infof(ctx, "Retrieving components from memcache")
 	var item AmpComponentsList
-	_, err := memcache.Gob.Get(ctx, COMPONENTS_MEMCACHE_KEY, &item);
+	_, err := memcache.Gob.Get(ctx, COMPONENTS_MEMCACHE_KEY, &item)
 	if err == memcache.ErrCacheMiss {
 		// Get and set from datastore
 		log.Infof(ctx, "Components not in memcache, retrieving from datastore")
@@ -184,7 +184,7 @@ func getComponentsFromMemCache(ctx context.Context) (*AmpComponentsList, error) 
 		if err == nil {
 			log.Infof(ctx, "Setting datastore components value to memcache")
 			memcacheItem := &memcache.Item{
-				Key:   COMPONENTS_MEMCACHE_KEY,
+				Key:    COMPONENTS_MEMCACHE_KEY,
 				Object: dsItem,
 			}
 			memcache.Gob.Set(ctx, memcacheItem)
@@ -207,7 +207,7 @@ func addComponentsToStores(ctx context.Context, components []byte) {
 	if err != nil {
 		log.Infof(ctx, "Adding components to memcache")
 		item := &memcache.Item{
-			Key:   COMPONENTS_MEMCACHE_KEY,
+			Key:    COMPONENTS_MEMCACHE_KEY,
 			Object: list,
 		}
 		memcache.Gob.Set(ctx, item)
