@@ -114,7 +114,7 @@ func getComponentsAndUpdateIfStale(r *http.Request) *AmpComponentsList {
 		timestamp = latest.Timestamp
 	}
 
-	if (curTime - timestamp > COMPONENTS_UPDATE_FREQ_SECONDS) {
+	if curTime - timestamp > COMPONENTS_UPDATE_FREQ_SECONDS {
 	  createTaskQueueUpdate(ctx, timestamp)
 	}
 	return latest
@@ -219,12 +219,12 @@ func extractComponents(g *GitHubApiResponse) ([]byte, error) {
 	tree := g.Tree
 	for _, blob := range tree {
 		groups := componentRegex.FindStringSubmatch(blob.Path)
-		if (len(groups) == 3) {
+		if len(groups) == 3 {
 			component := groups[1]
-			if (!strings.HasSuffix(component, "-impl")) {
+			if !strings.HasSuffix(component, "-impl") {
 				ver := groups[2]
 				elem, ok := vers[component]
-				if (!ok || ver > elem) {
+				if !ok || ver > elem {
 					vers[component] = ver
 				}
 			}
