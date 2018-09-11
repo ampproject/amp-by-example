@@ -1,8 +1,3 @@
-<!---{
-  "skipValidation": "true",
-  "experiments": ["amp-fx-fly-in"]
-}--->
-
 <!--
   #### Introduction
   The [amp-fx-collection](https://www.ampproject.org/docs/reference/components/amp-fx-collection) extension
@@ -131,8 +126,8 @@
 
     Scroll dependent fade in effect can be added to any element by adding `amp-fx="fade-in-scroll"` attribute to an element.
     You can control the animation via the following attributes:
-    * `data-margin-start` - This parameter determines when to trigger the timed animation. The value specified in `<percent>` dictates that the animation should be triggered when the element is above the specified percentage of the viewport. The default value is `0%`
-    * `data-margin-end` - This parameter determines when to stop the timed animation. The value specified in `<percent>` dictates that the animation should be fully visible when the element crosses this threshold. The default value is `50%`
+    * `data-margin-start` - This parameter determines when to trigger the timed animation. The value specified in `percent` dictates that the animation should be triggered when the element is above the specified percentage of the viewport. The default value is `0%`
+    * `data-margin-end` - This parameter determines when to stop the timed animation. The value specified in `percent` dictates that the animation should be fully visible when the element crosses this threshold. The default value is `50%`
     * `data-repeat` - By default once the element is fully visible the opacity of the element is locked in. If the developer wants to change the opacity even after it the element is fully visible please specify this attribute on the element. 
   -->
   <!-- ### Default attributes
@@ -157,14 +152,14 @@
 
     This is a scroll triggered timed animation, i.e., once the element is within the viewport a timed animation will start that translates the element along the X/Y axis. You can control the animation via the following attributes:
     * `data-duration` - This is the duration over which the animation takes places. The default value is determined by your device size to allow for the best preset values across mobile, tablet and desktop devices. For more details on this read the documentation on the [`data-duration`](https://www.ampproject.org/docs/reference/components/amp-fx-collection) property.
-    * `data-fly-in-distance` - This parameter determines the <percent> of viewport over which the translation is to take place. The default value is determined by your device size to allow for the best preset values across mobile, tablet and desktop devices. For more details on this read the documentation on the [`data-fly-in-distance`](https://www.ampproject.org/docs/reference/components/amp-fx-collection) property.
+    * `data-fly-in-distance` - This parameter determines the percent of viewport over which the translation is to take place. The default value is determined by your device size to allow for the best preset values across mobile, tablet and desktop devices. For more details on this read the documentation on the [`data-fly-in-distance`](https://www.ampproject.org/docs/reference/components/amp-fx-collection) property.
     * `data-easing` - This parameter lets you vary the animation's speed over the course of its duration. The default is `ease-in` which is `cubic-bezier(0.40, 0.00, 0.40, 1.00)`. You can also choose from one of the presets available:
       * “linear” - cubic-bezier(0.00, 0.00, 1.00, 1.00),
       * “ease-in-out” - cubic-bezier(0.80, 0.00, 0.20, 1.00),
       * “ease-in” - cubic-bezier(0.80, 0.00, 0.60, 1.00),
       * “ease-out” - cubic-bezier(0.40, 0.00, 0.40, 1.00) (default),
       * or specify a `custom-bezier()` input.
-    * `data-margin-start` - This parameter determines when to trigger the timed animation. The value specified in `<percent>` dictates that the animation should be triggered when the element is above the specified percentage of the viewport. The default value is `5%`
+    * `data-margin-start` - This parameter determines when to trigger the timed animation. The value specified in `percent` dictates that the animation should be triggered when the element is above the specified percentage of the viewport. The default value is `5%`
   -->
   <!-- ### Default attributes
     Scroll triggered fly in animation with default attributes
