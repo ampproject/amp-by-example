@@ -177,7 +177,6 @@ func getComponentsFromMemCache(ctx context.Context) (*AmpComponentsList, error) 
 	var item AmpComponentsList
 	_, err := memcache.Gob.Get(ctx, COMPONENTS_MEMCACHE_KEY, &item)
 	if err == memcache.ErrCacheMiss {
-		// Get and set from datastore
 		log.Infof(ctx, "Components not in memcache, retrieving from datastore")
 		dsItem, err := getComponentsFromDataStore(ctx)
 		// Add to datastore
