@@ -20,6 +20,7 @@
   <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <meta name="amp-google-client-id-api" content="googleanalytics">
+  <meta name="amp-experiments-opt-in" content="linker-meta-opt-in">
 </head>
 <body>
 
@@ -57,13 +58,15 @@
   <amp-analytics type="googleanalytics">
     <script type="application/json">
       {
-        "linkers" : {
-          "_ga": {
-            "ids": {
-              "_ga": "CLIENT_ID(_ga)",
-              "gclid": "QUERY_PARAM(gclid)"
-            }
-          }
+        "vars": {
+          "account": "UA-73836974-1"
+        },
+        "pageview": {
+          "on": "visible",
+          "request": "pageview"
+        },
+        "linkers": {
+          "enabled": true
         }
       }
     </script>
@@ -75,7 +78,7 @@
       <a href="https://www.google.com">https://www.google.com</a>
     </li>
     <li>
-      <a href="/invalid_amp.html">/invalid_amp.html</a>
+      <a href="/testing/joining_analytics_sessions_test.html">Test landing page with GA</a>
     </li>
   </ul>
 </body>
