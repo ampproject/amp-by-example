@@ -50,21 +50,6 @@ how to dynamically select and unselect seats.
         opacity: 0.5;
         filter: alpha(opacity=50);
       }
-      .zoom-button {
-        bottom: 60px;
-        right: 0px;
-        z-index: 1;
-        border-color: Transparent;
-        background-color: Transparent;
-        margin: 8px;
-        width: 40px;
-        height: 40px;
-        padding: 0;
-        border-width: 0;
-        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
-        background-color: white;
-        border-radius: 3px;
-      }
       .seat-map-svg {
         box-sizing: border-box;
         padding-top: 30px;
@@ -95,18 +80,10 @@ how to dynamically select and unselect seats.
   </head>
   <body>
     <!-- ## Seatmap -->
-    <!-- Here we are using an `amp-state` called `seatmap` to keep track of some variables that will be used throughout the sample:
-      * `scale` variable is used to keep track of the scale of the content being zoomed using by `amp-pan-zoom`.
-      * `zoom` variable is used to keep track of the seat map is in a zoomed state or not. This variable is used to
-    decide whether to show a + or - button.
-      * `selectedSeats` variables keeps a  list of selected seat ids.  -->
-    <amp-state id="seatmap">
+    <!-- Here we are using an `amp-state` called `selectedSeats` to keep a list of selected seat ids. -->
+    <amp-state id="selectedSeats">
       <script type="application/json">
-        {
-          "scale": 1,
-          "selectedSeats": [],
-          "zoom": 0
-        }
+         []
       </script>
     </amp-state>
 
@@ -117,8 +94,6 @@ how to dynamically select and unselect seats.
     * `amp-bind` is used to update the status of the seats: when a seat is selected or unselected we update the color and 
     we add the seat id to the `seatmap.selectedSeats` variable. 
     `amp-pan-zoom` is used to make possible to pan & zoom on mobile devices.
-    We are using the `transformEnd` action from [amp-pan-zoom](https://www.ampproject.org/docs/reference/components/amp-pan-zoom)
-    to update the value of transform.scale variable.
     -->
     <div>
      <h1>Seat map</h1>
@@ -132,22 +107,19 @@ how to dynamically select and unselect seats.
          <!--~
           As we don't know the actual size of the seatmap, we are using `layout=fill` for `amp-list` and `amp-pan-zomm` to allow the seatmap to use all the available space in its container, which we set to 50% of the viewport height.
           ~-->
-        <amp-pan-zoom layout="fill" id="pan-zoom"
-          on="transformEnd:AMP.setState({seatmap: {scale: event.scale, x: event.x, y: event.y, zoom: event.scale <= 1 ? 0 : 1}})">
+        <amp-pan-zoom layout="fill" id="pan-zoom">
           <svg class="seat-map-svg" preserveAspectRatio="xMidYMin slice" viewBox="0 0 {{width}} {{height}}">
           {{#seats}}                
           <!--~
-          If a seat is selected, when the user selects it again, it's removed from the seatmap.selectedSeats list
+          If a seat is selected, when the user selects it again, it's removed from the selectedSeats list
           ~-->
-            <rect class="seat {{unavailable}}" [class]="seatmap.selectedSeats.includes('{{id}}')? 'seat selected' : 'seat'" 
+            <rect class="seat {{unavailable}}" [class]="selectedSeats.includes('{{id}}')? 'seat selected' : 'seat'" 
               x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}" 
               role="button" 
               tabindex="0" rx="{{rx}}" ry="{{ry}}"
               on="{{#available}} tap:AMP.setState({
-                seatmap: {
-                  selectedSeats: !seatmap.selectedSeats.includes('{{id}}') ? 
-                  seatmap.selectedSeats.concat('{{id}}') : copyAndSplice(seatmap.selectedSeats, seatmap.selectedSeats.indexOf('{{id}}'), 1)
-                }
+                  selectedSeats: !selectedSeats.includes('{{id}}') ? 
+                  selectedSeats.concat('{{id}}') : copyAndSplice(selectedSeats, selectedSeats.indexOf('{{id}}'), 1)
               }) {{/available}}"></rect>  
             {{/seats}}
           </svg>
@@ -171,11 +143,5 @@ how to dynamically select and unselect seats.
         </amp-list>
       </div>
     </div>
-      <!-- To enable desktop users, we provide + and - buttons. We use `amp-bind` to decide whether to show the + or - button depending
-      on the state of the zooming -->
-      <div>
-        <button class="zoom-button" on="tap:pan-zoom.transform(scale=1)" hidden [hidden]="seatmap.zoom==0">-</button>
-        <button class="zoom-button" on="tap:pan-zoom.transform(scale=3, x=50, y=10)" [hidden]="seatmap.zoom==1">+</button>
-      </div>
   </body>
 </html>

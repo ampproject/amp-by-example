@@ -60,7 +60,7 @@ workbox.routing.registerRoute(
 /* uncomment to enable
 // Cache Images
 workbox.routing.registerRoute(
-  /\.(?:png|gif|jpg|jpeg|svg|webp)$/,
+  /\.(?:png|gif|jpg|jpeg|svg|webp)(\?.*)?$/,
   workbox.strategies.cacheFirst({
     cacheName: 'images',
     plugins: [
