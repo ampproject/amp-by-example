@@ -31,6 +31,15 @@
   <amp-analytics>
     <script type="application/json">
       {
+        "requests": {
+          "pageview": "/?cida=CLIENT_ID(_a)&cidb=CLIENT_ID(_b)&tid=QUERY_PARAM(tid)"
+        },
+        "triggers": {
+          "pageview": {
+            "on": "visible",
+            "request": "pageview"
+          }
+        },
         "linkers" : {
           "lk1": {
             "ids": {
@@ -47,26 +56,6 @@
             "destinationDomains": ["www.google.com"],
             "enabled": true
           }
-        }
-      }
-    </script>
-  </amp-analytics>
-
-  <!--
-  Google Analytics linker for CID API users
-  -->
-  <amp-analytics type="googleanalytics">
-    <script type="application/json">
-      {
-        "vars": {
-          "account": "UA-73836974-1"
-        },
-        "pageview": {
-          "on": "visible",
-          "request": "pageview"
-        },
-        "linkers": {
-          "enabled": true
         }
       }
     </script>
