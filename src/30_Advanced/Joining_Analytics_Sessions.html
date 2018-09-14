@@ -55,6 +55,14 @@
             },
             "destinationDomains": ["www.google.com"],
             "enabled": true
+          },
+          "_gl": {
+            "ids": {
+              "_ga": "CLIENT_ID(AMP_ECID_GOOGLE,,_ga)"
+            },
+            "destinationDomains": ["www.google.com"],
+            "enabled": true,
+            "proxyOnly": false
           }
         }
       }
@@ -67,7 +75,16 @@
       <a href="https://www.google.com">https://www.google.com</a>
     </li>
     <li>
-      <a href="/testing/joining_analytics_sessions_test.html">Test landing page with GA</a>
+      <a href="/testing/joining_analytics_sessions_test.html">Test landing page with GA linker (prod)</a>
+    </li>
+    <li>
+      <a href="/testing/joining_analytics_sessions_test_cidapi.html">Test landing page with GA CID API (prod)</a>
+    </li>
+    <li>
+      <a href="/testing/joining_analytics_sessions_test_local_linker.html">Test landing page with GA linker (local)</a>
+    </li>
+    <li>
+      <a href="/testing/joining_analytics_sessions_test_local_cidapi.html">Test landing page with GA CID API (local)</a>
     </li>
   </ul>
 </body>
