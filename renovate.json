@@ -1,5 +1,9 @@
 {
   "extends": [
     "config:base"
-  ]
+  ],
+  "includePaths": [
+    "package.json",
+    "playground/package.json"
+  ]  
 }
