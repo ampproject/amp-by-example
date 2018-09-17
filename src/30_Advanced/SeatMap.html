@@ -113,7 +113,7 @@ how to dynamically select and unselect seats.
           <!--~
           If a seat is selected, when the user selects it again, it's removed from the selectedSeats list
           ~-->
-            <rect class="seat {{unavailable}}" [class]="selectedSeats.includes('{{id}}')? 'seat selected' : 'seat'" 
+            <rect class="seat {{unavailable}}" [class]="selectedSeats.includes('{{id}}')? 'seat selected' : 'seat {{unavailable}}'" 
               x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}" 
               role="button" 
               tabindex="0" rx="{{rx}}" ry="{{ry}}"

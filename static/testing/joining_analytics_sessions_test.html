@@ -1,0 +1,58 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-73836974-1', 'auto', {
+      allowLinker: true
+    });
+    ga('require', 'linker');
+    ga('send', 'pageview');
+    ga('require', 'displayfeatures');
+    ga('linker:autoLink', ['ampbyexample.com']);
+  </script>
+  <style>
+    button {
+      border: 1px solid #333;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h3>This is an non-AMP page to test Google Analytics Linker</h3>
+  <hr>
+  <div>Your Google Analytics Client ID is:</div>
+  <div><code id="cid"></code></div>
+  <div>
+    <button id="button">Clear</button>
+  </div>
+  <hr>
+  <div>
+    <a href="https://ampbyexample.com/advanced/joining_analytics_sessions/">Go to canonical AMP</a>
+  </div>
+  <script>
+    var display = document.querySelector('#cid');
+    setTimeout(function() {
+      display.textContent = readGaCookie();
+    }, 300);
+    function readGaCookie() {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; ++i) {
+        var c = cookies[i].trim();
+        if (c.indexOf('_ga=') == 0) {
+          return c;
+        }
+      }
+      return null;
+    }
+    document.querySelector('#button').addEventListener('click', function clear() {
+      console.log('_ga cookie cleared');
+      document.cookie = '_ga=; path=/; expires=' + new Date(0).toUTCString();
+      display.textContent = '';
+    }, false);
+  </script>
+</body>
+</html>
