@@ -1,0 +1,101 @@
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+amp-consent {
+  background: white;
+  box-shadow: rgba(0, 0, 0, 0.26) 0 0 19px 0;
+  animation: .5s ease-out 0s 1 slideUp;
+}
+
+.consent-popup a {
+  text-transform: none;
+  font-size: inherit;
+  text-decoration: none;
+}
+
+.consent-popup a.close-button {
+  position: absolute;
+  color: #333;
+}
+
+.consent-popup .ampstart-btn {
+  width: 150px;
+  text-align: center;
+}
+
+.consent-popup p {
+  line-height: 20px;
+  font-size: 14px;
+}
+
+.consent-popup p a {
+  color: #b60845;
+}
+
+.consent-popup div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.consent-popup button {
+  padding: 13px 18px;
+  width: 142px;
+  flex: none;
+  align-self: center;
+}
+
+/* phones */
+@media (max-width: 640px) {
+  amp-consent a.close-button {
+    font-size: 22px;
+    top: 15px;
+    right: 13px;
+  }
+  
+  .consent-popup div {
+    flex-flow: column wrap;
+    align-items: center;
+    margin: 12px 25px 15px 12px;
+  }
+
+  .consent-popup p {
+    padding: 5px 20px 5px 10px;
+    margin: 0 0 10px 0;
+  }
+}
+
+/* tablets and desktop */
+@media (min-width: 641px) {
+ .consent-popup a.close-button {
+    font-size: 25px;
+    left: 30px;
+  }
+
+  .consent-popup div {
+    flex-flow: row;
+    height: 100px;
+    margin: 0 40px;
+  }
+
+  .consent-popup p {
+    max-width: 660px;
+    padding: 0 25px 0 40px;
+    margin: 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .consent-popup p {
+    line-height: 16px;
+    font-size: 12px;
+  }
+}

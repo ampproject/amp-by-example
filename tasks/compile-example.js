@@ -32,7 +32,7 @@ const storyBookend = require('./bookend.json');
 
 const STORY_EMBED_DIR = __dirname + '/../api/dist/';
 const AMP_STORY_CLEANER_REGEX =
-  ['amp-story', 'amp-story-auto-ads', 'amp-consent']
+  ['amp-story', 'amp-story-auto-ads']
       .map(extension =>
         new RegExp('<script\\s+async\\s+custom-element="' + extension
       + '"\\s+src="https:\\/\\/cdn\\.ampproject\\.org\\/v0\\/' + extension
@@ -229,6 +229,8 @@ module.exports = function(config, indexPath, updateTimestamp) {
         includesIframe: document.importsComponent('amp-iframe'),
         includesSelector: document.importsComponent('amp-selector'),
         includesSidebar: document.importsComponent('amp-sidebar'),
+        includesConsent: document.importsComponent('amp-consent'),
+        includesGeo: document.importsComponent('amp-geo'),
         includesServiceWorker:
         document.importsComponent('amp-install-serviceworker')
         || document.metadata.skipServiceWorker,
