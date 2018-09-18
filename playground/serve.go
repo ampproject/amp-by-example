@@ -37,8 +37,8 @@ import (
 const (
 	COMPONENTS_URL                 = "https://api.github.com/repos/ampproject/amphtml/git/trees/master?recursive=1"
 	COMPONENTS_MEMCACHE_KEY        = "amp-components-list"
-	COMPONENTS_UPDATE_FREQ_SECONDS = 600
-	COMPONENTS_DATASTORE_KEY_ID    = 657780
+	COMPONENTS_UPDATE_FREQ_SECONDS = 86400
+	PLAYGROUND_PATH_PREFIX         = "/playground"
 )
 
 var componentRegex = regexp.MustCompile("extensions/(amp-[^/]+)/([0-9]+.[0-9]+)$")
@@ -61,15 +61,14 @@ type GitHubApiResponse struct {
 }
 
 type AmpComponentsList struct {
-	Id         int64
 	Timestamp  int
 	Components []byte
 }
 
 func InitPlayground() {
-	http.HandleFunc("/playground/fetch", handler)
-	http.HandleFunc("/playground/amp-component-versions", components)
-	http.HandleFunc("/playground/amp-component-versions-task", componentsTask)
+	http.HandleFunc(PLAYGROUND_PATH_PREFIX+"/fetch", handler)
+	http.HandleFunc(PLAYGROUND_PATH_PREFIX+"/amp-component-versions", components)
+	http.HandleFunc(PLAYGROUND_PATH_PREFIX+"/amp-component-versions-task", componentsTask)
 	validRequestUrlOrigins = map[string]bool{
 		"ampbyexample.com":                     true,
 		"ampstart.com":                         true,
@@ -107,7 +106,7 @@ func components(w http.ResponseWriter, r *http.Request) {
 func getComponentsAndUpdateIfStale(r *http.Request) *AmpComponentsList {
 	curTime := int(time.Now().Unix())
 	ctx := appengine.NewContext(r)
-	latest, _ := getComponentsFromMemCache(ctx)
+	latest, _ := fetchComponentsFromMemCache(ctx)
 	// latest could be nil if not in memcache or datastore.
 	var timestamp int
 	if latest != nil {
@@ -121,7 +120,7 @@ func getComponentsAndUpdateIfStale(r *http.Request) *AmpComponentsList {
 }
 
 func createTaskQueueUpdate(ctx context.Context, timestamp int) {
-	t := taskqueue.NewPOSTTask("/playground/amp-component-versions-task",
+	t := taskqueue.NewPOSTTask(PLAYGROUND_PATH_PREFIX+"/amp-component-versions-task",
 		url.Values{})
 	// Setting the name explicitly means that only one task will ever
 	// be in the queue, even if attempted by separate instances.
@@ -141,7 +140,7 @@ func createTaskQueueUpdate(ctx context.Context, timestamp int) {
 
 func componentsTask(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
-	_, err := updateComponents(ctx)
+	_, err := fetchAndUpdateComponents(ctx)
 	if err != nil {
 		http.Error(w, "Server error", http.StatusInternalServerError)
 		return
@@ -149,65 +148,66 @@ func componentsTask(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Updated components"))
 }
 
-func updateComponents(ctx context.Context) (bool, error) {
+func fetchAndUpdateComponents(ctx context.Context) ([]byte, error) {
 	log.Infof(ctx, "Fetching components list from GitHub")
-	list, err := fetchComponents(ctx)
+	components, err := fetchComponents(ctx)
 	if err != nil {
-		return false, err
-	}
-	addComponentsToStores(ctx, list)
-	return true, nil
-}
-
-func getComponentsFromDataStore(ctx context.Context) (*AmpComponentsList, error) {
-	log.Infof(ctx, "Retrieving components from datastore")
-	var list AmpComponentsList
-	key := datastore.NewKey(ctx, "AmpComponentsList", "",
-		COMPONENTS_DATASTORE_KEY_ID, nil)
-	err := datastore.Get(ctx, key, &list)
-	if err != nil {
-		log.Infof(ctx, "Error retrieving components from datastore")
 		return nil, err
 	}
-	return &list, err
+	addComponentsToStores(ctx, components)
+	return components, nil
 }
 
-func getComponentsFromMemCache(ctx context.Context) (*AmpComponentsList, error) {
+func fetchComponentsFromDataStore(ctx context.Context) (*AmpComponentsList, error) {
+	log.Infof(ctx, "Retrieving components from datastore")
+	var components AmpComponentsList
+	key := datastore.NewKey(ctx, "AmpComponentsList", "ComponentsListKey", 0, nil)
+	err := datastore.Get(ctx, key, &components)
+	if err != nil {
+		log.Infof(ctx, "Error retrieving components from datastore")
+		rawComponents, err := fetchAndUpdateComponents(ctx)
+		if err != nil {
+			return nil, err
+		}
+		components.Components = rawComponents
+		components.Timestamp = int(time.Now().Unix())
+	}
+	return &components, err
+}
+
+func fetchComponentsFromMemCache(ctx context.Context) (*AmpComponentsList, error) {
 	log.Infof(ctx, "Retrieving components from memcache")
-	var item AmpComponentsList
-	_, err := memcache.Gob.Get(ctx, COMPONENTS_MEMCACHE_KEY, &item)
+	var components AmpComponentsList
+	_, err := memcache.Gob.Get(ctx, COMPONENTS_MEMCACHE_KEY, &components)
 	if err == memcache.ErrCacheMiss {
 		log.Infof(ctx, "Components not in memcache, retrieving from datastore")
-		dsItem, err := getComponentsFromDataStore(ctx)
-		// Add to datastore
+		dsComponents, err := fetchComponentsFromDataStore(ctx)
 		if err == nil {
 			log.Infof(ctx, "Setting datastore components value to memcache")
 			memcacheItem := &memcache.Item{
 				Key:    COMPONENTS_MEMCACHE_KEY,
-				Object: dsItem,
+				Object: dsComponents,
 			}
 			memcache.Gob.Set(ctx, memcacheItem)
+			return dsComponents, nil
 		}
-	} else if err != nil {
-		return nil, err
 	}
-	return &item, err
+	return &components, err
 }
 
-func addComponentsToStores(ctx context.Context, components []byte) {
-	var list AmpComponentsList
-	list.Components = components
-	list.Timestamp = int(time.Now().Unix())
-	list.Id = COMPONENTS_DATASTORE_KEY_ID
-	key := datastore.NewKey(ctx, "AmpComponentsList", "",
-		COMPONENTS_DATASTORE_KEY_ID, nil)
+func addComponentsToStores(ctx context.Context, rawComponents []byte) {
+	components := &AmpComponentsList{
+		Components: rawComponents,
+		Timestamp:  int(time.Now().Unix()),
+	}
+	key := datastore.NewKey(ctx, "AmpComponentsList", "ComponentsListKey", 0, nil)
 	log.Infof(ctx, "Adding components to datastore")
-	_, err := datastore.Put(ctx, key, list)
+	_, err := datastore.Put(ctx, key, components)
 	if err != nil {
 		log.Infof(ctx, "Adding components to memcache")
 		item := &memcache.Item{
 			Key:    COMPONENTS_MEMCACHE_KEY,
-			Object: list,
+			Object: components,
 		}
 		memcache.Gob.Set(ctx, item)
 	}
@@ -217,19 +217,25 @@ func extractComponents(g *GitHubApiResponse) ([]byte, error) {
 	vers := make(map[string]string)
 	tree := g.Tree
 	for _, blob := range tree {
-		groups := componentRegex.FindStringSubmatch(blob.Path)
-		if len(groups) == 3 {
-			component := groups[1]
-			if !strings.HasSuffix(component, "-impl") {
-				ver := groups[2]
-				elem, ok := vers[component]
-				if !ok || ver > elem {
-					vers[component] = ver
-				}
-			}
-		}
+		parseAndAddComponent(blob, vers)
 	}
 	return json.Marshal(vers)
+}
+
+func parseAndAddComponent(blob GitHubBlob, componentsWithVersion map[string]string) {
+	groups := componentRegex.FindStringSubmatch(blob.Path)
+	if len(groups) != 3 {
+		return
+	}
+	component := groups[1]
+	if strings.HasSuffix(component, "-impl") {
+		return
+	}
+	ver := groups[2]
+	elem, ok := componentsWithVersion[component]
+	if !ok || ver > elem {
+		componentsWithVersion[component] = ver
+	}
 }
 
 func fetchComponents(ctx context.Context) ([]byte, error) {

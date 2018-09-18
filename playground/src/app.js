@@ -21,6 +21,7 @@ import DocumentController from './document/controller.js';
 import Fab from './fab/fab.js';
 
 import * as AutoImporter from './auto-importer/auto-importer.js';
+import * as ComponentsProvider from './components-provider/components-provider.js';
 import * as ErrorList from './error-list/error-list.js';
 import * as Validator from './validator/validator.js';
 import * as Editor from './editor/editor.js';
@@ -57,8 +58,10 @@ events.subscribe(
 
 const validator = Validator.createValidator();
 
+const componentsProvider = ComponentsProvider.createComponentsProvider();
+
 // Create AMP component auto-importer
-const autoImporter = AutoImporter.createAutoImporter(editor);
+const autoImporter = AutoImporter.createAutoImporter(componentsProvider, editor);
 
 // runtime select
 const runtimeChanged = runtimeId => {

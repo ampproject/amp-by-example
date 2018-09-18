@@ -14,12 +14,11 @@
 
 import CodeMirror from 'codemirror';
 
-const MISSING_ENGINE_PARAM = 'amphtml engine v0.js script';
-const AMP_BASE_URL = '"https://cdn.ampproject.org/v0.js"';
-const AMP_ENGINE_SCRIPT_TAG = `<script async src=${AMP_BASE_URL}></script>`;
-const COMPONENTS_URL = '/playground/amp-component-versions';
-
-let COMPONENT_VERSION_MAP = {};
+const ENGINE_MAP = {
+  'amphtml engine v0.js script': '"https://cdn.ampproject.org/v0.js"',
+  'amp4ads engine amp4ads-v0.js script': '"https://cdn.ampproject.org/amp4ads-v0.js"'
+};
+let ENGINE_SET = new Set();
 
 // A lookup to override what type of component an AMP component is
 const AMP_SCRIPT_TYPE_MAP = {
@@ -33,42 +32,35 @@ const CUSTOM_ATTRS = {
   'custom-template': 1
 };
 
-export function createAutoImporter(editor) {
-  return new AutoImporter(editor);
+export function createAutoImporter(componentsProvider, editor) {
+  return new AutoImporter(componentsProvider, editor);
 }
 
 class AutoImporter {
 
-  constructor(editor) {
+  constructor(componentsProvider, editor) {
+    this.componentsProvider = componentsProvider;
+    this.componentsMap = {};
     this.editor = editor;
-    this._fetchComponents();
+    Object.keys(ENGINE_MAP).forEach((k) => ENGINE_SET.add(ENGINE_MAP[k]));
   }
 
   update(validationResult) {
-    if (validationResult.status === 'FAIL') {
-      const missing = this._getMissingElements(validationResult);
-
-      if (Object.keys(missing.missingTags).length
-          || missing.missingBaseScriptTag) {
-        const existing = this._parseHeadTag();
-        // The action taken to insert any elements to fix the report of missing
-        // tags is determined by both a combination of looking at the list of
-        // missing elements and also the current state of the <head> tag.
-        this._insertMissingElements(missing, existing);
-      }
+    if (!Object.keys(this.componentsMap).length) {
+      this.componentsMap = this.componentsProvider.getComponents();
     }
-  }
+    if (validationResult.status !== 'FAIL') {
+      return;
+    }
+    const missing = this._parseMissingElements(validationResult);
 
-  _fetchComponents() {
-    if (!Object.keys(COMPONENT_VERSION_MAP).length) {
-      let request = new Request(COMPONENTS_URL, {
-        headers: new Headers({'x-requested-by': 'playground'})
-      });
-      fetch(request)
-          .then((r) => r.json())
-          .then((data) => {
-            COMPONENT_VERSION_MAP = data;
-          });
+    if (Object.keys(missing.missingTags).length
+        || missing.missingBaseScriptTag) {
+      const existing = this._parseHeadTag();
+      // The action taken to insert any elements to fix the report of missing
+      // tags is determined by both a combination of looking at the list of
+      // missing elements and also the current state of the <head> tag.
+      this._insertMissingElements(missing, existing);
     }
   }
 
@@ -76,21 +68,25 @@ class AutoImporter {
    * Inserts missing <script> tags into the document, based on results from the
    * AMP validator, and results from inspecting the current <head> structure.
    *
-   * @param {!Object} missing The results from {@code _getMissingElements()}.
+   * @param {!Object} missing The results from {@code _parseMissingElements()}.
    * @param {!Object} existing The results from {@code _parseHeadTag()}.
    */
   _insertMissingElements(missing, existing) {
     const pos = existing.baseScriptTagEnd || existing.lastTag;
-    if (pos) {
-      const toAdd = Object.keys(missing.missingTags)
-          // Verify that all components to insert don't already exist: In some
-          // circumstances the validator has reported tags missing when in fact
-          // they are present.
-          .filter((e) => !existing.tags[e])
-          .map((e) => this._createAmpComponentElement(e));
-      if (missing.missingBaseScriptTag && !existing.baseScriptTagEnd) {
-        toAdd.unshift(AMP_ENGINE_SCRIPT_TAG);
-      }
+    if (!pos) {
+      return;
+    }
+    const toAdd = Object.keys(missing.missingTags)
+        // Verify that all components to insert don't already exist: In some
+        // circumstances the validator has reported tags missing when in fact
+        // they are present.
+        .filter((e) => !existing.tags[e])
+        .map((e) => this._createAmpComponentElement(e));
+    if (missing.missingBaseScriptTag && !existing.baseScriptTagEnd) {
+      const t = `<script async src=${missing.missingBaseScriptTag}></script>`;
+      toAdd.unshift(t);
+    }
+    if (toAdd.length) {
       const indented = toAdd.map((e) => ' '.repeat(existing.indent || 0) + e);
       const cur = this.editor.getCursor();
       this.editor.replaceRange('\n' + indented.join('\n'), pos, pos);
@@ -103,30 +99,32 @@ class AutoImporter {
    *
    * @return {{
    *   missingTags: Object,<string, number>,
-   *   missingBaseScriptTag: boolean
+   *   missingBaseScriptTag: ?string
    * }}
    *
    * missingTags: The keys of this dictionary are those missing AMP components.
-   * missingBaseScriptTag: True if the AMP engine <script> tag is not present.
+   * missingBaseScriptTag: The URL of the missing AMP engine, if missing.
    */
-  _getMissingElements(validationResult) {
-    let missingComponentsSet = {};
-    let missingMandatoryAmpEngine = false;
+  _parseMissingElements(validationResult) {
+    let missingElements = {
+      missingBaseScriptTag: null,
+      missingTags: {}
+    };
 
     for (let err of validationResult.errors) {
       if (err.category === 'MANDATORY_AMP_TAG_MISSING_OR_INCORRECT') {
         switch(err.code) {
           case 'MANDATORY_TAG_MISSING':
-            if (err.params && err.params[0] === MISSING_ENGINE_PARAM) {
-              missingMandatoryAmpEngine = true;
+            if (err.params && ENGINE_MAP[err.params[0]]) {
+              missingElements.missingBaseScriptTag = ENGINE_MAP[err.params[0]];
             }
             break;
           case 'MISSING_REQUIRED_EXTENSION':
           case 'ATTR_MISSING_REQUIRED_EXTENSION':
             if (err.params && err.params.length > 1) {
               const tagName = err.params[1];
-              if (COMPONENT_VERSION_MAP[tagName]) {
-                missingComponentsSet[tagName] = 1;
+              if (this.componentsMap[tagName]) {
+                missingElements.missingTags[tagName] = 1;
               } else {
                 console.log(`Warning: Unknown AMP component : ${tagName}`);
               }
@@ -137,10 +135,7 @@ class AutoImporter {
         }
       }
     }
-    return {
-      missingTags: missingComponentsSet,
-      missingBaseScriptTag: missingMandatoryAmpEngine
-    };
+    return missingElements;
   }
 
   /**
@@ -197,7 +192,7 @@ class AutoImporter {
                 tok = tokens[++j];
               }
               tag = tok.type === 'string' ? tok.string : null;
-            } else if (tok.type === 'string' && tok.string === AMP_BASE_URL) {
+            } else if (tok.type === 'string' && ENGINE_SET.has(tok.string)) {
               inBaseScriptTag = true;
             }
           } else if (htmlState.context.tagName === 'head' && tok.string === '>'
@@ -237,7 +232,7 @@ class AutoImporter {
 
   _createAmpComponentElement(tagName) {
     const scriptType = AMP_SCRIPT_TYPE_MAP[tagName] || 'custom-element';
-    const ver = COMPONENT_VERSION_MAP[tagName];
+    const ver = this.componentsMap[tagName];
     return `<script async ${scriptType}="${tagName}" ` +
         `src="https://cdn.ampproject.org/v0/${tagName}-${ver}.js"></script>`;
   }
