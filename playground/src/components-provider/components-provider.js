@@ -21,25 +21,23 @@ export function createComponentsProvider() {
 class ComponentsProvider {
 
   constructor(win) {
-    this.componentsMap = {};
     this.win = win;
-    this.win.requestIdleCallback(() => this._fetchComponents());
+    this.componentsMap = new Promise((resolve, reject) => {
+      this.win.requestIdleCallback(() => {
+        let request = new Request(COMPONENTS_URL, {
+          headers: new Headers({'x-requested-by': 'playground'})
+        });
+        fetch(request)
+            .then((r) => r.json())
+            .then((data) => {
+              resolve(data);
+            });
+      });
+    });
   }
 
-  getComponents() {
+  get() {
     return this.componentsMap;
   }
 
-  _fetchComponents() {
-    if (!Object.keys(this.componentsMap).length) {
-      let request = new Request(COMPONENTS_URL, {
-        headers: new Headers({'x-requested-by': 'playground'})
-      });
-      fetch(request)
-          .then((r) => r.json())
-          .then((data) => {
-            this.componentsMap = data;
-          });
-    }
-  }
 }

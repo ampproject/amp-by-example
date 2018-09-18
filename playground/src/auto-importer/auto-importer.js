@@ -40,28 +40,28 @@ class AutoImporter {
 
   constructor(componentsProvider, editor) {
     this.componentsProvider = componentsProvider;
-    this.componentsMap = {};
+    this.componentsMap = componentsProvider.get();
     this.editor = editor;
     Object.keys(ENGINE_MAP).forEach((k) => ENGINE_SET.add(ENGINE_MAP[k]));
   }
 
   update(validationResult) {
-    if (!Object.keys(this.componentsMap).length) {
-      this.componentsMap = this.componentsProvider.getComponents();
-    }
-    if (validationResult.status !== 'FAIL') {
-      return;
-    }
-    const missing = this._parseMissingElements(validationResult);
+    this.componentsMap.then((components) => {
+      this.components = this.components || components;
+      if (validationResult.status !== 'FAIL') {
+        return;
+      }
+      const missing = this._parseMissingElements(validationResult);
 
-    if (Object.keys(missing.missingTags).length
-        || missing.missingBaseScriptTag) {
-      const existing = this._parseHeadTag();
-      // The action taken to insert any elements to fix the report of missing
-      // tags is determined by both a combination of looking at the list of
-      // missing elements and also the current state of the <head> tag.
-      this._insertMissingElements(missing, existing);
-    }
+      if (Object.keys(missing.missingTags).length
+          || missing.missingBaseScriptTag) {
+        const existing = this._parseHeadTag();
+        // The action taken to insert any elements to fix the report of missing
+        // tags is determined by both a combination of looking at the list of
+        // missing elements and also the current state of the <head> tag.
+        this._insertMissingElements(missing, existing);
+      }
+    });
   }
 
   /**
@@ -123,7 +123,7 @@ class AutoImporter {
           case 'ATTR_MISSING_REQUIRED_EXTENSION':
             if (err.params && err.params.length > 1) {
               const tagName = err.params[1];
-              if (this.componentsMap[tagName]) {
+              if (this.components[tagName]) {
                 missingElements.missingTags[tagName] = 1;
               } else {
                 console.log(`Warning: Unknown AMP component : ${tagName}`);
@@ -232,7 +232,7 @@ class AutoImporter {
 
   _createAmpComponentElement(tagName) {
     const scriptType = AMP_SCRIPT_TYPE_MAP[tagName] || 'custom-element';
-    const ver = this.componentsMap[tagName];
+    const ver = this.components[tagName];
     return `<script async ${scriptType}="${tagName}" ` +
         `src="https://cdn.ampproject.org/v0/${tagName}-${ver}.js"></script>`;
   }

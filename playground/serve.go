@@ -37,7 +37,7 @@ import (
 const (
 	COMPONENTS_URL                 = "https://api.github.com/repos/ampproject/amphtml/git/trees/master?recursive=1"
 	COMPONENTS_MEMCACHE_KEY        = "amp-components-list"
-	COMPONENTS_UPDATE_FREQ_SECONDS = 86400
+	COMPONENTS_UPDATE_FREQ_SECONDS = 86400 // one day
 	PLAYGROUND_PATH_PREFIX         = "/playground"
 )
 
