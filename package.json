@@ -29,7 +29,7 @@
     "phantom": "^6.0.0",
     "pygmentize-bundled": "^2.3.0",
     "slug": "^0.9.1",
-    "string": "^3.3.1"
+    "striptags": "^3.1.1"
   },
   "devDependencies": {
     "amp-toolbox-optimizer": "^0.3.1",
@@ -49,7 +49,7 @@
     "gulp-eslint": "5.0.0",
     "gulp-favicons": "2.2.7",
     "gulp-file": "0.4.0",
-    "gulp-htmlhint": "^2.1.1",
+    "gulp-htmlhint": "^2.2.1",
     "gulp-htmlmin": "3.0.0",
     "gulp-if": "2.0.2",
     "gulp-ignore": "2.0.2",
