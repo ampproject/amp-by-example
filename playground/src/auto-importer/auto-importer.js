@@ -40,18 +40,16 @@ class AutoImporter {
 
   constructor(componentsProvider, editor) {
     this.componentsProvider = componentsProvider;
-    this.componentsMap = componentsProvider.get();
     this.editor = editor;
     Object.keys(ENGINE_MAP).forEach((k) => ENGINE_SET.add(ENGINE_MAP[k]));
   }
 
   update(validationResult) {
-    this.componentsMap.then((components) => {
-      this.components = this.components || components;
-      if (validationResult.status !== 'FAIL') {
-        return;
-      }
-      const missing = this._parseMissingElements(validationResult);
+    if (validationResult.status !== 'FAIL') {
+      return;
+    }
+    this.componentsProvider.get().then((components) => {
+      const missing = this._parseMissingElements(validationResult, components);
 
       if (Object.keys(missing.missingTags).length
           || missing.missingBaseScriptTag) {
@@ -59,7 +57,7 @@ class AutoImporter {
         // The action taken to insert any elements to fix the report of missing
         // tags is determined by both a combination of looking at the list of
         // missing elements and also the current state of the <head> tag.
-        this._insertMissingElements(missing, existing);
+        this._insertMissingElements(missing, existing, components);
       }
     });
   }
@@ -70,8 +68,10 @@ class AutoImporter {
    *
    * @param {!Object} missing The results from {@code _parseMissingElements()}.
    * @param {!Object} existing The results from {@code _parseHeadTag()}.
+   * @param {!Object.<string, string>} components A mapping between AMP
+   *     component name and the known version. e.g. amp-bind -> 0.1
    */
-  _insertMissingElements(missing, existing) {
+  _insertMissingElements(missing, existing, components) {
     const pos = existing.baseScriptTagEnd || existing.lastTag;
     if (!pos) {
       return;
@@ -81,7 +81,7 @@ class AutoImporter {
         // circumstances the validator has reported tags missing when in fact
         // they are present.
         .filter((e) => !existing.tags[e])
-        .map((e) => this._createAmpComponentElement(e));
+        .map((e) => this._createAmpComponentElement(e, components));
     if (missing.missingBaseScriptTag && !existing.baseScriptTagEnd) {
       const t = `<script async src=${missing.missingBaseScriptTag}></script>`;
       toAdd.unshift(t);
@@ -97,6 +97,10 @@ class AutoImporter {
   /**
    * Retrieves details of missing AMP components from the AMP validator results.
    *
+   * @param {!ValidationResult} validationResult The result from the Validator.
+   * @param {!Object.<string, string>} components A mapping between AMP
+   *     component name and the known version. e.g. amp-bind -> 0.1
+   *
    * @return {{
    *   missingTags: Object,<string, number>,
    *   missingBaseScriptTag: ?string
@@ -105,7 +109,7 @@ class AutoImporter {
    * missingTags: The keys of this dictionary are those missing AMP components.
    * missingBaseScriptTag: The URL of the missing AMP engine, if missing.
    */
-  _parseMissingElements(validationResult) {
+  _parseMissingElements(validationResult, components) {
     let missingElements = {
       missingBaseScriptTag: null,
       missingTags: {}
@@ -123,7 +127,7 @@ class AutoImporter {
           case 'ATTR_MISSING_REQUIRED_EXTENSION':
             if (err.params && err.params.length > 1) {
               const tagName = err.params[1];
-              if (this.components[tagName]) {
+              if (components[tagName]) {
                 missingElements.missingTags[tagName] = 1;
               } else {
                 console.log(`Warning: Unknown AMP component : ${tagName}`);
@@ -230,9 +234,9 @@ class AutoImporter {
     return result;
   }
 
-  _createAmpComponentElement(tagName) {
+  _createAmpComponentElement(tagName, components) {
     const scriptType = AMP_SCRIPT_TYPE_MAP[tagName] || 'custom-element';
-    const ver = this.components[tagName];
+    const ver = components[tagName];
     return `<script async ${scriptType}="${tagName}" ` +
         `src="https://cdn.ampproject.org/v0/${tagName}-${ver}.js"></script>`;
   }

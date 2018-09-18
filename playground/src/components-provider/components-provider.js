@@ -31,7 +31,11 @@ class ComponentsProvider {
             .then((r) => r.json())
             .then((data) => {
               resolve(data);
-            });
+            })
+            .catch(() => {
+              console.warn('Failed to fetch AMP component versions mapping');
+              resolve({});
+            })
       });
     });
   }
