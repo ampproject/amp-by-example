@@ -128,11 +128,11 @@
     ## A simple favorite Button
 
     The button is embedded inside an `amp-list`, which enables us to dynamically render the button based on whether
-    the user already liked something or not. 
-
-    Inside the `amp-list` we declare a placeholder icon using the `placeholder` attribute that
-    is shown while the `amp-list` is loading. Inside the template we use mustache's implicit iterator `.` to access the boolean
+    the user already liked something or not. Inside the template we use mustache's implicit iterator `.` to access the boolean
     value that is returned by our `/favorite` endpoint: `{{#.}}heart-fill{{/.}}`.
+
+    We also declare a placeholder icon inside the `amp-list` using the `placeholder` attribute which
+    is shown while the `amp-list` is loading. 
 
     There are a few things that are happening when the user presses the favorite button:
 
