@@ -43,6 +43,7 @@ const (
 
 var componentRegex = regexp.MustCompile("extensions/(amp-[^/]+)/([0-9]+.[0-9]+)$")
 var validRequestUrlOrigins map[string]bool
+var instanceStartup = int(time.Now().Unix())
 
 type GitHubBlob struct {
 	Path     string `json:"path"`
@@ -60,9 +61,18 @@ type GitHubApiResponse struct {
 	Truncated bool         `json:"truncated"`
 }
 
+type GitHubApiToken struct {
+	AuthKey string
+}
+
 type AmpComponentsList struct {
 	Timestamp  int
 	Components []byte
+}
+
+type ComponentsReqError struct {
+	Message string
+	Code    int
 }
 
 func InitPlayground() {
@@ -84,6 +94,17 @@ func InitializeComponents(r *http.Request) {
 	getComponentsAndUpdateIfStale(r)
 }
 
+func getGitHubApiToken(ctx context.Context) (string, error) {
+	var apiToken GitHubApiToken
+	key := datastore.NewKey(ctx, "GitHubApiToken", "GitHubApiTokenKey", 0, nil)
+	err := datastore.Get(ctx, key, &apiToken)
+	if err != nil {
+		log.Warningf(ctx, "Error retrieving GitHub key from datastore")
+		return "", err
+	}
+	return apiToken.AuthKey, nil
+}
+
 func components(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		http.Error(w, "only GET request supported", http.StatusBadRequest)
@@ -93,9 +114,9 @@ func components(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "x-requested-by invalid", http.StatusBadRequest)
 		return
 	}
-	components := getComponentsAndUpdateIfStale(r)
-	if components == nil {
-		http.Error(w, "Server error", http.StatusServiceUnavailable)
+	components, err := getComponentsAndUpdateIfStale(r)
+	if err != nil {
+		http.Error(w, err.Message, err.Code)
 		return
 	}
 
@@ -103,10 +124,10 @@ func components(w http.ResponseWriter, r *http.Request) {
 	w.Write(components.Components)
 }
 
-func getComponentsAndUpdateIfStale(r *http.Request) *AmpComponentsList {
+func getComponentsAndUpdateIfStale(r *http.Request) (*AmpComponentsList, *ComponentsReqError) {
 	curTime := int(time.Now().Unix())
 	ctx := appengine.NewContext(r)
-	latest, _ := fetchComponentsFromMemCache(ctx)
+	latest, err := fetchComponentsFromMemCache(ctx)
 	// latest could be nil if not in memcache or datastore.
 	var timestamp int
 	if latest != nil {
@@ -114,9 +135,10 @@ func getComponentsAndUpdateIfStale(r *http.Request) *AmpComponentsList {
 	}
 
 	if curTime-timestamp > COMPONENTS_UPDATE_FREQ_SECONDS {
+		log.Infof(ctx, "Components map is stale, requesting update")
 		createTaskQueueUpdate(ctx, timestamp)
 	}
-	return latest
+	return latest, err
 }
 
 func createTaskQueueUpdate(ctx context.Context, timestamp int) {
@@ -125,14 +147,21 @@ func createTaskQueueUpdate(ctx context.Context, timestamp int) {
 	// Setting the name explicitly means that only one task will ever
 	// be in the queue, even if attempted by separate instances.
 	// The name chosen includes the timestamp of the last known
-	// components list (or 0 for the first attempt), which means
-	// that only one update task can be created for each version
-	// known.
-	t.Name = fmt.Sprintf("amp-components-list-last-known-%d", timestamp)
-	minBackoff, _ := time.ParseDuration("10s")
+	// components list, which means that only one update task can be
+	// created for each version known.
+	// Where the timestamp is zero, a different value must be used as zero
+	// would remain in the dedupe list for 9 days. The startup time of the
+	// instance is used instead
+	n := timestamp
+	if timestamp == 0 {
+		n = instanceStartup
+	}
+	t.Name = fmt.Sprintf("amp-components-list-last-known-%d", n)
+	minBackoff, _ := time.ParseDuration("20s")
 	t.RetryOptions = &taskqueue.RetryOptions{
-		RetryLimit: 5,
-		MinBackoff: minBackoff,
+		RetryLimit:   5,
+		MinBackoff:   minBackoff,
+		MaxDoublings: 3,
 	}
 	log.Infof(ctx, "Adding to taskqueue: %s", t.Name)
 	taskqueue.Add(ctx, t, "")
@@ -142,40 +171,43 @@ func componentsTask(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 	_, err := fetchAndUpdateComponents(ctx)
 	if err != nil {
+		log.Warningf(ctx, "Marking task for retry, if retries remaining")
+		// Error code of 500 ensures task is marked for retry.
 		http.Error(w, "Server error", http.StatusInternalServerError)
 		return
 	}
 	w.Write([]byte("Updated components"))
 }
 
-func fetchAndUpdateComponents(ctx context.Context) ([]byte, error) {
+func fetchAndUpdateComponents(ctx context.Context) ([]byte, *ComponentsReqError) {
 	log.Infof(ctx, "Fetching components list from GitHub")
 	components, err := fetchComponents(ctx)
 	if err != nil {
+		log.Warningf(ctx, "Failed to fetch components map from GitHub: %v, %v", err.Code, err.Message)
 		return nil, err
 	}
 	addComponentsToStores(ctx, components)
 	return components, nil
 }
 
-func fetchComponentsFromDataStore(ctx context.Context) (*AmpComponentsList, error) {
+func fetchComponentsFromDataStore(ctx context.Context) (*AmpComponentsList, *ComponentsReqError) {
 	log.Infof(ctx, "Retrieving components from datastore")
 	var components AmpComponentsList
 	key := datastore.NewKey(ctx, "AmpComponentsList", "ComponentsListKey", 0, nil)
 	err := datastore.Get(ctx, key, &components)
 	if err != nil {
-		log.Infof(ctx, "Error retrieving components from datastore")
-		rawComponents, err := fetchAndUpdateComponents(ctx)
-		if err != nil {
-			return nil, err
+		log.Warningf(ctx, "Error retrieving components from datastore")
+		rawComponents, compErr := fetchAndUpdateComponents(ctx)
+		if compErr != nil {
+			return nil, compErr
 		}
 		components.Components = rawComponents
 		components.Timestamp = int(time.Now().Unix())
 	}
-	return &components, err
+	return &components, nil
 }
 
-func fetchComponentsFromMemCache(ctx context.Context) (*AmpComponentsList, error) {
+func fetchComponentsFromMemCache(ctx context.Context) (*AmpComponentsList, *ComponentsReqError) {
 	log.Infof(ctx, "Retrieving components from memcache")
 	var components AmpComponentsList
 	_, err := memcache.Gob.Get(ctx, COMPONENTS_MEMCACHE_KEY, &components)
@@ -191,8 +223,10 @@ func fetchComponentsFromMemCache(ctx context.Context) (*AmpComponentsList, error
 			memcache.Gob.Set(ctx, memcacheItem)
 			return dsComponents, nil
 		}
+	} else if err != nil {
+		return nil, &ComponentsReqError{"Memcache error", http.StatusInternalServerError}
 	}
-	return &components, err
+	return &components, nil
 }
 
 func addComponentsToStores(ctx context.Context, rawComponents []byte) {
@@ -203,13 +237,18 @@ func addComponentsToStores(ctx context.Context, rawComponents []byte) {
 	key := datastore.NewKey(ctx, "AmpComponentsList", "ComponentsListKey", 0, nil)
 	log.Infof(ctx, "Adding components to datastore")
 	_, err := datastore.Put(ctx, key, components)
-	if err != nil {
+	if err == nil {
 		log.Infof(ctx, "Adding components to memcache")
 		item := &memcache.Item{
 			Key:    COMPONENTS_MEMCACHE_KEY,
 			Object: components,
 		}
-		memcache.Gob.Set(ctx, item)
+		err = memcache.Gob.Set(ctx, item)
+		if err != nil {
+			log.Warningf(ctx, "Error adding components to memcache: %v", err)
+		}
+	} else {
+		log.Warningf(ctx, "Error adding components to datastore: %v", err)
 	}
 }
 
@@ -238,21 +277,36 @@ func parseAndAddComponent(blob GitHubBlob, componentsWithVersion map[string]stri
 	}
 }
 
-func fetchComponents(ctx context.Context) ([]byte, error) {
+func fetchComponents(ctx context.Context) ([]byte, *ComponentsReqError) {
+	log.Infof(ctx, "Fetching components from GitHub")
+	authKey, err := getGitHubApiToken(ctx)
+	url := COMPONENTS_URL
+	if err == nil {
+		url = url + "&access_token=" + authKey
+	} else {
+		log.Warningf(ctx, "Using unauthenticated request to GitHub API")
+	}
+
 	client := urlfetch.Client(ctx)
-	req, err := http.NewRequest("GET", COMPONENTS_URL, nil)
+	req, err := http.NewRequest("GET", url, nil)
 	resp, err := client.Do(req)
 	if err != nil {
-		return nil, err
+		return nil, &ComponentsReqError{"Error in request to GitHub", http.StatusInternalServerError}
+	} else if resp.StatusCode != http.StatusOK {
+		return nil, &ComponentsReqError{"Error in request to GitHub", resp.StatusCode}
 	}
 	defer resp.Body.Close()
 
 	g := new(GitHubApiResponse)
 	err = json.NewDecoder(resp.Body).Decode(&g)
 	if err != nil {
-		return nil, err
+		return nil, &ComponentsReqError{"Error decoding JSON response", http.StatusInternalServerError}
 	}
-	return extractComponents(g)
+	c, err := extractComponents(g)
+	if err != nil {
+		return nil, &ComponentsReqError{"Error extracting components", http.StatusInternalServerError}
+	}
+	return c, nil
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {

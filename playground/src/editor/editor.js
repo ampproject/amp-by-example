@@ -180,4 +180,8 @@ class Editor {
     this.codeMirror.replaceRange(replacement, from, to, origin);
   }
 
+  getTokenAt(pos, precise) {
+    return this.codeMirror.getTokenAt(pos, precise);
+  }
+
 }

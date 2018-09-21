@@ -48,6 +48,14 @@ class AutoImporter {
     if (validationResult.status !== 'FAIL') {
       return;
     }
+    // If the cursor is currently in a tag, e.g. a tag is being entered, don't
+    // attempt to act on validation results. Wait til the tag has been fully
+    // entered, to avoid any mix up that could occur from one tag being the stem
+    // of another, e.g. amp-access and amp-access-laterpay.
+    const currentTag = this.editor.getTokenAt(this.editor.getCursor());
+    if (currentTag.type === 'tag') {
+      return;
+    }
     this.componentsProvider.get().then((components) => {
       const missing = this._parseMissingElements(validationResult, components);
 
