@@ -61,6 +61,10 @@ type GitHubApiResponse struct {
 	Truncated bool         `json:"truncated"`
 }
 
+// An Auth key for using GitHub API should be generated and placed in Datastore
+// on App Engine, with the Datastore key of "GitHubApiTokenKey". This ensures
+// that requests to the GitHub API are not subject to the severe rate limiting
+// imposed on unauthenticated requests, stopping the components map being built.
 type GitHubApiToken struct {
 	AuthKey string
 }
