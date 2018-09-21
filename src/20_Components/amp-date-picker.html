@@ -47,14 +47,6 @@
     color: #b60845;
   }
 
-  .align-content-center,
-  .align-content-center .amp-date-picker-calendar-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-  }
-
   .space-between > * + * {
     margin-left: 1em;
   }
@@ -244,7 +236,6 @@
   <!--
   `amp-date-picker` with mode="static" can display a calendar view.
   The static picker can be used with or without an attached input. -->
-  <div class="align-content-center">
       <amp-date-picker
         id="static-picker"
         type="single"
@@ -254,7 +245,6 @@
         format="YYYY-MM-DD"
         input-selector="#static-picker-input">
       </amp-date-picker>
-  </div>
 
   <!--
     `amp-date-picker` supports a range of attributes, for example `highlighted` and `blocked`. Find the complete list in the official [doc](https://github.com/ampproject/amphtml/tree/master/extensions/amp-date-picker/0.1).
@@ -262,7 +252,6 @@
     The `highlighted` attributes a space separated list of ISO 8601 dates and RFC 5545 RRULEs specifying dates displayed with a highlight style.
     Here every Thursday is `highlighted`, while every weekend is `blocked`.
   -->
-  <div class="align-content-center">
     <amp-date-picker
       id="simple-date-picker-3"
       type="single"
@@ -275,14 +264,12 @@
       highlighted="FREQ=WEEKLY;WKST=SU;BYDAY=TH"
       blocked="FREQ=WEEKLY;WKST=SU;BYDAY=SA,SU">
     </amp-date-picker>
-  </div>
 
   <!--
     If the date picker uses `type="range"` and there are blocked dates that are
     allowed to be part of the range, the `allow-blocked-dates` attribute
     allows users to select ranges that include blocked dates.
   -->
-  <div class="align-content-center">
       <amp-date-picker
         id="simple-date-picker-4"
         type="range"
@@ -296,7 +283,6 @@
         highlighted="FREQ=WEEKLY;WKST=SU;BYDAY=TH"
         blocked="FREQ=WEEKLY;WKST=SU;BYDAY=SA,SU">
       </amp-date-picker>
-    </div>
 
   <!-- ## Lightbox date picker -->
   <!--
@@ -307,17 +293,15 @@
     view. For a touch-only interface box, the `on="tap:..."` attribute opens the
     picker when the user taps on the input.
   -->
-  <div class="p1">
-    <p>Choose your travel dates</p>
-    <div class="align-content-center space-between">
-      <div class="ampstart-input">
+  <div>
+    <p class="p1">Choose your travel dates</p>
+      <div class="ampstart-input m1">
         <input class="border-none p0" id="lb-start" placeholder="Start date" on="tap:lb.open" role="textbox" tabindex="0">
       </div>
-      <div class="ampstart-input">
+      <div class="ampstart-input m1">
         <input class="border-none p0" id="lb-end" placeholder="End date" on="tap:lb.open" role="textbox" tabindex="0">
       </div>
-      <button class="ampstart-btn caps" on="tap:lb-picker.clear">Clear</button>
-    </div>
+      <button class="ampstart-btn caps m1" on="tap:lb-picker.clear">Clear</button>
     <amp-lightbox id="lb" layout="nodisplay">
       <button class="ampstart-btn absolute m1 caps small-button" on="tap:lb.close" tabindex="0">Close</button>
       <div class="align-content-center">
@@ -343,17 +327,15 @@
     The `fullscreen` attribute tells the date picker to take up the space in
     its container and allow its content to scroll vertically.
   -->
-  <div class="p1">
-      <p>Choose your travel dates</p>
-      <div class="align-content-center space-between">
-        <div class="ampstart-input">
+  <div>
+    <p class="p1">Choose your travel dates</p>
+      <div class="ampstart-input m1">
           <input class="border-none p0" id="lb-fullscreen-start" placeholder="Start date" on="tap:lb-fullscreen.open" role="textbox" tabindex="0">
         </div>
         <div class="ampstart-input">
-          <input class="border-none p0" id="lb-fullscreen-end" placeholder="End date" on="tap:lb-fullscreen.open" role="textbox" tabindex="0">
+          <input class="border-none p0 m1" id="lb-fullscreen-end" placeholder="End date" on="tap:lb-fullscreen.open" role="textbox" tabindex="0">
         </div>
-        <button class="ampstart-btn caps" on="tap:lb-fullscreen-picker.clear">Clear</button>
-      </div>
+        <button class="ampstart-btn caps m1" on="tap:lb-fullscreen-picker.clear">Clear</button>
       <amp-lightbox id="lb-fullscreen" layout="nodisplay" scrollable>
         <button class="ampstart-btn m1 absolute caps z3 small-button" on="tap:lb-fullscreen.close" tabindex="0">Close</button>
         <amp-date-picker
