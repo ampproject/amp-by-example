@@ -103,6 +103,7 @@
         background: #323232;
         color: white;
         padding: 1rem 1.5rem;
+        z-index: 1000;
       }
       #favorite-failed-message div {
         color: #64dd17;
@@ -127,11 +128,11 @@
     ## A simple favorite Button
 
     The button is embedded inside an `amp-list`, which enables us to dynamically render the button based on whether
-    the user already liked something or not. We don't make use of `amp-list`'s templating mechanism, but instead
-    we use `amp-bind` to bind the button state to the favorite state initialized above.
+    the user already liked something or not. Inside the template we use mustache's implicit iterator `.` to access the boolean
+    value that is returned by our `/favorite` endpoint: `{{#.}}heart-fill{{/.}}`.
 
-    Inside the `amp-list` we declare a placeholder icon using the `placeholder` attribute that
-    is shown while the `amp-list` is loading.
+    We also declare a placeholder icon inside the `amp-list` using the `placeholder` attribute which
+    is shown while the `amp-list` is loading. 
 
     There are a few things that are happening when the user presses the favorite button:
 
@@ -144,8 +145,14 @@
     <form method="post"
           action-xhr="/favorite"
           target="_top"
-          on="submit:AMP.setState({favorite: !favorite}),favorite-failed-message.hide;
-          submit-error:AMP.setState({favorite: !favorite}),favorite-failed-message.show">
+          on="submit:AMP.setState({
+                        favorite: !favorite
+                     }),
+                     favorite-failed-message.hide;
+              submit-error:AMP.setState({
+                        favorite: !favorite
+                     }),
+                     favorite-failed-message.show">
       <amp-list width="56"
                 height="56"
                 credentials="include"
@@ -154,6 +161,7 @@
                 src="/favorite">
         <template type="amp-mustache">
           <input type="submit"
+                 class="{{#.}}heart-fill{{/.}}{{^.}}heart-border{{/.}}"
                  [class]="favorite ? 'heart-fill' : 'heart-border'"
                  value="" aria-label="Favorite Toggle">
         </template>
@@ -195,15 +203,18 @@
           action-xhr="/favorite-with-count"
           target="_top"
           on="submit:AMP.setState({
-            previousFavoriteWithCount: favoriteWithCount,
-            favoriteWithCount: {
-            value: !favoriteWithCount.value,
-            count: favoriteWithCount.count + (favoriteWithCount.value ? -1 : 1),
-          }
-          }),favorite-failed-message.hide;
-            submit-error:AMP.setState({
-            favoriteWithCount: previousFavoriteWithCount
-          }),favorite-failed-message.show">
+                   previousFavoriteWithCount: favoriteWithCount,
+                   favoriteWithCount: {
+                     value: !favoriteWithCount.value,
+                     count: favoriteWithCount.count + (favoriteWithCount.value ? -1 : 1),
+                   }
+                 }),
+                 favorite-failed-message.hide;
+             submit-error:AMP.setState({
+                   value: !favoriteWithCount.value,
+                   favoriteWithCount: previousFavoriteWithCount.count
+                 }),
+                 favorite-failed-message.show">
       <amp-list width="200"
                 height="56"
                 credentials="include"
@@ -214,6 +225,7 @@
         <template type="amp-mustache">
           <div class="favorite-container">
             <input type="submit"
+                   class="{{#value}}heart-fill{{/value}}{{^value}}heart-border{{/value}}"
                    [class]="favoriteWithCount.value ? 'heart-fill' : 'heart-border'"
                    value="" aria-label="Favorite Toggle">
             <div class="favorite-count" [text]="favoriteWithCount.count ? favoriteWithCount.count : ''">{{count}}</div>

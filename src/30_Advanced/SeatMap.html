@@ -69,7 +69,7 @@ how to dynamically select and unselect seats.
         position: relative;
         height: 50vh;
         min-width: 100%;
-        padding: 1rem;
+        box-sizing: border-box;
       }
     </style>
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
@@ -113,7 +113,7 @@ how to dynamically select and unselect seats.
           <!--~
           If a seat is selected, when the user selects it again, it's removed from the selectedSeats list
           ~-->
-            <rect class="seat {{unavailable}}" [class]="selectedSeats.includes('{{id}}')? 'seat selected' : 'seat'" 
+            <rect class="seat {{unavailable}}" [class]="selectedSeats.includes('{{id}}')? 'seat selected' : 'seat {{unavailable}}'" 
               x="{{x}}" y="{{y}}" width="{{width}}" height="{{height}}" 
               role="button" 
               tabindex="0" rx="{{rx}}" ry="{{ry}}"

@@ -200,7 +200,7 @@ func fetchComponentsFromDataStore(ctx context.Context) (*AmpComponentsList, *Com
 	key := datastore.NewKey(ctx, "AmpComponentsList", "ComponentsListKey", 0, nil)
 	err := datastore.Get(ctx, key, &components)
 	if err != nil {
-		log.Warningf(ctx, "Error retrieving components from datastore")
+		log.Warningf(ctx, "Error retrieving components from datastore: %v", err)
 		rawComponents, compErr := fetchAndUpdateComponents(ctx)
 		if compErr != nil {
 			return nil, compErr
@@ -215,22 +215,28 @@ func fetchComponentsFromMemCache(ctx context.Context) (*AmpComponentsList, *Comp
 	log.Infof(ctx, "Retrieving components from memcache")
 	var components AmpComponentsList
 	_, err := memcache.Gob.Get(ctx, COMPONENTS_MEMCACHE_KEY, &components)
+
+	if err == nil {
+		return &components, nil
+	}
+
 	if err == memcache.ErrCacheMiss {
 		log.Infof(ctx, "Components not in memcache, retrieving from datastore")
-		dsComponents, err := fetchComponentsFromDataStore(ctx)
-		if err == nil {
-			log.Infof(ctx, "Setting datastore components value to memcache")
-			memcacheItem := &memcache.Item{
-				Key:    COMPONENTS_MEMCACHE_KEY,
-				Object: dsComponents,
-			}
-			memcache.Gob.Set(ctx, memcacheItem)
-			return dsComponents, nil
-		}
 	} else if err != nil {
-		return nil, &ComponentsReqError{"Memcache error", http.StatusInternalServerError}
+		log.Errorf(ctx, "Error when retrieving components from memcache: %v", err)
 	}
-	return &components, nil
+
+	dsComponents, compErr := fetchComponentsFromDataStore(ctx)
+	if compErr == nil {
+		log.Infof(ctx, "Setting datastore components value to memcache")
+		memcacheItem := &memcache.Item{
+			Key:    COMPONENTS_MEMCACHE_KEY,
+			Object: dsComponents,
+		}
+		memcache.Gob.Set(ctx, memcacheItem)
+		return dsComponents, nil
+	}
+	return nil, compErr
 }
 
 func addComponentsToStores(ctx context.Context, rawComponents []byte) {

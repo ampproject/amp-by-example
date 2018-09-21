@@ -10,7 +10,7 @@
         "description": "Add a <a href=\"https://developers.google.com/web/fundamentals/web-app-manifest/\">web app manifest</a>.",
         "values": [
           {
-            "key": "path",
+            "key": "manifestPath",
             "label": "Manifest Path",
             "value": "/manifest.json"
           }
@@ -23,7 +23,7 @@
         "default": false,
         "values": [
           {
-            "key": "path",
+            "key": "swPath",
             "label": "Path",
             "value": "/"
           },
