@@ -50,7 +50,7 @@ addSplitPaneBehavior(document.querySelector('main'));
 // configure error list behavior
 const errorIndicator = document.getElementById('error-indicator');
 const errorListContainer = document.getElementById('error-list');
-const errorList = ErrorList.createErrorList(errorListContainer, errorIndicator);
+
 events.subscribe(
   ErrorList.EVENT_ERROR_SELECTED,
   error => editor.setCursorAndFocus(error.line, error.col)
