@@ -69,9 +69,9 @@ const runtimeChanged = runtimeId => {
   if (!newRuntime) {
     console.error('unknown runtime: ' + newRuntime);
     return;
-  }
+  };
   events.publish(EVENT_SET_RUNTIME, newRuntime);
-}
+};
 
 const runtimeSelector = createSelector(document.getElementById('runtime-select'), {
   classes: ['minimal'],
@@ -95,7 +95,7 @@ events.subscribe(EVENT_SET_RUNTIME, newRuntime => {
     activeRuntime != newRuntime && 
     activeRuntime.template === editor.getSource()) {
     editor.setSource(newRuntime.template);
-  }
+  };
   validator.validate(editor.getSource());
   activeRuntime = newRuntime;
 });
@@ -186,7 +186,7 @@ window.onpopstate = () => {
   if (!params.get('preview')) {
     previewPanel.classList.remove('show');
     showPreview.show();
-  }
+  };
 };
 
 showPreview.show();
