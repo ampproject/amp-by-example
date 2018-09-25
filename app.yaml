@@ -17,7 +17,18 @@ threadsafe: yes
 # cache all static assets for at most 1 day.
 default_expiration: 1d
 
+inbound_services:
+- warmup
+
 handlers:
+- url: /_ah/warmup
+  script: _go_app
+  login: admin
+
+- url: /playground/amp-component-versions-task
+  script: _go_app
+  login: admin
+
 - url: /sw\.js$
   secure: always
   static_files: dist/sw.js

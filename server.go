@@ -53,6 +53,7 @@ func init() {
 	backend.InitSeatmapPage()
 	playground.InitPlayground()
 	http.Handle("/", ServeStaticFiles(HandleNotFound(http.FileServer(http.Dir(DIST_DIR)))))
+	http.HandleFunc("/_ah/warmup", warmup)
 }
 
 func HandleNotFound(h http.Handler) http.HandlerFunc {
@@ -74,6 +75,11 @@ func ServeStaticFiles(h http.Handler) http.Handler {
 		backend.SetDefaultMaxAge(w)
 		h.ServeHTTP(w, r)
 	})
+}
+
+func warmup(w http.ResponseWriter, r *http.Request) {
+	playground.InitializeComponents(r)
+	w.Write([]byte("Warmup request"))
 }
 
 func exists(path string) bool {
