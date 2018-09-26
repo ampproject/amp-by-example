@@ -19,7 +19,9 @@
       {{> css/shared.css}}
       {{> css/consent.css}}
       {{> css/example.css}}
+      {{^metadata.hidePreview}}
       {{{exampleStyles}}}
+      {{/metadata.hidePreview}}
    </style>
   </head>
   {{{bodyTag}}}
