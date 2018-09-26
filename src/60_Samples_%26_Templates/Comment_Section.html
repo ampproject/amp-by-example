@@ -86,6 +86,7 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
         "noPingback": "true",
         "login": {
           "google-sign-in": "<%host%>/oauth/login/google",
+          "github-sign-in": "<%host%>/oauth/login/github",
           "sign-out": "<%host%>/oauth/logout"
         },
         "authorizationFallbackResponse": {
@@ -128,6 +129,7 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     <span amp-access="NOT loggedIn" role="button" tabindex="0" amp-access-hide>
           <h3 class="m1">Please login to comment</h3>
           <button on="tap:amp-access.login-google-sign-in" class="ampstart-btn m2 caps">Google Login</button>
+          <button on="tap:amp-access.login-github-sign-in" class="ampstart-btn m2 caps">GitHub Login</button>
     </span>
       <!-- Use amp-form to submit the comment. In this sample, only a single comment can be added as comments are not persisted in the backend.  -->
       <form class="px1 pt1 flex" amp-access="loggedIn" amp-access-hide method="post" action-xhr="/samples_templates/comment_section/submit-comment-xhr" target="_top">
