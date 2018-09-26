@@ -17,15 +17,7 @@ package main
 import (
 	"backend"
 	"net/http"
-	"os"
 	"playground"
-	"strings"
-)
-
-const (
-	MAX_AGE_IN_SECONDS = 180 // three minutes
-	OLD_ADDRESS        = "amp-by-example.appspot.com"
-	DIST_DIR           = "dist"
 )
 
 func init() {
@@ -52,39 +44,11 @@ func init() {
 	backend.InitLetsEncrypt()
 	backend.InitSeatmapPage()
 	playground.InitPlayground()
-	http.Handle("/", ServeStaticFiles(HandleNotFound(http.FileServer(http.Dir(DIST_DIR)))))
+	backend.InitStatic()
 	http.HandleFunc("/_ah/warmup", warmup)
-}
-
-func HandleNotFound(h http.Handler) http.HandlerFunc {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if strings.HasSuffix(r.URL.Path, "/") && !exists(DIST_DIR+r.URL.Path+"index.html") {
-			http.NotFound(w, r)
-			return
-		}
-		h.ServeHTTP(w, r)
-	})
-}
-
-func ServeStaticFiles(h http.Handler) http.Handler {
-	return backend.EnableCors(func(w http.ResponseWriter, r *http.Request) {
-		if r.Host == OLD_ADDRESS || backend.IsInsecureRequest(r) {
-			backend.RedirectToSecureVersion(w, r)
-			return
-		}
-		backend.SetDefaultMaxAge(w)
-		h.ServeHTTP(w, r)
-	})
 }
 
 func warmup(w http.ResponseWriter, r *http.Request) {
 	playground.InitializeComponents(r)
 	w.Write([]byte("Warmup request"))
-}
-
-func exists(path string) bool {
-	if _, err := os.Stat(path); err == nil {
-		return true
-	}
-	return false
 }
