@@ -24,7 +24,8 @@ const IGNORED_URLS = [
   /.*\/shopping_cart$/,
   /.*\/favorite$/,
   /.*\/favorite-with-count$/,
-  /.*\/slow-json-with-items$/
+  /.*\/slow-json-with-items$/,
+  /.*\/oauth\//
 ];
 
 config.filesToCache = [

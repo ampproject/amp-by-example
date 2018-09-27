@@ -34,8 +34,9 @@ func InitOAuth() {
 }
 
 func oauthStatus(w http.ResponseWriter, r *http.Request) {
-	token := oauth.GetToken(r)
+	name := oauth.GetUserName(r)
 	SendJsonResponse(w, map[string]interface{}{
-		"loggedIn": token != nil,
+		"loggedIn": name != "",
+		"name":     name,
 	})
 }

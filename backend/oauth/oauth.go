@@ -17,10 +17,13 @@ package oauth
 import (
 	"backend/cookie"
 	"backend/util"
+	"encoding/json"
+	"io/ioutil"
 
 	"net/http"
 	"strconv"
 
+	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 	"google.golang.org/appengine"
 )
@@ -28,6 +31,11 @@ import (
 const (
 	OAUTH_COOKIE = "oauth2_cookie"
 )
+
+var userinfoEndpoint = map[string]string{
+	"google": "https://www.googleapis.com/oauth2/v3/userinfo",
+	"github": "https://api.github.com/user",
+}
 
 func loginForConfig(w http.ResponseWriter, r *http.Request, config *oauth2.Config) {
 	returnURL := r.URL.Query().Get("return")
@@ -84,11 +92,17 @@ func callbackForConfig(w http.ResponseWriter, r *http.Request, config *oauth2.Co
 		http.Redirect(w, r, cookieData.generateReturnURL(false), http.StatusFound)
 		return
 	}
+	name, err := nameFromToken(ctx, config, token, userinfoEndpoint[provider])
+	if err != nil {
+		cookie.Clear(w, OAUTH_COOKIE)
+		http.Redirect(w, r, cookieData.generateReturnURL(false), http.StatusFound)
+		return
+	}
 
 	url := cookieData.generateReturnURL(true)
 	cookieData = oauthCookie{
 		LoggedInWith: provider,
-		Token:        token,
+		Name:         name,
 	}
 	if err := cookie.Set(w, OAUTH_COOKIE, &cookieData); err != nil {
 		http.Error(w, "Failed to set cookie", http.StatusInternalServerError)
@@ -98,15 +112,30 @@ func callbackForConfig(w http.ResponseWriter, r *http.Request, config *oauth2.Co
 	http.Redirect(w, r, url, http.StatusFound)
 }
 
-func GetToken(r *http.Request) *oauth2.Token {
+func nameFromToken(ctx context.Context, config *oauth2.Config, token *oauth2.Token, endpoint string) (string, error) {
+	client := config.Client(ctx, token)
+	resp, err := client.Get(endpoint)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+	var s struct{ Name string }
+	if err := json.Unmarshal(body, &s); err != nil {
+		return "", err
+	}
+	return s.Name, nil
+}
+
+func GetUserName(r *http.Request) string {
 	var cookieData oauthCookie
 	if err := cookie.Get(r, OAUTH_COOKIE, &cookieData); err != nil {
-		return nil
+		return ""
 	}
-	if !cookieData.Token.Valid() {
-		return nil
-	}
-	return cookieData.Token
+	return cookieData.Name
 }
 
 func Logout(w http.ResponseWriter, r *http.Request) {
@@ -125,7 +154,7 @@ type oauthCookie struct {
 	State        string
 	ReturnURL    string
 	LoggedInWith string
-	Token        *oauth2.Token
+	Name         string
 }
 
 func (c *oauthCookie) generateReturnURL(success bool) string {
