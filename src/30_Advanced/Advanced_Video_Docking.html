@@ -2,16 +2,30 @@
   "hidePreview": true,
   "experiments": ["video-dock"]
 }--->
+<!--
+  ## Introduction
+
+  With [`amp-video`](https://www.ampproject.org/docs/reference/components/amp-video)
+  you can have rich user interface features, such as docking (minimize-to-corner).
+
+  You can simply enable this feature on your `<amp-video>` by using the `dock`
+  attribute. This example goes further by specifying a "docking slot" (a DOM
+  element that represents the area where the video should be minimized) and
+  layout synchronization using [events and
+  actions](https://www.ampproject.org/docs/interaction_dynamic/amp-actions-and-events),
+  and the `amp-animation` extension.
+-->
+<!-- -->
 <!doctype html>
 <html amp lang="en">
 <head>
   <meta charset="utf-8">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <!-- ## Setup -->
-  <!-- Include the `amp-video` extension. -->
+  <!-- Include the [`amp-video`](https://www.ampproject.org/docs/reference/components/amp-video) extension. -->
   <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
-  <!-- Include the `amp-animation` extension to animate the `<aside>` element on
-  `dock` and `undock`.  -->
+  <!-- Include the [`amp-animation`](https://www.ampproject.org/docs/reference/components/amp-animation)
+  extension to animate the `<aside>` element on `dock` and `undock`.  -->
   <script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
   <title>My Article</title>
   <link rel="canonical" href="http://example.ampproject.org/article-metadata.html">
@@ -104,7 +118,7 @@
 <body>
   <!-- ## Define animations -->
   <!-- To slide down the content below the docking slot, the vertical offset is
-  changed into a 20px positive offset to create padding below the slot. -->
+  changed into a `20px` positive offset to create padding below the slot. -->
   <amp-animation layout="nodisplay" id="slideDown">
     <script type="application/json">
       {
@@ -125,7 +139,7 @@
     </script>
   </amp-animation>
   <!-- To slide up the content once the video is no longer docked, the animation
-  reverts the aside content's offset to -16.85vw. -->
+  reverts the aside content's offset to `-16.85vw`. -->
   <amp-animation layout="nodisplay" id="slideUp">
     <script type="application/json">
       {
@@ -149,7 +163,8 @@
   <main>
     <div class="content">
       <!-- ## Include your video -->
-      <!-- In your `<amp-video>` tag, you should include two attributes:
+      <!-- In your [`<amp-video>`](https://www.ampproject.org/docs/reference/components/amp-video)
+      tag, you should include two attributes:
 
        - `dock`. This attribute specifies that the video should be minimized to
       corner on scroll. By setting a value on the attribute, we're specifying
@@ -219,5 +234,4 @@
     </aside>
   </main>
 </body>
-
 </html>
