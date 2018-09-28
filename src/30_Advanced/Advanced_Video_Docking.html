@@ -189,9 +189,17 @@
       - `on` to specify the actions that get executed on docking events. In this
       case, we'll start the `slideDown` animation on `dock` and the `slideUp`
       animation on `undock`. -->
-      <amp-video autoplay src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-        poster="https://peach.blender.org/wp-content/uploads/bbb-splash.png" artwork="img/bigbuckbunny.jpg" title="Big Buck Bunny"
-        album="Blender" artist="Blender Foundation" width="720" height="405" layout="responsive" controls dock="#dock-slot"
+      <amp-video
+        src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+        poster="https://peach.blender.org/wp-content/uploads/bbb-splash.png"
+        artwork="img/bigbuckbunny.jpg"
+        title="Big Buck Bunny"
+        album="Blender"
+        artist="Blender Foundation"
+        width="720"
+        height="405"
+        layout="responsive"
+        controls dock="#dock-slot"
         on="dock: slideDown.start; undock: slideUp.start">
       </amp-video>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam facilisis odio vitae sem ornare laoreet. Mauris
