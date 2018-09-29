@@ -33,9 +33,12 @@ import 'codemirror/mode/javascript/javascript.js';
 import 'codemirror/mode/xml/xml.js';
 
 import events from '../events/events.js';
+import {runtimes, EVENT_SET_RUNTIME} from '../runtime/runtimes.js';
 
 import './editor.css';
 import './hints.css';
+
+import amphtmlHints from './amphtml-hint.json';
 
 import CodeMirror from 'codemirror';
 import Loader from '../loader/base.js';
@@ -44,9 +47,9 @@ const DEFAULT_DEBOUNCE_RATE = 500;
 const HINT_IGNORE_ENDS = new Set([
   ';', ',',
   ')',
-  '`', '"', "'", 
+  '`', '"', "'",
   ">",
-  "{", "}", 
+  "{", "}",
   "[", "]"
 ]);
 
@@ -86,7 +89,6 @@ class Editor {
         completeSingle: false
       }
     });
-    CodeMirror.htmlSchema['amp-img'] = {attrs: {}};
     this.codeMirror.on('changes', () => {
       if (this.timeout) {
         this.win.clearTimeout(this.timeout);
@@ -124,6 +126,7 @@ class Editor {
         }
       }, 150);
     });
+    events.subscribe(EVENT_SET_RUNTIME, this.setRuntime.bind(this));
   }
 
   setSource(text) {
@@ -182,6 +185,23 @@ class Editor {
 
   getTokenAt(pos, precise) {
     return this.codeMirror.getTokenAt(pos, precise);
+  }
+
+  loadHints(hints) {
+    for (let key of Object.keys(CodeMirror.htmlSchema)) {
+      delete CodeMirror.htmlSchema[key];
+    }
+    Object.assign(CodeMirror.htmlSchema, hints);
+  }
+
+  setRuntime(runtime) {
+    const runtimeToHint = {
+      amphtml: 'amp',
+      amp4ads: 'amp4ads',
+      amp4email: 'amp4email',
+      amp4stories: 'amp'
+    }
+    this.loadHints(amphtmlHints[runtimeToHint[runtime.id]]);
   }
 
 }
