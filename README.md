@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.org/ampproject/amp-by-example.svg?branch=master)](https://travis-ci.org/ampproject/amp-by-example)
+| **Travis** |
+|------------|
+| [![Build Status](https://travis-ci.org/ampproject/amp-by-example.svg?branch=master)](https://travis-ci.org/ampproject/amp-by-example) |
 
 # AMP by Example
 
