@@ -256,6 +256,37 @@ describe("DocumentParser", function() {
     });
   });
 
+  describe('parses runtime', function() {
+    it('amp-story', function() {
+      const document = parse('<html ⚡>', '<body>', '<amp-story standalone>', '</amp-story>', '</body>');
+      expect(document.isAmpStory).toBe(true);
+      expect(document.isAmpWeb).toBe(true);
+      expect(document.isAmpEmail).toBe(false);
+      expect(document.isAmpAds).toBe(false);
+    });
+    it('amp-mail', function() {
+      const document = parse('<html ⚡4email>', '<body>', '</body>');
+      expect(document.isAmpStory).toBe(false);
+      expect(document.isAmpWeb).toBe(false);
+      expect(document.isAmpEmail).toBe(true);
+      expect(document.isAmpAds).toBe(false);
+    });
+    it('amp-ad', function() {
+      const document = parse('<html ⚡4ads>', '<body>', '</body>');
+      expect(document.isAmpStory).toBe(false);
+      expect(document.isAmpWeb).toBe(false);
+      expect(document.isAmpEmail).toBe(false);
+      expect(document.isAmpAds).toBe(true);
+    });
+    it('amp-web', function() {
+      const document = parse('<html ⚡>', '<body>', '</body>');
+      expect(document.isAmpStory).toBe(false);
+      expect(document.isAmpWeb).toBe(true);
+      expect(document.isAmpEmail).toBe(false);
+      expect(document.isAmpAds).toBe(false);
+    });
+  });
+
   function newSection(comment, doc, preview, isFirstSection, isLastSection) {
     const section = new CodeSection(comment, doc, preview);
     section.isLastSection = isLastSection;

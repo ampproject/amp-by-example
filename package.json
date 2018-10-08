@@ -1,12 +1,12 @@
 {
   "name": "amp-by-example",
-  "version": "0.1.5",
+  "version": "0.2.1",
   "description": "AMP by example",
   "repository": {
     "type": "git",
     "url": "https://github.com/ampproject/amp-by-example.git"
   },
-  "main": "lib/Preview.js",
+  "main": "lib/index.js",
   "engines": {
     "node": ">=4.0.0"
   },
