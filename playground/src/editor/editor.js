@@ -38,10 +38,9 @@ import {runtimes, EVENT_SET_RUNTIME} from '../runtime/runtimes.js';
 import './editor.css';
 import './hints.css';
 
-import amphtmlHints from './amphtml-hint.json';
-
 import CodeMirror from 'codemirror';
 import Loader from '../loader/base.js';
+import { resolve } from 'url';
 
 const DEFAULT_DEBOUNCE_RATE = 500;
 const HINT_IGNORE_ENDS = new Set([
@@ -52,6 +51,7 @@ const HINT_IGNORE_ENDS = new Set([
   "{", "}",
   "[", "]"
 ]);
+const HINTS_URL = 'amphtml-hint.json';
 
 
 export const EVENT_INPUT_CHANGE = 'editor-input-change';
@@ -69,6 +69,7 @@ class Editor {
     this.createCodeMirror();
     this.errorMarkers = [];
     this.loader = new Loader(this.container);
+    this.amphtmlHints = this.fetchHintsData();
   }
 
   createCodeMirror() {
@@ -187,21 +188,33 @@ class Editor {
     return this.codeMirror.getTokenAt(pos, precise);
   }
 
-  loadHints(hints) {
-    for (let key of Object.keys(CodeMirror.htmlSchema)) {
-      delete CodeMirror.htmlSchema[key];
-    }
-    Object.assign(CodeMirror.htmlSchema, hints);
+  loadHints(validator) {
+    this.amphtmlHints.then((hints) => {
+      for (let key of Object.keys(CodeMirror.htmlSchema)) {
+        delete CodeMirror.htmlSchema[key];
+      }
+      Object.assign(CodeMirror.htmlSchema, hints[validator]);
+    });
   }
 
   setRuntime(runtime) {
-    const runtimeToHint = {
-      amphtml: 'amp',
-      amp4ads: 'amp4ads',
-      amp4email: 'amp4email',
-      amp4stories: 'amp'
-    }
-    this.loadHints(amphtmlHints[runtimeToHint[runtime.id]]);
+    const runtimeData = runtimes.get(runtime.id);
+    this.loadHints(runtimeData.validator);
+  }
+
+  fetchHintsData() {
+    return new Promise((resolve, reject) => {
+      window.requestIdleCallback(() => {
+        fetch(HINTS_URL).then((response) => {
+          if (response.status !== 200) {
+            return reject(new Error(`Error code ${response.status}`));
+          }
+          resolve(response.json());
+        }).catch((err) => {
+          reject(err);
+        });
+      });
+    });
   }
 
 }
