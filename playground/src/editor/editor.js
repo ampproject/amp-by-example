@@ -33,22 +33,25 @@ import 'codemirror/mode/javascript/javascript.js';
 import 'codemirror/mode/xml/xml.js';
 
 import events from '../events/events.js';
+import {runtimes, EVENT_SET_RUNTIME} from '../runtime/runtimes.js';
 
 import './editor.css';
 import './hints.css';
 
 import CodeMirror from 'codemirror';
 import Loader from '../loader/base.js';
+import { resolve } from 'url';
 
 const DEFAULT_DEBOUNCE_RATE = 500;
 const HINT_IGNORE_ENDS = new Set([
   ';', ',',
   ')',
-  '`', '"', "'", 
+  '`', '"', "'",
   ">",
-  "{", "}", 
+  "{", "}",
   "[", "]"
 ]);
+const HINTS_URL = 'amphtml-hint.json';
 
 
 export const EVENT_INPUT_CHANGE = 'editor-input-change';
@@ -66,6 +69,7 @@ class Editor {
     this.createCodeMirror();
     this.errorMarkers = [];
     this.loader = new Loader(this.container);
+    this.amphtmlHints = this.fetchHintsData();
   }
 
   createCodeMirror() {
@@ -86,7 +90,6 @@ class Editor {
         completeSingle: false
       }
     });
-    CodeMirror.htmlSchema['amp-img'] = {attrs: {}};
     this.codeMirror.on('changes', () => {
       if (this.timeout) {
         this.win.clearTimeout(this.timeout);
@@ -124,6 +127,7 @@ class Editor {
         }
       }, 150);
     });
+    events.subscribe(EVENT_SET_RUNTIME, this.setRuntime.bind(this));
   }
 
   setSource(text) {
@@ -182,6 +186,35 @@ class Editor {
 
   getTokenAt(pos, precise) {
     return this.codeMirror.getTokenAt(pos, precise);
+  }
+
+  loadHints(validator) {
+    this.amphtmlHints.then((hints) => {
+      for (let key of Object.keys(CodeMirror.htmlSchema)) {
+        delete CodeMirror.htmlSchema[key];
+      }
+      Object.assign(CodeMirror.htmlSchema, hints[validator]);
+    });
+  }
+
+  setRuntime(runtime) {
+    const runtimeData = runtimes.get(runtime.id);
+    this.loadHints(runtimeData.validator);
+  }
+
+  fetchHintsData() {
+    return new Promise((resolve, reject) => {
+      window.requestIdleCallback(() => {
+        fetch(HINTS_URL).then((response) => {
+          if (response.status !== 200) {
+            return reject(new Error(`Error code ${response.status}`));
+          }
+          resolve(response.json());
+        }).catch((err) => {
+          reject(err);
+        });
+      });
+    });
   }
 
 }
