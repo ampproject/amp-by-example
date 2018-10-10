@@ -25,12 +25,6 @@ type AccessData struct {
 	ReturnURL string
 }
 
-type AuthResponse struct {
-	Subscriber bool   `json:"subscriber"`
-	Access     bool   `json:"access"`
-	Name       string `json:"name"`
-}
-
 type AuthorizationResponse interface {
 	CreateAuthorizationResponse() AuthorizationResponse
 }
@@ -39,6 +33,15 @@ const (
 	AMP_ACCESS_SAMPLE_PATH = "/" + CATEGORY_COMPONENTS + "/amp-access/"
 	AMP_ACCESS_COOKIE      = "ABE_LOGGED_IN"
 )
+
+var validUsers = map[string]bool{
+	"mark@gmail.com": true,
+	"jane@gmail.com": true,
+}
+
+var powerUsers = map[string]bool{
+	"jane@gmail.com": true,
+}
 
 func InitAmpAccess() {
 	RegisterHandler(AMP_ACCESS_SAMPLE_PATH+"authorization", handleAuthorization)
@@ -63,19 +66,22 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleAuthorization(w http.ResponseWriter, r *http.Request) {
-	_, err := r.Cookie(AMP_ACCESS_COOKIE)
+	c, err := r.Cookie(AMP_ACCESS_COOKIE)
 	if err != nil {
-		SendJsonResponse(w, &AuthResponse{
-			Access:     false,
-			Subscriber: false,
-			Name:       "",
+		SendJsonResponse(w, map[string]interface{}{
+			"loggedIn":  false,
+			"powerUser": false,
+			"email":     "",
 		})
 		return
 	}
-	SendJsonResponse(w, &AuthResponse{
-		Access:     true,
-		Subscriber: true,
-		Name:       "Charlie",
+
+	email := c.Value
+	isPowerUser := powerUsers[email]
+	SendJsonResponse(w, map[string]interface{}{
+		"loggedIn":  true,
+		"powerUser": isPowerUser,
+		"email":     email,
 	})
 }
 
@@ -86,7 +92,7 @@ func handleLogout(w http.ResponseWriter, r *http.Request) {
 		MaxAge: -1,
 	}
 	http.SetCookie(w, cookie)
-	returnURL := r.FormValue("returnurl")
+	returnURL := r.URL.Query().Get("return")
 	if !isValidURL(returnURL) {
 		http.Error(w, "Invalid return URL", http.StatusInternalServerError)
 		return
@@ -94,23 +100,18 @@ func handleLogout(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, fmt.Sprintf("%s#success=true", returnURL), http.StatusSeeOther)
 }
 
-func handleLogoutButton(w http.ResponseWriter, r *http.Request) {
-	returnURL := r.URL.Query().Get("return")
-	if !isValidURL(returnURL) {
-		http.Error(w, "Invalid return URL", http.StatusInternalServerError)
+func handleSubmit(w http.ResponseWriter, r *http.Request) {
+	email := r.FormValue("email")
+	if !validUsers[email] {
+		http.Error(w, "Invalid email", http.StatusUnauthorized)
 		return
 	}
-	filePath := path.Join(DIST_FOLDER, "logout.html")
-	t, _ := template.ParseFiles(filePath)
-	t.Execute(w, AccessData{ReturnURL: returnURL})
-}
 
-func handleSubmit(w http.ResponseWriter, r *http.Request) {
 	expireInOneDay := time.Now().AddDate(0, 0, 1)
 	cookie := &http.Cookie{
 		Name:    AMP_ACCESS_COOKIE,
 		Expires: expireInOneDay,
-		Value:   "true",
+		Value:   email,
 	}
 	http.SetCookie(w, cookie)
 	returnURL := r.FormValue("returnurl")

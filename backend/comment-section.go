@@ -48,8 +48,7 @@ func InitCommentSection() {
 	RegisterHandler(COMMENT_SAMPLE_PATH+"submit-comment-xhr", onlyPost(submitCommentXHR))
 	RegisterHandler(COMMENT_SAMPLE_PATH+"authorization", handleCommentAuthorization)
 	RegisterHandler(COMMENT_SAMPLE_PATH+"login", handleLogin)
-	RegisterHandler(COMMENT_SAMPLE_PATH+"submit-logout", handleLogout)
-	RegisterHandler(COMMENT_SAMPLE_PATH+"logout", handleLogoutButton)
+	RegisterHandler(COMMENT_SAMPLE_PATH+"logout", handleLogout)
 	RegisterHandler(COMMENT_SAMPLE_PATH+"submit", handleSubmit)
 }
 
