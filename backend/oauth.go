@@ -15,25 +15,28 @@
 package backend
 
 import (
-	"backend/util"
+	"backend/oauth"
 
 	"net/http"
 )
 
-func InitAmpAnalytics() {
-	RegisterSample(CATEGORY_COMPONENTS+"/amp-analytics", renderAnalyticsSample)
+const (
+	OAUTH_BASE = "/oauth/"
+)
+
+func InitOAuth() {
+	RegisterHandler(OAUTH_BASE+"login/google", oauth.GoogleLogin)
+	RegisterHandler(OAUTH_BASE+"callback/google", oauth.GoogleCallback)
+	RegisterHandler(OAUTH_BASE+"login/github", oauth.GitHubLogin)
+	RegisterHandler(OAUTH_BASE+"callback/github", oauth.GitHubCallback)
+	RegisterHandler(OAUTH_BASE+"status", oauthStatus)
+	RegisterHandler(OAUTH_BASE+"logout", oauth.Logout)
 }
 
-func renderAnalyticsSample(w http.ResponseWriter, r *http.Request, page Page) {
-	SetDefaultMaxAge(w)
-	page.Render(w, clientId(r))
-}
-
-func clientId(r *http.Request) string {
-	cookie, err := r.Cookie(AMP_CLIENT_ID_COOKIE)
-	if err != nil {
-		return util.RandomString(8)
-	} else {
-		return cookie.Value
-	}
+func oauthStatus(w http.ResponseWriter, r *http.Request) {
+	name := oauth.GetUserName(r)
+	SendJsonResponse(w, map[string]interface{}{
+		"loggedIn": name != "",
+		"name":     name,
+	})
 }

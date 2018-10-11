@@ -12,28 +12,40 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package backend
+package datastore
 
 import (
-	"backend/util"
+	"io/ioutil"
 
-	"net/http"
+	"cloud.google.com/go/storage"
+	"golang.org/x/net/context"
+	"google.golang.org/appengine/file"
 )
 
-func InitAmpAnalytics() {
-	RegisterSample(CATEGORY_COMPONENTS+"/amp-analytics", renderAnalyticsSample)
-}
-
-func renderAnalyticsSample(w http.ResponseWriter, r *http.Request, page Page) {
-	SetDefaultMaxAge(w)
-	page.Render(w, clientId(r))
-}
-
-func clientId(r *http.Request) string {
-	cookie, err := r.Cookie(AMP_CLIENT_ID_COOKIE)
+func ReadFile(ctx context.Context, filename string) ([]byte, error) {
+	bucketName, err := file.DefaultBucketName(ctx)
 	if err != nil {
-		return util.RandomString(8)
-	} else {
-		return cookie.Value
+		return nil, err
 	}
+
+	client, err := storage.NewClient(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer client.Close()
+
+	bucket := client.Bucket(bucketName)
+
+	rc, err := bucket.Object(filename).NewReader(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer rc.Close()
+
+	data, err := ioutil.ReadAll(rc)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }

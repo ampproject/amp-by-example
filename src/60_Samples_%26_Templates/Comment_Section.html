@@ -82,11 +82,12 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
           This sample allows an user to login and logout using an email and a password. Logout is implemented by configuring a second endpoint in the login property `sign-out`, find more [here](https://www.ampproject.org/docs/reference/components/amp-access#login-page).  -->
     <script id="amp-access" type="application/json">
     {
-        "authorization": "<%host%>/samples_templates/comment_section/authorization?rid=READER_ID&url=CANONICAL_URL&ref=DOCUMENT_REFERRER&_=RANDOM",
+        "authorization": "<%host%>/oauth/status",
         "noPingback": "true",
         "login": {
-          "sign-in": "<%host%>/samples_templates/comment_section/login?rid=READER_ID",
-          "sign-out": "<%host%>/samples_templates/comment_section/logout?rid=READER_ID"
+          "google-sign-in": "<%host%>/oauth/login/google",
+          "github-sign-in": "<%host%>/oauth/login/github",
+          "sign-out": "<%host%>/oauth/logout"
         },
         "authorizationFallbackResponse": {
             "error": true,
@@ -122,12 +123,13 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
           </div>
       </amp-list>
 
-    <!-- In order to add comments users need to be logged in. We use `amp-access` to integrate login and to show and hide the login button depending on whether the user is logged in. `on="tap:amp-access.login-sign-in"` specifies which
-    action should be taken when clicking on the login button: `login` defines the property inside the `amp-access` json configuration, while `sign-in` defines
+    <!-- In order to add comments users need to be logged in. We use `amp-access` to integrate login and to show and hide the login button depending on whether the user is logged in. `on="tap:amp-access.login-google-sign-in"` specifies which
+    action should be taken when clicking on the login button: `login` defines the property inside the `amp-access` json configuration, while `google-sign-in` defines
     the endpoint. -->
     <span amp-access="NOT loggedIn" role="button" tabindex="0" amp-access-hide>
           <h3 class="m1">Please login to comment</h3>
-          <button on="tap:amp-access.login-sign-in" class="ampstart-btn m2 caps">Login</button>
+          <button on="tap:amp-access.login-google-sign-in" class="ampstart-btn m2 caps">Google Login</button>
+          <button on="tap:amp-access.login-github-sign-in" class="ampstart-btn m2 caps">GitHub Login</button>
     </span>
       <!-- Use amp-form to submit the comment. In this sample, only a single comment can be added as comments are not persisted in the backend.  -->
       <form class="px1 pt1 flex" amp-access="loggedIn" amp-access-hide method="post" action-xhr="/samples_templates/comment_section/submit-comment-xhr" target="_top">
