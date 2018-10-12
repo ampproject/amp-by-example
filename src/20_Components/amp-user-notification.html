@@ -35,9 +35,9 @@
 </head>
 <body>
 
-  <!-- ## Using Local Storage -->
+  <!-- ## Basic Usage with Local Storage -->
   <!--
-    When the user agrees to the cookies policy, the status is saved in the local storage.
+    By default, when the user agrees to the cookies policy, the status is saved in the local storage.
   -->
   <amp-user-notification 
     id="my-notification"
@@ -46,5 +46,31 @@
     </div>
   </amp-user-notification>
 
+  <!-- ## Advanced Usage with a Server Endpoint -->
+  <!--
+    When using a backend solution, two parameters are available: `data-show-if-href` and
+    `data-dismiss-if-href`. They can be used together or separatively.
+
+    `data-show-if-href` needs to point to a server-endpoint returning
+    `{ "showNotification": true|false }`.
+
+    The URL defined by `data-dismiss-href` will be called when the notification is dismissed.
+
+    You can find a sample implementation [here](https://github.com/ampproject/amp-publisher-sample/blob/master/amp-paywall-demo/controllers/amp-user-notification/api.js).
+
+    If the notification has already been dismissed and the related item has been added to
+    the localstorage, the notification will not appear even if you have configured
+    `data-show-if-href` and `data-dismiss-href`.
+  -->
+  <amp-user-notification 
+      id="my-notification-with-server-endpoint"
+      layout="nodisplay" 
+      data-show-if-href="https://rocky-sierra-1919.herokuapp.com/amp-user-notification/api/show?timestamp=TIMESTAMP"
+      data-dismiss-href="https://rocky-sierra-1919.herokuapp.com/amp-user-notification/api/echo/post">
+    <div>
+      This is an amp-user-notification. It uses a backend service to verify if the notification has to be shown.
+      <button on="tap:my-notification.dismiss" class="ampstart-btn caps ml1">I accept</button>
+    </div>
+  </amp-user-notification>
 </body>
 </html>
