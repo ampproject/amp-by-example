@@ -1,0 +1,60 @@
+<!---{
+  "preview": "default",
+  "default": "preview"
+  }--->
+<!--
+## Introduction
+
+This sample showcases how to use [amp-access](https://www.ampproject.org/docs/reference/components/amp-form)
+to allow an OAuth2-based login flow on your AMP pages, such as Google Sign-In.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+    <title>OAuth2 Login</title>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+    <script async custom-element="amp-access" src="https://cdn.ampproject.org/v0/amp-access-0.1.js"></script>
+    <link rel="canonical" href="<%host%>/advanced/oauth2_login/">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <!-- [amp-access](/components/amp-access) requires the definition of 3 endpoints as documented [here](https://www.ampproject.org/docs/reference/components/amp-access).
+          This sample allows an user to login and logout using an OAuth2-based flow. Logout is implemented by configuring a second endpoint in the login property `sign-out`, find more [here](https://www.ampproject.org/docs/reference/components/amp-access#login-page).  -->
+    <script id="amp-access" type="application/json">
+    {
+        "authorization": "<%host%>/oauth/status?_=RANDOM",
+        "noPingback": "true",
+        "login": {
+          "google-sign-in": "<%host%>/oauth/login/google",
+          "github-sign-in": "<%host%>/oauth/login/github",
+          "sign-out": "<%host%>/oauth/logout"
+        },
+        "authorizationFallbackResponse": {
+            "error": true,
+            "loggedIn": false
+        }
+    }
+    </script>
+  </head>
+  <body>
+    <!-- In order to view this section, the user needs to be logged in. We use `amp-access` to integrate an OAuth2-based login and to show and hide the login button depending on whether the user is logged in.
+        `on="tap:amp-access.login-google-sign-in"` specifies which action should be taken when clicking on the login button:
+        `login` defines the property inside the `amp-access` json configuration, while `google-sign-in` defines the endpoint. -->
+    <div amp-access="NOT loggedIn" role="button" tabindex="0" amp-access-hide>
+      <h3 class="m1">Please login to view content</h3>
+      <button on="tap:amp-access.login-google-sign-in" class="ampstart-btn m2 caps">Google Login</button>
+      <button on="tap:amp-access.login-github-sign-in" class="ampstart-btn m2 caps">GitHub Login</button>
+    </div>
+    <!-- Use amp-form to submit the comment. In this sample, only a single comment can be added as comments are not persisted in the backend.  -->
+    <div class="p2" amp-access="loggedIn" amp-access-hide>
+      <template amp-access-template type="amp-mustache">
+        <p>Hello {{name}}! You are logged in.</p>
+      </template>
+    </div>
+    <!-- We specify the logout via a login endpoint to be able to use the `return URL` environment variable. -->
+    <button amp-access="loggedIn" amp-access-hide tabindex="0" on="tap:amp-access.login-sign-out" class="ampstart-btn m2 caps">Logout</button>
+</body>
+</html>
