@@ -40,6 +40,17 @@
       "label": "728x90",
       "width": "728px",
       "height": "90px"
+    },
+    {
+      "label": "iPhone 7",
+      "width": "375px",
+      "height": "667px"
+    },
+    {
+      "label": "Desktop (scaled)",
+      "width": "600px",
+      "height": "450px",
+      "scale": 0.5
     }
   ],
   "devices": [
@@ -73,6 +84,12 @@
       "label": "Nexus 5X / 6p",
       "width": "412px",
       "height": "732px"
+    },
+    {
+      "label": "Desktop (scaled)",
+      "width": "600px",
+      "height": "450px",
+      "scale": 0.5
     },
     {
       "label": "Responsive",

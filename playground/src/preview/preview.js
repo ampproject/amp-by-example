@@ -198,6 +198,11 @@ class Preview {
       this.previewIframe.style.height = this.dimension.height;
       this.toggleCustomSizeInput();
     }
+    if (this.dimension.scale) {
+      this.previewIframe.style.transform = `scale(${this.dimension.scale})`;
+    } else {
+      this.previewIframe.style.transform = 'none';
+    }
   }
 
   refresh(documentString) {
