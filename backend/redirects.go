@@ -16,16 +16,11 @@ package backend
 
 import (
 	"encoding/json"
+	"io/ioutil"
 	"net/http"
-	"os"
 )
 
 const HOST = "https://ampbyexample.com"
-
-type Redirect struct {
-	Source string
-	Target string
-}
 
 func InitRedirects() {
 	redirects, err := parseRedirects("backend/redirects.json")
@@ -33,19 +28,19 @@ func InitRedirects() {
 		panic(err)
 	}
 
-	for _, redirect := range redirects {
-		http.Handle(redirect.Source, http.RedirectHandler(HOST+redirect.Target, 301))
+	for source, target := range redirects {
+		http.Handle(source, http.RedirectHandler(HOST+target, 301))
 	}
 }
 
-func parseRedirects(configPath string) ([]Redirect, error) {
-	file, err := os.Open(configPath)
+func parseRedirects(configPath string) (map[string]string, error) {
+	data, err := ioutil.ReadFile(configPath)
 	if err != nil {
 		return nil, err
 	}
-	defer file.Close()
-	var redirects []Redirect
-	if err := json.NewDecoder(file).Decode(&redirects); err != nil {
+	var redirects map[string]string
+	err = json.Unmarshal(data, &redirects)
+	if err != nil {
 		return nil, err
 	}
 	return redirects, nil
