@@ -28,6 +28,7 @@ to allow an OAuth2-based login flow on your AMP pages, such as Google Sign-In.
         "authorization": "<%host%>/oauth/status?_=RANDOM",
         "noPingback": "true",
         "login": {
+          "facebook-sign-in": "<%host%>/oauth/login/facebook",
           "google-sign-in": "<%host%>/oauth/login/google",
           "github-sign-in": "<%host%>/oauth/login/github",
           "sign-out": "<%host%>/oauth/logout"
@@ -46,6 +47,7 @@ to allow an OAuth2-based login flow on your AMP pages, such as Google Sign-In.
     <div amp-access="NOT loggedIn" role="button" tabindex="0" amp-access-hide>
       <h3 class="m1">Please login to view content</h3>
       <button on="tap:amp-access.login-google-sign-in" class="ampstart-btn m2 caps">Google Login</button>
+      <button on="tap:amp-access.login-facebook-sign-in" class="ampstart-btn m2 caps">Facebook Login</button>
       <button on="tap:amp-access.login-github-sign-in" class="ampstart-btn m2 caps">GitHub Login</button>
     </div>
     <!-- Use amp-form to submit the comment. In this sample, only a single comment can be added as comments are not persisted in the backend.  -->
