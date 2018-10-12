@@ -44,8 +44,11 @@
   "source": "/amp-user-notification_with_local_storage.html",
   "target": "/components/amp-user-notification/"
 }, {
+  "source": "/advanced/amp-user-notification_with_server_endpoint/",
+  "target": "/components/amp-user-notification/"
+}, {
   "source": "/amp-user-notification_with_server_endpoint.html",
-  "target": "/advanced/amp-user-notification_with_server_endpoint/"
+  "target": "/components/amp-user-notification/"
 }, {
   "source": "/amp-video.html",
   "target": "/components/amp-video/"
