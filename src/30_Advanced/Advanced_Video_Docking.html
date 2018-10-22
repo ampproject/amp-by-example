@@ -128,6 +128,27 @@
     .abe-experiment-warning {
       max-width: calc(70vw - 60px);
     }
+
+    @media (max-width: 600px) {
+      /* Hide on smaller devices to fallback to standard docking. */
+      #dock-slot {
+        display: none;
+      }
+
+      /* Reset fixed items. */
+      aside,
+      header {
+        position: static;
+      }
+
+      .content {
+        width: 100vw;
+      }
+
+      main {
+        padding-top: 20px;
+      }
+    }
   </style>
 </head>
 
