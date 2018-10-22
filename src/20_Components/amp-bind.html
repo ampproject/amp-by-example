@@ -259,6 +259,17 @@
     </amp-img>
   </section>
 
+    <!-- ## Refresh state -->
+
+    <!-- `amp-state` supports the `refresh` action. This can be useful in many cases, for example the initial URL loading fails
+       and you want the user to load the state again.
+       For a complete list of actions, see [here](https://www.ampproject.org/docs/interaction_dynamic/amp-actions-and-events).
+       Clicking the button below will refresh and refetch the json in amp-state. -->
+
+    <button class="ampstart-btn caps m1" on="tap:remoteAnimals.refresh">
+      Refresh
+    </button>
+
     <!-- ## Hiding and showing things -->
 
     <!-- This sample toggles the visibility of two divs based on a input selection. AMP provides the [`hidden` attribute](https://www.ampproject.org/docs/reference/amp-actions-and-events), which we use to hide and show the two divs.  -->
