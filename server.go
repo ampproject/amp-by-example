@@ -41,7 +41,6 @@ func init() {
 	backend.InitCheckout()
 	backend.InitAmpConsent()
 	backend.InitAmpStoryAutoAds()
-	backend.InitLetsEncrypt()
 	backend.InitSeatmapPage()
 	backend.InitOAuth()
 	playground.InitPlayground()
