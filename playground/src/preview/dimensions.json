@@ -50,6 +50,11 @@
       "selected": true
     },
     {
+      "label": "Galaxy S5",
+      "width": "360px",
+      "height": "640px"
+    },
+    {
       "label": "iPhone 5/SE",
       "width": "320px",
       "height": "568px"

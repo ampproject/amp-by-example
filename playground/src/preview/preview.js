@@ -39,17 +39,12 @@ class Preview {
   }
 
   setRuntime(runtime) {
-    this.setDefaultDimension(runtime);
+    if (this.runtime === runtime) {
+      return;
+    }
+    this.dimensions = dimensions[runtime.preview.mode];
     if (!this.runtime) {
-      // reset preview state
-      params.replace('preview', '');
-      // configure device dimension
-      this.setDimensionFromParams();
-      // disable device dimensions on mobile (except for ad preview)
-      if (window.innerWidth <= MOBILE_BREAK_POINT && runtime.id !== 'amp4ads') {
-        this.dimension.width = '100%';
-        this.dimension.height = '100%';
-      }
+      this.initDimensionFromParamsOrUseDefault(runtime);
     }
     this.runtime = runtime;
     this.configurePreviewSwitcher();
@@ -59,24 +54,21 @@ class Preview {
     }
   }
 
-  setDefaultDimension(runtime) {
-    this.dimensions = dimensions[runtime.preview.mode];
-    this.dimension = this.findDimensionByLabel(runtime.preview.default);
-  }
-
-  setDimensionFromParams() {
-    const label = params.get(PARAM_MODE);
-    if (!label) {
-      return;
-    }
+  initDimensionFromParamsOrUseDefault(runtime) {
+    const label = params.get(PARAM_MODE) || runtime.preview.default;
     const newDimension = this.findDimensionByLabel(label);
     if (!newDimension) {
       return;
     }
     this.dimension = newDimension;
-    if (label == 'Custom') {
+    if (label === 'Custom') {
       this.dimension.width = params.get(PARAM_WIDTH, this.dimension.width);
       this.dimension.height = params.get(PARAM_HEIGHT, this.dimension.height);
+    }
+    // disable device dimensions on mobile (except for ad preview)
+    if (window.innerWidth <= MOBILE_BREAK_POINT && runtime.id !== 'amp4ads') {
+      this.dimension.width = '100%';
+      this.dimension.height = '100%';
     }
   }
 
