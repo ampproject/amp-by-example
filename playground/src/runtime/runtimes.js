@@ -30,7 +30,7 @@ class Runtimes {
       template: amphtmlTemplate,
       preview: {
         mode: 'devices',
-        default: 'iPhone 7'
+        default: 'iPhone 6/7/8'
       },
       validator: 'AMP'
     },
@@ -49,7 +49,7 @@ class Runtimes {
       name: 'AMP for Stories',
       preview: {
         mode: 'devices',
-        default: 'iPhone 7'
+        default: 'iPhone 6/7/8'
       },
       validator: 'AMP',
       template: storyTemplate
