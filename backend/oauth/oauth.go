@@ -33,8 +33,9 @@ const (
 )
 
 var userinfoEndpoint = map[string]string{
-	"google": "https://www.googleapis.com/oauth2/v3/userinfo",
-	"github": "https://api.github.com/user",
+	"facebook": "https://graph.facebook.com/v3.1/me",
+	"google":   "https://www.googleapis.com/oauth2/v3/userinfo",
+	"github":   "https://api.github.com/user",
 }
 
 func loginForConfig(w http.ResponseWriter, r *http.Request, config *oauth2.Config) {

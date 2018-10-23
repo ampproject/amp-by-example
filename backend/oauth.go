@@ -29,6 +29,8 @@ func InitOAuth() {
 	RegisterHandler(OAUTH_BASE+"callback/google", oauth.GoogleCallback)
 	RegisterHandler(OAUTH_BASE+"login/github", oauth.GitHubLogin)
 	RegisterHandler(OAUTH_BASE+"callback/github", oauth.GitHubCallback)
+	RegisterHandler(OAUTH_BASE+"login/facebook", oauth.FacebookLogin)
+	RegisterHandler(OAUTH_BASE+"callback/facebook", oauth.FacebookCallback)
 	RegisterHandler(OAUTH_BASE+"status", oauthStatus)
 	RegisterHandler(OAUTH_BASE+"logout", oauth.Logout)
 }
