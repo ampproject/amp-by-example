@@ -1,10 +1,16 @@
 <!---{
- "draft": "true"
+ "hidePreview": "true"
 }--->
 <!--
   ## Introduction
-  Linker is an amp-analytics feature to join user sessions across AMP Cache domain and publisher
-  origin domain.
+  Linker is an amp-analytics feature to join user sessions from the AMP Cache
+  domain to publisher origin domains.
+
+  For complete documentation please see [ampproject.org](https://www.ampproject.org/docs/reference/components/amp-analytics#linkers)
+
+  If you would like to learn more aboout client ids in AMP, you may find a brief
+  summary [here,](https://www.ampproject.org/docs/analytics/analytics_basics#user-identification)
+  as well as Google Analytics specific information [here.](https://developers.google.com/analytics/devguides/collection/amp-analytics/client-id)
 -->
 <!-- -->
 <!doctype html>
@@ -19,73 +25,106 @@
   <!--  Import the amp-analytics component in the header. -->
   <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-  <meta name="amp-google-client-id-api" content="googleanalytics">
-  <meta name="amp-experiments-opt-in" content="linker-meta-opt-in">
 </head>
 <body>
 
-  <!-- ## Basic Usage -->
+  <!-- ## Using AMP Linker with your existing analytics provider -->
   <!--
-  Custom linker
+    If your analytics provider is already supporting the Linker functionality,
+    turning it on is a simple configuration change. Add the following to your
+    exisisting `amp-analytics` configuration.
   -->
-  <amp-analytics>
-    <script type="application/json">
-      {
-        "requests": {
-          "pageview": "/?cida=CLIENT_ID(_a)&cidb=CLIENT_ID(_b)&tid=QUERY_PARAM(tid)"
-        },
-        "triggers": {
-          "pageview": {
-            "on": "visible",
-            "request": "pageview"
-          }
-        },
-        "linkers" : {
-          "lk1": {
-            "ids": {
-              "_a": "CLIENT_ID(_a)",
-              "tid": "QUERY_PARAM(tid)"
-            },
+  <div>
+    <amp-analytics type="googleanalytics">
+      <script type="application/json">
+        {
+          "linkers": {
             "enabled": true
-          },
-          "lk2": {
-            "ids": {
-              "_b": "CLIENT_ID(_b)",
-              "tid": "QUERY_PARAM(tid)"
-            },
-            "destinationDomains": ["www.google.com"],
-            "enabled": true
-          },
-          "_gl": {
-            "ids": {
-              "_ga": "CLIENT_ID(AMP_ECID_GOOGLE,,_ga)"
-            },
-            "destinationDomains": ["www.google.com"],
-            "enabled": true,
-            "proxyOnly": false
           }
         }
-      }
-    </script>
+      </script>
+    </amp-analytics>
+  </div>
+
+  <!-- ## Using AMP Linker with custom analytics -->
+  <!--
+    If you wish to setup your own configuration, AMP linker supports that as well.
+    In the following example a linker parameter with the name `linker1` will be appended
+    to outgoing links. The value of this parameter will include any key-value pairs
+    in the `ids` configuration object. Specifically in this example, two entries will be
+    passed along. A key-value pair with the key `_a` and the value returned by
+    the `CLIENT_ID` macro, and a key of `v` with the value `123`. You may include
+    as many entries in the `ids` object as you wish.
+  -->
+  <amp-analytics>
+      <script type="application/json">
+        {
+          ... // existing amp-analytics configuration
+          "linkers" : {
+            "linker1": {
+              "ids": {
+                "_a": "CLIENT_ID(_a)",
+                "v": 123
+              },
+              "enabled": true
+            }
+          }
+        }
+      </script>
   </amp-analytics>
 
-  <!-- ## Example Links -->
-  <ul>
-    <li>
-      <a href="https://www.google.com">https://www.google.com</a>
-    </li>
-    <li>
-      <a href="/testing/joining_analytics_sessions_test.html">Test landing page with GA linker (prod)</a>
-    </li>
-    <li>
-      <a href="/testing/joining_analytics_sessions_test_cidapi.html">Test landing page with GA CID API (prod)</a>
-    </li>
-    <li>
-      <a href="/testing/joining_analytics_sessions_test_local_linker.html">Test landing page with GA linker (local)</a>
-    </li>
-    <li>
-      <a href="/testing/joining_analytics_sessions_test_local_cidapi.html">Test landing page with GA CID API (local)</a>
-    </li>
-  </ul>
-</body>
+  <!-- ## Using AMP Linker with multiple linkers -->
+  <!--
+   You may also want to configure multiple linkers on one page. To do this you
+   would add an entry to the `linkers` object for each linker. You may also enable
+   all the linkers at once by moving the `enabled: true` entry one level below the
+   `linkers` object.
+  -->
+  <amp-analytics>
+      <script type="application/json">
+        {
+          "linkers" : {
+            "enabled": true,
+            "linker1": {
+              "ids": {
+                "_a": "CLIENT_ID(_a)",
+              }
+            },
+            "linker2": {
+              "ids": {
+                "b": "CLIENT_ID(b)",
+              }
+            }
+          }
+        }
+      </script>
+  </amp-analytics>
+
+  <!-- ## Destination Domains -->
+  <!--
+    Each linker will also accept an optional `destinationDomains` entry. You may
+    use this to only add linker parameters to specific destinations. If this
+    entry is omitted it will default to the source domain as well as the canonical domain.
+    In the example below, only links to the `example.com` and `ampproject.org`
+    domains would be decorated. These must be included as an array of domains.
+  -->
+  <amp-analytics>
+      <script type="application/json">
+        {
+          "linkers" : {
+            "enabled": true,
+            "destinationDomains": ['example.com'],
+            "linker1": {
+              "ids": {
+                "_foo": "CLIENT_ID(_foo)"
+              }
+            }
+        }
+      </script>
+  </amp-analytics>
+
+  <!-- ## Demo -->
+  <!-- To see this whole process in action, please follow [this link.](/linker/demo-page.html) -->
+  <!-- -->
+  </body>
 </html>
