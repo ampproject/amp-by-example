@@ -6,7 +6,7 @@
 ## Introduction
 
 This sample showcases how to use [amp-access](https://www.ampproject.org/docs/reference/components/amp-form)
-to allow an OAuth2-based login flow on your AMP pages, such as Google Sign-In.
+to allow an OAuth2-based login flow on your AMP pages, such as Google, Facebook and GitHub sign-in.
 -->
 <!-- -->
 <!doctype html>
@@ -22,7 +22,8 @@ to allow an OAuth2-based login flow on your AMP pages, such as Google Sign-In.
 
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <!-- [amp-access](/components/amp-access) requires the definition of 3 endpoints as documented [here](https://www.ampproject.org/docs/reference/components/amp-access).
-          This sample allows an user to login and logout using an OAuth2-based flow. Logout is implemented by configuring a second endpoint in the login property `sign-out`, find more [here](https://www.ampproject.org/docs/reference/components/amp-access#login-page).  -->
+         This sample allows an user to login and logout using an OAuth2-based flow. Logout is implemented by configuring a second endpoint in the login property `sign-out`,
+         find more [here](https://www.ampproject.org/docs/reference/components/amp-access#login-page). -->
     <script id="amp-access" type="application/json">
     {
         "authorization": "<%host%>/oauth/status?_=RANDOM",
@@ -41,16 +42,16 @@ to allow an OAuth2-based login flow on your AMP pages, such as Google Sign-In.
     </script>
   </head>
   <body>
-    <!-- In order to view this section, the user needs to be logged in. We use `amp-access` to integrate an OAuth2-based login and to show and hide the login button depending on whether the user is logged in.
-        `on="tap:amp-access.login-google-sign-in"` specifies which action should be taken when clicking on the login button:
-        `login` defines the property inside the `amp-access` json configuration, while `google-sign-in` defines the endpoint. -->
+    <!-- We use `amp-access` to integrate an OAuth2-based login and to show and hide the login button depending on whether the user is logged in.
+         `on="tap:amp-access.login-google-sign-in"` specifies which action should be taken when clicking on the login button:
+         `login` defines the property inside the `amp-access` json configuration, while `google-sign-in` defines the endpoint. -->
     <div amp-access="NOT loggedIn" role="button" tabindex="0" amp-access-hide>
       <h3 class="m1">Please login to view content</h3>
       <button on="tap:amp-access.login-google-sign-in" class="ampstart-btn m2 caps">Google Login</button>
       <button on="tap:amp-access.login-facebook-sign-in" class="ampstart-btn m2 caps">Facebook Login</button>
       <button on="tap:amp-access.login-github-sign-in" class="ampstart-btn m2 caps">GitHub Login</button>
     </div>
-    <!-- Use amp-form to submit the comment. In this sample, only a single comment can be added as comments are not persisted in the backend.  -->
+    <!-- When logged in, we use `amp-access-template` to display information returned from the authorization endpoint, in this case the user's name. -->
     <div class="p2" amp-access="loggedIn" amp-access-hide>
       <template amp-access-template type="amp-mustache">
         <p>Hello {{name}}! You are logged in.</p>
