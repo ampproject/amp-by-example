@@ -38,6 +38,7 @@ describe("DocumentParser", function() {
   <div>hello</div>
 </div>`.trim();
   var COMMENT = '<!--comment-->';
+  var COMMENT_WITH_HEADING = '<!--\n   # heading\n\ncomment-->';
   var HINT = '<!--~hint~-->';
   var LINK = ' <link href="Hello World" />';
   var META = ' <meta href="Hello World" />';
@@ -62,8 +63,12 @@ describe("DocumentParser", function() {
   it("adds comments", function() {
     expect(parse(COMMENT, TAG).sections)
       .toEqual([
-          newSection('comment\n', TAG + '\n', "", true, true),
+          newSection('comment\n', TAG + '\n', '', true, true),
       ]);
+  });
+  it("strips whitespace before headings", function() {
+    expect(parse(COMMENT_WITH_HEADING, TAG).sections[0].doc)
+      .toEqual('\n# heading\n\ncomment\n');
   });
 
   it("adds hint", function() {
