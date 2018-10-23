@@ -89,7 +89,7 @@ module.exports = function(config) {
       lastmodfile: latestFile.path,
     }];
     // add example urls
-    files.forEach(function(file) {
+    files.forEach(file => {
       urls.push({
         url: file.url,
         changefreq: 'daily',
@@ -101,7 +101,7 @@ module.exports = function(config) {
 
     const sitemap = sm.createSitemap({
       hostname: config.host,
-      cacheTime: 600000, //600 sec (10 min) cache purge period
+      cacheTime: 600000, // 600 sec (10 min) cache purge period
       urls,
     });
 

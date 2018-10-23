@@ -51,7 +51,7 @@ function readTemplate(name) {
   string = renderTemplate(string);
   let ext = path.extname(name).substring(1);
   if (ext === 'html') {
-    //string = beautifyHtml(string, BEAUTIFY_OPTIONS);
+    // string = beautifyHtml(string, BEAUTIFY_OPTIONS);
   } else if (ext === 'js') {
     string = beautifyJs(string, BEAUTIFY_OPTIONS_JS);
     ext = 'javascript';

@@ -29,15 +29,7 @@ const Templates = require('../lib/Templates');
 const storyController =
   fs.readFileSync(__dirname + '/../templates/stories/page-switch.html', 'utf8');
 const storyBookend = require('./bookend.json');
-
 const STORY_EMBED_DIR = __dirname + '/../api/dist/';
-const AMP_STORY_CLEANER_REGEX =
-  ['amp-story', 'amp-story-auto-ads']
-      .map(extension =>
-        new RegExp('<script\\s+async\\s+custom-element="' + extension
-      + '"\\s+src="https:\\/\\/cdn\\.ampproject\\.org\\/v0\\/' + extension
-      + '-\\d\\.\\d\\.js"><\\/script>')
-      );
 
 /**
  * Collects a list of example files, renders them (using templateExample) and
@@ -51,12 +43,6 @@ module.exports = function(config, indexPath, updateTimestamp) {
   let latestMod;
   let examples;
   let timestamp = new Date().toISOString();
-
-  const postProcessors = [
-    replaceAmpAdRuntime,
-    replaceAmpStoryRuntime,
-    replaceAmpHtmlEmailRuntimeAddViewport,
-  ];
 
   if (typeof config.templates.root === 'string') {
     pageTemplates = Templates.get(config.templates.root,/* minify */ true);
@@ -255,14 +241,12 @@ module.exports = function(config, indexPath, updateTimestamp) {
         template: config.templates.example,
         targetPath: example.targetPath(),
         isEmbed: false,
-        postProcessors,
       });
 
       // compile embed
       compileTemplate(stream, example, args, {
         template: config.templates.example,
         targetPath: example.targetEmbedPath(),
-        postProcessors,
         isEmbed: true,
       });
 
@@ -303,7 +287,6 @@ module.exports = function(config, indexPath, updateTimestamp) {
         compileTemplate(stream, example, args, {
           template: previewTemplate,
           targetPath: example.targetPreviewPath(),
-          postProcessors,
           isEmbed: false,
           isPreview: true,
         });
@@ -398,10 +381,6 @@ module.exports = function(config, indexPath, updateTimestamp) {
     const inputFile = example.file;
     args.isEmbed = options.isEmbed;
     let sampleHtml = pageTemplates.render(options.template, args);
-    options.postProcessors = options.postProcessors || [];
-    options.postProcessors.forEach(p => {
-      sampleHtml = p(document, sampleHtml);
-    });
     args.isEmbed = false;
     const sampleFile = inputFile.clone({contents: false});
     sampleFile.path = path.join(inputFile.base, options.targetPath);
@@ -471,30 +450,6 @@ module.exports = function(config, indexPath, updateTimestamp) {
       return a.filePath.localeCompare(b.filePath);
     });
     return examples;
-  }
-
-  function replaceAmpStoryRuntime(document, string) {
-    if (!document.isAmpStory) {
-      return string;
-    }
-    AMP_STORY_CLEANER_REGEX.forEach(r => string = string.replace(r, ''));
-    return string;
-  }
-
-  function replaceAmpAdRuntime(document, string) {
-    if (!document.isAmpAdSample()) {
-      return string;
-    }
-    return string.replace('https://amp-ads.firebaseapp.com/dist/amp-inabox.js', 'https://amp-ads.firebaseapp.com/dist/amp.js');
-  }
-
-  function replaceAmpHtmlEmailRuntimeAddViewport(document, string) {
-    if (!document.isAmpHtmlEmail) {
-      return string;
-    }
-    return string.replace(
-        '<style amp4email-boilerplate>body{visibility:hidden}</style>',
-        '<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript><meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">'); // eslint-disable-line max-len
   }
 
   return through.obj(bufferContents, endStream);
