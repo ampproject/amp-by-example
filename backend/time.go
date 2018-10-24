@@ -28,7 +28,5 @@ func InitStateRefreshSection() {
 }
 
 func getTime(w http.ResponseWriter, r *http.Request) {
-	SendJsonResponse(w, map[string]string{
-		"time": time.Now().Format("15:04:05"),
-	})
+	SendJsonResponse(w, time.Now().Format("15:04:05"))
 }
