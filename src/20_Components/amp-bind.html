@@ -262,13 +262,19 @@
     <!-- ## Refresh state -->
 
     <!-- `amp-state` supports the `refresh` action. This can be useful in many cases, for example the initial URL loading fails
-       and you want the user to load the state again.
+       and you want the user to load the state again. 
+       Another common scenario is live content that needs to be updated, e.g. a sports live score.
        For a complete list of actions, see [here](https://www.ampproject.org/docs/interaction_dynamic/amp-actions-and-events).
-       Clicking the button below will refresh and refetch the json in amp-state. -->
+       Clicking the button below will refresh and refetch the json in amp-state showing an updated time. -->
 
-    <button class="ampstart-btn caps m1" on="tap:remoteAnimals.refresh">
-      Refresh
-    </button>
+    <div>   
+      <amp-state id="time" src="/components/state_refresh">
+      </amp-state>
+      <button class="ampstart-btn caps m1" on="tap:time.refresh">
+        Refresh
+      </button>
+      <div [text]=time></div>
+    </div>
 
     <!-- ## Hiding and showing things -->
 

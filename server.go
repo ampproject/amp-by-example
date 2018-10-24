@@ -44,6 +44,7 @@ func init() {
 	backend.InitLetsEncrypt()
 	backend.InitSeatmapPage()
 	backend.InitOAuth()
+	backend.InitStateRefreshSection()
 	playground.InitPlayground()
 	backend.InitStatic()
 	http.HandleFunc("/_ah/warmup", warmup)
