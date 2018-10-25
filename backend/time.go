@@ -20,7 +20,7 @@ import (
 )
 
 const (
-	BIND_SAMPLE_PATH = "/" + CATEGORY_COMPONENTS + "/state_refresh/"
+	BIND_SAMPLE_PATH = "/" + CATEGORY_COMPONENTS + "/time/"
 )
 
 func InitStateRefreshSection() {
