@@ -281,7 +281,7 @@
     <div>
       <amp-lightbox id="my-lightbox" [open]="showLightbox" layout="nodisplay">
         <div class="lightbox"
-        on="lightboxClose: AMP.setState({showLightbox: false}); tap:my-lightbox.close" role="button" tabindex="0">
+        on="tap:AMP.setState({showLightbox: false})" role="button" tabindex="0">
           <h1>Hello World!</h1>
         </div>
       </amp-lightbox>
