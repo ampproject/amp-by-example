@@ -23,7 +23,7 @@
     "babel-preset-es2015": "6.24.1",
     "codemirror": "5.39.2",
     "css-loader": "0.28.11",
-    "eslint": "4.19.1",
+    "eslint": "5.8.0",
     "eslint-plugin-google-camelcase": "0.0.2",
     "extract-text-webpack-plugin": "2.1.2",
     "firebase": "5.3.0",
