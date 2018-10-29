@@ -43,6 +43,7 @@ func init() {
 	backend.InitAmpStoryAutoAds()
 	backend.InitSeatmapPage()
 	backend.InitOAuth()
+	backend.InitStateRefreshSection()
 	playground.InitPlayground()
 	backend.InitStatic()
 	http.HandleFunc("/_ah/warmup", warmup)
