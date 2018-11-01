@@ -15,7 +15,7 @@
  **/
 
 importScripts('/sw-toolbox/sw-toolbox.js');
-importScripts("https://cdn.rawgit.com/jakearchibald/idb/97e4e878/lib/idb.js");
+importScripts('https://cdn.rawgit.com/jakearchibald/idb/97e4e878/lib/idb.js');
 
 const config = {
   offlinePage: '/youre_offline/'

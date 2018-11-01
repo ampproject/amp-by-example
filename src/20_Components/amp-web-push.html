@@ -19,29 +19,32 @@
       Import the `amp-web-push` component in the header.
     -->
     <script async custom-element="amp-web-push" src="https://cdn.ampproject.org/v0/amp-web-push-0.1.js"></script>
+    <!--
+      The `amp-form` component is being used in this demo, to send a post request so the notification can be prepared and sent.
+    -->
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+    <!--
+      The `amp-mustache` component is used in this demo to show success and error messages after received response for the form submission.
+    -->
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
-    <script async custom-element="amp-install-serviceworker" src="https://cdn.ampproject.org/v0/amp-install-serviceworker-0.1.js"></script>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
 </head>
 
 <body>
     <!-- ## Basic Usage -->
     <!--
-    The amp-web-push component requires two additional HTML files as well as an amp-web-push compatible Service Worker. These three files form the configuration described below.
+    The `amp-web-push` component requires two additional HTML files as well as an amp-web-push compatible Service Worker. These three files form the configuration described below.
     -->
     <amp-web-push id="amp-web-push" layout="nodisplay" helper-iframe-url="<%host%>/webpush/amp-web-push-helper-frame.html" permission-dialog-url="<%host%>/webpush/amp-web-push-permission-dialog.html" service-worker-url="<%host%>/sw.js">
     </amp-web-push>
 
-    <!--
-      Clicking the subscription widget pops up a page prompting the user for notification permissions and signals the service worker (configured below) to subscribe the user to push in the background. On this example, we are intercepting the call to `onMessageReceivedSubscribe`, and storing the subscription object on IndexedDB.
+    <!-- Clicking the subscription widget pops up a page prompting the user for notification permissions and signals the service worker (configured below) to subscribe the user to push in the background. On this example, we are intercepting the call to `onMessageReceivedSubscribe`, and storing the subscription object on IndexedDB.
     -->
     <amp-web-push-widget visibility="unsubscribed" layout="fixed" width="500" height="70">
         <button class="ampstart-btn m1" on="tap:amp-web-push.subscribe">Subscribe to Notifications</button>
     </amp-web-push-widget>
 
-    <!--
-      Clicking the unsubscription widget signals the worker to unsubscribe the user from push in the background. On this example, we'll be also remvoing the previoulsy stored subscription object from IndexedDB.
+    <!-- Clicking the unsubscription widget signals the worker to unsubscribe the user from push in the background. On this example, we'll be also removing the previoulsy stored subscription object from IndexedDB.
     -->
     <amp-web-push-widget visibility="subscribed" layout="fixed" width="500" height="180">
         <button class="ampstart-btn m1" on="tap:amp-web-push.unsubscribe">Unsubscribe from Notifications</button>
