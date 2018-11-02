@@ -75,7 +75,7 @@ While working on an example you can start a local webserver with auto-reload on 
 $ gulp
 ```
 
-Some components, like [this one](https://github.com/ampproject/amp-by-example/blob/master/src/20_Components/amp-live-list.html) require an additional server endpoint.
+Some components, like [amp-live-list](https://github.com/ampproject/amp-by-example/blob/master/src/20_Components/amp-live-list.html) require an additional server endpoint.
 
 ## Writing the sample
 
