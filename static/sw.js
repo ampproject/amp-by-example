@@ -189,7 +189,7 @@ self.addEventListener('activate', event => {
     );
 });
 
-//Listens to push events, and displays a notification, using the payload text.
+// Listens to push events, and displays a notification, using the payload text.
 self.addEventListener('push', event => {
     const options = {
         body: event.data.text(),

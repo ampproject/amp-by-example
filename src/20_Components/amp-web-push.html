@@ -26,10 +26,6 @@
       The `amp-form` component is being used in this demo, to send a post request so the notification can be prepared and sent.
     -->
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
-    <!--
-      The `amp-mustache` component is used in this demo to show success and error messages after received response for the form submission.
-    -->
-    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
 </head>
 
@@ -58,14 +54,10 @@
                 Sending Push message...
             </div>
             <div submit-success>
-                <template type="amp-mustache">
-                    Web Push sent!
-                </template>
+                Web Push sent!
             </div>
             <div submit-error>
-                <template type="amp-mustache">
-                    Something went wrong.
-                </template>
+                Something went wrong.
             </div>
         </form>
     </amp-web-push-widget>
