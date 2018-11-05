@@ -32,7 +32,7 @@
     "striptags": "^3.1.1"
   },
   "devDependencies": {
-    "amp-toolbox-optimizer": "^0.3.1",
+    "amp-toolbox-optimizer": "^0.4.1",
     "amphtml-validator": "1.0.23",
     "bignumber.js": "4.1.0",
     "del": "3.0.0",

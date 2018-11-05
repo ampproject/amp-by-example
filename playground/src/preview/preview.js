@@ -175,8 +175,12 @@ class Preview {
     iframe.setAttribute('frameBorder', '0');
     iframe.setAttribute('id', 'previewIframe');
     iframe.setAttribute('title', 'AMP Playground Output');
-    // this would run stamp always in fullscreen
-    //iframe.setAttribute('allowfullscreen', true);
+    iframe.setAttribute('allowpaymentrequest', '');
+    iframe.setAttribute('sandbox', 'allow-scripts allow-forms allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-presentation allow-top-navigation');
+    // avoid running AMP stories in fullscreen
+    if (this.runtime.id !== 'amp4stories') {
+      iframe.setAttribute('allowfullscreen', true);
+    }
     iframe.classList.add('elevation-4dp');
     return iframe;
   }
