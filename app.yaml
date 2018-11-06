@@ -29,11 +29,12 @@ handlers:
   script: _go_app
   login: admin
 
-- url: /sw\.js$
+- url: /(sw\.js)
+  mime_type: text/javascript
+  static_files: dist/\1
+  upload: dist/(sw\.js)
   secure: always
-  static_files: dist/sw.js
-  upload: dist/sw\.js$
-  expiration: 0
+  expiration: "0s"
   http_headers:
     Access-Control-Allow-Origin: "*"
 
