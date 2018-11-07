@@ -22,14 +22,9 @@ This sample demonstrates which events can be measured and how they can be config
   <!-- ## Setup -->
   <!--  Import the `amp-analytics` component in the header. -->
   <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
-  <!--  Import the `amp-carousel` component in the header. -->
   <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
-  <!--  Import the `amp-bind` component in the header. -->
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-  <!--  Import the `amp-form` component in the header. -->
   <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
-  <!--  Import the `amp-mustache` component in the header which is used to display a message after `amp-form` submission. -->
-  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
   <!--
     We need `amp-iframe` to embed an analytics dashboard.
   -->
@@ -384,6 +379,8 @@ The `amp-carousel-prev` event is issued when there is a traversal to the previou
         }
       </script>
     </amp-analytics>
+    <p>Try to insert any name as a name input in the form to see the <code>amp-form-submit-success</code> event.</p>
+    <p>Try to insert the word "error" as a name input in the form to see the <code>amp-form-submit-error</code> event.</p>
     <form 
         id="testForm"
         method="post"
@@ -398,16 +395,6 @@ The `amp-carousel-prev` event is issued when there is a traversal to the previou
           required>
     </div>
     <input type="submit" value="Subscribe" class="ampstart-btn caps">
-    <div submit-success>
-      <template type="amp-mustache">
-        Success! Try to insert the word "error" as a name input in the form to see the <code>amp-form-submit-error</code> event.
-      </template>
-    </div>
-    <div submit-error>
-      <template type="amp-mustache">
-        Error!
-      </template>
-    </div>
   </form>
   </div>
 </body>
