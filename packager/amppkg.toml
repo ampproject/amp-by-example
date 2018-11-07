@@ -1,0 +1,147 @@
+# This is a TOML 0.4.0 file, as specified by https://github.com/toml-lang/toml.
+
+# The port to listen on; 8080 is the default.
+# Port = 8080
+
+# Uncomment this line to serve only to localhost clients, e.g. for testing, by
+# binding on the loopback interface.
+# LocalOnly = true
+
+# The path to the PEM file containing the full certificate chain, ordered from
+# leaf to root.
+#
+# Typically, it would look like:
+#   -----BEGIN CERTIFICATE-----
+#   ....
+#   -----END CERTIFICATE-----
+#   -----BEGIN CERTIFICATE-----
+#   ....
+#   -----END CERTIFICATE-----
+# where the first certificate is for your domain, and the second is your CA's
+# cert.
+#
+# To verify it has the right key type:
+#   openssl x509 -in cert.pem -text | grep 'ASN1 OID: prime256v1'
+# To verify it has the CanSignHttpExchanges extension:
+#   openssl x509 -in cert.pem -text | grep 1.3.6.1.4.1.11129.2.1.22:
+#
+# This will be served at /amppkg/cert/blahblahblah, where "blahblahblah" is a
+# stable unique identifier for the cert (currently, its base64-encoded
+# SHA-256).
+#
+# The leaf certificate must use an EC P-256 key. (See https://goo.gl/pwK9EJ
+# item 3.1.5.) It must have at least one SCT, either as an X.509 extension or
+# as an extension to the OCSP responses from the URI mentioned in its Authority
+# Information Access extension. (See https://goo.gl/JQiyNs item 7.4.)
+#
+# To mitigate the risk of an attacker gaining access to your private key
+# through a vulnerability in this packager, you should generate a new
+# certificate/key pair for the domain(s) you wish to sign packages with. This
+# allows you to revoke that certificate without affecting your normal
+# web-serving traffic.
+CertFile = '/amppkg/cert.pem'
+
+# The path to the PEM file containing the private key that corresponds to the
+# leaf certificate in CertFile.
+KeyFile = '/amppkg/privkey.pem'
+
+# The path to a file where the OCSP response will be cached. The parent
+# directory should exist, but the file need not. If this is a network-mounted
+# file, it should support shared/exclusive locking.
+OCSPCache = '/tmp/ocsp'
+
+Docroot = '/www'
+
+# Project Id of the Google Cloud Project from which requests will be made. This
+# will probably be the project corresponding to NEW_ADDRESS in request.go.
+ProjectId = 'amp-by-example'
+
+# This is a simple level of validation, to guard against accidental
+# misconfiguration of the reverse proxy that sits in front of the packager.
+#
+# You must specify at least one URLSet; you may specify multiple. Each one must
+# specify a Sign pattern and may specify a Fetch pattern. When the packager
+# receives a request for a package, it will first validate that the requested
+# fetch/sign URL pair matches at least one of the given URLSets.
+[[URLSet]]
+  # What URLs are allowed to show up in the browser's URL bar, when served from
+  # the AMP Cache. By default, the URL that the frontend requests to sign is
+  # also the URL where the packager fetches it. For extra flexibility, see
+  # URLSet.Fetch below.
+  [URLSet.Sign]
+    # The scheme of the URL must be https. There is no way to configure this.
+    # The `user:pass@` portion is disallowed. There is no way to configure this.
+
+    # The domain to limit signed URLs to. An exact string match. The certificate
+    # must cover this domain. This will probably be the domain associated with
+    # NEW_ADDRESS in request.go.
+    Domain = "ampbyexample.com"
+
+    # A full-match regexp on the path (not including the ?query).
+    # Defaults to ".*". The below example allows paths starting with /world/.
+    # PathRE = "/world/.*"
+
+    # A list of full-match regexps, carving out exclusions to the above PathRE.
+    # Examples of paths you might want to exclude:
+    #   * Personalized content, such as user settings pages. Signed exchanges
+    #     are cached globally and served to all users. (Personalization that
+    #     happens at runtime via JS is fine.) This provides defense-in-depth,
+    #     in addition to the Cache-Control: public check.
+    #   * User-generated content, such as forums. For instance, if there's a
+    #     chance of an XSS vulnerability in your templating library, the impact
+    #     of such event is higher here: even after you've fixed the bug, caches
+    #     may serve your signed packages for up to 7 days.
+    # PathExcludeRE = []
+
+    # A full-match regexp on the query portion of the URL, excluding the initial
+    # "?". Defaults to ".*". The below example disallows non-empty query strings
+    # (though a single "?" is allowed).
+    # QueryRE = ""
+
+    # The fragment portion of the URL (i.e. the '#' and everything after) must
+    # be empty. There is no way to configure this.
+
+    # By default, stateful headers (such as Set-Cookie and WWW-Authenticate)
+    # are stripped from the response before packaging. If instead you wish for
+    # this to cause packaging to fail, set ErrorOnStatefulHeaders = true.
+    # ErrorOnStatefulHeaders = true
+
+  # By default, the packager only looks at the sign param, and fetches the
+  # content from the same location. If you'd like more flexibility (for
+  # instance, to fetch content from an edge node), uncomment this section. This
+  # allows the frontend to specify an additional `fetch` query parameter.
+  # Instead of looking like:
+  #
+  #   /priv/doc/https://example.com/page.html
+  #
+  # The URL will look like:
+  #
+  #   /priv/doc?fetch=https%3A%2F%2Finternal.example.com%2Fpage.html&sign=https%3A%2F%2Fexample.com%2Fpage.html
+  #
+  # Note that this reduces the defense-in-depth against the "signing oracle"
+  # attack. If an attacker can request custom URLs from the packager (or
+  # convince a frontend server to do so), it could convince the packager to
+  # fetch page A and sign it as page B. If enabling this, make sure there is no
+  # unauthorized access to the packager.
+  # [URLSet.Fetch]
+  # # The set of allowed schemes to fetch from is ["https"] by default, but may
+  # # be ["http"] or ["http", "https"].
+  # Scheme = ["http"]
+  #
+  # # By default, the packager enforces that the path and query are the same
+  # # between the fetch and sign URLs (e.g. respond in error if
+  # # fetch=http%3A%2F%2Ffoo%2Fbar.html and
+  # # sign=https%3A%2F%2Fbaz%2Fnot-bar.html). Change SamePath to false if this
+  # # requirement is too stringent.
+  # SamePath = false
+  #
+  # # A full-match regexp on the domain allowed. Only one of DomainRE and
+  # # Domain may be specified. Exercise caution; test the regexp thoroughly.
+  # # For instance, a DomainRE of "www.example.com" would allow fetches from
+  # # www-example.com.
+  # DomainRE = "www\\.corp\\d+\\.example\\.com"
+  #
+  # # All other fields behave the same.
+  # Domain = "www.corp.example.com"
+  # PathRE = "/world/.*"
+  # QueryRE = ""
