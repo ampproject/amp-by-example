@@ -384,5 +384,30 @@
       </template>
     </div>
   </form>
+
+
+  <!-- ## Date picker with amp-bind -->
+  <!--
+    `amp-date-picker` integrates with `amp-bind`. The `min` and `max` attributes
+    can be used to update the min and max date.
+  -->
+  <div>
+    <amp-state id="binding">
+      <script type="application/json">
+      {"min": "", "max": ""}
+      </script>
+    </amp-state>
+    <input on="change:AMP.setState({binding: {min: event.value}})" placeholder="Minimum date">
+    <input on="change:AMP.setState({binding: {max: event.value}})" placeholder="Maximum date">
+    <amp-date-picker id="bind-picker"
+        type="single"
+        mode="static"
+        layout="fixed-height"
+        height="360"
+        format="MM/DD/YYYY"
+        [min]="binding.min"
+        [max]="binding.max">
+    </amp-date-picker>
+  </div>
 </body>
 </html>

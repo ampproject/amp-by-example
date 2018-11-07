@@ -25,6 +25,7 @@ func init() {
 	backend.InitAmpLiveList()
 	backend.InitAmpEmail()
 	backend.InitAmpForm()
+	backend.InitAmpInputmask()
 	backend.InitAmpCache()
 	backend.InitProductBrowse()
 	backend.InitHousingForm()
