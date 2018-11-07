@@ -8,6 +8,7 @@ The `amp-analytics` element can be used to measure activity on an AMP document. 
 * Timer
 * Scrolling
 * AMP Carousel changes
+* Form
 
 This sample demonstrates which events can be measured and how they can be configured. For a complete overview of all available options and parameters, have a look at the [official documentation](https://www.ampproject.org/docs/reference/extended/amp-analytics.html).
 -->
@@ -19,12 +20,16 @@ This sample demonstrates which events can be measured and how they can be config
   <title>amp-analytics</title>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <!-- ## Setup -->
-  <!--  Import the amp-analytics component in the header. -->
+  <!--  Import the `amp-analytics` component in the header. -->
   <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
-  <!--  Import the amp-carousel component in the header. -->
+  <!--  Import the `amp-carousel` component in the header. -->
   <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
-  <!--  Import the amp-bind component in the header. -->
+  <!--  Import the `amp-bind` component in the header. -->
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+  <!--  Import the `amp-form` component in the header. -->
+  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+  <!--  Import the `amp-mustache` component in the header which is used to display a message after `amp-form` submission. -->
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
   <!--
     We need `amp-iframe` to embed an analytics dashboard.
   -->
@@ -341,6 +346,69 @@ The `amp-carousel-prev` event is issued when there is a traversal to the previou
   }
   </script>
   </amp-analytics>
-
+  <!-- ## Form -->
+  <!-- You can track events triggered by `amp-form`. Find a list of supported event [here](https://www.ampproject.org/docs/reference/components/amp-form#analytics-triggers)-->
+  <div>
+    <amp-analytics>
+      <script type="application/json">
+        {
+          "requests": {
+            "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
+          },
+          "triggers": {
+            "formSubmit": {
+              "on": "amp-form-submit",
+              "request": "event",
+              "selector":"#testForm",
+              "vars": {
+                "eventId": "form-submit"
+              }
+            },
+            "formSubmitSuccess": {
+              "on": "amp-form-submit-success",
+              "request": "event",
+              "selector":"#testForm",
+              "vars": {
+                "eventId": "form-submit-success"
+              }
+            },
+            "formSubmitError": {
+              "on": "amp-form-submit-error",
+              "request": "event",
+              "selector":"#testForm",
+              "vars": {
+                "eventId": "form-submit-error"
+              }
+            }
+          }
+        }
+      </script>
+    </amp-analytics>
+    <form 
+        id="testForm"
+        method="post"
+        class="p2"
+        action-xhr="/components/amp-form/submit-form-input-text-xhr"
+        target="_top">
+    <div class="ampstart-input inline-block relative m0 p0 mb3">
+      <input type="text"
+          class="block border-none p0 m0"
+          name="name"
+          placeholder="Name..."
+          required>
+    </div>
+    <input type="submit" value="Subscribe" class="ampstart-btn caps">
+    <div submit-success>
+      <template type="amp-mustache">
+        Success! Try to insert the word "error" as a name input in the form to see the <code>amp-form-submit-error</code> event.
+      </template>
+    </div>
+    <div submit-error>
+      <template type="amp-mustache">
+        Error!
+      </template>
+    </div>
+  </form>
+  </div>
 </body>
 </html>
