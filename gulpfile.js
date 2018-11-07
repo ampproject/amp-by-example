@@ -30,6 +30,7 @@ const gulpIgnore = require('gulp-ignore');
 const favicons = require('gulp-favicons');
 const argv = require('yargs').argv;
 const path = require('path');
+const fs = require('fs');
 const diff = require('gulp-diff');
 const change = require('gulp-change');
 const grun = require('gulp-run');
@@ -84,6 +85,9 @@ const paths = {
     dir: 'api',
     src: 'api/src/**/*.*',
     dist: 'api/dist',
+  },
+  packager: {
+    dist: 'packager/dist',
   },
   tmp: {
     dir: 'tmp',
@@ -145,7 +149,9 @@ gulp.task('deploy:prod', callback => {
       'robots:allow',
       'build',
       'deploy:site:prod',
-      'deploy:api:prod')(callback);
+      'deploy:api:prod',
+      'build:sxg',
+      'deploy:sxg:prod')(callback);
 });
 
 gulp.task('deploy:staging', callback => {
@@ -175,6 +181,20 @@ gulp.task('deploy:site:prod', () => {
 gulp.task('deploy:api:prod', () => {
   return run(
       'cd api && goapp deploy -application  amp-by-example-api -version 1')
+      .exec();
+});
+
+gulp.task('deploy:sxg:prod', () => {
+  const privkey = 'packager/certs/privkey.pem.enc';
+  const cert = 'packager/certs/cert.pem.enc';
+  if (!fs.existsSync(privkey) || !fs.existsSync(cert)) {
+    throw Error([
+      `Encrypted private keys (${privkey}, ${cert})`,
+      'required for SXG are missing',
+    ].join(' '));
+  }
+  return run(
+      'cd packager && gcloud app deploy -q --project amp-by-example-sxg')
       .exec();
 });
 
@@ -381,7 +401,7 @@ function throwInvalidArgumentError(message) {
 
 gulp.task('clean', () => {
   cache.caches = {};
-  return del([paths.dist.dir, config.api.dist]);
+  return del([paths.dist.dir, paths.packager.dist, config.api.dist]);
 });
 
 gulp.task('watch', () => {
@@ -540,6 +560,14 @@ gulp.task('build:boilerplate-generator', () => {
 }
 );
 
+gulp.task('build:sxg', () => {
+  return gulp.src(paths.dist.html)
+      .pipe(gulpAmpValidator.validate())
+      .pipe(gulpIgnore.exclude(function(file) {
+        return file.ampValidationResult.status !== 'PASS';
+      }))
+      .pipe(gulp.dest(paths.packager.dist));
+});
 
 function generateRobotsTxt(contents) {
   return file('robots.txt', contents, {
