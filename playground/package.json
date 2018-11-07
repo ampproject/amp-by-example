@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.common.js",
-    "start-backend": "dev_appserver.py app.yaml",
     "build": "rm -rf dist && webpack --config webpack.prod.js && cp -R static/* dist",
-    "deploy": "npm run build && gcloud app deploy --version 1 --project amp-playground -q",
     "test": "babel-node spec/run.js && eslint src/**/*.js",
     "lint": "eslint src/**/*.js --fix"
   },
@@ -46,8 +44,7 @@
     "wade": "0.3.3",
     "webpack": "3.11.0",
     "webpack-dev-server": "2.11.2",
-    "webpack-merge": "4.1.2",
-    "workbox-webpack-plugin": "^3.4.1"
+    "webpack-merge": "4.1.2"
   },
   "standard": {
     "globals": [
