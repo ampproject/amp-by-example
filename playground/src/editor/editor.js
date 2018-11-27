@@ -193,7 +193,7 @@ class Editor {
       for (let key of Object.keys(CodeMirror.htmlSchema)) {
         delete CodeMirror.htmlSchema[key];
       }
-      Object.assign(CodeMirror.htmlSchema, hints[validator]);
+      Object.assign(CodeMirror.htmlSchema, hints[validator.toLowerCase()]);
     });
   }
 
