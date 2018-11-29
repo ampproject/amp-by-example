@@ -167,18 +167,11 @@ Only add the ones that you need to the sample. These CSS variable declarations w
 
 **Colors**
 
-<div style="display: inline-block; margin: 0.5rem; background: #005AF0; color: #fff; padding: 1rem;"><code>-\-color-primary</code></div>
-<div style="display: inline-block; margin: 0.5rem; background: #00DCC0; padding: 1rem"><code>-\-color-secondary</code></div>
-<div style="display: inline-block; margin: 0.5rem; background: #B00020; color: #fff; padding: 1rem"><code>-\-color-error</code></div>
-<div style="display: inline-block; margin: 0.5rem; background: #FAFAFC; padding: 1rem"><code>-\-color-bg-light</code></div>
+<img width="743" alt="screenshot 2018-11-30 at 00 22 57" src="https://user-images.githubusercontent.com/380472/49258635-6aae0180-f436-11e8-8ca0-2210fd4c0a96.png">
 
 **Spaces**
 
-<div style="display: inline-block; margin: 0.5rem; background: #005AF0; color: #fff;"><code>no space</code></div>
-<div style="display: inline-block; margin: 0.5rem; background: #005AF0; color: #fff; padding: 0.5rem;"><code>-\-space-1</code></div>
-<div style="display: inline-block; margin: 0.5rem; background: #005AF0; color: #fff; padding: 1rem;"><code>-\-space-2</code></div>
-<div style="display: inline-block; margin: 0.5rem; background: #005AF0; color: #fff; padding: 1.5rem;"><code>-\-space-3</code></div>
-<div style="display: inline-block; margin: 0.5rem; background: #005AF0; color: #fff; padding: 2rem;"><code>-\-space-4</code></div>
+<img width="643" alt="screenshot 2018-11-30 at 00 23 08" src="https://user-images.githubusercontent.com/380472/49258634-6aae0180-f436-11e8-9716-50c69970c113.png">
 
 #### Formatting
 
