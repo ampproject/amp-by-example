@@ -1,0 +1,13 @@
+:root {
+  --color-accent: #003f93;
+  --color-primary: #000;
+  --color-bg-primary: #fff;
+
+  --color-secondary: #fff;
+  --color-bg-secondary: #000;
+
+  --space-1: .5rem;  /* 8px */
+  --space-2: 1rem;   /* 16px */
+  --space-3: 1.5rem; /* 24px */
+  --space-4: 2rem;   /* 32px */
+}
