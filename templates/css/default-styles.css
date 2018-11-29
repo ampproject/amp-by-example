@@ -1,10 +1,10 @@
 :root {
-  --color-accent: #003f93;
-  --color-primary: #000;
-  --color-bg-primary: #fff;
-
-  --color-secondary: #fff;
-  --color-bg-secondary: #000;
+  --color-primary: #005AF0;
+  --color-secondary: #00DCC0;
+  --color-text-light: #fff;
+  --color-text-dark: #000;
+  --color-error: #B00020;
+  --color-bg-light: #FAFAFC;
 
   --space-1: .5rem;  /* 8px */
   --space-2: 1rem;   /* 16px */
