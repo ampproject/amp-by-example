@@ -132,6 +132,54 @@ If your comment spans multiple elements, wrap these in an single `div` without a
 </div>
 ```
 
+#### Sample Styling
+
+Sometimes it's good to add a little bit more styling to a sample (e.g. to separate a button from an input field). To make sure that all samples have a consistent styling, please use the following CSS variables to style specific elements in your sample:
+
+```
+:root {
+  --color-primary: #005AF0;
+  --color-secondary: #00DCC0;
+  --color-text-light: #fff;
+  --color-text-dark: #000;
+  --color-error: #B00020;
+  --color-bg-light: #FAFAFC;
+
+  --space-1: .5rem;  /* 8px */
+  --space-2: 1rem;   /* 16px */
+  --space-3: 1.5rem; /* 24px */
+  --space-4: 2rem;   /* 32px */
+}
+```
+
+You can use them to style your samples like this:
+
+```
+.button {
+  margin: var(--space-2);
+  padding: var(--space-1);
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+}
+```
+
+Only add the ones that you need to the sample. These CSS variable declarations will be added automatically to your sample, if you use `gulp create ...` to create the sample.
+
+**Colors**
+
+<div style="display: inline-block; margin: 0.5rem; background: #005AF0; color: #fff; padding: 1rem;"><code>-\-color-primary</code></div>
+<div style="display: inline-block; margin: 0.5rem; background: #00DCC0; padding: 1rem"><code>-\-color-secondary</code></div>
+<div style="display: inline-block; margin: 0.5rem; background: #B00020; color: #fff; padding: 1rem"><code>-\-color-error</code></div>
+<div style="display: inline-block; margin: 0.5rem; background: #FAFAFC; padding: 1rem"><code>-\-color-bg-light</code></div>
+
+**Spaces**
+
+<div style="display: inline-block; margin: 0.5rem; background: #005AF0; color: #fff;"><code>no space</code></div>
+<div style="display: inline-block; margin: 0.5rem; background: #005AF0; color: #fff; padding: 0.5rem;"><code>-\-space-1</code></div>
+<div style="display: inline-block; margin: 0.5rem; background: #005AF0; color: #fff; padding: 1rem;"><code>-\-space-2</code></div>
+<div style="display: inline-block; margin: 0.5rem; background: #005AF0; color: #fff; padding: 1.5rem;"><code>-\-space-3</code></div>
+<div style="display: inline-block; margin: 0.5rem; background: #005AF0; color: #fff; padding: 2rem;"><code>-\-space-4</code></div>
+
 #### Formatting
 
 You can use [markdown](https://help.github.com/articles/github-flavored-markdown/) to format your documentation:
