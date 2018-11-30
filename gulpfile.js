@@ -31,7 +31,6 @@ const favicons = require('gulp-favicons');
 const argv = require('yargs').argv;
 const path = require('path');
 const fs = require('fs');
-const diff = require('gulp-diff');
 const change = require('gulp-change');
 const grun = require('gulp-run');
 const htmlmin = require('gulp-htmlmin');
@@ -504,24 +503,6 @@ gulp.task('validate', gulp.series(
     'lint:html',
     'test'
 ));
-
-
-gulp.task('snapshot', () => {
-  return gulp.src(paths.samples)
-      .pipe(compileExample(config, false))
-      .pipe(gulp.dest(paths.tmp.dir));
-}
-);
-
-gulp.task('snapshot:verify', () => {
-  return gulp.src(paths.samples)
-      .pipe(compileExample(config, false))
-      .pipe(diff(paths.tmp.dir))
-      .pipe(diff.reporter({
-        fail: true,
-      }));
-}
-);
 
 gulp.task('robots:disallow', () => {
   return generateRobotsTxt(`User-Agent: *
