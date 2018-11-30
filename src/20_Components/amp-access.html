@@ -1,10 +1,5 @@
 <!-- ## Introduction
-  The [amp-access](https://www.ampproject.org/docs/reference/components/amp-access) component adds support for authentication and authorization,
-  allowing you to limit access to parts of your AMP pages as well as display customized content for the logged in user.
-
-  It also allows the implementation of view counting, paywalls and subscriptions.
-
-  For sample `amp-access` server endpoints, see the [amp-publisher-sample](https://github.com/ampproject/amp-publisher-sample) project.
+  The [amp-access](https://www.ampproject.org/docs/reference/components/amp-access) component adds support for authentication and authorization, allowing you to limit access to parts of your AMP pages as well as display customized content for the logged in user.  It also allows the implementation of view counting, paywalls and subscriptions. For sample `amp-access` server endpoints, see the [amp-publisher-sample](https://github.com/ampproject/amp-publisher-sample) project.
 -->
 <!-- -->
 <!doctype html>
@@ -51,9 +46,11 @@
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 </head>
 <body>
+
+  <!-- ## Controlling visibility -->
   <!-- This section is visible to all users. No special markup is needed in this case.-->
   <section>
-    <p>Welcome to the website! This section is visible to all.</p>
+    Welcome to the website! This section is visible to all.
   </section>
 
    <!-- Use the `amp-access` attribute to control the visibility of each component. The expression
@@ -63,7 +60,7 @@
     in.
   -->
   <section amp-access="loggedIn">
-    <p>This section is only visible if you're logged in. Welcome back!</p>
+    This section is only visible if you're logged in. Welcome back!
   </section>
 
   <!-- The response from the server can be used to convey more information about the logged in
@@ -71,14 +68,14 @@
     in addition to being logged in.
   -->
   <section amp-access="loggedIn AND powerUser">
-    <p>This section is only visible if you're logged in <em>and</em> classified as "power user".</p>
+    This section is only visible if you're logged in <em>and</em> classified as "power user".
   </section>
 
   <!-- If the `loggedIn` property has the default value of false, we can assume that the user is not
     logged in.
    -->
   <section amp-access="NOT loggedIn">
-    <p>This section is only visible if you're not logged in.</p>
+    This section is only visible if you're not logged in.
   </section>
 
   <!-- Combine `amp-access` and `amp-mustache` to show information returned from the authorization request.
@@ -86,7 +83,7 @@
   -->
   <section amp-access="loggedIn">
     <template amp-access-template type="amp-mustache">
-      <p>Hello {{email}}!</p>
+      <h3>Hello {{email}}!</h3>
 
       {{#powerUser}}
       <p>You are a power user.</p>
@@ -94,21 +91,24 @@
     </template>
   </section>
 
+  <!-- ## Login  -->
   <!-- Use `on="tap:amp-access.login-sign-in"` to open the login dialog when the element is
   clicked. This simply opens a popup window that takes the user to the URL defined inside the
   configuration at the top.
 
   `amp-access-hide` will default the component to be hidden and enabled later
   if the `amp-access` expression is evaluated to `TRUE` -->
-  <section class="p1" amp-access="NOT loggedIn" amp-access-hide role="button" tabindex="0">
-    <a class="ampstart-btn caps" on="tap:amp-access.login-sign-in">Login</a>
-  </section>
-  <!-- The logout link will only be shown for logged in subscribers. We use a trick here: the logout is a
+  <button amp-access="NOT loggedIn" amp-access-hide on="tap:amp-access.login-sign-in">
+    Login
+  </button>
+
+  <!-- ## Logout  -->
+  <!-- The logout link should only be shown for logged in subscribers. We use a trick here: the logout is a
     login action that directly redirects back to the original URL. This has the advantage that the page updates without being reloaded.
   -->
-  <section class="p1" amp-access="loggedIn" amp-access-hide role="button" tabindex="0">
-    <a class="ampstart-btn caps" on="tap:amp-access.login-sign-out">Logout</a>
-  </section>
+  <button amp-access="loggedIn" amp-access-hide on="tap:amp-access.login-sign-out">
+    Logout
+  </button>
   <!-- Check out the [official amp-access sample](https://rocky-sierra-1919.herokuapp.com/) for demos of first-click-free and view counting. -->
 </body>
 </html>
