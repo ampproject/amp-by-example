@@ -45,7 +45,7 @@
     "gulp": "^4.0.0",
     "gulp-amphtml-validator": "1.0.2",
     "gulp-cached": "1.1.1",
-    "gulp-change": "1.0.0",
+    "gulp-change": "1.0.2",
     "gulp-clean": "0.4.0",
     "gulp-eslint": "5.0.0",
     "gulp-favicons": "2.2.7",
