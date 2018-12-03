@@ -560,12 +560,25 @@ function generateRobotsTxt(contents) {
 /* adds a title link to all sample files */
 function performChange(content) {
   const exampleFile = ExampleFile.fromPath(this.file.path);
+  const match = content.match(/<!---([\s\S]*)?--->/);
+  if (!match) {
+    return content
+  }
+  gutil.log('changing', this.file.path);
+  const frontmatter = JSON.parse(match[1]);
+  const yaml = require('js-yaml');
+  const yamlFrontmatter = `<!---
+
+${yaml.safeDump(frontmatter)}
+--->
+${content.substring(match[0].length)}`;
+  /*
   if (!/<title>/.test(content)) {
     content = content.replace(/<meta charset="utf-8">/g,
         '<meta charset="utf-8">\n  <title>' + exampleFile.title() + '</title>');
-    gutil.log('updating canonical: ' + this.file.relative);
   }
-  return content;
+  */
+  return yamlFrontmatter;
 }
 
 gulp.task('change', () => {
