@@ -562,9 +562,9 @@ function performChange(content) {
   const exampleFile = ExampleFile.fromPath(this.file.path);
   const match = content.match(/<!---([\s\S]*)?--->/);
   if (!match) {
-    return content
+    return content;
   }
-  gutil.log('changing', this.file.path);
+  gutil.log('changing', exampleFile.title);
   const frontmatter = JSON.parse(match[1]);
   const yaml = require('js-yaml');
   const yamlFrontmatter = `<!---
