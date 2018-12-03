@@ -29,18 +29,26 @@
     font-size: 14px;
     background-color: #ddd;
   }
-  amp-accordion#hidden-header section[expanded] h4 {
+  amp-accordion.hidden-header section[expanded] h4 {
     border: none;
+  }
+
+  /* these styles are not required for the samples to work */
+  :root {
+    --space-2: 1rem;   /* 16px */
+  }
+  amp-accordion.sample {
+    margin: var(--space-2);
   }
 </style>
 </head>
 <body>
 
-  <!-- ## Basic Usage -->
+  <!-- ## Basic usage -->
   <!--
-    Each of the `amp-accordion` component’s immediate children is considered a section in the accordion. Each of these nodes must be a `<section>` tag. Each `<section>` must contain only two direct children. The first child (of the section) will be considered as the heading of the section. Clicking/tapping on this section will trigger the expand/collapse behaviour. Use the `disable-session-states` attribute to disable preserving the accordion state across a session.
+    An `amp-accordion` consists of multiple `section`s.  Each `<section>` must have two direct children. The first child  will be considered as the heading of the section. Clicking/tapping on this section will trigger the expand/collapse behaviour. Use the `disable-session-states` attribute to disable preserving the accordion state across a session.
   -->
-  <amp-accordion>
+  <amp-accordion class="sample">
     <section expanded>
       <h4>Section 1</h4>
       <p>Bunch of awesome content.</p>
@@ -52,15 +60,16 @@
     <section>
       <h4>Section 3</h4>
       <figure>
-        <amp-img src="/img/amp.jpg" width="1080" height="610" layout="responsive" alt="an image"></amp-img>
+        <amp-img src="/img/clean-1.jpg"
+          layout="intrinsic"
+          width="400"
+          height="710"></amp-img>
         <figcaption>Images work as well.</figcaption>
       </figure>
     </section>
   </amp-accordion>
 
-  <!-- ## Styling the Accordion -->
-  <!-- -->
-    <p>Lorem ipsum dolor sit amet, mauris sed, vestibulum velit id, vivamus fermentum sed massa metus semper.</p>
+  <!-- ## Custom styling -->
   <!--
     `amp-accordion` adds the `expanded` attribute to any expanded element. You can use [CSS attribute selectors](https://developer.mozilla.org/en/docs/Web/CSS/Attribute_selectors) to style an accordion section based on whether it's expanded or collapsed. Use `section[expanded]` to style the expanded state and `section:not([expanded])` to style the collapsed state.:
 
@@ -75,23 +84,23 @@
 
     This example shows a different title based on whether the section is expanded or not.
   -->
-    <amp-accordion disable-session-states>
+    <amp-accordion class="sample" disable-session-states>
       <section>
         <h4><span class="show-more">Show more</span> <span class="show-less">Show less</span></h4>
         <p>Id lacus amet. Aliquam eos nunc ut scelerisque lacinia, eu rutrum id, vestibulum aliqua vivamus luctus eu rhoncus ut, sodales id. Velit lacus, fermentum neque et sagittis, ac venenatis volutpat, dolore neque feugiat proin fermentum odio, odio arcu in eu wisi. </p>
       </section>
     </amp-accordion>
 
-    <p>Lorem ipsum dolor sit amet, mauris sed, vestibulum velit id, vivamus fermentum sed massa metus semper. Id lacus amet.</p>
-    <!-- Here is another example, which hides the "Show more" button once it's been clicked. -->
-    <amp-accordion id="hidden-header" disable-session-states>
+  <!-- ## Hidden header  -->
+    <!-- This samplewhich hides the "Show more" button once it's been clicked. -->
+    <amp-accordion class="sample hidden-header" disable-session-states>
       <section>
         <h4><span class="show-more">Show more</span></h4>
         <p>Id lacus amet. Aliquam eos nunc ut scelerisque lacinia, eu rutrum id, vestibulum aliqua vivamus luctus eu rhoncus ut, sodales id. Velit lacus, fermentum neque et sagittis, ac venenatis volutpat, dolore neque feugiat proin fermentum odio, odio arcu in eu wisi. </p>
       </section>
     </amp-accordion>
 
-    <!-- ## Nested Accordions -->
+    <!-- ## Nested accordion -->
     <!--
     You can even nest multiple accordions. Just be sure to avoid styling elements based on the expanded state of the enclosing amp-accordion.  In particular, avoid overly generic rules such as:
 
@@ -108,10 +117,8 @@
     ...
   }
   ```
-
-    A nested accordion:
     -->
-    <amp-accordion disable-session-states>
+    <amp-accordion class="sample" disable-session-states>
       <section>
         <h4>Section 1</h4>
         <p>Bunch of content.</p>
@@ -131,11 +138,11 @@
       </section>
     </amp-accordion>
 
-    <!-- ## Auto-Collapsing Accordions -->
+    <!-- ## Auto-collapsing Accordion -->
 
     <!-- The `expand-single-section` attribute forces the accordion to only allow one expanded section at any given time. Expanding one section will cause any other open sections to close. -->
 
-    <amp-accordion expand-single-section>
+    <amp-accordion class="sample" expand-single-section>
       <section>
         <h4>Section 1</h4>
         <p>Id lacus amet. Aliquam eos nunc ut scelerisque lacinia, eu rutrum id, vestibulum aliqua vivamus luctus eu rhoncus ut, sodales id. Velit lacus, fermentum neque et sagittis, ac venenatis volutpat, dolore neque feugiat proin fermentum odio, odio arcu in eu wisi. </p>
@@ -150,11 +157,11 @@
       </section>
     </amp-accordion>
 
-        <!-- ## Animated Accordions -->
+    <!-- ## Animated Accordion -->
 
     <!-- The `animate` attribute animates the expansion and collapse of accordion sections. -->
 
-    <amp-accordion animate>
+    <amp-accordion class="sample" animate>
       <section>
         <h4>Section 1</h4>
         <p>Id lacus amet. Aliquam eos nunc ut scelerisque lacinia, eu rutrum id, vestibulum aliqua vivamus luctus eu rhoncus ut, sodales id. Velit lacus, fermentum neque et sagittis, ac venenatis volutpat, dolore neque feugiat proin fermentum odio, odio arcu in eu wisi. </p>
@@ -162,7 +169,7 @@
       <section>
         <h4>Section 2</h4>
         <amp-img src="/img/clean-1.jpg"
-          layout="responsive"
+          layout="intrinsic"
           width="400"
           height="710"></amp-img>
       </section>
