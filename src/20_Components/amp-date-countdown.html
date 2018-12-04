@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <!-- ## Introduction
-    `amp-date-countdown` is an AMP component which creates a dynamic timer that counts
+    [amp-date-countdown](https://www.ampproject.org/docs/reference/components/amp-date-countdown) component allows to create a dynamic timer that counts
     down to the given date and time which you can render in your AMP page.
   -->
   <!-- ## Setup -->
@@ -16,13 +16,19 @@
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <style amp-custom>
+    :root {
+      --space-2: 1rem;   /* 16px */
+    }
     amp-date-countdown {
       display: block;
+    }
+    p {
+      padding: var(--space-2);
     }
   </style>
 </head>
 <body>
-  <!-- ## Basic use -->
+  <!-- ## Basic usage -->
   <!--
     You must specify one of `timestamp-seconds`, `timestamp-ms` or `end-date` attributes.
     This indicates the date and time to count down to.
@@ -34,12 +40,13 @@
   -->
   <amp-date-countdown timestamp-seconds="2147483648" layout="fixed-height" height="100">
     <template type="amp-mustache">
-      <p class="p1">
+      <p>
         {{d}} days, {{h}} hours, {{m}} minutes and {{s}} seconds until <a href="https://en.wikipedia.org/wiki/Year_2038_problem">Y2K38</a>.
       </p>
     </template>
   </amp-date-countdown>
 
+  <!-- ## End date -->
   <!--
     When using `end-date`, specify the date in the ISO 8601 format.
 
@@ -47,7 +54,7 @@
   -->
   <amp-date-countdown end-date="2038-01-19T03:14:08.000Z" offset-seconds="-10" layout="fixed-height" height="100">
     <template type="amp-mustache">
-      <p class="p1">
+      <p>
         {{d}} days, {{h}} hours, {{m}} minutes and {{s}} seconds until 10 before <a href="https://en.wikipedia.org/wiki/Year_2038_problem">Y2K38</a>.
       </p>
     </template>
@@ -60,7 +67,7 @@
   -->
   <amp-date-countdown timestamp-seconds="2147483648" locale="ru" layout="fixed-height" height="100">
     <template type="amp-mustache">
-      <p class="p1">
+      <p>
         {{d}} {{days}}, {{h}} {{hours}}, {{m}} {{minutes}}, {{s}} {{seconds}}
       </p>
     </template>
@@ -75,7 +82,7 @@
   -->
   <amp-date-countdown timestamp-seconds="2147483648" biggest-unit="minutes" layout="fixed-height" height="100">
     <template type="amp-mustache">
-      <p class="p1">
+      <p>
         {{m}} minutes and {{s}} seconds until <a href="https://en.wikipedia.org/wiki/Year_2038_problem">Y2K38</a>.
       </p>
     </template>
