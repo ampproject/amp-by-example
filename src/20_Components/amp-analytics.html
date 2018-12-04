@@ -33,12 +33,25 @@ This sample demonstrates which events can be measured and how they can be config
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <style amp-custom>
+    /* these styles are not required for the samples to work */
+    :root {
+      --space-0: 0rem; 
+      --space-1: .5rem;  /* 8px */
+      --space-2: 1rem;   /* 16px */
+      --space-3: 1.5rem; /* 24px */
+      --space-4: 2rem;   /* 32px */
+      --color-primary: #005AF0;
+      --color-secondary: #00DCC0;
+      --color-text-light: #fff;
+      --color-error: #B00020;
+      --color-bg-light: #FAFAFC;   
+    }
     .fixed-dashboard {
         background-color: #e0e0e0;
-        position:fixed;
-        bottom: 0;
-        right: 0;
-        width:100%;
+        position: fixed;
+        bottom: var(--space-0);
+        right: var(--space-0);
+        width: 100%;
         z-index: 100;
     }
     amp-carousel .slide {
@@ -47,26 +60,51 @@ This sample demonstrates which events can be measured and how they can be config
       justify-content: center;
       font-size: 20px;
       background: green;
-      color: white;
+      color: var(--color-text-light);
+    }
+    form #testForm {
+      padding: var(--space-2);
+    }
+    form #testForm div {
+      margin-bottom: var(--space-3);
+      position: relative;
+      display: inline-block
+    }
+    button, form #testForm input {
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      font-family: inherit;
+      font-weight: inherit;
+      font-size: var(--space-2);
+      line-height: 1.125rem;
+      margin: var(--space-2);
+      padding: var(--space-1);
+      text-decoration: none;
+      white-space: nowrap;
+      word-wrap: normal;
+      vertical-align: middle;
+      cursor: pointer;
+      border: 1px solid var(--color-primary);
+      background-color: var(--color-primary);
+      color: var(--color-text-light);
+    }
+    form #testForm div, form #testForm div input {
+      padding: var(--space-0);
+      margin: var(--space-0);
+      max-width: 100%;
+      width: 300px;
+      min-width: 100px;
+      font-size: var(--space-1);
+      line-height:var(--space-2);
+    }
+    form #testForm div input {
+      display: block;
+      border: var(--space-0);
     }
     </style>
 </head>
 <body>
 
-  <!--
-  We are going to use a demo analytics endpoint to demonstrate what's possible with `amp-analytics`. The dashboard is embedded via `amp-iframe` and shows the data received by the analytics endpoint in real-time. It should be visible in the bottom right corner.
-  -->
-  <amp-iframe class="fixed-dashboard ampstart-card m1" width="180"
-              height="180" layout="fixed"
-              sandbox="allow-scripts allow-same-origin"
-              frameborder="0"
-              src="https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/embed?user=[[.]]&account=ampbyexample">
-        <amp-img src="/img/pixel-white.png"
-                 layout="fixed-height"
-                 height="350"
-                 width="auto"
-                 placeholder></amp-img>
-  </amp-iframe>
   <!--
     ## Pageview
   -->
@@ -131,7 +169,7 @@ This sample demonstrates which events can be measured and how they can be config
     This sample fires an analytics request when the image becomes visible as a result of an action. 
       -->
       <div>
-          <button class="ampstart-btn caps m1" on="tap:an-image.toggleVisibility">
+          <button on="tap:an-image.toggleVisibility">
              Toggle image
           </button>
           <amp-img hidden id="an-image" src="/img/amp.jpg" width="1080" height="610" layout="responsive" alt="AMP">
@@ -384,17 +422,15 @@ The `amp-carousel-prev` event is issued when there is a traversal to the previou
     <form 
         id="testForm"
         method="post"
-        class="p2"
         action-xhr="/components/amp-form/submit-form-input-text-xhr"
         target="_top">
-    <div class="ampstart-input inline-block relative m0 p0 mb3">
+    <div>
       <input type="text"
-          class="block border-none p0 m0"
           name="name"
           placeholder="Name..."
           required>
     </div>
-    <input type="submit" value="Subscribe" class="ampstart-btn caps">
+    <input type="submit" value="Subscribe">
   </form>
   </div>
 </body>
