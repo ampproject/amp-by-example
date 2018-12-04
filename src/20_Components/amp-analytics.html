@@ -35,6 +35,7 @@ This sample demonstrates which events can be measured and how they can be config
   <style amp-custom>
     :root {
       --color-text-light: #fff;
+      --space-2: 1rem;  /* 16px */
     }
     .fixed-dashboard {
         background-color: #e0e0e0;
@@ -43,6 +44,8 @@ This sample demonstrates which events can be measured and how they can be config
         right: 0;
         width: 100%;
         z-index: 100;
+        margin: var(--space-2);
+        box-shadow:0 1px 1px 0 rgba(0,0,0,.14),0 1px 1px -1px rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
     }
     amp-carousel .slide {
       display: flex;
@@ -55,20 +58,19 @@ This sample demonstrates which events can be measured and how they can be config
     </style>
 </head>
 <body>
-
-  <!-- -->	
-  <amp-iframe width="180"	
-      height="180" layout="fixed"	
-      sandbox="allow-scripts allow-same-origin"	
-      frameborder="0"	
-      src="https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/embed?user=[[.]]&account=ampbyexample">	
-    <amp-img src="/img/pixel-white.png"	
-        layout="fixed-height"	
-        height="350"	
-        width="auto"	
-        placeholder></amp-img>	
+    <!-- -->
+    <amp-iframe class="fixed-dashboard" 
+        width="180"	
+        height="180" layout="fixed"	
+        sandbox="allow-scripts allow-same-origin"	
+        frameborder="0"	
+        src="https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/embed?user=[[.]]&account=ampbyexample">	
+      <amp-img src="/img/pixel-white.png"	
+          layout="fixed-height"	
+          height="350"	
+          width="auto"	
+          placeholder></amp-img>	
   </amp-iframe>
-
   <!--
     ## Pageview
   -->
