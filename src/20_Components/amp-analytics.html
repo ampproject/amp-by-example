@@ -43,7 +43,6 @@ This sample demonstrates which events can be measured and how they can be config
       --color-primary: #005AF0;
       --color-secondary: #00DCC0;
       --color-text-light: #fff;
-      --color-error: #B00020;
       --color-bg-light: #FAFAFC;   
     }
     .fixed-dashboard {
@@ -62,15 +61,15 @@ This sample demonstrates which events can be measured and how they can be config
       background: green;
       color: var(--color-text-light);
     }
-    form #testForm {
+    #testForm {
       padding: var(--space-2);
     }
-    form #testForm div {
+    #testForm div {
       margin-bottom: var(--space-3);
       position: relative;
       display: inline-block
     }
-    button, form #testForm input {
+    button, #testForm input[type=submit] {
       text-transform: uppercase;
       letter-spacing: .2em;
       font-family: inherit;
@@ -88,7 +87,7 @@ This sample demonstrates which events can be measured and how they can be config
       background-color: var(--color-primary);
       color: var(--color-text-light);
     }
-    form #testForm div, form #testForm div input {
+    #testForm div {
       padding: var(--space-0);
       margin: var(--space-0);
       max-width: 100%;
@@ -96,10 +95,6 @@ This sample demonstrates which events can be measured and how they can be config
       min-width: 100px;
       font-size: var(--space-1);
       line-height:var(--space-2);
-    }
-    form #testForm div input {
-      display: block;
-      border: var(--space-0);
     }
     </style>
 </head>
