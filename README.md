@@ -209,19 +209,21 @@ This will make the `<input>` element clickable, with the additional explanation 
 
 You can mark samples as drafts if they are still work-in-progress. This means the samples won't show up in the start page.
 
-```json
+```yaml
 <!---{
-  "draft": true
+draft: true
 }--->
 ```
 
 #### Experimental Features
 
-If your sample is using one or more experimental features, you can add a metadata section (`<!--- ... --->`) with the JSON variable `experiments` to specify which experiments to enable. This will skip its validation and add an experimental note with instructions to your sample:
+If your sample is using one or more experimental features, you can add a metadata section (`<!--- ... --->`) with the variable `experiments` to specify which experiments to enable. This will skip its validation and add an experimental note with instructions to your sample:
 
-```json
+```yaml
 <!---{
-  "experiments": ["amp-experiment-name", "amp-experiment-another-name"]
+experiments:
+  - amp-experiment-name
+  - amp-another-experiment
 }--->
 ```
 
@@ -229,26 +231,26 @@ If your sample is using one or more experimental features, you can add a metadat
 
 Visually rich examples can provide a preview mode like [this](https://ampbyexample.com/samples_templates/news_article/preview/). Enable via metadata in the sample:
 
-```json
+```yaml
 <!---{
-  "preview": "default"
+preview: default
 }--->
 ```
 
 It is possible to make the preview mode the default version via:
 
-```json
+```yaml
 <!---{
-  "preview": "default",
-  "default": "preview"
+preview": default,
+default": preview
 }--->
 ```
 
 There is a special preview mode for AMP Ad samples:
 
-```json
+```yaml
 <!---{
-  "preview": "a4a"
+preview: a4a
 }--->
 ```
 
@@ -256,10 +258,10 @@ There is a special preview mode for AMP Ad samples:
 
 If your sample looks better with a single column layout, you can disable the code and preview columns adding the following flags to your sample file:
 
-```json
+```yaml
 <!---{
-  "hideCode": true,
-  "hidePreview": true
+hideCode: true,
+hidePreview: true
 }--->
 ```
 
@@ -267,9 +269,9 @@ If your sample looks better with a single column layout, you can disable the cod
 
 If it doesn't make sense for your sample to provide a playground link, you can disable it:
 
-```json
+```yaml
 <!---{
-  "disablePlayground": true
+disablePlayground: true
 }--->
 ```
 
