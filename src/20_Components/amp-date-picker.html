@@ -38,17 +38,23 @@
     `amp-date-picker-selecting`, which is applied to the date input the user is editing.
   -->
   <style amp-custom>
+  :root {
+  --color-primary: #005AF0;
+  --color-text-light: #fff;
+  --space-2: 1rem;   /* 16px */
+  }
+
   .CalendarMonth_caption {
-    color: #fff;
+    color: var(--color-text-light);
   }
 
   [type="range"] .amp-date-picker-selecting {
-    border-bottom-color: #b60845;
-    color: #b60845;
+    border-bottom-color: var(--color-primary);
+    color: var(--color-primary);
   }
 
   .space-between > * + * {
-    margin-left: 1em;
+    margin-left: var(--space-2);
   }
 
   amp-lightbox {
@@ -64,7 +70,7 @@
   }
 
   .example-picker[mode="overlay"] {
-    padding: 1em;
+    padding: var(--space-2);
   }
 
   .small-button {
@@ -237,7 +243,7 @@
         input-selector="#static-picker-input">
       </amp-date-picker>
 
-  <!-- ## highlighted and blocked attributes -->
+  <!-- ## Highlighted and blocked attributes -->
   <!--
     `amp-date-picker` supports a range of attributes, for example `highlighted` and `blocked`. Find the complete list in the official [doc](https://github.com/ampproject/amphtml/tree/master/extensions/amp-date-picker/0.1).
     The `blocked` attribute allows to specify a space separated list of ISO 8601 dates and RFC 5545 RRULEs specifying disallowed dates.
