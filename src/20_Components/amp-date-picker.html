@@ -41,6 +41,7 @@
   :root {
   --color-primary: #005AF0;
   --color-text-light: #fff;
+  --color-bg-light: #FAFAFC;
   --space-2: 1rem;   /* 16px */
   }
 
@@ -57,11 +58,11 @@
     margin-left: var(--space-2);
   }
 
-  amp-lightbox {
-    background: rgba(0, 0, 0, .75);
+  #lb {
+    background: var(--color-bg-light);
   }
 
-  amp-lightbox .align-content-center {
+  #lb .align-content-center {
     height: 100%;
   }
 
