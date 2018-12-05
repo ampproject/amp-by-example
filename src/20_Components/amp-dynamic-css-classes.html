@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>amp-dynamic-css-classes</title>
   <!-- #### Introduction 
-     AMP's dynamic CSS classes provided by the <a href="https://www.ampproject.org/docs/reference/components/presentation/amp-dynamic-css-classes">amp-dynamic-css-class tag</a> enable boolean logic for a handful of conditions 
+     AMP's dynamic CSS classes provided by the [amp-dynamic-css-class](https://www.ampproject.org/docs/reference/components/presentation/amp-dynamic-css-classes) enable boolean logic for a handful of conditions 
   -->
   <!-- #### Setup -->
   <!--
@@ -19,6 +19,9 @@
     For the purpose of this sample, we're creating some helper CSS classes that use the CSS rules defined by amp-dynamic-css-classes.  These allow us to more succinctly refer to the conditions in our code below.
   -->
   <style amp-custom>
+    :root {
+      --space-2: 1rem;   /* 16px */
+    }
     body:not(.amp-referrer-pinterest-com) .if-pinterest, 
     body:not(.amp-referrer-ampbyexample-com) .if-ampbyexample, 
     body:not(.amp-referrer-google-com) .if-google,
@@ -32,17 +35,15 @@
       display: none;
     }
     p {
-      padding: 1rem;
+      padding: var(--space-2);
     }
   </style>
 </head>
 <body>
 
-  <!-- You do not need to include a call to the amp-dynamic-css-classes component to initialize the classes on the body element -->
-
   <!-- #### Referrer -->
   <!--
-    Using these referrer classes can allow you to conditionally include elements.
+    Using these referrer classes can allow you to conditionally include elements. You do not need to include a call to the amp-dynamic-css-classes component to initialize the classes on the body element.
   -->
   <div>
     <p class="if-pinterest">You were referred here or embedded by Pinterest!</p>
