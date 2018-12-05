@@ -64,16 +64,16 @@ describe("Document", function() {
       const sectionWithoutDoc = new CodeSection();
       doc.addSection(sectionWithoutDoc);
       const sectionWithDoc = new CodeSection();
-      sectionWithDoc.appendDoc('hello world');
+      sectionWithDoc.appendDoc('<!-- hello world -->');
       doc.addSection(sectionWithDoc);
       expect(doc.description()).toBe("hello world");
     });
     it('uses first section with paragraphs', function() {
       const sectionWithoutParagraph = new CodeSection();
-      sectionWithoutParagraph.appendDoc('## Headlline');
+      sectionWithoutParagraph.appendDoc('<!-- ## Headlline -->');
       doc.addSection(sectionWithoutParagraph);
       const sectionWithDoc = new CodeSection();
-      sectionWithDoc.appendDoc('hello world');
+      sectionWithDoc.appendDoc('<!-- hello world -->');
       doc.addSection(sectionWithDoc);
       expect(doc.description()).toBe("hello world");
     });
@@ -138,7 +138,7 @@ describe("Document", function() {
 
   function descriptionOf(text) {
     const section = new CodeSection();
-    section.appendDoc(text);
+    section.appendDoc(`<!--\n${text}\n-->`);
     doc.addSection(section);
     return doc.description();
   }

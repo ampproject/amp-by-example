@@ -15,8 +15,9 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <script async src="https://cdn.ampproject.org/v0.js"></script>
 
-    <!-- ## Setup -->
     <!--
+      ## Setup
+
       Import the amp-bind component in the header.
     -->
     <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
@@ -35,11 +36,12 @@
   </head>
   <body>
 
-    <!-- ## Basic usage -->
-    <!-- 
-      With `amp-bind`, you can update element attributes and values via bindings. Here we update the 
-      [`hidden`](https://www.ampproject.org/docs/interaction_dynamic/amp-actions-and-events#globally-defined-events-and-actions) 
-      attribute based on a state variable called `hideGreeting`. On button press, we use the 
+    <!--
+      ## Basic usage
+
+      With `amp-bind`, you can update element attributes and values via bindings. Here we update the
+      [`hidden`](https://www.ampproject.org/docs/interaction_dynamic/amp-actions-and-events#globally-defined-events-and-actions)
+      attribute based on a state variable called `hideGreeting`. On button press, we use the
       [`AMP.setState()`](https://www.ampproject.org/docs/reference/components/amp-bind#updating-state-with-amp.setstate()) action to update the state.
     -->
     <div>
@@ -47,8 +49,9 @@
       <button on="tap:AMP.setState({ hideGreeting: false })">Show greeting</button>
     </div>
 
-    <!-- ## Binding text -->
     <!--
+      ## Binding text
+
       You can dynamically change the text value of an element by declaring a binding to the `[text]` attribute.
     -->
     <div>
@@ -56,8 +59,9 @@
       <button on="tap:AMP.setState({ myText: 'AMP' })">Change text</button>
     </div>
 
-    <!-- ## Binding CSS classes -->
     <!--
+      ## Binding CSS classes
+
       You can dynamically change the CSS classes of an element by adding a binding to the `[class]` attribute.
     -->
     <div>
@@ -65,16 +69,17 @@
       <button on="tap:AMP.setState({ myClass: 'background-green' })">Change class</button>
     </div>
 
-    <!-- ## Binding width and height -->
     <!--
-      Basic element properties such as `width` and `height` can be updated as well. 
+      ## Binding width and height
+
+      Basic element properties such as `width` and `height` can be updated as well.
     -->
     <div>
-      <amp-img src="https://unsplash.it/400/200" 
+      <amp-img src="https://unsplash.it/400/200"
                width="200" [width]="myImageDimension.width"
                height="100" [height]="myImageDimension.height">
       </amp-img>
-      <button on="tap:AMP.setState({ 
+      <button on="tap:AMP.setState({
                         myImageDimension: {
                           width: 400,
                           height: 200
@@ -84,12 +89,13 @@
       </button>
     </div>
 
-    <!-- ## Hiding & showing -->
+    <!--
+      ## Hiding & showing
 
-    <!-- This sample toggles the visibility of two divs based on a input selection. AMP provides the 
-      [`hidden` attribute](https://www.ampproject.org/docs/reference/amp-actions-and-events), which we 
-      use to hide and show the two divs. Some elements, such as the `select` element, fire 
-      [events](https://www.ampproject.org/docs/interaction_dynamic/amp-actions-and-events#element-specific-events) 
+      This sample toggles the visibility of two divs based on a input selection. AMP provides the
+      [`hidden` attribute](https://www.ampproject.org/docs/reference/amp-actions-and-events), which we
+      use to hide and show the two divs. Some elements, such as the `select` element, fire
+      [events](https://www.ampproject.org/docs/interaction_dynamic/amp-actions-and-events#element-specific-events)
       we can use to update state. -->
       <div>
         <select on="change:AMP.setState({ option: event.value })">
@@ -105,13 +111,14 @@
         </div>
       </div>
 
-      <!-- ## Initializing state -->
       <!--
-        The initial value of an `amp-state` variable is `null`. However, bindings are not evaluated on page load,
-        but on subsequent user actions. This can lead to unwanted side effects if `amp-state` variables are not 
-        correctly initialized. 
+        ## Initializing state
 
-        In this sample, both greetings bind to different `amp-state` variables. One is initialized via an 
+        The initial value of an `amp-state` variable is `null`. However, bindings are not evaluated on page load,
+        but on subsequent user actions. This can lead to unwanted side effects if `amp-state` variables are not
+        correctly initialized.
+
+        In this sample, both greetings bind to different `amp-state` variables. One is initialized via an
         JSON string inside an `amp-state` element, the other is not. When the user triggers an `AMP.setState(...)`
         action, both bindings will be evaluated resulting in the first binding displaying a `null` value.
       -->
@@ -122,10 +129,11 @@
           <button on="tap:AMP.setState({ myText: 'AMP' })">Change state</button>
       </div>
 
-      <!-- ## Remote state -->
       <!--
-        The `amp-state` element can pull in state from a remote JSON endpoint using the `src` attribute. Here we 
-        we bind an `amp-list`'s `[src]` attribute to `amp-state` data returned by an JSON endpoint. 
+        ## Remote state
+
+        The `amp-state` element can pull in state from a remote JSON endpoint using the `src` attribute. Here we
+        we bind an `amp-list`'s `[src]` attribute to `amp-state` data returned by an JSON endpoint.
         Also note how we calculate the `amp-list`'s `[height]` based on the number of elements. The button triggers
         an empty `AMP.setState()` action to trigger `amp-bind` expressions to evaluate.
       -->
@@ -142,30 +150,38 @@
         <button on="tap:AMP.setState({})">Show websites</button>
       </div>
 
-      <!-- ## Refresh state -->
-      <!-- `amp-state` supports the `refresh` action. This can be useful in many cases, for example the initial URL loading fails
+      <!--
+        ## Refresh state
+
+      `amp-state` supports the `refresh` action. This can be useful in many cases, for example the initial URL loading fails
         and you want the user to load the state again.  Another common scenario is live content that needs to be updated, e.g. a sports live score.
         For a complete list of actions, see [here](https://www.ampproject.org/docs/interaction_dynamic/amp-actions-and-events).
-        Clicking the button below will refresh and refetch the json in amp-state showing an updated time. -->
+        Clicking the button below will refresh and refetch the json in amp-state showing an updated time.
+      -->
 
-        <div>   
+        <div>
           <amp-state id="time" src="/components/time"></amp-state>
           <button on="tap:time.refresh">
             Refresh
           </button>
           <div [text]="time"></div>
         </div>
-        <!-- ## Push State -->
-        <!-- `AMP.pushState()` writes state changes to the history. Navigating back, will restore the previous state.
-          To test this, increase the count and use your browser's back button to decrease the count. -->
+        <!--
+          ## Push State
+
+          `AMP.pushState()` writes state changes to the history. Navigating back, will restore the previous state.
+          To test this, increase the count and use your browser's back button to decrease the count.
+        -->
         <div>
           <amp-state id="count"><script type="application/json">1</script></amp-state>
             <div>Item <span [text]="count">1</span></div>
             <button on="tap:AMP.pushState({ count: count + 1 })">Increase count</button>
         </div>
 
-        <!-- ## Debounce input events -->
-        <!-- For text input, it's a good idea to debounce the input using the `input-throttled` event.  For a more in-depth 
+        <!--
+          ## Debounce input events
+
+          For text input, it's a good idea to debounce the input using the `input-throttled` event.  For a more in-depth
           example, see [autosuggest](https://ampbyexample.com/advanced/autosuggest/). -->
         <div>
           <amp-state id="name"><script type="application/json"> "?" </script></amp-state>
@@ -173,16 +189,18 @@
             <div>Hello <span [text]="name">?</span></div>
         </div>
 
-        <!-- ## amp-bind-macro -->
-        <!-- [`amp-bind-macro`](https://www.ampproject.org/docs/reference/components/amp-bind#defining-macros-with-amp-bind-macro) makes it possible to reuse expressions
+        <!--
+         ## amp-bind-macro
+
+         [`amp-bind-macro`](https://www.ampproject.org/docs/reference/components/amp-bind#defining-macros-with-amp-bind-macro) makes it possible to reuse expressions
           across different actions. -->
           <div>
             <amp-bind-macro id="circleArea" arguments="radius" expression="3.14 * radius * radius" />
-              <input type="number" 
-                     min="0" 
-                     max="100" 
+              <input type="number"
+                     min="0"
+                     max="100"
                      value="0"
-                     on="input-throttled:AMP.setState({ radius: event.value })"> 
+                     on="input-throttled:AMP.setState({ radius: event.value })">
               <div>
                 The circle has an area of <span [text]="circleArea(radius)">0</span>.
               </div>
