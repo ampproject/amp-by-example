@@ -237,15 +237,6 @@ preview: default
 --->
 ```
 
-It is possible to make the preview mode the default version via:
-
-```yaml
-<!---
-preview": default,
-default": preview
---->
-```
-
 There is a special preview mode for AMP Ad samples:
 
 ```yaml
@@ -260,7 +251,7 @@ If your sample looks better with a single column layout, you can disable the cod
 
 ```yaml
 <!---
-hideCode: true,
+hideCode: true
 hidePreview: true
 --->
 ```
