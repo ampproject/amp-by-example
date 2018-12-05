@@ -1,11 +1,14 @@
+  <!-- 
+    ## Introduction
+
+    [amp-date-countdown](https://www.ampproject.org/docs/reference/components/amp-date-countdown) component allows to create a dynamic timer that counts
+    down to the given date and time which you can render in your AMP page.
+  -->
+<!-- -->
 <!doctype html>
 <html ⚡>
 <head>
   <meta charset="utf-8">
-  <!-- ## Introduction
-    [amp-date-countdown](https://www.ampproject.org/docs/reference/components/amp-date-countdown) component allows to create a dynamic timer that counts
-    down to the given date and time which you can render in your AMP page.
-  -->
   <!-- ## Setup -->
   <!-- Include the `amp-date-countdown` component ... -->
   <script async custom-element="amp-date-countdown" src="https://cdn.ampproject.org/v0/amp-date-countdown-0.1.js"></script>
@@ -22,8 +25,9 @@
   </style>
 </head>
 <body>
-  <!-- ## Basic usage -->
-  <!--
+  <!-- 
+    ## Basic usage 
+
     You must specify one of `timestamp-seconds`, `timestamp-ms` or `end-date` attributes.
     This indicates the date and time to count down to.
 
@@ -38,8 +42,9 @@
     </template>
   </amp-date-countdown>
 
-  <!-- ## End date -->
-  <!--
+  <!-- 
+    ## End date 
+  
     When using `end-date`, specify the date in the ISO 8601 format.
 
     You can optionally specify `offset-seconds` to offset the provided date.
@@ -50,8 +55,9 @@
     </template>
   </amp-date-countdown>
 
-  <!-- ## Locale -->
-  <!--
+  <!-- 
+    ## Locale 
+
     If `locale` is specified, `{{days}}`, `{{hours}}`, `{{minutes}}` and `{{seconds}}` are bound to
     the word(s) used to represent the given unit of time in the specified locale.
   -->
@@ -61,8 +67,9 @@
     </template>
   </amp-date-countdown>
 
-  <!-- ## Biggest unit -->
-  <!--
+  <!-- 
+    ## Biggest unit 
+
     The `biggest-unit` attribute specifies the biggest unit used inside the template.
 
     For example, when `biggest-unit="minutes"` is set, "2 days, 3 hours, 4 minutes, 5 seconds" becomes

@@ -4,309 +4,207 @@
   [amp-bind](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md)
   allows you to add custom interactivity to your pages beyond
   using AMP's pre-built components.
-
-  It works by mutating elements in response to user actions via data binding
-  and JS-like expressions.
-
-  For example, amp-bind can be used to:
-  - Link two amp-carousel components into an image gallery with a scrolling
-    thumbnail list.
-  - Create an e-commerce product page where the UI changes if the user's
-    currently selected item is not available.
 -->
 <!-- -->
 <!doctype html>
 <html ⚡>
-<head>
-  <meta charset="utf-8">
-  <title>amp-bind</title>
-  <link rel="canonical" href="<%host%>/components/amp-bind/">
-  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-  <script async src="https://cdn.ampproject.org/v0.js"></script>
-
-  <!-- ## Setup -->
-  <!--
-  Import the amp-bind component in the header.
-  -->
-  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-  <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
-  <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
-  <script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
-  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-  <style amp-custom>
-    .redBackground {
-      background-color: red;
-    }
-    .greenBackground {
-      background-color: green;
-    }
-    .yellowBackground {
-      background-color: yellow;
-    }
-    /* make the demo look better */
-    #amp-bind-sample > * {
-      padding: 1rem;
-    }
-    #amp-bind-sample > * + * {
-      margin-top: 1rem;
-    }
-    .bg-green { background-color: #2ecc40; }
-    .bg-yellow  { background-color: #ffdc00; }
-    .lightbox {
-      background: rgba(0,0,0,0.8);
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .lightbox h1 {
-      color: white;
-    }
-  </style>
-</head>
-<body>
-  <section id="amp-bind-sample">
-    <!-- ## Configuring initial state -->
-    <!--
-      `amp-bind` works by binding elements to an implicit JSON "state". This state can
-      be initialized with one or more &lt;amp-state&gt; components.
-    -->
-    <amp-state id="allAnimals">
-      <script type="application/json">
-      { "currentAnimal" : "dog",
-        "dog": {
-          "imageUrl": "/img/Border_Collie.jpg",
-          "videoUrl": "/video/dog-video.mp4",
-          "style": "greenBackground",
-          "iframeUrl": "https://player.vimeo.com/video/183849543"
-        },
-        "cat": {
-          "imageUrl": "/img/cat-looking-up-300x200.jpg",
-          "videoUrl": "/video/cat-video.mp4",
-          "style": "redBackground",
-          "iframeUrl": "https://player.vimeo.com/video/185199565"
-        }
-      }
-      </script>
-    </amp-state>
+  <head>
+    <meta charset="utf-8">
+    <title>amp-bind</title>
+    <link rel="canonical" href="<%host%>/components/amp-bind/">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
 
     <!--
-      Referencing implicit state in binding expressions is done using dot or bracket
-      syntax, starting with the &lt;amp-state&gt; element's `id`, e.g.
-      `allAnimals.dog.imageUrl` or `allAnimals['cat']['imageUrl']`.
+      ## Setup
 
-      - The contents of &lt;amp-state&gt; must be a single JSON script.
-      - Similar to the &lt;amp-analytics&gt; config, placing metadata at the
-      end of the document helps the page display more quickly.
+      Import the amp-bind component in the header.
     -->
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+    <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
 
-    <!-- ## Creating data bindings -->
-    <!--
-      A data binding is a link between an HTML element and an
-      [expression](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md#expressions).
-      When the expression's value changes, the element is updated with that value.
-
-      Three types of element state can be bound:
-      1. `text` for [textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent)
-      2. `class` for [CSS classes](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class)
-      3. [Element-specific attributes](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md#bindable-attributes),
-      for example, the `src` attribute for `amp-img` or `amp-video`.
-
-
-      To create a binding, create a new attribute on an element with the
-      syntax: `[attribute]="expression"`
-
-    -->
-
-    <!-- ## Binding Text -->
-    <!--
-      The text of this `<p>` will change when the `currentAnimal` variable
-      changes. `currentAnimal` is an uninitialized implicit state variable, which will be
-      set when a state change is triggered (see below). A state variable default can be specified using `amp-state`.
-
-    -->
-    <p [text]="'This is a ' + allAnimals.currentAnimal + '.'">This is a dog.</p>
-
-    <!-- ## Binding Styles -->
-    <!--
-      Styling can be changed by applying CSS classes, which will override all the element's style classes. In the next example, `allAnimals` is the `id` of the `amp-state` component above and we use bracket notation because `currentAnimal` is a variable.
-    -->
-    <p [class]="allAnimals[allAnimals.currentAnimal].style" class="greenBackground">Each animal has a different background color.</p>
-    <!-- ## Binding Attribute Values -->
-    <!--
-      Various AMP components support binding attribute values with `amp-bind`:
-      - [amp-img](/components/amp-bind#amp-img)
-      - [amp-video](/components/amp-bind#amp-video)
-      - [amp-iframe](/components/amp-bind#amp-iframe)
-    -->
-    <!--
-      `amp-img` URLs can be changed.
-    -->
-    <amp-img id="amp-img" src="/img/Border_Collie.jpg" layout="responsive" width="300" height="200"
-                                                                          [src]="allAnimals[allAnimals.currentAnimal].imageUrl">
-    </amp-img>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+      <style amp-custom>
+.background-green {
+  background: green;
+}
+.background-red {
+  background: red;
+}
+      </style>
+  </head>
+  <body>
 
     <!--
-      The `src` URL for videos embedded with `amp-video` can be changed. At the moment, among all the AMP video components, `amp-video` and `amp-youtube` support `amp-bind`.
-    -->
-    <amp-video id="amp-video" src="/video/dog-video.mp4" layout="responsive" [src]="allAnimals[allAnimals.currentAnimal].videoUrl" width="300" height="170" autoplay controls></amp-video>
+      ## Basic usage
 
-    <!--
-      The `src` for iframes embedded with `amp-iframe` can be changed.
+      With `amp-bind`, you can update element attributes and values via bindings. Here we update the
+      [`hidden`](https://www.ampproject.org/docs/interaction_dynamic/amp-actions-and-events#globally-defined-events-and-actions)
+      attribute based on a state variable called `hideGreeting`. On button press, we use the
+      [`AMP.setState()`](https://www.ampproject.org/docs/reference/components/amp-bind#updating-state-with-amp.setstate()) action to update the state.
     -->
-    <amp-iframe id="amp-iframe"
-                title="Cute dog video"
-                width="500"
-                height="281"
-                layout="responsive"
-                sandbox="allow-scripts allow-same-origin allow-popups"
-                allowfullscreen
-                frameborder="0"
-                src="https://player.vimeo.com/video/183849543"
-                [src]="allAnimals[allAnimals.currentAnimal].iframeUrl">
-    </amp-iframe>
-
-    <!-- ## Triggering updates -->
-    <!--
-      Data bindings are re-evaluated when implicit state changes. Implicit state can
-      be updated via the `AMP.setState` action in response to an event.
-      [Read more about actions and events](https://www.ampproject.org/docs/interaction_dynamic/amp-actions-and-events).
-   
-      You can use [various events](https://www.ampproject.org/docs/interaction_dynamic/amp-actions-and-events#element-specific-events)
-      on input/form elements as well as AMP elements to trigger `AMP.setState`.
-      For a more in-depth example using multiple events, see [autosuggest](https://ampbyexample.com/advanced/autosuggest/).
-    -->
-    <div class="ampstart-input m1">
-      <input id="name-input" placeholder="Enter a name" on="input-throttled:AMP.setState({name: event.value})">
-      <div class="mt1">
-        Hello <em [text]="name"></em>!
-      </div>
+    <div>
+      <div hidden [hidden]="hideGreeting">Hello World</div>
+      <button on="tap:AMP.setState({ hideGreeting: false })">Show greeting</button>
     </div>
 
-    <!-- ## Setting new state -->
     <!--
-      The `setState` action takes an object that tells it what state to update.
-      A few notes about the update object:
-      - `AMP.setState` merges the new state into the existing implicit state
-      - The top level property names correspond to the `id` of an `<amp-state>`
-          * In the following example, we are updating the state held by
-            `<amp-state id="allAnimals">`
-          * You can update state without an associated `<amp-state>` Element, as
-            in the previous example
-      - Existing state can be overwritten, including state initialized by
-      `amp-state` components
+      ## Binding text
+
+      You can dynamically change the text value of an element by declaring a binding to the `[text]` attribute.
     -->
-    <button class="ampstart-btn caps m1" on="tap:AMP.setState({allAnimals: {currentAnimal: 'cat'}})">
-      Set to Cat
-    </button>
-
-    <!-- ## Configuring initial state remotely -->
-    <!--
-      You can also bind to the `amp-state` `src` to provide data remotely.
-      The remote data returned from this fetch is merged into the `amp-state` json data, for example:
-      ```json
-
-      {"currentAnimal": "bird",
-        "dog": {
-          "imageUrl": "/img/Border_Collie.jpg",
-          "videoUrl": "/video/dog-video.mp4",
-          "style": "greenBackground",
-          "iframeUrl": "https://player.vimeo.com/video/183849543"
-        },
-        "bird": {
-          "imageUrl": "/img/bird.jpg",
-          "videoUrl": "/video/bird-video.mp4",
-          "style": "yellowBackground",
-          "iframeUrl": "https://player.vimeo.com/video/151358139"
-        }
-      }
-      ```
-    -->
-    <amp-state id="remoteAnimals" [src]="remoteAnimalUrl">
-      <script type="application/json">
-      { "currentAnimal" : "dog",
-        "dog": {
-          "imageUrl": "/img/Border_Collie.jpg",
-          "videoUrl": "/video/dog-video.mp4",
-          "style": "greenBackground",
-          "iframeUrl": "https://player.vimeo.com/video/183849543"
-        }
-      }
-      </script>
-    </amp-state>
-
-    <!-- ## Load state remotely -->
-    <!--
-      By setting the `src` attribute of the `amp-state`,
-      new data is fetched and merged into the `amp-state`.
-    -->
-
-    <button class="ampstart-btn caps m1" on="tap:AMP.setState({remoteAnimalUrl: '/json/amp-bind-data-new-state.json?RANDOM'})">
-      Set to Bird
-    </button>
-
-    <!-- Similarly to the samples above, you can bind to text, ... -->
-
-    <p [text]="'This is a ' + remoteAnimals.currentAnimal + '.'">This is a dog.</p>
+    <div>
+      <div>Hello <span [text]="myText">World</span></div>
+      <button on="tap:AMP.setState({ myText: 'AMP' })">Change text</button>
+    </div>
 
     <!--
-      ... bind to `amp-img` `src ` ... and all the components described [here](https://www.ampproject.org/docs/reference/components/amp-bind)
+      ## Binding CSS classes
+
+      You can dynamically change the CSS classes of an element by adding a binding to the `[class]` attribute.
     -->
-    <amp-img src="/img/Border_Collie.jpg" layout="responsive" width="300" height="200"
-            [src]="remoteAnimals[remoteAnimals.currentAnimal].imageUrl">
-    </amp-img>
-  </section>
+    <div>
+      <div class="background-red" [class]="myClass">Hello World</div>
+      <button on="tap:AMP.setState({ myClass: 'background-green' })">Change class</button>
+    </div>
 
-    <!-- ## Refresh state -->
+    <!--
+      ## Binding width and height
 
-    <!-- `amp-state` supports the `refresh` action. This can be useful in many cases, for example the initial URL loading fails
-       and you want the user to load the state again. 
-       Another common scenario is live content that needs to be updated, e.g. a sports live score.
-       For a complete list of actions, see [here](https://www.ampproject.org/docs/interaction_dynamic/amp-actions-and-events).
-       Clicking the button below will refresh and refetch the json in amp-state showing an updated time. -->
-
-    <div>   
-      <amp-state id="time" src="/components/time">
-      </amp-state>
-      <button class="ampstart-btn caps m1" on="tap:time.refresh">
-        Refresh
+      Basic element properties such as `width` and `height` can be updated as well.
+    -->
+    <div>
+      <amp-img src="https://unsplash.it/400/200"
+               width="200" [width]="myImageDimension.width"
+               height="100" [height]="myImageDimension.height">
+      </amp-img>
+      <button on="tap:AMP.setState({
+                        myImageDimension: {
+                          width: 400,
+                          height: 200
+                        }
+                      })">
+        Change size
       </button>
-      <div [text]="time" class="p1"></div>
     </div>
 
-    <!-- ## Hiding and showing things -->
+    <!--
+      ## Hiding & showing
 
-    <!-- This sample toggles the visibility of two divs based on a input selection. AMP provides the [`hidden` attribute](https://www.ampproject.org/docs/reference/amp-actions-and-events), which we use to hide and show the two divs.  -->
-    <div>
-      <select on="change:AMP.setState({ option: event.value })" class="m1">
-        <option value="0">No selection</option>
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-      </select>
-      <div hidden [hidden]="option != 1" class="p1 m1 bg-yellow">
-        Option 1
-      </div>
-      <div hidden [hidden]="option != 2" class="p1 m1 bg-green" >
-        Option 2
-      </div>
-    </div>
-
-
-    <!-- `amp-lightbox` can be opened as a result of `amp-bind` evaluation. -->
-    <div>
-      <amp-lightbox id="my-lightbox" [open]="showLightbox" layout="nodisplay">
-        <div class="lightbox"
-        on="tap:AMP.setState({showLightbox: false})" role="button" tabindex="0">
-          <h1>Hello World!</h1>
+      This sample toggles the visibility of two divs based on a input selection. AMP provides the
+      [`hidden` attribute](https://www.ampproject.org/docs/reference/amp-actions-and-events), which we
+      use to hide and show the two divs. Some elements, such as the `select` element, fire
+      [events](https://www.ampproject.org/docs/interaction_dynamic/amp-actions-and-events#element-specific-events)
+      we can use to update state. -->
+      <div>
+        <select on="change:AMP.setState({ option: event.value })">
+          <option value="0">No selection</option>
+          <option value="1">Option 1</option>
+          <option value="2">Option 2</option>
+        </select>
+        <div hidden [hidden]="option != 1">
+          Option 1
         </div>
-      </amp-lightbox>
-      <button class="ampstart-btn caps m1" on="tap:AMP.setState({showLightbox: true})">
-        OPEN LIGHTBOX
-      </button>
-    </div>
+        <div hidden [hidden]="option != 2">
+          Option 2
+        </div>
+      </div>
 
+      <!--
+        ## Initializing state
 
-</body>
+        The initial value of an `amp-state` variable is `null`. However, bindings are not evaluated on page load,
+        but on subsequent user actions. This can lead to unwanted side effects if `amp-state` variables are not
+        correctly initialized.
+
+        In this sample, both greetings bind to different `amp-state` variables. One is initialized via an
+        JSON string inside an `amp-state` element, the other is not. When the user triggers an `AMP.setState(...)`
+        action, both bindings will be evaluated resulting in the first binding displaying a `null` value.
+      -->
+      <div>
+        <amp-state id="myText"><script type="application/json"> "World" </script></amp-state>
+          <div>1. Hello <span [text]="undefinedText">World</span></div>
+          <div>2. Hello <span [text]="myText">World</span></div>
+          <button on="tap:AMP.setState({ myText: 'AMP' })">Change state</button>
+      </div>
+
+      <!--
+        ## Remote state
+
+        The `amp-state` element can pull in state from a remote JSON endpoint using the `src` attribute. Here we
+        we bind an `amp-list`'s `[src]` attribute to `amp-state` data returned by an JSON endpoint.
+        Also note how we calculate the `amp-list`'s `[height]` based on the number of elements. The button triggers
+        an empty `AMP.setState()` action to trigger `amp-bind` expressions to evaluate.
+      -->
+      <div>
+        <amp-state id="myRemoteState" src="/json/websites.json"></amp-state>
+        <amp-list layout="fixed-height"
+                  height="0"
+                  [height]="18 * myRemoteState.items.length"
+                  [src]="myRemoteState.items">
+          <template type="amp-mustache">
+            <div><a href="{{url}}">{{title}}</a></div>
+          </template>
+        </amp-list>
+        <button on="tap:AMP.setState({})">Show websites</button>
+      </div>
+
+      <!--
+        ## Refresh state
+
+      `amp-state` supports the `refresh` action. This can be useful in many cases, for example the initial URL loading fails
+        and you want the user to load the state again.  Another common scenario is live content that needs to be updated, e.g. a sports live score.
+        For a complete list of actions, see [here](https://www.ampproject.org/docs/interaction_dynamic/amp-actions-and-events).
+        Clicking the button below will refresh and refetch the json in amp-state showing an updated time.
+      -->
+
+        <div>
+          <amp-state id="time" src="/components/time"></amp-state>
+          <button on="tap:time.refresh">
+            Refresh
+          </button>
+          <div [text]="time"></div>
+        </div>
+        <!--
+          ## Push State
+
+          `AMP.pushState()` writes state changes to the history. Navigating back, will restore the previous state.
+          To test this, increase the count and use your browser's back button to decrease the count.
+        -->
+        <div>
+          <amp-state id="count"><script type="application/json">1</script></amp-state>
+            <div>Item <span [text]="count">1</span></div>
+            <button on="tap:AMP.pushState({ count: count + 1 })">Increase count</button>
+        </div>
+
+        <!--
+          ## Debounce input events
+
+          For text input, it's a good idea to debounce the input using the `input-throttled` event.  For a more in-depth
+          example, see [autosuggest](https://ampbyexample.com/advanced/autosuggest/). -->
+        <div>
+          <amp-state id="name"><script type="application/json"> "?" </script></amp-state>
+            <input id="name-input" placeholder="Enter a name" on="input-throttled:AMP.setState({ name: event.value })">
+            <div>Hello <span [text]="name">?</span></div>
+        </div>
+
+        <!--
+         ## amp-bind-macro
+
+         [`amp-bind-macro`](https://www.ampproject.org/docs/reference/components/amp-bind#defining-macros-with-amp-bind-macro) makes it possible to reuse expressions
+          across different actions. -->
+          <div>
+            <amp-bind-macro id="circleArea" arguments="radius" expression="3.14 * radius * radius" />
+              <input type="number"
+                     min="0"
+                     max="100"
+                     value="0"
+                     on="input-throttled:AMP.setState({ radius: event.value })">
+              <div>
+                The circle has an area of <span [text]="circleArea(radius)">0</span>.
+              </div>
+          </div>
+  </body>
 </html>
+

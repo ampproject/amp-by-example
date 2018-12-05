@@ -52,25 +52,27 @@ describe("CodeSection", function() {
       expect(section.doc).toEqual("hello\nworld\n");
     });
 
-    it("keeps indentation", function() {
+    it("removes indentation", function() {
       section.appendDoc("<!--");
       section.appendDoc("  hello");
       section.appendDoc("-->");
-      expect(section.doc).toEqual("\n  hello\n\n");
+      expect(section.doc).toEqual("\nhello\n\n");
     });
 
     it("normalizes indentation", function() {
       section.appendDoc("  <!--");
       section.appendDoc("    hello");
+      section.appendDoc("      world");
       section.appendDoc("  -->");
-      expect(section.doc).toEqual("\n  hello\n\n");
+      expect(section.doc).toEqual("\nhello\n  world\n\n");
     });
 
     it("handles wrong indentation", function() {
       section.appendDoc("  <!--");
       section.appendDoc(" x  hello");
+      section.appendDoc("      world");
       section.appendDoc("  -->");
-      expect(section.doc).toEqual("\nx  hello\n\n");
+      expect(section.doc).toEqual(' \nx  hello\n     world\n \n');
     });
 
     it("keeps empty lines", function() {
