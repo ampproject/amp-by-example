@@ -15,6 +15,8 @@
     `amp-img` is a built-in element and is automatically imported via the AMP runtime.
   -->
   <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!-- You can use the `amp-bind` extension for dynamically changing an image. -->
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
   <link rel="canonical" href="<%host%>/components/amp-img/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
@@ -38,10 +40,7 @@
   <amp-img src="/img/amp.jpg" width="1080" height="610" layout="responsive" alt="AMP"></amp-img>
 
   <!--
-  <p class="mb2">
-  <div class="p1 ampstart-card abe-info"><strong>Good to know:</strong> HTML 5.1 provides <a href="https://www.w3.org/TR/html51/semantics-embedded-content.html#alt-text">guidance for creating text to act as an alternative for images</a>.
-  </div>
-  </p>
+  Tip: HTML 5.1 provides <a href="https://www.w3.org/TR/html51/semantics-embedded-content.html#alt-text">guidance for creating text to act as an alternative for images</a>.
   -->
 
   <!-- ## srcset -->
@@ -52,7 +51,7 @@
   /img/amp-700.jpg 700w, /img/amp-600.jpg 600w, /img/amp-500.jpg 500w, /img/amp-400.jpg 400w,
   /img/amp-300.jpg 300w, /img/amp-200.jpg 200w, /img/amp-100.jpg 100w" width="1080" height="610" layout="responsive" alt="AMP"></amp-img>
 
-  <!-- ## Offline Fallback -->
+  <!-- ## Offline fallback -->
   <!--
     `amp-img` supports AMP's [common attributes](https://www.ampproject.org/docs/reference/common_attributes#fallback), which means you can show a `fallback` in case the image couldn't be loaded. This is great for adding offline support to your AMPs.
   -->
@@ -60,7 +59,7 @@
     <div fallback>offline</div>
   </amp-img>
   
-  <!-- ## No Script -->
+  <!-- ## No script -->
   <!--
     If you want to ensure that users with JavaScript disabled can see your images, you can add an additional `img` element inside a `noscript` tag. This also makes it possible for webcrawlers without JavaScript runtime to discover your images.
   -->
@@ -70,8 +69,21 @@
     </noscript>
   </amp-img>
 
-  <!-- ## Hiding the Loading Indicator -->
+  <!-- ## Hiding the loading indicator -->
   <!-- Use the [`noloading`](https://www.ampproject.org/docs/reference/common_attributes#noloading) attribute to hide the loading indicators on page load. This is recommended for logos and small images/icons. -->
   <amp-img src="/img/amp_by_example_logo.svg" width="208" height="40" alt="AMP by Example" noloading></amp-img>
+
+  <!-- ## Dynamically changing the src-->
+  <!--
+    You can use `amp-bind` to dynamically change the `src` URL of an `amp-img`.
+  -->
+  <div>
+    <amp-img src="https://unsplash.it/300/200/?image=100" 
+             width="300" 
+             height="200"
+             [src]="myImageUrl">
+    </amp-img>
+    <button on="tap:AMP.setState({ myImageUrl: 'https://unsplash.it/300/200/?image=200' })">Change image</button>
+  </div>
 </body>
 </html>

@@ -1,11 +1,14 @@
+  <!-- 
+    ## Introduction
+
+    [amp-date-countdown](https://www.ampproject.org/docs/reference/components/amp-date-countdown) component allows to create a dynamic timer that counts
+    down to the given date and time which you can render in your AMP page.
+  -->
+<!-- -->
 <!doctype html>
 <html ⚡>
 <head>
   <meta charset="utf-8">
-  <!-- ## Introduction
-    `amp-date-countdown` is an AMP component which creates a dynamic timer that counts
-    down to the given date and time which you can render in your AMP page.
-  -->
   <!-- ## Setup -->
   <!-- Include the `amp-date-countdown` component ... -->
   <script async custom-element="amp-date-countdown" src="https://cdn.ampproject.org/v0/amp-date-countdown-0.1.js"></script>
@@ -22,8 +25,9 @@
   </style>
 </head>
 <body>
-  <!-- ## Basic use -->
-  <!--
+  <!-- 
+    ## Basic usage 
+
     You must specify one of `timestamp-seconds`, `timestamp-ms` or `end-date` attributes.
     This indicates the date and time to count down to.
 
@@ -34,40 +38,38 @@
   -->
   <amp-date-countdown timestamp-seconds="2147483648" layout="fixed-height" height="100">
     <template type="amp-mustache">
-      <p class="p1">
         {{d}} days, {{h}} hours, {{m}} minutes and {{s}} seconds until <a href="https://en.wikipedia.org/wiki/Year_2038_problem">Y2K38</a>.
-      </p>
     </template>
   </amp-date-countdown>
 
-  <!--
+  <!-- 
+    ## End date 
+  
     When using `end-date`, specify the date in the ISO 8601 format.
 
     You can optionally specify `offset-seconds` to offset the provided date.
   -->
   <amp-date-countdown end-date="2038-01-19T03:14:08.000Z" offset-seconds="-10" layout="fixed-height" height="100">
     <template type="amp-mustache">
-      <p class="p1">
         {{d}} days, {{h}} hours, {{m}} minutes and {{s}} seconds until 10 before <a href="https://en.wikipedia.org/wiki/Year_2038_problem">Y2K38</a>.
-      </p>
     </template>
   </amp-date-countdown>
 
-  <!-- ## Locale -->
-  <!--
+  <!-- 
+    ## Locale 
+
     If `locale` is specified, `{{days}}`, `{{hours}}`, `{{minutes}}` and `{{seconds}}` are bound to
     the word(s) used to represent the given unit of time in the specified locale.
   -->
   <amp-date-countdown timestamp-seconds="2147483648" locale="ru" layout="fixed-height" height="100">
     <template type="amp-mustache">
-      <p class="p1">
         {{d}} {{days}}, {{h}} {{hours}}, {{m}} {{minutes}}, {{s}} {{seconds}}
-      </p>
     </template>
   </amp-date-countdown>
 
-  <!-- ## Biggest unit -->
-  <!--
+  <!-- 
+    ## Biggest unit 
+
     The `biggest-unit` attribute specifies the biggest unit used inside the template.
 
     For example, when `biggest-unit="minutes"` is set, "2 days, 3 hours, 4 minutes, 5 seconds" becomes
@@ -75,9 +77,7 @@
   -->
   <amp-date-countdown timestamp-seconds="2147483648" biggest-unit="minutes" layout="fixed-height" height="100">
     <template type="amp-mustache">
-      <p class="p1">
         {{m}} minutes and {{s}} seconds until <a href="https://en.wikipedia.org/wiki/Year_2038_problem">Y2K38</a>.
-      </p>
     </template>
   </amp-date-countdown>
 </body>

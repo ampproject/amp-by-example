@@ -15,9 +15,15 @@
 package backend
 
 import (
+	"log"
 	"net/http"
+	"net/http/httputil"
+	"net/url"
 	"os"
 	"strings"
+
+	"google.golang.org/appengine"
+	"google.golang.org/appengine/urlfetch"
 )
 
 const (
@@ -42,17 +48,50 @@ func handleNotFound(h http.Handler) http.HandlerFunc {
 }
 
 func serveStaticFiles(h http.Handler) http.Handler {
-	return EnableCors(func(w http.ResponseWriter, r *http.Request) {
-		if r.Host == OLD_ADDRESS || IsInsecureRequest(r) {
-			RedirectToSecureVersion(w, r)
-			return
-		}
-		if strings.HasSuffix(r.URL.Path, ".json") {
-			w.Header().Set("Content-Type", "application/json")
-		}
-		SetDefaultMaxAge(w)
-		h.ServeHTTP(w, r)
-	})
+	return SetVary(EnableCors(
+		func(w http.ResponseWriter, r *http.Request) {
+			if r.Host == OLD_ADDRESS || IsInsecureRequest(r) {
+				RedirectToSecureVersion(w, r)
+				return
+			}
+			if isAMP(r) && shouldProxy(r) {
+				p := proxyGAE(PACKAGER_PREFIX, r)
+				t := r.URL.String()
+				r.URL.RawQuery = "sign=" + url.QueryEscape(NEW_ADDRESS+r.URL.Path)
+				r.URL.Path = "/priv/doc"
+				log.Printf("Proxying request for [%s] to [%s]", t, r.URL.String())
+				p.ServeHTTP(w, r)
+			} else {
+				if strings.HasSuffix(r.URL.Path, ".json") {
+					w.Header().Set("Content-Type", "application/json")
+				}
+				SetDefaultMaxAge(w)
+				h.ServeHTTP(w, r)
+			}
+		}))
+}
+
+func proxyGAE(prefix string, r *http.Request) *httputil.ReverseProxy {
+	u, err := url.Parse(prefix)
+	if err != nil {
+		log.Fatal(err)
+	}
+	p := httputil.NewSingleHostReverseProxy(u)
+	// Fiddling with the transport might not be necessary with the Go 1.11 runtime:
+	// https://cloud.google.com/blog/products/application-development/go-1-11-is-now-available-on-app-engine
+	p.Transport = &urlfetch.Transport{
+		Context: appengine.NewContext(r),
+	}
+	return p
+}
+
+func shouldProxy(r *http.Request) bool {
+	return r.Header.Get("amp-cache-transform") != ""
+}
+
+func isAMP(r *http.Request) bool {
+	// TODO Improve heuristics...
+	return !strings.HasSuffix(r.URL.Path, ".json")
 }
 
 func exists(path string) bool {

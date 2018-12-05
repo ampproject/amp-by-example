@@ -1,0 +1,170 @@
+diff --git a/amppkg.example.toml b/amppkg.example.toml
+index 3ce5719..fd5ba1f 100644
+--- a/amppkg.example.toml
++++ b/amppkg.example.toml
+@@ -56,6 +56,14 @@ KeyFile = './pems/privkey.pem'
+ # file, it should support shared/exclusive locking.
+ OCSPCache = '/tmp/amppkg-ocsp'
+ 
++# If a Docroot directory is specified, amppkg will look in this directory for
++# valid AMPs to package (instead of fetching AMPs from the network).
++# Docroot = "/www"
++
++# If a ProjectId is specified, amppkg will verify that all incoming HTTP
++# requests have an X-Appengine-Inbound-Appid header equal to this value.
++# ProjectId = "ampbyexample"
++
+ # This is a simple level of validation, to guard against accidental
+ # misconfiguration of the reverse proxy that sits in front of the packager.
+ #
+diff --git a/cmd/amppkg/main.go b/cmd/amppkg/main.go
+index 71048c1..4c63640 100644
+--- a/cmd/amppkg/main.go
++++ b/cmd/amppkg/main.go
+@@ -25,17 +25,17 @@ import (
+ 	"net/http"
+ 	"net/url"
+ 	"path"
++	"strings"
+ 	"time"
+ 
+ 	"github.com/WICG/webpackage/go/signedexchange"
+-	"github.com/julienschmidt/httprouter"
+-	"github.com/pkg/errors"
+-
+ 	"github.com/ampproject/amppackager/packager/certcache"
++	"github.com/ampproject/amppackager/packager/rtv"
+ 	"github.com/ampproject/amppackager/packager/signer"
+ 	"github.com/ampproject/amppackager/packager/util"
+ 	"github.com/ampproject/amppackager/packager/validitymap"
+-	"github.com/ampproject/amppackager/packager/rtv"
++	"github.com/julienschmidt/httprouter"
++	"github.com/pkg/errors"
+ )
+ 
+ var flagConfig = flag.String("config", "amppkg.toml", "Path to the config toml file.")
+@@ -56,6 +56,24 @@ func (this logIntercept) ServeHTTP(resp http.ResponseWriter, req *http.Request)
+ 	// TODO(twifkak): Separate the typical weblog from the detailed error log.
+ }
+ 
++func allowProject(id string, h http.Handler) http.Handler {
++	return http.HandlerFunc(func(resp http.ResponseWriter, req *http.Request) {
++		// X-Appengine-Inbound-Appid can be trusted on GAE:
++		// https://cloud.google.com/appengine/docs/standard/go/appidentity/#asserting_identity_to_other_app_engine_apps
++		if req.Header.Get("X-Appengine-Inbound-Appid") == id {
++			log.Printf("Allowing GET from [%s]", req.Header.Get("X-Appengine-Inbound-Appid"))
++			h.ServeHTTP(resp, req)
++		} else {
++			log.Printf(
++				"Denying GET from [%s], expected X-Appengine-Inbound-Appid header to be [%s]\n",
++				req.Header.Get("X-Appengine-Inbound-Appid"),
++				id,
++			)
++			http.Error(resp, "403 Forbidden", http.StatusForbidden)
++		}
++	})
++}
++
+ // Exposes an HTTP server. Don't run this on the open internet, for at least two reasons:
+ //  - It exposes an API that allows people to sign any URL as any other URL.
+ //  - It is in cleartext.
+@@ -128,8 +146,8 @@ func main() {
+ 		}
+ 	}
+ 
+-	packager, err := signer.New(certs[0], key, config.URLSet, rtvCache, certCache.IsHealthy,
+-		overrideBaseURL, /*requireHeaders=*/!*flagDevelopment)
++	packager, err := signer.New(certs[0], key, config.Docroot, config.URLSet, rtvCache, certCache.IsHealthy,
++		overrideBaseURL /*requireHeaders=*/, !*flagDevelopment)
+ 	if err != nil {
+ 		die(errors.Wrap(err, "building packager"))
+ 	}
+@@ -147,11 +165,16 @@ func main() {
+ 		addr = "localhost"
+ 	}
+ 	addr += fmt.Sprint(":", config.Port)
++	handler := http.Handler(logIntercept{mux})
++	if config.ProjectId != "" {
++		handler = allowProject(config.ProjectId, handler)
++	}
+ 	server := http.Server{
+ 		Addr: addr,
+ 		// Don't use DefaultServeMux, per
+ 		// https://blog.cloudflare.com/exposing-go-on-the-internet/.
+-		Handler:           logIntercept{mux},
++		// TODO Respond to /_ah/healthcheck with a 200 (consider certCache.IsHealthy, too)
++		Handler:           handler,
+ 		ReadTimeout:       10 * time.Second,
+ 		ReadHeaderTimeout: 5 * time.Second,
+ 		// If needing to stream the response, disable WriteTimeout and
+@@ -165,7 +188,11 @@ func main() {
+ 
+ 	// TODO(twifkak): Add monitoring (e.g. per the above Cloudflare blog).
+ 
+-	log.Println("Serving on port", config.Port)
++	var d []string
++	for i := range config.URLSet {
++		d = append(d, config.URLSet[i].Sign.Domain)
++	}
++	log.Printf("Serving SXG of \"%s\" on port %d\n", strings.Join(d, ", "), config.Port)
+ 
+ 	// TCP keep-alive timeout on ListenAndServe is 3 minutes. To shorten,
+ 	// follow the above Cloudflare blog.
+diff --git a/packager/certcache/certcache.go b/packager/certcache/certcache.go
+index f07b931..b4cd645 100644
+--- a/packager/certcache/certcache.go
++++ b/packager/certcache/certcache.go
+@@ -422,7 +422,7 @@ func (this *CertCache) fetchOCSP(orig []byte, ocspUpdateAfter *time.Time) []byte
+ 	// OCSP duration must be <=7 days, per
+ 	// https://wicg.github.io/webpackage/draft-yasskin-httpbis-origin-signed-exchanges-impl.html#cross-origin-trust.
+ 	// Serving these responses may cause UAs to reject the SXG.
+-	if resp.NextUpdate.Sub(resp.ThisUpdate) > time.Hour * 24 * 7 {
++	if resp.NextUpdate.Sub(resp.ThisUpdate) > time.Hour*24*7 {
+ 		log.Printf("OCSP nextUpdate %+v too far ahead of thisUpdate %+v\n", resp.NextUpdate, resp.ThisUpdate)
+ 		return orig
+ 	}
+diff --git a/packager/signer/signer.go b/packager/signer/signer.go
+index 0b8348d..cd6f1e7 100644
+--- a/packager/signer/signer.go
++++ b/packager/signer/signer.go
+@@ -128,13 +128,25 @@ func noRedirects(req *http.Request, via []*http.Request) error {
+ 	return http.ErrUseLastResponse
+ }
+ 
+-func New(cert *x509.Certificate, key crypto.PrivateKey, urlSets []util.URLSet,
++func New(cert *x509.Certificate, key crypto.PrivateKey, docroot string, urlSets []util.URLSet,
+ 	rtvCache *rtv.RTVCache, shouldPackage func() bool, overrideBaseURL *url.URL,
+ 	requireHeaders bool) (*Signer, error) {
++	var t http.RoundTripper
++	if docroot != "" {
++		t := &http.Transport{}
++		r := http.NewFileTransport(http.Dir(docroot))
++		t.RegisterProtocol("http", r)
++		t.RegisterProtocol("https", r)
++		log.Printf("AMP source is \"%s\"", docroot)
++	} else {
++		t = http.DefaultTransport
++		log.Printf("AMP source is network")
++	}
+ 	client := http.Client{
+ 		CheckRedirect: noRedirects,
+ 		// TODO(twifkak): Load-test and see if default transport settings are okay.
+-		Timeout: 60 * time.Second,
++		Timeout:   60 * time.Second,
++		Transport: t,
+ 	}
+ 
+ 	return &Signer{cert, key, &client, urlSets, rtvCache, shouldPackage, overrideBaseURL, requireHeaders}, nil
+diff --git a/packager/util/config.go b/packager/util/config.go
+index 8311812..0b5e25a 100644
+--- a/packager/util/config.go
++++ b/packager/util/config.go
+@@ -29,6 +29,8 @@ type Config struct {
+ 	CertFile  string // This must be the full certificate chain.
+ 	KeyFile   string // Just for the first cert, obviously.
+ 	OCSPCache string
++	Docroot   string
++	ProjectId string
+ 	URLSet    []URLSet
+ }
+ 

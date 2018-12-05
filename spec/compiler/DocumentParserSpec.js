@@ -43,12 +43,13 @@ describe("DocumentParser", function() {
   var LINK = ' <link href="Hello World" />';
   var META = ' <meta href="Hello World" />';
   var BASE = ' <base href="/">';
-  var DOCUMENT_METADATA = `<!---{
-    "experiments": ["amp-accordion"]
-  }--->`;
-  var DOCUMENT_METADATA_INVALID = `<!---{
+  var DOCUMENT_METADATA = `<!---
+    experiments:
+      - amp-accordion
+  --->`;
+  var DOCUMENT_METADATA_INVALID = `<!---
     experiment: true,
-    "component": "amp-accordion"
+    component: amp-accordion
   }}--->`;
 
   beforeEach(function() {

@@ -1,6 +1,9 @@
-<!---{
-    "highlight": true
-}--->
+<!---
+
+highlight: true
+
+--->
+
 <!--
   ## Introduction
 
@@ -217,8 +220,8 @@
       </div>
     </div>
   </amp-carousel>
-  <!-- ## Linking Carousels with amp-bind -->
-  <!--
+  <!-- 
+    ## Linking Carousels with amp-bind 
 
     With [amp-bind](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md) it's possible to link carousel state across multiple amp-carousels.
 
@@ -247,12 +250,24 @@
     set by bind when `selectedSlide` changes.
   -->
   <amp-carousel controls width="400" height="100">
-    <amp-img src="/img/image1.jpg" width="100" height="75" role="button" tabindex="0"
-                                                                         [class]="selectedSlide == 0 ? 'selected' : ''" on="tap:AMP.setState({selectedSlide: 0})"></amp-img>
-                                                                       <amp-img src="/img/image2.jpg" width="100" height="75" role="button" tabindex="1"
-                                                                                                                                            [class]="selectedSlide == 1 ? 'selected' : ''" on="tap:AMP.setState({selectedSlide: 1})"></amp-img>
-                                                                                                                                          <amp-img src="/img/image3.jpg" width="100" height="75" role="button" tabindex="2"
-                                                                                                                                                                                                               [class]="selectedSlide == 2 ? 'selected' : ''" on="tap:AMP.setState({selectedSlide: 2})"></amp-img>
+    <amp-img src="/img/image1.jpg" 
+             width="100" 
+             height="75" 
+             role="button" 
+             tabindex="0"
+             [class]="selectedSlide == 0 ? 'selected' : ''" on="tap:AMP.setState({selectedSlide: 0})"></amp-img>
+    <amp-img src="/img/image2.jpg" 
+             width="100" 
+             height="75" 
+             role="button" 
+             tabindex="1"
+             [class]="selectedSlide == 1 ? 'selected' : ''" on="tap:AMP.setState({selectedSlide: 1})"></amp-img>
+                                                                                                                                          <amp-img src="/img/image3.jpg" 
+                                                                                                                                                   width="100" 
+                                                                                                                                                   height="75" 
+                                                                                                                                                   role="button" 
+                                                                                                                                                   tabindex="2"
+                                                                                                                                                   [class]="selectedSlide == 2 ? 'selected' : ''" on="tap:AMP.setState({selectedSlide: 2})"></amp-img>
   </amp-carousel>
 
   <!--
@@ -360,8 +375,11 @@
     </amp-carousel>
   </div>
 
-  <!-- ## Image Galleries with Lightbox -->
-  <!-- You can link an image gallery to a lightbox using [amp-lightbox-gallery](https://www.ampproject.org/docs/reference/components/amp-lightbox-gallery) so that:
+  <!-- 
+    ## Image Galleries with Lightbox 
+
+    You can link an image gallery to a lightbox using [amp-lightbox-gallery](https://www.ampproject.org/docs/reference/components/amp-lightbox-gallery) so that:
+
     - when user taps on image N, he enters a lightbox mode
     - user can swipe inside of lightbox mode between images
     - when user exits the lighbox mode, the carousel points to the last image seen on the lightbox
@@ -375,37 +393,41 @@
     </amp-carousel>
   </div>
 
-  <!-- ## Metadata
+  <!-- 
+    ## Metadata
+
     The Top Stories carousel requires schema.org markup for one of the following types: Article, NewsArticle, BlogPosting, or VideoObject. If your Image Gallery is also a NewsArticle, you may want to mark it up as such:
+     
     ```html
     <script type="application/ld+json">
-[
-    {
-      "@context": "http://schema.org",
-      "@type": "NewsArticle",
-      ...
-    },
-    {
-      "@context": "http://schema.org",
-      "@type": "ImageGallery",
-      "associatedMedia": [
-        {
-          "@context": "http://schema.org",
-          "@type": "ImageObject",
-          "contentUrl": "https://unsplash.it/60/40?image=1",
-          "caption": "A cute pup"
-        },
-        {,
-          "@context": "http://schema.org",
-          "@type": "ImageObject",
-          "contentUrl": "https://unsplash.it/60/40?image=2",
-          "caption": "A doubly cute pup"
-        },
-      ],
-    }
-  ]
+    [
+      {
+        "@context": "http://schema.org",
+        "@type": "NewsArticle",
+        ...
+      },
+      {
+        "@context": "http://schema.org",
+        "@type": "ImageGallery",
+        "associatedMedia": [
+          {
+            "@context": "http://schema.org",
+            "@type": "ImageObject",
+            "contentUrl": "https://unsplash.it/60/40?image=1",
+            "caption": "A cute pup"
+          },
+          {,
+            "@context": "http://schema.org",
+            "@type": "ImageObject",
+            "contentUrl": "https://unsplash.it/60/40?image=2",
+            "caption": "A doubly cute pup"
+          },
+        ],
+      }
+    ]
     </script>
     ```
+
     -->
 </body>
 </html>

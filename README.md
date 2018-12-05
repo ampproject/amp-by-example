@@ -75,7 +75,7 @@ While working on an example you can start a local webserver with auto-reload on 
 $ gulp
 ```
 
-Some components, like [this one](src/30_Advanced/amp-user-notification_with_server_endpoint.html) require an additional server endpoint.
+Some components, like [amp-live-list](https://github.com/ampproject/amp-by-example/blob/master/src/20_Components/amp-live-list.html) require an additional server endpoint.
 
 ## Writing the sample
 
@@ -132,6 +132,47 @@ If your comment spans multiple elements, wrap these in an single `div` without a
 </div>
 ```
 
+#### Sample Styling
+
+Sometimes it's good to add a little bit more styling to a sample (e.g. to separate a button from an input field). To make sure that all samples have a consistent styling, please use the following CSS variables to style specific elements in your sample:
+
+```
+:root {
+  --color-primary: #005AF0;
+  --color-secondary: #00DCC0;
+  --color-text-light: #fff;
+  --color-text-dark: #000;
+  --color-error: #B00020;
+  --color-bg-light: #FAFAFC;
+
+  --space-1: .5rem;  /* 8px */
+  --space-2: 1rem;   /* 16px */
+  --space-3: 1.5rem; /* 24px */
+  --space-4: 2rem;   /* 32px */
+}
+```
+
+You can use them to style your samples like this:
+
+```
+.button {
+  margin: var(--space-2);
+  padding: var(--space-1);
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+}
+```
+
+Only add the ones that you need to the sample. These CSS variable declarations will be added automatically to your sample, if you use `gulp create ...` to create the sample.
+
+**Colors**
+
+<img width="743" alt="screenshot 2018-11-30 at 00 22 57" src="https://user-images.githubusercontent.com/380472/49258635-6aae0180-f436-11e8-8ca0-2210fd4c0a96.png">
+
+**Spaces**
+
+<img width="643" alt="screenshot 2018-11-30 at 00 23 08" src="https://user-images.githubusercontent.com/380472/49258634-6aae0180-f436-11e8-9716-50c69970c113.png">
+
 #### Formatting
 
 You can use [markdown](https://help.github.com/articles/github-flavored-markdown/) to format your documentation:
@@ -168,19 +209,21 @@ This will make the `<input>` element clickable, with the additional explanation 
 
 You can mark samples as drafts if they are still work-in-progress. This means the samples won't show up in the start page.
 
-```json
+```yaml
 <!---{
-  "draft": true
+draft: true
 }--->
 ```
 
 #### Experimental Features
 
-If your sample is using one or more experimental features, you can add a metadata section (`<!--- ... --->`) with the JSON variable `experiments` to specify which experiments to enable. This will skip its validation and add an experimental note with instructions to your sample:
+If your sample is using one or more experimental features, you can add a metadata section (`<!--- ... --->`) with the variable `experiments` to specify which experiments to enable. This will skip its validation and add an experimental note with instructions to your sample:
 
-```json
+```yaml
 <!---{
-  "experiments": ["amp-experiment-name", "amp-experiment-another-name"]
+experiments:
+  - amp-experiment-name
+  - amp-another-experiment
 }--->
 ```
 
@@ -188,26 +231,26 @@ If your sample is using one or more experimental features, you can add a metadat
 
 Visually rich examples can provide a preview mode like [this](https://ampbyexample.com/samples_templates/news_article/preview/). Enable via metadata in the sample:
 
-```json
+```yaml
 <!---{
-  "preview": "default"
+preview: default
 }--->
 ```
 
 It is possible to make the preview mode the default version via:
 
-```json
+```yaml
 <!---{
-  "preview": "default",
-  "default": "preview"
+preview": default,
+default": preview
 }--->
 ```
 
 There is a special preview mode for AMP Ad samples:
 
-```json
+```yaml
 <!---{
-  "preview": "a4a"
+preview: a4a
 }--->
 ```
 
@@ -215,10 +258,10 @@ There is a special preview mode for AMP Ad samples:
 
 If your sample looks better with a single column layout, you can disable the code and preview columns adding the following flags to your sample file:
 
-```json
+```yaml
 <!---{
-  "hideCode": true,
-  "hidePreview": true
+hideCode: true,
+hidePreview: true
 }--->
 ```
 
@@ -226,9 +269,9 @@ If your sample looks better with a single column layout, you can disable the cod
 
 If it doesn't make sense for your sample to provide a playground link, you can disable it:
 
-```json
+```yaml
 <!---{
-  "disablePlayground": true
+disablePlayground: true
 }--->
 ```
 

@@ -30,7 +30,7 @@ const gulpIgnore = require('gulp-ignore');
 const favicons = require('gulp-favicons');
 const argv = require('yargs').argv;
 const path = require('path');
-const diff = require('gulp-diff');
+const fs = require('fs');
 const change = require('gulp-change');
 const grun = require('gulp-run');
 const htmlmin = require('gulp-htmlmin');
@@ -84,6 +84,9 @@ const paths = {
     dir: 'api',
     src: 'api/src/**/*.*',
     dist: 'api/dist',
+  },
+  packager: {
+    dist: 'packager/dist',
   },
   tmp: {
     dir: 'tmp',
@@ -145,7 +148,9 @@ gulp.task('deploy:prod', callback => {
       'robots:allow',
       'build',
       'deploy:site:prod',
-      'deploy:api:prod')(callback);
+      'deploy:api:prod',
+      'build:sxg',
+      'deploy:sxg:prod')(callback);
 });
 
 gulp.task('deploy:staging', callback => {
@@ -175,6 +180,20 @@ gulp.task('deploy:site:prod', () => {
 gulp.task('deploy:api:prod', () => {
   return run(
       'cd api && goapp deploy -application  amp-by-example-api -version 1')
+      .exec();
+});
+
+gulp.task('deploy:sxg:prod', () => {
+  const privkey = 'packager/certs/privkey.pem.enc';
+  const cert = 'packager/certs/cert.pem.enc';
+  if (!fs.existsSync(privkey) || !fs.existsSync(cert)) {
+    throw Error([
+      `Encrypted private keys (${privkey}, ${cert})`,
+      'required for SXG are missing',
+    ].join(' '));
+  }
+  return run(
+      'cd packager && gcloud app deploy -q --project amp-by-example-sxg')
       .exec();
 });
 
@@ -381,7 +400,7 @@ function throwInvalidArgumentError(message) {
 
 gulp.task('clean', () => {
   cache.caches = {};
-  return del([paths.dist.dir, config.api.dist]);
+  return del([paths.dist.dir, paths.packager.dist, config.api.dist]);
 });
 
 gulp.task('watch', () => {
@@ -485,24 +504,6 @@ gulp.task('validate', gulp.series(
     'test'
 ));
 
-
-gulp.task('snapshot', () => {
-  return gulp.src(paths.samples)
-      .pipe(compileExample(config, false))
-      .pipe(gulp.dest(paths.tmp.dir));
-}
-);
-
-gulp.task('snapshot:verify', () => {
-  return gulp.src(paths.samples)
-      .pipe(compileExample(config, false))
-      .pipe(diff(paths.tmp.dir))
-      .pipe(diff.reporter({
-        fail: true,
-      }));
-}
-);
-
 gulp.task('robots:disallow', () => {
   return generateRobotsTxt(`User-Agent: *
       Disallow: /
@@ -540,6 +541,14 @@ gulp.task('build:boilerplate-generator', () => {
 }
 );
 
+gulp.task('build:sxg', () => {
+  return gulp.src(paths.dist.html)
+      .pipe(gulpAmpValidator.validate())
+      .pipe(gulpIgnore.exclude(function(file) {
+        return file.ampValidationResult.status !== 'PASS';
+      }))
+      .pipe(gulp.dest(paths.packager.dist));
+});
 
 function generateRobotsTxt(contents) {
   return file('robots.txt', contents, {
@@ -551,12 +560,25 @@ function generateRobotsTxt(contents) {
 /* adds a title link to all sample files */
 function performChange(content) {
   const exampleFile = ExampleFile.fromPath(this.file.path);
+  const match = content.match(/<!---([\s\S]*)?--->/);
+  if (!match) {
+    return content;
+  }
+  gutil.log('changing', exampleFile.title);
+  const frontmatter = JSON.parse(match[1]);
+  const yaml = require('js-yaml');
+  const yamlFrontmatter = `<!---
+
+${yaml.safeDump(frontmatter)}
+--->
+${content.substring(match[0].length)}`;
+  /*
   if (!/<title>/.test(content)) {
     content = content.replace(/<meta charset="utf-8">/g,
         '<meta charset="utf-8">\n  <title>' + exampleFile.title() + '</title>');
-    gutil.log('updating canonical: ' + this.file.relative);
   }
-  return content;
+  */
+  return yamlFrontmatter;
 }
 
 gulp.task('change', () => {

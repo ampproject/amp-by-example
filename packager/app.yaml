@@ -1,0 +1,8 @@
+# https://cloud.google.com/appengine/docs/flexible/custom-runtimes/
+runtime: custom
+env: flex
+# https://cloud.google.com/appengine/docs/flexible/custom-runtimes/configuring-your-app-with-app-yaml#manual-scaling
+manual_scaling:
+  # Only start one instance so the OCSPCache is shared, see
+  # https://github.com/ampproject/amppackager#redundancy
+  instances: 1
