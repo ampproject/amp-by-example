@@ -1,21 +1,21 @@
-<!---{
-  "experiments": ["amp-video-iframe"],
-  "preview": "default"
-}--->
+<!---
+
+preview: default
+experiments:
+  - amp-video-iframe
+
+-->
 <!--
-  ## Introduction
+## Introduction
+With [`amp-video-iframe`](https://www.ampproject.org/docs/reference/components/amp-video-iframe)
+you can include a custom-built video player that will obtain all the features available
+in the [AMP Video Interface](https://github.com/ampproject/amphtml/blob/master/spec/amp-video-interface.md)
 
-  With [`amp-video-iframe`](https://www.ampproject.org/docs/reference/components/amp-video)
-  you can include a custom-built video player that will obtain all the features available
-  in the [AMP Video Interface](https://github.com/ampproject/amphtml/blob/master/spec/amp-video-interface.md)
+This example integrates an AMP page with a simple custom player that uses the [Video.JS](https://videojs.com/)
+framework. You can use any framework or custom-built player by following the integration instructions in
+[the component documentation](https://www.ampproject.org/docs/reference/components/amp-video-iframe#integration)
 
-  This example integrates an AMP page with a simple custom player that uses the [Video.JS](https://videojs.com/)
-  framework.
-
-  You can use any framework or custom-built player by following the integration instructions in
-  [the component documentation](https://www.ampproject.org/docs/reference/components/amp-video-iframe)
-
-  You can see the sample in action [here](preview).
+You can see the sample in action [here](preview).
 -->
 <!-- -->
 <!doctype html>
@@ -32,14 +32,14 @@
 </head>
 <body>
   <!--
-    ## Include the `amp-video-iframe` tag.
-    Set the `autoplay` attribute to start automatically as the user scrolls the
-    video into view.
+  ## Include the `amp-video-iframe` tag.
+  Set the `autoplay` attribute to start automatically as the user scrolls the
+  video into view.
 
-    The `src` attribute will point to a document including a video player. This
-    URL must be relative or have HTTPS defined.
+  The `src` attribute will point to a document including a video player. This
+  URL must be relative or have HTTPS defined.
 
-    You can read the source for the document referenced
+  You can read the source for the document referenced
 [here](https://github.com/ampproject/amp-by-example/blob/master/static/amp-video-iframe-videojs.html).
   -->
 
@@ -56,19 +56,31 @@
   </amp-video-iframe>
 
   <!--
-    ## Integration
-    Inside the document in your frame, you must include a script and a simple
-    integration callback in order for the host to comunicate with your frame.
+  ## Integration
+  Inside the document in your frame, you must include a script and a simple
+  integration callback in order for the host to comunicate with your frame.
 
-    <div class="abe-code-container">
-      <div class="abe-code-preview ampstart-card">
-        <div class="abe-code fit">
-          <pre class="hljs html p0 m0">
-    &lt;!-- Include the `amp-video-iframe` frame integration script. --&gt;
-    &lt;script async src="https://cdn.ampproject.org/video-iframe-integration-v0.js"&gt;&lt;/script&gt;
-    &lt;!-- ... --&gt;
-    &lt;!-- Integration script --&gt;
-    &lt;script&gt;
+  Include the `amp-video-iframe` frame integration library in your `<head>`
+  tag.
+
+  ```html
+  <script async src="https://cdn.ampproject.org/video-iframe-integration-v0.js"></script>
+  ```
+
+  Write an [integration script](https://www.ampproject.org/docs/reference/components/amp-video-iframe#integration)
+  to communicate the AMP document with this frame. The integration library
+  natively supports Video.JS (and [JwPlayer](https://www.jwplayer.com/)), so
+  this task is very simple.
+
+  If you don't use Video.JS or JwPlayer, you can use tools like provided by
+the library which are [described
+here](https://www.ampproject.org/docs/reference/components/amp-video-iframe#integration).
+
+  For Video.JS, include the following in your `<body>` tag after your video
+  and the Video.JS library script.
+
+  ```html
+  <script>
     // Wait for API to initialize
     (window.AmpVideoIframe = window.AmpVideoIframe || [])
         .push(function(ampIntegration) {
@@ -77,11 +89,8 @@
           // Listen to element that uses Video.JS.
           ampIntegration.listenTo('videojs', myVideo);
         });
-    &lt;/script&gt;
-          </pre>
-        </div>
-      </div>
-    </div>
+  </script>
+    ```
   -->
 </body>
 </html>
