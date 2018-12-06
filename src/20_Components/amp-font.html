@@ -1,8 +1,7 @@
 <!--
   ## Introduction
 
-  Learn how to use the `amp-font` component to trigger and monitor the loading of custom fonts on AMP pages.
-
+  Learn how to use the [`amp-font`](https://www.ampproject.org/docs/reference/components/amp-font) component to trigger and monitor the loading of custom fonts on AMP pages.
 -->
 <!-- -->
 <!doctype html>
@@ -19,10 +18,10 @@
   <link rel="canonical" href="<%host%>/components/amp-font/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-  <!--
-    Define custom CSS rules to style your document depending on whether a font was loaded successfully or not. Find out about all the supported css classes [here](https://www.ampproject.org/docs/reference/components/amp-font)
-  -->
-  <style amp-custom>
+    <!--
+      Define custom CSS rules to style your document depending on whether a font was loaded successfully or not. Find out about all the supported css classes [here](https://www.ampproject.org/docs/reference/components/amp-font)
+    -->
+    <style amp-custom>
     @font-face {
       font-family: 'Font Does Not exist';
       font-style: normal;
@@ -55,16 +54,16 @@
       color: blue;
     }
     .unavailable-font-loading .unavailable-font,
-      .comicamp-loading .comicamp,
-        .another-unavailable-font-loading .another-unavailable-font {
-          color: aqua;
+    .comicamp-loading .comicamp,
+    .another-unavailable-font-loading .another-unavailable-font {
+      color: aqua;
     }
     .unavailable-font-missing .unavailable-font,
-      .comicamp-missing .comicamp,
-        .another-unavailable-font-missing .another-unavailable-font  {
-          color: red;
+    .comicamp-missing .comicamp,
+    .another-unavailable-font-missing .another-unavailable-font  {
+      color: red;
     }
-  </style>
+    </style>
 </head>
 <body>
   <!-- ## Sample for a non existing font -->
@@ -82,9 +81,9 @@
     on-load-remove-class="unavailable-font-loading"
     on-load-add-class="unavailable-font-loaded">
   </amp-font>
-  <!-- Here we declare... -->
 
-    <amp-font
+  <!-- Here we declare... -->
+  <amp-font
     layout="nodisplay"
     font-family="Comic AMP"
     timeout="2000"
@@ -93,19 +92,19 @@
     on-load-remove-class="comicamp-loading"
     on-load-add-class="comicamp-loaded">
   </amp-font>
-    <!-- and use an existing font. -->
+  <!-- ... and use an existing font. -->
   <p class="comicamp">
-    This text is displayed in red if the chosen font is not supported.
+  This text is displayed in red if the chosen font is not supported.
   </p>
   <!--
     This time the font is not available.
   -->
   <p class="unavailable-font">
-    This text is displayed in red if the chosen font is not supported.
+  This text is displayed in red if the chosen font is not supported.
   </p>
   <!-- ## Using only cached fonts -->
   <!--
-  Set `timeout="0"` to load the font only if already in cache.
+    Set `timeout="0"` to load the font only if already in cache.
   -->
   <amp-font
     layout="nodisplay"
@@ -117,7 +116,7 @@
     on-load-add-class="another-unavailable-font-loaded">
   </amp-font>
   <p class="another-unavailable-font">
-    This text is displayed in red if the chosen font is not cached.
+  This text is displayed in red if the chosen font is not cached.
   </p>
 
 </body>
