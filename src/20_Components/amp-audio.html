@@ -1,7 +1,7 @@
 <!--
   ## Introduction
 
-  AMP replaces the HTML5 audio tag with its own version: `amp-audio`. The amp-audio component can only be used for direct HTML5 audio file embeds.
+  AMP replaces the HTML5 audio tag with its own version: [`amp-audio`](https://www.ampproject.org/docs/reference/components/amp-audio). The `amp-audio` component can only be used for direct HTML5 audio file embeds.
 -->
 <!-- -->
 <!doctype html>
@@ -21,23 +21,20 @@
 </head>
 <body>
 
-  <!-- ## Basic Usage -->
+  <!-- ## Basic usage -->
   <!--
-    The amp-audio component loads the audio resource specified by its `src` attribute at a time determined by the runtime. `amp-audio` doesn't support a responsive layout by default, but you can achieve the same by combining a `fixed` height with `width="auto"`.
+    The `amp-audio` component loads the audio resource specified by its `src` attribute at a time determined by the runtime. `amp-audio` doesn't support a responsive layout by default, but you can achieve the same by combining a `fixed` height with `width="auto"`.
   -->
   <amp-audio width="auto" height="50" src="https://ia801402.us.archive.org/16/items/EDIS-SRP-0197-06/EDIS-SRP-0197-06.mp3">
-    <div fallback>
-      <p>Your browser doesn’t support HTML5 audio</p>
-    </div>
+    <div fallback>Your browser doesn’t support HTML5 audio</div>
   </amp-audio>
 
 
-  <!-- ## Customize Media Notifications -->
+  <!-- ## Custom media notification -->
   <!--
     <center>
-      <amp-img class="my1" src="https://i.imgur.com/uzaVJsM.jpg" width="200" height="320"></amp-mg>
+      <amp-img src="/img/screenshot-media-notification.jpg" width="200" height="356"></amp-img>
     </center>
-    <br />
 
     With the implementation of the MediaSessionAPI on AMP, you can now show rich notifications that describe the playing media
     through the `artist`, `album`, `artwork` and `title` attributes.
@@ -52,6 +49,7 @@
     height="50"
     width="auto"
     controls>
+    <div fallback>Your browser doesn’t support HTML5 audio</div>
   </amp-audio>
 
   <!-- ## Disabling controls -->
@@ -65,9 +63,7 @@
     height="50"
     src="https://ia801402.us.archive.org/16/items/EDIS-SRP-0197-06/EDIS-SRP-0197-06.mp3"
     controlsList="nodownload">
-    <div fallback>
-      <p>Your browser doesn’t support HTML5 audio</p>
-    </div>
+    <div fallback>Your browser doesn’t support HTML5 audio</div>
   </amp-audio>
 </body>
 </html>
