@@ -1,5 +1,6 @@
 <!--
-  #### Introduction
+  ## Introduction
+
   The [amp-fx-collection](https://www.ampproject.org/docs/reference/components/amp-fx-collection) extension
   provides a collection of preset visual effects, such as parallax that can be easily enabled on any element
   via `amp-fx` attribute.
@@ -15,7 +16,7 @@
   <meta charset="utf-8">
   <title>amp-fx-collection</title>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
-  <!-- #### Setup -->
+  <!-- ## Setup -->
   <!--
     Import the `amp-fx-collection` extension in the header.
   -->
@@ -61,7 +62,7 @@
   </style>
 </head>
 <body>
-  <!-- ## Parallax -->
+  <!-- ## Title parallax -->
   <!--
     The parallax effect allows an element to move as if it is nearer or farther
     relative to the foreground of the page content. As the user scrolls the page,
@@ -75,7 +76,6 @@
     * A value greater than 1 scrolls the element upward (element scrolls faster) when the user scrolls down the page.
     * A value less than 1 scrolls the element downward (element scrolls slower) when the user scrolls downward.
   -->
-  <!-- ### Title parallax -->
   <div class="header">
     <h1 amp-fx="parallax" data-parallax-factor="1.3">
         <span class="title">Lorem Ipsum</span>
@@ -83,13 +83,16 @@
     <amp-img width="1600" height="900" layout="responsive" src="https://images.unsplash.com/photo-1484961361402-1ee9b1c7accb?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9b58d12098d2e6d4a1199ed426772eb9&auto=format&fit=crop&w=1001&q=80"></amp-img>
   </div>
 
-  <!-- ### Parallax image window -->
+  <!-- ## Parallax image window -->
   <div class="parallax-image-window">
     <amp-img amp-fx="parallax" data-parallax-factor="1.15" width="618" height="583" layout="responsive" src="https://images.unsplash.com/photo-1527683040093-3a2b80ed1592?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3493d310a725643c1aa1cd201065d31c&auto=format&fit=crop&w=1130&q=80"></amp-img>
   </div>
   <div class="spacer"></div>
-  <!-- ## Scroll triggered fade-in -->
-  <!-- The `fade-in` effect allows an element to fade in once the element being targetted is visible in the viewport.
+
+  <!-- 
+    ## Scroll triggered fade-in 
+
+   The `fade-in` effect allows an element to fade in once the element being targetted is visible in the viewport.
 
     Scroll triggered fade in effect can be added to any element by adding `amp-fx="fade-in"` attribute to an element.
     Currently, only a scroll triggered timed animation is supported. That is, once the element is within the viewport a timed animation will start that fades in the element. You can control the animation via the following attributes:
@@ -101,54 +104,64 @@
       * “ease-out” - cubic-bezier(0.40, 0.00, 0.40, 1.00) (default),
       * or specify a `custom-bezier()` input.
     * `data-margin-start` - This parameter determines when to trigger the timed animation. The value specified in `<percent>` dictates that the animation should be triggered when the element is above the specified percentage of the viewport. The default value is `5%`
-  -->
-  <!-- ### Default attributes
+
     Scroll triggered fade in animation with default attributes
   -->
   <amp-img amp-fx="fade-in" width="1600" height="900" layout="responsive" src="https://images.unsplash.com/photo-1524495195760-3266feca5b15?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7a508f55ae88c8eac7bab9380acded01&auto=format&fit=crop&w=1567&q=80"></amp-img>
 
-  <!-- ### Slow animation
+  <!-- 
+    ## Slow fade-in animation
+    
     Fade in animation that lasts longer by specifying `data-duration="2000ms"`.
    -->
   <amp-img amp-fx="fade-in" data-duration="2000ms" width="1280" height="873" layout="responsive" src="https://images.unsplash.com/photo-1526803389087-5a4296962cd7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3f6fada754f8d46245da58be0599c1b8&auto=format&fit=crop&w=1950&q=80" alt="Picture of a road"></amp-img>
 
-  <!-- ### Delayed animations
+  <!-- 
+    ## Delayed fade-in animation
+
     Animation triggers when the element is past 50% of the viewport by specifying `data-margin-start="50%"`.
   -->
   <amp-img amp-fx="fade-in" data-margin-start="50%" width="1280" height="873" layout="responsive" src="https://images.unsplash.com/photo-1524063853276-ab560795d106?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9bc985b4c36017cfaf3e7359254b1e93&auto=format&fit=crop&w=1950&q=80" alt="Picture of a road"></amp-img>
 
-  <!--### Different bezier curves
+  <!--
+    ## Fade-in with different bezier curves
+
    Change the easing curve of the animation to a preset linear curve by specifying `data-easing="linear"`.
   -->
   <amp-img amp-fx="fade-in" data-easing="linear" width="1280" height="873" layout="responsive" src="https://images.unsplash.com/photo-1523316970297-654e42445f32?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c753fde260b01ea8e24a0c500ff1a93a&auto=format&fit=crop&w=1950&q=80" alt="Picture of a rainy road"></amp-img>
-  <!-- ## Scroll dependent fade-in -->
-  <!-- The `fade-in-scroll` effect allows an element to fade in as the user scrolls in the viewport.
+  <!-- 
+    ## Scroll dependent fade-in 
+
+    The `fade-in-scroll` effect allows an element to fade in as the user scrolls in the viewport.
 
     Scroll dependent fade in effect can be added to any element by adding `amp-fx="fade-in-scroll"` attribute to an element.
     You can control the animation via the following attributes:
     * `data-margin-start` - This parameter determines when to trigger the timed animation. The value specified in `percent` dictates that the animation should be triggered when the element is above the specified percentage of the viewport. The default value is `0%`
     * `data-margin-end` - This parameter determines when to stop the timed animation. The value specified in `percent` dictates that the animation should be fully visible when the element crosses this threshold. The default value is `50%`
     * `data-repeat` - By default once the element is fully visible the opacity of the element is locked in. If the developer wants to change the opacity even after it the element is fully visible please specify this attribute on the element. 
-  -->
-  <!-- ### Default attributes
+
     Scroll based fade in animation with default attributes
   -->
   <amp-img amp-fx="fade-in-scroll" width="1600" height="900" layout="responsive" src="https://images.unsplash.com/photo-1528067609263-ca1bca6f0af1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=719da4579acae6264f2dd12a29668441&auto=format&fit=crop&w=2378&q=80"></amp-img>
 
-  <!-- ### Custom start/end points
+  <!-- ## Custom start/end points
+
     Animation triggers when the element is past 20% of the viewport and ends when it is past 80% of the viewport by specifying `data-margin-start="20%"` and `data-margin-end="80%"` attributes.
   -->
   <amp-img amp-fx="fade-in-scroll" data-margin-start="20%" data-margin-end="80%" width="1600" height="900" layout="responsive" src="https://images.unsplash.com/photo-1527596510581-97fb7ea1bb09?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a28f08b21bd8ec9d0e846a4af0a5d06b&auto=format&fit=crop&w=2000&q=80"></amp-img>
 
-  <!-- ### Fully scroll dependent animations
+  <!-- ## Fully scroll dependent animations
+
     Make the animation full dependent on the scroll action by specifying `data-repeat` attribute.
   -->
   <amp-img amp-fx="fade-in-scroll" data-repeat width="1280" height="873" layout="responsive" src="https://images.unsplash.com/photo-1527410514447-0d41efed395f?ixlib=rb-0.3.5&s=bcfb4d1eb7e099ab63f0edfa39580976&auto=format&fit=crop&w=1950&q=80" alt="Picture of a tennis court"></amp-img>
 
-  <!-- ## Scroll triggered fly-in -->
-  <!-- The `fly-in-bottom`, `fly-in-top`, `fly-in-left` and `fly-in-right` effects allow an element to fly in once the element being targetted is visible in the viewport.
+  <!-- 
+    ## fly-in-left 
 
-    Scroll triggered fly in effect can be added to any element by adding `amp-fx="fly-in-bottom"`, `amp-fx="fly-in-top"`, `amp-fx="fly-in-left"` or `amp-fx="fly-in-right"` attribute to an element.
+   The `fly-in-bottom`, `fly-in-top`, `fly-in-left` and `fly-in-right` effects allow an element to fly-in once the element being targetted is visible in the viewport.
+
+    Scroll triggered fly-in effect can be added to any element by adding `amp-fx="fly-in-bottom"`, `amp-fx="fly-in-top"`, `amp-fx="fly-in-left"` or `amp-fx="fly-in-right"` attribute to an element.
 
     This is a scroll triggered timed animation, i.e., once the element is within the viewport a timed animation will start that translates the element along the X/Y axis. You can control the animation via the following attributes:
     * `data-duration` - This is the duration over which the animation takes places. The default value is determined by your device size to allow for the best preset values across mobile, tablet and desktop devices. For more details on this read the documentation on the [`data-duration`](https://www.ampproject.org/docs/reference/components/amp-fx-collection) property.
@@ -160,56 +173,76 @@
       * “ease-out” - cubic-bezier(0.40, 0.00, 0.40, 1.00) (default),
       * or specify a `custom-bezier()` input.
     * `data-margin-start` - This parameter determines when to trigger the timed animation. The value specified in `percent` dictates that the animation should be triggered when the element is above the specified percentage of the viewport. The default value is `5%`
-  -->
-  <!-- ### Default attributes
-    Scroll triggered fly in animation with default attributes
-  -->
 
-  <!-- <amp-fx=`fly-in-left`> -->
+    Scroll triggered fly-in animation with default attributes.
+  -->
   <amp-img amp-fx="fly-in-left" width="1600" height="900" layout="responsive" src="https://images.unsplash.com/photo-1521229478162-4a20534cdec5?ixlib=rb-0.3.5&s=e93c4d12f98243f12b52a430bdb84720&auto=format&fit=crop&w=1661&q=80"></amp-img>
 
-  <!-- <amp-fx=`fly-in-right`> -->
+  <!-- 
+    ## fly-in-right 
+
+    Scroll triggered fly-in-right animation with default attributes.
+  -->
   <amp-img amp-fx="fly-in-right" width="1600" height="900" layout="responsive" src="https://images.unsplash.com/photo-1527092035324-6319ef0fcf7a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=969edced71a03ef57558006151596c1b&auto=format&fit=crop&w=1651&q=80"></amp-img>
 
-  <!-- <amp-fx=`fly-in-bottom`> -->
+  <!-- 
+    ## fly-in-bottom 
+
+    Scroll triggered fly-in-bottom animation with default attributes.
+  -->
   <amp-img amp-fx="fly-in-bottom" width="1600" height="900" layout="responsive" src="https://images.unsplash.com/photo-1527016856658-ab68a6bad3a1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=46287f1f2996d26e5f8fde5a3f6dd7da&auto=format&fit=crop&w=1650&q=80"></amp-img>
 
-  <!-- <amp-fx=`fly-in-top`> -->
+  <!-- 
+    ## fly-in-top 
+
+    Scroll triggered fly-in-top animation with default attributes.
+  -->
   <amp-img amp-fx="fly-in-top" width="1600" height="900" layout="responsive" src="https://images.unsplash.com/photo-1527048322413-4e4e56c8ab3b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=69287e502ab9e858262921ee9dfcd271&auto=format&fit=crop&w=1650&q=80"></amp-img>
 
-  <!-- ### Slow animation
+  <!-- 
+    ## Slow fly-in animation
+
     Fly in animation that lasts longer by specifying `data-duration="2000ms"`.
    -->
   <amp-img amp-fx="fly-in-left" data-duration="2000ms" width="1280" height="873" layout="responsive" src="https://images.unsplash.com/photo-1523255971896-2c08d93dd3a8?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=f1f0f9ab94d2d65d964b1b8681563d93&auto=format&fit=crop&w=1650&q=80" alt="Picture of a starry sky"></amp-img>
 
-  <!-- ### Animation distance
+  <!-- 
+    ## Fly-in animation distance
+
     Animation that takes place over a larger distance by specifying `data-fly-in-distance="50%"`.
    -->
   <amp-img amp-fx="fly-in-right" data-fly-in-distance="50%" width="1280" height="873" layout="responsive" src="https://images.unsplash.com/photo-1522426266214-ec2d2abb9ce0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=87c5df0ba70b2f9971f35c31e5ba71b8&auto=format&fit=crop&w=1653&q=80" alt="Picture of a starry sky"></amp-img>
 
 
-  <!-- ### Delayed animations
+  <!-- 
+    ## Delayed fly-in animation
+    
     Animation triggers when the element is past 50% of the viewport by specifying `data-margin-start="50%"`.
   -->
   <amp-img amp-fx="fly-in-top" data-margin-start="50%" width="1280" height="873" layout="responsive" src="https://images.unsplash.com/photo-1521934283989-acaa8ceb335a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=4c3188079fb9f2e4e364fd2dc43adb68&auto=format&fit=crop&w=668&q=80" alt="Picture of a starry sky"></amp-img>
 
-  <!--### Different bezier curves
-   Change the easing curve of the animation to a preset linear curve by specifying `data-easing="linear"`.
+  <!--
+    ## Fly-in with wifferent bezier curves
+
+    Change the easing curve of the animation to a preset linear curve by specifying `data-easing="linear"`.
   -->
   <amp-img amp-fx="fly-in-bottom" data-easing="linear" width="1280" height="873" layout="responsive" src="https://images.unsplash.com/photo-1473806189829-9641421a59f1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=75ddee8b694c5bef8cb935f6d0effa3a&auto=format&fit=crop&w=1650&q=80" alt="Picture of a starry sky"></amp-img>
 
-  <!-- ## Combining presets
-    Developers can also combine different presets by providing a space separated list of presets to the `amp-fx` argument.
-  -->
+  <!-- 
+    ## Combining presets: fade & fly-in 
 
-  <!-- For example you can have an image both fade and fly in from the bottom. -->
+    Developers can also combine different presets by providing a space separated list of presets to the `amp-fx` argument. For example you can have an image both fade and fly-in from the bottom. 
+  -->
   <amp-img amp-fx="fade-in fly-in-bottom" data-duration="600ms" width="650" height="433" layout="responsive" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9e2448175103d36c873e2511d112d339&auto=format&fit=crop&w=1950&q=80" alt="Picture of a starry sky"></amp-img>
 
-  <!-- You can also combine parallax and fade-in on the same title. -->
+  <!-- 
+    ## Combining presets: parallax & fade-in
+
+    You can also combine parallax and fade-in on the same title. 
+  -->
   <div class="parallax-image-window">
     <amp-img amp-fx="parallax fade-in-scroll" data-parallax-factor="1.1" data-margin-start="10%" data-margin-end="80%" data-repeat width="649" height="432" layout="responsive" src="https://images.unsplash.com/photo-1524293765125-99fabde3861f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6e56fc64d653a9fe5b1a7f602d57abcd&auto=format&fit=crop&w=1650&q=80" alt="Picture of a starry sky"></amp-img>
   </div>
   <div class="spacer"></div>
-
 </body>
 </html>
