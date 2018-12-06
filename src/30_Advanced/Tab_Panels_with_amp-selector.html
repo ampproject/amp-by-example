@@ -16,20 +16,21 @@ preview: default
 
 <head>
     <meta charset="utf-8">
-  <title>Tab Panels with amp-selector</title>
+    <title>Tab Panels with amp-selector</title>
     <link rel="canonical" href="<%host%>/advanced/tab_panels_with_amp-selector/">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <!-- #### Setup -->
-    <!-- Import `amp-selector` component in the header which we'll use to implement the tab switching. -->
+    <!-- Import the `amp-selector` component, which we'll use to implement the tab switching. -->
     <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
-    <!-- Import `amp-carousel` component in the header which we'll use as a sample tab content -->
+    <!-- Import the `amp-carousel` component, which we'll use as for sample tab content. -->
     <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
-    <!-- Import `amp-bind` component in the header which we'll use to switch tabs via buttons -->
+    <!-- Import the `amp-bind` component, which we'll use to animate the underline, and to switch tabs via buttons. -->
     <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-    <!-- There's just a bit of css that's needed -->
-    <style amp-custom>       
+    <!-- Some CSS is required. -->
+    <style amp-custom>
         .ampTabContainer {
+            margin: 4rem 2rem;
             display: flex;
             flex-wrap: wrap;
         }
@@ -49,15 +50,46 @@ preview: default
         .tabContent {
             display: none;
             width: 100%;
-            order: 1; /* must be greater than the order of the tab buttons to flex to the next line */
+            order: 1;  /* must be greater than the order of the tab buttons to flex to the next line */
             border: 1px solid #ccc;
         }
         
         .tabButton[selected]+.tabContent {
             display: block;
         }
+      
+        /* Styles for the underline in the second example */
+        .tab-underline {
+            height: 1px;
+            width: 30%;
+            background: red;
+            position: absolute;
+            top: calc(1em + 3px);
+            transition: left 0.5s;
+        }
+        .tab-underline-a {
+            left: 0;
+        }
+        .tab-underline-b {
+            left: 32%;
+        }
+        .tab-underline-c {
+            left: 65%;
+        }
+        /* Override the tab styles from the other examples */
+        amp-selector.ampTabContainer .example2[selected] {
+            background: transparent;
+            outline: none;
+        }
+        .tabButton.example2 {
+            text-align: left;      
+        }
+        .tabContent.example2 {
+            border: none;
+            margin-top: 1rem;
+        }
 
-        /* For example below (not required) */
+        /* For the third example below */
         .itemCustom {
             border: 1px solid #000;
             height: 280px;
@@ -65,10 +97,6 @@ preview: default
             margin: 10px;
             text-align: center;
             padding-top: 140px;
-        }
-        amp-selector {
-          padding: 1rem;
-          margin: 1rem;
         }
     </style>
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
@@ -86,6 +114,20 @@ preview: default
         <div role="tab" class="tabButton" option="c">Tab three</div>
         <div role="tabpanel" class="tabContent">Tab three content... </div>
     </amp-selector>
+    <!-- #### Animating an underline moving from the previously selected to the current tab -->
+    <!--
+    We use an extra div in the `amp-selector`, whose class is computer with an `amp-bind` expression.
+    -->
+    <amp-selector on="select:AMP.setState({selectedTab: event.targetOption})" [selected]="selectedTab" role="tablist" layout="container" class="ampTabContainer">
+        <div role="tab" class="tabButton example2" selected option="a">Tab one</div>
+        <div role="tabpanel" class="tabContent example2">Tab <strong>one</strong> content... Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</div>
+        <div role="tab" class="tabButton example2" option="b">Tab two</div>
+        <div role="tabpanel" class="tabContent example2">Tab <strong>two</strong> content... Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</div>
+        <div role="tab" class="tabButton example2" option="c">Tab three</div>
+        <div role="tabpanel" class="tabContent example2">Tab <strong>three</strong> content... Lorem ipsum dolor sit amet, has nisl nihil convenire et, vim at aeque inermis reprehendunt.</div>
+        <div [class]="'tab-underline tab-underline-' + selectedTab" class="tab-underline tab-underline-a"></div>
+    </amp-selector>
+
     <!--
     ####  Amp component as the panel
     You can have just about anything as `tabContent` - the `amp-carousel` is a good example of a more complex component being used.
@@ -115,11 +157,11 @@ preview: default
     <amp-selector role="tablist" layout="container" class="ampTabContainer">
         <div role="tab" class="tabButton" selected option="a">Tall Container</div>
         <div role="tabpanel" class="tabContent">
-          <amp-carousel class="tabContent" height="300" layout="fixed-height" type="carousel">
-            <amp-img src="/img/image1.jpg" width="400" height="300" alt="a sample image"></amp-img>
-            <amp-img src="/img/image2.jpg" width="400" height="300" alt="another sample image"></amp-img>
-            <amp-img src="/img/image3.jpg" width="400" height="300" alt="and another sample image"></amp-img>
-          </amp-carousel>
+            <amp-carousel class="tabContent" height="300" layout="fixed-height" type="carousel">
+                <amp-img src="/img/image1.jpg" width="400" height="300" alt="a sample image"></amp-img>
+                <amp-img src="/img/image2.jpg" width="400" height="300" alt="another sample image"></amp-img>
+                <amp-img src="/img/image3.jpg" width="400" height="300" alt="and another sample image"></amp-img>
+            </amp-carousel>
         </div>
         <div role="tab" class="tabButton" option="b">Short Container</div>
         <div role="tabpanel" class="tabContent">Hi! I'm content</div>
@@ -130,20 +172,20 @@ preview: default
     This example shows a basic example with three panels, with an option to select each tab via a button.
     -->
     <div>
-      <amp-selector on="select:AMP.setState({selectedTab: event.targetOption})" [selected]="selectedTab" role="tablist" layout="container" class="ampTabContainer">
-          <div role="tab" class="tabButton" selected option="a">Tab one</div>
-          <div role="tabpanel" class="tabContent">Tab one content... </div>
-          <div role="tab" class="tabButton" option="b">Tab two</div>
-          <div role="tabpanel" class="tabContent">Tab two content... </div>
-          <div role="tab" class="tabButton" option="c">Tab three</div>
-          <div role="tabpanel" class="tabContent">Tab three content... </div>
-      </amp-selector>
+        <amp-selector on="select:AMP.setState({selectedTab: event.targetOption})" [selected]="selectedTab" role="tablist" layout="container" class="ampTabContainer">
+            <div role="tab" class="tabButton" selected option="a">Tab one</div>
+            <div role="tabpanel" class="tabContent">Tab one content... </div>
+            <div role="tab" class="tabButton" option="b">Tab two</div>
+            <div role="tabpanel" class="tabContent">Tab two content... </div>
+            <div role="tab" class="tabButton" option="c">Tab three</div>
+            <div role="tabpanel" class="tabContent">Tab three content... </div>
+        </amp-selector>
 
-      <div class="m1">
-       <button on="tap:AMP.setState({selectedTab: 'a'})">Select tab 1</button>
-       <button on="tap:AMP.setState({selectedTab: 'b'})">Select tab 2</button>
-       <button on="tap:AMP.setState({selectedTab: 'c'})">Select tab 3</button>
-      </div>
+        <div class="m1">
+            <button on="tap:AMP.setState({selectedTab: 'a'})">Select tab 1</button>
+            <button on="tap:AMP.setState({selectedTab: 'b'})">Select tab 2</button>
+            <button on="tap:AMP.setState({selectedTab: 'c'})">Select tab 3</button>
+        </div>
     </div>
 
 </body>
