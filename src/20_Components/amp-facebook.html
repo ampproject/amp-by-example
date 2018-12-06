@@ -1,7 +1,7 @@
 <!--
   ## Introduction
 
-  The amp-facebook component allows embedding both posts and videos into AMP files.
+  The [amp-facebook](https://www.ampproject.org/docs/reference/components/amp-facebook) component allows embedding both Facebook posts and videos into AMP files.
 -->
 <!-- -->
 <!doctype html>
@@ -11,7 +11,7 @@
   <title>amp-facebook</title>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <!-- ## Setup -->
-    <!-- Import the amp-facebook component -->
+    <!-- Import the `amp-facebook` component -->
     <script async custom-element="amp-facebook" src="https://cdn.ampproject.org/v0/amp-facebook-0.1.js"></script>
   <link rel="canonical" href="<%host%>/components/amp-facebook/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -19,19 +19,21 @@
   </head>
   <body>
 
-    <!-- ## Basic Usage -->
+    <!-- ## Basic usage -->
     <!-- The `amp-facebook` component only requires the URL of the facebook post... -->
     <amp-facebook width="552" height="303"
                     layout="responsive"
                     data-href="https://www.facebook.com/zuck/posts/10102593740125791">
     </amp-facebook>
 
-    <!-- ... or video -->
+    <!-- ## Video -->
+    <!-- Here is a sample for a Facebook video embed. -->
     <amp-facebook width="552" height="310"
                     layout="responsive"
                     data-href="https://www.facebook.com/zuck/videos/10102509264909801/">
     </amp-facebook>
 
+    <!-- ## Video with card -->
     <!-- Setting data-embed-as="video" will embed the video with the accompanying card. -->
     <amp-facebook width="552" height="310"
                     layout="responsive"
@@ -39,7 +41,7 @@
                     data-href="https://www.facebook.com/zuck/videos/10102509264909801/">
     </amp-facebook>
 
-
+    <!-- ## Video without card -->
     <!-- Setting data-embed-as="post" will embed the video without the accompanying card. -->
     <amp-facebook width="552" height="310"
                     layout="responsive"
