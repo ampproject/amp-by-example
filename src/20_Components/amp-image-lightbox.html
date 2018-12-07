@@ -1,7 +1,7 @@
 <!--
   ## Introduction
 
-  The amp-image-lightbox component allows the user to expand an image to fill the viewport.
+  The [`amp-image-lightbox'](https://www.ampproject.org/docs/reference/components/amp-image-lightbox) component allows the user to expand an image to fill the viewport.
 -->
 <!-- -->
 <!doctype html>
@@ -20,20 +20,22 @@
 <body>
   <!-- ## Basic Usage -->
   <!--
-    The amp-image-lightbox is activated using the `on` action on an `amp-img` element referencing
+    The `amp-image-lightbox` is activated using the `on` action on an `amp-img` element referencing
     the lightbox element's ID.
   -->
-  <amp-img on="tap:lightbox1"
-           role="button"
-           tabindex="0"
-           src="/img/Border_Collie.jpg"
-           alt="Picture of a dog"
-           title="Picture of a dog, view in lightbox"
-           layout="responsive"
-           width="300" height="246"></amp-img>
-  <!-- This is the lightbox. The image shown in the lightbox does not need to be defined. -->
-  <amp-image-lightbox id="lightbox1" layout="nodisplay"></amp-image-lightbox>
+  <div>
+    <amp-img on="tap:lightbox1"
+             role="button"
+             tabindex="0"
+             src="/img/Border_Collie.jpg"
+             alt="Picture of a dog"
+             title="Picture of a dog, view in lightbox"
+             layout="responsive"
+             width="300" height="246"></amp-img>
+    <amp-image-lightbox id="lightbox1" layout="nodisplay"></amp-image-lightbox>
+  </div>
 
+  <!-- ## Multiple image support -->
   <!--
     It is even possible to show different images in the same `amp-image-lightbox`. Here is another
     image using the same lightbox.
@@ -47,7 +49,7 @@
            layout="responsive"
            width="600" height="400"></amp-img>
 
-  <!-- ## Captions -->
+  <!-- ## Caption: figcaption -->
   <!--
     The amp-image-lightbox also can optionally display a caption for the image at the bottom
     of the viewport. This can either be the contents of the `<figcaption>` element when the image
@@ -65,6 +67,7 @@
     <figcaption>Border Collie.</figcaption>
   </figure>
 
+  <!-- ## Caption: aria-describedby -->
   <!--
     ... or the contents of the element whose ID is specified by the image's
     <code>aria-describedby</code> attribute.
@@ -78,9 +81,9 @@
              title="Picture of a dog, view in lightbox"
              src="/img/Border_Collie.jpg"
              width="300" height="246"></amp-img>
-   <div id="imageDescription">
-     This is a border collie.
-   </div>
+    <div id="imageDescription">
+      This is a border collie.
+    </div>
   </div>
 </body>
 </html>

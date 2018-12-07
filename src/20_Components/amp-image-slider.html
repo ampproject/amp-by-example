@@ -68,7 +68,7 @@
 </head>
 <body>
 
-  <!-- ## Basic Usage -->
+  <!-- ## Basic usage -->
 
   <!--
     Build a basic image slider by placing 2 `amp-img`s inside.
@@ -85,6 +85,7 @@
       layout="fill"></amp-img>
   </amp-image-slider>
 
+  <!-- ## Custom text label -->
   <!--
     You can add customizable text labels to your images, by providing extra `div`s,
     labeled with `first` and `second` attributes, for left and right images correspondingly.
@@ -105,6 +106,7 @@
     <div second class="label label-right-center">Green</div>
   </amp-image-slider>
 
+  <!-- ## Arrow hint -->
   <!--
     Arrow hints about moving the image slider would always show by default.
     Once user interacts with the slider (such as clicking and touching), the hint would fade out.
@@ -123,7 +125,7 @@
       layout="fill"></amp-img>
   </amp-image-slider>
 
-  <!-- ## Customize Hint -->
+  <!-- ## Custom hint -->
 
   <!--
     By overwriting `.amp-image-slider-hint-left` and `.amp-image-slider-hint-right` classes,
@@ -141,6 +143,7 @@
       layout="fill"></amp-img>
   </amp-image-slider>
 
+  <!-- ## Hidden hints -->
   <!--
     To hide hints, you can simply set `display: none;` for these classes.
   -->
@@ -156,7 +159,6 @@
   </amp-image-slider>
 
   <!-- ## Actions -->
-
   <!--
     `amp-image-slider` offers an action `.seekTo(percent=[0-1])` that moves the slider to corresponding percent from the left.
     For example, you can use `slider-id.seekTo(percent=0)` and `slider-id.seekTo(percent=1)` move the slider to left and right borders.
@@ -173,13 +175,12 @@
         layout="fill"></amp-img>
     </amp-image-slider>
     <div class="seek-button-container">
-      <button class="ampstart-btn" on="tap:seekable.seekTo(percent=1)">SHOW LEFT</button>
-      <button class="ampstart-btn" on="tap:seekable.seekTo(percent=0)">SHOW RIGHT</button>
+      <button on="tap:seekable.seekTo(percent=1)">SHOW LEFT</button>
+      <button on="tap:seekable.seekTo(percent=0)">SHOW RIGHT</button>
     </div>
   </div>
 
-  <!-- ## Other Customization -->
-
+  <!-- ## Different initial position -->
   <!--
     By default, the slider bar would be initially placed at the center of the slider.
     You can change its initial position with `initial-slider-position` attribute.
@@ -196,6 +197,7 @@
       layout="fill"></amp-img>
   </amp-image-slider>
 
+  <!-- ## Different step size -->
   <!--
     By setting `step-size` to a value between 0 and 1,
     you can move the slider bar by a custom percentage every time you press left and right arrow keys when the slider is focused.
