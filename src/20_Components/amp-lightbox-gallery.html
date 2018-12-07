@@ -21,16 +21,9 @@ The [`amp-lightbox-gallery`](https://www.ampproject.org/docs/reference/component
   <style amp-custom>
     :root {
       --color-primary: #005AF0;
-      --color-secondary: #00DCC0;
       --color-text-light: #fff;
-      --color-text-dark: #000;
-      --color-error: #B00020;
-      --color-bg-light: #FAFAFC;
-
       --space-1: .5rem;  /* 8px */
       --space-2: 1rem;   /* 16px */
-      --space-3: 1.5rem; /* 24px */
-      --space-4: 2rem;   /* 32px */
     }
     .overlay-text {
       position: absolute;
@@ -38,25 +31,21 @@ The [`amp-lightbox-gallery`](https://www.ampproject.org/docs/reference/component
       left: var(--space-2);
       z-index: 1;
       pointer-events: none;
-      background-color: #494A4D;
+      background-color: var(--color-primary);
       color: var(--color-text-light);
-      padding: 2px 6px 2px 6px;
+      padding: var(--space-1);
       border-radius: 2px;
       opacity: 0.7;
     }
-
     .sample-figure {
       margin: 0;
     }
-
-    amp-img[lightbox] {
-      cursor: pointer;
+    .sample-figure figcaption {
+      padding: var(--space-1) var(--space-2);
     }
-
     .paragraph {
-      padding: var(--space2) 0;
+      padding: var(--space-2);
     }
-
   </style>
 </head>
 <body>
@@ -136,7 +125,7 @@ The [`amp-lightbox-gallery`](https://www.ampproject.org/docs/reference/component
         width="300"
         height="200"
         layout="responsive"></amp-img>
-      <figcaption class="image">
+      <figcaption>
         This is a long road. We don't know where it leads.
       </figcaption>
     </figure>
