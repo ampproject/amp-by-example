@@ -2,7 +2,7 @@
   ## Introduction
 -->
 <!--
-  Use the `amp-gfycat` component to embed animated GIFs from [gfycat](http://gfycat.com/) in your AMP HTML files. Find the official documentation about `amp-gfycat` [here](https://www.ampproject.org/docs/reference/components/amp-gfycat).
+  Use the [`amp-gfycat`](https://www.ampproject.org/docs/reference/components/amp-gfycat) component to embed animated GIFs from [gfycat](http://gfycat.com/) in your AMP HTML files. 
 -->
 <!-- -->
 <!doctype html>
@@ -22,7 +22,7 @@
 </head>
 <body>
 
-  <!-- ## Basic Usage -->
+  <!-- ## Basic usage -->
   <!--
     Embed an animated GIF from gfycat via the `data-gfyid` attribute. We recommend using responsive layout for better experience. Find a list of all supported layouts [here](https://www.ampproject.org/docs/guides/responsive/control_layout.html).
     The `width` and `height` attributes should be the actual width and height of the Gfycat, you can find them by going to https://gfycat.com/name, click on the embed link and copy the width and height specified in the fixed IFRAME field.
@@ -34,7 +34,9 @@
           layout="responsive">
   </amp-gfycat>
 
-  <!--
+  <!-- 
+    ## Disabling auto play 
+
     By default video is autoplaying. It's possible to turn it off by setting `noautoplay` attribute.
   -->
   <amp-gfycat
