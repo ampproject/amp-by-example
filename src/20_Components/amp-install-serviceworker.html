@@ -7,7 +7,7 @@ hidePreview: true
 <!--
   ## Introduction
 
-  The [amp-install-serviceworker](https://www.ampproject.org/docs/reference/components/amp-install-serviceworker)
+  The [`amp-install-serviceworker`](https://www.ampproject.org/docs/reference/components/amp-install-serviceworker)
   component enables service worker installation via same origin or via the Google AMP Cache.
 
   [Service workers](https://github.com/slightlyoff/ServiceWorker/blob/master/explainer.md) can run in the background even when the browser is closed, cache required contents in advance of rendering time, send notifications to users, and more.
@@ -33,11 +33,15 @@ hidePreview: true
 </head>
 <body>
 
-  <!-- ## Installing the Service Worker -->
+  <!-- ## Installing the service worker -->
   <!--
-Calls to amp-install-serviceworker can include the `src` and `data-iframe-src` attributes. `src` is the location of the service worker to be installed, and is used when the document is accessed via the same origin as the service worker file. When the document is accessed via the Google AMP Cache, the HTML document noted in the `data-iframe-src` attribute is used to install the service worker. We recommend using both attributes.
+Calls to `amp-install-serviceworker` can include the `src` and `data-iframe-src` attributes. `src` is the location of the service worker to be installed, and is used when the document is accessed via the same origin as the service worker file. When the document is accessed via the Google AMP Cache, the HTML document noted in the `data-iframe-src` attribute is used to install the service worker. We recommend using both attributes.
 
   The reason why `amp-install-serviceworker` requires a separate `data-iframe-src` option is because browsers can't install service worker from other domains for security reasons. For details of the security considerations of service worker, [see official specs](https://www.w3.org/TR/service-workers/#security-considerations).
+
+[tip type="default"]
+Tip: if you don't want to provide a special minimal document to install a sevice worker, you can simply link to the AMP document on your own origin. 
+[/tip]
   -->
   <amp-install-serviceworker
       src="/sw.js"
@@ -45,7 +49,10 @@ Calls to amp-install-serviceworker can include the `src` and `data-iframe-src` a
       layout="nodisplay">
   </amp-install-serviceworker>
   <!--
-    <div class="ampstart-card abe-info p1">Recommendation: [Workbox](https://developers.google.com/web/tools/workbox/) is a great library for implementing service workers.</div>
+[tip type="default"]
+Recommendation: [Workbox](https://developers.google.com/web/tools/workbox/) is a great library for implementing service workers.
+Tip: if you don't want to provide a special minimal document to install a sevice worker, you can simply link to the AMP document on your own origin. 
+[/tip]
 
   In this sample, when users access this AMP page for the second time, the service worker is installed and caches all image files and video files under the root path of this domain.
 
