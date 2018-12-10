@@ -1,0 +1,20 @@
+{
+ "items": [
+   {
+     "title": "amp-bind",
+     "url": "/components/amp-bind/"
+   },
+   {
+     "title": "amp-list",
+     "url": "/components/amp-list/"
+   },
+   {
+     "title": "amp-lightbox",
+     "url": "/components/amp-lightbox/"
+   },
+   {
+     "title": "amp-access",
+     "url": "/components/amp-access/"
+   }
+ ]
+}

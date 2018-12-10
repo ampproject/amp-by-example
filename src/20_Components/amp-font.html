@@ -19,20 +19,18 @@
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <!--
-      Define custom CSS rules to style your document depending on whether a font was loaded successfully or not. Find out about all the supported css classes [here](https://www.ampproject.org/docs/reference/components/amp-font)
+      Define custom CSS rules to style your document depending on whether a font was loaded successfully or not. Find out about all the supported css classes [here](https://www.ampproject.org/docs/reference/components/amp-font).
     -->
     <style amp-custom>
-    @font-face {
-      font-family: 'Font Does Not exist';
-      font-style: normal;
-      font-weight: 400;
-      src: url(fonts/FontDoesNotExist.ttf) format('truetype');
+    :root {
+      --color-error: #B00020;
+      --color-primary: #005AF0;
     }
     @font-face {
-      font-family: 'Another Font That Does Not exist';
+      font-family: 'UnavailableFont';
       font-style: normal;
       font-weight: 400;
-      src: url(fonts/FontDoesNotExist.ttf) format('truetype');
+      src: url(fonts/UnavailableFont.ttf) format('truetype');
     }
     @font-face {
       font-family: 'Comic AMP';
@@ -40,84 +38,88 @@
       font-weight: 400;
       src: local('Comic AMP'), url(/fonts/ComicAMP.ttf) format('truetype');
     }
+    @font-face {
+      font-family: 'Comic AMP 2';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Comic AMP'), url(/fonts/ComicAMP2.ttf) format('truetype');
+    }
 
     .unavailable-font-loaded .unavailable-font {
-      font-family: 'Font Does Not exist', serif, sans-serif;
+      font-family: 'UnavailableFont';
     }
     .comicamp-loaded .comicamp {
-      font-family: 'Comic AMP', serif, sans-serif;
+      font-family: 'Comic AMP';
     }
-    .another-unavailable-font-loaded .another-unavailable-font {
-      font-family: 'Another Font That Does Not exist', serif, sans-serif;
+    .comicamp2-loaded .comicamp2 {
+      font-family: 'Comic AMP 2';
     }
-    .unavailable-font-loading, .comicamp-loading, .another-unavailable-font-loading {
-      color: blue;
-    }
-    .unavailable-font-loading .unavailable-font,
     .comicamp-loading .comicamp,
-    .another-unavailable-font-loading .another-unavailable-font {
-      color: aqua;
+    .comicamp2-loading .comicamp2,
+    .unavailable-font-loading .unavailable-font {
+      color: var(--color-primary);
     }
-    .unavailable-font-missing .unavailable-font,
     .comicamp-missing .comicamp,
-    .another-unavailable-font-missing .another-unavailable-font  {
-      color: red;
+    .comicamp2-missing .comicamp2,
+    .unavailable-font-missing .unavailable-font {
+      color: var(--color-error);
     }
     </style>
 </head>
 <body>
-  <!-- ## Sample for a non existing font -->
+  <!-- ## Existing font -->
   <!--
-    Embed amp-font inside the body or the head of the document.
-    Use the attribute `timeout` to specify the time in milliseconds to wait until the font becomes available. This attribute is optional and it's default value is 3000.
-    Use `on-error-remove-class`, `on-error-add-class`, `on-load-remove-class`, `on-load-add-class` to specify the CSS classes to be used if the font loads correctly or not. For a detailed description, please refer to the [documentation](https://www.ampproject.org/docs/reference/extended/amp-font.html)
+    The [`amp-font`](https://www.ampproject.org/docs/reference/extended/amp-font.html) components needs to be embedded inside the body or the head. Use the attribute `timeout` to specify the time in milliseconds to wait until the font becomes available. This attribute is optional and it's default value is 3000. Use `on-error-remove-class`, `on-error-add-class`, `on-load-remove-class`, `on-load-add-class` to specify the CSS classes to be used if the font loads correctly or not. This sample demonstrates that `amp-font` will add the class `comicamp-loaded` to the root element if the font is downloaded.
   -->
-  <amp-font
-    layout="nodisplay"
-    font-family="Font Does Not exist"
-    timeout="2000"
-    on-error-remove-class="unavailable-font-loading"
-    on-error-add-class="unavailable-font-missing"
-    on-load-remove-class="unavailable-font-loading"
-    on-load-add-class="unavailable-font-loaded">
-  </amp-font>
+  <div>
+    <amp-font
+      layout="nodisplay"
+      font-family="Comic AMP"
+      timeout="2000"
+      on-error-remove-class="comicamp-loading"
+      on-error-add-class="comicamp-missing"
+      on-load-remove-class="comicamp-loading"
+      on-load-add-class="comicamp-loaded">
+    </amp-font>
+    <p class="comicamp">
+      This text is displayed in red if the font `Comic AMP` is not available.
+    </p>
+  </div>
 
-  <!-- Here we declare... -->
-  <amp-font
-    layout="nodisplay"
-    font-family="Comic AMP"
-    timeout="2000"
-    on-error-remove-class="comicamp-loading"
-    on-error-add-class="comicamp-missing"
-    on-load-remove-class="comicamp-loading"
-    on-load-add-class="comicamp-loaded">
-  </amp-font>
-  <!-- ... and use an existing font. -->
-  <p class="comicamp">
-  This text is displayed in red if the chosen font is not supported.
-  </p>
-  <!--
-    This time the font is not available.
-  -->
-  <p class="unavailable-font">
-  This text is displayed in red if the chosen font is not supported.
-  </p>
+  <!-- ## Unavailable font  -->
+  <!-- `amp-font` will add a class `unvailable-font-missing` to the root element in this sample. --->
+  <div>
+    <amp-font layout="nodisplay"
+      font-family="UnavailableFont"
+      timeout="2000"
+      on-error-remove-class="unavailable-font-loading"
+      on-error-add-class="unavailable-font-missing"
+      on-load-remove-class="unavailable-font-loading"
+      on-load-add-class="unavailable-font-loaded">
+    </amp-font>
+    <p class="unavailable-font">
+      This text is displayed in red if the font `UnavailableFont` is not available.
+    </p>
+  </div>
+
   <!-- ## Using only cached fonts -->
   <!--
     Set `timeout="0"` to load the font only if already in cache.
   -->
-  <amp-font
-    layout="nodisplay"
-    font-family="Another Font That Does Not exist"
-    timeout="0"
-    on-error-remove-class="another-unavailable-font-loading"
-    on-error-add-class="another-unavailable-font-missing"
-    on-load-remove-class="another-unavailable-font-loading"
-    on-load-add-class="another-unavailable-font-loaded">
-  </amp-font>
-  <p class="another-unavailable-font">
-  This text is displayed in red if the chosen font is not cached.
-  </p>
+  <div>
+    <amp-font
+      layout="nodisplay"
+      font-family="Comic AMP 2"
+      timeout="0"
+      on-error-remove-class="comicamp2-loading"
+      on-error-add-class="comicamp2-missing"
+      on-load-remove-class="comicamp2-loading"
+      on-load-add-class="comicamp2-loaded">
+    </amp-font>
+    <p class="comicamp2">
+      This text is displayed in red if the font `Comic AMP 2` is not cached.
+    </p>
+  </div>
 
 </body>
 </html>
