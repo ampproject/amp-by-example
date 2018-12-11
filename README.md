@@ -210,9 +210,9 @@ This will make the `<input>` element clickable, with the additional explanation 
 You can mark samples as drafts if they are still work-in-progress. This means the samples won't show up in the start page.
 
 ```yaml
-<!---{
+<!---
 draft: true
-}--->
+--->
 ```
 
 #### Experimental Features
@@ -220,11 +220,11 @@ draft: true
 If your sample is using one or more experimental features, you can add a metadata section (`<!--- ... --->`) with the variable `experiments` to specify which experiments to enable. This will skip its validation and add an experimental note with instructions to your sample:
 
 ```yaml
-<!---{
+<!---
 experiments:
   - amp-experiment-name
   - amp-another-experiment
-}--->
+--->
 ```
 
 #### Preview Mode
@@ -232,26 +232,17 @@ experiments:
 Visually rich examples can provide a preview mode like [this](https://ampbyexample.com/samples_templates/news_article/preview/). Enable via metadata in the sample:
 
 ```yaml
-<!---{
+<!---
 preview: default
-}--->
-```
-
-It is possible to make the preview mode the default version via:
-
-```yaml
-<!---{
-preview": default,
-default": preview
-}--->
+--->
 ```
 
 There is a special preview mode for AMP Ad samples:
 
 ```yaml
-<!---{
+<!---
 preview: a4a
-}--->
+--->
 ```
 
 #### Single Column Layout
@@ -259,10 +250,10 @@ preview: a4a
 If your sample looks better with a single column layout, you can disable the code and preview columns adding the following flags to your sample file:
 
 ```yaml
-<!---{
-hideCode: true,
+<!---
+hideCode: true
 hidePreview: true
-}--->
+--->
 ```
 
 #### Disabling the Playground
@@ -270,9 +261,9 @@ hidePreview: true
 If it doesn't make sense for your sample to provide a playground link, you can disable it:
 
 ```yaml
-<!---{
+<!---
 disablePlayground: true
-}--->
+--->
 ```
 
 ## Running the backend server
