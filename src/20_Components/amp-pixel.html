@@ -1,14 +1,9 @@
-<!---
-
-skipValidation: 'true'
-
---->
 
 <!--
   ## Introduction
 
-  <a href="https://www.ampproject.org/docs/reference/components/amp-pixel">amp-pixel</a> is a lightweight mechanism for measuring pageviews.  It provides
-  functionality similar to <a href="https://www.ampproject.org/docs/reference/components/amp-analytics">amp-analytics</a>, but only includes a single event
+  [amp-pixel](https://www.ampproject.org/docs/reference/components/amp-pixel) is a lightweight mechanism for measuring pageviews.  It provides
+  functionality similar to [`amp-analytics`]{https://www.ampproject.org/docs/reference/components/amp-analytics), but only includes a single event
   (views), and offers fewer transport mechanisms and variables.  
 -->
 <!-- -->
@@ -29,12 +24,13 @@ skipValidation: 'true'
 </head>
 <body>
 
-  <!-- ## Basic Usage -->
+  <!-- ## Basic usage -->
   <!--
     The `amp-pixel` issues a simple GET request to the given URL and ignores the result.  This is a fast way to track pageviews.
   -->
   <amp-pixel src="https://ampbyexample.com/tracker/foo" layout="nodisplay"></amp-pixel>
 
+  <!-- ## Variable substitution -->
   <!--
     The variables noted in <a href="https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md">amp-var-substitutions</a> will be interpolated in the URL as a way to capture some meaningful data.
   -->
