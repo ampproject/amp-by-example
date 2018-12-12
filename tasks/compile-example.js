@@ -99,7 +99,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
       const example = ExampleFile.fromPath(file.path);
       const contents = prerenderTemplates(file.contents.toString(), config);
       latestFile.section = example.section();
-      example.document = DocumentParser.parse(contents);
+      example.document = DocumentParser.parse(contents, file.path);
       example.file = file;
       example.contents = contents;
       examples.push(example);

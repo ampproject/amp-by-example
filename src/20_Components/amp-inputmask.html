@@ -43,7 +43,7 @@ preview: default
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 </head>
 <body>
-   <!-- ## Basic Usage -->
+   <!-- ## Basic usage -->
    <!--
      The `mask` attribute specifies the characters that users are allowed to input,
      and any special characters that can be automatically added by the mask. Here,
@@ -53,7 +53,7 @@ preview: default
      `0` denotes a numeric character. `_` is a literal space character.
      See the full mask specification at [the `amp-inputmask` documentation](https://github.com/ampproject/amphtml/blob/master/extensions/amp-inputmask/README.md)
    -->
-  <form method="post" class="p2" action-xhr="/components/amp-inputmask/postal" target="_top">
+  <form class="sample-form" method="post" action-xhr="/components/amp-inputmask/postal" target="_top">
     <label>Postal code: <input name="code" mask="L0L_0L0" placeholder="A1A 1A1"></label>
     <input type="submit">
     <div submit-success>
@@ -69,7 +69,7 @@ preview: default
     will add a hidden input with only the alphanumeric characters from the
     original input. The default value is `"raw"`
    -->
-  <form method="post" class="p2" action-xhr="/components/amp-inputmask/postal" target="_top">
+  <form class="sample-form" method="post" action-xhr="/components/amp-inputmask/postal" target="_top">
     <label>Postal code: <input name="code" mask="L0L_0L0" placeholder="A1A 1A1" mask-output="alphanumeric"></label>
     <input type="submit">
     <div submit-success>

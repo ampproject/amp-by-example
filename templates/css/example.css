@@ -11,6 +11,9 @@ pre, code {
   font-size: 0.9rem;
   white-space: pre-wrap;
 }
+.www-component-desc h2 code {
+  font-size: 1.3rem;
+}
 .www-component-desc pre,
 pre {
   font-size: 14px;
