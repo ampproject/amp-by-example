@@ -1,7 +1,7 @@
 <!--
   ## Introduction
 
-  The Social Share extension provides a common interface for share buttons, styled to complement each other.
+  The [`amp-social-share`](https://www.ampproject.org/docs/reference/components/amp-social-share) component provides a common interface for share buttons, styled to complement each other.
 -->
 <!-- -->
 <!doctype html>
@@ -27,6 +27,11 @@
   <!-- Custom styling for `<amp-social-share>`. -->
 
   <style amp-custom>
+    :root {
+      --color-primary: #005AF0;
+      --color-text-light: #fff;
+    }
+    /* a custom sharing icon */
     amp-social-share.custom-style {
       background-color: #008080;
       background-image: url('https://raw.githubusercontent.com/google/material-design-icons/master/social/1x_web/ic_share_white_48dp.png');
@@ -34,16 +39,18 @@
       background-position: center;
       background-size: contain;
     }
-
+    /* blue icons with rounded corners  */
     amp-social-share.rounded {
       border-radius: 50%;
       background-size: 60%;
+      color: var(--color-text-light);
+      background-color: var(--color-primary);
     }
   </style>
 </head>
 <body>
 
-  <!-- ## Basic Usage -->
+  <!-- ## Basic usage -->
   <!--
     Embed the [`amp-social-share`](https://www.ampproject.org/docs/reference/components/amp-social-share) widget choosing a share type from the [supported types](https://www.ampproject.org/docs/reference/components/amp-social-share#types).
 
@@ -71,7 +78,6 @@
     * `data-param-url` is the URL to share, current URL by default.
     * `data-param-attribution` is where the share is attributed to.
 
-
     All `data-param-*` prefixed attributes will be turned into URL parameters and passed to the share endpoint.
   -->
   <amp-social-share type="linkedin"
@@ -82,7 +88,7 @@
     data-param-attribution="AMPhtml">
   </amp-social-share>
 
-  <!-- ## Custom Style -->
+  <!-- ## Custom style -->
   <!--
     Whenever you want to provide your own style, use CSS properties within the `<style amp-custom>` element ([Modify the presentation](https://www.ampproject.org/docs/get_started/create/presentation_layout)). This will make sure the image stays responsive and centered, and the default styling is overwritten.
 
@@ -92,31 +98,30 @@
     * `background-position` (when using `background-image`), set to `center`.
     * `background-size` (when using `background-image`), set to `contain`.
   -->
-  <amp-social-share type="linkedin"
-    class="custom-style">
+  <amp-social-share type="linkedin" class="custom-style">
   </amp-social-share>
 
-  <!-- For example, you can tweak the background size and border radius to acheive a rounded look. Reference the `.rounded` css class from the Styling section above for the effect below. -->
+  <!-- ## Round icons -->
+  <!-- For example, you can tweak the background size, color and border radius to achieve a rounded look where all icons have use the same color scheme. Reference the `.rounded` css class from the Styling section above for the effect below. -->
 
   <div>
-    <amp-social-share class="rounded" type="email" width="36" height="36"></amp-social-share>
-    <amp-social-share class="rounded" type="facebook" data-param-app_id="254325784911610" width="36" height="36"></amp-social-share>
-    <amp-social-share class="rounded" type="gplus" width="36" height="36"></amp-social-share>
-    <amp-social-share class="rounded" type="linkedin" width="36" height="36"></amp-social-share>
-    <amp-social-share class="rounded" type="pinterest" data-param-media="https://ampbyexample.com/img/amp.jpg" width="36" height="36"></amp-social-share>
-    <amp-social-share class="rounded" type="tumblr" width="36" height="36"></amp-social-share>
-    <amp-social-share class="rounded" type="twitter" width="36" height="36"></amp-social-share>
-    <amp-social-share class="rounded" type="whatsapp" width="36" height="36"></amp-social-share>
-    <amp-social-share class="rounded" type="line" width="36" height="36"></amp-social-share>
+    <amp-social-share class="rounded" type="email" width="48" height="48"></amp-social-share>
+    <amp-social-share class="rounded" type="facebook" data-param-app_id="254325784911610" width="48" height="48"></amp-social-share>
+    <amp-social-share class="rounded" type="gplus" width="48" height="48"></amp-social-share>
+    <amp-social-share class="rounded" type="linkedin" width="48" height="48"></amp-social-share>
+    <amp-social-share class="rounded" type="pinterest" data-param-media="https://ampbyexample.com/img/amp.jpg" width="48" height="48"></amp-social-share>
+    <amp-social-share class="rounded" type="tumblr" width="48" height="48"></amp-social-share>
+    <amp-social-share class="rounded" type="twitter" width="48" height="48"></amp-social-share>
+    <amp-social-share class="rounded" type="whatsapp" width="48" height="48"></amp-social-share>
+    <amp-social-share class="rounded" type="line" width="48" height="48"></amp-social-share>
   </div>
 
 
-  <!-- ## Sharing Media via Pinterest -->
+  <!-- ## Sharing media via Pinterest -->
   <!-- Use `data-param-media` to share media via Pinterest. -->
-
   <amp-social-share type="pinterest" data-param-media="https://ampbyexample.com/img/amp.jpg"></amp-social-share>
 
-  <!-- #### Native Share Dialog (Chrome on Android) -->
+  <!-- ## Native share dialog (Chrome on Android) -->
   <!--
 
   The `system` type will display a native share UI if the user is viewing the
@@ -125,10 +130,9 @@
 
   Here's what it looks like in Chrome on Android:
 
-  <amp-img class="ampstart-card" alt="Animation showing native sharing sheet
+  <amp-img class="" alt="Animation showing native sharing sheet
   appearing" src="/img/system-share.gif" width="270" height="480"></amp-img>
   -->
-
   <amp-social-share type="system"></amp-social-share>
 
   <!--
@@ -140,11 +144,12 @@
   example, here's some screenshots to illustrate the difference.
 
   Without `data-mode="replace"`:
-  <amp-img class="ampstart-card" alt="Screenshot showing multiple share icons" src="/img/system-share1.png" height="576" width="324"></amp-img>
-  -->
-  <!--
+
+  <amp-img class="" alt="Screenshot showing multiple share icons" src="/img/system-share1.png" height="576" width="324"></amp-img>
+
   With `data-mode="replace"`:
-  <amp-img class="ampstart-card" alt="Screenshot show the native share icon only" src="/img/system-share2.png" height="576" width="324"></amp-img>
+
+  <amp-img class="" alt="Screenshot show the native share icon only" src="/img/system-share2.png" height="576" width="324"></amp-img>
   -->
 
 </body>
