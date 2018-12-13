@@ -1,7 +1,7 @@
 <!--
   ## Introduction
 
-  Use `amp-user-notification` to display a dismissable notification to the user.
+  Use [`amp-user-notification`](https://www.ampproject.org/docs/reference/components/amp-user-notification) to display a dismissable notification to the user.
   Use this to implement a dialog to notify users about cookies.
 -->
 <!-- -->
@@ -18,13 +18,16 @@
   <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
   <link rel="canonical" href="<%host%>/components/amp-user-notification/">
   <!--
-    Specify any additional css, default css class will put the amp-user-notification element
+    Specify any additional CSS, default CSS class will put the `amp-user-notification` element
     in the left bottom corner.
   -->
   <style amp-custom>
+    :root {
+      --space-2: 1rem;   /* 16px */
+    }
     /* Center the notification content */
-    amp-user-notification > div {
-      padding: 1rem;
+    amp-user-notification.sample-notification {
+      padding: var(--space-2);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -35,28 +38,28 @@
 </head>
 <body>
 
-  <!-- ## Basic Usage with Local Storage -->
+  <!-- ## Basic usage with local storage -->
   <!--
     By default, when the user agrees to the cookies policy, the status is saved in the local storage.
   -->
   <amp-user-notification 
     id="my-notification"
+    class="sample-notification"
     layout="nodisplay">
-    <div>This is an amp-user-notification. It uses local storage to store the dismissed state. <button on="tap:my-notification.dismiss" class="ampstart-btn caps ml1">I accept</button>
-    </div>
+    This is an amp-user-notification. It uses local storage to store the dismissed state. 
+    <button on="tap:my-notification.dismiss">I accept</button>
   </amp-user-notification>
 
-  <!-- ## Advanced Usage with a Server Endpoint -->
+  <!-- ## Advanced usage with a server endpoint -->
   <!--
     When using a backend solution, two parameters are available: `data-show-if-href` and
     `data-dismiss-if-href`. They can be used together or separatively.
 
-    `data-show-if-href` needs to point to a server-endpoint returning
-    `{ "showNotification": true|false }`.
+    * `data-show-if-href` needs to point to a server-endpoint returning
+    `{ "showNotification": true|false }`.  
+    * The URL defined by `data-dismiss-href` will be called when the notification is dismissed.
 
-    The URL defined by `data-dismiss-href` will be called when the notification is dismissed.
-
-    You can find a sample implementation [here](https://github.com/ampproject/amp-publisher-sample/blob/master/amp-paywall-demo/controllers/amp-user-notification/api.js).
+    You can find a sample backend implementation [here](https://github.com/ampproject/samples/blob/master/amp-paywall-demo/controllers/amp-user-notification/api.js).
 
     If the notification has already been dismissed and the related item has been added to
     the localstorage, the notification will not appear even if you have configured
@@ -64,13 +67,12 @@
   -->
   <amp-user-notification 
       id="my-notification-with-server-endpoint"
+      class="sample-notification"
       layout="nodisplay" 
       data-show-if-href="https://rocky-sierra-1919.herokuapp.com/amp-user-notification/api/show?timestamp=TIMESTAMP"
       data-dismiss-href="https://rocky-sierra-1919.herokuapp.com/amp-user-notification/api/echo/post">
-    <div>
       This is an amp-user-notification. It uses a backend service to verify if the notification has to be shown.
-      <button on="tap:my-notification.dismiss" class="ampstart-btn caps ml1">I accept</button>
-    </div>
+      <button on="tap:my-notification.dismiss">I accept</button>
   </amp-user-notification>
 </body>
 </html>
