@@ -1,7 +1,6 @@
 <!---
 
 preview: default
-draft: false
 
 --->
 
@@ -46,6 +45,7 @@ The remaining rules set the style and layout of the form fields.
   /* --------------------------------
      Necessary styles for the example
      -------------------------------- */
+
   /*
    * Prevent the autosuggest box from
    * flowing outside its parent
@@ -81,6 +81,7 @@ The remaining rules set the style and layout of the form fields.
   /* ---------------------------------
      Additional non-autosuggest styles
      --------------------------------- */
+
   .wrapper {
     padding: 0 15px;
   }
@@ -183,40 +184,19 @@ The remaining rules set the style and layout of the form fields.
   -->
   <div
     class="wrapper"
-    on="tap:AMP.setState({showDropdown:false})"
+    on="tap:AMP.setState({ showDropdown:false })"
     role="button"
     tabindex="0"
-    aria-label="Tap to close the autosuggest box"
-  >
+    aria-label="Tap to close the autosuggest box">
     <form
       method="post"
       action-xhr="<%host%>/advanced/autosuggest/address"
       target="_blank"
       id="search-form"
-      on="
-        submit: autosuggest-list.hide;
-        submit-success: autosuggest-list.hide;
-        submit-error: autosuggest-list.hide"
-    >
-      <div class="form-grid">
-        <div class="form-item first-name">
-          <label>First name</label>
-          <input />
-        </div>
-        <div class="form-item last-name">
-          <label>Last name</label>
-          <input />
-        </div>
-        <div class="form-item address-line-1">
-          <label>Address line 1</label>
-          <input />
-        </div>
-        <div class="form-item address-line-2">
-          <label>Address line 2</label>
-          <input />
-        </div>
-        <div class="form-item city-state">
-          <label>City</label>
+      on="submit: autosuggest-list.hide;
+          submit-success: autosuggest-list.hide;
+          submit-error: autosuggest-list.hide">
+          <label>City
           <input
             name="city"
             type="text"
@@ -238,7 +218,7 @@ The remaining rules set the style and layout of the form fields.
             required
             autocomplete="off"
           />
-        </div>
+          </label>
         <div class="suggest">
           <div
             class="autosuggest-container hidden"
@@ -254,8 +234,7 @@ The remaining rules set the style and layout of the form fields.
               [src]="query ?
                 autosuggest.endpoint + query :
                 autosuggest.emptyAndInitialTemplateJson"
-              id="autosuggest-list"
-            >
+              id="autosuggest-list">
               <template type="amp-mustache">
                 <amp-selector
                   id="autosuggest-selector"
@@ -288,13 +267,7 @@ The remaining rules set the style and layout of the form fields.
             </amp-list>
           </div>
         </div>
-        <div class="form-item zip-code">
-          <label>Zip code</label>
-          <input />
-        </div>
-        <div class="form-item submit">
-          <button class="search-submit" type="submit">Submit</button>
-        </div>
+        <button class="search-submit" type="submit">Submit</button>
       </div>
       <div submit-success>
         <template type="amp-mustache">
