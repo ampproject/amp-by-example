@@ -1,7 +1,7 @@
 <!--
   ## Introduction
 
-  Embed videos into your AMP HTML files. Video source files should be served via HTTPS.
+  Use [`amp-video`](https://www.ampproject.org/docs/reference/components/amp-video) to embed videos into your AMP HTML files. Video source files must be served via HTTPS.
 -->
 <!-- -->
 <!doctype html>
@@ -21,7 +21,7 @@
 </head>
 <body>
 
-  <!-- ## Basic Usage -->
+  <!-- ## Basic usage -->
   <!--
     A simple video with controller.
     `amp-video` supports the following formats: mp4, webm, ogg together with all the formats
@@ -50,18 +50,19 @@
     (e.g., mutes/unmutes, pauses/resumes, etc.), and the video is scrolled in
     or out of view, the state of the video remains as how the user left it.
   -->
-  <amp-video width="480" height="270" src="/video/tokyo.mp4"
-             poster="/img/tokyo.jpg"
+  <amp-video width="720" 
+             height="405" 
+             src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+             poster="https://peach.blender.org/wp-content/uploads/bbb-splash.png"
              layout="responsive"
              controls
              autoplay>
     <div fallback>
       <p>Your browser doesn't support HTML5 video.</p>
     </div>
-    <source type="video/webm" src="/video/tokyo.webm">
   </amp-video>
 
-  <!-- ## HLS Support -->
+  <!-- ## HLS support -->
   <!--
     AMP supports adaptive bitrate video via
     [HLS](https://en.wikipedia.org/wiki/HTTP_Live_Streaming) provided it is
@@ -86,7 +87,7 @@
     <source type="video/mp4" src="/video/tokyo-no-hls.mp4">
   </amp-video>
 
-  <!-- ## Customize Media Notifications -->
+  <!-- ## Custom media notifications -->
   <!--
     <center>
       <amp-img src="https://i.imgur.com/QBSHYgs.jpg" width="200" height="356" class="my1"></amp-img>
@@ -121,18 +122,18 @@
     See a [more advanced example](/advanced/video_rotate_to_fullscreen_with_hint/) for displaying a user hint signaling that the device
     can be rotated to enter fullscreen.
   -->
-    <amp-video width="480" height="270" src="/video/tokyo.mp4"
-               poster="/img/tokyo.jpg"
-               layout="responsive"
-               controls
-               rotate-to-fullscreen>
-      <div class="video-hint-container" id="video-hint">
-        <div class="video-hint">Rotate for fullscreen</div>
-      </div>
-      <div fallback>
-        <p>Your browser doesn't support HTML5 video.</p>
-      </div>
-      <source type="video/webm" src="/video/tokyo.webm">
-    </amp-video>
+  <amp-video width="720" height="405" 
+                         src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                         poster="https://peach.blender.org/wp-content/uploads/bbb-splash.png"
+                         layout="responsive"
+                         controls
+                         rotate-to-fullscreen>
+    <div class="video-hint-container" id="video-hint">
+      <div class="video-hint">Rotate for fullscreen</div>
+    </div>
+    <div fallback>
+      <p>Your browser doesn't support HTML5 video.</p>
+    </div>
+  </amp-video>
 </body>
 </html>

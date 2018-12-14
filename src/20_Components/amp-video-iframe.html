@@ -1,11 +1,13 @@
 <!---
 
+preview: default
 experiments:
   - amp-video-iframe
 
 --->
 <!--
 ## Introduction
+
 With [`amp-video-iframe`](https://www.ampproject.org/docs/reference/components/amp-video-iframe)
 you can include a custom-built video player that will obtain all the features available
 in the [AMP Video Interface](https://github.com/ampproject/amphtml/blob/master/spec/amp-video-interface.md)
@@ -25,14 +27,15 @@ You can see the sample in action [here](preview).
   <link rel="canonical" href="/components/amp-video-iframe/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <!-- ## Setup -->
-  <!-- Include the amp-video-iframe extension script. -->
+  <!-- Include the `amp-video-iframe` extension script. -->
   <script async custom-element="amp-video-iframe" src="https://cdn.ampproject.org/v0/amp-video-iframe-0.1.js"></script>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
 </head>
 <body>
   <!--
-  ## Basic Usage
+  ## Basic usage
+
   Set the `autoplay` attribute to start automatically as the user scrolls the
   video into view. The `src` attribute will point to a document including a video player. This
   URL must be relative or have HTTPS defined. You can read the source for the document referenced
@@ -45,13 +48,13 @@ You can see the sample in action [here](preview).
       height="405"
       layout="responsive"
       autoplay>
-    <div placeholder>
-      This is a placeholder
-    </div>
+    <amp-img placeholder src="/img/amp-video-iframe-sample-placeholder.png" layout="fill">
+    </amp-img>
   </amp-video-iframe>
 
   <!--
   ## Video iframe integration
+
   Inside the document in your frame, you must include a library and a simple
   integration callback in order for the host to comunicate with your frame.
   Include the `amp-video-iframe` frame integration library in your `<head>`

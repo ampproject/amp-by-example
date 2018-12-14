@@ -1,7 +1,7 @@
 <!--
   ## Introduction
 
-  Embed YouTube videos into your AMP HTML files.
+  Use [`amp-youtube`](https://www.ampproject.org/docs/reference/components/amp-youtube) to embed YouTube videos into your AMP HTML files.
 -->
 <!-- -->
 <!doctype html>
@@ -19,11 +19,12 @@
 </head>
 <body>
 
-  <!-- ## Basic Usage -->
+  <!-- ## Basic usage -->
   <!-- Embed YouTube videos via the video id. The id is found in every Youtube video page URL. -->
-  <amp-youtube width="480" height="270"
-                           layout="responsive"
-                           data-videoid="lBTCB7yLs8Y">
+  <amp-youtube width="480" 
+               height="270"
+               layout="responsive"
+               data-videoid="lBTCB7yLs8Y">
   </amp-youtube>
 
   <!-- ## Autoplay -->
@@ -38,10 +39,23 @@
     (e.g., mutes/unmutes, pauses/resumes, etc.), and the video is scrolled in
     or out of view, the state of the video remains as how the user left it.
   -->
-  <amp-youtube width="480" height="270"
-                           layout="responsive"
-                           data-videoid="lBTCB7yLs8Y"
-                           autoplay>
+  <amp-youtube width="480" 
+               height="270"
+               layout="responsive"
+               data-videoid="lBTCB7yLs8Y"
+               autoplay>
+  </amp-youtube>
+
+  <!-- ## Custom parameters -->
+  <!--
+    All `data-param-*` attributes will be added as query parameter to the YouTube iframe src. This may be used to pass custom values through to YouTube plugins, such as whether to show controls, for example to configure the `rel` or `modestbranding` option.
+  -->
+  <amp-youtube width="480" 
+               height="270"
+               layout="responsive"
+               data-param-modestbranding="1"
+               data-param-rel="1"
+               data-videoid="lBTCB7yLs8Y">
   </amp-youtube>
 
 </body>
