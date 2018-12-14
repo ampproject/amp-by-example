@@ -338,6 +338,9 @@ gulp.task('validate:example', () => {
 });
 
 function shouldMinifyHtml(file) {
+  if (config.env !== PROD) {
+    return false;
+  }
   if (!file.path.endsWith('.html')) {
     return false;
   }
@@ -614,3 +617,4 @@ function run(command) {
 function isFixed(file) {
   return file.eslint.fixed;
 }
+
