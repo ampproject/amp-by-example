@@ -42,10 +42,14 @@
              href="/playground/#url={{host}}{{section}}{{urlSource}}">Open in Playground</a>
           {{/metadata.disablePlayground}}
           {{#urlPreview}}
+          {{#document.isAmpStory}}
           <a class="ampstart-btn ampstart-btn-secondary caps mb1 mx2 text-decoration-none inline-block"
-             href="{{section}}{{urlPreview}}">View
-             {{#document.isAmpStory}}Story{{/document.isAmpStory}}
-             {{^document.isAmpStory}}Demo{{/document.isAmpStory}}</a>
+             href="{{section}}{{urlSource}}">View Story</a>
+          {{/document.isAmpStory}}
+          {{^document.isAmpStory}}
+          <a class="ampstart-btn ampstart-btn-secondary caps mb1 mx2 text-decoration-none inline-block"
+             href="{{section}}{{urlPreview}}">View Demo</a>
+          {{/document.isAmpStory}}</a>
           {{/urlPreview}}
       </div>
     </header>
