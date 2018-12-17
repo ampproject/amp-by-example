@@ -269,32 +269,29 @@ The remaining rules set the style and layout of the form fields.
               id="autosuggest-list"
             >
               <template type="amp-mustache">
-                <amp-selector
-                  id="autosuggest-selector"
-                  keyboard-select-mode="focus"
-                  layout="container"
-                  on="
-                    select:
-                      AMP.setState({
-                        query: event.targetOption,
-                        showDropdown: false
-                      }),
-                      autosuggest-list.hide"
-                >
-                  {{#results}}
-                    <div
-                      class="select-option no-outline"
-                      role="option"
-                      tabindex="0"
-                      on="tap:autosuggest-list.hide"
-                      option="{{.}}"
-                    >{{.}}</div>
-                  {{/results}}
-                  {{^results}}
-                    <div class="select-option {{#query}}empty{{/query}}">
-                      {{#query}}Sorry! We don't ship to your city 😰{{/query}}
-                    </div>
-                  {{/results}}
+                <amp-selector id="autosuggest-selector"
+                              layout="container"
+                              on="select:
+                                    AMP.setState({
+                                      query: event.targetOption,
+                                      showDropdown: false
+                                    }),
+                                  autosuggest-list.hide"
+                              keyboard-select-mode="focus">
+                              {{#results}}
+                                <div
+                                  class="select-option no-outline"
+                                  role="option"
+                                  tabindex="0"
+                                  on="tap:autosuggest-list.hide"
+                                  option="{{.}}"
+                                >{{.}}</div>
+                              {{/results}}
+                              {{^results}}
+                                <div class="select-option {{#query}}empty{{/query}}">
+                                  {{#query}}Sorry! We don't ship to your city 😰{{/query}}
+                                </div>
+                              {{/results}}
                 </amp-selector>
               </template>
             </amp-list>
