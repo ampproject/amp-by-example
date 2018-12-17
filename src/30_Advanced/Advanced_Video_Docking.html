@@ -31,6 +31,8 @@ preview: default
   <!-- ## Setup -->
   <!-- Include the [`amp-video`](https://www.ampproject.org/docs/reference/components/amp-video) extension. -->
   <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
+  <!-- Include the [`amp-video-docking`](https://www.ampproject.org/docs/reference/components/amp-video-docking) extension. -->
+  <script async custom-element="amp-video-docking" src="https://cdn.ampproject.org/v0/amp-video-docking-0.1.js"></script>
   <!-- Include the [`amp-animation`](https://www.ampproject.org/docs/reference/components/amp-animation)
   extension to animate the `<aside>` element on `dock` and `undock`.  -->
   <script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
@@ -210,15 +212,9 @@ preview: default
     <div class="content">
       <!-- ## Include your video -->
       <!-- In your [`<amp-video>`](https://www.ampproject.org/docs/reference/components/amp-video)
-      tag, you should include two attributes:
-
-       - `dock`. This attribute specifies that the video should be minimized to
+      tag, you should include the `dock` attribute to specify that the video should be minimized to
       corner on scroll. By setting a value on the attribute, we're specifying
-      which docking slot we're using via a CSS selector.
-
-      - `on` to specify the actions that get executed on docking events. In this
-      case, we'll start the `slideDown` animation on `dock` and the `slideUp`
-      animation on `undock`. -->
+      which docking slot we're using via a CSS selector.-->
       <amp-video
         src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
         poster="https://peach.blender.org/wp-content/uploads/bbb-splash.png"
@@ -229,8 +225,8 @@ preview: default
         width="720"
         height="405"
         layout="responsive"
-        controls dock="#dock-slot"
-        on="dock: slideDown.start; undock: slideUp.start">
+        controls
+        dock="#dock-slot">
       </amp-video>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam facilisis odio vitae sem ornare laoreet. Mauris
         sodales convallis eros, non imperdiet mauris ullamcorper eget. Aenean tempus augue eu nisl consectetur
@@ -268,8 +264,21 @@ preview: default
       <!-- ## Include the docking slot. -->
       <!-- Set width and height to `16:9`. Since its layout is
       `responsive`, the slot will expand to fill the aside's width while
-      preserving aspect ratio. -->
-      <amp-layout layout="responsive" width="16" height="9" id="dock-slot">
+      preserving aspect ratio.
+
+      You should also set the `on` attribute to specify the actions that get executed on docking events.
+      In this case, we'll start the `slideDown` animation on `dock` and the `slideUp`
+      animation on `undock`.
+
+      Note that we're seeting the action on the slot element. If we were to set
+      it in the video itself, it would be triggered for `minimize-to-corner` rather
+      than `minimize-to-slot`. -->
+      <amp-layout
+          layout="responsive"
+          width="16"
+          height="9"
+          on="dock: slideDown.start; undock: slideUp.start"
+          id="dock-slot">
       </amp-layout>
       <!-- ## Define the content under the slot -->
       <!-- This container is negatively offset on the vertical axis to cover
