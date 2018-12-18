@@ -187,6 +187,24 @@ You can use [markdown](https://help.github.com/articles/github-flavored-markdown
 <amp-img src="img/image1.jpg" width="200" height="100" layout="responsive"></amp-img>
 ```
 
+#### Notes, Warnings & Tips
+
+There's a special markup available for callouts:
+
+```
+[tip type="default|important|note|read-on"]
+Tip!
+[/tip]
+```
+
+For example:
+
+```
+[tip type="important"]
+Warning! This might go wrong.
+[/tip]
+```
+
 #### Hints
 
 If you'd like to add additional information about a single element inside a section, use the `<!--~ hint syntax ~-->`:
