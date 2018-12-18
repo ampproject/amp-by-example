@@ -157,7 +157,7 @@ take a look at [this sample](/advanced/autosuggest_form/).
           will be written to the `city` variable: `city: event.targetOption`. The `filteredCities` will be cleared, which also results in the suggestion box being hidden.
 
           The Suggestion box will appear below the input field once the user enters text into the input field. It uses an `amp-list` to dynamically render the filtered suggestions: `[src]="filteredCities"`.
-          The list is initially hidden (`height="0"`) and will only be shown when `filteredCities` is not empty (`[height]="filteredCities.length * 34"`) - `34` is the  height in pixels of a single 
+          The list is initially hidden (`height="0"`) and will only be shown when `filteredCities` is not empty (`[height]="filteredCities.length * 34"`), where `34` is the height in pixels of a single 
           suggestion.
         -->
         <amp-selector on="select:AMP.setState({

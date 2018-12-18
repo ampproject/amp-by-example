@@ -8,7 +8,7 @@ preview: default
   ## Introduction
 
   This sample demonstrastes a classic dropdown combo, with a text field which filters the dropdown elements
-  according to the user's input. The options are rendered via amp-list.
+  according to the user's input. The options are rendered via `amp-list`. 
 -->
 <!doctype html>
 <html ⚡>
@@ -20,162 +20,229 @@ preview: default
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <!-- ## Setup -->
-  <!--The amp-selector component is used for the user to select amongst the dropdown list options.-->
+  <!--The `amp-selector` component is used for the user to select amongst the dropdown list options.-->
   <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
-  <!--The amp-bind component is used for the filtering of the dropdown options according to the user's input.-->
+  <!--The `amp-bind` component is used for the filtering of the dropdown options according to the user's input.-->
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-  <!-- The amp-list component is used to generate the dropdown list options.-->
+  <!-- The `amp-list` component is used to generate the dropdown list options.-->
   <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
-  <!-- The amp-mustache is used to generate the dropdown list options' template.-->
+  <!-- The `amp-mustache` is used to generate the dropdown list options' template.-->
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
-  <style amp-custom>
-        .hidden, .hidden.select-option {
-            display: none;
+      <style amp-custom>
+        /* --------------------------------
+           Necessary styles for the example
+           -------------------------------- */
+        :root {
+          --color-bg-light: #FAFAFC;
+          --combo-box-width: 300px;
+          --combo-box-height: 36px;
+          --space-1: .5rem;  
+          --space-2: 1rem; 
+          --space-3: 1.5rem;  
+          --box-shadow-1: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+        }
+        .combobox {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+        }
+        .combobox > input, .combobox > button {
+          margin: 0:
+          line-height: var(--combo-box-height);
+          height: var(--combo-box-height);
+        }
+        .combobox > input {
+          width: var(--combo-box-width);
+        }
+        /* position the suggestions below the input field */
+        .combobox amp-selector {
+          width: 100%;
+        }
+        /* we need to target the amp-list by ID to be able to change the position to absolute */
+        .combobox #suggestions {
+          position: absolute;
+          width: calc( var(--combo-box-width) + var(--combo-box-height) );
+          height: var(--space-3);
+          overflow-x: hidden;
+          z-index: 100;
+          box-shadow: var(--box-shadow-1);
+          background-color: var(--color-bg-light);
+        }
+        .combobox #suggestions [option] {
+          padding: var(--space-1);
+        }
+        .combo-trigger {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: var(--combo-box-height);
+          height: var(--combo-box-height);
+        }
+        .combo-trigger > i {
+          display: inline-block;
+          width: var(--space-3);
+          height: var(--space-3);
+        }
+        .arrow-down {
+          background-image: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik03LjQxIDcuODRMMTIgMTIuNDJsNC41OS00LjU4TDE4IDkuMjVsLTYgNi02LTZ6Ii8+CiAgICA8cGF0aCBkPSJNMC0uNzVoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPC9zdmc+");
+        }
+        .arrow-up {
+          background-image: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik03LjQxIDE1LjQxTDEyIDEwLjgzbDQuNTkgNC41OEwxOCAxNGwtNi02LTYgNnoiLz4KICAgIDxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPC9zdmc+");
         }
 
-        .product-search{
-            width: 100%;
-            max-width: 350px;
-            position: relative;
+        /* ---------------------------------
+           Additional non-autosuggest styles
+           --------------------------------- */
+        .preview-container {
+          min-width: 320px;
+          padding: var(--space-2);
         }
-
-        .search-container {
-            display: flex;
-            flex-flow: row nowrap;
-            position: relative;
-            margin-top: 20px;
+        .combobox-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
-
-        .search-submit {
-            display: flex;
-            align-items: center;
+        .combobox-container label {
+          margin-right: var(--space-1);
         }
-	    .search-submit i {
-			width: 24px;
-         	height: 24px;
-    	}
-
-        .autosuggest-box {
-            box-shadow: 0px 2px 6px rgba(0,0,0,.3);
-            overflow-y: scroll;
-            position: absolute;
-            width: 100%;
-            background-color: #fafafa;
-        }
-
-        .autosuggest-box > [role=list]{
-            overflow-y: scroll;
-        }
-
-        input.search-box {
-            padding: 5px 8px;
-            font-size: 1em;
-            background-color: #fff;
-            border: 1px solid #d4d4d4;
-            line-height: 1.53333em;
-            height: 2em;
-            padding-right: 50px;
-            width: 100%;
-        }
-
-        .select-option {
-            display: block;
-            box-sizing: border-box;
-            height: 30px;
-            line-height: 30px;
-            padding-left: 10px;
-            font-size: 15px;
-        }
-
-        amp-selector .select-option.no-outline.no-outline[option] {
-            outline: none;
-        }
-        .select-option:focus {
-            box-shadow: inset rgb(94, 158, 215) 0px 0px 45px;
-        }
-
-        .select-option:focus {
-            background: #fff;
-        }
-
-        .lvl3 {
-            padding-left: 10px;
-            color: #777
-        }
-
-        .lvl2 {
-            padding-left: 5px;
-            font-weight: bold;
-            color: #777
-        }
-
-        .lvl1 {
-            padding-left: 0px;
-            color: #aaa;
-            font-weight: bold;
-        }
-
-        .select-option-wrap {
-            padding: 0 20px;
-        }
-
-        .dropdown-wrap {
-            padding-top: 2em;
-            padding-left: 1em;
-        }
-		.arrow-down {
- 		 	background-image: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik03LjQxIDcuODRMMTIgMTIuNDJsNC41OS00LjU4TDE4IDkuMjVsLTYgNi02LTZ6Ii8+CiAgICA8cGF0aCBkPSJNMC0uNzVoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPC9zdmc+");
-		}
-  		.arrow-up {
-  			background-image: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik03LjQxIDE1LjQxTDEyIDEwLjgzbDQuNTkgNC41OEwxOCAxNGwtNi02LTYgNnoiLz4KICAgIDxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4KPC9zdmc+");
-		}
     </style>
 </head>
 <body>
+  <div class="preview-container"> 
 
-  <!-- ## Basic Usage -->
-  <!--
-  This example includes two inputs. One is the input in which the user writes the text and the other is a hidden input,
-  where the id value of the selected option is stored and could be submitted in a form.
+      <!-- 
+        ## Data source
 
-  The option attribute of the amp-selector's options, contain the id of the element, as well as its title, seperated by a comma.
-  This is done so that both values can be accessed using the 'event.targetOption' property.
-  -->
-  <div class="dropdown-wrap">
-    <label for="products-dropdown">Select your favorite food or beverage. Start typing to filter the results.</label>
-    <div class="product-search select-wrap full-width">
-      <div class="search-container">
-        <input name="products-dropdown" type="hidden" [value]="foodId">
-        <input id="query" name="query" autocomplete="off" placeholder="Select a product" type="text" class="search-box" on="input-debounced:AMP.setState({ query: event.value, inputText: event.value, autosuggest: event.value, comboExpanded: true}), autosuggest-list.show"
-          [value]="inputText || ''" value="">
+        First we need to add a data source. Here we're using an inline `amp-state` declaration defining a list of `cities` in the US. 
+        For long lists of suggestions, it's possible to fetch `amp-state` from a remote JSON endpoint using the `src` attribute.
+      -->
+      <amp-state id="cities">
+        <script type="application/json">[
+          "Albany, New York",
+          "Annapolis, Maryland",
+          "Atlanta, Georgia",
+          "Augusta, Maine",
+          "Austin, Texas",
+          "Baton Rouge, Louisiana",
+          "Bismarck, North Dakota",
+          "Boise, Idaho",
+          "Boston, Massachusetts",
+          "Carson City, Nevada",
+          "Charleston, West Virginia",
+          "Cheyenne, Wyoming",
+          "Columbia, South Carolina",
+          "Columbus, Ohio",
+          "Concord, New Hampshire",
+          "Denver, Colorado",
+          "Des Moines, Iowa",
+          "Dover, Delaware",
+          "Frankfort, Kentucky",
+          "Harrisburg, Pennsylvania",
+          "Hartford, Connecticut",
+          "Helena, Montana",
+          "Honolulu, Hawaii",
+          "Indianapolis, Indiana",
+          "Jackson, Mississippi",
+          "Jefferson City, Missouri",
+          "Juneau, Alaska",
+          "Lansing, Michigan",
+          "Lincoln, Nebraska",
+          "Little Rock, Arkansas",
+          "Madison, Wisconsin",
+          "Montgomery, Alabama",
+          "Montpelier, Vermont",
+          "Nashville, Tennessee",
+          "Oklahoma City, Oklahoma",
+          "Olympia, Washington",
+          "Phoenix, Arizona",
+          "Pierre, South Dakota",
+          "Providence, Rhode Island",
+          "Raleigh, North Carolina",
+          "Richmond, Virginia",
+          "Sacramento, California",
+          "Saint Paul, Minnesota",
+          "Salem, Oregon",
+          "Salt Lake City, Utah",
+          "Santa Fe, New Mexico",
+          "Springfield, Illinois",
+          "Tallahassee, Florida",
+          "Topeka, Kansas",
+          "Trenton, New Jersey"
+    ]</script></amp-state>
 
-        <button on="tap:autosuggest-list.toggleVisibility, AMP.setState({ comboExpanded: !comboExpanded })" class="search-submit" type="button">
-          <i [class]="comboExpanded ? 'arrow-up' : 'arrow-down'" class="arrow-down"></i>
+        <!-- 
+          ## Filtering 
+
+          We define a helper function to filter the cities based on a given text input as an `amp-bind-macro`.
+        -->
+        <amp-bind-macro id="filterCities" 
+                        arguments="query" 
+                        expression="cities.filter( city => city.toLowerCase().indexOf(query.toLowerCase()) >= 0 )">
+        </amp-bind-macro>
+
+        <div class="combobox-container">
+        <label for="input-city">
+          Enter city:
+        </label>
+        <div class="combobox">
+        <!--
+          ## The text input 
+
+          The implementation of the combobox is based on the [Autosuggest Sample](/advanced/autosuggest/). It takes an input field with auto suggestion and adds an additional button to expand and collapse the suggestions.  We listen to the [`input-debounced`](https://www.ampproject.org/docs/interaction_dynamic/amp-actions-and-events#input-elements) event
+          for text input. Based on the input, we filter the list of cities and write the result to a new `amp-state` variable `filteredCities`. We also bind the input value
+          to a variable called `city`, which we'll use to set the value when the user clicks on a suggestion.
+        -->
+          <input id="input-city"
+               class="combo-input"
+               [value]="city"
+                on="input-debounced: AMP.setState({
+                        input: event.value,
+                        filteredCities: event.value.length > 0 ? filterCities(event.value) : []
+                     });
+                     change: AMP.setState( { state: event.value  })">
+        <!--
+          ## Combo button
+
+          The button will either show or hide the suggestions. The toggle state is tracked via the `filteredCities` variable.
+        -->
+        <button class="combo-trigger"
+                 on="tap:AMP.setState({
+                   filteredCities: filteredCities.length > 0 ? [] : filterCities(input || '')
+                 })">
+          <i class="arrow-down" [class]="filteredCities.length > 0 ? 'arrow-up' : 'arrow-down'"></i>
         </button>
-      </div>
-        <amp-list class="autosuggest-box" single-item items="." layout="fixed-height" height="350" src="/json/food-options.json" id="autosuggest-list" hidden>
-          <template type="amp-mustache">
-             <amp-selector class="dropdown-selector" keyboard-select-mode="focus" layout="container" on="select:AMP.setState({
-                                            query: '',
-                                            inputText: event.targetOption.split(',')[1],
-                                            foodId: event.targetOption.split(',')[0],
-                                            comboExpanded: false
-                                        }),
-                                        autosuggest-list.hide">
-               {{#items}}
-            <div class="select-option no-outline {{Level}}" [class]="'select-option no-outline {{Level}} ' + (query == null || '{{LowerCaseTitle}}'.indexOf(query.toLowerCase()) >= 0 || '{{ParentCategoryTitle}}'.indexOf(query.toLowerCase()) >= 0 ? '' : 'hidden')"
-              role="option" tabindex="0" on="tap:autosuggest-list.hide" option="{{Code}},{{Title}}">{{Title}}</div>
-                {{/items}}
-               </amp-selector>
-          </template>
-        </amp-list>
+        <!--
+          ## Suggestion box
+
+          We use `amp-selector` to make the suggestions selectable. When the user clicks on a suggestions, the `select` event will be fired and the selected city
+          will be written to the `city` variable: `city: event.targetOption`. The `filteredCities` will be cleared, which also results in the suggestion box being hidden.
+
+          The list is initially hidden (`height="0"`) and will only be shown when `filteredCities` is not empty (`[height]="filteredCities.length * 34"`), where `34` is the  height in pixels of a single 
+          suggestion.
+        -->
+        <amp-selector on="select:AMP.setState({
+                            city: event.targetOption,
+                            filteredCities: []
+                         })"
+                         keyboard-select-mode="focus">
+          <amp-list id="suggestions"
+                    items="."
+                    layout="fixed-height"
+                    height="0"
+                   [src]="filteredCities"
+                   [height]="filteredCities.length * 34">
+            <template type="amp-mustache">
+              <div option="{{.}}">{{.}}</div>
+            </template>
+          </amp-list>
+        </amp-selector>
+        </div>
+
 
     </div>
-  </div>
-  <p class="p1">
-    Well done!
-  </p>
-</body>
+    </div>
+  </body>
 </html>
