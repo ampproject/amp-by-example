@@ -1,7 +1,6 @@
 <!---
 
 preview: default
-default: preview
 
 --->
 
@@ -16,7 +15,8 @@ default: preview
 <html ⚡>
 <head>
   <meta charset="utf-8">
-  <link rel="canonical" href="<%host%>/../dynamic_amp/multi_page_flow">
+  <title>Multi page flows</title>
+  <link rel="canonical" href="<%host%>/dynamic_amp/multi_page_flow">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <!-- ## Setup -->
@@ -519,7 +519,7 @@ By default, the Continue button is disabled. Only when the step is completed (in
       <button class="back" [text]="email" on="tap:AMP.pushState({ slidingStepperPage: slidingStepperPage - 1 })"
             disabled [disabled]="slidingStepperPage != 1"></button>
       <div class="ampstart-input inline-block relative m0 p0 mb3 mt1">
-        <input type="text" value="" name="password" id="id2" class="block border-none p0 m0" placeholder="Enter your Password"
+        <input type="password" value="" name="password" id="id2" class="block border-none p0 m0" placeholder="Enter your Password"
                disabled [disabled]="slidingStepperPage != 1"
                on="input-debounced: AMP.setState({ password: event.value })">
         <label for="ip2" class="absolute top-0 right-0 bottom-0 left-0" aria-hidden="true">
