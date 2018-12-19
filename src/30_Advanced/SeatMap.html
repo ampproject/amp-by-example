@@ -34,9 +34,10 @@ how to dynamically select and unselect seats.
     <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
     <style amp-custom>
       :root {
-      --abe-light-pink: rgba(182, 8, 69, 0.5);
-      --abe-pink: rgb(182, 8, 69);
-      --space-3: 1.5rem; /* 24px */
+        --color-primary: #005AF0;
+        --color-secondary: #00DCC0;
+        --space-3: 1.5rem; /* 24px */
+        --space-4: 2rem;   /* 32px */
       }
       .seatmap-container {
         position: relative;
@@ -59,7 +60,7 @@ how to dynamically select and unselect seats.
         fill:white;
       }
       .seatmap-container .unavailable {
-        fill: var(--abe-light-pink);
+        fill: var(--color-secondary);
         pointer-events: none;
       }
       /* `amp-pan-zoom` has a default display: flex to center positioning the child. 
@@ -70,10 +71,10 @@ how to dynamically select and unselect seats.
       }
       .seatmap svg {
         box-sizing: border-box;
-        padding-top: 30px;
+        padding-top: var(--space-4);
       }
       .seatmap svg rect[selected].seat {
-        fill: var(--abe-pink);
+        fill: var(--color-primary);
       }
       .seatmap [option][selected] {
         outline: none;
