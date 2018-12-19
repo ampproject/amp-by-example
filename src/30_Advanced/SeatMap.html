@@ -36,6 +36,7 @@ how to dynamically select and unselect seats.
       :root {
       --abe-light-pink: rgba(182, 8, 69, 0.5);
       --abe-pink: rgb(182, 8, 69);
+      --space-3: 1.5rem; /* 24px */
       }
       .seatmap-container {
         position: relative;
@@ -83,7 +84,7 @@ how to dynamically select and unselect seats.
           margin: auto;
       }
       .seatmap  amp-selector .svg-container {
-        padding: 0 24px;
+        padding: 0 var(--space-3);
       }
     </style>
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
@@ -93,7 +94,7 @@ how to dynamically select and unselect seats.
 
   </head>
   <body>
-    <!-- ## Seatmap -->
+    <!-- ## Seatmap state -->
     <!-- Here we are using an `amp-state` called `selectedSeats` to keep a list of selected seat ids. -->
     <amp-state id="selectedSeats">
       <script type="application/json">
@@ -101,6 +102,7 @@ how to dynamically select and unselect seats.
       </script>
     </amp-state>
 
+    <!-- ## Seatmap implementation -->
     <!-- 
     We combine `amp-list`, `amp-bind`, `amp-pan-zoom` and `amp-selector` to implement a seatmap:
 
