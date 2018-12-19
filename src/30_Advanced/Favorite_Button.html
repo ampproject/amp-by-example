@@ -13,7 +13,8 @@
 <html ⚡>
   <head>
     <meta charset="utf-8">
-    <link rel="canonical" href="<%host%>/../advanced/favorite_button/">
+    <title>Like button</title>
+    <link rel="canonical" href="<%host%>/advanced/favorite_button/">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <!-- ## Setup -->
@@ -28,8 +29,16 @@
 
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <style amp-custom>
+      :root {
+        --color-primary: #005AF0;
+        --color-text-light: #fff;
+        --color-bg-light: #FAFAFC;
+
+        --space-1: .5rem;  /* 8px */
+        --space-2: 1rem;   /* 16px */
+      }
       /* some basic button styling */
-      input[type=submit] {
+      .favorite-button input[type=submit] {
         width: 48px;
         height: 48px;
         cursor: pointer;
@@ -37,57 +46,57 @@
         margin: 4px;
         transition: background 300ms ease-in-out;
       }
-      amp-list {
-        margin: 1rem;
+      .favorite-button amp-list {
+        margin: var(--space-2);
       }
 
-      .heart-fill {
+      .favorite-button .heart-fill {
         background: url('data:image/svg+xml;utf8,<svg fill="%23000000" height="48" viewBox="0 0 24 24" width="48" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
       }
-      .heart-border {
+      .favorite-button .heart-border {
         background: url('data:image/svg+xml;utf8,<svg fill="%23000000" height="48" viewBox="0 0 24 24" width="48" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg>');
       }
       /* While the page loads we show a grey heart icon to indicate that the functionality is not yet available. */
-      .heart-loading,
-      .heart-loading[placeholder] {
+      .favorite-button .heart-loading,
+      .favorite-button .heart-loading[placeholder] {
         background: url('data:image/svg+xml;utf8,<svg fill="%23cccccc" height="48" viewBox="0 0 24 24" width="48" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg>');
       }
-      .favorite-container {
+      .favorite-button .favorite-container {
         display: flex;
         align-items: center;
         justify-content: center;
       }
-      .favorite-count {
+      .favorite-button .favorite-count {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 8px;
-        margin-left: 8px;
+        padding: var(--space-1);
+        margin-left: var(--space-1);
         position: relative;
         width: 48px;
-        background: #b60845;
+        background: var(--color-primary);
         border-radius: .4em;
-        color: white;
+        color: var(--color-text-light);
       }
-      .favorite-count.loading {
+      .favorite-button .favorite-count.loading {
         color: #ccc;
-        background: #f2f2f2;
+        background: var(--color-bg-light);
       }
-      .favorite-count.loading:after {
-        border-right-color: #f2f2f2;
+      .favorite-button .favorite-count.loading:after {
+        border-right-color: var(--color-bg-light);
       }
-      .favorite-count:after {
+      .favorite-button .favorite-count:after {
         content: '';
         position: absolute;
         left: 0;
         top: 50%;
         width: 0;
         height: 0;
-        border: 8px solid transparent;
-        border-right-color: #b60845;
+        border: var(--space-1) solid transparent;
+        border-right-color: var(--color-primary);
         border-left: 0;
-        margin-top: -8px;
-        margin-left: -8px;
+        margin-top: calc(-1 * var(--space-1));
+        margin-left: calc(-1 * var(--space-1));
       }
       /* A simple snackbar to show an error */
       #favorite-failed-message {
@@ -115,7 +124,7 @@
   <body>
 
     <!--
-    ## Managing State
+    ## Managing state
 
     We initialize the button state from a JSON endpoint using `amp-state.` As we use cookies to identify the user, we need to add the `credentials="include"`  attribute.
     -->
@@ -125,7 +134,7 @@
     </amp-state>
 
     <!--
-    ## A simple favorite Button
+    ## A simple favorite button
 
     The button is embedded inside an `amp-list`, which enables us to dynamically render the button based on whether
     the user already liked something or not. Inside the template we use mustache's implicit iterator `.` to access the boolean
@@ -142,7 +151,8 @@
     favorite state to the original version and show an error message (`favorite-failed-message.show`).
     * We hide any existing error messages (`favorite-failed-message.hide`).
     -->
-    <form method="post"
+    <form class="favorite-button" 
+          method="post"
           action-xhr="/favorite"
           target="_top"
           on="submit:AMP.setState({
@@ -180,7 +190,7 @@
 
 
     <!--
-    ## A favorite Button with Counter
+    ## A favorite button with counter
 
     This is a more sophisticated version of the previous sample that also includes the number of favorites. Our [JSON endpoint](/favorite-with-count) returns two values: `value` and `count`.
     -->
@@ -191,15 +201,18 @@
     <!--
     The implementation is similar to the previous sample, but also updates the count when the button is clicked
 
-        AMP.setState({
-        ...,
-        count: favoriteWithCount.count + (favoriteWithCount.value ? -1 : 1)
-        })
+    ```javascript
+    AMP.setState({
+      ...,
+      count: favoriteWithCount.count + (favoriteWithCount.value ? -1 : 1)
+    })
+    ```
 
     We use a temporary variable `previousFavoriteWithCount` to store the previous value in order to be able to revert the
     button state in case the form submission fails.
     -->
-    <form method="post"
+    <form class="favorite-button"
+          method="post"
           action-xhr="/favorite-with-count"
           target="_top"
           on="submit:AMP.setState({

@@ -2,15 +2,20 @@
 <html amp lang="en">
   <head>
     <meta charset="utf-8">
-  <title>How to support Images with unknown Dimensions?</title>
+    <title>How to support Images with unknown Dimensions?</title>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
     <link rel="canonical" href="<%host%>/advanced/how_to_support_images_with_unknown_dimensions/">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
       <style amp-custom>
+        :root {
+          --color-primary: #005AF0;
+          --color-bg-light: #FAFAFC;
+          --space-1: .5rem;  /* 8px */
+        }
         .fixed-container, .fixed-height-container img {
-          background-color: #ccc;
+          background-color: var(--color-primary);
         }
         .contain img {
           object-fit: contain;
@@ -22,11 +27,13 @@
          position: relative;
          width: 200px;
          height: 200px;
+         margin: var(--space-1);
        }
        .fixed-height-container {
          position: relative;
          width: 100%;
          height: 300px;
+         margin: var(--space-1);
        }
       </style>
   </head>
@@ -54,24 +61,24 @@
   <!--
   The `fill` layout is the only layout supported by `amp-img` that doesn't require any image dimensions. However, images will be stretched in both dimensions to fill the container:
   -->
-  <div class="flex">
-    <div class="fixed-container m1">
+  <div>
+    <div class="fixed-container">
   <amp-img layout="fill" src="https://unsplash.it/300/200?image=1074"></amp-img>
     </div>
-    <div class="fixed-container m1">
+    <div class="fixed-container">
   <amp-img layout="fill" src="https://unsplash.it/200/300?image=1074"></amp-img>
     </div>
  </div>
 
  <!-- The question is: how can images with unknown dimensions be embeded inside an AMP pages while maintaining their correct aspect ratio?
 
-    ## Object-Fit to the Rescue
+    ## Object-Fit to the rescue
 
     We can solve this problem by combining AMP's [fill layout](https://github.com/ampproject/amphtml/blob/master/spec/amp-html-layout.md) with the [object-fit]( https://css-tricks.com/almanac/properties/o/object-fit/) CSS property. The `object-fit` property helps us ensure that the image maintains its aspect ratio while being resized via the `fill` layout.
 
     First we need to define a container to constrain the maximum size of the image, e.g.:
 
-    ```
+    ```css
    .fixed-container {
      position: relative;
      width: 200px;
@@ -81,44 +88,44 @@
 
     Then we can use the `object-fit` property to define how the `img` inside the `amp-img` extension will resize to maintain its aspect ratio:
 
-    ```
+    ```css
     amp-img.contain img {
       object-fit: contain;
     }
     ```
 
     `object-fit: contain` increases or decreases the size of the image to fill the container whilst preserving the image's aspect-ratio. -->
-    <div class="flex">
-      <div class="fixed-container m1">
+    <div>
+      <div class="fixed-container">
         <amp-img class="contain" layout="fill" src="https://unsplash.it/400/300"></amp-img>
       </div>
-      <div class="fixed-container m1">
+      <div class="fixed-container">
         <amp-img class="contain" layout="fill" src="https://unsplash.it/300/300"></amp-img>
       </div>
-      <div class="fixed-container m1">
+      <div class="fixed-container">
         <amp-img class="contain" layout="fill" src="https://unsplash.it/200/300"></amp-img>
       </div>
     </div>
     <!--
     With `object-fit: cover` the image will fill the height and width of its container, but maintains the aspect ratio by cropping the image: -->
-    <div class="flex">
-      <div class="fixed-container m1">
+    <div>
+      <div class="fixed-container">
         <amp-img class="cover" layout="fill" src="https://unsplash.it/400/300"></amp-img>
       </div>
-      <div class="fixed-container m1">
+      <div class="fixed-container">
         <amp-img class="cover" layout="fill" src="https://unsplash.it/300/300"></amp-img>
       </div>
-      <div class="fixed-container m1">
+      <div class="fixed-container">
         <amp-img class="cover" layout="fill" src="https://unsplash.it/200/300"></amp-img>
       </div>
     </div>
 
     <!--
-    ## Fixed-Height Layout with correct Aspect Ratios
+    ## Fixed-height layout with correct aspect ratios
 
     This approach works also with responsive container dimensions, for example, a dynamic width:
 
-     ```
+     ```css
      .fixed-height-container {
        position: relative;
        width: 100%;
@@ -126,25 +133,25 @@
      }
      ```
 
-   The result is a fixed-height layout that maintains the correct image aspect ratio:
+     The result is a fixed-height layout that maintains the correct image aspect ratio:
     -->
     <div>
-      <div class="fixed-height-container my1">
+      <div class="fixed-height-container">
         <amp-img class="contain" layout="fill" src="https://unsplash.it/400/300"></amp-img>
       </div>
-      <div class="fixed-height-container my1">
+      <div class="fixed-height-container">
         <amp-img class="contain" layout="fill" src="https://unsplash.it/300/300"></amp-img>
       </div>
-      <div class="fixed-height-container my1">
+      <div class="fixed-height-container">
         <amp-img class="contain" layout="fill" src="https://unsplash.it/200/300"></amp-img>
       </div>
-      <div class="fixed-height-container my1">
+      <div class="fixed-height-container">
         <amp-img class="contain" layout="fill" src="https://unsplash.it/1920/480"></amp-img>
       </div>
     </div>
 
     <!--
-    ## Image Carousels
+    ## Image carousels
 
     This approach also works very well for image carousels by combining it with an `amp-carousel` using a `fixed-height` layout.
     -->
