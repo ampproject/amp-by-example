@@ -58,7 +58,7 @@ preview: default
 </head>
 <body>
 
-  <!-- ## The Animation -->
+  <!-- ## The animation -->
   <!--
     We want to show a snackbar that disappears after a few seconds. This could be easily accomplished by adding a CSS class using `amp-bind` to show the snackbar and then using CSS animations to hide the snackbar after a few seconds. However, with this approach it's not possible to trigger the snackbar multiple times (the newly added CSS class won't dissappear). 
     
@@ -91,13 +91,13 @@ preview: default
     </script>
   </amp-animation>
 
-  <!-- ## The Snackbar -->
+  <!-- ## The snackbar -->
   <!-- Our snackbar is a `div` containing the message. It's going to disappear after a few seconds so we don't provide any additional buttons to manually hide the snackbar. The text message is bound to an `amp-state` variable to make it's content configurable. This is not needed if the snackbar should always show the same message. -->
   <div class="snackbar" [text]="message">
     Hello World
   </div>
 
-  <!-- ## The Trigger -->
+  <!-- ## The trigger -->
   <!-- The snackbar animation is triggered via the `restart` action: `on="tap:snackbarSlideIn.restart"`. We use the `restart` action to make it possible to override an already active animation. The input field simply updates the `amp-state` variable containing the snackbar's message. -->
   <div class="trigger">
     <input on="input-debounced:AMP.setState({message: event.value})" value="Hello World">
