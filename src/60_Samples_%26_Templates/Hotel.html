@@ -56,28 +56,28 @@ experiments:
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
 <style amp-custom>
-    .rooms [role=listitem] {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .rooms [role=listitem] > * {
-      margin-right: 16px
-    }
-    .rooms [role=listitem] button {
-      margin-left: auto;
-    }
+  .rooms [role=listitem] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .rooms [role=listitem] > * {
+    margin-right: 16px
+  }
+  .rooms [role=listitem] button {
+    margin-left: auto;
+  }
 </style>
 </head>
 <body>
-  <h1 class="m1">
+  <h1>
     <amp-fit-text width="300" height="45" layout="responsive" max-font-size="45">
       The Ampsterdam
     </amp-fit-text>
   </h1>
-  <p class="m1">The fastest hotel in town</p>
-  <h2 class="m1">When do you want to travel?</h2>
-  <!-- ## Searching for available Rooms -->
+  <p>The fastest hotel in town</p>
+  <h2>When do you want to travel?</h2>
+  <!-- ## Searching for available rooms -->
   <!--
   This sample shows how to search for available rooms based on date selection.
   You can implement an availability search by using the `amp-date-picker` as input of a form.
@@ -100,28 +100,28 @@ experiments:
                         min="2017-10-26"
                         month-format="MMM"
                         start-input-selector="#arriving"
-                        end-input-selector="#leaving"
-                        class="pt1 ml1">
+                        end-input-selector="#leaving">
           <input placeholder="arriving" id="arriving"/>
           <input placeholder="leaving" id="leaving"/>
           <button on="tap: picker.clear">Clear</button>
       </amp-date-picker>
-      <button class="ampstart-btn caps m1">Check Availability</button>
+      <button>Check Availability</button>
     </form>
 
-    <!-- ## Client-side Filtering -->
+    <!-- ## Client-side filtering -->
     <!--
     We want to make it possible for the user to filter rooms by pet friendliness.
     The filter shouldn't require an additional network request, instead it should work client-side.
     We implement a filter by adding a checkbox which sets a new variable, `filterPetFriendly`, whenever the value changes.
     -->
-    <label class="ml1">Show only pet friendly rooms:
-      <input type="checkbox" class="m1" on="change:AMP.setState({
+    <label >Show only pet friendly rooms:
+      <input type="checkbox" on="change:AMP.setState({
         showPetFriendlyOnly: event.checked
       })">
     </label>
 
-  <!--
+   <!-- ## Filter implementation -->
+    <!--
     We use `amp-bind-macro` to implement a function which filters the `amp-list` content based on the pet-friendly variable.
     By using `amp-bind-macro` we avoid duplicating
     the filter expression across the page.
@@ -130,7 +130,7 @@ experiments:
     expression="rooms.filter(room => showPetFriendlyOnly ? room.petFriendly : true)">
   </amp-bind-macro>
 
-  <!-- ## Rooms List Initial State -->
+  <!-- ## Room list initial state -->
   <!--
     We are using `amp-state` to set the initial value of the variable `rooms` to the list of rooms
     returned by the server.
@@ -142,7 +142,7 @@ experiments:
   -->
   <amp-state id="rooms" src="https://amp-by-example-live.glitch.me/rooms"></amp-state>
 
-  <!-- ## Rooms List -->
+  <!-- ## Room list -->
   <!--
     We are using `amp-list` to show a list of rooms. We bind the value of the `src` variable
     to the result of the function `filterRooms` so that we can show the available rooms based on the user selection.
@@ -160,12 +160,12 @@ experiments:
   src="https://amp-by-example-live.glitch.me/rooms" [src]="filteredRooms()" items="."
   [height]="(80 + (16*2)) * filteredRooms().length">
     <template type="amp-mustache">
-    <amp-img width="108" height="80" src="{{img}}" lightbox alt="{{name}}-{{desc}}" class="m1"></amp-img>
-    <div class="m1">{{name}} {{#petFriendly}}&#128062;{{/petFriendly}}</div>
-    <button class="ampstart-btn caps m1 mb3">book</button>
+    <amp-img width="108" height="80" src="{{img}}" lightbox alt="{{name}}-{{desc}}"></amp-img>
+    <div>{{name}} {{#petFriendly}}&#128062;{{/petFriendly}}</div>
+    <button>book</button>
     </template>
   </amp-list>
-    <!-- ## Handling Empty List Content -->
+    <!-- ## Handling empty list content -->
     <!-- In case no rooms are available, we are showing a message to inform the user. We hide the
       message by default and show it when the list is not empty. We are calling `filteredRooms()` function
       from the `amp-bind-macro` to get the list of rooms filtered by user selection. -->
