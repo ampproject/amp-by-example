@@ -14,6 +14,7 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
     <meta charset="utf-8">
   <title>Housing</title>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <!-- ## Setup -->
     <!--
       We use `amp-carousel` to show house images.
     -->
@@ -60,23 +61,23 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
       --space-2: 1rem;   /* 16px */
       --space-3: 1.5rem; /* 24px */
     }
-    ul {
+    .description {
       margin: 0;
       padding: 0;
     }
     .description li {
       list-style-type: square;
     }
-    #housing-description {
+    .housing-description {
       clear: both;
     }
-    amp-carousel {
+    .image-gallery {
       margin: 0;
     }
-    amp-accordion p, amp-accordion h4 {
+    .additional-data p, .additional-data h2 {
       padding: var(--space-2);
     }
-    amp-accordion h4 {
+    .additional-data h2 {
       font-size: 18px;
     }
     .related {
@@ -102,7 +103,7 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
       color: var(--color-primary);
       font-weight: 400;
     }
-    amp-fit-text {
+    .price-heading {
       margin-bottom: var(--space-2);
       margin-top: var(--space-3);
       padding: 0 var(--space-2);
@@ -153,29 +154,29 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     </head>
     <body>
-        <!-- ## Heading -->
+        <!-- ## Price -->
         <!--[amp-fit-text](https://www.ampproject.org/docs/reference/extended/amp-fit-text.html) can be used to fit the text to the available space. It works well for titles that vary not too much in length. -->
         <div>
-          <h4>
-            <amp-fit-text width="300" height="45" layout="responsive" max-font-size="45">
+          <h1>
+            <amp-fit-text class="price-heading" width="300" height="45" layout="responsive" max-font-size="45">
                     Cosy House in Central London
             </amp-fit-text>
-          </h4>
-          <h4 class="price-description">£430,000</h4>
-          <p id="housing-description">London SW1A 1AA</p>
+          </h1>
+          <div class="price-description">£430,000</div>
+          <p class="housing-description">London SW1A 1AA</p>
         </div>
 
         <!-- ## Image gallery -->
         <!-- The `amp-carousel` works very well for housing image galleries. Learn more about `amp-carousel` [here](/advanced/image_galleries_with_amp-carousel/). -->
-        <amp-carousel width="512" height="384" layout="responsive" type="slides">
-            <amp-img src="/img/buckingham_palace_building_1280x960.jpg" width="1280" height="960" layout="responsive" alt="Buckingham Palace" attribution="https://pixabay.com"></amp-img>
-            <amp-img src="/img/buckingham_palace_entrance_1280x853.jpg" width="1280" height="853" layout="responsive" alt="Buckingham Palace entrance" attribution="https://pixabay.com"></amp-img>
+        <amp-carousel class="image-gallery" width="512" height="384" layout="responsive" type="slides">
+            <amp-img src="/img/buckingham_palace_building_1280x853.png" layout="fill" alt="Buckingham Palace" attribution="https://pixabay.com"></amp-img>
+            <amp-img src="/img/buckingham_palace_entrance_1280x853.jpg" layout="fill" alt="Buckingham Palace entrance" attribution="https://pixabay.com"></amp-img>
         </amp-carousel>
 
         <!-- ## Detail request section -->
         <!-- These buttons are used for requesting details on the property. -->
         <div class="contact-section">
-            <h4> Do you like this property?</h4>
+            <div> Do you like this property?</div>
             <div class="contact">
                 <a href="tel:012 3456789">Call agent</a>
                 <a href="mailto:someone@example.com">Email agent</a>
@@ -207,9 +208,9 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
     <!-- ## Collapsibles/Accordion -->
     <!-- Use `amp-accordion` to hide and show additional data about your product. Learn more about `amp-accordion` [here](/components/amp-accordion/). Embedding Google Maps is possible via the [Google Maps Embed API](https://developers.google.com/maps/documentation/embed/guide), see [here](https://ampbyexample.com/components/amp-iframe/#example16) for a sample.-->
     <div>
-      <amp-accordion>
+      <amp-accordion class="additional-data">
         <section>
-          <h4>Description</h4>
+          <h2>Description</h2>
           <ul class="description">
             <li>Ideally located near tube station</li>
             <li>Open plan kitchen</li>
@@ -217,7 +218,7 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
           </ul>
         </section>
         <section>
-          <h4>View on map</h4>
+          <h2>View on map</h2>
           <amp-iframe title="Embedded Google map"
                       width="600"
                       height="400"
@@ -228,66 +229,62 @@ This sample showcases how to build a housing page in AMP HTML. Explore how to us
           </amp-iframe>
         </section>
         <section>
-          <h4>Floorplan</h4>
+          <h2>Floorplan</h2>
           <amp-img src="/img/floorplan_518x340.jpg" width="518" height="340"></amp-img>
         </section>
-        <section>
-          <h4>Mortgage Calculator</h4>
-          <form method="GET" action="/samples_templates/housing/calculate-mortgage" action-xhr="/samples_templates/housing/calculate-mortgage-xhr"  target="_top">
-            <div>
-              <span>
-                Price
-              </span>
-              <div>
-                <span>&#163</span><input type="number" name="price" maxlength="10" value="2000000" required>
-              </div>
-            </div>
-            <div>
-              <span>
-                Deposit
-              </span>
-              <div>
-                <span>&#163</span><input type="number" name="deposit" maxlength="10" value="100000" required>
-              </div>
-            </div>
-            <div>
-              <span>
-                Annual interest
-              </span>
-              <div>
-                <span>&#37;</span><input type="number" name="annual_interest" maxlength="10" value="2.5" step="0.01" required>
-              </div>
-            </div>
-            <div>
-              <span>
-                Repayment period (years)
-              </span>
-              <div>
-                <span> </span><input type="number" name="repayment_period" value="25" required>
-              </div>
-            </div>
-            <div>
-              <input type="submit" value="Calculate">
-            </div>
-            <div submit-success>
-              <template type="amp-mustache">
-                Monthly repayment {{monthly_repayment}}
-              </template>
-            </div>
-            <div submit-error>
-              <template type="amp-mustache">
-                Error! You entered some incorrect details {{err}}
-              </template>
-            </div>
-          </form>
-        </section>
       </amp-accordion>
+    </div>
+
+    <!-- ## Mortgage calculator -->
+    <!-- Use `amp-form` to implement a mortgage calculator. Learn more about `amp-form` [here](/components/amp-form/). -->
+
+    <div>
+      <h2>Mortgage Calculator</h2>
+      <form method="GET" action="/samples_templates/housing/calculate-mortgage" action-xhr="/samples_templates/housing/calculate-mortgage-xhr"  target="_top">
+        <div>
+          <label for="price">
+            Price
+          </label>
+          <input type="number" id="price" name="price" maxlength="10" value="2000000" required>
+        </div>
+        <div>
+          <label for="deposit">
+            Deposit
+          </label>
+          <input type="number" id="deposit" name="deposit" maxlength="10" value="100000" required>
+        </div>
+        <div>
+          <label for"annual_interest">
+            Annual interest
+          </label>
+          <input type="number" id="annual_interest" name="annual_interest" maxlength="10" value="2.5" step="0.01" required>
+        </div>
+        <div>
+          <label for="repayment_period">
+            Repayment period (years)
+          </label>
+          <input type="number" id="repayment_period" name="repayment_period" value="25" required>
+        </div>
+        <div>
+          <input type="submit" value="Calculate">
+        </div>
+        <div submit-success>
+          <template type="amp-mustache">
+            Monthly repayment {{monthly_repayment}}
+          </template>
+        </div>
+        <div submit-error>
+          <template type="amp-mustache">
+            Error! You entered some incorrect details {{err}}
+          </template>
+        </div>
+      </form>
     </div>
 
     <!-- ## Properties sold nearby -->
     <!-- Use `amp-list` to show a list of properties sold nearby. Learn more about `amp-list` [here](/components/amp-list/) -->
     <div>
-      <h4>Properties sold nearby</h4>
+      <h2>Properties sold nearby</h2>
       <amp-list width="auto"
                 height="150"
                 layout="fixed-height"
