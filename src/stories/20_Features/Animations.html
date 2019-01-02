@@ -15,15 +15,19 @@ skipValidation: 'true'
 <head>
   <meta charset="utf-8">
   <title>amp-story</title>
-  <link rel="canonical" href="/stories/features/animations/">
+  <link rel="canonical" href="<%host%>/stories/features/animations/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-1.0.js"></script>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <style amp-custom>
+    :root {
+      --color-primary: #005AF0;
+      --color-text-light: #fff;
+    }
     amp-story-page {
       font-family: 'Roboto', sans-serif;
-      background: #fff;
+      background: var(--color-text-light);
     }
     amp-story-grid-layer {
       align-items: center;
@@ -31,7 +35,7 @@ skipValidation: 'true'
     }
     .square,
     .circle {
-      background: #b60845;
+      background: var(--color-primary);
       width: 96px;
       height: 96px;
     }
@@ -49,6 +53,7 @@ skipValidation: 'true'
     poster-square-src="https://picsum.photos/300/300"
     poster-landscape-src="https://picsum.photos/400/300">
     <!-- ## Fade-In -->
+    <!-- Animations can use a `fade-in` effect. -->
     <amp-story-page id="fade-in">
       <amp-story-grid-layer template="thirds">
         <h1>fade-in</h1>
@@ -59,6 +64,7 @@ skipValidation: 'true'
       </amp-story-grid-layer>
     </amp-story-page>
 
+    <!-- ## Animation duration -->
     <!-- All animations can be can be customized using the `animate-in-duration` and `animate-in-delay` properties. -->
     <amp-story-page id="delay-duration">
       <amp-story-grid-layer template="thirds">
@@ -130,6 +136,7 @@ skipValidation: 'true'
     </amp-story-page>
 
     <!-- ## Twirl-In -->
+    <!-- Animations can use a twirl-in effect. -->
     <amp-story-page id="twirl-in">
       <amp-story-grid-layer template="thirds">
         <h1>twirl-in</h1>
@@ -139,7 +146,8 @@ skipValidation: 'true'
       </amp-story-grid-layer>
     </amp-story-page>
 
-    <!-- ## Fly-In-Left -->
+    <!-- ## Fly-In -->
+    <!-- Animations can use a fly-in-left effect. -->
     <amp-story-page id="fly-in-left">
       <amp-story-grid-layer template="thirds">
         <h1>fly-in-left</h1>
@@ -150,6 +158,7 @@ skipValidation: 'true'
     </amp-story-page>
 
     <!-- ## Fly-In-Right -->
+    <!-- Animations can use a fly-in-right effect. -->
     <amp-story-page id="fly-in-right">
       <amp-story-grid-layer template="thirds">
         <h1>fly-in-right</h1>
@@ -160,6 +169,7 @@ skipValidation: 'true'
     </amp-story-page>
 
     <!-- ## Fly-In-Top -->
+    <!-- Animations can use a fly-in-top effect. -->
     <amp-story-page id="fly-in-top">
       <amp-story-grid-layer template="thirds">
         <h1>fly-in-top</h1>
@@ -170,6 +180,7 @@ skipValidation: 'true'
     </amp-story-page>
 
     <!-- ## Fly-In-Bottom -->
+    <!-- Animations can use a fly-in-bottom effect. -->
     <amp-story-page id="fly-in-bottom">
       <amp-story-grid-layer template="thirds">
         <h1>fly-in-bottom</h1>
@@ -180,6 +191,7 @@ skipValidation: 'true'
     </amp-story-page>
 
     <!-- ## Rotate-In-Left -->
+    <!-- Animations can use a rotate-in-left effect. -->
     <amp-story-page id="rotate-in-left">
       <amp-story-grid-layer template="thirds">
         <h1>rotate-in-left</h1>
@@ -190,6 +202,7 @@ skipValidation: 'true'
     </amp-story-page>
 
     <!-- ## Rotate-In-Right -->
+    <!-- Animations can use a rotate-in-right effect. -->
     <amp-story-page id="rotate-in-right">
       <amp-story-grid-layer template="thirds">
         <h1>rotate-in-right</h1>
@@ -200,6 +213,7 @@ skipValidation: 'true'
     </amp-story-page>
 
     <!-- ## Drop-In -->
+    <!-- Animations can use a drop-in effect. -->
     <amp-story-page id="drop-in">
       <amp-story-grid-layer template="thirds">
         <h1>drop-in</h1>
@@ -210,6 +224,7 @@ skipValidation: 'true'
     </amp-story-page>
 
     <!-- ## Whoosh-In-Left -->
+    <!-- Animations can use a whoosh-in-left effect. -->
     <amp-story-page id="whoosh-in-left">
       <amp-story-grid-layer template="thirds">
         <h1>whoosh-in-left</h1>
@@ -220,6 +235,7 @@ skipValidation: 'true'
     </amp-story-page>
 
     <!-- ## Whoosh-In-Right -->
+    <!-- Animations can use a whoosh-in-right effect. -->
     <amp-story-page id="whoosh-in-right">
       <amp-story-grid-layer template="thirds">
         <h1>whoosh-in-right</h1>
@@ -252,6 +268,7 @@ skipValidation: 'true'
     </amp-story-page>
 
     <!-- ## Zoom-Out -->
+    <!-- Animations can use a zoom-out effect. -->
     <amp-story-page id="zoom-out">
       <amp-story-grid-layer template="vertical">
         <amp-img animate-in="zoom-out"
@@ -268,6 +285,7 @@ skipValidation: 'true'
     </amp-story-page>
 
     <!-- ## Pan-Left -->
+    <!-- Animations can use a pan-left effect. -->
     <amp-story-page id="pan-left">
         <amp-story-grid-layer template="fill">
           <amp-img animate-in="pan-left" id="img-pan-left" animate-in-duration="4s" layout="fixed" src="https://picsum.photos/720/320?image=1026"
@@ -280,6 +298,7 @@ skipValidation: 'true'
     </amp-story-page>
 
     <!-- ## Pan-Right -->
+    <!-- Animations can use a pan-right effect. -->
     <amp-story-page id="pan-right">
       <amp-story-grid-layer template="fill">
         <amp-img animate-in="pan-right" animate-in-duration="4s" layout="fixed" src="https://picsum.photos/720/320?image=1026" width="720"
@@ -292,6 +311,7 @@ skipValidation: 'true'
     </amp-story-page>
 
     <!-- ## Pan-Up -->
+    <!-- Animations can use a pan-up effect. -->
     <amp-story-page id="pan-up">
       <amp-story-grid-layer template="fill">
         <amp-img animate-in="pan-up" animate-in-duration="4s" layout="fixed" src="https://picsum.photos/720/320?image=1026" width="720"
@@ -304,6 +324,7 @@ skipValidation: 'true'
     </amp-story-page>
 
     <!-- ## Pan-Down -->
+    <!-- Animations can use a pan-down effect. -->
     <amp-story-page id="pan-down">
       <amp-story-grid-layer template="fill">
         <amp-img animate-in="pan-down" animate-in-duration="4s" layout="fixed" src="https://picsum.photos/720/320?image=1026" width="720"
