@@ -16,13 +16,14 @@ package backend
 
 import (
 	"github.com/patrickmn/go-cache"
+	"log"
 	"net/http"
 	"time"
 )
 
 const (
 	COMMENT_SAMPLE_PATH = "/" + CATEGORY_SAMPLE_TEMPLATES + "/comment_section/"
-	USER                = "Charlie"
+	USER                = "Mark"
 )
 
 type CommentAuthorizationResponse struct {
@@ -73,7 +74,7 @@ func handleComments(w http.ResponseWriter, r *http.Request) {
 }
 
 func loadComments(r *http.Request) []Comment {
-	cookie, err := r.Cookie(AMP_ACCESS_COOKIE)
+	cookie, err := r.Cookie("amp-access")
 	if err != nil {
 		return defaultComments
 	}
@@ -84,8 +85,9 @@ func loadComments(r *http.Request) []Comment {
 }
 
 func submitCommentXHR(w http.ResponseWriter, r *http.Request) {
-	cookie, err := r.Cookie(AMP_ACCESS_COOKIE)
+	cookie, err := r.Cookie("amp-access")
 	if err != nil {
+		log.Printf("Could not read amp-access cookie, underlying err: %#v", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -104,7 +106,7 @@ func submitCommentXHR(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleCommentAuthorization(w http.ResponseWriter, r *http.Request) {
-	_, err := r.Cookie(AMP_ACCESS_COOKIE)
+	_, err := r.Cookie("amp-access")
 	if err != nil {
 		SendJsonResponse(w, new(CommentAuthorizationResponse).CreateInvalidAuthorizationResponse())
 		return

@@ -41,7 +41,7 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
       --space-1: .5rem;  /* 8px */
       --space-2: 1rem;   /* 16px */
       --space-3: 1.5rem; /* 24px */
-      --space-4: 2rem;   /* 32px */
+      --space-5: 4rem; /* 64px */
 
       --box-shadow-1: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
     }
@@ -59,7 +59,7 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
         background: var(--color-secondary);
         margin: var(--space-2);
         margin-top: 0;
-        margin-left: 64px;
+        margin-left: var(--space-5);
         padding: var(--space-2);
         box-shadow: var(--box-shadow-1);
         position: relative;
@@ -103,7 +103,7 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     }
     .comment-form {
       margin: var(--space-2);
-      margin-left: 64px;
+      margin-left: var(--space-5);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -117,7 +117,6 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     }
     .comment-form > input {
       min-width: 320px;
-      height:G
     }
     .comment-sample {
       padding: var(--space-2);
