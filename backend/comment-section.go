@@ -26,18 +26,6 @@ const (
 	USER                = "Mark"
 )
 
-type CommentAuthorizationResponse struct {
-	User bool `json:"loggedIn"`
-}
-
-func (h CommentAuthorizationResponse) CreateAuthorizationResponse() AuthorizationResponse {
-	return CommentAuthorizationResponse{true}
-}
-
-func (h CommentAuthorizationResponse) CreateInvalidAuthorizationResponse() AuthorizationResponse {
-	return CommentAuthorizationResponse{false}
-}
-
 type Comment struct {
 	Text     string
 	User     string
@@ -50,12 +38,12 @@ var defaultComments = []Comment{
 	Comment{
 		Text:     "This is the first comment",
 		User:     "Alice",
-		Datetime: time.Now().Format("2006-01-02 15:04:05"),
+		Datetime: time.Now().Format("2006-01-02 15:04"),
 	},
 	Comment{
 		Text:     "This is the second comment",
 		User:     "Bob",
-		Datetime: time.Now().Format("2006-01-02 15:34:15"),
+		Datetime: time.Now().Format("2006-01-02 15:34"),
 	},
 }
 
@@ -63,9 +51,6 @@ func InitCommentSection() {
 	commentsCache = cache.New(5*time.Minute, 10*time.Minute)
 	RegisterHandler(COMMENT_SAMPLE_PATH+"comments/new", onlyPost(submitCommentXHR))
 	RegisterHandler(COMMENT_SAMPLE_PATH+"comments", handleComments)
-	RegisterHandler(COMMENT_SAMPLE_PATH+"authorization", handleCommentAuthorization)
-	RegisterHandler(COMMENT_SAMPLE_PATH+"login", handleLogin)
-	RegisterHandler(COMMENT_SAMPLE_PATH+"logout", handleLogout)
 	RegisterHandler(COMMENT_SAMPLE_PATH+"submit", handleSubmit)
 }
 
@@ -103,13 +88,4 @@ func submitCommentXHR(w http.ResponseWriter, r *http.Request) {
 		commentsCache.Set(cookie.Value, comments, cache.DefaultExpiration)
 	}
 	SendJsonResponse(w, comments)
-}
-
-func handleCommentAuthorization(w http.ResponseWriter, r *http.Request) {
-	_, err := r.Cookie("amp-access")
-	if err != nil {
-		SendJsonResponse(w, new(CommentAuthorizationResponse).CreateInvalidAuthorizationResponse())
-		return
-	}
-	SendJsonResponse(w, new(CommentAuthorizationResponse).CreateAuthorizationResponse())
 }

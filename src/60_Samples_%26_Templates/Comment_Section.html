@@ -111,9 +111,7 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
     }
     .comment-form > textarea {
       width: 100%;
-    }
-    .comment-form > * {
-      margin-bottom: var(--space-2);
+      margin: var(--space-2) 0;
     }
     .comment-form > input {
       min-width: 320px;
@@ -200,6 +198,7 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
         <button on="tap: comments.changeToLayoutContainer, comments.refresh">Refresh comments</button>
 
         <!-- ## Writing a comment -->
+
         <!-- 
           Use `amp-form` for submitting a new comment. When the `submit-success` event is fired, we trigger a refresh 
           of the comments list via the `refresh` action and resize the list via `changeToContainerLayout`. We also clear
@@ -216,9 +215,12 @@ This sample showcases how to build a comment section in AMP HTML using the [amp-
                     comments.changeToLayoutContainer, 
                     comments.refresh, 
                     comment.clear">
-          <label for="ta1" class="">
-            Your comment ...
-          </label>
+            <label for="ta1" class="">
+             Your comment: 
+            </label>
+            <template amp-access-template type="amp-mustache">
+              <small>Logged in as <strong>{{name}}</strong>.</small>
+            </template>
           <textarea id="ta1" name="text" rows="5"></textarea>
           <input type="submit" value="Submit">
           <div submit-error>
