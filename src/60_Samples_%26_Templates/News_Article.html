@@ -83,17 +83,17 @@ preview: default
 
           --box-shadow-1: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
           }
-          figure {
+          .figure {
             margin: var(--space-2) 0;
             padding: 0;
           }
-          figure>figcaption{
+          .figure>figcaption{
             padding: var(--space-1) var(--space-2);
           }
           .amp-ad-container {
             display: flex;
           }
-          amp-ad {
+          .amp-ad {
             margin: 0 auto;
           }
           .carousel .slide > amp-img > img {
@@ -129,7 +129,7 @@ preview: default
           .related:hover {
             background-color: var(--color-bg-light);
           }
-          amp-user-notification {
+          .amp-user-notification {
             padding: var(--space-1);
             background: var(--color-bg-light);
             text-align: center;
@@ -168,7 +168,7 @@ preview: default
       Mutat dolores ea duo. Usu cu dico everti tincidunt, pri vero nullam vidisse no. Eam novum aeque populo cu. Verear contentiones ne quo, no sed consulatu definitionem.
       </p>
 
-      <figure>
+      <figure class="figure">
         <amp-img src="/img/landscape_village_1280x853.jpg" width="1280" height="768" layout="responsive"></amp-img>
         <figcaption>Here is a responsive image.</figcaption>
       </figure>
@@ -178,7 +178,7 @@ preview: default
       <!-- ## AD Support -->
       <!-- There are no limitations regarding the number or placement of ads in an AMP. Learn more about `amp-ad` [here](/components/amp-ad/).  -->
       <div class="amp-ad-container">
-        <amp-ad width="300" height="250"
+        <amp-ad class="amp-ad" width="300" height="250"
                             type="a9"
                             data-aax_size="300x250"
                             data-aax_pubname="test123"
@@ -200,15 +200,15 @@ preview: default
       <!-- ## Image Galleries  -->
       <!-- Use `amp-carousel` for image galleries. Learn more about creating image galleries in AMP [here](/advanced/image_galleries_with_amp-carousel/).  -->
       <amp-carousel width="1280" height="1000" layout="responsive" type="slides">
-        <figure>
+        <figure class="figure">
           <amp-img src="/img/landscape_lake_1280x857.jpg" width="1280" height="857" layout="responsive"></amp-img>
           <figcaption>Each image has a different caption.</figcaption>
         </figure>
-        <figure>
+        <figure class="figure">
           <amp-img src="/img/landscape_village_1280x853.jpg" width="1280" height="853" layout="responsive"></amp-img>
           <figcaption>This caption is different.</figcaption>
         </figure>
-        <figure>
+        <figure class="figure">
           <amp-img src="/img/landscape_desert_1280x853.jpg" width="1280" height="853" layout="responsive"></amp-img>
           <figcaption>The third image has its caption.</figcaption>
         </figure>
@@ -225,7 +225,7 @@ preview: default
 
       <!-- ## Interactive Content -->
       <!-- To achieve its performance, AMP HTML doesn't allow custom Javascript. This doesn't mean that you can't created visually rich and interactive websites with AMP. Embed interactive content via `amp-iframe`. Learn more about `amp-iframe` [here](/components/amp-iframe/).  -->
-      <figure>
+      <figure class="figure">
         <amp-iframe src="https://www.google.us/trends/embed/US_cu_82I1CVMBAACV6M_en/horserace_chart_3c6cdb21-e1eb-4412-9c28-707c3638ea35?hl=en&template=fe"
                     title="Interactive chart displaying 2016 Oscar Best Picture search interest by date"
                     height="360"
@@ -264,7 +264,7 @@ preview: default
 
       <!-- ## Cookie Consent -->
       <!-- Use `amp-user-notification` to implement a cookie consent form (if needed). By default, the AMP runtime doesn't use cookies. Some analytics vendors might use require cookies though. Learn more about `amp-user-notification` [here](/components/amp-user-notification/) -->
-      <amp-user-notification layout="nodisplay" id="amp-user-notification1">
+      <amp-user-notification class="amp-user-notification" layout="nodisplay" id="amp-user-notification1">
         This page might use cookies if your analytics vendor requires them.
         <button on="tap:amp-user-notification1.dismiss">Accept</button>
       </amp-user-notification>
