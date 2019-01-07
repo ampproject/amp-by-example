@@ -25,14 +25,26 @@
   <script async custom-element="amp-geo" src="https://cdn.ampproject.org/v0/amp-geo-0.1.js"></script>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <style amp-custom>
+    :root {
+      --space-2: 1rem;   /* 16px */
+      --space-3: 1.5rem; /* 24px */
+    }
     .consentPopup {
+      padding: var(--space-3);
       margin: 0 auto;
-      padding: 20px;
       background: #fff;
       border-radius: 5px;
       position: relative;
       max-width: 700px;
       width: 95%;
+    }
+    .consentPopup > h2, /* overwrite ABE style */
+    .consentPopup > * {
+      margin: 0;
+      margin-bottom: var(--space-2);
+    }
+    .consentPopup > button {
+      margin-right: var(--space-2);
     }
     .popupOverlay {
       height: 100vh;
@@ -42,26 +54,32 @@
     }
     .dismiss-button {
       position: absolute;
-      right: 24px;
-      top: 16px;
+      right: var(--space-3);
+      top: var(--space-2);
       cursor: pointer;
+    }
+    #post-consent-ui {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: var(--space-3);
     }
   </style>
 </head>
 <body>
   <!-- ## Setting up amp-geo -->
-  <!-- First we need to setup the [`amp-geo`](/components/amp-geo/) extension. We define a group: `eu` which includes all EU countries. -->
+  <!-- First we need to setup the [`amp-geo`](/components/amp-geo/) extension. We'll use the present `eea` which includes all countries of the European Economic Area. -->
   <amp-geo layout="nodisplay">
     <script type="application/json">
       {
         "ISOCountryGroups": {
-          "eu": [ "al", "ad", "am", "at", "by", "be", "ba", "bg", "ch", "cy", "cz", "de", "dk", "ee", "es", "fo", "fi", "fr", "gb", "ge", "gi", "gr", "hu", "hr", "ie", "is", "it", "lt", "lu", "lv", "mc", "mk", "mt", "no", "nl", "po", "pt", "ro", "ru", "se", "si", "sk", "sm", "tr", "ua", "uk", "va"]
+          "eu": [ "preset-eea" ]
         }
       }
     </script>
   </amp-geo>
 
-  <!-- ## Defining the Consent Flow -->
+  <!-- ## Defining the consent flow -->
   <!--
     We define a basic consent flow, similar to [this sample](/user_consent/basic_user_consent_flow/). The flow should only trigger for users in the EU, so we set the flag: `"promptIfUnknownForGeoGroup": "eu"`.
   -->
@@ -78,19 +96,20 @@
     <div id="myConsentFlow" class="popupOverlay">
       <div class="consentPopup">
         <div class="dismiss-button" role="button" tabindex="0" on="tap:myUserConsent.dismiss">X</div>
-        <div class="h2 m1">Headline</div>
-        <p class="m1">This is an important message requiring you to make a choice if you're based in the EU.</p>
-        <button on="tap:myUserConsent.accept" class="ampstart-btn ampstart-btn-secondary caps mx1">Accept</button>
-        <button on="tap:myUserConsent.reject" class="ampstart-btn ampstart-btn-secondary caps">Reject</button>
+        <h2>Headline</h2>
+        <p>This is an important message requiring you to make a choice if you're based in the EU.</p>
+        <button on="tap:myUserConsent.accept">Accept</button>
+        <button on="tap:myUserConsent.reject">Reject</button>
       </div>
     </div>
     <div id="post-consent-ui">
-      <button on="tap:myUserConsent.prompt()" class="ampstart-btn caps m1">Update Consent</button>
+      <button on="tap:myUserConsent.prompt()">Update Consent</button>
     </div>
   </amp-consent>
+
   <!-- ## Testing -->
   <!--
-  You can test different behaviors by appending custom country codes to the URL, for example:
+  You can test different behaviors by appending custom country codes to the URL and enabling the `dev-channel` [here](https://cdn.ampproject.org/experiments.html), for example:
 
   * EU: [https://ampbyexample.com/user_consent/geolocation-based_consent_flow/#amp-geo=de](/user_consent/geolocation-based_consent_flow/#amp-geo=de)
   * non-EU: [https://ampbyexample.com/user_consent/geolocation-based_consent_flow/#amp-geo=us](/user_consent/geolocation-based_consent_flow/#amp-geo=us)

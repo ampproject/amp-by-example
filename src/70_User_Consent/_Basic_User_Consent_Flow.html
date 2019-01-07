@@ -9,6 +9,13 @@
 
   This page demonstrates how a basic blocking consent flow can be built, which would just show a
   simple blocking popup with an accept and reject button. On reject some content in the page will be blocked.
+
+  [tip type="important"]
+    Important! The consent is saved to localstorage - after accepting/rejecting it once you will
+    only get the popup dialog again after deleting the localstorage content for this host,
+    for example via <a href="https://developers.google.com/web/tools/chrome-devtools/manage-data/local-storage#local-storage">
+    Chrome Dev Tools</a>.
+  [/tip]
 -->
 <!-- -->
 <!doctype html>
@@ -27,14 +34,26 @@
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <style amp-custom>
+    :root {
+      --space-2: 1rem;   /* 16px */
+      --space-3: 1.5rem; /* 24px */
+    }
     .consentPopup {
-      padding: 20px;
+      padding: var(--space-3);
       margin: 0 auto;
       background: #fff;
       border-radius: 5px;
       position: relative;
       max-width: 700px;
       width: 95%;
+    }
+    .consentPopup > h2, /* overwrite ABE style */
+    .consentPopup > * {
+      margin: 0;
+      margin-bottom: var(--space-2);
+    }
+    .consentPopup > button {
+      margin-right: var(--space-2);
     }
     .popupOverlay {
       height: 100vh;
@@ -44,22 +63,23 @@
     }
     .dismiss-button {
       position: absolute;
-      right: 24px;
-      top: 16px;
+      right: var(--space-3);
+      top: var(--space-2);
       cursor: pointer;
+    }
+    #post-consent-ui {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: var(--space-3);
     }
   </style>
 </head>
 <body>
 
-  <!-- ## Important
 
-  The consent is saved to localstorage - after accepting/rejecting it once you will
-  only get the popup dialog again after deleting the localstorage content for this host,
-  for example via <a href="https://developers.google.com/web/tools/chrome-devtools/manage-data/local-storage#local-storage">
-  Chrome Dev Tools</a>.
-
-  ## Basic Usage
+  <!--
+  ## Basic usage
 
   The `amp-consent` component allows to specify the required user consent for this page.
   A CORS endpoints can be specified via the `checkConsentHref`
@@ -80,7 +100,7 @@
     <script type="application/json">{
       "consents": {
             "consent1": {
-              "checkConsentHref": "https://ampbyexample.com/samples_templates/consent/getConsent",
+              "checkConsentHref": "<%host%>/samples_templates/consent/getConsent",
               "promptUI": "consentDialog"
             }
           },
@@ -89,24 +109,22 @@
     <div class="popupOverlay" id="consentDialog">
       <div class="consentPopup">
         <div class="dismiss-button" role="button" tabindex="0" on="tap:myUserConsent.dismiss">X</div>
-        <div class="h2 m1">Headline</div>
-        <p class="m1">This is an important message requiring you to make a choice.</p>
-        <p class="m1">This is some more information about this choice. Here's a list of items related to this choice.</p>
-        <amp-list width="auto"
-                  height="132"
+        <h2>Headline</h2>
+        <p>This is an important message requiring you to make a choice.</p>
+        <p>This is some more information about this choice. Here's a list of items related to this choice.</p>
+        <amp-list height="132"
                   layout="fixed-height"
-                  src="/json/consent-items.json"
-                  class="m1">
+                  src="/json/consent-items.json">
           <template type="amp-mustache">
             <li>{{.}}</li>
           </template>
         </amp-list>
-        <button on="tap:myUserConsent.accept" class="ampstart-btn ampstart-btn-secondary caps mx1">Accept</button>
-        <button on="tap:myUserConsent.reject" class="ampstart-btn ampstart-btn-secondary caps">Reject</button>
+        <button on="tap:myUserConsent.accept">Accept</button>
+        <button on="tap:myUserConsent.reject">Reject</button>
       </div>
     </div>
     <div id="post-consent-ui">
-      <button on="tap:myUserConsent.prompt()" class="ampstart-btn caps m1">Update Consent</button>
+      <button on="tap:myUserConsent.prompt()">Update Consent</button>
     </div>
   </amp-consent>
 
@@ -125,10 +143,11 @@
   documented here</a> for Doubleclick). Note that you may see the same ad when accepting or rejecting consent for this specific example and that's because the example doesn't use personalized information even when accepting consent.<br/>
   Here is an example of `amp-ad` depending on `amp-consent`:
  -->
-  <amp-ad data-block-on-consent data-slot="/30497360/a4a/a4a_native"
-                                height="250"
-                                type="doubleclick"
-                                width="300">
+ <amp-ad data-block-on-consent 
+         data-slot="/30497360/a4a/a4a_native"
+         height="250"
+         type="doubleclick"
+         width="300">
   </amp-ad>
 
 
