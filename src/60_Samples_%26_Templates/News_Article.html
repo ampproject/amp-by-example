@@ -73,7 +73,6 @@ preview: default
       <style amp-custom>
         :root {
           --color-primary: #005AF0;
-          --color-secondary: #00DCC0;
           --color-text-light: #fff;
           --color-text-dark: #000;
           --color-bg-light: #FAFAFC;
@@ -92,8 +91,6 @@ preview: default
           }
           .amp-ad-container {
             display: flex;
-          }
-          .amp-ad {
             margin: 0 auto;
           }
           .carousel .slide > amp-img > img {
@@ -129,7 +126,7 @@ preview: default
           .related:hover {
             background-color: var(--color-bg-light);
           }
-          .amp-user-notification {
+          .cookie-disclaimer {
             padding: var(--space-1);
             background: var(--color-bg-light);
             text-align: center;
@@ -148,7 +145,7 @@ preview: default
         <p><small>by Sebastian Benz</small></p>
       </div>
 
-      <!-- ## Social Sharing  -->
+      <!-- ## Social sharing  -->
 
       <!-- The Social Share extension provides a common interface for share buttons.  Learn more about `amp-social-share` [here](/components/amp-social-share/).  -->
       <p class="heading">
@@ -175,10 +172,10 @@ preview: default
 
       <p>Lorem ipsum dolor sit amet, voluptua oporteat cum cu, eu vix interesset scribentur. Et iudico efficiendi duo, vim an odio iusto reformidans. At maluisset scripserit duo, cum in sumo delenit. Quot erant maiestatis usu ut. Ne mea maiorum vivendum argumentum, tale utinam postea mei in, eam in odio dicta patrioque.</p>
 
-      <!-- ## AD Support -->
+      <!-- ## AD support -->
       <!-- There are no limitations regarding the number or placement of ads in an AMP. Learn more about `amp-ad` [here](/components/amp-ad/).  -->
       <div class="amp-ad-container">
-        <amp-ad class="amp-ad" width="300" height="250"
+        <amp-ad width="300" height="250"
                             type="a9"
                             data-aax_size="300x250"
                             data-aax_pubname="test123"
@@ -197,7 +194,7 @@ preview: default
       Mutat dolores ea duo. Usu cu dico everti tincidunt, pri vero nullam vidisse no. Eam novum aeque populo cu. Verear contentiones ne quo, no sed consulatu definitionem.
       </p>
 
-      <!-- ## Image Galleries  -->
+      <!-- ## Image galleries  -->
       <!-- Use `amp-carousel` for image galleries. Learn more about creating image galleries in AMP [here](/advanced/image_galleries_with_amp-carousel/).  -->
       <amp-carousel width="1280" height="1000" layout="responsive" type="slides">
         <figure class="figure">
@@ -223,7 +220,7 @@ preview: default
       Mutat dolores ea duo. Usu cu dico everti tincidunt, pri vero nullam vidisse no. Eam novum aeque populo cu. Verear contentiones ne quo, no sed consulatu definitionem.
       </p>
 
-      <!-- ## Interactive Content -->
+      <!-- ## Interactive content -->
       <!-- To achieve its performance, AMP HTML doesn't allow custom Javascript. This doesn't mean that you can't created visually rich and interactive websites with AMP. Embed interactive content via `amp-iframe`. Learn more about `amp-iframe` [here](/components/amp-iframe/).  -->
       <figure class="figure">
         <amp-iframe src="https://www.google.us/trends/embed/US_cu_82I1CVMBAACV6M_en/horserace_chart_3c6cdb21-e1eb-4412-9c28-707c3638ea35?hl=en&template=fe"
@@ -257,19 +254,19 @@ preview: default
       <!-- It's a good idea to recommend related content to your readers. With `amp-list` it is possible to dynamically include personalized content into your AMPs. It's a good idea to link to the AMP version of related content in order to keep the user in the fast AMP world. Learn more about `amp-list` [here](/components/amp-list/) -->
       <amp-list width="300" height="75" layout="responsive" src="/json/related_articles.json">
         <template type="amp-mustache">
-          <a class="card related" href="{{url}}"><amp-img width="101" height="75" src="{{thumbnail}}"></amp-img><span>{{title}}</span></a>
+          <a class="related" href="{{url}}"><amp-img width="101" height="75" src="{{thumbnail}}"></amp-img><span>{{title}}</span></a>
         </template>
       </amp-list>
       </main>
 
-      <!-- ## Cookie Consent -->
+      <!-- ## Cookie consent -->
       <!-- Use `amp-user-notification` to implement a cookie consent form (if needed). By default, the AMP runtime doesn't use cookies. Some analytics vendors might use require cookies though. Learn more about `amp-user-notification` [here](/components/amp-user-notification/) -->
-      <amp-user-notification class="amp-user-notification" layout="nodisplay" id="amp-user-notification1">
+      <amp-user-notification class="cookie-disclaimer" layout="nodisplay" id="amp-user-notification1">
         This page might use cookies if your analytics vendor requires them.
         <button on="tap:amp-user-notification1.dismiss">Accept</button>
       </amp-user-notification>
 
-      <!-- ## User Analytics -->
+      <!-- ## User analytics -->
       <!-- Analytics must be configured in the body. Here we use Google Analytics to track pageviews.  -->
       <amp-analytics type="googleanalytics">
         <script type="application/json">
