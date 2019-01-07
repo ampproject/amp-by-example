@@ -18,6 +18,7 @@ import (
 	"net/http"
 	"net/url"
 	"path"
+	"strings"
 	"time"
 )
 
@@ -40,7 +41,7 @@ var validUsers = map[string]bool{
 }
 
 var powerUsers = map[string]bool{
-	"jane@gmail.com": true,
+	"Jane@gmail.com": true,
 }
 
 func InitAmpAccess() {
@@ -72,16 +73,18 @@ func handleAuthorization(w http.ResponseWriter, r *http.Request) {
 			"loggedIn":  false,
 			"powerUser": false,
 			"email":     "",
+			"name":      "",
 		})
 		return
 	}
 
-	email := c.Value
+	email := strings.ToLower(c.Value)
 	isPowerUser := powerUsers[email]
 	SendJsonResponse(w, map[string]interface{}{
 		"loggedIn":  true,
 		"powerUser": isPowerUser,
 		"email":     email,
+		"name":      strings.Split(email, "@")[0],
 	})
 }
 

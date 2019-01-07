@@ -76,7 +76,7 @@ type JsonRoot struct {
 }
 
 var products []Product
-var cache *LRUCache
+var cartCache *LRUCache
 var productsRoot JsonRoot
 
 func InitProductBrowse() {
@@ -89,7 +89,7 @@ func InitProductBrowse() {
 	RegisterHandler("/samples_templates/products_autosuggest", handleProductsAutosuggestRequest)
 	RegisterHandler(SHOW_MORE_PATH, handleLoadMoreRequest)
 	RegisterHandler(ADD_TO_CART_PATH, onlyPost(addToCart))
-	cache = NewLRUCache(100)
+	cartCache = NewLRUCache(100)
 }
 
 func addToCart(w http.ResponseWriter, r *http.Request) {
@@ -104,13 +104,13 @@ func addToCart(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("AMP-Redirect-To", GetHost(r)+"/shopping_cart/?clientid="+clientId)
 
 	// create a new shopping cart if one doesn't exist yet
-	value, shoppingCartIsInCache := cache.Get(clientId)
+	value, shoppingCartIsInCache := cartCache.Get(clientId)
 	var shoppingCart map[ShoppingCartItem]int
 	if shoppingCartIsInCache {
 		shoppingCart, _ = value.(map[ShoppingCartItem]int)
 	} else {
 		shoppingCart = make(map[ShoppingCartItem]int)
-		cache.Add(clientId, shoppingCart)
+		cartCache.Add(clientId, shoppingCart)
 	}
 	// extract item values (these are usually stored in your db)
 	name := r.FormValue("name")
@@ -165,7 +165,7 @@ func renderShoppingCart(w http.ResponseWriter, r *http.Request, page Page, clien
 		response := fmt.Sprintf("{\"error\":\"%s\"}", err)
 		w.Write([]byte(response))
 	}
-	shoppingCart, exists := cache.Get(cookie.Value)
+	shoppingCart, exists := cartCache.Get(cookie.Value)
 	if !exists {
 		http.Error(w, http.StatusText(404), 404)
 		return
