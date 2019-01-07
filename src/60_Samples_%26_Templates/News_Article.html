@@ -1,6 +1,5 @@
 <!---
 
-default: preview
 preview: default
 
 --->
@@ -13,19 +12,25 @@ preview: default
   <html ⚡>
     <head>
       <meta charset="utf-8">
-  <title>News Article</title>
+      <title>News Article</title>
       <script async src="https://cdn.ampproject.org/v0.js"></script>
       <!-- ## Setup -->
       <!--
-        All additionally used AMP components must be imported in the header.
-      -->
+        All additionally used AMP components must be imported in the header. Import `amp-social-share` for adding share buttons-->
       <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+      <!-- Import `amp-iframe` to embed an interactive chart -->
       <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+      <!-- Import `amp-carousel` to implement an image gallery -->
       <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+      <!-- Import `amp-user-notification` to display a cookie notification -->
       <script async custom-element="amp-user-notification" src="https://cdn.ampproject.org/v0/amp-user-notification-0.1.js"></script>
+      <!-- Import `amp-list` to get a fresh a list of related articles -->
       <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+      <!-- Import `amp-mustache` as a format template for `amp-list` -->
       <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+      <!-- Import `amp-analytics` for tracking usage -->
       <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+      <!-- Import `amp-ad` to display ads -->
       <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
 
       <link rel="canonical" href="<%host%>/samples_templates/news_article/">
@@ -65,62 +70,71 @@ preview: default
       </script>
       <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
       <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-        <style amp-custom>
-  main>p, main>div, main>h2, main>figure>figcaption {
-    padding: 1rem;
-  }
-  figure {
-    margin: 1rem 0;
-    padding: 0;
-  }
-  figure>figcaption{
-    padding: .5rem 1rem;
-  }
-  .amp-ad-container {
-   display: flex;
-  }
-  amp-ad {
-    margin: 0 auto;
-  }
-  .carousel .slide > amp-img > img {
-    object-fit: contain;
-  }
-  .heading {
-    padding-bottom: 8px;
-  }
-  .heading h1 {
-    font-size: 3rem;
-    line-height: 3.5rem;
-    margin-bottom: 1rem;
-  }
-  .heading > #summary {
-    font-weight: 500;
-  }
-  .heading > small {
-    color: #656565;
-  }
-  .related {
-    background-color: #f5f5f5;
-    margin: 1rem;
-    display: flex;
-    color: #111;
-    padding: 0;
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
-    text-decoration: none;
-  }
-  .related > span {
-    font-weight: 400;
-    margin: 8px;
-  }
-  .related:hover {
-    background-color: #ccc;
-  }
-  amp-user-notification {
-    padding: 8px;
-    background: #bbb;
-    text-align: center;
-    color: white;
-  }
+      <style amp-custom>
+        :root {
+          --color-primary: #005AF0;
+          --color-secondary: #00DCC0;
+          --color-text-light: #fff;
+          --color-text-dark: #000;
+          --color-bg-light: #FAFAFC;
+
+          --space-1: .5rem;  /* 8px */
+          --space-2: 1rem;   /* 16px */
+
+          --box-shadow-1: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+          }
+          figure {
+            margin: var(--space-2) 0;
+            padding: 0;
+          }
+          figure>figcaption{
+            padding: var(--space-1) var(--space-2);
+          }
+          .amp-ad-container {
+            display: flex;
+          }
+          amp-ad {
+            margin: 0 auto;
+          }
+          .carousel .slide > amp-img > img {
+            object-fit: contain;
+          }
+          .heading {
+            padding-bottom: var(--space-1);
+          }
+          .heading h1 {
+            font-size: 3rem;
+            line-height: 3.5rem;
+            margin-bottom: var(--space-2);
+          }
+          .heading > #summary {
+            font-weight: 500;
+          }
+          .heading > small {
+            color: var(--color-primary);
+          }
+          .related {
+            background-color: var(--color-bg-light);
+            margin: var(--space-2);
+            display: flex;
+            color: var(--color-text-dark);
+            padding: 0;
+            box-shadow: var(--box-shadow-1);
+            text-decoration: none;
+          }
+          .related > span {
+            font-weight: 400;
+            margin: var(--space-1);
+          }
+          .related:hover {
+            background-color: var(--color-bg-light);
+          }
+          amp-user-notification {
+            padding: var(--space-1);
+            background: var(--color-bg-light);
+            text-align: center;
+            color: var(--color-text-light);
+          }
         </style>
 
     </head>
