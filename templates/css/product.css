@@ -84,7 +84,7 @@ amp-carousel {
   height:var(--space-4);
   font-family:inherit;
   font-size:100%;
-  border:solid 0 #ccc;
+  border:solid 0 var(--color-primary);
   border-radius:4px 0;
   transition:all .9s ease
 }
@@ -94,7 +94,7 @@ amp-carousel {
   max-width:700px;
   background-color:var(--color-text-light);
   border-color:var(--color-primary);
-  box-shadow:0 0 5px rgba(109,207,246,.5);
+  box-shadow:var(--box-shadow-1);
   outline:none
 }
 
@@ -159,7 +159,7 @@ amp-carousel {
 .tile p {
   margin:0;
   padding:0 var(--space-1);
-  font-size:14px;
+  font-size:var(--space-2);
   line-height:20px
 }
 
