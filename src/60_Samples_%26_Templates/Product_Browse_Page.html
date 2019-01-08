@@ -170,31 +170,32 @@ skipValidation: true
         }});
           input-debounced:
             AMP.setState({
-              query: event.value,
-              showDropdown: event.value,
+              autosuggest.query: event.value,
+              autosuggest.showDropdown: event.value,
             }),
           autosuggest-list.show;
           tap:
             AMP.setState({
-              query: query == null ? '' : query,
-              showDropdown: 'true'
+              autosuggest.query: autosuggest.query == null ? '' : autosuggest.query,
+              autosuggest.showDropdown: 'true'
             }),
             autosuggest-list.show"
-          [value]="query || ''"
+          [value]="autosuggest.query || ''"
           value="">
         <a id="sample-logo" href="/">Products</a>
         <div class="suggest">
             <div
               class="autosuggest-container"
-              [hidden]=!(showDropdown && query)
+              hidden
+              [hidden]="!(autosuggest.showDropdown && autosuggest.query)"
             >
               <amp-list
                 class="autosuggest-box"
                 layout="fixed-height"
                 height="120"
                 src="/samples_templates/products_autosuggest"
-                [src]="query ?
-                  autosuggest.endpoint + query :
+                [src]="autosuggest.query ?
+                  autosuggest.endpoint + autosuggest.query :
                   autosuggest.emptyAndInitialTemplateJson"
                 id="autosuggest-list"
               >
@@ -206,8 +207,8 @@ skipValidation: true
                     on="
                       select:
                         AMP.setState({
-                          query: event.targetOption,
-                          showDropdown: false
+                          autosuggest.query: event.targetOption,
+                          autosuggest.showDropdown: false
                         }),
                         autosuggest-list.hide"
                   >
@@ -220,8 +221,8 @@ skipValidation: true
                       >{{.}}</div>
                     {{/results}}
                     {{^results}}
-                      <div class="{{#query}}empty{{/query}}">
-                        {{#query}}Sorry! We couldn't find the product 😰{{/query}}
+                      <div class="{{#autosuggest.query}}empty{{/ autosuggest.query}}">
+                        {{#autosuggest.query}}Sorry! We couldn't find the product 😰{{/autosuggest.query}}
                       </div>
                     {{/results}}
                   </amp-selector>
@@ -481,7 +482,9 @@ skipValidation: true
           "emptyAndInitialTemplateJson": [{
             "query": "",
             "results": []
-          }]
+          }],
+          "showDropdown":false,
+          "query":""
         }
         </script>
     </amp-state>
