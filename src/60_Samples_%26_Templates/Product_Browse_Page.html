@@ -101,9 +101,9 @@ skipValidation: true
              padding-right: var(--space-1);
            }
            .products amp-img {
-             line-height: 24px;
+             line-height: var(--space-3);
              font-weight: 400;
-             font-size: 24px;
+             font-size: var(--space-3);
              vertical-align: middle;
              float: left;
              margin-right: var(--space-1);
@@ -136,10 +136,7 @@ skipValidation: true
             position: absolute;
             width: 100%;
             background-color: var(--color-text-light);
-            box-shadow: 0px 2px 6px rgba(0,0,0,.3);
-          }
-          .hidden {
-            display: none;
+            box-shadow: var(--box-shadow-1);
           }
       </style>
       <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
@@ -188,10 +185,8 @@ skipValidation: true
         <a id="sample-logo" href="/">Products</a>
         <div class="suggest">
             <div
-              class="autosuggest-container hidden"
-              [class]="(showDropdown && query) ?
-                'autosuggest-container' :
-                'autosuggest-container hidden'"
+              class="autosuggest-container"
+              [hidden]=!(showDropdown && query)
             >
               <amp-list
                 class="autosuggest-box"

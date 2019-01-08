@@ -7,7 +7,7 @@
   --space-1: .5rem;  /* 8px */
   --space-2: 1rem;   /* 16px */
   --space-3: 1.5rem; /* 24px */
-
+  --space-4: 2rem;   /* 32px */
   --box-shadow-1: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
 }
 
@@ -46,7 +46,7 @@ amp-carousel {
   color:var(--color-text-light);
   text-transform:uppercase;
   margin:0 var(--space-2);
-  height:32px;
+  height:var(--space-4);
   text-decoration:none;
   line-height:52px
 }
@@ -61,14 +61,14 @@ amp-carousel {
 
 .header input[type=submit] {
   position:absolute;
-  top:10px;
+  top:var(--space-1);
   right:var(--space-1);
   background-color:var(--color-primary);
   background-position:center;
   background-repeat:no-repeat;
   background-image:-webkit-image-set(url(/img/ic_search_white_1x_web_24dp.png) 1x,url(/img/ic_search_white_2x_web_24dp.png) 2x);
   border:0;
-  height:32px;
+  height:var(--space-4);
   width:36px;
   -webkit-appearance:none;
   border-radius:4px 0
@@ -76,12 +76,12 @@ amp-carousel {
 
 .header input[type=search],.header input[type=text] {
   position:absolute;
-  top:10px;
-  right:24px;
+  top:var(--space-1);
+  right:var(--space-3);
   background:var(--color-bg-light);
   padding:0 var(--space-1);
   width:20vw;
-  height:32px;
+  height:var(--space-4);
   font-family:inherit;
   font-size:100%;
   border:solid 0 #ccc;
