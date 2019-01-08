@@ -34,7 +34,7 @@ amp-carousel {
   font-weight:700;
   color: var(--color-text-light);
   text-transform:uppercase;
-  padding:13px
+  padding:var(--space-2);
 }
 
 .header #sample-logo {
