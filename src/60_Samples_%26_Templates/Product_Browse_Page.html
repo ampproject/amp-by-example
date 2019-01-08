@@ -54,7 +54,7 @@ skipValidation: true
            left: 0;
            right: 0;
            padding: var(--space-3);
-           background: var(--color-bg-light);
+           background: rgba(200,200,200,.5);
            color: var(--color-text-dark);
            font-size: 36px;
            max-height: 30%;
@@ -73,9 +73,7 @@ skipValidation: true
          @media (min-width: 600px) {
            .refine {
              display:inline;
-             float: left;
-             width: 20%;
-             box-shadow: 5px 0 5px -5px rgba(0,0,0,.4);
+             box-shadow: var(--box-shadow-1);
            }
            .content {
              float: right;
@@ -97,8 +95,7 @@ skipValidation: true
            .products {
              display: block;
              height: 100px;
-             padding: 0;
-             padding-right: var(--space-1);
+             padding: 0 var(--space-1) 0 0;
            }
            .products amp-img {
              line-height: var(--space-3);
@@ -273,7 +270,8 @@ skipValidation: true
       <amp-lightbox id="filter-lightbox" layout="nodisplay">
         <div>
           <h3>Filter results</h3>
-          <h4>Color</h4>           
+          <h4>Color</h4>      
+          <div>     
             <label> yellow <input type="radio" name="colorFilter" value="Yellow" on="change:AMP.setState({
               products: {
               searchColor: event.checked == true ? 'yellow' : '',
@@ -298,6 +296,7 @@ skipValidation: true
               listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'all' : '') +'&_=RANDOM'
               }
               }), filter-lightbox.close"> </label>
+              </div>
           <div>
             <a on="tap:filter-lightbox.close" role="button" tabindex="0">
               Close
@@ -310,49 +309,39 @@ skipValidation: true
       Similarly, we use a select option to allow the user to sort products based on price and we then modify the
     `src` url of `amp-list`. -->
       <div id="main-wrap">
-        <div>
+        <div class="refine">
           <h3>Filter results</h3>
           <h4>Color</h4>
-          <div>
-            <input type="radio" id="yellow" name="colorFilter" value="Yellow" on="change:AMP.setState({
-            products: {
-            searchColor: event.checked == true ? 'yellow' : '',
-            listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'yellow' : '') +'&_=RANDOM'
-            }
-            })">
-            <label for="yellow"> yellow </label>
-          </div>
-          <div>
-            <input type="radio" id="orange" name="colorFilter" class="relative" value="Orange" on="change:AMP.setState({
-            products: {
-            searchColor: event.checked == true ? 'orange' : '',
-            listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'orange' : '') +'&_=RANDOM'
-            }
-            })">
-            <label for="orange"> orange </label>
-          </div>
-          <div>
-            <input type="radio" id="green" name="colorFilter" class="relative" value="Green" on="change:AMP.setState({
-            products: {
-            searchColor: event.checked == true ? 'green' : '',
-            listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'green' : '') +'&_=RANDOM'
-            }
-            })">
-            <label for="green"> green </label>
-          </div>
-          <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mx1">
-            <input type="radio" id="all" name="colorFilter" class="relative" value="all" on="change:AMP.setState({
-            products: {
-            searchColor: event.checked == true ? 'all' : '',
-            listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'all' : '') +'&_=RANDOM'
-            }
-            })">
-            <label for="all"> all </label>
-          </div>
+            <label for="yellow"> yellow <input type="radio" id="yellow" name="colorFilter" value="Yellow" on="change:AMP.setState({
+              products: {
+              searchColor: event.checked == true ? 'yellow' : '',
+              listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'yellow' : '') +'&_=RANDOM'
+              }
+              })"></label>           
+            <label> orange <input type="radio" id="orange" name="colorFilter" value="Orange" on="change:AMP.setState({
+              products: {
+              searchColor: event.checked == true ? 'orange' : '',
+              listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'orange' : '') +'&_=RANDOM'
+              }
+              })"></label>
+            
+            <label> green <input type="radio" id="green" name="colorFilter"  value="Green" on="change:AMP.setState({
+              products: {
+              searchColor: event.checked == true ? 'green' : '',
+              listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'green' : '') +'&_=RANDOM'
+              }
+              })"></label>           
+            <label> all <input type="radio" id="all" name="colorFilter"  value="all" on="change:AMP.setState({
+              products: {
+              searchColor: event.checked == true ? 'all' : '',
+              listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'all' : '') +'&_=RANDOM'
+              }
+              })"></label>
         </div>
         <div class="content">
           <div id="info-wrap">
             <div>
+              <label for="sort">Sort</label>
               <select id="sort" on="change:AMP.setState({
               products: {
               sortChoiceValue: event.value,
@@ -363,8 +352,7 @@ skipValidation: true
                 </option>
                 <option value="price-ascendent">Price low to high
                 </option>
-              </select>
-              <label for="sort">Sort</label>
+              </select>              
             </div>
             <button class="filter-mobile" on="tap:filter-lightbox">
               Filter
