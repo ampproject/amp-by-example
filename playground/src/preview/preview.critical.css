@@ -1,4 +1,6 @@
 #preview-container {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
   overflow-y: scroll;
   background-color: var(--light-bg-color); 
   width: 100%;

@@ -15,8 +15,8 @@
 import events from './events.js';
 
 describe(events, () => {
-
-  it('notifies channel observers', () => { const observer = jasmine.createSpy('observer');
+  it('notifies channel observers', () => {
+    const observer = jasmine.createSpy('observer');
     const anEvent = 'an event';
     const anotherEvent = 'another event';
     events.subscribe('channel 1', observer);
@@ -45,5 +45,4 @@ describe(events, () => {
     expect(observer).toHaveBeenCalledWith(anEvent);
     expect(observer).toHaveBeenCalledWith(anotherEvent);
   });
-
 });

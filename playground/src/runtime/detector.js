@@ -18,7 +18,7 @@ const STORY_REGEX = /<amp-story\s+standalone\s*>/i;
 const AMPHTML_AD_REGEX = /amp4ads-boilerplate/i;
 const EMAIL_REGEX = /amp4email-boilerplate/i;
 
-const detectRuntime = string => {
+const detectRuntime = (string) => {
   if (string.match(STORY_REGEX)) {
     return runtimes.get('amp4stories');
   }

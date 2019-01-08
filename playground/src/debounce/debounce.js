@@ -34,4 +34,4 @@ export default function(func, wait, immediate) {
       func.apply(context, args);
     }
   };
-};
+}

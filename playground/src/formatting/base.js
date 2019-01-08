@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { html_beautify } from 'js-beautify/js/lib/beautify-html.js';
+import {html_beautify} from 'js-beautify/js/lib/beautify-html.js';
 
 const BEAUTIFY_OPTIONS = {
-  indent_size: 2,
-  unformatted: ['noscript', 'style'],
+  'indent_size': 2,
+  'unformatted': ['noscript', 'style'],
   'indent-char': ' ',
   'no-preserve-newlines': '',
-  'extra_liners': []
+  'extra_liners': [],
 };
 
 export default function beautifyHtml(string) {

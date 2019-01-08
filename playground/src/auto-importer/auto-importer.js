@@ -16,20 +16,20 @@ import CodeMirror from 'codemirror';
 
 const ENGINE_MAP = {
   'amphtml engine v0.js script': '"https://cdn.ampproject.org/v0.js"',
-  'amp4ads engine amp4ads-v0.js script': '"https://cdn.ampproject.org/amp4ads-v0.js"'
+  'amp4ads engine amp4ads-v0.js script': '"https://cdn.ampproject.org/amp4ads-v0.js"',
 };
-let ENGINE_SET = new Set();
+const ENGINE_SET = new Set();
 
 // A lookup to override what type of component an AMP component is
 const AMP_SCRIPT_TYPE_MAP = {
-  'amp-mustache': 'custom-template'
+  'amp-mustache': 'custom-template',
 };
 
 // Used as a lookup for attribute names that identify a script tag as being an
 // AMP component.
 const CUSTOM_ATTRS = {
   'custom-element': 1,
-  'custom-template': 1
+  'custom-template': 1,
 };
 
 export function createAutoImporter(componentsProvider, editor) {
@@ -37,7 +37,6 @@ export function createAutoImporter(componentsProvider, editor) {
 }
 
 class AutoImporter {
-
   constructor(componentsProvider, editor) {
     this.componentsProvider = componentsProvider;
     this.editor = editor;
@@ -118,14 +117,14 @@ class AutoImporter {
    * missingBaseScriptTag: The URL of the missing AMP engine, if missing.
    */
   _parseMissingElements(validationResult, components) {
-    let missingElements = {
+    const missingElements = {
       missingBaseScriptTag: null,
-      missingTags: {}
+      missingTags: {},
     };
 
-    for (let err of validationResult.errors) {
+    for (const err of validationResult.errors) {
       if (err.category === 'MANDATORY_AMP_TAG_MISSING_OR_INCORRECT') {
-        switch(err.code) {
+        switch (err.code) {
           case 'MANDATORY_TAG_MISSING':
             if (err.params && ENGINE_MAP[err.params[0]]) {
               missingElements.missingBaseScriptTag = ENGINE_MAP[err.params[0]];
@@ -183,7 +182,7 @@ class AutoImporter {
     let lastTag = null;
 
     const result = {
-      tags: {}
+      tags: {},
     };
 
     let i = 0;
@@ -248,5 +247,4 @@ class AutoImporter {
     return `<script async ${scriptType}="${tagName}" ` +
         `src="https://cdn.ampproject.org/v0/${tagName}-${ver}.js"></script>`;
   }
-
 }

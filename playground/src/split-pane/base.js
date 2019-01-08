@@ -17,7 +17,6 @@ export default function addSplitPaneBehavior(container) {
 }
 
 class SplitPane {
-
   constructor(container) {
     this.container = container;
     const children = container.children;
@@ -81,7 +80,7 @@ class SplitPane {
     const children = this.container.getElementsByTagName('*');
     for (let i = 0; i < children.length; i++) {
       children[i].style['pointer-events'] = value;
-    };
+    }
   }
 
   _onResize() {

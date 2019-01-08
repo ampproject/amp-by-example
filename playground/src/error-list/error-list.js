@@ -30,7 +30,7 @@ class ErrorList {
     this.container = container;
     this.trigger = Button.from(trigger, this.toggle.bind(this));
     // configure validator
-    events.subscribe(Validator.EVENT_NEW_VALIDATION_RESULT, validationResult => {
+    events.subscribe(Validator.EVENT_NEW_VALIDATION_RESULT, (validationResult) => {
       this.update(validationResult);
       window.requestIdleCallback(() => {
         if (validationResult === Validator.NO_VALIDATOR) {
@@ -45,8 +45,8 @@ class ErrorList {
         }
         this.trigger.enable();
         this.trigger.setHtml(
-          validationResult.errors.length + 
-          ' Error' + 
+            validationResult.errors.length +
+          ' Error' +
           (validationResult.errors.length > 1 ? 's' : ''));
       });
     });
@@ -124,5 +124,4 @@ class ErrorList {
     }
     events.publish(EVENT_ERROR_SELECTED, error);
   }
-
 }

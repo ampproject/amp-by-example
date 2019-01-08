@@ -15,7 +15,6 @@
 import URLSearchParams from 'url-search-params';
 
 class Params {
-
   constructor(win) {
     this.win = win;
   }

@@ -26,7 +26,6 @@ const URL_DOC_ID_PREFIX = 'amp/';
 const REGEX_DOC_ID = /^.*\/amp\/(.+)$/;
 
 export default class DocumentController {
-
   constructor(editor, runtime, container, win) {
     this.win = win;
     this.container = container;
@@ -35,15 +34,15 @@ export default class DocumentController {
     this._setupDocument(runtime);
     this._configureStatemachine();
     events.subscribe(
-      EVENT_INPUT_CHANGE,
-      editor => this.srcDoc.update()
+        EVENT_INPUT_CHANGE,
+        (editor) => this.srcDoc.update()
     );
     events.subscribe(
-      PlaygroundDocument.EVENT_DOCUMENT_STATE_CHANGED,
-      this._onStateChange.bind(this)
+        PlaygroundDocument.EVENT_DOCUMENT_STATE_CHANGED,
+        this._onStateChange.bind(this)
     );
     // TODO find a better place for key handling
-    key.filter = event => true;
+    key.filter = (event) => true;
     key('⌘+s, ctrl+s', (e) => {
       e.preventDefault();
       this.save();
@@ -52,9 +51,9 @@ export default class DocumentController {
 
   _configureStatemachine() {
     this.statemachine = new Map()
-      .set(PlaygroundDocument.READ_ONLY, this._stateReadOnly)
-      .set(PlaygroundDocument.DIRTY, this._stateDirty)
-      .set(PlaygroundDocument.SAVED, this._stateSaved);
+        .set(PlaygroundDocument.READ_ONLY, this._stateReadOnly)
+        .set(PlaygroundDocument.DIRTY, this._stateDirty)
+        .set(PlaygroundDocument.SAVED, this._stateSaved);
   }
 
   _setupDocument(runtime) {
@@ -68,12 +67,12 @@ export default class DocumentController {
     } else {
       promise = Promise.resolve(runtime.template);
     }
-    promise.then(content => this.editor.setSource(content))
-      .catch(err => {
-        console.error(err);
-        snackbar.show('Could not fetch document.');
-        this.editor.setSource(runtime.template);
-      });
+    promise.then((content) => this.editor.setSource(content))
+        .catch((err) => {
+          console.error(err);
+          snackbar.show('Could not fetch document.');
+          this.editor.setSource(runtime.template);
+        });
   }
 
   _getDocumentId() {
@@ -104,33 +103,33 @@ export default class DocumentController {
   fork() {
     this.forkButton.disable();
     this.srcDoc.fork()
-      .then(docId => {
-        this._setDocumentId(docId);
-        this.forkButton.enable();
-        snackbar.show('Document forked');
-      })
-      .catch(err => {
-        console.error(err);
-        this.forkButton.enable();
-        snackbar.show('Could not fork document');
-      });
+        .then((docId) => {
+          this._setDocumentId(docId);
+          this.forkButton.enable();
+          snackbar.show('Document forked');
+        })
+        .catch((err) => {
+          console.error(err);
+          this.forkButton.enable();
+          snackbar.show('Could not fork document');
+        });
   }
 
   save() {
-    if (this.srcDoc.state !== PlaygroundDocument.DIRTY && 
+    if (this.srcDoc.state !== PlaygroundDocument.DIRTY &&
         this.srcDoc.state !== PlaygroundDocument.READ_ONLY) {
       return;
     }
     this.saveButton.disable();
     this.srcDoc.save(this.editor.getSource())
-      .then(docId => {
-        this._setDocumentId(docId);
-      })
-      .catch(err => {
-        console.error(err);
-        this.saveButton.enable();
-        snackbar.show('Could not save document');
-      });
+        .then((docId) => {
+          this._setDocumentId(docId);
+        })
+        .catch((err) => {
+          console.error(err);
+          this.saveButton.enable();
+          snackbar.show('Could not save document');
+        });
   }
 
   _onStateChange(newState, disableSnackbar) {
@@ -145,8 +144,8 @@ export default class DocumentController {
   _stateSaved(disableSnackbar) {
     navigationWarning.disable();
     this.saveButton
-      .setHtml('Saved')
-      .disable();
+        .setHtml('Saved')
+        .disable();
     if (disableSnackbar) {
       return;
     }
@@ -156,13 +155,13 @@ export default class DocumentController {
   _stateDirty() {
     navigationWarning.enable();
     this.saveButton.show()
-      .setHtml('Save')
-      .enable();
+        .setHtml('Save')
+        .enable();
   }
 
   _stateReadOnly() {
     navigationWarning.enable();
     this.saveButton.hide()
-      .disable();
+        .disable();
   }
 }

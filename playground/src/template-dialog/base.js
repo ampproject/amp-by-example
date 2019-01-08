@@ -38,11 +38,11 @@ class TemplateDialog {
   open(runtime) {
     this.runtime = runtime;
     this.fetchTemplates()
-      .then((sitemap) => this.renderTemplates(sitemap))
-      .catch(err => {
-        console.log(err);
-        this.callback.onError('Could not fetch templates');
-      });
+        .then((sitemap) => this.renderTemplates(sitemap))
+        .catch((err) => {
+          console.log(err);
+          this.callback.onError('Could not fetch templates');
+        });
   }
 
   close() {
@@ -57,11 +57,11 @@ class TemplateDialog {
       return this.templates;
     }
     this.templates = fetch(SITEMAP_URL, {
-      mode: 'cors'
-    }).then(response => {
+      mode: 'cors',
+    }).then((response) => {
       this.button.enable();
       return response.json();
-    }).catch(err => {
+    }).catch((err) => {
       console.error(err);
       this.templates = null;
     });
@@ -77,7 +77,7 @@ class TemplateDialog {
     const searchStrings = [];
     const items = [];
     const templates = this.selectTemplatesForRuntime(sitemap);
-    templates.categories.forEach(c => {
+    templates.categories.forEach((c) => {
       this.addTemplateCategory(c, root, items, searchStrings);
     });
     const searchInputField = root.querySelector('#template-search-input');
@@ -92,7 +92,7 @@ class TemplateDialog {
     root.appendChild(heading);
     const templateList = this.doc.createElement('ul');
     root.appendChild(templateList);
-    category.examples.forEach(e => {
+    category.examples.forEach((e) => {
       const listItem = this.createTemplateListItem(e);
       templateList.appendChild(listItem);
       items.push(listItem);
@@ -114,17 +114,17 @@ class TemplateDialog {
     this.callback.onStart();
     this.close();
     fetch(url, {
-      mode: 'cors'
-    }).then(response => response.text())
-      .then(body => {
-        this.callback.onSuccess({
-          url: url,
-          content: this.makeLinksAbsolute(url, body)
+      mode: 'cors',
+    }).then((response) => response.text())
+        .then((body) => {
+          this.callback.onSuccess({
+            url,
+            content: this.makeLinksAbsolute(url, body),
+          });
+        }).catch((err) => {
+          console.error(err);
+          this.callback.onError('Could not fetch template');
         });
-      }).catch(err => {
-        console.error(err);
-        this.callback.onError('Could not fetch template');
-      });
   }
 
   makeLinksAbsolute(url, body) {
@@ -152,8 +152,8 @@ class TemplateDialog {
       return {
         categories: [{
           name: 'No templates available',
-          examples: []
-        }]
+          examples: [],
+        }],
       };
     }
   }
