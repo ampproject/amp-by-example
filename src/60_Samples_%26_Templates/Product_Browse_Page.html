@@ -169,14 +169,18 @@ skipValidation: true
         }});
           input-debounced:
             AMP.setState({
-              autosuggest.query: event.value,
-              autosuggest.showDropdown: event.value,
+              autosuggest: {
+                query: event.value,
+                showDropdown: event.value
+              }
             }),
           autosuggest-list.show;
           tap:
             AMP.setState({
-              autosuggest.query: autosuggest.query == null ? '' : autosuggest.query,
-              autosuggest.showDropdown: 'true'
+              autosuggest: {
+                query: autosuggest.query == null ? '' : autosuggest.query,
+                showDropdown: 'true'
+              }
             }),
             autosuggest-list.show"
           [value]="autosuggest.query || ''"
@@ -206,8 +210,10 @@ skipValidation: true
                     on="
                       select:
                         AMP.setState({
-                          autosuggest.query: event.targetOption,
-                          autosuggest.showDropdown: false
+                          autosuggest: {
+                            query: event.targetOption,
+                            showDropdown: false
+                          }
                         }),
                         autosuggest-list.hide"
                   >
@@ -314,31 +320,31 @@ skipValidation: true
         <div class="refine">
           <h3>Filter results</h3>
           <h4>Color</h4>
-            <label for="yellow"> yellow <input type="radio" id="yellow" name="colorFilter" value="Yellow" on="change:AMP.setState({
+            <div><label><input type="radio" id="yellow" name="colorFilter" value="Yellow" on="change:AMP.setState({
               products: {
               searchColor: event.checked == true ? 'yellow' : '',
               listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'yellow' : '') +'&_=RANDOM'
               }
-              })"></label>           
-            <label> orange <input type="radio" id="orange" name="colorFilter" value="Orange" on="change:AMP.setState({
+              })"> yellow </label></div>           
+              <div><label><input type="radio" id="orange" name="colorFilter" value="Orange" on="change:AMP.setState({
               products: {
               searchColor: event.checked == true ? 'orange' : '',
               listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'orange' : '') +'&_=RANDOM'
               }
-              })"></label>
+              })"> orange </label></div> 
             
-            <label> green <input type="radio" id="green" name="colorFilter"  value="Green" on="change:AMP.setState({
+              <div><label><input type="radio" id="green" name="colorFilter"  value="Green" on="change:AMP.setState({
               products: {
               searchColor: event.checked == true ? 'green' : '',
               listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'green' : '') +'&_=RANDOM'
               }
-              })"></label>           
-            <label> all <input type="radio" id="all" name="colorFilter"  value="all" on="change:AMP.setState({
+              })"> green </label></div>          
+              <div><label><input type="radio" id="all" name="colorFilter"  value="all" on="change:AMP.setState({
               products: {
               searchColor: event.checked == true ? 'all' : '',
               listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'all' : '') +'&_=RANDOM'
               }
-              })"></label>
+              })"> all </label></div> 
         </div>
         <div class="content">
           <div id="info-wrap">
