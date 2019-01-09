@@ -61,7 +61,7 @@ amp-carousel {
 
 .header input[type=submit] {
   position:absolute;
-  top:var(--space-1);
+  top:10px;
   right:var(--space-1);
   background-color:var(--color-primary);
   background-position:center;
@@ -76,7 +76,7 @@ amp-carousel {
 
 .header input[type=search],.header input[type=text] {
   position:absolute;
-  top:var(--space-1);
+  top:10px;
   right:var(--space-3);
   background:var(--color-bg-light);
   padding:0 var(--space-1);
