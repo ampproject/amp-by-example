@@ -23,7 +23,7 @@ amp-carousel {
   position:relative;
   box-shadow: var(--box-shadow-1);
   padding-top:52px;
-  background-color: var(--color-bg-light);
+  background-color: var(--color-primary);
 }
 
 .header #sample-menu {
