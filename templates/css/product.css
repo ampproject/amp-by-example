@@ -1,5 +1,6 @@
 :root {
   --color-primary: #005AF0;
+  --color-secondary: #00DCC0;
   --color-text-light: #fff;
   --color-text-dark: #000;
   --color-bg-light: #FAFAFC;
@@ -23,7 +24,7 @@ amp-carousel {
   position:relative;
   box-shadow: var(--box-shadow-1);
   padding-top:52px;
-  background-color: var(--color-primary);
+  background-color: var(--color-secondary);
 }
 
 .header #sample-menu {
@@ -63,7 +64,7 @@ amp-carousel {
   position:absolute;
   top:10px;
   right:var(--space-1);
-  background-color:var(--color-secondary);
+  background-color:var(--color-primary);
   background-position:center;
   background-repeat:no-repeat;
   background-image:-webkit-image-set(url(/img/ic_search_white_1x_web_24dp.png) 1x,url(/img/ic_search_white_2x_web_24dp.png) 2x);
