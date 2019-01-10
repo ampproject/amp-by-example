@@ -76,6 +76,7 @@ skipValidation: true
              float: left;
              width: 20%;
              box-shadow: var(--box-shadow-1);
+             padding: var(--space-2);
            }
            .content {
              float: right;
@@ -114,6 +115,7 @@ skipValidation: true
          }
          #info-wrap {
            overflow: hidden;
+           margin: var(--space-2)
          }
          .info {
            width: 50%;
@@ -138,6 +140,9 @@ skipValidation: true
             background-color: var(--color-text-light);
             box-shadow: var(--box-shadow-1);
           }
+        .recommendations, .bestsellers, filter-section {
+          margin: var(--space-2);
+        }
       </style>
       <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
       <noscript>
@@ -277,7 +282,7 @@ skipValidation: true
         </script>
       </amp-state>
       <amp-lightbox id="filter-lightbox" layout="nodisplay">
-        <div>
+        <div class="filter-section">
           <h3>Filter results</h3>
           <h4>Color</h4>      
           <div>     
@@ -389,7 +394,7 @@ skipValidation: true
       </div>
       <!-- ## Offers & highlights -->
       <!-- The `amp-carousel` supports also a more traditional carousel mode.   -->
-      <div>
+      <div class="recommendations">
         <h3>Recommendations</h3>      
         <amp-carousel width="auto" height="160" layout="fixed-height" type="carousel">
           <a href="#" role="listitem">
@@ -447,7 +452,7 @@ skipValidation: true
       -->
       <!-- With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
       Learn more about `amp-list` [here](/components/amp-list/) -->
-      <div>
+      <div class="bestsellers">
         <h3>Bestsellers</h3>
         <amp-list class="items"
                   width="auto"
