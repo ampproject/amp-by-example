@@ -13,7 +13,7 @@
 // limitations under the License.
 //
 // source: https://github.com/WICG/EventListenerOptions/blob/gh-pages/EventListenerOptions.polyfill.js
-
+/* eslint-disable */
 (function() {
   let supportsPassive = false;
   document.createElement('div').addEventListener('test', () => {}, {

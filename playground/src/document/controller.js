@@ -35,14 +35,14 @@ export default class DocumentController {
     this._configureStatemachine();
     events.subscribe(
         EVENT_INPUT_CHANGE,
-        (editor) => this.srcDoc.update()
+        () => this.srcDoc.update()
     );
     events.subscribe(
         PlaygroundDocument.EVENT_DOCUMENT_STATE_CHANGED,
         this._onStateChange.bind(this)
     );
     // TODO find a better place for key handling
-    key.filter = (event) => true;
+    key.filter = () => true;
     key('⌘+s, ctrl+s', (e) => {
       e.preventDefault();
       this.save();
@@ -95,8 +95,14 @@ export default class DocumentController {
   }
 
   show() {
-    this.saveButton = Button.from(this.win.document.getElementById('save-document'), this.save.bind(this));
-    this.forkButton = Button.from(this.win.document.getElementById('fork-document'), this.fork.bind(this));
+    this.saveButton = Button.from(
+        this.win.document.getElementById('save-document'),
+        this.save.bind(this)
+    );
+    this.forkButton = Button.from(
+        this.win.document.getElementById('fork-document'),
+        this.fork.bind(this)
+    );
     this._onStateChange(this.srcDoc.state, true);
   }
 

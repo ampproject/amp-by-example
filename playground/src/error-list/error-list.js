@@ -55,6 +55,7 @@ class ErrorList {
   update(validationResult) {
     this.validationResult = validationResult;
     window.requestIdleCallback(() => {
+      /* eslint-disable max-len */
       this.container.innerHTML =
         `
         <div class="title">
@@ -68,6 +69,7 @@ class ErrorList {
         </div>
         <ul>${validationResult.errors.map(this.renderError).join('')}</ul>
         `;
+      /* eslint-enable max-len */
       if (validationResult.errors.length === 0) {
         this.container.classList.toggle('show', false);
       }

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import Wade from 'wade';
+import wade from 'wade';
 import debounce from '../debounce/debounce.js';
 
 const MIN_SEARCH_LENGTH = 3;
@@ -20,7 +20,7 @@ const CSS_FILTER_RULE = 'filtered';
 
 export default class Filter {
   constructor(strings, input, elements) {
-    this.search = Wade(strings);
+    this.search = wade(strings);
     this.elements = elements;
     this.input = input;
     this.input.addEventListener('input', debounce(this.doFilter.bind(this), 200));

@@ -12,9 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/* global amp */
 import events from '../events/events.js';
 import lazyLoad from '../lazy-load/base.js';
-import {runtimes, EVENT_SET_RUNTIME} from '../runtime/runtimes.js';
+import {EVENT_SET_RUNTIME} from '../runtime/runtimes.js';
 
 const DEFAULT_VALIDATOR_URL = 'https://cdn.ampproject.org/v0/validator.js';
 

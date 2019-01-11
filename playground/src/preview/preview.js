@@ -175,7 +175,8 @@ class Preview {
     iframe.setAttribute('id', 'previewIframe');
     iframe.setAttribute('title', 'AMP Playground Output');
     iframe.setAttribute('allowpaymentrequest', '');
-    iframe.setAttribute('sandbox', 'allow-scripts allow-forms allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-presentation allow-top-navigation');
+    iframe.setAttribute('sandbox', 'allow-scripts allow-forms allow-same-origin allow-popups ' +
+      'allow-popups-to-escape-sandbox allow-presentation allow-top-navigation');
     // avoid running AMP stories in fullscreen
     if (this.runtime.id !== 'amp4stories') {
       iframe.setAttribute('allowfullscreen', true);
@@ -228,7 +229,7 @@ class Preview {
     childDoc.write('');
     childDoc.write(this.documentString);
     childDoc.close();
-    (childWindow.AMP = childWindow.AMP || []).push((AMP) => {
+    (childWindow.AMP = childWindow.AMP || []).push(() => {
       this.restoreState(this.previewIframe, this.state);
       this.loader.hide();
       const oldIframes = [].slice.call(this.previewContainer.querySelectorAll('iframe'))

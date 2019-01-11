@@ -15,10 +15,8 @@
 import createDialog from '../dialog/base.js';
 import './base.css';
 import ListFilter from '../filter/filter.js';
-import * as Button from '../button/button.js';
 import absolutify from 'absolutify';
 import dialogHeader from './header.html';
-import events from '../events/events.js';
 
 const SITEMAP_URL = 'https://ampbyexample.com/sitemap.json';
 

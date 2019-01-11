@@ -67,7 +67,7 @@ class Runtimes {
     events.subscribe(EVENT_SET_RUNTIME, (runtime) => this.activeRuntime = runtime);
   }
 
-  init(id) {
+  init() {
     this.activeRuntime = this.get(params.get('runtime', 'amphtml'));
     events.publish(EVENT_SET_RUNTIME, this.activeRuntime);
   }

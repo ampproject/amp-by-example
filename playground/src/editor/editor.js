@@ -40,7 +40,6 @@ import './hints.css';
 
 import CodeMirror from 'codemirror';
 import Loader from '../loader/base.js';
-import {resolve} from 'url';
 
 const DEFAULT_DEBOUNCE_RATE = 500;
 const HINT_IGNORE_ENDS = new Set([

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/* global ga */
 // https://philipwalton.com/articles/the-google-analytics-setup-i-use-on-every-site-i-build/
 export const init = () => {
   // Initialize the command queue in case analytics.js hasn't loaded yet.

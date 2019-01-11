@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {html_beautify} from 'js-beautify/js/lib/beautify-html.js';
+// eslint-disable-next-line google-camelcase/google-camelcase
+import {html_beautify as htmlBeautify} from 'js-beautify/js/lib/beautify-html.js';
 
 const BEAUTIFY_OPTIONS = {
   'indent_size': 2,
@@ -22,6 +23,6 @@ const BEAUTIFY_OPTIONS = {
   'extra_liners': [],
 };
 
-export default function beautifyHtml(string) {
-  return html_beautify(string, BEAUTIFY_OPTIONS);
+export default function(string) {
+  return htmlBeautify(string, BEAUTIFY_OPTIONS);
 }
