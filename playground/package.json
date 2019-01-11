@@ -17,6 +17,7 @@
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "absolutify": "^0.1.0",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "closure-webpack-plugin": "^2.0.0-rc.17",
     "codemirror": "^5.40.2",

@@ -12,8 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// eslint-disable-next-line google-camelcase/google-camelcase
-import {html_beautify as htmlBeautify} from 'js-beautify/js/lib/beautify-html.js';
+import(/* webpackPrefetch: true */ 'js-beautify/js/lib/beautify-html.js');
 
 const BEAUTIFY_OPTIONS = {
   'indent_size': 2,
@@ -23,6 +22,12 @@ const BEAUTIFY_OPTIONS = {
   'extra_liners': [],
 };
 
-export default function(string) {
-  return htmlBeautify(string, BEAUTIFY_OPTIONS);
+class Formatter {
+  format(code) {
+    return import(/* webpackChunkName: "js-beautify" */ 'js-beautify/js/lib/beautify-html.js')
+    // eslint-disable-next-line google-camelcase/google-camelcase
+        .then((jsBeautify) => jsBeautify.html_beautify(code, BEAUTIFY_OPTIONS));
+  }
 }
+
+export default new Formatter();
