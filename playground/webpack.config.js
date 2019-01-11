@@ -4,6 +4,8 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = (env, argv) => {
   const devMode = argv.mode !== 'production';
@@ -38,6 +40,9 @@ module.exports = (env, argv) => {
       }
     },
     plugins: [
+      new CopyWebpackPlugin([
+        { from: 'static/' }
+      ]),
       new MiniCssExtractPlugin({
         filename: devMode ? '[name].css' : '[name].[contenthash].css',
         chunkFilename: devMode ? '[id].css' : '[name].[contenthash].css',
@@ -52,6 +57,7 @@ module.exports = (env, argv) => {
         rel: 'preload',
         include: ['main'],
       }),
+      new CleanWebpackPlugin(['dist']),
     ],
     module: {
       rules: [
