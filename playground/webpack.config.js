@@ -42,7 +42,6 @@ module.exports = (env, argv) => {
         filename: devMode ? '[name].css' : '[name].[contenthash].css',
         chunkFilename: devMode ? '[id].css' : '[name].[contenthash].css',
       }),
-      //new Without([/critical\..+\.js$/]),
       new HtmlWebpackPlugin({
         template: './src/index.hbs',
         filename: './index.html',
@@ -65,7 +64,6 @@ module.exports = (env, argv) => {
           loader: 'url-loader'
         },
         {
-          //test: /\.critical\.css$/,
           test: /\.css$/,
           use: [
             MiniCssExtractPlugin.loader,
