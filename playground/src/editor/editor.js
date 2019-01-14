@@ -40,16 +40,15 @@ import './hints.css';
 
 import CodeMirror from 'codemirror';
 import Loader from '../loader/base.js';
-import { resolve } from 'url';
 
 const DEFAULT_DEBOUNCE_RATE = 500;
 const HINT_IGNORE_ENDS = new Set([
   ';', ',',
   ')',
-  '`', '"', "'",
-  ">",
-  "{", "}",
-  "[", "]"
+  '`', '"', '\'',
+  '>',
+  '{', '}',
+  '[', ']',
 ]);
 const HINTS_URL = 'amphtml-hint.json';
 
@@ -85,10 +84,10 @@ class Editor {
       autoCloseBrackets: true,
       autoCloseTags: true,
       gutters: ['CodeMirror-error-markers'],
-      extraKeys: {"Ctrl-Space": "autocomplete"},
+      extraKeys: {'Ctrl-Space': 'autocomplete'},
       hintOptions: {
-        completeSingle: false
-      }
+        completeSingle: false,
+      },
     });
     this.codeMirror.on('changes', () => {
       if (this.timeout) {
@@ -157,7 +156,7 @@ class Editor {
   setValidationResult(validationResult) {
     this.codeMirror.clearGutter('CodeMirror-error-markers');
     this.codeMirror.operation(() => {
-      validationResult.errors.forEach(error => {
+      validationResult.errors.forEach((error) => {
         const marker = document.createElement('div');
         const message = marker.appendChild(document.createElement('span'));
         message.appendChild(document.createTextNode(error.message));
@@ -190,7 +189,7 @@ class Editor {
 
   loadHints(validator) {
     this.amphtmlHints.then((hints) => {
-      for (let key of Object.keys(CodeMirror.htmlSchema)) {
+      for (const key of Object.keys(CodeMirror.htmlSchema)) {
         delete CodeMirror.htmlSchema[key];
       }
       Object.assign(CodeMirror.htmlSchema, hints[validator.toLowerCase()]);
@@ -216,5 +215,4 @@ class Editor {
       });
     });
   }
-
 }

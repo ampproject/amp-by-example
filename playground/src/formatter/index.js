@@ -12,31 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const path = require('path');
-const webpack = require('webpack');
-const Merge = require('webpack-merge');
+import(/* webpackPrefetch: true */ 'js-beautify/js/lib/beautify-html.js');
 
-const CommonConfig = require('./webpack.common.js');
+const BEAUTIFY_OPTIONS = {
+  'indent_size': 2,
+  'unformatted': ['noscript', 'style'],
+  'indent-char': ' ',
+  'no-preserve-newlines': '',
+  'extra_liners': [],
+};
 
-module.exports = Merge(CommonConfig, {
-  plugins: [
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      mangle: {
-        screw_ie8: true
-      },
-      compress: {
-        screw_ie8: true
-      },
-    })
-  ],
-  devtool: "#source-map"
-});
+class Formatter {
+  format(code) {
+    return import(/* webpackChunkName: "js-beautify" */ 'js-beautify/js/lib/beautify-html.js')
+    // eslint-disable-next-line google-camelcase/google-camelcase
+        .then((jsBeautify) => jsBeautify.html_beautify(code, BEAUTIFY_OPTIONS));
+  }
+}
+
+export default new Formatter();

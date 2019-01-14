@@ -25,7 +25,6 @@ export function create() {
 }
 
 class Menu {
-
   constructor(doc) {
     this.doc = doc;
     this._clickHandler = this._closeOnClick.bind(this);
@@ -55,7 +54,7 @@ class Menu {
   }
 
   _setActiveRuntime() {
-    this._menu.querySelectorAll('input[name=runtime]').forEach(input => {
+    this._menu.querySelectorAll('input[name=runtime]').forEach((input) => {
       input.checked = runtimes.activeRuntime.id === input.id;
     });
   }
@@ -69,19 +68,19 @@ class Menu {
       <div id="menu-format-source" role="button" tabindex="0">Format</div>
       <div role="separator"></div>
       <a href="https://www.google.com/intl/en/policies/privacy/">Privacy</a>
-   </div>`
+   </div>`;
   }
 
   _buildRuntimeSection() {
-    return runtimes.values.map(runtime => 
+    return runtimes.values.map((runtime) =>
       `<label><input type="radio" name="runtime" id="${runtime.id}">${runtime.name}</label>`
     ).join('');
   }
 
   _registerActions() {
-    this._menu.querySelectorAll('input[name=runtime]').forEach(input => {
-      input.addEventListener('change', 
-        e => events.publish(EVENT_SET_RUNTIME, runtimes.get(e.target.id))
+    this._menu.querySelectorAll('input[name=runtime]').forEach((input) => {
+      input.addEventListener('change',
+          (e) => events.publish(EVENT_SET_RUNTIME, runtimes.get(e.target.id))
       );
     });
   }

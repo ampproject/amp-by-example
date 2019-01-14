@@ -38,6 +38,7 @@ import snackbar from './snackbar/base.js';
 import {runtimes, EVENT_SET_RUNTIME} from './runtime/runtimes.js';
 import detectRuntime from './runtime/detector.js';
 import addSplitPaneBehavior from './split-pane/base.js';
+import formatter from './formatter/';
 
 import './service-worker/base.js';
 import './request-idle-callback/base.js';
@@ -91,8 +92,8 @@ events.subscribe(EVENT_SET_RUNTIME, newRuntime => {
   preview.setRuntime(newRuntime);
   runtimeSelector.selectOption(newRuntime.id);
   // change editor input to new runtime default if current input is unchanged
-  if (activeRuntime && 
-    activeRuntime != newRuntime && 
+  if (activeRuntime &&
+    activeRuntime != newRuntime &&
     activeRuntime.template === editor.getSource()) {
     editor.setSource(newRuntime.template);
   };
@@ -152,7 +153,7 @@ const loadTemplateButton = Button.from(
 );
 const templateDialog = createTemplateDialog(loadTemplateButton, {
   onStart: () => editor.showLoadingIndicator(),
-  onSuccess: template => { 
+  onSuccess: template => {
     editor.setSource(template.content);
     params.replace('url', template.url);
   },
@@ -168,15 +169,7 @@ Button.from(document.getElementById('show-menu'), () => {
 });
 
 const formatSource = () => {
-  import('./formatting/base.js')
-    .then(formatHtml => {
-      const formattedCode = formatHtml.default(editor.getSource());
-      editor.setSource(formattedCode);
-    })
-    .catch(e => {
-      console.error(e);
-      snackbar.show('Could not fetch formatter');
-    });
+  formatter.format(editor.getSource()).then(formattedCode => editor.setSource(formattedCode));
 };
 Button.from(document.getElementById('format-source'), formatSource);
 Button.from(document.getElementById('menu-format-source'), formatSource);

@@ -18,9 +18,9 @@ if ('requestIdleCallback' in window && navigator.serviceWorker) {
     window.requestIdleCallback(() => {
       console.log('registering service worker');
       navigator.serviceWorker.register('/sw.js')
-        .catch(err => {
-          console.error('Unable to register service worker.', err);
-        });
+          .catch((err) => {
+            console.error('Unable to register service worker.', err);
+          });
     });
   };
 }

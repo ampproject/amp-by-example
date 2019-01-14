@@ -30,9 +30,9 @@ class Runtimes {
       template: amphtmlTemplate,
       preview: {
         mode: 'devices',
-        default: 'iPhone 6/7/8'
+        default: 'iPhone 6/7/8',
       },
-      validator: 'AMP'
+      validator: 'AMP',
     },
     {
       id: 'amp4ads',
@@ -40,41 +40,41 @@ class Runtimes {
       template: a4aTemplate,
       preview: {
         mode: 'ads',
-        default: 'Custom'
+        default: 'Custom',
       },
-      validator: 'AMP4ADS'
+      validator: 'AMP4ADS',
     },
     {
       id: 'amp4stories',
       name: 'AMP for Stories',
       preview: {
         mode: 'devices',
-        default: 'iPhone 6/7/8'
+        default: 'iPhone 6/7/8',
       },
       validator: 'AMP',
-      template: storyTemplate
+      template: storyTemplate,
     },
     {
       id: 'amp4email',
       name: 'AMP for Email',
       preview: {
         mode: 'devices',
-        default: 'Responsive'
+        default: 'Responsive',
       },
       validator: 'AMP4EMAIL',
-      template: emailTemplate
+      template: emailTemplate,
     }];
-    events.subscribe(EVENT_SET_RUNTIME, runtime => this.activeRuntime = runtime);
+    events.subscribe(EVENT_SET_RUNTIME, (runtime) => this.activeRuntime = runtime);
   }
 
-  init(id) {
+  init() {
     this.activeRuntime = this.get(params.get('runtime', 'amphtml'));
     events.publish(EVENT_SET_RUNTIME, this.activeRuntime);
   }
 
   get(id) {
     id = id.toLowerCase();
-    const result = this.values.find(r => r.id === id);
+    const result = this.values.find((r) => r.id === id);
     return result || this.values[0];
   }
 }

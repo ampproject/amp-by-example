@@ -19,13 +19,12 @@ export function createComponentsProvider() {
 }
 
 class ComponentsProvider {
-
   constructor(win) {
     this.win = win;
     this.componentsMap = new Promise((resolve, reject) => {
       this.win.requestIdleCallback(() => {
-        let request = new Request(COMPONENTS_URL, {
-          headers: new Headers({'x-requested-by': 'playground'})
+        const request = new Request(COMPONENTS_URL, {
+          headers: new Headers({'x-requested-by': 'playground'}),
         });
         fetch(request)
             .then((r) => r.json())
@@ -35,7 +34,7 @@ class ComponentsProvider {
             .catch(() => {
               console.warn('Failed to fetch AMP component versions mapping');
               resolve({});
-            })
+            });
       });
     });
   }
@@ -43,5 +42,4 @@ class ComponentsProvider {
   get() {
     return this.componentsMap;
   }
-
 }

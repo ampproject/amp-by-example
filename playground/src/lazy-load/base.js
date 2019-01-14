@@ -16,7 +16,7 @@ const cache = [];
 export default function lazyLoad(scriptUrl) {
   let result = cache[scriptUrl];
   if (!result) {
-    result = new Promise(resolve => {
+    result = new Promise((resolve) => {
       const script = document.createElement('script');
       script.async = true;
       script.src = scriptUrl;

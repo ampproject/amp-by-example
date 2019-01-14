@@ -13,7 +13,6 @@
 // limitations under the License.
 
 class TitleUpdater {
-
   constructor(win) {
     this.win = win;
     this.originalTitle = win.document.title;
@@ -29,7 +28,6 @@ class TitleUpdater {
       this.win.document.title = snippetTitle + ' - ' + this.originalTitle;
     });
   }
-
 }
 
 export default new TitleUpdater(window);
