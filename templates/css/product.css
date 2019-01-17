@@ -4,6 +4,7 @@
   --color-text-light: #fff;
   --color-text-dark: #000;
   --color-bg-light: #FAFAFC;
+  --color-bg-grey: rgba(0,0,0,0.8);
 
   --space-1: .5rem;  /* 8px */
   --space-2: 1rem;   /* 16px */
