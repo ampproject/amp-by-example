@@ -51,8 +51,9 @@ This sample showcases how to build a product page in AMP HTML.
     #product-description {
       clear: both;
     }
+
     amp-lightbox {
-      background: var(--color-bg-light);
+      background: var(--color-bg-grey);
       width: 100%;
       height: 100%;
       position: absolute;
@@ -270,7 +271,7 @@ This sample showcases how to build a product page in AMP HTML.
         position: relative;
         font-size: 1.125rem;
         line-height: var(--space-3);
-        padding: 0 var(--space-3);
+        padding: 0 var(--space-2);
         background:transparent;
         opacity:.8
     }
@@ -284,14 +285,15 @@ This sample showcases how to build a product page in AMP HTML.
         display: none;
         width: 100%;
         order: 1; /* must be greater than the order of the tab buttons to flex to the next line */
-        padding: var(--space-1);
+        padding: var(--space-2);
+        color: var(--color-text-dark);
     }
 
     .tabButton[selected]::after {
       content: '';
       display: block;
       height: 4px;
-      background: linear-gradient(90deg,#94103e 0,#db004d);
+      background: var(--color-primary);
     }
 
     .tabButton[selected]+.tabContent {
@@ -310,7 +312,7 @@ This sample showcases how to build a product page in AMP HTML.
       margin: var(--space-3);
     }
 
-    .drawermenu a {
+    #drawermenu a {
       text-transform: uppercase;
       text-decoration: none;
       display: block;
@@ -320,6 +322,11 @@ This sample showcases how to build a product page in AMP HTML.
     .watch-video {
       text-transform: uppercase;
       margin-bottom: var(--space-4);
+      padding: 0;
+    }
+
+    .video a {
+      margin: var(--space-2);
     }
 
     .order {
@@ -358,7 +365,7 @@ This sample showcases how to build a product page in AMP HTML.
     }
 
     .submit-selector {
-      margin-top: var(--space-2);
+      margin: var(--space-2);
     }
 
     .submit-selector input {
@@ -367,13 +374,13 @@ This sample showcases how to build a product page in AMP HTML.
 
     .items a {
       text-decoration: none;
-      padding: var(--space-2);
     }
 
     .show-more {
       text-transform: uppercase;
       margin: var(--space-2);
       margin-bottom: var(--space-4);
+      padding: 0;
     }
 
     </style>
