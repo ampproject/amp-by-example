@@ -145,7 +145,6 @@ This is a sample recipe AMP article demonstrating how to express machine-readabl
 
           --space-1: .5rem;  /* 8px */
           --space-2: 1rem;   /* 16px */
-
           --box-shadow-1: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
     }
     amp-carousel amp-img > img {
@@ -238,6 +237,10 @@ This is a sample recipe AMP article demonstrating how to express machine-readabl
     }
     .heading {
       padding-bottom: var(--space-1);
+      margin: var(--space-2);
+    }
+    .margin {
+      margin: var(--space-2);
     }
     .heading > #summary {
       font-weight: 500;
@@ -291,17 +294,17 @@ This is a sample recipe AMP article demonstrating how to express machine-readabl
     <amp-social-share type="pinterest" width="45" height="33"></amp-social-share>
   </p>
 
-  <figure>
+  <figure class="margin">
     <amp-img src="/img/lamb-garlic-done.jpg" width="1280" height="479" layout="responsive" attribution="Dan Dascalescu"></amp-img>
     <figcaption>Garlic-studded roast lamb. Serve with a side of baked potatoes.</figcaption>
   </figure>
 
-  <p>This is a traditional Romanian lamb recipe, with the subtle taste of garlic deeply permeating the meat. It is customarily prepared for Easter, but can be enjoyed year-round. For best results, stud the meat a day in advance.</p>
+  <p class="margin">This is a traditional Romanian lamb recipe, with the subtle taste of garlic deeply permeating the meat. It is customarily prepared for Easter, but can be enjoyed year-round. For best results, stud the meat a day in advance.</p>
   <!-- ## Image galleries  -->
   <!--
   Use `amp-carousel` for image galleries. Here we display responsively images with different aspect ratios. Learn more about [creating image galleries in AMP](/advanced/image_galleries_with_amp-carousel/).
   -->
-  <amp-carousel width="1280" height="970" layout="responsive" type="slides">
+  <amp-carousel class="margin" width="1280" height="970" layout="responsive" type="slides">
     <figure>
       <amp-img src="/img/meat-silverskin-cutting.jpg" width="401" height="542" layout="fill" attribution="Scott Phillips"></amp-img>
       <figcaption>Prepare the meat by washing and removing the silverskin.</figcaption>
@@ -326,7 +329,7 @@ This is a sample recipe AMP article demonstrating how to express machine-readabl
 
 
   <!-- An [AMP star rating component](https://github.com/ampproject/amphtml/issues/2691) is being developed. -->
-  <p><span class="star-rating">
+  <p class="margin"><span class="star-rating">
     <span class="star-icon full">☆</span>
     <span class="star-icon full">☆</span>
     <span class="star-icon full">☆</span>
@@ -334,18 +337,20 @@ This is a sample recipe AMP article demonstrating how to express machine-readabl
     <span class="star-icon half">☆</span>
   </span> (3 reviews)</p>
 
-  <p>Prep time: 30 min</p>
-  <p>Cook time: 1 hour 45 minutes</p>
-  <p>Total time: 2 hours 15 minutes</p>
-  <p>Yield: 4 servings<br>
-    Calories per serving: 500 kcal <br>
-    Fat per serving: 30g<br>
-    Carbs: 5g<br>
-    Protein: 60g<br>
-  </p>
+  <div class="margin">
+    <p>Prep time: 30 min</p>
+    <p>Cook time: 1 hour 45 minutes</p>
+    <p>Total time: 2 hours 15 minutes</p>
+    <p>Yield: 4 servings<br>
+      Calories per serving: 500 kcal <br>
+      Fat per serving: 30g<br>
+      Carbs: 5g<br>
+      Protein: 60g<br>
+    </p>
+  </div>
 
-  <h1>Ingredients</h1>
-  <ul>
+  <h1 class="margin">Ingredients</h1>
+  <ul class="margin">
     <li>Lamb meat: 4lbs / 1.8kg</li>
     <li>Garlic: 4 cloves, halved</li>
     <li>Rosemary: 1 sprig, minced</li>
@@ -358,8 +363,8 @@ This is a sample recipe AMP article demonstrating how to express machine-readabl
     <li>Peppercorns and salt to taste</li>
   </ul>
 
-  <h2>Directions</h2>
-  <ol>
+  <h2 class="margin">Directions</h2>
+  <ol class="margin">
     <li>Heat oven to 350F / 180C.</li>
     <li>Prepare the meat by washing and removing the silverskin.</li>
     <li>Peel and cut each garlic clove into several slices.</li>
@@ -426,7 +431,7 @@ This is a sample recipe AMP article demonstrating how to express machine-readabl
     <amp-social-share type="pinterest" width="45" height="33"></amp-social-share>
   </p>
 
-  <h2>Related Recipes</h2>
+  <h2 class="margin">Related Recipes</h2>
   <!-- ## Embedding related content -->
   <!--
   It's a good idea to recommend related content to your readers. With `amp-list` it is possible to dynamically include personalized content into your AMPs. It's best to link to the AMP version of related content in order to keep the user in the fast AMP world. [Learn more about `amp-list`](/components/amp-list/)
