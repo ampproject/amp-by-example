@@ -391,6 +391,8 @@ module.exports = function(config, indexPath, updateTimestamp) {
           '<link rel="canonical" href="' + args.urlPreview + '">'
       );
     }
+    sampleHtml = sampleHtml.replace(/\[tip.+\]/gm, '');
+    sampleHtml = sampleHtml.replace(/\[\/tip\]/gm, '');
     sampleFile.metadata = document.metadata;
     sampleFile.contents = new Buffer(sampleHtml);
     stream.push(sampleFile);
