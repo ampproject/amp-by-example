@@ -21,7 +21,7 @@
     "babel-loader": "8.0.5",
     "clean-webpack-plugin": "^1.0.0",
     "closure-webpack-plugin": "2.0.0-rc.17",
-    "codemirror": "5.40.2",
+    "codemirror": "5.43.0",
     "copy-webpack-plugin": "^4.6.0",
     "css-loader": "2.1.0",
     "eslint": "5.12.1",
