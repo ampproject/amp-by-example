@@ -1,0 +1,119 @@
+<!---
+
+experiments:
+  - amp-date-display
+preview: default
+
+--->
+
+  <!--
+    ## Introduction
+
+    The [amp-date-display](https://www.ampproject.org/docs/reference/components/amp-date-display)
+    component renders date information in various date formats and in different locales.
+  -->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <!-- ## Setup -->
+  <!-- Include the `amp-date-display` component ... -->
+  <script async custom-element="amp-date-display" src="https://cdn.ampproject.org/v0/amp-date-display-0.1.js"></script>
+  <!-- ... and the `amp-mustache` component in the header -->
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <link rel="canonical" href="<%host%>/components/amp-date-display/" >
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <style amp-custom></style>
+</head>
+<body>
+  <!--
+    ## Basic usage
+
+    You must specify one of `datetime`, `timestamp-ms`, or `timestamp-seconds` attributes.
+    This indicates the date and time to display.
+
+    The date information is rendered via an [amp-mustache template](https://www.ampproject.org/docs/reference/components/amp-mustache).
+
+    The day, hour, minutes and seconds values are bound to `{{day}}`, `{{hour}}`, `{{minute}}` and `{{second}}` respectively.
+    Double digit format variants (`{{dayTwoDigit}}`, `{{hourTwoDigit}}`, `{{minuteTwoDigit}}` and `{{secondTwoDigit}}`) display these
+    values with zero-padding on single digit values. Other values like `{{uso}}` are also available
+  -->
+  <amp-date-display timestamp-seconds="2147483648" layout="fixed-height" height="20">
+    <template type="amp-mustache">
+        <a href="https://en.wikipedia.org/wiki/Year_2038_problem">Y2K38</a> will be at {{iso}}
+    </template>
+  </amp-date-display>
+
+  <!--
+   ## Available variables
+
+   All the variables that can be displayed are in the template below.
+  -->
+  <amp-date-display datetime="now" layout="fixed" width="360" height="590">
+    <template type="amp-mustache">
+      <table>
+        <thead>
+          <tr><th>variable</th><th>value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>day</td><td>{{day}}</td></tr>
+          <tr><td>dayName</td><td>{{dayName}}</td></tr>
+          <tr><td>dayNameShort</td><td>{{dayNameShort}}</td></tr>
+          <tr><td>dayPeriod</td><td>{{dayPeriod}}</td></tr>
+          <tr><td>dayTwoDigit</td><td>{{dayTwoDigit}}</td></tr>
+          <tr><td>hour</td><td>{{hour}}</td></tr>
+          <tr><td>hour12</td><td>{{hour12}}</td></tr>
+          <tr><td>hour12TwoDigit</td><td>{{hour12TwoDigit}}</td></tr>
+          <tr><td>hourTwoDigit</td><td>{{hourTwoDigit}}</td></tr>
+          <tr><td>iso</td><td>{{iso}}</td></tr>
+          <tr><td>minute</td><td>{{minute}}</td></tr>
+          <tr><td>minuteTwoDigit</td><td>{{minuteTwoDigit}}</td></tr>
+          <tr><td>month</td><td>{{month}}</td></tr>
+          <tr><td>monthName</td><td>{{monthName}}</td></tr>
+          <tr><td>monthNameShort</td><td>{{monthNameShort}}</td></tr>
+          <tr><td>monthTwoDigit</td><td>{{monthTwoDigit}}</td></tr>
+          <tr><td>second</td><td>{{second}}</td></tr>
+          <tr><td>secondTwoDigit</td><td>{{secondTwoDigit}}</td></tr>
+          <tr><td>year</td><td>{{year}}</td></tr>
+          <tr><td>yearTwoDigit</td><td>{{yearTwoDigit}}</td></tr>
+        </tbody>
+      </table>
+    </template>
+  </amp-date-display>
+
+
+  <!--
+   ## Locales
+
+   Internationalized month and weekday names can be configured by specifying a `locale` attribute.
+
+   For example, the `amp-date-display` components below show the same date information in
+   German, French, Czech and English.
+  -->
+  <div>
+    <amp-date-display datetime="now" locale="de" layout="fixed" width="360" height="20">
+      <template type="amp-mustache">
+        <div>de: {{dayName}} {{day}} {{monthName}} {{year}}</div>
+      </template>
+    </amp-date-display>
+    <amp-date-display datetime="now" locale="fr" layout="fixed" width="360" height="20">
+      <template type="amp-mustache">
+        <div>fr: {{dayName}} {{day}} {{monthName}} {{year}}</div>
+      </template>
+    </amp-date-display>
+    <amp-date-display datetime="now" locale="cs" layout="fixed" width="360" height="20">
+      <template type="amp-mustache">
+        <div>cs: {{dayName}} {{day}} {{monthName}} {{year}}</div>
+      </template>
+    </amp-date-display>
+    <amp-date-display datetime="now" locale="en-GB" layout="fixed" width="360" height="20">
+      <template type="amp-mustache">
+        <div>en-GB: {{dayName}} {{day}} {{monthName}} {{year}}</div>
+      </template>
+    </amp-date-display>
+  </div>
+</body>
+</html>
