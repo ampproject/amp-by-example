@@ -41,30 +41,30 @@ skipValidation: 'true'
     <amp-story standalone supports-landscape
       title="Stories in AMP - Hello World"
       publisher="AMP Project"
-      publisher-logo-src="http://localhost:8080/favicons/coast-228x228.png"
-      poster-portrait-src="http://localhost:8080/img/story_dog2_portrait.jpg"
-      poster-square-src="http://localhost:8080/img/story_dog2_square.jpg"
-      poster-landscape-src="http://localhost:8080/img/story_dog2_landscape.jpg">
+      publisher-logo-src="<%host%>/favicons/coast-228x228.png"
+      poster-portrait-src="<%host%>/img/story_dog2_portrait.jpg"
+      poster-square-src="<%host%>/img/story_dog2_square.jpg"
+      poster-landscape-src="<%host%>/img/story_dog2_landscape.jpg">
 
       <amp-story-page id="page-1">
         <amp-story-grid-layer template="fill">
-          <amp-img src="http://localhost:8080/img/tree-1280x850.jpg"
+          <amp-img src="<%host%>/img/tree-1280x850.jpg"
           width="1280"
           height="850" layout="responsive"
-          srcset="http://localhost:8080/img/tree-640x246.jpg 640w,
-          http://localhost:8080/img/tree-1280x850.jpg 1280w"></amp-img>
+          srcset="<%host%>/img/tree-640x246.jpg 640w,
+          <%host%>/img/tree-1280x850.jpg 1280w"></amp-img>
         </amp-story-grid-layer>
       </amp-story-page>
       <amp-story-page id="page-2">
         <amp-story-grid-layer template="fill">
-          <amp-img src="http://localhost:8080/img/forest-1280x853.jpg"
+          <amp-img src="<%host%>/img/forest-1280x853.jpg"
           width="1280"
           height="853" layout="responsive"
-          srcset="http://localhost:8080/img/forest-1280x853.jpg 1280w,
-          http://localhost:8080/img/forest-640x227.jpg 640w"></amp-img>
+          srcset="<%host%>/img/forest-1280x853.jpg 1280w,
+          <%host%>/img/forest-640x227.jpg 640w"></amp-img>
         </amp-story-grid-layer>
       </amp-story-page>
-      <amp-story-bookend src="http://localhost:8080/json/bookend.json" layout="nodisplay">
+      <amp-story-bookend src="<%host%>/json/bookend.json" layout="nodisplay">
       </amp-story-bookend>
     </amp-story>
   </body>
