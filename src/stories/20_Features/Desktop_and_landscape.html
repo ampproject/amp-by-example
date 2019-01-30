@@ -1,0 +1,70 @@
+<!---
+
+skipValidation: 'true'
+
+--->
+
+<!-- 
+  ## Introduction
+     `amp-story` supports a [desktop and landscape](https://github.com/ampproject/amphtml/blob/master/extensions/amp-story/amp-story.md#landscape-orientation-and-full-bleed-desktop-experience-opt-in) experience.
+-->
+<!-- -->
+<!doctype html>
+<html amp lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <!-- ## Setup -->
+    <!-- AMP Stories are written using AMPHTML and they use their own AMP extension: `amp-story`. The first step is to import the `amp-story` in the header. -->
+    <script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-1.0.js"></script>
+    <title>Stories in AMP - Hello World</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link rel="canonical" href="/stories/features/desktop_and_landscape/">
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <!-- Stories can be styled using CSS: -->
+    <style amp-custom>
+      amp-story {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI ", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji ", "Segoe UI Emoji ", "Segoe UI Symbol ";
+      }
+      amp-story-page * {
+        color: white;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ## Desktop and landscape support -->
+    <!-- If `supports-landscape` attribute is specified on the `amp-story` element, it will:
+    - allow the story to be seen when a mobile device is held in a landscape orientation
+    - change the desktop experience to an immersive full bleed mode, replacing the default three portrait panels experience -->
+    <amp-story standalone supports-landscape
+      title="Stories in AMP - Hello World"
+      publisher="AMP Project"
+      publisher-logo-src="<%host%>/favicons/coast-228x228.png"
+      poster-portrait-src="<%host%>/img/story_dog2_portrait.jpg"
+      poster-square-src="<%host%>/img/story_dog2_square.jpg"
+      poster-landscape-src="<%host%>/img/story_dog2_landscape.jpg">
+
+      <!-- A story consists of one or more pages. Each page is declared by an `amp-story-page` element. Pages are designed by layering videos, images and text. Here we have a page that uses two layers. One layer filling the available space with an image and one text layer that shows a heading. -->
+      <amp-story-page id="page-1">
+        <amp-story-grid-layer template="fill">
+          <amp-img src="https://unsplash.it/720/640/?image=10"
+          width="720"
+          height="640" layout="responsive"></amp-img>
+        </amp-story-grid-layer>
+      </amp-story-page>
+      <amp-story-page id="page-2">
+        <amp-story-grid-layer template="fill">
+          <amp-img src="https://unsplash.it/720/640/?image=11"
+          width="720"
+          height="640" layout="responsive"></amp-img>
+        </amp-story-grid-layer>
+      </amp-story-page>
+
+      <!-- A "bookend" panel containing links to other resources will appear on the last page of your story if you include an `amp-story-bookend` that references a [bookend JSON config](/json/bookend.json). -->
+      <amp-story-bookend src="<%host%>/json/bookend.json" layout="nodisplay">
+      </amp-story-bookend>
+    </amp-story>
+  </body>
+</html>
