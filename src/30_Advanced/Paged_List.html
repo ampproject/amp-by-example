@@ -1,8 +1,11 @@
-<!---{
-  "preview": "default"
-  }--->
+<!---
+
+preview: default
+
+--->
+
 <!--
-  #### Introduction
+  ## Introduction
 
   Often, users requests data that could fill multiple pages of content, so
   web applications must provide a way for users to navigate across pages of
@@ -10,7 +13,6 @@
   Here we implement paged navigation using the `amp-bind` and `amp-list`
   components.
 -->
-<!-- #### Setup -->
 <!-- -->
 <!doctype html>
 <html ⚡>
@@ -22,6 +24,7 @@
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
 
+  <!-- ## Setup -->
   <!-- First we include `amp-bind` to track and mutate the page state. -->
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
   <!-- Next we include `amp-list` to request and display the lists of products. -->
@@ -38,24 +41,43 @@
   change the layout or the look and feel of the page.
   -->
   <!-- -->
-
   <style amp-custom>
-    amp-list#paged-amp-list {
+    :root {
+      --color-primary: #005AF0;
+      --color-secondary: #00DCC0;
+      --color-text-light: #fff;
+      --color-text-dark: #000;
+      --color-error: #B00020;
+      --color-bg-light: #FAFAFC;
+
+      --space-1: .5rem;  /* 8px */
+      --space-2: 1rem;   /* 16px */
+      --space-3: 1.5rem; /* 24px */
+      --space-4: 2rem;   /* 32px */
+
+      --box-shadow-1: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    }
+    amp-list.paged-amp-list {
       min-width: 320px;
     }
+    @media (min-width: 320px) {
+      amp-list.paged-amp-list {
+        min-width: 260px;
+      }
+    }
     @media (min-width: 480px) {
-      amp-list#paged-amp-list {
+      amp-list.paged-amp-list {
         min-width: 480px;
       }
     }
     @media (min-width: 600px) {
-      amp-list#paged-amp-list {
+      amp-list.paged-amp-list {
         min-width: 600px;
       }
     }
     .info {
       text-align: right;
-      padding: 0 5px;
+      padding: 0 var(--space-1);
     }
     .items {
       display: flex;
@@ -63,18 +85,19 @@
       justify-content: center;
     }
     .item {
-      max-width: 320px;
-      max-height: 320px;
-      width: calc(50% - 10px);
-      background: #fafafa;
-      margin: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      max-width: 304px;
+      background: var(--color-bg-light);
+      margin: var(--space-1);
       border-radius: 5px;
       overflow: hidden;
-      box-shadow: 0 2px 7px rgba(0, 0, 0, .3);
+      box-shadow: var(--box-shadow-1);
     }
     .item > .title,
     .item > .copy {
-      margin: 0 5px;
+      margin: var(--space-1);
     }
     .image {
       max-width: 100%;
@@ -90,17 +113,14 @@
     }
     [overflow] button {
       position: absolute;
-      bottom: 5px;
-      left: 15px;
-      right: 15px;
-      width: calc(100% - 30px);
-      border-radius: 15px;
+      bottom: var(--space-1);
+      left: var(--space-2);
+      right: var(--space-2);
+      width: calc(100% - 2 * var(--space-2));
       border: 0;
-      background: #fafafa;
-      padding: 5px 10px;
+      padding: var(--space-1) var(--space-2);
       cursor: pointer;
     }
-
     .nav {
       display: flex;
     }
@@ -119,7 +139,7 @@
   </style>
 </head>
 <body>
-  <!-- #### Usage -->
+  <!-- ## Implementation -->
   <!--
   We use an `<amp-list>` element to render the product cards. An `<amp-state>`
   element initializes and tracks the number of pages in the response.
@@ -127,54 +147,47 @@
   if any of the products are truncated by the bottom of the `<amp-list>`.
   -->
 <div>
-<amp-list
-  id="paged-amp-list"
-  layout="fixed-height"
-  height="700"
-  src="/advanced/paged_list/search"
-  [src]="'/advanced/paged_list/search?page=' + pageNumber"
-  single-item
->
-  <template type="amp-mustache">
-    <p class="info">Page {{currentPage}} of {{pageCount}}</p>
-    <div class="items">
-      {{#products}}
-      <div class="item">
-        <amp-img layout="responsive" class="image" width="320" height="240" src="{{image}}"></amp-img>
-        <strong class="title">{{title}}</strong>
-        <p class="copy">{{copy}}</p>
-      </div>
-      {{/products}}
-    </div>
-  </template>
-  <div overflow>
-    <button>Show more</button>
+  <amp-list class="paged-amp-list"
+            layout="fixed-height"
+            height="720"
+            src="/advanced/paged_list/search"
+            [src]="'/advanced/paged_list/search?page=' + pageNumber"
+            binding="no"
+            reset-on-refresh
+            single-item>
+            <template type="amp-mustache">
+              <p class="info">Page {{currentPage}} of {{pageCount}}</p>
+              <div class="items">
+                {{#products}}
+                <div class="item">
+                  <amp-img layout="responsive" class="image" width="320" height="240" src="{{image}}"></amp-img>
+                  <strong class="title">{{title}}</strong>
+                  <p class="copy">{{copy}}</p>
+                </div>
+                {{/products}}
+              </div>
+            </template>
+            <div overflow>
+              <button>Show more</button>
+            </div>
+  </amp-list>
+  <div class="nav">
+    <button class="prev"
+            hidden
+            [hidden]="pageNumber < 2"
+            on="tap: AMP.setState({ pageNumber: pageNumber - 1 })">
+      Previous
+    </button>
+    <button class="next"
+            [hidden]="page ? pageNumber >= page.items.pageCount : false"
+            on="tap: AMP.setState({ pageNumber: pageNumber ? pageNumber + 1 : 2 })">
+      Next
+    </button>
   </div>
-</amp-list>
-<div class="nav">
-  <button
-    class="prev"
-    hidden
-    [hidden]="pageNumber < 2"
-    on="tap:
-      AMP.setState({
-        pageNumber: pageNumber - 1
-      })"
-  >Previous</button>
-  <button
-    class="next"
-    [hidden]="page ? pageNumber >= page.items.pageCount : false"
-    on="tap:
-      AMP.setState({
-        pageNumber: pageNumber ? pageNumber + 1 : 2
-      })"
-  >Next</button>
-</div>
-<amp-state
-  id="page"
-  src="/advanced/paged_list/search"
-  [src]="'/advanced/paged_list/search?page=' + pageNumber"
-></amp-state>
+  <amp-state id="page"
+             src="/advanced/paged_list/search"
+             [src]="'/advanced/paged_list/search?page=' + pageNumber">
+  </amp-state>
 </div>
 </body>
 </html>

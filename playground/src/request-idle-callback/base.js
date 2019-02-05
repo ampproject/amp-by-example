@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/*!
+/* !
  * Copyright 2015 Google Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,13 +33,13 @@
  */
 window.requestIdleCallback = window.requestIdleCallback ||
   function(func) {
-    return setTimeout(function() {
+    return setTimeout(() => {
       const start = Date.now();
       func({
         didTimeout: false,
         timeRemaining: function() {
           return Math.max(0, 50 - (Date.now() - start));
-        }
+        },
       });
     }, 1);
   };

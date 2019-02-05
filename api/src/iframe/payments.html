@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <style>
+      body {
+        margin: 0;
+      }
+      button {
+        width: 130px;
+        height: 42px;
+        font-size: 16px;
+        font-family: Montserrat,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Arial,sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="buy">Buy Now</button>
+    <script>
+      (function (d, w) {
+        var buyButton = d.getElementById('buy');
+        if (!window.PaymentRequest) {
+          buyButton.setAttribute('disabled', '');
+          buyButton.text = 'Disabled';
+          console.log('Payment request API not supported by this browser');
+          return;
+        }
+        buyButton.onclick = function(event) {
+          var productIdToDetails = {
+            1: {
+              name: 'Apple',
+              price: 6.99
+            },
+            2: {
+              name: 'Orange',
+              price: 4.50
+            },
+            3: {
+              name: 'Pear',
+              price: 3.99
+            }
+          };
+
+          var productId = getParameterByName('productId');
+          var product = productIdToDetails[productId];
+
+          console.log("Buying product " + product['name'] + ": "
+            + productId);
+
+          var supportedInstruments = [{
+            supportedMethods: ['basic-card']
+          }];
+
+          var cost = product['price'];
+
+          var details = {
+            total: {
+              label: 'Total', 
+              amount: {
+                currency: 'USD', 
+                value: cost.toFixed(2)
+              }
+            },
+            displayItems: [
+              {
+                label: product['name'],
+                amount: {currency: 'USD', value: cost.toFixed(2)}
+              }
+            ]
+          };
+
+          var options = {
+            requestPayerName: true,
+            requestShipping: false,
+            shippingType: 'pickup'
+          };
+
+          if (window.PaymentRequest) {
+            new PaymentRequest(supportedInstruments, details, options)
+              .show()
+              .then(function(instrumentResponse) {
+                console.log('success');
+                instrumentResponse.complete('success').then(function() {
+                  top.window.location.href = 'https://ampbyexample.com';
+                });
+              })
+              .catch(function(err) {
+                console.log(err);
+              });
+          }
+        }
+
+        function getParameterByName(name, url) {
+          if (!url) url = window.location.href;
+          name = name.replace(/[\[\]]/g, "\\$&");
+          var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+          if (!results) return null;
+          if (!results[2]) return '';
+          return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+      })(document, window);
+    </script>
+  </body>
+</html>

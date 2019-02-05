@@ -1,0 +1,66 @@
+<!--
+  ## Introduction
+
+  The [amp-web-push](https://www.ampproject.org/docs/reference/components/amp-web-push) component allows users to subscribe to web push notifications.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+
+<head>
+    <meta charset="utf-8">
+    <title>amp-web-push example</title>
+    <link rel="canonical" href="<%host%>/components/amp-web-push/">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript>
+        <style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style>
+    </noscript>
+    <!-- ## Setup -->
+    <!--
+      Import the `amp-web-push` component in the header.
+    -->
+    <script async custom-element="amp-web-push" src="https://cdn.ampproject.org/v0/amp-web-push-0.1.js"></script>
+    <!--
+      The `amp-form` component is being used in this demo, to send a post request so the notification can be prepared and sent.
+    -->
+    <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+</head>
+
+<body>
+    <!-- ## Basic usage -->
+    <!--
+    The `amp-web-push` component requires two additional HTML files as well as an amp-web-push compatible Service Worker. These three files form the configuration described below.
+    -->
+    <amp-web-push id="amp-web-push" layout="nodisplay" helper-iframe-url="<%host%>/webpush/amp-web-push-helper-frame.html" permission-dialog-url="<%host%>/webpush/amp-web-push-permission-dialog.html" service-worker-url="<%host%>/sw.js">
+    </amp-web-push>
+
+    <!-- Clicking the subscription widget pops up a page prompting the user for notification permissions and signals the service worker (configured below) to subscribe the user to push in the background. On this example, we are intercepting the call to `onMessageReceivedSubscribe`, and storing the subscription object on IndexedDB.
+    -->
+    <amp-web-push-widget visibility="unsubscribed" layout="fixed" width="500" height="70">
+        <button on="tap:amp-web-push.subscribe">Subscribe to Notifications</button>
+    </amp-web-push-widget>
+
+    <!-- Clicking the unsubscription widget signals the worker to unsubscribe the user from push in the background. On this example, we'll be also removing the previoulsy stored subscription object from IndexedDB.
+    -->
+    <amp-web-push-widget visibility="subscribed" layout="fixed" width="500" height="180">
+        <button on="tap:amp-web-push.unsubscribe">Unsubscribe from Notifications</button>
+        <form method="post" action-xhr="/send-push" target="_top">
+            <input type="submit" value="Send Web Push">
+            <div submitting>
+                Sending Push message...
+            </div>
+            <div submit-success>
+                Web Push sent!
+            </div>
+            <div submit-error>
+                Something went wrong.
+            </div>
+        </form>
+    </amp-web-push-widget>
+    <amp-web-push-widget visibility="blocked" layout="fixed" width="250" height="80">
+        Looks like you've blocked notifications!
+    </amp-web-push-widget>
+</body>
+
+</html>

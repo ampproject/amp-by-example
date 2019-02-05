@@ -1,0 +1,79 @@
+<!---
+
+preview: default
+
+--->
+
+<!--
+## Introduction
+
+This sample showcases how to use [amp-access](https://www.ampproject.org/docs/reference/components/amp-access)
+to allow an OAuth2-based login flow on your AMP pages, such as Google, Facebook and GitHub sign-in.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+    <title>OAuth2 Login</title>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+    <!--
+      ## Setup
+
+      We need to import the `amp-access` component.
+    -->
+    <script async custom-element="amp-access" src="https://cdn.ampproject.org/v0/amp-access-0.1.js"></script>
+    <link rel="canonical" href="<%host%>/advanced/oauth2_login/">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+
+    <!-- 
+      [amp-access](/components/amp-access) requires the definition of 3 endpoints as documented [here](https://www.ampproject.org/docs/reference/components/amp-access).
+      This sample allows an user to login and logout using an OAuth2-based flow. Logout is implemented by configuring a second endpoint in the login property `sign-out`,
+      find more [here](https://www.ampproject.org/docs/reference/components/amp-access#login-page).
+    -->
+    <script id="amp-access" type="application/json">
+    {
+        "authorization": "<%host%>/oauth/status?_=RANDOM",
+        "noPingback": "true",
+        "login": {
+          "facebook-sign-in": "<%host%>/oauth/login/facebook",
+          "google-sign-in": "<%host%>/oauth/login/google",
+          "github-sign-in": "<%host%>/oauth/login/github",
+          "sign-out": "<%host%>/oauth/logout"
+        },
+        "authorizationFallbackResponse": {
+            "error": true,
+            "loggedIn": false
+        }
+    }
+    </script>
+  </head>
+  <body>
+    <!-- 
+      ## Implementation
+      
+      We use `amp-access` to integrate an OAuth2-based login and to show and hide the login button depending on whether the user is logged in.
+      `on="tap:amp-access.login-google-sign-in"` specifies which action should be taken when clicking on the login button:
+      `login` defines the property inside the `amp-access` json configuration, while `google-sign-in` defines the endpoint. 
+    -->
+    <div amp-access="NOT loggedIn" amp-access-hide>
+      <h3>Please login to view content</h3>
+      <button on="tap:amp-access.login-google-sign-in">Google Login</button>
+      <button on="tap:amp-access.login-facebook-sign-in">Facebook Login</button>
+      <button on="tap:amp-access.login-github-sign-in">GitHub Login</button>
+    </div>
+
+    <!-- When logged in, we use `amp-access-template` to display information returned from the authorization endpoint, in this case the user's name. -->
+    <div amp-access="loggedIn" amp-access-hide>
+      <template amp-access-template type="amp-mustache">
+        <p>Hello {{name}}! You are logged in.</p>
+      </template>
+    </div>
+
+    <!-- We specify the logout via a login endpoint to be able to use the `return URL` environment variable. -->
+    <button amp-access="loggedIn" amp-access-hide on="tap:amp-access.login-sign-out">Logout</button>
+</body>
+</html>

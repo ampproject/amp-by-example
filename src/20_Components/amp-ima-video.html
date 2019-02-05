@@ -24,7 +24,7 @@
 </head>
 <body>
 
-  <!-- ## Basic Usage -->
+  <!-- ## Basic usage -->
   <!--
     The amp-ima-video component HTML accepts up to two unique types of HTML nodes as children - source tags for content video, and track tags for subtitles. Both of these can be used in the same way as the standard video tag.
 
@@ -35,6 +35,34 @@
       data-tag="https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpost&cmsid=496&vid=short_onecue&correlator="
       data-poster="<%host%>/img/ima-poster.jpg">
     <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+  </amp-ima-video>
+
+  <!-- ## data-ad-label -->
+  <!--
+    Provide a format string in the `data-ad-label` attribute to customize the ad disclosure that is displayed while an ad is playing. This allows users to support ad disclosures in different languages.
+
+    A format string should look like `"Ad (%s of %s)"`.  The `"%s"` in the format string is replaced with the current ad number in the sequence and the total number of ads, respectively (e.g. Ad 2 of 3). If no value is given, this defaults to `"Ad (%s of %s)"`.
+  -->
+  <amp-ima-video id="myVideo2"
+      width="640" height="360" layout="responsive"
+      data-tag="https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpreonlybumper&cmsid=496&vid=short_onecue&correlator="
+      data-poster="<%host%>/img/ima-poster.jpg"
+      data-ad-label="Publicidad (%s de %s)">
+    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+  </amp-ima-video>
+
+  <!-- ## Autoplay -->
+  <!--
+    Use the `autoplay` attribute to play video automatically without requiring the user to press "play".
+
+    Optionally, use `data-delay-ad-request="true"` to delay an ad request until either the user scrolls the page, or for 3 seconds, whichever occurs first.  The default behavior of the amp-ima-video component is to request an ad on the AMP page load which has the effect of being counted as 'code served' even if there is no impression.
+  -->
+  <amp-ima-video id="myVideo3"
+      width="640" height="360" layout="responsive"
+      data-tag="https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpreonlybumper&cmsid=496&vid=short_onecue&correlator="
+      data-src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+      data-delay-ad-request="true"
+      autoplay>
   </amp-ima-video>
 
 </body>

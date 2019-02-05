@@ -1,0 +1,15 @@
+:root {
+  --color-primary: #005AF0;
+  --color-secondary: #00DCC0;
+  --color-text-light: #fff;
+  --color-text-dark: #000;
+  --color-error: #B00020;
+  --color-bg-light: #FAFAFC;
+
+  --space-1: .5rem;  /* 8px */
+  --space-2: 1rem;   /* 16px */
+  --space-3: 1.5rem; /* 24px */
+  --space-4: 2rem;   /* 32px */
+
+  --box-shadow-1: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}

@@ -8,11 +8,15 @@
       {{> css/ampstart.css}}
       {{> css/shared.css }}
       {{> css/preview.css}}
+      {{^document.isAmpStory}}
+      {{> css/consent.css}}
+      {{/document.isAmpStory}}
       {{{exampleStyles}}}
     </style>
   </head>
   <body>
     {{{elementsAfterBody}}}
+
     {{^isEmbed}}
       <div id="abe-preview-header" class="ampstart-headerbar fixed flex justify-start items-center top-0 left-0 right-0 pl2 pr4">
         <a href=".." class="caps text-decoration-none">
@@ -24,26 +28,31 @@
         <h1 id="abe-preview-header-title" class="h3 center truncate caps">Demo: {{subHeading}}</h1>
       </div>
     <div id="abe-preview">
-      <div class="ampstart-card m1">
+      <div class="abe-card m1">
       {{#metadata.experiments.length}}
       <div class="p1">
         {{> experiment.html}}
       </div>
       {{/metadata.experiments.length}}
     {{/isEmbed}}
-      {{#document.sections}}
-      {{{preview}}}
-      {{#isAmpStoryTag}}
-      {{> analytics.html}}
-      {{/isAmpStoryTag}}
-      {{/document.sections}}
+      
+    {{#document.sections}}
+    {{{preview}}}
+    {{#isAmpStoryTag}}
+    {{> analytics.html}}
+    {{/isAmpStoryTag}}
+    {{/document.sections}}
+
     {{^isEmbed}}
       </div>
     </div>
     {{/isEmbed}}
+
     {{^document.isAmpStory}}
     {{> analytics.html}}
+    {{> consent.html}}
     {{> serviceworker.html}}
     {{/document.isAmpStory}}
+
   </body>
 </html>

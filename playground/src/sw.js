@@ -12,24 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-importScripts('workbox-sw.prod.js');
+workbox.skipWaiting();
+workbox.clientsClaim();
 
-const urlsToPrecache = [
-  'https://cdn.ampproject.org/v0.js',
-  'https://cdn.ampproject.org/v0/validator.js'
-];
-
-const workboxSW = new WorkboxSW({
-  clientsClaim: true,
+self.addEventListener('install', event => {
+  const urls = [
+    'https://cdn.ampproject.org/v0.js',
+    'https://cdn.ampproject.org/v0/validator.js',
+  ];
+  event.waitUntil(
+    caches.open(workbox.core.cacheNames.runtime).then(cache => cache.addAll(urls))
+  );
 });
 
-workboxSW.precache(urlsToPrecache);
-workboxSW.precache([]);
+const networkFirst = workbox.strategies.networkFirst();
+const staleWhileRevalidate = workbox.strategies.staleWhileRevalidate();
 
-const networkFirst = workboxSW.strategies.networkFirst();
-const staleWhileRevalidate = workboxSW.strategies.staleWhileRevalidate();
-
-workboxSW.router.registerRoute(/\/document\/.*/, networkFirst);
-workboxSW.router.registerRoute(/\/amp\/.*/, networkFirst);
-workboxSW.router.registerRoute(/.*/, staleWhileRevalidate);
-workboxSW.router.registerRoute(/https\:\/\/cdn\.ampproject\.org.*/, staleWhileRevalidate);
+workbox.routing.registerRoute(/https:\/\/cdn\.ampproject\.org\/.*/, staleWhileRevalidate);
+workbox.routing.registerRoute(/\/document\/.*/, networkFirst);
+workbox.routing.registerRoute(/\/amp\/.*/, networkFirst);
+workbox.routing.registerRoute(/.*/, staleWhileRevalidate);

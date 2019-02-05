@@ -15,6 +15,8 @@
 package backend
 
 import (
+	"backend/util"
+
 	"net/http"
 )
 
@@ -30,7 +32,7 @@ func renderAnalyticsSample(w http.ResponseWriter, r *http.Request, page Page) {
 func clientId(r *http.Request) string {
 	cookie, err := r.Cookie(AMP_CLIENT_ID_COOKIE)
 	if err != nil {
-		return RandomString(8)
+		return util.RandomString(8)
 	} else {
 		return cookie.Value
 	}

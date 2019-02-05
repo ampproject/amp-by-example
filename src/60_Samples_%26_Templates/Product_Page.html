@@ -1,8 +1,11 @@
-<!---{
-  "preview": "default",
-  "default": "preview",
-  "hideCode": true
-  }--->
+<!---
+
+preview: default
+hideCode: true
+skipValidation: true
+
+--->
+
 <!--
 ## Introduction
 
@@ -13,22 +16,32 @@ This sample showcases how to build a product page in AMP HTML.
 <html ⚡>
 <head>
     <meta charset="utf-8">
-  <title>Product Page</title>
+    <title>Product Page</title>
     <meta name="amp-experiment-token" content="HfmyLgNLmblRg3Alqy164Vywr">
     <script async src="https://cdn.ampproject.org/v0.js"></script>
-
+    <!-- Import `amp-carousel` to create an image gallery. -->
     <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
-    <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+    <!-- Import `amp-list` to get the latest promotions. -->
     <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+    <!--  Import `amp-mustache` as a format template for `amp-list` -->
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+    <!-- Import `amp-social-share` for adding share buttons -->
     <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+    <!-- Import `amp-lighbox` to show additional content such as a video -->
     <script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
+    <!-- Import `amp-image-lightbox` to show additional content such as an image gallery -->
     <script async custom-element="amp-image-lightbox" src="https://cdn.ampproject.org/v0/amp-image-lightbox-0.1.js"></script>
+    <!-- Import `amp-youtube` to show a video -->
     <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+    <!-- Import `amp-form` to implement search -->
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+    <!-- Import `amp-form` to implement a menu -->
     <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+    <!-- Import `amp-selector` to implement auto suggest search -->
     <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+    <!-- Import `amp-analytics` to monitor usage -->    
     <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    <!-- Import `amp-bind` to change color and price of items -->    
     <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
 
     <link rel="canonical" href="<%host%>/samples_templates/product_page/">
@@ -38,14 +51,12 @@ This sample showcases how to build a product page in AMP HTML.
     #product-description {
       clear: both;
     }
+
     amp-lightbox {
-      background: rgba(0,0,0,0.8);
+      background: var(--color-bg-grey);
       width: 100%;
       height: 100%;
       position: absolute;
-    }
-    amp-accordion h4 {
-      font-size: 18px;
     }
     amp-carousel .selected {
       border: solid 2px red;
@@ -63,9 +74,9 @@ This sample showcases how to build a product page in AMP HTML.
     .price-description {
       color: grey;
       font-weight: 400;
-      margin-top: 24px;
-      margin-bottom: 16px;
-      padding: 0 16px;
+      margin-top: var(--space-3);
+      margin-bottom: var(--space-2);
+      padding: 0 var(--space-2);
     }
     .product-gallery > ul {
       margin: 0;
@@ -76,7 +87,7 @@ This sample showcases how to build a product page in AMP HTML.
     }
     .product-gallery > ul > li {
       cursor: pointer;
-      margin: 0 1em 1em 1em;
+      margin: 0 var(--space-2) var(--space-2) var(--space-2);
       opacity: 1;
       will-change: opacity;
       transition: all 0.3s cubic-bezier(.25,.8,.25,1);
@@ -93,14 +104,14 @@ This sample showcases how to build a product page in AMP HTML.
     form#order label {
       display: inline;
       font-weight: 500;
-      font-size: 16px;
+      font-size: var(--space-2);
       margin: 0;
     }
     form#order .button {
       width: 100%;
       max-width: 400px;
       align-self: center;
-      margin: 16px 20%;
+      margin: var(--space-2) 20%;
       box-sizing: border-box;
     }
     form#order.amp-form-submitting [name=add-to-cart] {
@@ -118,8 +129,8 @@ This sample showcases how to build a product page in AMP HTML.
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-right: 8px;
-      background: white;
+      margin-right: var(--space-1);
+      background: var(--color-text-light);
       height: 40px;
       min-width: 40px;
       width: auto;
@@ -130,27 +141,27 @@ This sample showcases how to build a product page in AMP HTML.
     form#order amp-selector amp-img[option][selected] {
       outline-width: 1px;
       outline-style: solid;
-      outline-color: #eb407a;
+      outline-color:var(--color-primary);
       background: none;
     }
     form#order amp-selector:not([disabled]) [option][selected]:not([disabled]), amp-img.selected {
       will-change: box-shadow;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+      box-shadow: var(--box-shadow-1);
       transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
-      color: #fff;
+      color: var(--color-text-light);
     }
 
     form#order amp-selector:not([disabled]) [option][selected]:not([disabled]):not(.unavailable):not(.square) {
-      background-color: #eb407a;
+      background-color: var(--color-primary);
     }
 
     form#order amp-selector:not([disabled]) [option][selected]:not([disabled]):not(.unavailable).square {
-      outline: 1px solid #eb407a;
+      outline: 1px solid var(--color-primary);
     }
 
     form#order amp-selector:not([disabled]) [option]:not([selected]):not([disabled]), amp-img:not([.selected]) {
       will-change: box-shadow;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      box-shadow: var(--box-shadow-1);
       transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
     }
 
@@ -227,14 +238,16 @@ This sample showcases how to build a product page in AMP HTML.
         url(/img/ic_info_outline_black_24dp_2x.png) 2x
       );
       background-repeat: no-repeat;
-      width: 24px;
-      height: 24px;
+      width: var(--space-4);
+      height: var(--space-4);
       margin-top: 4px;
+      margin-right: var(--space-2);
+      border:none;
     }
 
     .info {
       margin: 0 auto;
-      background: #fff;
+      background: var(--color-text-light);;
     }
 
     .lightbox {
@@ -247,6 +260,7 @@ This sample showcases how to build a product page in AMP HTML.
     .ampTabContainer {
         display: flex;
         flex-wrap: wrap;
+        color: var(--color-primary);
     }
 
     .tabButton {
@@ -254,24 +268,32 @@ This sample showcases how to build a product page in AMP HTML.
         text-align: center;
         cursor: pointer;
         outline: none;
+        position: relative;
+        font-size: 1.125rem;
+        line-height: var(--space-3);
+        padding: 0 var(--space-2);
+        background:transparent;
+        opacity:.8
     }
 
     amp-selector [option][selected] {
-      outline: #fff;
+      outline: var(--color-text-light);
     }
 
     .tabContent {
-        line-height: 1.5rem;
+        line-height: var(--space-3);
         display: none;
         width: 100%;
         order: 1; /* must be greater than the order of the tab buttons to flex to the next line */
+        padding: var(--space-2);
+        color: var(--color-text-dark);
     }
 
     .tabButton[selected]::after {
       content: '';
       display: block;
       height: 4px;
-      background: linear-gradient(90deg,#94103e 0,#db004d);
+      background: var(--color-primary);
     }
 
     .tabButton[selected]+.tabContent {
@@ -286,6 +308,79 @@ This sample showcases how to build a product page in AMP HTML.
       z-index: 1;
       position: absolute;
       right: 0;
+      text-transform: uppercase;
+      margin: var(--space-3);
+    }
+
+    #drawermenu a {
+      text-transform: uppercase;
+      text-decoration: none;
+      display: block;
+      padding: var(--space-3);
+    }
+
+    .watch-video {
+      text-transform: uppercase;
+      margin-bottom: var(--space-4);
+      padding: 0;
+    }
+
+    .video a {
+      margin: var(--space-2);
+    }
+
+    .order {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .color-selector, .quantity-selector, .size-selector, .submit-selector, .related-products-container {
+      display: flex;
+      -webkit-box-align:center;
+      -ms-flex-align:center;
+      align-items:center
+    }
+
+    .color-selector ul, .quantity-selector ul, .size-selector ul {
+      padding: 0;
+      margin: var(--space-2);
+    }
+
+    .related-products {
+      display: inline-block;
+    }
+
+    .margin1, .related-products {
+      margin: var(--space-2);
+    }
+
+    .info h4 {
+      padding: var(--space-3);
+    }
+
+    .info button {
+      text-transform: uppercase;
+      margin-bottom: var(--space-3);
+      margin-right: var(--space-3);
+    }
+
+    .submit-selector {
+      margin: var(--space-2);
+    }
+
+    .submit-selector input {
+      text-transform: uppercase;
+    }
+
+    .items a {
+      text-decoration: none;
+    }
+
+    .show-more {
+      text-transform: uppercase;
+      margin: var(--space-2);
+      margin-bottom: var(--space-4);
+      padding: 0;
     }
 
     </style>
@@ -331,13 +426,13 @@ This sample showcases how to build a product page in AMP HTML.
       <!-- ## Navigation -->
       <!-- Use the [amp-sidebar](/components/amp-sidebar/) component to give customers the chance to quickly jump to any of your product categories.-->
       <amp-sidebar id="drawermenu" layout="nodisplay">
-        <a href="/" class="caps text-decoration-none block p1">Products</a>
+        <a href="/">Products</a>
         <hr/>
-        <a class="caps text-decoration-none block p1" href="/samples_templates/product_browse_page/preview/">Fruit</a>
-        <a class="caps text-decoration-none block p1" href="/samples_templates/product_browse_page/preview/">Vegetable</a>
-        <a class="caps text-decoration-none block p1" href="/samples_templates/product_browse_page/preview/">More</a>
+        <a href="/samples_templates/product_browse_page/preview/">Fruit</a>
+        <a href="/samples_templates/product_browse_page/preview/">Vegetable</a>
+        <a href="/samples_templates/product_browse_page/preview/">More</a>
       </amp-sidebar>
-      <!-- ## Header with Search -->
+      <!-- ## Header with search -->
       <!-- AMP supports forms, which means you can directly integrate a product search into your AMPs. Try searching for "Apple".-->
       <!-- AMP doesn't support custom Javascript, but you can use CSS3 animations to enrich your page. The expanding text field when the search box is focused is implemented with CSS only.-->
       <div class="header">
@@ -353,11 +448,11 @@ This sample showcases how to build a product page in AMP HTML.
         </form>
       </div>
 
-      <h2 class="m1">Apple</h2>
+      <h2 class="margin1">Apple</h2>
 
-      <!-- ## Social Sharing -->
+      <!-- ## Social sharing -->
       <!-- The Social Share extension provides a common interface for share buttons. Learn more about `amp-social-share` [here](/components/amp-social-share/). -->
-      <div class="m1">
+      <div class="margin1">
         <amp-social-share type="twitter"
                           width="30"
                           height="22"></amp-social-share>
@@ -376,12 +471,12 @@ This sample showcases how to build a product page in AMP HTML.
                           height="22"></amp-social-share>
       </div>
 
-      <p id="product-description" class="m1">Lorem ipsum dolor sit amet, ut sed non vel mattis. Et nulla suscipit ante ligula nisl in. Ut venenatis et mauris, mauris porta vulputate tellus mauris integer facilisis.</p>
+      <p id="product-description" class="margin1">Lorem ipsum dolor sit amet, ut sed non vel mattis. Et nulla suscipit ante ligula nisl in. Ut venenatis et mauris, mauris porta vulputate tellus mauris integer facilisis.</p>
       <!-- ## Video -->
       <!-- AMP supports a wide range of video platforms. Here we are using `amp-youtube` to show a product video. You can find an overview of all supported video platforms [here](/advanced/integrating_videos_in_amp_an_overview/).-->
       <!-- In this sample we don't embed the video directly into the page, but instead show it in a lightbox using the `amp-lightbox` component. Learn more about `amp-lightbox` [here](/components/amp-lightbox/).-->
 
-      <button class="ampstart-btn caps m1 mb3" on="tap:watch-video-lightbox" >
+      <button class="watch-video margin1" on="tap:watch-video-lightbox" >
         Show Video
       </button>
 
@@ -398,7 +493,7 @@ This sample showcases how to build a product page in AMP HTML.
           </div>
         </div>
       </amp-lightbox>
-    <!-- ## Slides preview Gallery -->
+    <!-- ## Slides preview gallery -->
     <!--On desktop we've added a film strip like slide preview. Each product colour has its own image gallery and slide preview.
     We use [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind) to update the page selecting the gallery and image preview
     corresponding to the selected colour. We realized the color selection by using `amp-selector`. Find more the doc and info in The Product Page section below.
@@ -460,7 +555,7 @@ This sample showcases how to build a product page in AMP HTML.
       </li>
     </ul>
   </div>
-   <!-- ## Image Gallery -->
+   <!-- ## Image gallery -->
   <!-- The `amp-carousel` component works very well for product image galleries. Learn how the `amp-carousel` component works [here](/advanced/image_galleries_with_amp-carousel/).
 
   Notice how we are binding to the `slide` and `class` by using to the values of the variables `selectedSlideForGreen` and `selectedColor`. -->
@@ -529,7 +624,7 @@ This sample showcases how to build a product page in AMP HTML.
     <amp-image-lightbox id="gallery-lightbox" layout="nodisplay">
       <div on="tap:gallery-lightbox.close" role="button"
           tabindex="0">
-          <button class="ampstart-btn caps m2 close-gallery-button" on="tap:gallery-lightbox.close"
+          <button class="close-gallery-button" on="tap:gallery-lightbox.close"
             role="button" tabindex="0">
             Close
           </button>
@@ -537,7 +632,7 @@ This sample showcases how to build a product page in AMP HTML.
     </amp-image-lightbox>
 
   </div>
-  <!-- ## Product Configuration -->
+  <!-- ## Product configuration -->
   <!-- We use the `amp-state` component (part of [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind))
       to configure the product price depending on the color and the size. We also configure the `defaultSize`
       for each product when you switch between colours and the size you previously selected is not available for the new color -->
@@ -609,8 +704,8 @@ This sample showcases how to build a product page in AMP HTML.
 
       <form id="order" method="POST"
             action-xhr="/samples_templates/product_page/add_to_cart"
-            target="_top" class="flex flex-wrap m1">
-        <div class="items-center flex">
+            target="_top" class="order margin1">
+        <div class="color-selector">
           <label for="color">Color:</label>
           <amp-selector name="color"
                   layout="container"
@@ -624,7 +719,7 @@ This sample showcases how to build a product page in AMP HTML.
                       selectedSize: product[event.targetOption].sizes[product.selectedSize] != 'unavailable' ? product.selectedSize : product[event.targetOption].defaultSize
                     }
                   })">
-            <ul class="p0 m1">
+            <ul>
               <li>
                 <div option="green" selected class="square green"></div>
               </li>
@@ -637,24 +732,24 @@ This sample showcases how to build a product page in AMP HTML.
             </ul>
           </amp-selector>
         </div>
-        <div class="items-center flex">
+        <div class="quantity-selector">
           <label for="quantity">Quantity:</label>
           <amp-selector name="quantity" layout="container">
-            <ul class="p0 m1">
+            <ul>
               <li option="1" selected>1</li>
               <li option="2">2</li>
               <li option="3">3</li>
             </ul>
           </amp-selector>
         </div>
-        <div class="items-center flex">
+        <div class="size-selector">
           <label for="size">Size:</label>
           <amp-selector name="size" layout="container"
                   on="select:AMP.setState({ product: {selectedSize: event.targetOption}})"
                   [selected]="(product[product.selectedColor].sizes[product.selectedSize] != 'unavailable')
                       ? product.selectedSize
                       : product[product.selectedColor].defaultSize">
-            <ul class="p0 m1">
+            <ul>
               <li option="S" class=""
                   [class]="(product[product.selectedColor].sizes['S'] != 'unavailable')
                       ? ''
@@ -670,8 +765,8 @@ This sample showcases how to build a product page in AMP HTML.
             </ul>
           </amp-selector>
         </div>
-        <div class="items-center flex my1">
-          <input type="submit" class="ampstart-btn caps" name="add-to-cart" value="add to cart">
+        <div class="submit-selector">
+          <input type="submit" name="add-to-cart" value="add to cart">
         </div>
         <input type="hidden" name="name" value="Apple">
         <input type="hidden" name="price" value="$1.99">
@@ -687,36 +782,36 @@ This sample showcases how to build a product page in AMP HTML.
     <!-- Use `amp-selector` styled as tab panels to add additional data about your product.
     Learn how to implement tabs in AMP [here](/advanced/tab_panels_with_amp-selector/preview/). -->
   <amp-selector role="tablist"
-  layout="container"
-  class="ampTabContainer ampstart-headerbar-nav" keyboard-select-mode="select">
+    layout="container"
+    class="ampTabContainer" keyboard-select-mode="select">
   <div role="tab"
-    class="tabButton h4 ampstart-nav-item"
+    class="tabButton"
     selected
     option="a">ABOUT</div>
   <div role="tabpanel"
-      class="tabContent p1 p">Fruit is rich in vitamins and minerals. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+      class="tabContent">Fruit is rich in vitamins and minerals. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
   <div role="tab"
-    class="tabButton h4 ampstart-nav-item"
+    class="tabButton"
     option="b">SPECS</div>
   <div role="tabpanel"
-    class="tabContent p1 p">Always wash fruit before eating. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    class="tabContent">Always wash fruit before eating. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
   <div role="tab"
-      class="tabButton h4 ampstart-nav-item"
+      class="tabButton"
       option="c">SIZE</div>
   <div role="tabpanel"
-      class="tabContent p1 p">Size may vary. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+      class="tabContent">Size may vary. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
 </amp-selector>
 
-    <!-- ## Dynamic Related Product Lists -->
+    <!-- ## Dynamic related product lists -->
     <!--  -->
-    <div class="items-center flex">
-      <h2 id="related-products" class="m1 inline-block">Related products
+    <div class="related-products-container">
+      <h2 class="related-products">Related products
       <amp-lightbox id="my-lightbox" layout="nodisplay">
         <div class="lightbox" on="tap:my-lightbox.close" role="button"
             tabindex="0">
           <div class="info">
-            <h4 class="p2">Products that have been bought together</h4>
-            <button class="ampstart-btn caps mx2 mb2" on="tap:my-lightbox.close"
+            <h4>Products that have been bought together</h4>
+            <button on="tap:my-lightbox.close"
               role="button" tabindex="0">
               Close
             </button>
@@ -724,14 +819,15 @@ This sample showcases how to build a product page in AMP HTML.
         </div>
       </amp-lightbox>
     </h2>
-      <button class="info-button border-none mr1" on="tap:my-lightbox" role="button" tabindex="0">
+      <button class="info-button" on="tap:my-lightbox" role="button" tabindex="0">
       </button>
     </div>
+    <!-- ## Latest offers -->
     <!--
     With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
     Learn more about `amp-list` [here](/components/amp-list/).
     -->
-    <amp-list class="items m1"
+    <amp-list class="items margin1"
               width="auto"
               height="145"
               layout="fixed-height"
@@ -739,7 +835,7 @@ This sample showcases how to build a product page in AMP HTML.
               [src]="myState.items"
               id="show-more-list">
       <template type="amp-mustache">
-        <a class="text-decoration-none p1"
+        <a
           href="/samples_templates/product_page/preview/">
           <amp-img width="70.31"
                    height="46.8"
@@ -753,6 +849,9 @@ This sample showcases how to build a product page in AMP HTML.
       </template>
     </amp-list>
     <!--
+      ## Product list state
+    -->
+    <!--
     While infinite scrolling is not possible at the moment in AMP, you can use `amp-bind` to dynamically change the
     src of `amp-list` and add more items to the page.
     We bind the `src` attribute to the id of an `amp-state` component so that the `amp-list` will use the items
@@ -761,6 +860,9 @@ This sample showcases how to build a product page in AMP HTML.
     -->
     <amp-state id="myState" src="/json/related_products.json">
     </amp-state>
+    <!--
+      ## Show more button
+    -->
     <!--
     You can show or hide a Show more button by using `amp-form` and the `submit-success` event: notice
     how we set the `hasMorePages` variable to false based on the server response.
@@ -776,11 +878,11 @@ This sample showcases how to build a product page in AMP HTML.
         });">
       <input type="hidden" name="moreItemsPageIndex" value="0" [value]="product.moreItemsPageIndex">
       <input type="submit" value="Show more"
-        class="ampstart-btn caps m1 mb3"
+        class="show-more"
         [hidden] = "!product.hasMorePages">
   </form>
   <!--
-    ## User Analytics
+    ## User analytics
   -->
   <!--
     Analytics must be configured in the body. Here we use Google Analytics to track pageviews.

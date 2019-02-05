@@ -1,9 +1,12 @@
-<!---{
-"preview": "default",
-"default": "preview"
-}--->
+<!---
+
+preview: default
+
+--->
+
 <!--
 ## Introduction
+
 This is a sample template for implementing rotate-to-fullscreen with a user hint in AMP.
 -->
 <!-- -->
@@ -15,7 +18,7 @@ This is a sample template for implementing rotate-to-fullscreen with a user hint
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <!-- ## Setup -->
     <!--
-    All scripts for our AMP components must be imported in the header. We will be using three components:
+    All scripts for our AMP components must be imported in the header. We will be using two components:
 
     - `amp-video` to render the video itself.
     -->
@@ -33,6 +36,9 @@ This is a sample template for implementing rotate-to-fullscreen with a user hint
     -->
     <style amp-custom>
     .video-container {
+      height: 100%;
+      width: 100vw;
+      max-width: 700px;
       /* Absolute-positioned children will be positioned relative to this container: */
       position: relative;
       /* Cut off all elements based on container's rectangle: */

@@ -1,0 +1,83 @@
+<!doctype html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <link rel="stylesheet" href="https://ampbyexample.com/css/ampstart.css">
+    <style>
+    :root {
+      --color-primary: #005AF0;
+      --color-secondary: #00DCC0;
+      --color-text-light: #fff;
+      --color-text-dark: #000;
+      --color-error: #B00020;
+      --color-bg-light: #FAFAFC;
+
+      --space-1: .5rem;  /* 8px */
+      --space-2: 1rem;   /* 16px */
+      --space-3: 1.5rem; /* 24px */
+      --space-4: 2rem;   /* 32px */
+
+      --box-shadow-1: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    }
+    body {
+      margin: 0;
+      padding: var(--space-2);
+    }
+    p {
+      margin-top: var(--space-2);
+    }
+    li {
+      margin-top: var(--space-1);
+    }
+    .dismiss-button {
+      position: absolute;
+      right: var(--space-3);
+      top: var(--space-2);
+      cursor: pointer;
+    }
+    button {
+      margin-top: var(--space-2);
+      margin-right: var(--space-2);
+    }
+    </style>
+  </head>
+  <body>
+    <div class="dismiss-button" role="button" tabindex="0" id='d'>X</div>
+    <h1>Headline</h1>
+    <p>This is an important message requiring you to make a choice.</p>
+    <p>This is some more information about this choice. Here's a list of items related to this choice.</p>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+    <li>Item 4</li>
+    <li>Item 5</li>
+    <button id='a'>Accept</button>
+    <button id='r'>Reject</button>
+
+    <script type="text/javascript">
+    document.querySelector('#a').onclick = function () {
+        // parent.postMessage("message to be sent", "http://the-website-that-will-receive-the-msg.com")
+        parent.postMessage({
+          type: 'consent-response',
+          action: 'accept'
+        }, '*');
+      };
+    document.querySelector('#r').onclick = function () {
+        // parent.postMessage("message to be sent", "http://the-website-that-will-receive-the-msg.com")
+        parent.postMessage({
+          type: 'consent-response',
+          action: 'reject'
+        }, '*');
+      };
+    document.querySelector('#d').onclick = function () {
+        // parent.postMessage("message to be sent", "http://the-website-that-will-receive-the-msg.com")
+        parent.postMessage({
+          type: 'consent-response',
+          action: 'dismiss'
+        }, '*');
+      };
+    </script>
+  </body>
+</html>

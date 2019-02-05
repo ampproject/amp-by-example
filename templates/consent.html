@@ -1,0 +1,36 @@
+{{^includesConsent}}
+{{^includesGeo}}
+<amp-geo layout="nodisplay">
+  <script type="application/json">
+    {
+      "ISOCountryGroups": {
+        "eu": ["at", "be", "bg", "ch", "cy", "cz", "dk", "de", "ee", "el", "es", "fi", "fr", "hr", "ie", "is", "it", "li", "lv", "lt", "lu", "hu", "mt", "nl", "no", "pl", "pt", "ro", "si", "sk", "se", "uk"]
+      }
+    }
+  </script>
+</amp-geo>
+
+<amp-consent id="consent" layout="nodisplay">
+  <script type="application/json">
+    {
+      "consents": {
+        "eu": {
+          "promptIfUnknownForGeoGroup": "eu",
+          "promptUI": "consent-popup"
+        }
+      }
+    }
+  </script>
+
+  <div id="consent-popup" class="consent-popup">
+    <div>
+      <a href="#" on="tap:consent.dismiss" class="close-button" role="button" tabindex="0">✕</a>
+      <p>
+        We use cookies to understand how you use our site and to improve your experience. By continuing to use our site, you accept our <a href="https://policies.google.com/technologies/cookies">use of cookies</a> and <a href="https://policies.google.com/privacy">privacy policy</a>.
+      </p>
+      <a class="ampstart-btn ampstart-btn-secondary caps text-decoration-none inline-block" on="tap:consent.accept" role="button" tabindex="1">OK</a>
+    </div>
+  </div>
+</amp-consent>
+{{/includesGeo}}
+{{/includesConsent}}

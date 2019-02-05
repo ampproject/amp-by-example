@@ -1,7 +1,7 @@
 <!--
   ## Introduction
 
-  The [amp-reddit](https://www.ampproject.org/docs/reference/components/amp-reddit) component allows embedding both reddit posts and comments into AMP files.
+  The [`amp-reddit`](https://www.ampproject.org/docs/reference/components/amp-reddit) component allows embedding both reddit posts and comments into AMP files.
 -->
 <!-- -->
 <!doctype html>
@@ -11,7 +11,7 @@
   <title>amp-reddit</title>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <!-- ## Setup -->
-    <!-- Import the amp-reddit component -->
+    <!-- Import the `amp-reddit` component -->
     <script async custom-element="amp-reddit" src="https://cdn.ampproject.org/v0/amp-reddit-0.1.js"></script>
   <link rel="canonical" href="<%host%>/components/amp-reddit/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -19,9 +19,11 @@
   </head>
   <body>
 
-    <!-- ## Basic Usage -->
-    <!-- The `amp-reddit` component requires to be told that the embed is a post/comment as well as the source of the embed -->
-    <!-- ### Embedding a post -->
+    <!-- 
+      ## Post embed 
+
+      Embeds a singe post.
+    -->
     <amp-reddit
       layout="responsive"
       width="300"
@@ -30,7 +32,11 @@
       data-src="https://www.reddit.com/r/me_irl/comments/52rmir/me_irl/?ref=share&amp;ref_source=embed">
     </amp-reddit>
 
-    <!-- ### Embedding comments -->
+    <!-- 
+      ## Comment embed 
+
+      Embeds a single comment.
+    -->
     <amp-reddit
       layout="responsive"
       width="400"
@@ -40,9 +46,9 @@
     </amp-reddit>
 
   <!--
-    ## Parent comments
+    ## Parent comment
 
-    Embed the parent comment by specifying `data-embedparent="true"`.
+    Embeds the parent comment by specifying `data-embedparent="true"`.
   -->
     <amp-reddit
       layout="responsive"
@@ -54,9 +60,10 @@
     </amp-reddit>
 
   <!--
-    ## Update comments
+    ## Auto update comments
 
-    Update comments when the original comment is updated by specifying `data-embedlive="true"` -->
+    Updates comments when the original comment is updated by specifying `data-embedlive="true"` 
+  -->
   <amp-reddit
     layout="responsive"
     width="400"

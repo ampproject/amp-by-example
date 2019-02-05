@@ -1,0 +1,217 @@
+<!--
+  ## Introduction
+
+  The [amp-image-slider](https://www.ampproject.org/docs/reference/components/amp-image-slider) component allows comparing 2 images by moving the vertical slider bar.
+  Users can click/touch and drag to move the bar to compare the images.
+
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+<head>
+  <meta charset="utf-8">
+  <title>amp-image-slider</title>
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <!-- ## Setup -->
+  <!--
+    Import the `amp-image-slider` component in the header.
+  -->
+  <script async custom-element="amp-image-slider" src="https://cdn.ampproject.org/v0/amp-image-slider-0.1.js"></script>
+  <link rel="canonical" href="<%host%>/components/amp-image-slider/">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <!--
+    For this example, we will create some classes for positioning labels. (we will revisit in the following section)
+  -->
+  <style amp-custom>
+    .label {
+      color: white;
+      background-color: rgba(0, 0, 0, 0.4);
+      width: 5rem;
+      padding: 1rem 0;
+      text-align: center;
+      font-weight: bold;
+    }
+    .label-left-center {
+      top: 50%;
+      left: 1rem;
+      transform: translateY(-50%);
+    }
+    .label-right-center {
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+    }
+    .triangle-hint .amp-image-slider-hint-left {
+      width: 10px;
+      height: 20px;
+      background-size: 10px 20px;
+      margin-right: 10px;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='10' height='20' viewBox='0 0 10 20'%3e%3cpolygon points='10,0 0,10 10,20' style='fill:white' /%3e%3c/svg%3e");
+    }
+    .triangle-hint .amp-image-slider-hint-right {
+      width: 10px;
+      height: 20px;
+      background-size: 10px 20px;
+      margin-left: 10px;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='10' height='20' viewBox='0 0 10 20'%3e%3cpolygon points='0,0 10,10 0,20' style='fill:white' /%3e%3c/svg%3e");
+    }
+    .slider-no-display .amp-image-slider-hint-left, .slider-no-display .amp-image-slider-hint-right {
+      display: none;
+    }
+    .seek-button-container {
+      display: flex;
+      justify-content: space-around;
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ## Basic usage -->
+
+  <!--
+    Build a basic image slider by placing 2 `amp-img`s inside.
+    The first `amp-img` would be the left image, and the second would be the right one.
+  -->
+  <amp-image-slider width="300" height="200" layout="responsive">
+    <amp-img
+      src="/img/canoe_900x600_blur.jpg"
+      alt="A blurry image about canoeing"
+      layout="fill"></amp-img>
+    <amp-img
+      src="/img/canoe_900x600.jpg"
+      alt="An image about canoeing"
+      layout="fill"></amp-img>
+  </amp-image-slider>
+
+  <!-- ## Custom text label -->
+  <!--
+    You can add customizable text labels to your images, by providing extra `div`s,
+    labeled with `first` and `second` attributes, for left and right images correspondingly.
+    You can customize the style and positioning of your labels with classes.
+    For example, to center the label vertically on the images, you can use `top/bottom` and `transform` rules.
+    Check the Setup section for details.
+  -->
+  <amp-image-slider width="300" height="200" layout="responsive">
+    <amp-img
+      src="/img/red_apple_1_1024x682.jpg"
+      alt="A red apple"
+      layout="fill"></amp-img>
+    <amp-img
+      src="/img/green_apple_1_1024x682.jpg"
+      alt="A green apple"
+      layout="fill"></amp-img>
+    <div first class="label label-left-center">Red</div>
+    <div second class="label label-right-center">Green</div>
+  </amp-image-slider>
+
+  <!-- ## Arrow hint -->
+  <!--
+    Arrow hints about moving the image slider would always show by default.
+    Once user interacts with the slider (such as clicking and touching), the hint would fade out.
+    The hints reappear if the slider leaves the viewport and later comes back again.
+    To disable this default behavior, add `disable-hint-reappear` attribute to the slider.
+  -->
+  <amp-image-slider width="300" height="200" layout="responsive"
+      disable-hint-reappear>
+    <amp-img
+      src="/img/canoe_900x600_blur.jpg"
+      alt="A blurry image about canoeing"
+      layout="fill"></amp-img>
+    <amp-img
+      src="/img/canoe_900x600.jpg"
+      alt="An image about canoeing"
+      layout="fill"></amp-img>
+  </amp-image-slider>
+
+  <!-- ## Custom hint -->
+
+  <!--
+    By overwriting `.amp-image-slider-hint-left` and `.amp-image-slider-hint-right` classes,
+    you can change the styling of the left and right hint icons.
+    Specially, you can overwrite `background-image` to provide your own.
+  -->
+  <amp-image-slider class="triangle-hint" width="300" height="200" layout="responsive">
+    <amp-img
+      src="/img/canoe_900x600_blur.jpg"
+      alt="A blurry image about canoeing"
+      layout="fill"></amp-img>
+    <amp-img
+      src="/img/canoe_900x600.jpg"
+      alt="An image about canoeing"
+      layout="fill"></amp-img>
+  </amp-image-slider>
+
+  <!-- ## Hidden hints -->
+  <!--
+    To hide hints, you can simply set `display: none;` for these classes.
+  -->
+  <amp-image-slider class="slider-no-display" width="300" height="200" layout="responsive">
+    <amp-img
+      src="/img/red_apple_1_1024x682.jpg"
+      alt="A red apple"
+      layout="fill"></amp-img>
+    <amp-img
+      src="/img/green_apple_1_1024x682.jpg"
+      alt="A green apple"
+      layout="fill"></amp-img>
+  </amp-image-slider>
+
+  <!-- ## Actions -->
+  <!--
+    `amp-image-slider` offers an action `.seekTo(percent=[0-1])` that moves the slider to corresponding percent from the left.
+    For example, you can use `slider-id.seekTo(percent=0)` and `slider-id.seekTo(percent=1)` move the slider to left and right borders.
+  -->
+  <div>
+    <amp-image-slider id="seekable" width="300" height="200" layout="responsive">
+      <amp-img
+        src="/img/canoe_900x600_blur.jpg"
+        alt="A blurry image about canoeing"
+        layout="fill"></amp-img>
+      <amp-img
+        src="/img/canoe_900x600.jpg"
+        alt="An image about canoeing"
+        layout="fill"></amp-img>
+    </amp-image-slider>
+    <div class="seek-button-container">
+      <button on="tap:seekable.seekTo(percent=1)">SHOW LEFT</button>
+      <button on="tap:seekable.seekTo(percent=0)">SHOW RIGHT</button>
+    </div>
+  </div>
+
+  <!-- ## Different initial position -->
+  <!--
+    By default, the slider bar would be initially placed at the center of the slider.
+    You can change its initial position with `initial-slider-position` attribute.
+  -->
+  <amp-image-slider width="300" height="200" layout="responsive"
+    initial-slider-position="0.3">
+    <amp-img
+      src="/img/red_apple_1_1024x682.jpg"
+      alt="A red apple"
+      layout="fill"></amp-img>
+    <amp-img
+      src="/img/green_apple_1_1024x682.jpg"
+      alt="A green apple"
+      layout="fill"></amp-img>
+  </amp-image-slider>
+
+  <!-- ## Different step size -->
+  <!--
+    By setting `step-size` to a value between 0 and 1,
+    you can move the slider bar by a custom percentage every time you press left and right arrow keys when the slider is focused.
+  -->
+  <amp-image-slider tabindex="0" width="300" height="200" layout="responsive"
+    step-size="0.2">
+    <amp-img
+      src="/img/red_apple_1_1024x682.jpg"
+      alt="A red apple"
+      layout="fill"></amp-img>
+    <amp-img
+      src="/img/green_apple_1_1024x682.jpg"
+      alt="A green apple"
+      layout="fill"></amp-img>
+  </amp-image-slider>
+</body>
+</html>

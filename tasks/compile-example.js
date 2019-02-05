@@ -29,15 +29,7 @@ const Templates = require('../lib/Templates');
 const storyController =
   fs.readFileSync(__dirname + '/../templates/stories/page-switch.html', 'utf8');
 const storyBookend = require('./bookend.json');
-
 const STORY_EMBED_DIR = __dirname + '/../api/dist/';
-const AMP_STORY_CLEANER_REGEX =
-  ['amp-story', 'amp-story-auto-ads', 'amp-consent']
-      .map(extension =>
-        new RegExp('<script\\s+async\\s+custom-element="' + extension
-      + '"\\s+src="https:\\/\\/cdn\\.ampproject\\.org\\/v0\\/' + extension
-      + '-\\d\\.\\d\\.js"><\\/script>')
-      );
 
 /**
  * Collects a list of example files, renders them (using templateExample) and
@@ -51,12 +43,6 @@ module.exports = function(config, indexPath, updateTimestamp) {
   let latestMod;
   let examples;
   let timestamp = new Date().toISOString();
-
-  const postProcessors = [
-    replaceAmpAdRuntime,
-    replaceAmpStoryRuntime,
-    replaceAmpHtmlEmailRuntimeAddViewport,
-  ];
 
   if (typeof config.templates.root === 'string') {
     pageTemplates = Templates.get(config.templates.root,/* minify */ true);
@@ -113,7 +99,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
       const example = ExampleFile.fromPath(file.path);
       const contents = prerenderTemplates(file.contents.toString(), config);
       latestFile.section = example.section();
-      example.document = DocumentParser.parse(contents);
+      example.document = DocumentParser.parse(contents, file.path);
       example.file = file;
       example.contents = contents;
       examples.push(example);
@@ -229,6 +215,8 @@ module.exports = function(config, indexPath, updateTimestamp) {
         includesIframe: document.importsComponent('amp-iframe'),
         includesSelector: document.importsComponent('amp-selector'),
         includesSidebar: document.importsComponent('amp-sidebar'),
+        includesConsent: document.importsComponent('amp-consent'),
+        includesGeo: document.importsComponent('amp-geo'),
         includesServiceWorker:
         document.importsComponent('amp-install-serviceworker')
         || document.metadata.skipServiceWorker,
@@ -253,14 +241,12 @@ module.exports = function(config, indexPath, updateTimestamp) {
         template: config.templates.example,
         targetPath: example.targetPath(),
         isEmbed: false,
-        postProcessors,
       });
 
       // compile embed
       compileTemplate(stream, example, args, {
         template: config.templates.example,
         targetPath: example.targetEmbedPath(),
-        postProcessors,
         isEmbed: true,
       });
 
@@ -295,16 +281,14 @@ module.exports = function(config, indexPath, updateTimestamp) {
 
       // generate story preview embed
       if (document.isAmpStory) {
-        generateStoryPreviewEmbed(stream, example, args, {
-          targetPath: example.targetPreviewEmbedPath(),
-        });
+        generateStoryPreviewEmbed(stream, example);
       } else {
         // generate preview
         compileTemplate(stream, example, args, {
           template: previewTemplate,
           targetPath: example.targetPreviewPath(),
-          postProcessors,
           isEmbed: false,
+          isPreview: true,
         });
       }
 
@@ -313,6 +297,7 @@ module.exports = function(config, indexPath, updateTimestamp) {
         template: previewTemplate,
         targetPath: example.targetPreviewEmbedPath(),
         isEmbed: true,
+        isPreview: true,
       });
     });
   }
@@ -374,9 +359,8 @@ module.exports = function(config, indexPath, updateTimestamp) {
 
   function generateStoryPreviewEmbed(stream, example) {
     const inputFile = example.file;
-    const sampleHtml =
-      inputFile.contents.toString()
-          .replace('</body>', storyController + '</body>');
+    const sampleHtml = inputFile.contents.toString()
+        .replace('</body>', storyController + '</body>');
     const samplePath = path.join(STORY_EMBED_DIR, example.targetPath());
     mkdirp(path.dirname(samplePath), err => {
       if (err) {
@@ -397,13 +381,18 @@ module.exports = function(config, indexPath, updateTimestamp) {
     const inputFile = example.file;
     args.isEmbed = options.isEmbed;
     let sampleHtml = pageTemplates.render(options.template, args);
-    options.postProcessors = options.postProcessors || [];
-    options.postProcessors.forEach(p => {
-      sampleHtml = p(document, sampleHtml);
-    });
     args.isEmbed = false;
     const sampleFile = inputFile.clone({contents: false});
     sampleFile.path = path.join(inputFile.base, options.targetPath);
+    if (document.isAmpStory && options.isPreview) {
+      // AMP Stories need a self-referential canonical
+      sampleHtml = sampleHtml.replace(
+          /\<link\s+rel=\"canonical\"\s+href=\"(.*)\"\>/,
+          '<link rel="canonical" href="' + args.urlPreview + '">'
+      );
+    }
+    sampleHtml = sampleHtml.replace(/\[tip.+\]/gm, '');
+    sampleHtml = sampleHtml.replace(/\[\/tip\]/gm, '');
     sampleFile.metadata = document.metadata;
     sampleFile.contents = new Buffer(sampleHtml);
     stream.push(sampleFile);
@@ -463,30 +452,6 @@ module.exports = function(config, indexPath, updateTimestamp) {
       return a.filePath.localeCompare(b.filePath);
     });
     return examples;
-  }
-
-  function replaceAmpStoryRuntime(document, string) {
-    if (!document.isAmpStory) {
-      return string;
-    }
-    AMP_STORY_CLEANER_REGEX.forEach(r => string = string.replace(r, ''));
-    return string;
-  }
-
-  function replaceAmpAdRuntime(document, string) {
-    if (!document.isAmpAdSample()) {
-      return string;
-    }
-    return string.replace('https://amp-ads.firebaseapp.com/dist/amp-inabox.js', 'https://amp-ads.firebaseapp.com/dist/amp.js');
-  }
-
-  function replaceAmpHtmlEmailRuntimeAddViewport(document, string) {
-    if (!document.isAmpHtmlEmail) {
-      return string;
-    }
-    return string.replace(
-        '<style amp4email-boilerplate>body{visibility:hidden}</style>',
-        '<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript><meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">'); // eslint-disable-line max-len
   }
 
   return through.obj(bufferContents, endStream);

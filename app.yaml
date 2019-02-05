@@ -17,12 +17,24 @@ threadsafe: yes
 # cache all static assets for at most 1 day.
 default_expiration: 1d
 
+inbound_services:
+- warmup
+
 handlers:
-- url: /sw\.js$
+- url: /_ah/warmup
+  script: _go_app
+  login: admin
+
+- url: /playground/amp-component-versions-task
+  script: _go_app
+  login: admin
+
+- url: /(sw\.js)
+  mime_type: text/javascript
+  static_files: dist/\1
+  upload: dist/(sw\.js)
   secure: always
-  static_files: dist/sw.js
-  upload: dist/sw\.js$
-  expiration: 0
+  expiration: "0s"
   http_headers:
     Access-Control-Allow-Origin: "*"
 

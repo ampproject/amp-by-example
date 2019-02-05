@@ -12,11 +12,10 @@ In this sample, we're using Google Analytics to track the experiment. Google Ana
   <meta charset="utf-8">
   <title>amp-experiment</title>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
-   <!-- ## Setup -->
-  <!--
-    Import the `amp-experiment` component.
-  -->
+  <!-- ## Setup -->
+  <!-- Import the `amp-experiment` component. -->
   <script async custom-element="amp-experiment" src="https://cdn.ampproject.org/v0/amp-experiment-0.1.js"></script>
+   <!-- We are using `amp-analytics` to measure results of the experiment. -->
   <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <link rel="canonical" href="<%host%>/components/amp-experiment/">
@@ -39,7 +38,7 @@ In this sample, we're using Google Analytics to track the experiment. Google Ana
 </head>
 <body>
 
-  <!-- ## Basic Usage -->
+  <!-- ## Basic usage -->
   <!--
     Configure experiments inside the `amp-experiment` inside a JSON object. Use `variants` within each experiment to declare how many users in percent will be part of an experiment variant. The total sum of the variants must be a number <= 100. If the sum is < 100, then the default behaviour is used. A user belongs to one of the variants based on a random number generated between 0 and 100.
 
@@ -58,19 +57,23 @@ In this sample, we're using Google Analytics to track the experiment. Google Ana
       }
     </script>
   </amp-experiment>
+
+ <!-- ## Sample setup -->
 <!--
-  An experimental button. The background of the button is going to be yellow for the 30% of users, red for 30% of users, blue for 30% of users and, for the remaining 10% of users, the button background is going to be the default color which is white in this sample.
+  We use a button whose background is going to be yellow for the 30% of users, red for 30% of users, blue for 30% of users and, for the remaining 10% of users; the button background is going to be the default color which is white in this sample.
 -->
-<button class= "ampstart-btn button-color-experiment caps m1">Click here</button>
+<button class= "button-color-experiment">Click here</button>
 
-<!-- ## Reporting -->
+<!-- ## Reporting with amp-pixel-->
 
 <!--
-  Measure results of the experiment using [amp-pixel](https://www.ampproject.org/docs/reference/components/amp-pixel)...
+  Measure results of the experiment using [amp-pixel](https://www.ampproject.org/docs/reference/components/amp-pixel).
 -->
 <amp-pixel src="https://example.com/track/?xname=button-color-experiment&xvar=VARIANT(button-color-experiment)"></amp-pixel>
+
+<!-- ## Reporting with amp-analytics-->
 <!--
-... or [amp-analytics](https://www.ampproject.org/docs/reference/components/amp-analytics). Allocated variants are available as a URL substitution variable: `VARIANT(name-of-the-experiment)`. You can check the analytics requests in the network tab of the developer tools.
+ Measure results of the experiment using [amp-analytics](https://www.ampproject.org/docs/reference/components/amp-analytics). Allocated variants are available as a URL substitution variable: `VARIANT(name-of-the-experiment)`. You can check the analytics requests in the network tab of the developer tools.
 -->
 <amp-analytics type="googleanalytics">
   <script type="application/json">
@@ -95,7 +98,7 @@ In this sample, we're using Google Analytics to track the experiment. Google Ana
   </script>
 </amp-analytics>
 
-<!-- ## Development Tip -->
+<!-- ## Development tip -->
 <!--
   You can force an experiment to be in a specific variant by adding `amp-x-experiment-name` to the AMP page URL.
   * <a href="<%host%>/components/amp-experiment#amp-x-button-color-experiment=0">#amp-x-button-color-experiment=0</a>

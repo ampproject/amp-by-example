@@ -50,29 +50,44 @@
       "selected": true
     },
     {
-      "label": "iPhone 5",
+      "label": "Galaxy S5",
+      "width": "360px",
+      "height": "640px"
+    },
+    {
+      "label": "iPhone 5/SE",
       "width": "320px",
       "height": "568px"
     },
     {
-      "label": "iPhone 7",
+      "label": "iPhone 6/7/8",
       "width": "375px",
       "height": "667px"
     },
     {
-      "label": "iPhone 7 Plus",
+      "label": "iPhone 6/7/8 Plus",
       "width": "414px",
       "height": "736px"
     },
     {
-      "label": "Nexus 5",
-      "width": "360px",
-      "height": "598px"
+      "label": "iPhone X/Xs",
+      "width": "375px",
+      "height": "812px"
     },
     {
-      "label": "Nexus 5X / 6p",
-      "width": "412px",
-      "height": "732px"
+      "label": "iPhone Xs Max",
+      "width": "414px",
+      "height": "896px"
+    },
+    {
+      "label": "Pixel 2",
+      "width": "411px",
+      "height": "731px"
+    },
+    {
+      "label": "Pixel 2 XL",
+      "width": "411px",
+      "height": "823px"
     },
     {
       "label": "Responsive",

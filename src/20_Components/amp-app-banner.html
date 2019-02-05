@@ -1,9 +1,10 @@
 <!---
-  {
-    "comment": "Don't install serviceworker as canonical domain is different that serviceworker domain",
-    "skipServiceWorker": true
-  }
+
+comment: Don't install serviceworker as canonical domain is different than serviceworker domain
+skipServiceWorker: true
+
 --->
+
 <!--
   ## Introduction
 
@@ -21,6 +22,7 @@
   Import the `amp-app-banner` component.
   -->
   <script async custom-element="amp-app-banner" src="https://cdn.ampproject.org/v0/amp-app-banner-0.1.js"></script>
+  <script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>
   <!--
     Declare the iOS app in the [meta data](https://developer.apple.com/library/content/documentation/AppleApplications/Reference/SafariWebContent/PromotingAppswithAppBanners/PromotingAppswithAppBanners.html). This enables Safari's build-in app install banner as well.
   -->
@@ -37,40 +39,39 @@
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
 <style amp-custom>
-
-#banner {
+:root {
+  --space-1: .5rem;  /* 8px */
+}
+#my-app-banner {
+  position: fixed;
+  bottom: 0;
   display: flex;
   width: 100%;
   justify-content: center;
   align-items: center;
+  padding: var(--space-1);
 }
-
-#banner > #banner-logo {
-  padding: 8px;
-}
-
-#banner > #banner-text {
+#my-app-banner .banner-text {
   flex: 1;
-  font-size: 14px;
-  padding: 0 8px;
+  margin: 0 var(--space-1);
 }
-
+#my-app-banner button {
+  border: none;
+  background: none;
+  -webkit-appearance: none;
+}
 </style>
 </head>
 <body>
 
-  <!-- ## Basic Usage -->
+  <!-- ## Basic usage -->
   <!--
 The `amp-app-banner` can be fully customized by the developer as long as the height doesn't exceed 100px.  One required UI element is a button with the attribute `[open-button]`, which triggers the app install, or opens the deep-link if the app is already installed.
   -->
-  <amp-app-banner layout="nodisplay" id="banner">
-    <div id="banner-logo">
-      <amp-img src="https://cdn-images-1.medium.com/max/50/1*JLegdtjFMNgqHgnxdd04fg.png" width="50" height="43" layout="fixed"></amp-img>
-    </div>
-    <div id="banner-text">Learn more about AMP in the Medium App.</div>
-    <div id="banner-action">
-      <button class="ampstart-btn mr1 caps" open-button>View in app</button>
-    </div>
+  <amp-app-banner layout="nodisplay" id="my-app-banner">
+    <amp-img src="https://cdn-images-1.medium.com/max/50/1*JLegdtjFMNgqHgnxdd04fg.png" width="50" height="43" layout="fixed"></amp-img>
+    <div class="banner-text">Learn more in the app.</div>
+    <button open-button>View in app</button>
   </amp-app-banner>
 
   <!-- ## Demo -->
@@ -95,7 +96,7 @@ The `amp-app-banner` can be fully customized by the developer as long as the hei
 
   <!-- ## Testing -->
   <!--
-    The amp-app-banner will only show in browsers that don't provide their own app install banner. This means Chrome on Android or Safari on iOS will not show the amp-app-banner, but the native install banner. For testing amp-app-banner you can open this page:
+    The `amp-app-banner` will only show in browsers that don't provide their own app install banner. This means Chrome on Android or Safari on iOS will not show the `amp-app-banner,` but the native install banner. For testing `amp-app-banner` you can open this page:
 
   * **On a mobile device:** in browser without native install banner, e.g. [Firefox](https://play.google.com/store/apps/details?id=org.mozilla.firefox&hl=en_GB) on Android or [Chrome](https://itunes.apple.com/gb/app/chrome-web-browser-by-google/id535886823?mt=8) on iOS.
   * **On Desktop:** in [mobile device emulation mode](https://developers.google.com/web/tools/chrome-devtools/device-mode/) append `#webview=1` to the [page URL](<%host%>/components/amp-app-banner/#webview=1). The other option is to use a custom user agent in mobile emulation mode, for example:

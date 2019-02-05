@@ -1,0 +1,36 @@
+\{{#adobeAnalytics.selected}}
+<amp-analytics>
+  <script type="application/json">
+  {
+    "transport": {
+      "xhrpost": false,
+      "beacon": true
+    },
+    "requests": {
+      "base": "https://${trackingServer}/b/ss/${accounts}/1/AMP-0.1/s${random}",
+      "pageView": "${base}?AQB=1&vid=CLIENT_ID(adobe_amp_id)&pageName=${pageName}&j=amp&AQE=1",
+      "buttonClick": "${base}?AQB=1&vid=CLIENT_ID(adobe_amp_id)&pageName=${pageName}&j=amp&pe=lnk_o&v1=${eVar1}&AQE=1"
+    },
+    "vars": {
+      "trackingServer": "\{{adobeAnalytics.trackingServer}}",
+      "accounts": "\{{adobeAnalytics.reportSuiteID}}",
+      "pageName": "Adobe Analytics Using amp-analytics tag"
+    },
+    "triggers": {
+      "pageLoad": {
+        "on": "visible",
+        "request": "pageView"
+      },
+      "click": {
+        "on": "click",
+        "selector": "button",
+        "request": "buttonClick",
+        "vars": {
+          "eVar1": "button clicked"
+        }
+      }
+    }
+  }
+  </script>
+</amp-analytics> 
+\{{/adobeAnalytics.selected}}

@@ -52,25 +52,27 @@ describe("CodeSection", function() {
       expect(section.doc).toEqual("hello\nworld\n");
     });
 
-    it("keeps indentation", function() {
+    it("removes indentation", function() {
       section.appendDoc("<!--");
       section.appendDoc("  hello");
       section.appendDoc("-->");
-      expect(section.doc).toEqual("\n  hello\n\n");
+      expect(section.doc).toEqual("\nhello\n\n");
     });
 
     it("normalizes indentation", function() {
       section.appendDoc("  <!--");
       section.appendDoc("    hello");
+      section.appendDoc("      world");
       section.appendDoc("  -->");
-      expect(section.doc).toEqual("\n  hello\n\n");
+      expect(section.doc).toEqual("\nhello\n  world\n\n");
     });
 
     it("handles wrong indentation", function() {
       section.appendDoc("  <!--");
       section.appendDoc(" x  hello");
+      section.appendDoc("      world");
       section.appendDoc("  -->");
-      expect(section.doc).toEqual("\nx  hello\n\n");
+      expect(section.doc).toEqual(' \nx  hello\n     world\n \n');
     });
 
     it("keeps empty lines", function() {
@@ -82,56 +84,6 @@ describe("CodeSection", function() {
       expect(section.doc).toEqual("\nhello\n\n\nworld\n\n");
     });
 
-  });
-
-  describe("hideCodeOnMobile", function() {
-    it('hides codesections without comment', function() {
-      section.appendCode("Some Code");
-      expect(section.hideCodeOnMobile()).toEqual(true);
-    });
-    it('hides codesections with empty comment', function() {
-      section.appendDoc("  ");
-      section.appendCode("Some Code");
-      expect(section.hideCodeOnMobile()).toEqual(true);
-    });
-    it('hides codesections with empty code', function() {
-      section.appendDoc("Some Doc");
-      section.appendCode("  ");
-      expect(section.hideCodeOnMobile()).toEqual(true);
-    });
-    it('shows codesections with comment and code', function() {
-      section.appendDoc("Some Doc");
-      section.appendCode("Some Code");
-      expect(section.hideCodeOnMobile()).toEqual(false);
-    });
-  });
-  describe("hidePreviewOnMobile", function() {
-    it('shows previews with code', function() {
-      section.appendDoc("Some Doc");
-      section.appendCode("Some Code");
-      section.appendPreview("Some Code");
-      expect(section.hidePreviewOnMobile()).toEqual(false);
-    });
-    it('hides empty previews', function() {
-      section.appendDoc("Some Doc");
-      section.appendCode("Some Code");
-      section.appendPreview("  ");
-      expect(section.hidePreviewOnMobile()).toEqual(true);
-    });
-    it('previews without code', function() {
-      section.appendPreview("  ");
-      expect(section.hidePreviewOnMobile()).toEqual(true);
-    });
-  });
-  describe("hideDocOnMobile", function() {
-    it('shows doc', function() {
-      section.appendDoc("Some Doc");
-      expect(section.hideDocOnMobile()).toEqual(false);
-    });
-    it('hides empty doc', function() {
-      section.appendDoc("  ");
-      expect(section.hideDocOnMobile()).toEqual(true);
-    });
   });
   describe('hide columns if code section', function() {
     /*

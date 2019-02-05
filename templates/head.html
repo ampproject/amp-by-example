@@ -11,6 +11,13 @@
 {{^includesIframe}}
 <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
 {{/includesIframe}}
+{{^includesGeo}}
+{{^includesConsent}}
+<script async custom-element="amp-geo" src="https://cdn.ampproject.org/v0/amp-geo-0.1.js"></script>    
+<script async custom-element="amp-consent" src="https://cdn.ampproject.org/v0/amp-consent-0.1.js"></script>
+{{/includesConsent}}
+{{/includesGeo}}
+
 {{> metadata.html}}
 {{> favicons.html}}
 <link href=https://fonts.gstatic.com rel="dns-prefetch preconnect" crossorigin>

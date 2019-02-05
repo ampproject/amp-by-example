@@ -1,8 +1,10 @@
-<!---{
-  "preview": "default",
-  "default": "preview",
-  "skipValidation": true
-  }--->
+<!---
+
+preview: default
+skipValidation: true
+
+--->
+
 <!--
   ## Introduction
 
@@ -16,10 +18,9 @@ This is a sample template for implementing live blogs in AMP.
   <title>Live Blog</title>
       <script async src="https://cdn.ampproject.org/v0.js"></script>
     <!-- ## Setup -->
-    <!--
-      All additionally used AMP components must be imported in the header. Import `amp-live-list` for implementing a live blog and `amp-social-share` for adding share buttons.
-    -->
+    <!-- Import `amp-social-share` for adding share buttons-->
     <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+   <!-- Import `amp-live-list` for implementing a live blog. -->
     <script async custom-element="amp-live-list" src="https://cdn.ampproject.org/v0/amp-live-list-0.1.js"></script>
     <link rel="canonical" href="<%host%>/samples_templates/live_blog/">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -82,77 +83,85 @@ This is a sample template for implementing live blogs in AMP.
         }
       </script>
       <style amp-custom>
+        :root {
+        --color-primary: #005AF0;
+        --color-secondary: #00DCC0;
+        --color-text-light: #fff;
+        --color-text-dark: #000;
+
+        --space-1: .5rem;  /* 8px */
+        --space-2: 1rem;   /* 16px */
+        }
         .carousel .slide > amp-img > img {
           object-fit: contain;
         }
-        amp-social-share {
-          margin-right: 8px;
+        .amp-social-share {
+          margin-right: var(--space-1);
         }
         .heading {
-          padding: 1rem;
+          padding: var(--space-2);
         }
         .heading > #summary {
           font-weight: 500;
         }
         .heading > small {
-          color: #656565;
+          color: var(--color-primary);
         }
         .date {
-          color: #a8a3ae;
+          color: var(--color-primary);
           font-size: 12px;
         }
         .blog {
           padding: 0;
           min-width: 70%;
-          background: #fff;
+          background: var(--color-text-light);
         }
         .blog p {
-          margin: 0 16px;
+          margin: 0 var(--space-2);
         }
         .blog .text {
-          color: black;
+          color: var(--color-text-dark);
           padding-top: 0;
         }
         .blog .title {
-          color: white;
+          color: var(--color-text-light);
           position: relative;
           top: -48px;
-          margin: 0 16px;
+          margin: 0 var(--space-2);
           height: 0;
-          padding-bottom: 16px;
+          padding-bottom: var(--space-2);
         }
         .blog .social-share {
           line-height:36px;
           display: flex;
-          padding-bottom: 16px;
-          padding-top: 16px;
+          padding-bottom: var(--space-2);
+          padding-top: var(--space-2);
         }
         #live-list-update-button {
           position: fixed;
-          top: 10px;
-          right: 16px;
+          top: var(--space-1);
+          right: var(--space-2);
         }
         @media (max-width: 600px) {
           #live-list-update-button {
             top: 60px;
           }
         }
-    .pagination {
-      display: inline-block;
-      padding: 0;
-    }
-    amp-live-list [pagination] nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .pagination li {
-      display: inline;
-      padding: 10px;
-      list-style-type: none;
-    }
+        .pagination {
+          display: inline-block;
+          padding: 0;
+        }
+        .live-list [pagination] nav {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .pagination li {
+          display: inline;
+          padding: var(--space-1);
+          list-style-type: none;
+        }
       </style>
-
   </head>
   <body>
     <section class="heading">
@@ -166,49 +175,47 @@ This is a sample template for implementing live blogs in AMP.
 
     Long blogs could use pagination to improve performance by limiting the number of blog items to be displayed on a page. To implement pagination, amp-live-list allows to add the `<div pagination></div>` element, to then insert any markup needed for pagination, for example the page number, a link to the next and previous page. -->
     <amp-live-list [[.Disabled]]
+    class="live-list"
     layout="container"
     data-poll-interval="15000"
     data-max-items-per-page="5"
     id="amp-live-list-insert-blog">
 
-    <button id ="live-list-update-button" update on="tap:amp-live-list-insert-blog.update" class="ampstart-btn caps">You have updates</button>
-    <div items>
-      [[range .BlogItems]]
-          <div id="[[.ID]]" data-sort-time="[[.Timestamp]]">
-            <div class="ampstart-card m1 blog">
-              <amp-img src="[[.Image]]"
-                  layout="responsive" width="1280" height="853">
-              </amp-img>
-              <h4 class="title">[[.Heading]]</h4>
-              <p class="date">[[.Date]]</p>
-              <p class="text">[[.Text]]</p>
-              <p class="social-share">
-                <amp-social-share type="twitter" width="45" height="33" data-param-url="AMPDOC_URL#[[.ID]]"></amp-social-share>
-                <amp-social-share type="facebook" width="45" height="33" data-attribution="254325784911610" data-param-url="AMPDOC_URL#[[.ID]]"></amp-social-share>
-                <amp-social-share type="gplus" width="45" height="33" data-param-url="AMPDOC_URL#[[.ID]]"></amp-social-share>
-                <amp-social-share type="email" width="45" height="33" data-param-url="AMPDOC_URL#[[.ID]]"></amp-social-share>
-                <amp-social-share type="pinterest" width="45" height="33" data-param-url="AMPDOC_URL#[[.ID]]"></amp-social-share>
-              </p>
+      <button id ="live-list-update-button" update on="tap:amp-live-list-insert-blog.update">You have updates</button>
+      <div items>
+        [[range .BlogItems]]
+            <div id="[[.ID]]" data-sort-time="[[.Timestamp]]">
+              <div class="blog">
+                <amp-img src="[[.Image]]"
+                    layout="responsive" width="1280" height="853">
+                </amp-img>
+                <h4 class="title">[[.Heading]]</h4>
+                <p class="date">[[.Date]]</p>
+                <p class="text">[[.Text]]</p>
+                <p class="social-share">
+                  <amp-social-share type="twitter" width="45" height="33" data-param-url="AMPDOC_URL#[[.ID]]"></amp-social-share>
+                  <amp-social-share type="facebook" width="45" height="33" data-attribution="254325784911610" data-param-url="AMPDOC_URL#[[.ID]]"></amp-social-share>
+                  <amp-social-share type="gplus" width="45" height="33" data-param-url="AMPDOC_URL#[[.ID]]"></amp-social-share>
+                  <amp-social-share type="email" width="45" height="33" data-param-url="AMPDOC_URL#[[.ID]]"></amp-social-share>
+                  <amp-social-share type="pinterest" width="45" height="33" data-param-url="AMPDOC_URL#[[.ID]]"></amp-social-share>
+                </p>
+              </div>
             </div>
-          </div>
-        [[end]]
-    </div>
-
-    <div pagination>
-      <nav aria-label="amp live list pagination">
-      <ul class="pagination">
-        [[if .PrevPageURL]]
-          <li><a href="[[.PrevPageURL]]">Prev</a></li>
-        [[end]]
-        <li>[[.PageNumber]]</li>
-        [[if .NextPageURL]]
-          <li><a href="[[.NextPageURL]]">Next</a></li>
-        [[end]]
-      </ul>
-      </nav>
-    </div>
-
-  </amp-live-list>
-
+          [[end]]
+      </div>
+      <div pagination>
+        <nav aria-label="amp live list pagination">
+          <ul class="pagination">
+            [[if .PrevPageURL]]
+              <li><a href="[[.PrevPageURL]]">Prev</a></li>
+            [[end]]
+            <li>[[.PageNumber]]</li>
+            [[if .NextPageURL]]
+              <li><a href="[[.NextPageURL]]">Next</a></li>
+            [[end]]
+          </ul>
+        </nav>
+      </div>
+    </amp-live-list>
   </body>
 </html>

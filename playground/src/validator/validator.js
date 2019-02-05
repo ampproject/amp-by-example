@@ -12,20 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/* global amp */
 import events from '../events/events.js';
 import lazyLoad from '../lazy-load/base.js';
-import {runtimes, EVENT_SET_RUNTIME} from '../runtime/runtimes.js';
+import {EVENT_SET_RUNTIME} from '../runtime/runtimes.js';
 
 const DEFAULT_VALIDATOR_URL = 'https://cdn.ampproject.org/v0/validator.js';
 
 export const NO_ERRORS = {
   errors: [],
-  status: 'PASS'
+  status: 'PASS',
 };
 
 export const NO_VALIDATOR = {
   errors: [],
-  status: 'NO_VALIDATOR'
+  status: 'NO_VALIDATOR',
 };
 
 export const EVENT_NEW_VALIDATION_RESULT = 'event-validator-new-validation-result';
@@ -35,7 +36,6 @@ export function createValidator() {
 }
 
 class Validator {
-
   constructor() {
     events.subscribe(EVENT_SET_RUNTIME, this._setRuntime.bind(this));
   }
@@ -63,7 +63,7 @@ class Validator {
   }
 
   processErrors(validationResult) {
-    validationResult.errors.forEach(error => {
+    validationResult.errors.forEach((error) => {
       error.message = amp.validator.renderErrorMessage(error);
       error.category = amp.validator.categorizeError(error);
       error.icon = error.severity.toLowerCase();

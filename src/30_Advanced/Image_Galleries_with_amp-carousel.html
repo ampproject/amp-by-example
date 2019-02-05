@@ -1,6 +1,3 @@
-<!---{
-    "highlight": true
-}--->
 <!--
   ## Introduction
 
@@ -16,18 +13,22 @@
   <!-- ## Setup -->
   <!-- Import the carousel component in the header. -->
   <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
-  <!-- We will also be using the amp-fit-text component. -->
+  <!-- We will be using the `amp-fit-text` component to fit captions to the available space. -->
   <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
-  <!-- We will also be using the amp-selector component. -->
+  <!-- Carousel previews can be implemented with `amp-selector` component. -->
   <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
-  <!-- We will also be using the amp-bind component. -->
+  <!-- We sync the carousel state using the `amp-bind` component. -->
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
-   <!-- We will also be using the amp-lightbox-gallery component. --> 
+   <!-- The `amp-lightbox-gallery` component allows us to quickly create a lightbox gallery. --> 
   <script async custom-element="amp-lightbox-gallery" src="https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js"></script>
   <link rel="canonical" href="<%host%>/advanced/image_galleries_with_amp-carousel/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <style amp-custom>
+    :root {
+      --space-1: .5rem;  /* 8px */
+      --space-2: 1rem;   /* 16px */
+    }
     #carousel-with-preview amp-img {
       transition: opacity 1s ease-in-out;
     }
@@ -36,23 +37,24 @@
       align-items: center;
       justify-content: center;
     }
-    .carousel-preview button {
-      height: 40px;
-      width: 60px;
-      min-width: 60px;
-      margin: 4px;
+    .carousel-preview > * {
+      margin: var(--space-1);
       padding: 0;
     }
+    .carousel-preview [selected] {
+      opacity: 0.5;
+      outline: none;
+    }
     .carousel-preview .amp-carousel-slide {
-      margin: 4px;
+      margin: var(--space-1);
       padding: 0;
     }
     .carousel-preview button:active {
       opacity: 0.5;
     }
     .carousel1, .carousel2 {
-      background: #eee;
-      margin: 16px 0;
+      background: var(--color-bg-light);
+      margin: var(--space-2) 0;
     }
     .carousel1 .slide > amp-img > img{
       object-fit: contain;
@@ -65,15 +67,10 @@
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 8px;
+      padding: var(--space-1);
       background: rgba(0, 0, 0, 0.6);
-      color: #ddd;
       font-size: smaller;
       max-height: 30%;
-    }
-    .selected {
-      border-width: 1px;
-      border-style: solid;
     }
 
     /* define some contants */
@@ -160,7 +157,7 @@
 </head>
 <body>
 
-  <!-- ## Dynamic Text Size -->
+  <!-- ## Captions with dynamic text size -->
   <!--
     The first image gallery uses
     [amp-fit-text](https://www.ampproject.org/docs/reference/extended/amp-fit-text.html) to fit the text to the available space. This works well if captions vary not too much in length.
@@ -187,7 +184,7 @@
     </div>
   </amp-carousel>
 
-  <!-- ## Text Overlay -->
+  <!-- ## Caption with text overlay -->
   <!-- Another carousel with caption, this time the caption overlays the image. -->
   <amp-carousel class="carousel2" layout="responsive" height="400" width="500" type="slides">
     <div class="slide">
@@ -217,57 +214,8 @@
       </div>
     </div>
   </amp-carousel>
-  <!-- ## Linking Carousels with amp-bind -->
-  <!--
 
-    With [amp-bind](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md) it's possible to link carousel state across multiple amp-carousels.
-
-    Whenever the carousel slide changes, it updates `selectedSlide`. This causes the `text`
-    attribute in the `<p>` tag above the carousel to update as well.
-
-    Only [whitelisted functions](https://www.ampproject.org/es/docs/reference/components/amp-bind)
-    are allowed when using `amp-bind`. We use the unary plus operator before `selectedSlide` to cast it into an integer.
-  -->
-  <div>
-    <p class="m1"> Selected slide: <span [text]="+selectedSlide + 1">1</span>/3</p>
-
-    <amp-carousel controls type="slides" width="400" height="300"
-                                                     layout="responsive"
-                                                     [slide]="selectedSlide" on="slideChange:AMP.setState({selectedSlide: event.index})">
-      <amp-img src="/img/image1.jpg" width="400" height="300"></amp-img>
-      <amp-img src="/img/image2.jpg" width="400" height="300"></amp-img>
-      <amp-img src="/img/image3.jpg" width="400" height="300"></amp-img>
-    </amp-carousel>
-  </div>
-  <!--
-    This and the following carousel are linked to each other and to the large carousel above. Notice how
-    selecting an image on either of these two carousels changes the image on the top carousel.
-
-    In the first example, the CSS class for the selected image on the carousel is
-    set by bind when `selectedSlide` changes.
-  -->
-  <amp-carousel controls width="400" height="100">
-    <amp-img src="/img/image1.jpg" width="100" height="75" role="button" tabindex="0"
-                                                                         [class]="selectedSlide == 0 ? 'selected' : ''" on="tap:AMP.setState({selectedSlide: 0})"></amp-img>
-                                                                       <amp-img src="/img/image2.jpg" width="100" height="75" role="button" tabindex="1"
-                                                                                                                                            [class]="selectedSlide == 1 ? 'selected' : ''" on="tap:AMP.setState({selectedSlide: 1})"></amp-img>
-                                                                                                                                          <amp-img src="/img/image3.jpg" width="100" height="75" role="button" tabindex="2"
-                                                                                                                                                                                                               [class]="selectedSlide == 2 ? 'selected' : ''" on="tap:AMP.setState({selectedSlide: 2})"></amp-img>
-  </amp-carousel>
-
-  <!--
-    In the second example, an [amp-selector](https://github.com/ampproject/amphtml/blob/master/extensions/amp-selector/amp-selector.md) eliminates redundant code, but functions in the same way as the carousel above.
-  -->
-  <amp-selector layout="container" name="carousel-selector" [selected]="selectedSlide" on="select:AMP.setState({selectedSlide: event.targetOption})">
-    <amp-carousel controls width="400" height="100">
-      <amp-img src="/img/image1.jpg" width="100" height="75" option="0"></amp-img>
-      <amp-img src="/img/image2.jpg" width="100" height="75" option="1"></amp-img>
-      <amp-img src="/img/image3.jpg" width="100" height="75" option="2"></amp-img>
-    </amp-carousel>
-  </amp-selector>
-
-
-  <!-- ## Collapsible Image Captions with amp-bind
+  <!-- ## Collapsible Image Captions with `amp-bind`
 
     Here is another workaround for image captions: expandable captions. The idea is to first show only the first line of a caption (using `text-overflow: ellipsis;`). When the user clicks on the caption, the caption is expanded to show the full text. This works by using `amp-bind` to toggle a CSS class `expanded` when the caption is clicked. 
 
@@ -298,27 +246,88 @@
     </figure>
   </amp-carousel>
 
-  <!-- ## Image Galleries with Previews -->
+  <!-- 
+    ## Linking carousels with `amp-bind` 
+
+    With [`amp-bind`](https://github.com/ampproject/amphtml/blob/master/extensions/amp-bind/amp-bind.md) it's possible to link carousel state across multiple `amp-carousels`.
+    Whenever the carousel slide changes, it updates `selectedSlide`. This causes the `text`
+    attribute in the `<p>` tag above the carousel to update as well.
+
+    Only [whitelisted functions](https://www.ampproject.org/es/docs/reference/components/amp-bind)
+    are allowed when using `amp-bind`. We use the unary plus operator before `selectedSlide` to cast it into an integer.
+  -->
+  <div>
+    <p>Selected slide: <span [text]="+selectedSlide + 1">1</span>/3</p>
+
+    <amp-carousel controls
+                  type="slides"
+                  width="400" 
+                  height="300"
+                  [slide]="selectedSlide" on="slideChange:AMP.setState({ selectedSlide: event.index })">
+      <amp-img src="/img/image1.jpg" layout="fill"></amp-img>
+      <amp-img src="/img/image2.jpg" layout="fill"></amp-img>
+      <amp-img src="/img/image3.jpg" layout="fill"></amp-img>
+    </amp-carousel>
+  </div>
+
+  <!-- ## Image gallery with preview -->
   <!-- You can reveal specific slides in carousel using an on tap action `on="tap:my-carousel.goToSlide(index=0)"`. Slides are identified by the carousel id and index (starting at 0).
   -->
   <div>
-    <amp-carousel id="carousel-with-preview" width="400" height="300" layout="responsive" type="slides">
-      <amp-img src="https://unsplash.it/400/300?image=10" width="400" height="300" layout="responsive" alt="a sample image"></amp-img>
-      <amp-img src="https://unsplash.it/400/300?image=11" width="400" height="300" layout="responsive" alt="a sample image"></amp-img>
-      <amp-img src="https://unsplash.it/400/300?image=12" width="400" height="300" layout="responsive" alt="a sample image"></amp-img>
-      <amp-img src="https://unsplash.it/400/300?image=13" width="400" height="300" layout="responsive" alt="a sample image"></amp-img>
+    <amp-selector id="carouselWithPreviewSelector" class="carousel-preview" on="select:carouselWithPreview.goToSlide(index=event.targetOption)" layout="container">
+      <amp-img option="0" selected src="https://unsplash.it/60/40?image=10" width="60" height="40" alt="a sample image"></amp-img>
+      <amp-img option="1" src="https://unsplash.it/60/40?image=11" width="60" height="40" alt="a sample image"></amp-img>
+      <amp-img option="2" src="https://unsplash.it/60/40?image=12" width="60" height="40" alt="a sample image"></amp-img>
+      <amp-img option="3" src="https://unsplash.it/60/40?image=13" width="60" height="40" alt="a sample image"></amp-img>
+    </amp-selector>
+    <amp-carousel id="carouselWithPreview" 
+                  width="400" 
+                  height="300" 
+                  layout="responsive" 
+      type="slides"
+      on="slideChange:carouselWithPreviewSelector.toggle(index=event.index, value=true)">
+      <amp-img src="https://unsplash.it/400/300?image=10" layout="fill" alt="a sample image"></amp-img>
+      <amp-img src="https://unsplash.it/400/300?image=11" layout="fill" alt="a sample image"></amp-img>
+      <amp-img src="https://unsplash.it/400/300?image=12" layout="fill" alt="a sample image"></amp-img>
+      <amp-img src="https://unsplash.it/400/300?image=13" layout="fill" alt="a sample image"></amp-img>
     </amp-carousel>
-    <div class="carousel-preview">
-      <button on="tap:carousel-with-preview.goToSlide(index=0)"><amp-img src="https://unsplash.it/60/40?image=10" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-preview.goToSlide(index=1)"><amp-img src="https://unsplash.it/60/40?image=11" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-preview.goToSlide(index=2)"><amp-img src="https://unsplash.it/60/40?image=12" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-preview.goToSlide(index=3)"><amp-img src="https://unsplash.it/60/40?image=13" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-    </div>
   </div>
 
-  <!-- You can even use a second carousel for the preview if a carousel contains a large number of images (make sure to use the `type=carousel` for the second one). -->
+  <!-- ## Image gallery with a preview carousel -->
+  <!-- You can even use a second carousel for the preview if a carousel contains a large number of images (make sure to use the `type=carousel` for the second one). 
+  Both carousels sync the selected element using the `goToSlide` action. -->
   <div>
-    <amp-carousel id="carousel-with-carousel-preview" width="400" height="300" layout="responsive" type="slides">
+    <amp-selector id="carouselSelector" on="select:carousel.goToSlide(index=event.targetOption)" layout="container">
+      <amp-carousel id="carouselPreview" class="carousel-preview" height="72" layout="fixed-height" type="carousel">
+        <amp-img option="0" selected src="https://unsplash.it/60/40?image=10" width="60" height="40" alt="a sample image"></amp-img>
+        <amp-img option="1" src="https://unsplash.it/60/40?image=11" width="60" height="40" alt="a sample image"></amp-img>
+        <amp-img option="2" src="https://unsplash.it/60/40?image=12" width="60" height="40" alt="a sample image"></amp-img>
+        <amp-img option="3" src="https://unsplash.it/60/40?image=13" width="60" height="40" alt="a sample image"></amp-img>
+        <amp-img option="4" src="https://unsplash.it/60/40?image=14" width="60" height="40" alt="a sample image"></amp-img>
+        <amp-img option="5" src="https://unsplash.it/60/40?image=15" width="60" height="40" alt="a sample image"></amp-img>
+        <amp-img option="6" src="https://unsplash.it/60/40?image=16" width="60" height="40" alt="a sample image"></amp-img>
+        <amp-img option="7" src="https://unsplash.it/60/40?image=17" width="60" height="40" alt="a sample image"></amp-img>
+        <amp-img option="8" src="https://unsplash.it/60/40?image=18" width="60" height="40" alt="a sample image"></amp-img>
+        <amp-img option="9" src="https://unsplash.it/60/40?image=19" width="60" height="40" alt="a sample image"></amp-img>
+        <amp-img option="10" src="https://unsplash.it/60/40?image=110" width="60" height="40" alt="a sample image"></amp-img>
+        <amp-img option="11" src="https://unsplash.it/60/40?image=111" width="60" height="40" alt="a sample image"></amp-img>
+        <amp-img option="12" src="https://unsplash.it/60/40?image=112" width="60" height="40" alt="a sample image"></amp-img>
+        <amp-img option="13" src="https://unsplash.it/60/40?image=113" width="60" height="40" alt="a sample image"></amp-img>
+        <amp-img option="14" src="https://unsplash.it/60/40?image=114" width="60" height="40" alt="a sample image"></amp-img>
+        <amp-img option="15" src="https://unsplash.it/60/40?image=115" width="60" height="40" alt="a sample image"></amp-img>
+        <amp-img option="16" src="https://unsplash.it/60/40?image=116" width="60" height="40" alt="a sample image"></amp-img>
+        <amp-img option="17" src="https://unsplash.it/60/40?image=117" width="60" height="40" alt="a sample image"></amp-img>
+      </amp-carousel>
+    </amp-selector>
+    <amp-carousel id="carousel" 
+      width="400" 
+      height="300" 
+      layout="responsive" 
+      type="slides"
+      on="slideChange:
+              carouselSelector.toggle(index=event.index, value=true),
+              carouselPreview.goToSlide(index=event.index)
+      ">
       <amp-img src="https://unsplash.it/400/300?image=10" width="400" height="300" layout="responsive" alt="a sample image"></amp-img>
       <amp-img src="https://unsplash.it/400/300?image=11" width="400" height="300" layout="responsive" alt="a sample image"></amp-img>
       <amp-img src="https://unsplash.it/400/300?image=12" width="400" height="300" layout="responsive" alt="a sample image"></amp-img>
@@ -338,30 +347,13 @@
       <amp-img src="https://unsplash.it/400/300?image=116" width="400" height="300" layout="responsive" alt="a sample image"></amp-img>
       <amp-img src="https://unsplash.it/400/300?image=117" width="400" height="300" layout="responsive" alt="a sample image"></amp-img>
     </amp-carousel>
-    <amp-carousel class="carousel-preview" width="auto" height="48" layout="fixed-height" type="carousel">
-      <button on="tap:carousel-with-carousel-preview.goToSlide(index=0)"><amp-img src="https://unsplash.it/60/40?image=10" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-carousel-preview.goToSlide(index=1)"><amp-img src="https://unsplash.it/60/40?image=11" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-carousel-preview.goToSlide(index=2)"><amp-img src="https://unsplash.it/60/40?image=12" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-carousel-preview.goToSlide(index=3)"><amp-img src="https://unsplash.it/60/40?image=13" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-carousel-preview.goToSlide(index=4)"><amp-img src="https://unsplash.it/60/40?image=14" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-carousel-preview.goToSlide(index=5)"><amp-img src="https://unsplash.it/60/40?image=15" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-carousel-preview.goToSlide(index=6)"><amp-img src="https://unsplash.it/60/40?image=16" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-carousel-preview.goToSlide(index=7)"><amp-img src="https://unsplash.it/60/40?image=17" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-carousel-preview.goToSlide(index=8)"><amp-img src="https://unsplash.it/60/40?image=18" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-carousel-preview.goToSlide(index=9)"><amp-img src="https://unsplash.it/60/40?image=19" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-carousel-preview.goToSlide(index=10)"><amp-img src="https://unsplash.it/60/40?image=110" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-carousel-preview.goToSlide(index=11)"><amp-img src="https://unsplash.it/60/40?image=111" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-carousel-preview.goToSlide(index=12)"><amp-img src="https://unsplash.it/60/40?image=112" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-carousel-preview.goToSlide(index=13)"><amp-img src="https://unsplash.it/60/40?image=113" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-carousel-preview.goToSlide(index=14)"><amp-img src="https://unsplash.it/60/40?image=114" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-carousel-preview.goToSlide(index=15)"><amp-img src="https://unsplash.it/60/40?image=115" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-carousel-preview.goToSlide(index=16)"><amp-img src="https://unsplash.it/60/40?image=116" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-      <button on="tap:carousel-with-carousel-preview.goToSlide(index=17)"><amp-img src="https://unsplash.it/60/40?image=117" width="60" height="40" layout="responsive" alt="a sample image"></amp-img></button>
-    </amp-carousel>
   </div>
 
-  <!-- ## Image Galleries with Lightbox -->
-  <!-- You can link an image gallery to a lightbox using [amp-lightbox-gallery](https://www.ampproject.org/docs/reference/components/amp-lightbox-gallery) so that:
+  <!-- 
+    ## Image gallery with lightbox 
+
+    You can link an image gallery to a lightbox using [amp-lightbox-gallery](https://www.ampproject.org/docs/reference/components/amp-lightbox-gallery) so that:
+
     - when user taps on image N, he enters a lightbox mode
     - user can swipe inside of lightbox mode between images
     - when user exits the lighbox mode, the carousel points to the last image seen on the lightbox
@@ -375,37 +367,41 @@
     </amp-carousel>
   </div>
 
-  <!-- ## Metadata
+  <!-- 
+    ## Metadata
+
     The Top Stories carousel requires schema.org markup for one of the following types: Article, NewsArticle, BlogPosting, or VideoObject. If your Image Gallery is also a NewsArticle, you may want to mark it up as such:
+     
     ```html
     <script type="application/ld+json">
-[
-    {
-      "@context": "http://schema.org",
-      "@type": "NewsArticle",
-      ...
-    },
-    {
-      "@context": "http://schema.org",
-      "@type": "ImageGallery",
-      "associatedMedia": [
-        {
-          "@context": "http://schema.org",
-          "@type": "ImageObject",
-          "contentUrl": "https://unsplash.it/60/40?image=1",
-          "caption": "A cute pup"
-        },
-        {,
-          "@context": "http://schema.org",
-          "@type": "ImageObject",
-          "contentUrl": "https://unsplash.it/60/40?image=2",
-          "caption": "A doubly cute pup"
-        },
-      ],
-    }
-  ]
+    [
+      {
+        "@context": "http://schema.org",
+        "@type": "NewsArticle",
+        ...
+      },
+      {
+        "@context": "http://schema.org",
+        "@type": "ImageGallery",
+        "associatedMedia": [
+          {
+            "@context": "http://schema.org",
+            "@type": "ImageObject",
+            "contentUrl": "https://unsplash.it/60/40?image=1",
+            "caption": "A cute pup"
+          },
+          {,
+            "@context": "http://schema.org",
+            "@type": "ImageObject",
+            "contentUrl": "https://unsplash.it/60/40?image=2",
+            "caption": "A doubly cute pup"
+          },
+        ],
+      }
+    ]
     </script>
     ```
+
     -->
 </body>
 </html>

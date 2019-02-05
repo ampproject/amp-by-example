@@ -1,0 +1,169 @@
+<!---
+
+preview: default
+default: preview
+
+--->
+
+<!-- ## Introduction -->
+<!--
+This is a sample showing how to implement a seatmap that can be used for theaters, cinemas, airplanes and more.
+We are showing how to pan & zoom on the seatmap to better select seats, how to keep the availability up to date and
+how to dynamically select and unselect seats.
+-->
+<!-- -->
+<!doctype html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+    <title>SeatMap</title>
+    <link rel="canonical" href="<%host%>/advanced/seatmap.html" >
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <!-- ## Setup -->
+    <!-- Additionally used AMP components must be imported in the header: 
+    `amp-pan-zoom` for making the seatmap zoomable and scrollable -->
+    <script async custom-element="amp-pan-zoom" src="https://cdn.ampproject.org/v0/amp-pan-zoom-0.1.js"></script>
+    <!-- `amp-bind` for enabling seat selection -->
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+    <!-- `amp-list` for showing a list of seats -->
+    <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+    <!-- `amp-mustache` for rendering the `amp-list` content -->
+    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+    <!-- `amp-selector` for selecting seats on the seatmap -->
+    <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+    <style amp-custom>
+      :root {
+        --color-primary: #005AF0;
+        --color-secondary: #00DCC0;
+        --space-3: 1.5rem; /* 24px */
+        --space-4: 2rem;   /* 32px */
+      }
+      .seatmap-container {
+        position: relative;
+        height: 50vh;
+        min-width: 100%;
+        box-sizing: border-box;
+      }
+      .seatmap-container [placeholder] svg {
+        height: 100%;
+      }
+      .seatmap-container .disabled {
+        pointer-events: none;
+        cursor: default;
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+      }
+      .seatmap-container .seat {
+        stroke-width: 3;
+        stroke: rgb(0,0,0);
+        fill:white;
+      }
+      .seatmap-container .unavailable {
+        fill: var(--color-secondary);
+        pointer-events: none;
+      }
+      /* `amp-pan-zoom` has a default display: flex to center positioning the child. 
+      In this sample we are going to use a seatmap placeholder and for correctly positioning it, we are overwriting the
+      `amp-pan-zoom` display to `initial` */
+      .seatmap {
+        align-items: flex-start;
+      }
+      .seatmap svg {
+        box-sizing: border-box;
+        padding-top: var(--space-4);
+      }
+      .seatmap svg rect[selected].seat {
+        fill: var(--color-primary);
+      }
+      .seatmap [option][selected] {
+        outline: none;
+      }
+      .seatmap >  amp-selector {
+          left: 0;
+          right: 0;
+          margin: auto;
+      }
+      .seatmap  amp-selector .svg-container {
+        padding: 0 var(--space-3);
+      }
+    </style>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript>
+      <style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style>
+    </noscript>
+
+  </head>
+  <body>
+    <!-- ## Seatmap state -->
+    <!-- Here we are using an `amp-state` called `selectedSeats` to keep a list of selected seat ids. -->
+    <amp-state id="selectedSeats">
+      <script type="application/json">
+         []
+      </script>
+    </amp-state>
+
+    <!-- ## Seatmap implementation -->
+    <!-- 
+    We combine `amp-list`, `amp-bind`, `amp-pan-zoom` and `amp-selector` to implement a seatmap:
+
+    * `amp-list` is used to keep the availability of the seatmap up to date.
+    * `amp-bind` is used to update the status of the seats: when a seat is selected we add the seat id to the `selectedSeats` variable. 
+    * `amp-pan-zoom` is used to enable to pan & zoom on mobile devices.
+    * `amp-selector` is used to select seats and style selected seats
+    -->
+    <div>
+     <h1>Seat map</h1>
+     <div class="seatmap-container">
+      <amp-list layout="fill" src="/json/seats.json" items="." single-item noloading>
+        <!--~
+        The seatmap with the availability of the seats is rendered via `amp-list` so that we make sure always the latest
+        data are available to the user.
+        ~-->
+        <template type="amp-mustache">
+          <!--~
+            As we don't know the actual size of the seatmap, we are using `layout=fill` for `amp-list` and `amp-pan-zomm` to allow the seatmap to use all the available space in its container, which we set to 50% of the viewport height.
+            ~-->
+          <amp-pan-zoom layout="fill" class="seatmap">
+            <amp-selector multiple
+                  on="select:AMP.setState({
+                      selectedSeats: event.selectedOptions
+                    })" layout="fill">
+              <!--~
+              In order to add a space around the seatmap keeping it as `amp-pan-zoom` space you can wrap the svg into
+              a div and use padding.
+              ~-->
+              <div class="svg-container">
+                <svg preserveAspectRatio="xMidYMin slice" viewBox="0 0 {{width}} {{height}}">
+                {{#seats}}             
+                  <rect option="{{id}}" role="button" 
+                    tabindex="0" class="seat {{unavailable}}"
+                    x="{{x}}" y="{{y}}" 
+                    width="{{width}}" height="{{height}}" 
+                    rx="{{rx}}" ry="{{ry}}"/> 
+                {{/seats}}
+                </svg>
+              </div>
+            </amp-selector>
+          </amp-pan-zoom>
+        </template>
+        <!--~
+        To improve the loading experience, we'll show a seatmap skeleton without the actual seat availability. 
+        The skeleton is rendered server-side as a `placeholder` element.
+        ~-->
+        <div placeholder>
+          <svg class="disabled" viewBox="0 0 [[.Width]] [[.Height]]" preserveAspectRatio="xMidYMin slice">
+            [[range .Seats]] 
+            <rect role="button" 
+              tabindex="0" class="seat unavailable" 
+              x="[[.X]]" y="[[.Y]]" 
+              width="[[.Width]]" height="[[.Height]]"
+              rx="[[.Rx]]" ry="[[.Ry]]"/>   
+             [[end]]                
+            </svg>
+          </div>
+      </amp-list>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<html ⚡️>
+<head>
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+  <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+  <style>
+    .container {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #cid {
+      word-wrap: break-word;
+      max-width: 90vw;
+      display: block;
+    }
+    #button {
+      border: 1px solid black;
+    }
+    .black {
+      background-color: black;
+      color: white;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+    <amp-analytics type="googleanalytics">
+      <script type="application/json">
+        {
+          "linkers": {
+            "enabled": true,
+            "proxyOnly": false,
+            "destinationDomains": ["ampbyexample.com"]
+          }
+        }
+      </script>
+    </amp-analytics>
+
+  <code class="container">
+    <h3>Welcome! Your Google Analytics Client ID is:</h3>
+    <h1><code id="cid" class="black"></code></h1>
+    <button id="button">Clear this cookie</button>
+    <br>
+    <h3>This page has AMP linker enabled, so the following link will be decorated with your CID.</h3>
+    <a href="/linker/destination-page.html">Please click to continue</a>
+  </code>
+
+  <script>
+    function clear() {
+      console.log('_ga cookie cleared');
+      document.cookie = '_ga=; path=/; expires=' + new Date(0).toUTCString();
+      display.textContent = 'null';
+    }
+
+    function readCookie() {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; ++i) {
+        var c = cookies[i].trim();
+        if (c.indexOf('_ga=') == 0) {
+          return c.split('=')[1];
+        }
+      }
+      return null;
+    }
+
+    function renderCookie() {
+      display.textContent = readCookie();
+    }
+
+    var display = document.querySelector('#cid');
+    setTimeout(renderCookie, 300);
+    document.querySelector('#button').addEventListener('click', clear);
+  </script>
+</body>
+</html>

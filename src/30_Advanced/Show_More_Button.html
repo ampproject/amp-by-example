@@ -1,7 +1,9 @@
-<!---{
-  "preview": "default",
-  "default": "preview"
-}--->
+<!---
+
+preview: default
+
+--->
+
 <!-- ## Introduction -->
 <!--
 This is a sample showing how to implement the "show more" design pattern. "Show more" is common design pattern used on e-commerce category pages to lazy load more content triggered by an user interaction.
@@ -57,11 +59,9 @@ This is a sample showing how to implement the "show more" design pattern. "Show 
             [src]="productsState.items"
             width="320"
             height="144"
-            [height]="productsState.items.length * 24"
-            class="m1">
+            [height]="productsState.items.length * 24">
     <template type="amp-mustache">
-      <strong>Product</strong>: {{name}}
-      <strong>Price</strong>: ${{price}}
+      {{name}}: ${{price}}
     </template>
   </amp-list>
 
@@ -83,8 +83,7 @@ This is a sample showing how to implement the "show more" design pattern. "Show 
         <input type="hidden" name="moreItemsPageIndex" value="0" [value]="product.moreItemsPageIndex">
         <input type="submit"
                value="Show more"
-               class="ampstart-btn caps m1 show"
-               [class] = "(product.hasMorePages == false ? 'hide' : 'ampstart-btn caps m1 mb3 show')">
+               [hidden]="!product.hasMorePages">
     </form>
 
 </body>

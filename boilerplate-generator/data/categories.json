@@ -1,0 +1,184 @@
+[
+  {
+    "label": "PWA",
+    "formats": [ "amphtml"],
+    "checkbox": true,
+    "options": [
+      {
+        "id": "manifest",
+        "label": "<a href=\"https://developer.mozilla.org/en-US/docs/Web/Manifest\">Web App Manifest</a>",
+        "description": "Add a <a href=\"https://developers.google.com/web/fundamentals/web-app-manifest/\">web app manifest</a>.",
+        "values": [
+          {
+            "key": "manifestPath",
+            "label": "Manifest Path",
+            "value": "/manifest.json"
+          }
+        ],
+        "default": false
+      },
+      {
+        "id": "serviceworker",
+        "label": "<a href=\"https://www.ampproject.org/docs/reference/components/amp-install-serviceworker\">amp-install-serviceworker</a>",
+        "default": false,
+        "values": [
+          {
+            "key": "swPath",
+            "label": "Path",
+            "value": "/"
+          },
+          {
+            "key": "js",
+            "label": "JS Filename",
+            "value": "sw.js"
+          },
+          {
+            "key": "iframe",
+            "label": "Iframe Filename",
+            "value": "install-sw.html"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "Media",
+    "formats": [ "amphtml", "amp4stories"],
+    "checkbox": true,
+    "options": [
+      {
+        "id": "heroImage",
+        "label": "Hero image",
+        "description": "<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content\">Preload</a> an important image in the first viewport to improve page load time.",
+        "values": [
+          {
+            "key": "heroImageSrc",
+            "label": "Image URL",
+            "value": "hero-img.jpg"
+          }
+        ],
+        "default": false
+      },
+      {
+        "id": "heroVideo",
+        "label": "Hero video",
+        "component": "ampVideo",
+        "description": "<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content\">Preload</a> a hero video's post image in the first viewport to improve page load time.",
+        "values": [
+          {
+            "key": "heroVideoPoster",
+            "label": "Poster URL",
+            "value": "poster.jpg"
+          }
+        ],
+        "default": false
+      }
+    ]
+  },
+  {
+    "label": "Fonts",
+    "formats": [ "amphtml", "amp4stories", "amp4ads"],
+    "checkbox": true,
+    "options": [
+      {
+        "id": "googleFonts", 
+        "formats": [ "amphtml", "amp4stories", "amp4ads"],
+        "label": "Google Fonts",
+        "values": [
+          {
+            "key": "fonts",
+            "label": "Font(s)",
+            "value": "Montserrat"
+          }
+        ],
+        "default": false
+      }
+    ]
+  },
+  {
+    "label": "Analytics",
+    "formats": [ "amphtml", "amp4stories", "amp4ads"],
+    "checkbox": true,
+    "options": [
+      {
+        "id": "adobeAnalytics",
+        "label": "Adobe Analytics",
+        "component": "ampAnalytics",
+        "default": false,
+        "values": [
+          {
+            "key": "trackingServer",
+            "label": "Tracking Server",
+            "value": "metrics.example.com"
+          },
+          {
+            "key": "reportSuiteID",
+            "label": "Report Suite ID",
+            "value": "reportSuiteID"
+          }
+        ]
+      },
+      {
+        "id": "googleAnalytics",
+        "label": "Google Analytics",
+        "component": "ampAnalytics",
+        "default": false,
+        "values": [
+          {
+            "key": "trackingId",
+            "label": "Tracking Id",
+            "value": "UA-XXXXX-Y"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "Structured Data",
+    "categoryId": "structured-data",
+    "formats": [ "amphtml"],
+    "radio": "true",
+    "help": "Provide information about your page and classify the page content using <a href=\"https://developers.google.com/search/docs/guides/intro-structured-data\">structured data</a>.",
+    "options": [
+      {
+        "id": "jsonWebpage",
+        "label": "<a href=\"https://schema.org/WebPage\">Webpage</a>",
+        "default": false
+      },
+      {
+        "id": "jsonNewsArticle",
+        "label": "<a href=\"https://developers.google.com/search/docs/data-types/article#type_definitions\">Article</a>",
+        "default": false
+      },
+      {
+        "id": "jsonVideo",
+        "label": "<a href=\"https://developers.google.com/search/docs/data-types/video\">Video</a>",
+        "default": false
+      },
+      {
+        "id": "jsonRecipe",
+        "label": "<a href=\"https://developers.google.com/search/docs/data-types/recipe\">Recipe</a>",
+        "default": false
+      }
+    ]
+  },
+  {
+    "id": "render-delaying-extensions",
+    "formats": [ "amphtml", "amp4stories", "amp4ads"],
+    "label": "Render-delaying Extensions",
+    "checkbox": true,
+    "help": "<a href=\"https://github.com/ampproject/amphtml/blob/7d307ab8a12e4d58360d430b2d61327e39b4846b/src/render-delaying-services.js\">Render-delaying extensions</a> affect the static layout of the page. Hence, the AMP runtime must wait until these are downloaded, before it can start rendering the page to avoid annoying page jumps. To improve page load time, it's best to download these extensions with a higher priority using a <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content\">preload directive</a>.",
+    "options": [
+      {
+        "id": "ampDynamicCss",
+        "label": "<a href=\"https://www.ampproject.org/docs/reference/components/amp-dynamic-css-classes\">amp-dynamic-css-classes</a>",
+        "default": false
+      },
+      {
+        "id": "ampExperiment",
+        "label": "<a href=\"https://www.ampproject.org/docs/reference/components/amp-experiment\">amp-experiment</a>",
+        "default": false
+      }
+    ]
+  }
+]

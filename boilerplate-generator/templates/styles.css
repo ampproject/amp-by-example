@@ -1,0 +1,399 @@
+:root {
+  --font-family-serif: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Arial,sans-serif;
+  --font-family-monospace: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
+  --color-background: #fff;
+  --color-accent: #b60845;
+  --color-info: #FFFDE7;
+  --color-bg-light: #fbfafa;
+  --color-font: #000;
+  --box-shadow: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+  --header-height: 3.5rem;
+}
+body {
+  background: #fff;
+  color: #4a4a4a;
+  line-height: 1.5rem;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Arial,sans-serif;
+  min-width: 315px;
+  overflow-x: hidden;
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  letter-spacing: .06em;
+}
+h1 {
+  font-size: 3rem;
+  line-height: 3.5rem;
+}
+h2 {
+  font-size: 2rem;
+  line-height: 2.5rem;
+}
+h3 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+h4 {
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+}
+a {
+  color: var(--color-font);
+}
+button {
+  color: var(--color-accent);
+  background-color: #fff;
+  border: 1px solid var(--color-accent);
+  font-family: inherit;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-weight: inherit;
+  font-size: 0.9rem;
+  line-height: 1rem;
+  padding: .5em;
+  text-decoration: none;
+  white-space: nowrap;
+  word-wrap: normal;
+  vertical-align: middle;
+  cursor: pointer;
+  min-width: 56px;
+  border-radius: 8px;
+  transition: opacity 100ms ease-in-out;
+}
+button.active {
+  color: #fff;
+  background-color: var(--color-accent);
+}
+.button-list {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.button-list > * {
+  flex: 0 0 auto;
+  margin: 8px 4px;
+}
+header {
+  position: fixed;
+  z-index: 1000;
+  box-shadow: var(--box-shadow);
+  padding: 8px 16px;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--color-background);
+}
+.logo {
+  margin: 0;
+  height: 36px;
+  width: 300px;
+}
+main {
+  max-width: 1280px;
+  margin: 0 auto;
+  margin-top: var(--header-height);
+  display: flex;
+  align-items: flex-start;
+  flex-flow: row wrap;
+}
+main > * {
+  flex: 1;
+  margin: 2rem 1rem;
+  min-width: 288px;
+}
+section.config {
+  max-width: 420px;
+  margin-right: 6rem;
+}
+
+section.boilerplate {
+  flex: 1 auto;
+  width: 500px;
+  height: 100%;
+}
+pre, code {
+  font-family: var(--font-family-monospace);
+  background-color: var(--color-bg-light);
+  font-size: 14px;
+  -moz-tab-size: 2;
+  -o-tab-size: 2;
+  tab-size: 2;
+  word-break: normal;
+  line-height: 1.8;
+}
+pre {
+  padding: 1rem;
+  overflow: scroll;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+/* options */
+.category {
+  margin-bottom: 1rem;
+}
+.option {
+  margin: 4px 0;
+}
+.option .value {
+  max-width: 500px;
+  padding: 8px;
+  background-color: var(--color-bg-light);
+  display: flex;
+  justify-content: space-between;
+}
+.option .value > * {
+  display: inline-block;
+  width: calc(50% - 8px);
+}
+
+.option .value label {
+  line-height: 32px;
+}
+
+.option .value input[type=text] {
+  padding: 0 8px;
+}
+
+.option {
+  max-width: 100%;
+  width: 300px;
+  min-width: 100px;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  position: relative;
+}
+
+.option input[type=radio],
+.option input[type=checkbox] {
+  font-size: 100%;
+  line-height: 1.5rem;
+  border-radius: 0;
+  background: none;
+  outline: 0;
+  position: relative;
+  margin-top: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--color-accent);
+  vertical-align: middle;
+  margin-right: .5rem;
+  text-align: center;
+}
+.option input[type=radio]:after,
+.option input[type=checkbox]:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  content: " ";
+  line-height: 1.4rem;
+  vertical-align: middle;
+  text-align: center;
+  background-color: #fff;
+}
+.option input[type=checkbox]:checked:after {
+  line-height: 1.2rem;
+  vertical-align: middle;
+  text-align: center;
+  background-color: var(--color-accent);
+  color: #fff;
+  content: "✓";
+}
+
+.option input[type=radio]:checked {
+  background-color: #fff;
+}
+.option input[type=radio] {
+  border-radius: 20px;
+}
+.option input[type=radio]:checked:after {
+  content: "";
+  font-size: 3rem;
+  background-color: var(--color-accent);
+}
+.option input[type=radio]:after {
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  right: 3px;
+  border-radius: 12px;
+}
+.help {
+  box-shadow: var(--box-shadow);
+  background-color: var(--color-info);
+  padding: 8px;
+  margin: 8px 0;
+}
+.help-toggle {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  background: var(--color-bg-light);
+  border-radius: 50%;
+  text-align: center;
+}
+
+.fab {
+  color: #fafafa;
+  font-size: 14px;
+  font-weight: 400;
+  box-shadow: 0 1px 1.5px 0 rgba(0,0,0,.12), 0 1px 1px 0 rgba(0,0,0,.24);
+  height: 48px;
+  padding: 0 20px;
+  line-height: 48px;
+  border-radius: 100px;
+  border: none;
+  outline: none;
+  background: var(--color-accent);
+  z-index: 9999;
+  bottom: 16px;
+  right: 16px;
+  position: fixed;
+  text-transform: uppercase;
+  transform: scale(.0000001);
+}
+@media (min-width: 930px) {
+  .fab {
+    display: none;
+  }
+}
+a.anchor {
+  display: block;
+  position: relative;
+  top: calc(-1 * var(--header-height) - 1rem);
+  visibility: hidden;
+}
+
+.highlight-block {
+  padding: 4.5px 0;
+  width:100%;
+  background-color: #eb407a18;
+}
+
+/* Disable inputs while AMP Runtime is still loading */
+body.amp-mode-mouse .fab,
+body.amp-mode-touch .fab {
+  animation: expand .25s ease-in-out .25s forwards;
+  pointer-events: auto;
+}
+@keyframes expand {
+  0% {
+    transform: scale(.0000001);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+body:not(.amp-mode-mouse):not(.amp-mode-touch) label,
+body:not(.amp-mode-mouse):not(.amp-mode-touch) input,
+body:not(.amp-mode-mouse):not(.amp-mode-touch) button {
+  opacity: 0.3;
+  pointer-events: none;
+}
+body:not(.amp-mode-mouse):not(.amp-mode-touch) button.active {
+  opacity: 0.5;
+}
+
+/* github.com style (c) Vasily Polovnyov <vast@whiteants.net> */
+
+.hljs {
+  display: block;
+  padding: 0;
+  color: #333;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}

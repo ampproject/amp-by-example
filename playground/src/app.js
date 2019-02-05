@@ -20,6 +20,8 @@ import './event-listener-options/base.js';
 import DocumentController from './document/controller.js';
 import Fab from './fab/fab.js';
 
+import * as AutoImporter from './auto-importer/auto-importer.js';
+import * as ComponentsProvider from './components-provider/components-provider.js';
 import * as ErrorList from './error-list/error-list.js';
 import * as Validator from './validator/validator.js';
 import * as Editor from './editor/editor.js';
@@ -36,6 +38,7 @@ import snackbar from './snackbar/base.js';
 import {runtimes, EVENT_SET_RUNTIME} from './runtime/runtimes.js';
 import detectRuntime from './runtime/detector.js';
 import addSplitPaneBehavior from './split-pane/base.js';
+import formatter from './formatter/';
 
 import './service-worker/base.js';
 import './request-idle-callback/base.js';
@@ -48,7 +51,7 @@ addSplitPaneBehavior(document.querySelector('main'));
 // configure error list behavior
 const errorIndicator = document.getElementById('error-indicator');
 const errorListContainer = document.getElementById('error-list');
-const errorList = ErrorList.createErrorList(errorListContainer, errorIndicator);
+
 events.subscribe(
   ErrorList.EVENT_ERROR_SELECTED,
   error => editor.setCursorAndFocus(error.line, error.col)
@@ -56,15 +59,20 @@ events.subscribe(
 
 const validator = Validator.createValidator();
 
+const componentsProvider = ComponentsProvider.createComponentsProvider();
+
+// Create AMP component auto-importer
+const autoImporter = AutoImporter.createAutoImporter(componentsProvider, editor);
+
 // runtime select
 const runtimeChanged = runtimeId => {
   const newRuntime = runtimes.get(runtimeId);
   if (!newRuntime) {
     console.error('unknown runtime: ' + newRuntime);
     return;
-  }
+  };
   events.publish(EVENT_SET_RUNTIME, newRuntime);
-}
+};
 
 const runtimeSelector = createSelector(document.getElementById('runtime-select'), {
   classes: ['minimal'],
@@ -84,11 +92,11 @@ events.subscribe(EVENT_SET_RUNTIME, newRuntime => {
   preview.setRuntime(newRuntime);
   runtimeSelector.selectOption(newRuntime.id);
   // change editor input to new runtime default if current input is unchanged
-  if (activeRuntime && 
-    activeRuntime != newRuntime && 
+  if (activeRuntime &&
+    activeRuntime != newRuntime &&
     activeRuntime.template === editor.getSource()) {
     editor.setSource(newRuntime.template);
-  }
+  };
   validator.validate(editor.getSource());
   activeRuntime = newRuntime;
 });
@@ -116,6 +124,11 @@ events.subscribe([Editor.EVENT_INPUT_NEW], () => {
   editorUpdateListener();
 });
 
+// configure auto-importer
+events.subscribe(Validator.EVENT_NEW_VALIDATION_RESULT, validationResult => {
+  autoImporter.update(validationResult);
+});
+
 // setup document
 const documentController = new DocumentController(
   editor,
@@ -140,7 +153,7 @@ const loadTemplateButton = Button.from(
 );
 const templateDialog = createTemplateDialog(loadTemplateButton, {
   onStart: () => editor.showLoadingIndicator(),
-  onSuccess: template => { 
+  onSuccess: template => {
     editor.setSource(template.content);
     params.replace('url', template.url);
   },
@@ -156,15 +169,7 @@ Button.from(document.getElementById('show-menu'), () => {
 });
 
 const formatSource = () => {
-  import('./formatting/base.js')
-    .then(formatHtml => {
-      const formattedCode = formatHtml.default(editor.getSource());
-      editor.setSource(formattedCode);
-    })
-    .catch(e => {
-      console.error(e);
-      snackbar.show('Could not fetch formatter');
-    });
+  formatter.format(editor.getSource()).then(formattedCode => editor.setSource(formattedCode));
 };
 Button.from(document.getElementById('format-source'), formatSource);
 Button.from(document.getElementById('menu-format-source'), formatSource);
@@ -174,7 +179,7 @@ window.onpopstate = () => {
   if (!params.get('preview')) {
     previewPanel.classList.remove('show');
     showPreview.show();
-  }
+  };
 };
 
 showPreview.show();

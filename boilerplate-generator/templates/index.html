@@ -1,0 +1,259 @@
+<!doctype html>
+<html ⚡ lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Generate custom optimized AMPHTML templates for your AMP pages.">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+    <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    <script async custom-element="amp-install-serviceworker" src="https://cdn.ampproject.org/v0/amp-install-serviceworker-0.1.js"></script>
+    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+    <script async custom-element="amp-position-observer" src="https://cdn.ampproject.org/v0/amp-position-observer-0.1.js"></script>
+    <script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
+    <style amp-custom>{{{ styles }}}</style>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+      <link rel="manifest" href="/manifest.json">
+      <link rel="icon" href="/images/icons/favicon.ico">
+      <link rel="canonical" href="https://ampbyexample.com/boilerplate/">
+      <title>AMP Boilerplate Generator</title>
+      <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+      <link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+      <link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+      <link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+      <link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+      <meta name="apple-mobile-web-app-title" content="AMP by Example">
+      <link rel="icon" type="image/png" sizes="228x228" href="/favicons/coast-228x228.png">
+      <meta name="mobile-web-app-capable" content="yes">
+      <meta name="theme-color" content="#ffffff">
+      <meta name="application-name" content="AMP by Example">
+      <link rel="yandex-tableau-widget" href="/favicons/yandex-browser-manifest.json">
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+      <link rel="shortcut icon" href="/favicons/favicon.ico">
+      <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)" href="/favicons/apple-touch-startup-image-320x460.png">
+      <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" href="/favicons/apple-touch-startup-image-640x920.png">
+      <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="/favicons/apple-touch-startup-image-640x1096.png">
+      <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="/favicons/apple-touch-startup-image-750x1294.png">
+      <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3)" href="/favicons/apple-touch-startup-image-1182x2208.png">
+      <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3)" href="/favicons/apple-touch-startup-image-1242x2148.png">
+      <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 1)" href="/favicons/apple-touch-startup-image-748x1024.png">
+      <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 1)" href="/favicons/apple-touch-startup-image-768x1004.png">
+      <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" href="/favicons/apple-touch-startup-image-1496x2048.png">
+      <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" href="/favicons/apple-touch-startup-image-1536x2008.png">
+  </head>
+  <body>
+    <amp-state id="config">
+      <script type="application/json">
+        {
+           {{#categories}}
+           {{#options}}
+            "{{id}}": {
+              {{#values}}
+              "{{key}}": "{{value}}",
+              {{/values}}
+              "selected": false
+            },
+           {{/options}}
+           {{/categories}}
+          "format": "{{#formats}}{{#default}}{{id}}{{/default}}{{/formats}}",
+          "changed": false
+        }
+      </script>
+    </amp-state>
+    <amp-animation id="showAnim"
+      layout="nodisplay">
+      <script type="application/json">
+        {
+          "duration": "200ms",
+          "fill": "both",
+          "iterations": "1",
+          "direction": "alternate",
+          "animations": [{
+            "selector": "#scrollToBoilerplate",
+            "keyframes": [{
+              "opacity": "1",
+              "visibility": "visible"
+            }]
+          }]
+        }
+      </script>
+    </amp-animation>
+    <amp-animation id="hideAnim"
+      layout="nodisplay">
+      <script type="application/json">
+        {
+          "duration": "200ms",
+          "fill": "both",
+          "iterations": "1",
+          "direction": "alternate",
+          "animations": [{
+            "selector": "#scrollToBoilerplate",
+            "keyframes": [{
+              "opacity": "0",
+              "visibility": "hidden"
+            }]
+          }]
+        }
+      </script>
+    </amp-animation>
+    <header>
+      <div class="logo">
+      <svg viewBox="0 0 240 26" xmlns="http://www.w3.org/2000/svg"><title>AMP Boilerplate Generator</title><g fill="#000" fill-rule="evenodd"><path d="M40.047 14.824h2.994L42.033 11.8l-.23-.679c-.087-.26-.174-.542-.26-.845a15.04 15.04 0 0 1-.488 1.539l-1.008 3.01zm7.04 4.223h-1.97a.906.906 0 0 1-.545-.155.801.801 0 0 1-.298-.398l-.646-1.926H39.46l-.647 1.926a.85.85 0 0 1-.293.383.84.84 0 0 1-.534.17H36L40.243 8h2.602l4.243 11.047zm8.807-4.459c.092.208.181.42.267.638a11.935 11.935 0 0 1 .564-1.26l2.813-5.586a.933.933 0 0 1 .154-.224.504.504 0 0 1 .177-.118.608.608 0 0 1 .222-.038h2.23v11.04H60.08v-6.354c0-.308.015-.642.045-1.001l-2.904 5.679a.96.96 0 0 1-.365.402 1 1 0 0 1-.522.136h-.347a1 1 0 0 1-.522-.136.96.96 0 0 1-.365-.402l-2.919-5.686a9.627 9.627 0 0 1 .06 1.008v6.354H50V8h2.23a.61.61 0 0 1 .222.038.508.508 0 0 1 .177.118.933.933 0 0 1 .154.224l2.82 5.609c.101.192.198.392.29.6m12.649-1.168h1.324c.662 0 1.139-.159 1.43-.478.29-.318.436-.763.436-1.334 0-.253-.038-.483-.113-.69a1.408 1.408 0 0 0-.342-.534 1.54 1.54 0 0 0-.58-.345 2.544 2.544 0 0 0-.83-.122h-1.325v3.503zm0 1.934v3.692H66V8h3.866c.773 0 1.436.092 1.99.277.554.184 1.01.438 1.369.762.359.323.623.705.793 1.145.17.44.256.915.256 1.425 0 .551-.088 1.057-.263 1.516-.176.46-.444.855-.805 1.183-.36.329-.819.585-1.373.77-.554.185-1.21.277-1.967.277h-1.324zm-51.225-3.547l-5.41 9.074h-.98l.969-5.913-3 .004-.043.001a.491.491 0 0 1-.489-.493c0-.117.108-.315.108-.315l5.392-9.064.997.004-.994 5.922 3.016-.003.048-.001c.27 0 .49.22.49.493 0 .11-.044.208-.105.29zM12.895 0C5.773 0 0 5.82 0 12.998c0 7.179 5.773 12.998 12.895 12.998s12.895-5.82 12.895-12.998C25.79 5.819 20.017 0 12.895 0z"/><text font-family="Montserrat-Regular, Montserrat, -apple-system, BlinkMacSystemFont, Roboto, Helvetica" font-size="15" letter-spacing=".3"><tspan x="80" y="19">Boilerplate Generator</tspan></text></g></svg>
+      </div>
+    </header>
+    <main>
+    <section class="config">
+      <h3>Select Format</h3>
+      <p>What do you want to build with AMP?</p>
+      <div class="button-list">
+        {{#formats}}
+        <button on="tap:AMP.setState({
+          config: {
+            format: '{{id}}',
+            changed: true
+          }
+        })" class="{{#default}}active{{/default}}" [class]="config.format == '{{id}}' ? 'active' : ''">{{name}}</button>
+        {{/formats}}
+      </div>
+      <div [hidden]="config.format == 'amp4email'">
+      <h3>Select Features</h3>
+      <p>Select the features you need on your AMP page.</p>
+      {{#categories}}
+      <div class="category" [hidden]="{{#formats}} config.format != '{{.}}' && {{/formats}} true">
+      <h4>{{label}} {{#help}}<span on="tap:{{id}}-help.toggleVisibility" tabindex="0" role="button" aria-label="Show help" class="help-toggle">?</span>{{/help}}</h4>
+      {{#help}}
+      <div id="{{id}}-help" class="help" hidden>{{{.}}}</div>
+      {{/help}}
+      {{#options}}
+      <div class="option">
+        {{#checkbox}}
+        <input id="{{id}}" type="checkbox" on="change:{{id}}-values.toggleVisibility,AMP.setState({
+          config: {
+            {{id}}: {
+              selected: event.checked
+            },
+            {{#component}}
+            {{.}}: config.{{.}} || event.checked,
+            {{/component}}
+            changed: true
+          }
+        })">
+        {{/checkbox}}
+        {{#radio}}
+        <input id="{{id}}" type="radio" name="{{categoryId}}" on="change:{{id}}-values.toggleVisibility,AMP.setState({
+          config: {
+            {{#options}}
+              {{id}}: {
+                selected: false
+              },
+              {{#component}}
+              {{.}}: config.{{.}} || event.checked,
+              {{/component}}
+            {{/options}}
+              {{id}}: {
+                selected: event.checked
+              },
+              changed: true
+          }
+        })">
+        {{/radio}}
+        <label for="{{id}}">{{{label}}}</label>
+        {{#description}}
+        <span on="tap:{{id}}-help.toggleVisibility" tabindex="0" role="button" aria-label="Show help" class="help-toggle">?</span>
+        <div id="{{id}}-help" class="help" hidden>{{{.}}}</div>
+        {{/description}}
+        <div id="{{id}}-values" class="values" hidden>
+          {{#values}}
+          <div class="value">
+            <label for="{{key}}">{{{label}}}</label>
+            <input id="{{key}}" value="{{value}}" type="text" on="input-debounced:AMP.setState({
+              config: {
+                {{id}}: {
+                  {{key}}: event.value
+                }
+              }
+            })">
+          </div>
+          {{/values}}
+        </div>
+      </div>
+      {{/options}}
+      </div>
+      {{/categories}}
+      </div>
+      <p>Something missing? <a href="https://github.com/ampproject/amp-by-example/issues/new/">Let us know</a>!</p>
+    </section>
+    <section class="boilerplate">
+      <a id="boilerplate" class="anchor"></a>
+      <amp-position-observer on="enter:hideAnim.start; exit:showAnim.start" layout="nodisplay"></amp-position-observer>
+      <h3>Boilerplate</h3>
+      <p>Start your AMP page by copying and pasting this code:</p>
+      <pre  [hidden]="config.changed"><code>{{{initialCode}}}</code></pre>
+      <amp-list width="auto"
+                height="3240"
+                layout="fixed-height"
+                [src]="config"
+                single-item
+                items="config"
+                hidden [hidden]="!config.changed">
+        <template type="amp-mustache">
+          {{#formats}}
+          <pre hidden [hidden]="config.format != '{{id}}'"><code>{{{template}}}</code></pre>
+          {{/formats}}
+          <section [hidden]="!config.serviceworker.selected">
+            <h3>Serviceworker Iframe</h3>
+            <p>The webdocument that <a href="https://www.ampproject.org/docs/reference/components/amp-install-serviceworker#data-iframe-src-(optional)">installs your service worker</a>. Copy this code and serve it together with your serviceworker implemenation.</p>
+            <pre><code>{{{templates.serviceworkerIframe}}}</code></pre>
+          </section>
+          <section [hidden]="!config.serviceworker.selected">
+            <h3>Serviceworker Boilerplate</h3>
+            <p>A sample serviceworker implementation using <a href="https://developers.google.com/web/tools/workbox/">Workbox</a>. Copy this code and from the specified path.</p>
+            <pre><code>{{{templates.serviceworkerJs}}}</code></pre>
+          </section>
+          <section [hidden]="config.format != 'amp4stories'">
+            <h3>Bookend Sample</h3>
+            <p>A sample <a href="https://www.ampproject.org/docs/reference/components/amp-story#bookend:-amp-story-bookend">AMP Story bookend</a> JSON configuration.</p>
+            <pre><code>{{{templates.bookend}}}</code></pre>
+          </section>
+        </template>
+        <div tabindex="0" role="button" overflow>Show More</div>
+      </amp-list>
+    </section>
+    </main>
+    <div id="scrollToBoilerplate" 
+         tabindex="0" role="button"
+         on="tap:boilerplate.scrollTo(duration=200)"
+         class="fab">View Code</div>
+    <amp-analytics type="googleanalytics" id="analytics">
+      <script type="application/json">
+        {
+          "vars": {
+            "account": "UA-73836974-1"
+          },
+          "triggers": {
+            "default pageview": {
+              "on": "visible",
+              "request": "pageview",
+              "vars": {
+                "title": "AMP Boilerplate Generator"
+              }
+            }
+          }
+        }
+      </script>
+    </amp-analytics>
+    <amp-install-serviceworker
+              src="/sw.js"
+              data-iframe-src="https://ampbyexample.com/sw.html"
+              layout="nodisplay">
+    </amp-install-serviceworker>
+  </body>
+</html>

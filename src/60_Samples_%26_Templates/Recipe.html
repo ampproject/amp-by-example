@@ -1,7 +1,10 @@
-<!---{
-  "default": "preview",
-  "preview": "default"
-  }--->
+<!---
+
+default: preview
+preview: default
+
+--->
+
 <!-- ## Introduction -->
 <!--
 This is a sample recipe AMP article demonstrating how to express machine-readable recipe data using JSON+LD. It uses AMP components that work well for recipe articles: amp-carousel (image gallery, reviews carousel), amp-social-share, and amp-list (related articles). There are also star ratings, read-only for now (see [this GitHub issue](https://github.com/ampproject/amphtml/issues/2691)).
@@ -370,7 +373,7 @@ This is a sample recipe AMP article demonstrating how to express machine-readabl
   <!-- The [`address` tag is the most appropriate](http://stackoverflow.com/questions/7290504/which-html5-tag-should-i-use-to-mark-up-an-author-s-name/7290744#7290744) for expressing authorship information.
 
   The reviews will display a vertical scrollbar for long text that doesn't fit vertically. An alternative would be to use [multi-line text ellipsis](http://dev.mobify.com/blog/multiline-ellipsis-in-pure-css/). -->
-  <amp-carousel width="1280" height="400" layout="responsive" type="carousel">
+  <amp-carousel height="400" layout="fixed-height" type="carousel">
     <article class="review">
       <div class="star-rating">
         <span class="star-icon full">☆</span>

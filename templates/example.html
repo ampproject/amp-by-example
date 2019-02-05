@@ -10,16 +10,18 @@
     <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
     {{/supportsAmpSelector}}
     {{#document.isAmpStory}}
-    <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
     <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
     {{/document.isAmpStory}}
     {{> head.html}}
     <style amp-custom>
       {{> css/code.css}}
       {{> css/ampstart.css}}
-      {{> css/shared.css }}
+      {{> css/shared.css}}
+      {{> css/consent.css}}
       {{> css/example.css}}
+      {{^metadata.hidePreview}}
       {{{exampleStyles}}}
+      {{/metadata.hidePreview}}
    </style>
   </head>
   {{{bodyTag}}}
@@ -40,10 +42,14 @@
              href="/playground/#url={{host}}{{section}}{{urlSource}}">Open in Playground</a>
           {{/metadata.disablePlayground}}
           {{#urlPreview}}
+          {{#document.isAmpStory}}
           <a class="ampstart-btn ampstart-btn-secondary caps mb1 mx2 text-decoration-none inline-block"
-             href="{{section}}{{urlPreview}}">View
-             {{#document.isAmpStory}}Story{{/document.isAmpStory}}
-             {{^document.isAmpStory}}Demo{{/document.isAmpStory}}</a>
+             href="{{section}}{{urlSource}}">View Story</a>
+          {{/document.isAmpStory}}
+          {{^document.isAmpStory}}
+          <a class="ampstart-btn ampstart-btn-secondary caps mb1 mx2 text-decoration-none inline-block"
+             href="{{section}}{{urlPreview}}">View Demo</a>
+          {{/document.isAmpStory}}</a>
           {{/urlPreview}}
       </div>
     </header>
@@ -130,7 +136,6 @@
     {{^isEmbed}}
     {{> ampstart/footer.snip.html}}
     {{/isEmbed}}
-    {{> analytics.html}}
-    {{> serviceworker.html}}
+    {{> footer-boilerplate.html}}
   </body>
 </html>

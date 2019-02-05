@@ -8,6 +8,7 @@ The `amp-analytics` element can be used to measure activity on an AMP document. 
 * Timer
 * Scrolling
 * AMP Carousel changes
+* Form
 
 This sample demonstrates which events can be measured and how they can be configured. For a complete overview of all available options and parameters, have a look at the [official documentation](https://www.ampproject.org/docs/reference/extended/amp-analytics.html).
 -->
@@ -19,12 +20,11 @@ This sample demonstrates which events can be measured and how they can be config
   <title>amp-analytics</title>
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <!-- ## Setup -->
-  <!--  Import the amp-analytics component in the header. -->
+  <!--  Import the `amp-analytics` component in the header. -->
   <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
-  <!--  Import the amp-carousel component in the header. -->
   <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
-  <!--  Import the amp-bind component in the header. -->
   <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
   <!--
     We need `amp-iframe` to embed an analytics dashboard.
   -->
@@ -33,13 +33,19 @@ This sample demonstrates which events can be measured and how they can be config
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <style amp-custom>
+    :root {
+      --color-text-light: #fff;
+      --space-2: 1rem;  /* 16px */
+    }
     .fixed-dashboard {
         background-color: #e0e0e0;
-        position:fixed;
+        position: fixed;
         bottom: 0;
         right: 0;
-        width:100%;
+        width: 100%;
         z-index: 100;
+        margin: var(--space-2);
+        box-shadow:0 1px 1px 0 rgba(0,0,0,.14),0 1px 1px -1px rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
     }
     amp-carousel .slide {
       display: flex;
@@ -47,25 +53,23 @@ This sample demonstrates which events can be measured and how they can be config
       justify-content: center;
       font-size: 20px;
       background: green;
-      color: white;
+      color: var(--color-text-light);
     }
     </style>
 </head>
 <body>
-
-  <!--
-  We are going to use a demo analytics endpoint to demonstrate what's possible with `amp-analytics`. The dashboard is embedded via `amp-iframe` and shows the data received by the analytics endpoint in real-time. It should be visible in the bottom right corner.
-  -->
-  <amp-iframe class="fixed-dashboard ampstart-card m1" width="180"
-              height="180" layout="fixed"
-              sandbox="allow-scripts allow-same-origin"
-              frameborder="0"
-              src="https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/embed?user=[[.]]&account=ampbyexample">
-        <amp-img src="/img/pixel-white.png"
-                 layout="fixed-height"
-                 height="350"
-                 width="auto"
-                 placeholder></amp-img>
+    <!-- &nbsp; -->
+    <amp-iframe class="fixed-dashboard" 
+        width="180"	
+        height="180" layout="fixed"	
+        sandbox="allow-scripts allow-same-origin"	
+        frameborder="0"	
+        src="https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/embed?user=[[.]]&account=ampbyexample">	
+      <amp-img src="/img/pixel-white.png"	
+          layout="fixed-height"	
+          height="350"	
+          width="auto"	
+          placeholder></amp-img>	
   </amp-iframe>
   <!--
     ## Pageview
@@ -131,7 +135,7 @@ This sample demonstrates which events can be measured and how they can be config
     This sample fires an analytics request when the image becomes visible as a result of an action. 
       -->
       <div>
-          <button class="ampstart-btn caps m1" on="tap:an-image.toggleVisibility">
+          <button on="tap:an-image.toggleVisibility">
              Toggle image
           </button>
           <amp-img hidden id="an-image" src="/img/amp.jpg" width="1080" height="610" layout="responsive" alt="AMP">
@@ -159,7 +163,7 @@ This sample demonstrates which events can be measured and how they can be config
       </script>
       </amp-analytics>
 
-  <!-- ## Anchor Clicks -->
+  <!-- ## Anchor click -->
   <!--
     User interactions can be tracked as well. This configuration will track clicks on any anchor links in the page.
   -->
@@ -193,23 +197,23 @@ This sample demonstrates which events can be measured and how they can be config
   It is also possible to fire click events only for specific links. Select specific elements to tracking by specifying a `selector` id. This sample only tracks clicks on anchors with the id `anchor-id`.
   -->
   <amp-analytics>
-  <script type="application/json">
-  {
-    "requests": {
-      "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
-    },
-    "triggers": {
-      "trackAnchorClicks": {
-        "on": "click",
-        "selector": "#anchor-id",
-        "request": "event",
-        "vars": {
-          "eventId": "clickOnSpecialAnchor"
+    <script type="application/json">
+    {
+      "requests": {
+        "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
+      },
+      "triggers": {
+        "trackAnchorClicks": {
+          "on": "click",
+          "selector": "#anchor-id",
+          "request": "event",
+          "vars": {
+            "eventId": "clickOnSpecialAnchor"
+          }
         }
       }
     }
-  }
-  </script>
+    </script>
   </amp-analytics>
   <!--  Only one of these links will trigger the `clickOnSpecialAnchor` event. -->
   <ul>
@@ -217,54 +221,54 @@ This sample demonstrates which events can be measured and how they can be config
     <li><a id="another-anchor-id">a not so special link</a>.</li>
   </ul>
 
-  <!-- ## Scroll Events -->
+  <!-- ## Scroll event -->
   <!-- Use scroll events to fire a request under certain conditions when the page is scrolled. -->
   <amp-analytics>
-  <script type="application/json">
-  {
-    "requests": {
-      "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
-    },
-    "triggers": {
-      "scrollPings": {
-        "on": "scroll",
-        "scrollSpec": {
-          "verticalBoundaries": [10, 20, 30, 40, 50, 60, 70, 80, 90]
-        },
-        "request": "event",
-        "vars": {
-          "eventId": "scroll"
+    <script type="application/json">
+    {
+      "requests": {
+        "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
+      },
+      "triggers": {
+        "scrollPings": {
+          "on": "scroll",
+          "scrollSpec": {
+            "verticalBoundaries": [10, 20, 30, 40, 50, 60, 70, 80, 90]
+          },
+          "request": "event",
+          "vars": {
+            "eventId": "scroll"
+          }
         }
       }
     }
-  }
-  </script>
+    </script>
   </amp-analytics>
   <!-- ## Timer -->
   <!--
   Timer events fire in the specified interval.
   -->
   <amp-analytics>
-  <script type="application/json">
-  {
-    "requests": {
-      "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
-    },
-    "triggers": {
-      "pageTimer": {
-        "on": "timer",
-        "timerSpec": {
-          "interval": 10,
-          "maxTimerLength": 600
-        },
-        "request": "event",
-        "vars": {
-          "eventId": "timer"
+    <script type="application/json">
+    {
+      "requests": {
+        "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
+      },
+      "triggers": {
+        "pageTimer": {
+          "on": "timer",
+          "timerSpec": {
+            "interval": 10,
+            "maxTimerLength": 600
+          },
+          "request": "event",
+          "vars": {
+            "eventId": "timer"
+          }
         }
       }
     }
-  }
-  </script>
+    </script>
   </amp-analytics>
   <!-- ## AMP Carousel Tracking-->
   <!--
@@ -283,64 +287,115 @@ You can use the `fromSlide` and `toSlide` [variables](https://github.com/ampproj
 The `amp-carousel-change` event is issued when there is any change in the slide that is currently visible:
   -->
   <amp-analytics>
-  <script type="application/json">
-  {
-    "requests": {
-      "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
-    },
-    "triggers": {
-      "ampCarouselChange": {
-        "on": "amp-carousel-change",
-        "request": "event",
-        "vars": {
-          "eventId": "carousel-change-${toSlide}"
+    <script type="application/json">
+    {
+      "requests": {
+        "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
+      },
+      "triggers": {
+        "ampCarouselChange": {
+          "on": "amp-carousel-change",
+          "request": "event",
+          "vars": {
+            "eventId": "carousel-change-${toSlide}"
+          }
         }
       }
     }
-  }
-  </script>
+    </script>
   </amp-analytics>
   <!--
 The `amp-carousel-next` event is issued when there is a traversal to the next slide: 
   -->
   <amp-analytics>
-  <script type="application/json">
-  {
-    "requests": {
-      "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
-    },
-    "triggers": {
-      "ampCarouselNext": {
-        "on": "amp-carousel-next",
-        "request": "event",
-        "vars": {
-          "eventId": "carousel-next-${toSlide}"
+    <script type="application/json">
+    {
+      "requests": {
+        "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
+      },
+      "triggers": {
+        "ampCarouselNext": {
+          "on": "amp-carousel-next",
+          "request": "event",
+          "vars": {
+            "eventId": "carousel-next-${toSlide}"
+          }
         }
       }
     }
-  }
-  </script>
+    </script>
   </amp-analytics>
   <!--
 The `amp-carousel-prev` event is issued when there is a traversal to the previous slide: -->
   <amp-analytics>
-  <script type="application/json">
-  {
-    "requests": {
-      "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
-    },
-    "triggers": {
-      "ampCarouselPrev": {
-        "on": "amp-carousel-prev",
-        "request": "event",
-        "vars": {
-          "eventId": "carousel-prev-${fromSlide}"
+    <script type="application/json">
+    {
+      "requests": {
+        "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
+      },
+      "triggers": {
+        "ampCarouselPrev": {
+          "on": "amp-carousel-prev",
+          "request": "event",
+          "vars": {
+            "eventId": "carousel-prev-${fromSlide}"
+          }
         }
       }
     }
-  }
-  </script>
+    </script>
   </amp-analytics>
-
+  <!-- ## Form -->
+  <!-- You can track events triggered by `amp-form`. Find a list of supported event [here](https://www.ampproject.org/docs/reference/components/amp-form#analytics-triggers)-->
+  <div>
+    <amp-analytics>
+      <script type="application/json">
+        {
+          "requests": {
+            "event": "https://amp-publisher-samples-staging.herokuapp.com/amp-analytics/ping?user=[[.]]&account=ampbyexample&event=${eventId}"
+          },
+          "triggers": {
+            "formSubmit": {
+              "on": "amp-form-submit",
+              "request": "event",
+              "selector":"#testForm",
+              "vars": {
+                "eventId": "form-submit"
+              }
+            },
+            "formSubmitSuccess": {
+              "on": "amp-form-submit-success",
+              "request": "event",
+              "selector":"#testForm",
+              "vars": {
+                "eventId": "form-submit-success"
+              }
+            },
+            "formSubmitError": {
+              "on": "amp-form-submit-error",
+              "request": "event",
+              "selector":"#testForm",
+              "vars": {
+                "eventId": "form-submit-error"
+              }
+            }
+          }
+        }
+      </script>
+    </amp-analytics>
+    <p>Try to insert any name as a name input in the form to see the <code>amp-form-submit-success</code> event.</p>
+    <p>Try to insert the word "error" as a name input in the form to see the <code>amp-form-submit-error</code> event.</p>
+    <form 
+        id="testForm"
+        method="post"
+        action-xhr="/components/amp-form/submit-form-input-text-xhr"
+        target="_top">
+      <input type="text"
+          name="name"
+          placeholder="Name..."
+          required>
+    <input type="submit" value="Subscribe">
+  </form>
+  </div>
 </body>
 </html>

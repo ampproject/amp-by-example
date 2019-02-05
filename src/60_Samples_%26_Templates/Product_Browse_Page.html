@@ -1,8 +1,10 @@
-<!---{
-  "preview": "default",
-  "default": "preview",
-  "skipValidation": true
-  }--->
+<!---
+
+preview: default
+skipValidation: true
+
+--->
+
   <!-- ## Introduction -->
 
   <!-- This is a sample template for a news article in AMP. It demonstrates the usage of AMP components which works well in news articles. Examples include social sharing, image galleries, personalized content, ads, and more. -->
@@ -11,27 +13,36 @@
   <html ⚡>
     <head>
       <meta charset="utf-8">
-  <title>Product Browse Page</title>
+      <title>Product Browse Page</title>
       <script async src="https://cdn.ampproject.org/v0.js"></script>
       <!--
-        Additionally used AMP components must be imported in the header.
+        Additionally used AMP components must be imported in the header. Import `amp-carousel` to create a list of auto advancing promotions.
       -->
       <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+      <!-- Import `amp-list` to implement auto suggest search -->
       <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+       <!--  Import `amp-mustache` as a format template for `amp-list` -->
       <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+      <!-- Import `amp-form` to implement auto suggest search -->
       <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+      <!-- Import `amp-analytics` to monitor usage -->
       <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+      <!-- Import `amp-fit-text` to fit text in the provided space -->
       <script async custom-element="amp-fit-text" src="https://cdn.ampproject.org/v0/amp-fit-text-0.1.js"></script>
+      <!-- Import `amp-sidebar` to implement a menu -->
       <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+      <!-- Import `amp-bind` to implement filtering and sorting -->
       <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+      <!-- Import `amp-lightbox` to show the filtering and sorting section -->
       <script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
+      <!-- Import `amp-selector` to implement auto suggest search -->
       <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
       <link rel="canonical" href="<%host%>/samples_templates/product_browse_page/">
       <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
       <style amp-custom>
-article#preview {
-  background: #ECEFF1;
-}
+          article#preview {
+            background: var(--color-text-light);
+          }
          <%>css/product.css%>
          #hero-images {
            object-fit: contain;
@@ -42,9 +53,9 @@ article#preview {
            bottom: 0;
            left: 0;
            right: 0;
-           padding: 24px;
-           background: rgba(200, 200, 200, 0.5);
-           color: white;
+           padding: var(--space-3);
+           background: rgba(200,200,200,.5);
+           color: var(--color-text-light);
            font-size: 36px;
            max-height: 30%;
            font-weight: 300;
@@ -64,7 +75,8 @@ article#preview {
              display:inline;
              float: left;
              width: 20%;
-             box-shadow: 5px 0 5px -5px rgba(0,0,0,.4);
+             box-shadow: var(--box-shadow-1);
+             padding: var(--space-2);
            }
            .content {
              float: right;
@@ -77,6 +89,7 @@ article#preview {
            }
            .products {
              display: inline-block;
+             margin: var(--space-2);
            }
          }
          @media (max-width: 500px) {
@@ -86,16 +99,15 @@ article#preview {
            .products {
              display: block;
              height: 100px;
-             padding: 0;
-             padding-right: 8px;
+             padding: 0 var(--space-1) 0 0;
            }
            .products amp-img {
-             line-height: 24px;
+             line-height: var(--space-3);
              font-weight: 400;
-             font-size: 24px;
+             font-size: var(--space-3);
              vertical-align: middle;
              float: left;
-             margin-right: 10px;
+             margin-right: var(--space-1);
            }
          }
          #main-wrap {
@@ -103,13 +115,14 @@ article#preview {
          }
          #info-wrap {
            overflow: hidden;
+           margin: var(--space-2)
          }
          .info {
            width: 50%;
            float: left;
          }
          amp-lightbox {
-           background: white;
+           background: var(--color-text-light);
            width: 100%;
            height: 100%;
            position: absolute;
@@ -124,12 +137,12 @@ article#preview {
          .autosuggest-box {
             position: absolute;
             width: 100%;
-            background-color: #fafafa;
-            box-shadow: 0px 2px 6px rgba(0,0,0,.3);
+            background-color: var(--color-text-light);
+            box-shadow: var(--box-shadow-1);
           }
-          .hidden {
-            display: none;
-          }
+        .recommendations, .bestsellers, filter-section {
+          margin: var(--space-2);
+        }
       </style>
       <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
       <noscript>
@@ -140,13 +153,13 @@ article#preview {
       <!-- ## Navigation -->
       <!-- Use the [amp-sidebar](/components/amp-sidebar/) component to give customers the chance to quickly jump to any of your product categories -->
       <amp-sidebar id="drawermenu" layout="nodisplay">
-        <a href="/" class="caps text-decoration-none block p1">Products</a>
+        <a href="/">Products</a>
         <hr/>
-        <a class="caps text-decoration-none block p1" href="/samples_templates/product_browse_page/preview/">Fruit</a>
-        <a class="caps text-decoration-none block p1" href="/samples_templates/product_browse_page/preview/">Vegetable</a>
-        <a class="caps text-decoration-none block p1" href="/samples_templates/product_browse_page/preview/">More</a>
+        <a href="/samples_templates/product_browse_page/preview/">Fruit</a>
+        <a href="/samples_templates/product_browse_page/preview/">Vegetable</a>
+        <a href="/samples_templates/product_browse_page/preview/">More</a>
       </amp-sidebar>
-      <!-- ## Header with Search -->
+      <!-- ## Header with search -->
       <!-- AMP supports forms, which means you can directly integrate a product search into your AMPs.
         Here we implemented autosuggest, try searching for "Apple" and you should be able to select "Apple".
         Take a look at [autosuggest sample](/advanced/autosuggest/) for more details how autosuggest is implemented.
@@ -162,33 +175,36 @@ article#preview {
         }});
           input-debounced:
             AMP.setState({
-              query: event.value,
-              showDropdown: event.value,
+              autosuggest: {
+                query: event.value,
+                showDropdown: event.value
+              }
             }),
           autosuggest-list.show;
           tap:
             AMP.setState({
-              query: query == null ? '' : query,
-              showDropdown: 'true'
+              autosuggest: {
+                query: autosuggest.query == null ? '' : autosuggest.query,
+                showDropdown: 'true'
+              }
             }),
             autosuggest-list.show"
-          [value]="query || ''"
+          [value]="autosuggest.query || ''"
           value="">
         <a id="sample-logo" href="/">Products</a>
         <div class="suggest">
             <div
-              class="autosuggest-container hidden"
-              [class]="(showDropdown && query) ?
-                'autosuggest-container' :
-                'autosuggest-container hidden'"
+              class="autosuggest-container"
+              hidden
+              [hidden]="!(autosuggest.showDropdown && autosuggest.query)"
             >
               <amp-list
                 class="autosuggest-box"
                 layout="fixed-height"
                 height="120"
                 src="/samples_templates/products_autosuggest"
-                [src]="query ?
-                  autosuggest.endpoint + query :
+                [src]="autosuggest.query ?
+                  autosuggest.endpoint + autosuggest.query :
                   autosuggest.emptyAndInitialTemplateJson"
                 id="autosuggest-list"
               >
@@ -200,14 +216,15 @@ article#preview {
                     on="
                       select:
                         AMP.setState({
-                          query: event.targetOption,
-                          showDropdown: false
+                          autosuggest: {
+                            query: event.targetOption,
+                            showDropdown: false
+                          }
                         }),
                         autosuggest-list.hide"
                   >
                     {{#results}}
                       <div
-                        class="select-option no-outline ml2"
                         role="option"
                         tabindex="0"
                         on="tap:autosuggest-list.hide"
@@ -215,8 +232,8 @@ article#preview {
                       >{{.}}</div>
                     {{/results}}
                     {{^results}}
-                      <div class="select-option {{#query}}empty{{/query}}">
-                        {{#query}}Sorry! We couldn't find the product 😰{{/query}}
+                      <div class="{{#autosuggest.query}}empty{{/ autosuggest.query}}">
+                        {{#autosuggest.query}}Sorry! We couldn't find the product 😰{{/autosuggest.query}}
                       </div>
                     {{/results}}
                   </amp-selector>
@@ -227,7 +244,7 @@ article#preview {
         <!--~ Keep this just for creating the change event ~-->
         <input type="submit" value="">
       </div>
-      <!-- ## A Hero Slider -->
+      <!-- ## A hero slider -->
       <!-- The `amp-carousel` component can be used to quickly create full-bleed, auto-advancing slideshows showcasing your latest promotions. We
         use the [amp-fit-text](/components/amp-fit-text/) component for the slide headers to automatically size the text to fit into the carousel. -->
       <amp-carousel id="hero-images" width="1024" height="480" layout="responsive" type="slides" autoplay>
@@ -265,47 +282,37 @@ article#preview {
         </script>
       </amp-state>
       <amp-lightbox id="filter-lightbox" layout="nodisplay">
-        <div>
-          <h3 class="m1 mt2">Filter results</h3>
-          <h4 class="p1">Color</h4>
-          <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mx1">
-            <input type="radio" name="colorFilter" class="relative" value="Yellow" on="change:AMP.setState({
-            products: {
-            searchColor: event.checked == true ? 'yellow' : '',
-            listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'yellow' : '') +'&_=RANDOM'
-            }
-            }), filter-lightbox.close">
-            <label for="yellow"> yellow </label>
-          </div>
-          <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mx1">
-            <input type="radio" name="colorFilter" class="relative" value="Orange" on="change:AMP.setState({
-            products: {
-            searchColor: event.checked == true ? 'orange' : '',
-            listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'orange' : '') +'&_=RANDOM'
-            }
-            }), filter-lightbox.close">
-            <label for="orange"> orange </label>
-          </div>
-          <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mx1">
-            <input type="radio" name="colorFilter" class="relative" value="Green" on="change:AMP.setState({
-            products: {
-            searchColor: event.checked == true ? 'green' : '',
-            listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'green' : '') +'&_=RANDOM'
-            }
-            }), filter-lightbox.close">
-            <label for="green"> green </label>
-          </div>
-          <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mx1">
-            <input type="radio" name="colorFilter" class="relative" value="all" on="change:AMP.setState({
-            products: {
-            searchColor: event.checked == true ? 'all' : '',
-            listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'all' : '') +'&_=RANDOM'
-            }
-            }), filter-lightbox.close">
-            <label for="all"> all </label>
-          </div>
-          <div class="mx1">
-            <a on="tap:filter-lightbox.close" role="button" tabindex="0" class="ampstart-btn inline-block">
+        <div class="filter-section">
+          <h3>Filter results</h3>
+          <h4>Color</h4>      
+          <div>     
+            <label> yellow <input type="radio" name="colorFilter" value="Yellow" on="change:AMP.setState({
+              products: {
+              searchColor: event.checked == true ? 'yellow' : '',
+              listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'yellow' : '') +'&_=RANDOM'
+              }
+              }), filter-lightbox.close"></label>
+            <label> orange <input type="radio" name="colorFilter" value="Orange" on="change:AMP.setState({
+              products: {
+              searchColor: event.checked == true ? 'orange' : '',
+              listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'orange' : '') +'&_=RANDOM'
+              }
+              }), filter-lightbox.close"></label>            
+            <label> green <input type="radio" name="colorFilter" value="Green" on="change:AMP.setState({
+              products: {
+              searchColor: event.checked == true ? 'green' : '',
+              listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'green' : '') +'&_=RANDOM'
+              }
+              }), filter-lightbox.close"> </label>            
+            <label> all <input type="radio" name="colorFilter" value="all" on="change:AMP.setState({
+              products: {
+              searchColor: event.checked == true ? 'all' : '',
+              listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'all' : '') +'&_=RANDOM'
+              }
+              }), filter-lightbox.close"> </label>
+              </div>
+          <div>
+            <a on="tap:filter-lightbox.close" role="button" tabindex="0">
               Close
             </a>
           </div>
@@ -316,49 +323,39 @@ article#preview {
       Similarly, we use a select option to allow the user to sort products based on price and we then modify the
     `src` url of `amp-list`. -->
       <div id="main-wrap">
-        <div class="refine p1">
+        <div class="refine">
           <h3>Filter results</h3>
-          <h4 class="p1">Color</h4>
-          <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mx1">
-            <input type="radio" id="yellow" name="colorFilter" class="relative" value="Yellow" on="change:AMP.setState({
-            products: {
-            searchColor: event.checked == true ? 'yellow' : '',
-            listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'yellow' : '') +'&_=RANDOM'
-            }
-            })">
-            <label for="yellow"> yellow </label>
-          </div>
-          <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mx1">
-            <input type="radio" id="orange" name="colorFilter" class="relative" value="Orange" on="change:AMP.setState({
-            products: {
-            searchColor: event.checked == true ? 'orange' : '',
-            listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'orange' : '') +'&_=RANDOM'
-            }
-            })">
-            <label for="orange"> orange </label>
-          </div>
-          <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mx1">
-            <input type="radio" id="green" name="colorFilter" class="relative" value="Green" on="change:AMP.setState({
-            products: {
-            searchColor: event.checked == true ? 'green' : '',
-            listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'green' : '') +'&_=RANDOM'
-            }
-            })">
-            <label for="green"> green </label>
-          </div>
-          <div class="ampstart-input ampstart-input-chk inline-block relative mb3 mx1">
-            <input type="radio" id="all" name="colorFilter" class="relative" value="all" on="change:AMP.setState({
-            products: {
-            searchColor: event.checked == true ? 'all' : '',
-            listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'all' : '') +'&_=RANDOM'
-            }
-            })">
-            <label for="all"> all </label>
-          </div>
+          <h4>Color</h4>
+            <div><label><input type="radio" id="yellow" name="colorFilter" value="Yellow" on="change:AMP.setState({
+              products: {
+              searchColor: event.checked == true ? 'yellow' : '',
+              listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'yellow' : '') +'&_=RANDOM'
+              }
+              })"> yellow </label></div>           
+              <div><label><input type="radio" id="orange" name="colorFilter" value="Orange" on="change:AMP.setState({
+              products: {
+              searchColor: event.checked == true ? 'orange' : '',
+              listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'orange' : '') +'&_=RANDOM'
+              }
+              })"> orange </label></div> 
+            
+              <div><label><input type="radio" id="green" name="colorFilter"  value="Green" on="change:AMP.setState({
+              products: {
+              searchColor: event.checked == true ? 'green' : '',
+              listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'green' : '') +'&_=RANDOM'
+              }
+              })"> green </label></div>          
+              <div><label><input type="radio" id="all" name="colorFilter"  value="all" on="change:AMP.setState({
+              products: {
+              searchColor: event.checked == true ? 'all' : '',
+              listSrc: '/samples_templates/products?searchProduct='+ products.searchProduct +'&sort='+ products.sortChoiceValue +'&searchColor='+ (event.checked == true ? 'all' : '') +'&_=RANDOM'
+              }
+              })"> all </label></div> 
         </div>
         <div class="content">
           <div id="info-wrap">
-            <div class="ampstart-input inline-block relative m1">
+            <div>
+              <label for="sort">Sort</label>
               <select id="sort" on="change:AMP.setState({
               products: {
               sortChoiceValue: event.value,
@@ -369,10 +366,9 @@ article#preview {
                 </option>
                 <option value="price-ascendent">Price low to high
                 </option>
-              </select>
-              <label for="sort" class="absolute top-0 right-0 bottom-0 left-0">Sort</label>
+              </select>              
             </div>
-            <button class="ampstart-btn caps m1 mb3 filter-mobile" on="tap:filter-lightbox">
+            <button class="filter-mobile" on="tap:filter-lightbox">
               Filter
             </button>
           </div>
@@ -383,7 +379,7 @@ article#preview {
                     [src]="products.listSrc"
                     class="grid">
             <template type="amp-mustache">
-              <a class="m1 text-decoration-none products" href="/samples_templates/product/[[$.Mode]]">
+              <a class="products" href="/samples_templates/product/[[$.Mode]]">
                 <amp-img width="150"
                          height="100"
                          alt="{{name}}"
@@ -396,82 +392,90 @@ article#preview {
           </amp-list>
         </div>
       </div>
-      <!-- ## Offers & Highlights -->
-      <!-- -->
-      <h3 class="pl1 pt2 pb2">Recommendations</h3>
+      <!-- ## Offers & highlights -->
       <!-- The `amp-carousel` supports also a more traditional carousel mode.   -->
-      <amp-carousel class="m1" width="auto" height="160" layout="fixed-height" type="carousel">
-        <a class="m1 text-decoration-none" href="#" role="listitem">
-          <amp-img width="640" height="426" layout="responsive" alt="Apple" src="/img/product1_640x426.jpg"></amp-img>
-          <p class="name">Apple</p>
-          <p class="star">★★★★★</p>
-          <p class="price">$1.99</p>
-        </a>
-        <a class="m1 text-decoration-none" href="#" role="listitem">
-          <amp-img width="640" height="426" layout="responsive" alt="Orange" src="/img/product2_640x426.jpg"></amp-img>
-          <p class="name">Orange</p>
-          <p class="star">★★★★☆</p>
-          <p class="price">$0.99</p>
-        </a>
-        <a class="m1 text-decoration-none" href="#" role="listitem">
-          <amp-img width="640" height="426" layout="responsive" alt="Pear" src="/img/product3_640x426.jpg"></amp-img>
-          <p class="name">Pear</p>
-          <p class="star">★★★☆☆</p>
-          <p class="price">$1.50</p>
-        </a>
-        <a class="m1 text-decoration-none" href="#" role="listitem">
-          <amp-img width="640" height="426" layout="responsive" alt="Banana" src="/img/product4_640x426.jpg"></amp-img>
-          <p class="name">Banana</p>
-          <p class="star">★★★★★</p>
-          <p class="price">$1.50</p>
-        </a>
-        <a class="m1 text-decoration-none" href="#" role="listitem">
-          <amp-img width="640" height="426" layout="responsive" alt="Apple" src="/img/product1_640x426.jpg"></amp-img>
-          <p class="name">Apple 2</p>
-          <p class="star">★★★★★</p>
-          <p class="price">$1.99</p>
-        </a>
-        <a class="m1 text-decoration-none" href="#" role="listitem">
-          <amp-img width="640" height="426" layout="responsive" alt="Orange" src="/img/product2_640x426.jpg"></amp-img>
-          <p class="name">Orange 2</p>
-          <p class="star">★★★★☆</p>
-          <p class="price">$0.99</p>
-        </a>
-        <a class="m1 text-decoration-none" href="#" role="listitem">
-          <amp-img width="640" height="426" layout="responsive" alt="Pear" src="/img/product3_640x426.jpg"></amp-img>
-          <p class="name">Pear 2</p>
-          <p class="star">★★★☆☆</p>
-          <p class="price">$1.50</p>
-        </a>
-        <a class="m1 text-decoration-none" href="#" role="listitem">
-          <amp-img width="640" height="426" layout="responsive" alt="Banana" src="/img/product4_640x426.jpg"></amp-img>
-          <p class="name">Banana 2</p>
-          <p class="star">★★★★★</p>
-          <p class="price">$1.50</p>
-        </a>
-      </amp-carousel>
-      <!-- -->
-      <h3 class="pl1 pt2 pb2">Bestsellers</h3>
-      <!-- With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
-        Learn more about `amp-list` [here](/components/amp-list/) -->
-      <amp-list class="items"
-                width="auto"
-                height="160"
-                layout="fixed-height"
-                src="/json/related_products.json">
-        <template type="amp-mustache">
-          <a class="m1 text-decoration-none" href="/samples_templates/product/preview/">
-            <amp-img width="640"
-                     height="426"
-                     layout="responsive"
-                     alt="{{name}}"
-                     src="{{img}}"></amp-img>
-                   <p class="name">{{name}}</p>
-                   <p class="star">{{{stars}}}</p>
-                   <p class="price">${{price}}</p>
+      <div class="recommendations">
+        <h3>Recommendations</h3>      
+        <amp-carousel width="auto" height="160" layout="fixed-height" type="carousel">
+          <a href="#" role="listitem">
+            <amp-img width="640" height="426" layout="responsive" alt="Apple" src="/img/product1_640x426.jpg"></amp-img>
+            <p class="name">Apple</p>
+            <p class="star">★★★★★</p>
+            <p class="price">$1.99</p>
           </a>
-        </template>
-      </amp-list>
+          <a href="#" role="listitem">
+            <amp-img width="640" height="426" layout="responsive" alt="Orange" src="/img/product2_640x426.jpg"></amp-img>
+            <p class="name">Orange</p>
+            <p class="star">★★★★☆</p>
+            <p class="price">$0.99</p>
+          </a>
+          <a href="#" role="listitem">
+            <amp-img width="640" height="426" layout="responsive" alt="Pear" src="/img/product3_640x426.jpg"></amp-img>
+            <p class="name">Pear</p>
+            <p class="star">★★★☆☆</p>
+            <p class="price">$1.50</p>
+          </a>
+          <a href="#" role="listitem">
+            <amp-img width="640" height="426" layout="responsive" alt="Banana" src="/img/product4_640x426.jpg"></amp-img>
+            <p class="name">Banana</p>
+            <p class="star">★★★★★</p>
+            <p class="price">$1.50</p>
+          </a>
+          <a href="#" role="listitem">
+            <amp-img width="640" height="426" layout="responsive" alt="Apple" src="/img/product1_640x426.jpg"></amp-img>
+            <p class="name">Apple 2</p>
+            <p class="star">★★★★★</p>
+            <p class="price">$1.99</p>
+          </a>
+          <a href="#" role="listitem">
+            <amp-img width="640" height="426" layout="responsive" alt="Orange" src="/img/product2_640x426.jpg"></amp-img>
+            <p class="name">Orange 2</p>
+            <p class="star">★★★★☆</p>
+            <p class="price">$0.99</p>
+          </a>
+          <a href="#" role="listitem">
+            <amp-img width="640" height="426" layout="responsive" alt="Pear" src="/img/product3_640x426.jpg"></amp-img>
+            <p class="name">Pear 2</p>
+            <p class="star">★★★☆☆</p>
+            <p class="price">$1.50</p>
+          </a>
+          <a href="#" role="listitem">
+            <amp-img width="640" height="426" layout="responsive" alt="Banana" src="/img/product4_640x426.jpg"></amp-img>
+            <p class="name">Banana 2</p>
+            <p class="star">★★★★★</p>
+            <p class="price">$1.50</p>
+          </a>
+        </amp-carousel>
+      </div>
+      <!--
+        ## Bestsellers
+      -->
+      <!-- With AMP, you can easily pull in different latest offers or highlights without changing the page. To do so, just use `amp-list` to fire a CORS request to a JSON endpoint which supplies the list of related products. These are populated into an amp-mustache template on the client.
+      Learn more about `amp-list` [here](/components/amp-list/) -->
+      <div class="bestsellers">
+        <h3>Bestsellers</h3>
+        <amp-list class="items"
+                  width="auto"
+                  height="160"
+                  layout="fixed-height"
+                  src="/json/related_products.json">
+          <template type="amp-mustache">
+            <a href="/samples_templates/product/preview/">
+              <amp-img width="640"
+                      height="426"
+                      layout="responsive"
+                      alt="{{name}}"
+                      src="{{img}}"></amp-img>
+                    <p class="name">{{name}}</p>
+                    <p class="star">{{{stars}}}</p>
+                    <p class="price">${{price}}</p>
+            </a>
+          </template>
+        </amp-list>
+      </div>
+      <!--
+        ## Autosuggest configuration
+      -->
       <!-- The initial state and helper variables for the product autosuggest are configured by amp-state. -->
     <amp-state id="autosuggest">
         <script type="application/json">
@@ -480,12 +484,14 @@ article#preview {
           "emptyAndInitialTemplateJson": [{
             "query": "",
             "results": []
-          }]
+          }],
+          "showDropdown":false,
+          "query":""
         }
         </script>
     </amp-state>
       <!--
-        ## User Analytics
+        ## User analytics
       -->
       <!-- Analytics must be configured in the body. Here we use Google Analytics to track pageviews. -->
       <amp-analytics type="googleanalytics">

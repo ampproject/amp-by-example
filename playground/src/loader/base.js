@@ -64,10 +64,10 @@ export class Loader {
    * @param container {htmlelement} the element containing the loader.
    */
   hide() {
-    this._findLoaders().forEach(l => {
+    this._findLoaders().forEach((l) => {
       l.classList.add('loader-fadeout');
       window.requestIdleCallback(() => l.remove(), {
-        timeout: FADE_OUT_ANIMATION_LENGTH
+        timeout: FADE_OUT_ANIMATION_LENGTH,
       });
     });
   }

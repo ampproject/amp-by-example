@@ -25,7 +25,6 @@ export function create(container, config) {
 }
 
 class Button {
-
   constructor(container, element) {
     this._element = element;
     this._container = container;

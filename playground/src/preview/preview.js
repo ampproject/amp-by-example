@@ -28,7 +28,6 @@ export function createPreview(container) {
 }
 
 class Preview {
-
   constructor(container, doc, loader) {
     this.doc = doc;
     this.loader = loader;
@@ -39,17 +38,12 @@ class Preview {
   }
 
   setRuntime(runtime) {
-    this.setDefaultDimension(runtime);
+    if (this.runtime === runtime) {
+      return;
+    }
+    this.dimensions = dimensions[runtime.preview.mode];
     if (!this.runtime) {
-      // reset preview state
-      params.replace('preview', '');
-      // configure device dimension
-      this.setDimensionFromParams();
-      // disable device dimensions on mobile (except for ad preview)
-      if (window.innerWidth <= MOBILE_BREAK_POINT && runtime.id !== 'amp4ads') {
-        this.dimension.width = '100%';
-        this.dimension.height = '100%';
-      }
+      this.initDimensionFromParamsOrUseDefault(runtime);
     }
     this.runtime = runtime;
     this.configurePreviewSwitcher();
@@ -59,29 +53,26 @@ class Preview {
     }
   }
 
-  setDefaultDimension(runtime) {
-    this.dimensions = dimensions[runtime.preview.mode];
-    this.dimension = this.findDimensionByLabel(runtime.preview.default);
-  }
-
-  setDimensionFromParams() {
-    const label = params.get(PARAM_MODE);
-    if (!label) {
-      return;
-    }
+  initDimensionFromParamsOrUseDefault(runtime) {
+    const label = params.get(PARAM_MODE) || runtime.preview.default;
     const newDimension = this.findDimensionByLabel(label);
     if (!newDimension) {
       return;
     }
     this.dimension = newDimension;
-    if (label == 'Custom') {
+    if (label === 'Custom') {
       this.dimension.width = params.get(PARAM_WIDTH, this.dimension.width);
       this.dimension.height = params.get(PARAM_HEIGHT, this.dimension.height);
+    }
+    // disable device dimensions on mobile (except for ad preview)
+    if (window.innerWidth <= MOBILE_BREAK_POINT && runtime.id !== 'amp4ads') {
+      this.dimension.width = '100%';
+      this.dimension.height = '100%';
     }
   }
 
   findDimensionByLabel(label) {
-    return this.dimensions.find(d => d.label === label);
+    return this.dimensions.find((d) => d.label === label);
   }
 
   updateParams() {
@@ -139,15 +130,15 @@ class Preview {
     const div = this.doc.createElement('div');
     div.setAttribute('id', 'preview-custom-dimension');
     div.appendChild(
-      this.createSizeInput(PARAM_WIDTH, params.get(PARAM_WIDTH, 320), width => {
-        this.dimension.width = width;
-      })
+        this.createSizeInput(PARAM_WIDTH, params.get(PARAM_WIDTH, 320), (width) => {
+          this.dimension.width = width;
+        })
     );
     div.appendChild(this.doc.createTextNode('✕'));
     div.appendChild(
-      this.createSizeInput(PARAM_HEIGHT, params.get(PARAM_HEIGHT, 250), height => {
-        this.dimension.height = height;
-      })
+        this.createSizeInput(PARAM_HEIGHT, params.get(PARAM_HEIGHT, 250), (height) => {
+          this.dimension.height = height;
+        })
     );
     return div;
   }
@@ -183,8 +174,13 @@ class Preview {
     iframe.setAttribute('frameBorder', '0');
     iframe.setAttribute('id', 'previewIframe');
     iframe.setAttribute('title', 'AMP Playground Output');
-    // this would run stamp always in fullscreen
-    //iframe.setAttribute('allowfullscreen', true);
+    iframe.setAttribute('allowpaymentrequest', '');
+    iframe.setAttribute('sandbox', 'allow-scripts allow-forms allow-same-origin allow-popups ' +
+      'allow-popups-to-escape-sandbox allow-presentation allow-top-navigation');
+    // avoid running AMP stories in fullscreen
+    if (this.runtime.id !== 'amp4stories') {
+      iframe.setAttribute('allowfullscreen', true);
+    }
     iframe.classList.add('elevation-4dp');
     return iframe;
   }
@@ -226,20 +222,22 @@ class Preview {
     // create the preview
     let childDoc = this.previewIframe.contentDocument;
     const childWindow = this.getIframeWindow(this.previewIframe);
-    if (!childDoc) {childDoc = childWindow.document;}
+    if (!childDoc) {
+      childDoc = childWindow.document;
+    }
     childDoc.open();
     childDoc.write('');
     childDoc.write(this.documentString);
     childDoc.close();
-    (childWindow.AMP = childWindow.AMP || []).push(AMP => {
+    (childWindow.AMP = childWindow.AMP || []).push(() => {
       this.restoreState(this.previewIframe, this.state);
       this.loader.hide();
       const oldIframes = [].slice.call(this.previewContainer.querySelectorAll('iframe'))
-        .filter(e => e !== this.previewIframe);
-      oldIframes.forEach(e => {
+          .filter((e) => e !== this.previewIframe);
+      oldIframes.forEach((e) => {
         e.classList.add('fadeout');
       });
-      setTimeout(() => oldIframes.forEach(frame => frame.remove()), 280);
+      setTimeout(() => oldIframes.forEach((frame) => frame.remove()), 280);
     });
   }
 
@@ -248,25 +246,33 @@ class Preview {
   }
 
   clearPlaceholders() {
-    this.previewContainer.querySelectorAll('iframe').forEach(e => e.remove());
+    this.previewContainer.querySelectorAll('iframe').forEach((e) => e.remove());
   }
 
   saveState(iframe) {
-    if (!iframe) {return {};}
+    if (!iframe) {
+      return {};
+    }
     const win = this.getIframeWindow(iframe);
-    if (!win) {return {};}
+    if (!win) {
+      return {};
+    }
     return {
       scroll: {
         x: win.scrollX,
-        y: win.scrollY
-      }
+        y: win.scrollY,
+      },
     };
   }
 
   restoreState(iframe, state) {
-    if (!iframe) {return {};}
+    if (!iframe) {
+      return {};
+    }
     const win = this.getIframeWindow(iframe);
-    if (!win) {return {};}
+    if (!win) {
+      return {};
+    }
     if (state.scroll) {
       win.scrollTo(state.scroll.x, state.scroll.y);
     }

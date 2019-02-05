@@ -38,16 +38,18 @@ describe("DocumentParser", function() {
   <div>hello</div>
 </div>`.trim();
   var COMMENT = '<!--comment-->';
+  var COMMENT_WITH_HEADING = '<!--\n   # heading\n\ncomment-->';
   var HINT = '<!--~hint~-->';
   var LINK = ' <link href="Hello World" />';
   var META = ' <meta href="Hello World" />';
   var BASE = ' <base href="/">';
-  var DOCUMENT_METADATA = `<!---{
-    "experiments": ["amp-accordion"]
-  }--->`;
-  var DOCUMENT_METADATA_INVALID = `<!---{
+  var DOCUMENT_METADATA = `<!---
+    experiments:
+      - amp-accordion
+  --->`;
+  var DOCUMENT_METADATA_INVALID = `<!---
     experiment: true,
-    "component": "amp-accordion"
+    component: amp-accordion
   }}--->`;
 
   beforeEach(function() {
@@ -62,8 +64,12 @@ describe("DocumentParser", function() {
   it("adds comments", function() {
     expect(parse(COMMENT, TAG).sections)
       .toEqual([
-          newSection('comment\n', TAG + '\n', "", true, true),
+          newSection('comment\n', TAG + '\n', '', true, true),
       ]);
+  });
+  it("strips whitespace before headings", function() {
+    expect(parse(COMMENT_WITH_HEADING, TAG).sections[0].doc)
+      .toEqual('\n# heading\n\ncomment\n');
   });
 
   it("adds hint", function() {
@@ -253,6 +259,37 @@ describe("DocumentParser", function() {
     it("sets story id", function() {
       const document = parse('<body>', '<amp-story standalone>', '<amp-story-page id="story-id">', '</amp-story-page>', '</amp-story>', '</body>');
       expect(document.sections[0].storyPageId).toBe('story-id');
+    });
+  });
+
+  describe('parses runtime', function() {
+    it('amp-story', function() {
+      const document = parse('<html ⚡>', '<body>', '<amp-story standalone>', '</amp-story>', '</body>');
+      expect(document.isAmpStory).toBe(true);
+      expect(document.isAmpWeb).toBe(true);
+      expect(document.isAmpEmail).toBe(false);
+      expect(document.isAmpAds).toBe(false);
+    });
+    it('amp-mail', function() {
+      const document = parse('<html ⚡4email>', '<body>', '</body>');
+      expect(document.isAmpStory).toBe(false);
+      expect(document.isAmpWeb).toBe(false);
+      expect(document.isAmpEmail).toBe(true);
+      expect(document.isAmpAds).toBe(false);
+    });
+    it('amp-ad', function() {
+      const document = parse('<html ⚡4ads>', '<body>', '</body>');
+      expect(document.isAmpStory).toBe(false);
+      expect(document.isAmpWeb).toBe(false);
+      expect(document.isAmpEmail).toBe(false);
+      expect(document.isAmpAds).toBe(true);
+    });
+    it('amp-web', function() {
+      const document = parse('<html ⚡>', '<body>', '</body>');
+      expect(document.isAmpStory).toBe(false);
+      expect(document.isAmpWeb).toBe(true);
+      expect(document.isAmpEmail).toBe(false);
+      expect(document.isAmpAds).toBe(false);
     });
   });
 

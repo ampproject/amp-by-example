@@ -23,4 +23,6 @@ const (
 	CATEGORY_ADVANCED         = "advanced"
 	CATEGORY_COMPONENTS       = "components"
 	CATEGORY_SAMPLE_TEMPLATES = "samples_templates"
+	// Where to find the SXG service (i.e. host running https://github.com/ampproject/amppackager)
+	PACKAGER_PREFIX = "https://amp-by-example-sxg.appspot.com/"
 )

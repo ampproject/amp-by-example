@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <!-- ## Introduction
-    `amp-date-picker` is an AMP component which allows to select a single date or a range of dates.
+    [amp-date-picker](https://www.ampproject.org/docs/reference/components/amp-date-picker) is an AMP component which allows to select a single date or a range of dates.
     Its implementation is based on [react-dates](https://github.com/airbnb/react-dates)
   -->
   <!-- ## Setup -->
@@ -38,33 +38,12 @@
     `amp-date-picker-selecting`, which is applied to the date input the user is editing.
   -->
   <style amp-custom>
-  .CalendarMonth_caption {
-    color: #fff;
-  }
-
-  [type="range"] .amp-date-picker-selecting {
-    border-bottom-color: #b60845;
-    color: #b60845;
-  }
-
-  .align-content-center,
-  .align-content-center .amp-date-picker-calendar-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-  }
-
-  .space-between > * + * {
-    margin-left: 1em;
-  }
-
-  amp-lightbox {
-    background: rgba(0, 0, 0, .75);
-  }
-
-  amp-lightbox .align-content-center {
-    height: 100%;
+  :root {
+  --color-primary: #005AF0;
+  --color-text-light: #fff;
+  --color-bg-light: #FAFAFC;
+  --space-2: 1rem;   /* 16px */
+  --space-1: 0.5rem; /* 8px */
   }
 
   .example-picker {
@@ -72,13 +51,28 @@
   }
 
   .example-picker[mode="overlay"] {
-    padding: 1em;
+    padding: var(--space-2);
   }
 
-  .small-button {
-    font-size: .75em;
-    line-height: .75em;
-    margin: .75em;
+  .example-picker .CalendarMonth_caption {
+    color: var(--color-text-light);
+  }
+
+  .example-picker [type="range"] .amp-date-picker-selecting {
+    border-bottom-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .space-between > * + * {
+    margin-left: var(--space-2);
+  }
+
+  #lb {
+    background: var(--color-bg-light);
+  }
+
+  #lb .align-content-center {
+    height: 100%;
   }
 
   .icon-input {
@@ -86,14 +80,14 @@
     background-repeat: no-repeat;
     flex-shrink: 0;
     height: 28px;
-    margin-top: 8px;
+    margin-top: var(--space-1);
     width: 27px;
   }
   </style>
 </head>
 <body>
 
-  <!-- ## Single Date Picker -->
+  <!-- ## Single date picker -->
   <!--
     `amp-date-picker` with `type=single` can be used for selecting a single date.
     You can use `amp-mustache` with `info-template` attribute to show an info-panel below the calendar, here we are showing the
@@ -117,17 +111,16 @@
     input-selector="[name=date1]"
     class="example-picker space-between">
     <div class="icon-input"></div>
-    <div class="ampstart-input">
-      <input class="border-none p0" name="date1" placeholder="Pick a date">
-    </div>
-    <button class="ampstart-btn caps" on="tap: simple-date-picker.clear">Clear</button>
-    <button class="ampstart-btn caps" on="tap: simple-date-picker.today">Today</button>
-    <button class="ampstart-btn caps" on="tap: simple-date-picker.today(offset=1)">Tomorrow</button>
+    <input name="date1" placeholder="Pick a date">
+    <button on="tap: simple-date-picker.clear">Clear</button>
+    <button on="tap: simple-date-picker.today">Today</button>
+    <button on="tap: simple-date-picker.today(offset=1)">Tomorrow</button>
     <template type="amp-mustache" info-template>
       <span [text]="date1 != null ? 'You picked ' + date1 + '.' : 'You will see your chosen date here.'">You will see your chosen date here.</span>
     </template>
   </amp-date-picker>
 
+  <!-- ## Custom date markup -->
   <!--
     In addition, you can also use `amp-mustache` to create templates for custom date markup, such as an icon instead of the number of the month.
     Here we are using a taco icon in place of the number of the month with a frequency of 2 weeks every Tuesday. Common use cases
@@ -144,10 +137,8 @@
     open-after-select
     input-selector="[name=date2]"
     class="example-picker space-between">
-    <div class="ampstart-input">
-      <input class="border-none p0" name="date2" placeholder="Pick a date">
-    </div>
-    <button class="ampstart-btn caps" on="tap: simple-date-picker-2.clear">Clear</button>
+    <input class="border-none p0" name="date2" placeholder="Pick a date">
+    <button on="tap: simple-date-picker-2.clear">Clear</button>
     <template
       type="amp-mustache"
       date-template
@@ -186,13 +177,9 @@
     start-input-selector="#range-start"
     end-input-selector="#range-end"
     class="example-picker space-between">
-    <div class="ampstart-input">
-      <input class="border-none p0" id="range-start" placeholder="Start date">
-    </div>
-    <div class="ampstart-input">
-      <input class="border-none p0" id="range-end" placeholder="End date">
-    </div>
-    <button class="ampstart-btn caps" on="tap:range-date-picker.clear">Clear</button>
+    <input id="range-start" placeholder="Start date">
+    <input id="range-end" placeholder="End date">
+    <button on="tap:range-date-picker.clear">Clear</button>
     <template type="amp-mustache" info-template>
       <span [text]="(startDate && endDate ?
         'You picked ' + startDate.date + ' as start date and ' + endDate.date + ' as end date.' :
@@ -231,10 +218,8 @@
     src="<%host%>/json/amp-date-picker.json"
     input-selector="#src-input"
     class="example-picker space-between">
-    <div class="ampstart-input">
-      <input class="border-none p0" id="src-input" placeholder="Pick a date">
-    </div>
-    <button class="ampstart-btn caps" on="tap: src-picker.clear">Clear</button>
+    <input id="src-input" placeholder="Pick a date">
+    <button on="tap: src-picker.clear">Clear</button>
     <template type="amp-mustache" date-template id="spooky">
       <span>🙀</span>
     </template>
@@ -244,7 +229,6 @@
   <!--
   `amp-date-picker` with mode="static" can display a calendar view.
   The static picker can be used with or without an attached input. -->
-  <div class="align-content-center">
       <amp-date-picker
         id="static-picker"
         type="single"
@@ -254,15 +238,14 @@
         format="YYYY-MM-DD"
         input-selector="#static-picker-input">
       </amp-date-picker>
-  </div>
 
+  <!-- ## Highlighted and blocked attributes -->
   <!--
     `amp-date-picker` supports a range of attributes, for example `highlighted` and `blocked`. Find the complete list in the official [doc](https://github.com/ampproject/amphtml/tree/master/extensions/amp-date-picker/0.1).
     The `blocked` attribute allows to specify a space separated list of ISO 8601 dates and RFC 5545 RRULEs specifying disallowed dates.
     The `highlighted` attributes a space separated list of ISO 8601 dates and RFC 5545 RRULEs specifying dates displayed with a highlight style.
     Here every Thursday is `highlighted`, while every weekend is `blocked`.
   -->
-  <div class="align-content-center">
     <amp-date-picker
       id="simple-date-picker-3"
       type="single"
@@ -275,14 +258,13 @@
       highlighted="FREQ=WEEKLY;WKST=SU;BYDAY=TH"
       blocked="FREQ=WEEKLY;WKST=SU;BYDAY=SA,SU">
     </amp-date-picker>
-  </div>
 
+  <!-- ## Allow-blocked-dates attribute -->
   <!--
     If the date picker uses `type="range"` and there are blocked dates that are
     allowed to be part of the range, the `allow-blocked-dates` attribute
     allows users to select ranges that include blocked dates.
   -->
-  <div class="align-content-center">
       <amp-date-picker
         id="simple-date-picker-4"
         type="range"
@@ -296,7 +278,6 @@
         highlighted="FREQ=WEEKLY;WKST=SU;BYDAY=TH"
         blocked="FREQ=WEEKLY;WKST=SU;BYDAY=SA,SU">
       </amp-date-picker>
-    </div>
 
   <!-- ## Lightbox date picker -->
   <!--
@@ -307,19 +288,13 @@
     view. For a touch-only interface box, the `on="tap:..."` attribute opens the
     picker when the user taps on the input.
   -->
-  <div class="p1">
+  <div>
     <p>Choose your travel dates</p>
-    <div class="align-content-center space-between">
-      <div class="ampstart-input">
-        <input class="border-none p0" id="lb-start" placeholder="Start date" on="tap:lb.open" role="textbox" tabindex="0">
-      </div>
-      <div class="ampstart-input">
-        <input class="border-none p0" id="lb-end" placeholder="End date" on="tap:lb.open" role="textbox" tabindex="0">
-      </div>
-      <button class="ampstart-btn caps" on="tap:lb-picker.clear">Clear</button>
-    </div>
+      <input id="lb-start" placeholder="Start date" on="tap:lb.open" role="textbox" tabindex="0">
+      <input id="lb-end" placeholder="End date" on="tap:lb.open" role="textbox" tabindex="0">
+      <button on="tap:lb-picker.clear">Clear</button>
     <amp-lightbox id="lb" layout="nodisplay">
-      <button class="ampstart-btn absolute m1 caps small-button" on="tap:lb.close" tabindex="0">Close</button>
+      <button on="tap:lb.close" tabindex="0">Close</button>
       <div class="align-content-center">
         <amp-date-picker
           id="lb-picker"
@@ -343,19 +318,13 @@
     The `fullscreen` attribute tells the date picker to take up the space in
     its container and allow its content to scroll vertically.
   -->
-  <div class="p1">
-      <p>Choose your travel dates</p>
-      <div class="align-content-center space-between">
-        <div class="ampstart-input">
-          <input class="border-none p0" id="lb-fullscreen-start" placeholder="Start date" on="tap:lb-fullscreen.open" role="textbox" tabindex="0">
-        </div>
-        <div class="ampstart-input">
-          <input class="border-none p0" id="lb-fullscreen-end" placeholder="End date" on="tap:lb-fullscreen.open" role="textbox" tabindex="0">
-        </div>
-        <button class="ampstart-btn caps" on="tap:lb-fullscreen-picker.clear">Clear</button>
-      </div>
+  <div>
+    <p>Choose your travel dates</p>
+        <input id="lb-fullscreen-start" placeholder="Start date" on="tap:lb-fullscreen.open" role="textbox" tabindex="0">
+        <input id="lb-fullscreen-end" placeholder="End date" on="tap:lb-fullscreen.open" role="textbox" tabindex="0">
+        <button on="tap:lb-fullscreen-picker.clear">Clear</button>
       <amp-lightbox id="lb-fullscreen" layout="nodisplay" scrollable>
-        <button class="ampstart-btn m1 absolute caps z3 small-button" on="tap:lb-fullscreen.close" tabindex="0">Close</button>
+        <button on="tap:lb-fullscreen.close" tabindex="0">Close</button>
         <amp-date-picker
           id="lb-fullscreen-picker"
           fullscreen
@@ -372,14 +341,13 @@
       </amp-lightbox>
     </div>
 
-  <!-- ## Date picker in a form-->
+  <!-- ## Date picker in a form -->
   <!--
     `amp-date-picker` integrates with AMP forms. If you don't provide an
     input for a static picker, it will create a hidden input to submit in the
     form.
   -->
   <form method="post"
-    class="p1"
     action-xhr="/components/amp-form/submit-form-xhr"
     target="_top">
     <amp-date-picker
@@ -390,7 +358,7 @@
       height="360"
       format="YYYY-MM-DD">
     </amp-date-picker>
-    <input type="submit" class="ampstart-btn caps">
+    <input type="submit">
     <div submit-success>
       <template type="amp-mustache">
         Success! Thanks for trying the <code>amp-form</code> demo!
@@ -402,5 +370,30 @@
       </template>
     </div>
   </form>
+
+
+  <!-- ## Date picker with amp-bind -->
+  <!--
+    `amp-date-picker` integrates with `amp-bind`. The `min` and `max` attributes
+    can be used to update the min and max date.
+  -->
+  <div>
+    <amp-state id="binding">
+      <script type="application/json">
+      {"min": "", "max": ""}
+      </script>
+    </amp-state>
+    <input on="change:AMP.setState({binding: {min: event.value}})" placeholder="Minimum date">
+    <input on="change:AMP.setState({binding: {max: event.value}})" placeholder="Maximum date">
+    <amp-date-picker id="bind-picker"
+        type="single"
+        mode="static"
+        layout="fixed-height"
+        height="360"
+        format="MM/DD/YYYY"
+        [min]="binding.min"
+        [max]="binding.max">
+    </amp-date-picker>
+  </div>
 </body>
 </html>

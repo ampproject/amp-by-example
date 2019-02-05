@@ -15,67 +15,77 @@
 package backend
 
 import (
-	"fmt"
+	"github.com/patrickmn/go-cache"
+	"log"
 	"net/http"
 	"time"
 )
 
 const (
 	COMMENT_SAMPLE_PATH = "/" + CATEGORY_SAMPLE_TEMPLATES + "/comment_section/"
-	USER                = "Charlie"
+	USER                = "Mark"
 )
-
-type CommentAuthorizationResponse struct {
-	User bool `json:"loggedIn"`
-}
-
-func (h CommentAuthorizationResponse) CreateAuthorizationResponse() AuthorizationResponse {
-	return CommentAuthorizationResponse{true}
-}
-
-func (h CommentAuthorizationResponse) CreateInvalidAuthorizationResponse() AuthorizationResponse {
-	return CommentAuthorizationResponse{false}
-}
 
 type Comment struct {
 	Text     string
 	User     string
 	Datetime string
-	UserImg  string
+}
+
+var commentsCache *cache.Cache
+
+var defaultComments = []Comment{
+	Comment{
+		Text:     "This is the first comment",
+		User:     "Alice",
+		Datetime: time.Now().Format("2006-01-02 15:04"),
+	},
+	Comment{
+		Text:     "This is the second comment",
+		User:     "Bob",
+		Datetime: time.Now().Format("2006-01-02 15:34"),
+	},
 }
 
 func InitCommentSection() {
-	RegisterHandler(COMMENT_SAMPLE_PATH+"submit-comment-xhr", onlyPost(submitCommentXHR))
-	RegisterHandler(COMMENT_SAMPLE_PATH+"authorization", handleCommentAuthorization)
-	RegisterHandler(COMMENT_SAMPLE_PATH+"login", handleLogin)
-	RegisterHandler(COMMENT_SAMPLE_PATH+"submit-logout", handleLogout)
-	RegisterHandler(COMMENT_SAMPLE_PATH+"logout", handleLogoutButton)
+	commentsCache = cache.New(5*time.Minute, 10*time.Minute)
+	RegisterHandler(COMMENT_SAMPLE_PATH+"comments/new", onlyPost(submitCommentXHR))
+	RegisterHandler(COMMENT_SAMPLE_PATH+"comments", handleComments)
 	RegisterHandler(COMMENT_SAMPLE_PATH+"submit", handleSubmit)
 }
 
+func handleComments(w http.ResponseWriter, r *http.Request) {
+	SendJsonResponse(w, loadComments(r))
+}
+
+func loadComments(r *http.Request) []Comment {
+	cookie, err := r.Cookie("amp-access")
+	if err != nil {
+		return defaultComments
+	}
+	if x, found := commentsCache.Get(cookie.Value); found {
+		return x.([]Comment)
+	}
+	return defaultComments
+}
+
 func submitCommentXHR(w http.ResponseWriter, r *http.Request) {
-	response := ""
+	cookie, err := r.Cookie("amp-access")
+	if err != nil {
+		log.Printf("Could not read amp-access cookie, underlying err: %#v", err)
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	comments := loadComments(r)
 	text := r.FormValue("text")
 	if text != "" {
 		newComment := Comment{
 			Text:     text,
 			User:     USER,
 			Datetime: time.Now().Format("15:04:05"),
-			UserImg:  "/img/ic_account_box_black_48dp_1x.png",
 		}
-		response = fmt.Sprintf("{\"Datetime\":\"%s\", \"User\":\"%s\", \"Text\":\"%s\", \"UserImg\":\"%s\"}",
-			newComment.Datetime, newComment.User, newComment.Text, newComment.UserImg)
-		w.Write([]byte(response))
-	} else {
-		w.WriteHeader(http.StatusBadRequest)
+		comments = append(comments, newComment)
+		commentsCache.Set(cookie.Value, comments, cache.DefaultExpiration)
 	}
-}
-
-func handleCommentAuthorization(w http.ResponseWriter, r *http.Request) {
-	_, err := r.Cookie(AMP_ACCESS_COOKIE)
-	if err != nil {
-		SendJsonResponse(w, new(CommentAuthorizationResponse).CreateInvalidAuthorizationResponse())
-		return
-	}
-	SendJsonResponse(w, new(CommentAuthorizationResponse).CreateAuthorizationResponse())
+	SendJsonResponse(w, comments)
 }

@@ -11,6 +11,13 @@
   It will show accept and reject buttons, which on click will reveal more information,
   like a list of used 3rd parties on user acceptance, or a general data usage notice
   on user rejection.
+
+  [tip type="important"]
+    Important! The consent is saved to localstorage - after accepting/rejecting it once you will
+    only get the popup dialog again after deleting the localstorage content for this host,
+    for example via <a href="https://developers.google.com/web/tools/chrome-devtools/manage-data/local-storage#local-storage">
+    Chrome Dev Tools</a>.
+  [/tip]
 -->
 <!-- -->
 <!doctype html>
@@ -29,6 +36,10 @@
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
   <style amp-custom>
+    :root {
+      --space-2: 1rem;   /* 16px */
+      --space-3: 1.5rem; /* 24px */
+    }
     .lightbox {
       height: 100vh;
       width: 100vw;
@@ -37,7 +48,7 @@
     }
     .lightbox-content {
       margin: 0 auto;
-      padding: 1rem;
+      padding: var(--space-2);
       background: #fff;
       border-radius: 5px;
       max-width: 700px;
@@ -52,28 +63,29 @@
       flex-direction: column;
       align-items: center;
     }
+    .message > h2,
     .message > * {
+      margin: var(--space-2) 0;
       min-width: 200px;
+      text-align: center;
     }
     .dismiss-button {
       position: absolute;
-      right: 24px;
-      top: 16px;
+      right: var(--space-3);
+      top: var(--space-2);
       cursor: pointer;
+    }
+    #post-consent-ui {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: var(--space-3);
     }
   </style>
 </head>
 <body>
 
-  <!-- ## Important -->
-  <!--
-  The consent is saved to localstorage - after accepting/rejecting it once you will
-  only get the popup dialog again after deleting the localstorage content for this host,
-  for example via <a href="https://developers.google.com/web/tools/chrome-devtools/manage-data/local-storage#local-storage">
-  Chrome Dev Tools</a>.
-  -->
-
-  <!-- ## Basic Usage -->
+  <!-- ## Basic usage -->
   <!--
   The `amp-consent` component allows to specify the required user consent for this page.
   A CORS endpoints can be specified via the `checkConsentHref`
@@ -81,7 +93,7 @@
   consent UI specified for it needs to be shown. The response should look like this:
   ```json
   {
-    'promptIfUnknown': boolean (true/false)
+    "promptIfUnknown": boolean (true/false)
   }
   ```
   The response will indicate if the consent needs to be shown or not.
@@ -91,7 +103,7 @@
         <script type="application/json">{
           "consents": {
             "consent1": {
-              "checkConsentHref": "https://ampbyexample.com/samples_templates/consent/getConsent",
+              "checkConsentHref": "<%host%>/samples_templates/consent/getConsent",
               "promptUI": "consentDialog"
             }
           },
@@ -101,34 +113,31 @@
           <div class="lightbox-content">
             <div class="dismiss-button" role="button" tabindex="0" on="tap:myConsent.dismiss">X</div>
             <div class="message">
-              <div class="h2 m1">Headline</div>
-              <p class="m1">This is an important message requiring you to make a choice.</p>
+              <h2>Headline</h2>
+              <p>This is an important message requiring you to make a choice.</p>
             </div>
             <div id="choice">
-              <button class="ampstart-btn ampstart-btn-secondary caps mx1" on="tap:choice1.show,choice2.hide">Choice 1</button>
-              <button class="ampstart-btn ampstart-btn-secondary caps" on="tap:choice2.show,choice1.hide">Choice 2</button>
+              <button on="tap:choice2.show,choice1.hide">Choice 2</button>
             </div>
             <div id="choice1" hidden class="message">
-              <p class="m1">This is some more information about this choice. Here's a list of items related to this choice.</p>
-              <amp-list width="auto"
-                       height="132"
+              <p>This is some more information about this choice. Here's a list of items related to this choice.</p>
+              <amp-list height="132"
                         layout="fixed-height"
-                        src="/json/consent-items.json"
-                        class="m1">
+                        src="/json/consent-items.json">
                 <template type="amp-mustache">
                   <li>{{.}}</li>
                 </template>
               </amp-list>
-              <button on="tap:myConsent.accept" class="ampstart-btn ampstart-btn-secondary caps m1">Confirm</button>
+              <button on="tap:myConsent.accept">Confirm</button>
             </div>
             <div id="choice2" hidden class="message">
-              <p class="m1">This is some more information about this choice.</p>
-              <button on="tap:myConsent.reject" class="ampstart-btn ampstart-btn-secondary caps m1">Confirm</button>
+              <p>This is some more information about this choice.</p>
+              <button on="tap:myConsent.reject">Confirm</button>
             </div>
           </div>
         </div>
         <div id="post-consent-ui">
-          <button on="tap:myConsent.prompt()" class="ampstart-btn caps m1">Update Consent</button>
+          <button on="tap:myConsent.prompt()">Update Consent</button>
         </div>
   </amp-consent>
 

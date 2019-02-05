@@ -1,7 +1,11 @@
-<!---{
-    "experiments": ["amp-google-vrview-image"],
-    "preview": "default"
-}--->
+<!---
+
+experiments:
+  - amp-google-vrview-image
+preview: default
+
+--->
+
 <!--
   ## Introduction
   The [amp-google-vrview-image](https://www.ampproject.org/docs/reference/components/amp-google-vrview-image) extension allows embedding 360 degree VR media into AMP pages.
@@ -33,18 +37,20 @@
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 </head>
 <body>
-    <!-- ## Basic Usage -->
+    <!-- ## Basic usage -->
     <!-- By default `amp-google-vrview-image` expects a mono image and the yaw value is 0. -->
     <amp-google-vrview-image
         src="https://storage.googleapis.com/vrview/examples/coral.jpg"
         width="400" height="300" layout="responsive">
     </amp-google-vrview-image>
+    <!-- ## Stereo -->
     <!-- Add the `stereo` attribute for stereoscopic images -->
     <amp-google-vrview-image
         src="https://storage.googleapis.com/vrview/examples/coral.jpg"
         stereo
         width="400" height="300" layout="responsive">
     </amp-google-vrview-image>
+    <!-- ## Yaw  -->
     <!-- Add the `stereo` attribute for stereoscopic images. The initial yaw value is 90 degrees -->
     <amp-google-vrview-image
         src="https://storage.googleapis.com/vrview/examples/coral.jpg"
@@ -52,6 +58,7 @@
         yaw="90"
         width="400" height="300" layout="responsive">
     </amp-google-vrview-image>
+    <!-- ## Yaw-only  -->
     <!-- Use the `yaw-only` attribute to restrict motion to the yaw axis only -->
     <amp-google-vrview-image
         src="https://storage.googleapis.com/vrview/examples/coral.jpg"

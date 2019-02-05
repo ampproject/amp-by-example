@@ -33,6 +33,7 @@ import 'codemirror/mode/javascript/javascript.js';
 import 'codemirror/mode/xml/xml.js';
 
 import events from '../events/events.js';
+import {runtimes, EVENT_SET_RUNTIME} from '../runtime/runtimes.js';
 
 import './editor.css';
 import './hints.css';
@@ -44,11 +45,12 @@ const DEFAULT_DEBOUNCE_RATE = 500;
 const HINT_IGNORE_ENDS = new Set([
   ';', ',',
   ')',
-  '`', '"', "'", 
-  ">",
-  "{", "}", 
-  "[", "]"
+  '`', '"', '\'',
+  '>',
+  '{', '}',
+  '[', ']',
 ]);
+const HINTS_URL = 'amphtml-hint.json';
 
 
 export const EVENT_INPUT_CHANGE = 'editor-input-change';
@@ -66,6 +68,7 @@ class Editor {
     this.createCodeMirror();
     this.errorMarkers = [];
     this.loader = new Loader(this.container);
+    this.amphtmlHints = this.fetchHintsData();
   }
 
   createCodeMirror() {
@@ -81,12 +84,11 @@ class Editor {
       autoCloseBrackets: true,
       autoCloseTags: true,
       gutters: ['CodeMirror-error-markers'],
-      extraKeys: {"Ctrl-Space": "autocomplete"},
+      extraKeys: {'Ctrl-Space': 'autocomplete'},
       hintOptions: {
-        completeSingle: false
-      }
+        completeSingle: false,
+      },
     });
-    CodeMirror.htmlSchema['amp-img'] = {attrs: {}};
     this.codeMirror.on('changes', () => {
       if (this.timeout) {
         this.win.clearTimeout(this.timeout);
@@ -124,6 +126,7 @@ class Editor {
         }
       }, 150);
     });
+    events.subscribe(EVENT_SET_RUNTIME, this.setRuntime.bind(this));
   }
 
   setSource(text) {
@@ -142,10 +145,18 @@ class Editor {
     this.codeMirror.focus();
   }
 
+  setCursor(line, col) {
+    this.codeMirror.setCursor(line, col);
+  }
+
+  getCursor() {
+    return this.codeMirror.getCursor();
+  }
+
   setValidationResult(validationResult) {
     this.codeMirror.clearGutter('CodeMirror-error-markers');
     this.codeMirror.operation(() => {
-      validationResult.errors.forEach(error => {
+      validationResult.errors.forEach((error) => {
         const marker = document.createElement('div');
         const message = marker.appendChild(document.createElement('span'));
         message.appendChild(document.createTextNode(error.message));
@@ -158,5 +169,50 @@ class Editor {
   showLoadingIndicator() {
     this.codeMirror.setValue('');
     this.loader.show();
+  }
+
+  lineCount() {
+    return this.codeMirror.lineCount();
+  }
+
+  getLineTokens(lineNumber) {
+    return this.codeMirror.getLineTokens(lineNumber);
+  }
+
+  replaceRange(replacement, from, to, origin) {
+    this.codeMirror.replaceRange(replacement, from, to, origin);
+  }
+
+  getTokenAt(pos, precise) {
+    return this.codeMirror.getTokenAt(pos, precise);
+  }
+
+  loadHints(validator) {
+    this.amphtmlHints.then((hints) => {
+      for (const key of Object.keys(CodeMirror.htmlSchema)) {
+        delete CodeMirror.htmlSchema[key];
+      }
+      Object.assign(CodeMirror.htmlSchema, hints[validator.toLowerCase()]);
+    });
+  }
+
+  setRuntime(runtime) {
+    const runtimeData = runtimes.get(runtime.id);
+    this.loadHints(runtimeData.validator);
+  }
+
+  fetchHintsData() {
+    return new Promise((resolve, reject) => {
+      window.requestIdleCallback(() => {
+        fetch(HINTS_URL).then((response) => {
+          if (response.status !== 200) {
+            return reject(new Error(`Error code ${response.status}`));
+          }
+          resolve(response.json());
+        }).catch((err) => {
+          reject(err);
+        });
+      });
+    });
   }
 }
