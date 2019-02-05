@@ -23,15 +23,31 @@ const (
 )
 
 func InitAmpInputmask() {
-	RegisterHandler(AMP_INPUTMASK_SAMPLE_NAME+"postal", onlyPost(submitFormXHRInputMask))
+	RegisterHandler(AMP_INPUTMASK_SAMPLE_NAME+"default", onlyPost(submitPostalFormXHRInputMask))
+	RegisterHandler(AMP_INPUTMASK_SAMPLE_NAME+"postal", onlyPost(submitDefaultFormXHRInputMask))
+	RegisterHandler(AMP_INPUTMASK_SAMPLE_NAME+"phone", onlyPost(submitPhoneFormXHRInputMask))
 }
 
-func submitFormXHRInputMask(w http.ResponseWriter, r *http.Request) {
+func submitDefaultFormXHRInputMask(w http.ResponseWriter, r *http.Request) {
+	SendJsonResponse(w, map[string]interface{}{})
+}
+
+func submitPostalFormXHRInputMask(w http.ResponseWriter, r *http.Request) {
 	code := r.FormValue("code")
 	codeUnmasked := r.FormValue("code-unmasked")
 
 	SendJsonResponse(w, map[string]interface{}{
 		"code":          code,
 		"code-unmasked": codeUnmasked,
+	})
+}
+
+func submitPhoneFormXHRInputMask(w http.ResponseWriter, r *http.Request) {
+	code := r.FormValue("phone")
+	codeUnmasked := r.FormValue("phone-unmasked")
+
+	SendJsonResponse(w, map[string]interface{}{
+		"phone":          code,
+		"phone-unmasked": codeUnmasked,
 	})
 }
