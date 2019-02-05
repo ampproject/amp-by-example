@@ -237,9 +237,8 @@ This is a sample recipe AMP article demonstrating how to express machine-readabl
     }
     .heading {
       padding-bottom: var(--space-1);
-      margin: var(--space-2);
     }
-    .margin {
+    .recipe-sample {
       margin: var(--space-2);
     }
     .heading > #summary {
@@ -275,6 +274,7 @@ This is a sample recipe AMP article demonstrating how to express machine-readabl
   <!--
   We'll start the recipe article with its title, followed my a mouthwatering gallery of shots taken during preparation.
   -->
+  <div class="recipe-sample">
   <div class="heading">
     <h1>Garlic-Studded Roast Lamb</h1>
     <p id="summary">This is a sample recipe AMP article demonstrating how to express machine-readable recipe data using JSON+LD. It uses AMP components that work well for recipe articles: amp-carousel (image gallery, reviews carousel), amp-social-sharing, and amp-list (related articles). There are also star ratings, read-only for now (see <a href="https://github.com/ampproject/amphtml/issues/2691">this GitHub issue</a>).</p>
@@ -294,17 +294,17 @@ This is a sample recipe AMP article demonstrating how to express machine-readabl
     <amp-social-share type="pinterest" width="45" height="33"></amp-social-share>
   </p>
 
-  <figure class="margin">
+  <figure>
     <amp-img src="/img/lamb-garlic-done.jpg" width="1280" height="479" layout="responsive" attribution="Dan Dascalescu"></amp-img>
     <figcaption>Garlic-studded roast lamb. Serve with a side of baked potatoes.</figcaption>
   </figure>
 
-  <p class="margin">This is a traditional Romanian lamb recipe, with the subtle taste of garlic deeply permeating the meat. It is customarily prepared for Easter, but can be enjoyed year-round. For best results, stud the meat a day in advance.</p>
+  <p>This is a traditional Romanian lamb recipe, with the subtle taste of garlic deeply permeating the meat. It is customarily prepared for Easter, but can be enjoyed year-round. For best results, stud the meat a day in advance.</p>
   <!-- ## Image galleries  -->
   <!--
   Use `amp-carousel` for image galleries. Here we display responsively images with different aspect ratios. Learn more about [creating image galleries in AMP](/advanced/image_galleries_with_amp-carousel/).
   -->
-  <amp-carousel class="margin" width="1280" height="970" layout="responsive" type="slides">
+  <amp-carousel  width="1280" height="970" layout="responsive" type="slides">
     <figure>
       <amp-img src="/img/meat-silverskin-cutting.jpg" width="401" height="542" layout="fill" attribution="Scott Phillips"></amp-img>
       <figcaption>Prepare the meat by washing and removing the silverskin.</figcaption>
@@ -329,7 +329,7 @@ This is a sample recipe AMP article demonstrating how to express machine-readabl
 
 
   <!-- An [AMP star rating component](https://github.com/ampproject/amphtml/issues/2691) is being developed. -->
-  <p class="margin"><span class="star-rating">
+  <p><span class="star-rating">
     <span class="star-icon full">☆</span>
     <span class="star-icon full">☆</span>
     <span class="star-icon full">☆</span>
@@ -337,7 +337,7 @@ This is a sample recipe AMP article demonstrating how to express machine-readabl
     <span class="star-icon half">☆</span>
   </span> (3 reviews)</p>
 
-  <div class="margin">
+  <div>
     <p>Prep time: 30 min</p>
     <p>Cook time: 1 hour 45 minutes</p>
     <p>Total time: 2 hours 15 minutes</p>
@@ -349,8 +349,8 @@ This is a sample recipe AMP article demonstrating how to express machine-readabl
     </p>
   </div>
 
-  <h1 class="margin">Ingredients</h1>
-  <ul class="margin">
+  <h1>Ingredients</h1>
+  <ul>
     <li>Lamb meat: 4lbs / 1.8kg</li>
     <li>Garlic: 4 cloves, halved</li>
     <li>Rosemary: 1 sprig, minced</li>
@@ -363,8 +363,8 @@ This is a sample recipe AMP article demonstrating how to express machine-readabl
     <li>Peppercorns and salt to taste</li>
   </ul>
 
-  <h2 class="margin">Directions</h2>
-  <ol class="margin">
+  <h2>Directions</h2>
+  <ol>
     <li>Heat oven to 350F / 180C.</li>
     <li>Prepare the meat by washing and removing the silverskin.</li>
     <li>Peel and cut each garlic clove into several slices.</li>
@@ -382,7 +382,9 @@ This is a sample recipe AMP article demonstrating how to express machine-readabl
   -->
   <!-- The [`address` tag is the most appropriate](http://stackoverflow.com/questions/7290504/which-html5-tag-should-i-use-to-mark-up-an-author-s-name/7290744#7290744) for expressing authorship information.
   The reviews will display a vertical scrollbar for long text that doesn't fit vertically. An alternative would be to use [multi-line text ellipsis](http://dev.mobify.com/blog/multiline-ellipsis-in-pure-css/). -->
-  <amp-carousel height="400" layout="fixed-height" type="carousel">
+
+  <h2>Reviews</h2>
+  <amp-carousel height="400" layout="fixed-height" type="carousel"></amp-carousel>
     <article class="review">
       <div class="star-rating">
         <span class="star-icon full">☆</span>
@@ -431,7 +433,7 @@ This is a sample recipe AMP article demonstrating how to express machine-readabl
     <amp-social-share type="pinterest" width="45" height="33"></amp-social-share>
   </p>
 
-  <h2 class="margin">Related Recipes</h2>
+  <h2>Related Recipes</h2>
   <!-- ## Embedding related content -->
   <!--
   It's a good idea to recommend related content to your readers. With `amp-list` it is possible to dynamically include personalized content into your AMPs. It's best to link to the AMP version of related content in order to keep the user in the fast AMP world. [Learn more about `amp-list`](/components/amp-list/)
@@ -441,6 +443,7 @@ This is a sample recipe AMP article demonstrating how to express machine-readabl
       <a class="card related" href="{{url}}"><amp-img width="101" height="75" src="{{thumbnail}}"></amp-img><span>{{title}}</span></a>
     </template>
   </amp-list>
+</div>
 
   <!--
   ## User Analytics
