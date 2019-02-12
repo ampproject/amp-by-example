@@ -45,6 +45,7 @@ var seatsRoot SeatJsonRoot
 func InitSeatmapPage() {
 	initSeatmap(DIST_FOLDER + "/json/seats.json")
 	RegisterSample("advanced/seatmap", renderSeatmap)
+	RegisterSample("advanced/seatmap_multiple_selection", renderSeatmap)
 }
 
 func renderSeatmap(w http.ResponseWriter, r *http.Request, page Page) {
