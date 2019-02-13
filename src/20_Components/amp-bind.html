@@ -65,6 +65,7 @@
       You can dynamically change the CSS classes of an element by adding a binding to the `[class]` attribute.
     -->
     <div>
+      <amp-state id="myClass"><script type="application/json">""</script></amp-state>
       <div class="background-red" [class]="myClass">Hello World</div>
       <button on="tap:AMP.setState({ myClass: 'background-green' })">Change class</button>
     </div>
