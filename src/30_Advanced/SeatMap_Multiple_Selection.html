@@ -7,7 +7,7 @@ default: preview
 
 <!-- ## Introduction -->
 <!--
-This sample allows to multiple select seats in a seatmap with one click, go [here](<%host%>/advanced/seatmap.html) for the basic seatmap sample.
+This sample allows to multiple select seats in a seatmap with one click: this is useful when an user wants to book adjacent seats without clicking multiple times; go [here](<%host%>/advanced/seatmap.html) for the basic seatmap sample.
 -->
 <!-- -->
 <!doctype html>
@@ -96,22 +96,21 @@ This sample allows to multiple select seats in a seatmap with one click, go [her
       * `selectedSeats` contains a list of selected seat ids
       * `numberOfSeats` contains the number of seats we want automatically select -->
     <amp-state id="seatMultiSelection" src="/json/seatmap-neighbours.json">
-      <script type="application/json">
+      <script type="application/json"> 
       {
-      "selectedSeats": [],
-      "numberOfSeats": 3
+        "selectedSeats": [],
+        "numberOfSeats": 3
       }
       </script>
     </amp-state>
 
-    <!-- ## Seatmap with multiple selection implementation -->
+    <!-- ## Seatmap with multiple selection -->
     <!-- 
       Everytime a seat is selected, we automatically select the 2 seats on the right of it. 
       In case the number of seats on the right of the selected one are less than 2, we only select the remaining on the line.
     -->
-    <div>
-     <h1>Seat map</h1>
      <div class="seatmap-container">
+      <h1>Seat map</h1>
       <amp-list layout="fill" src="/json/seats.json" items="." single-item noloading>
         <template type="amp-mustache">
           <amp-pan-zoom layout="fill" class="seatmap">
@@ -150,6 +149,5 @@ This sample allows to multiple select seats in a seatmap with one click, go [her
           </div>
       </amp-list>
       </div>
-    </div>
   </body>
 </html>
