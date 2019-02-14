@@ -60,6 +60,24 @@
     </div>
 
     <!--
+        ## Initializing state
+
+        The initial value of an `amp-state` variable is `null`. However, bindings are not evaluated on page load,
+        but on subsequent user actions. This can lead to unwanted side effects if `amp-state` variables are not
+        correctly initialized.
+
+        In this sample, both greetings bind to different `amp-state` variables. One is initialized via an
+        JSON string inside an `amp-state` element, the other is not. When the user triggers an `AMP.setState(...)`
+        action, both bindings will be evaluated resulting in the first binding displaying a `null` value.
+      -->
+      <div>
+          <amp-state id="myText"><script type="application/json"> "World" </script></amp-state>
+            <div>1. Hello <span [text]="undefinedText">World</span></div>
+            <div>2. Hello <span [text]="myText">World</span></div>
+            <button on="tap:AMP.setState({ myText: 'AMP' })">Change state</button>
+        </div>
+
+    <!--
       ## Binding CSS classes
 
       You can dynamically change the CSS classes of an element by adding a binding to the `[class]` attribute.
@@ -110,24 +128,6 @@
         <div hidden [hidden]="option != 2">
           Option 2
         </div>
-      </div>
-
-      <!--
-        ## Initializing state
-
-        The initial value of an `amp-state` variable is `null`. However, bindings are not evaluated on page load,
-        but on subsequent user actions. This can lead to unwanted side effects if `amp-state` variables are not
-        correctly initialized.
-
-        In this sample, both greetings bind to different `amp-state` variables. One is initialized via an
-        JSON string inside an `amp-state` element, the other is not. When the user triggers an `AMP.setState(...)`
-        action, both bindings will be evaluated resulting in the first binding displaying a `null` value.
-      -->
-      <div>
-        <amp-state id="myText"><script type="application/json"> "World" </script></amp-state>
-          <div>1. Hello <span [text]="undefinedText">World</span></div>
-          <div>2. Hello <span [text]="myText">World</span></div>
-          <button on="tap:AMP.setState({ myText: 'AMP' })">Change state</button>
       </div>
 
       <!--
