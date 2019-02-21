@@ -28,7 +28,7 @@
     "mkdirp": "^0.5.1",
     "phantom": "^6.0.0",
     "pygmentize-bundled": "^2.3.0",
-    "slug": "^0.9.2",
+    "slug": "^1.0.0",
     "striptags": "^3.1.1"
   },
   "devDependencies": {
