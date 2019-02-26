@@ -1,6 +1,6 @@
 # Maybe switch to one of the Google-provided images? But seems to be go 1.8, not 1.10:
 # https://cloud.google.com/appengine/docs/flexible/custom-runtimes/build#base
-FROM golang:1.11
+FROM golang:1.12
 
 ADD https://github.com/Yelp/dumb-init/releases/download/v1.2.2/dumb-init_1.2.2_amd64 /usr/local/bin/dumb-init
 RUN chmod +x /usr/local/bin/dumb-init
