@@ -1,7 +1,5 @@
 <!---
 
-experiments:
-  - video-dock
 hidePreview: true
 preview: default
 
@@ -164,45 +162,20 @@ preview: default
 </head>
 
 <body>
-  <!-- ## Define animations -->
+  <!-- ## Define animation -->
   <!-- To slide down the content below the docking slot, the vertical offset is
-  changed into a `20px` positive offset to create padding below the slot. -->
-  <amp-animation layout="nodisplay" id="slideDown">
+  changed into a `40px` positive offset to create padding below the slot.
+  To slide it up, we'll simply reverse this animation. -->
+  <amp-animation layout="nodisplay" id="slideSidebarDown">
     <script type="application/json">
       {
         "selector": ".more-content",
         "duration": "0.5s",
         "fill": "both",
-        "easing": "ease-out",
-        "keyframes": [{
-            "offset": 0,
-            "transform": "translateY(-16.85vw)"
-          },
-          {
-            "offset": 1,
-            "transform": "translateY(20px)"
-          }
-        ]
-      }
-    </script>
-  </amp-animation>
-  <!-- To slide up the content once the video is no longer docked, the animation
-  reverts the aside content's offset to `-16.85vw`. -->
-  <amp-animation layout="nodisplay" id="slideUp">
-    <script type="application/json">
-      {
-        "selector": ".more-content",
-        "duration": "0.5s",
-        "fill": "both",
-        "easing": "ease-out",
-        "keyframes": [{
-            "offset": 0,
-            "transform": "translateY(20px)"
-          },
-          {
-            "offset": 1,
-            "transform": "translateY(-16.85vw)"
-          }
+        "easing": "ease",
+        "keyframes": [
+          {"transform": "translateY(-16.85vw)"},
+          {"transform": "translateY(40px)"}
         ]
       }
     </script>
@@ -267,18 +240,18 @@ preview: default
       preserving aspect ratio.
 
       You should also set the `on` attribute to specify the actions that get executed on docking events.
-      In this case, we'll start the `slideDown` animation on `dock` and the `slideUp`
-      animation on `undock`.
+      In this case, we'll start the `slideDown` animation on `dock` and run it in reverse on `undock`.
 
       Note that we're seeting the action on the slot element. If we were to set
       it in the video itself, it would be triggered for `minimize-to-corner` rather
-      than `minimize-to-slot`. -->
+      than `minimize-to-slot`.-->
       <amp-layout
           layout="responsive"
           width="16"
           height="9"
-          on="dock: slideDown.start; undock: slideUp.start"
-          id="dock-slot">
+          id="dock-slot"
+          on="dock: slideSidebarDown.start;
+              undock: slideSidebarDown.start, slideSidebarDown.reverse;">
       </amp-layout>
       <!-- ## Define the content under the slot -->
       <!-- This container is negatively offset on the vertical axis to cover
