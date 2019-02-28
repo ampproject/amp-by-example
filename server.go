@@ -46,6 +46,7 @@ func init() {
 	backend.InitSeatmapPage()
 	backend.InitOAuth()
 	backend.InitStateRefreshSection()
+	backend.InitEcho()
 	playground.InitPlayground()
 	backend.InitStatic()
 	http.HandleFunc("/_ah/warmup", warmup)
