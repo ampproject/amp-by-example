@@ -10,11 +10,12 @@ draft: 'true'
 ## Introduction
 
 This sample demonstrates how to display data from a server in an email and refresh it subsequently
-after the user makes a selection.
+while taking the user's input into account.
 
-It uses a combination of [`amp-list`](https://www.ampproject.org/docs/reference/components/amp-list) and [`amp-form`](https://www.ampproject.org/docs/reference/components/amp-form)
-that share the same [`amp-mustache`](https://www.ampproject.org/docs/reference/components/amp-mustache) template and uses
-[`amp-bind`](https://www.ampproject.org/docs/reference/components/amp-bind) to connect them together.
+Because AMP for Email doesn't allow binding to `[src]` in `amp-list`, it uses a combination of
+[`amp-list`](https://www.ampproject.org/docs/reference/components/amp-list) and [`amp-form`](https://www.ampproject.org/docs/reference/components/amp-form)
+that share the same [`amp-mustache`](https://www.ampproject.org/docs/reference/components/amp-mustache) template.
+When the form is submitted for the first time, the `amp-list` is hidden and the form's response takes its place.
 -->
 
 <!-- -->
@@ -23,39 +24,15 @@ that share the same [`amp-mustache`](https://www.ampproject.org/docs/reference/c
 <head>
   <meta charset="utf-8">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
-  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
   <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
   <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
   <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
   <style amp4email-boilerplate>body{visibility:hidden}</style>
-  <title>AMP for Email - Advanced Server Request</title>
+  <title>Advanced Server Request</title>
 </head>
-<!-- ## Body -->
+<!-- ## Implementation -->
 <!-- -->
 <body>
-  <!--
-    Initialize the global state with no animal selected.
-  -->
-  <amp-state id="animal">
-    <script type="application/json">
-      {
-        "selected": ""
-      }
-    </script>
-  </amp-state>
-  <!--
-    In this example, we use an HTML `select` element to allow the user to make a choice.
-    When the user makes a choice, the `change` event is triggered.
-    This updates `amp-state` and submits the form below.
-  -->
-  <div>
-    <p>Select an animal to update the server response.</p>
-    <select on="change:AMP.setState({ animal: { selected: event.value } }), animal-info.submit">
-      <option value="dog">Dog</option>
-      <option value="cat">Cat</option>
-      <option value="parrot">Parrot</option>
-    </select>
-  </div>
   <!--
     Define a template and give it an `id` to allow it to be used from both `amp-list` and `amp-form`.
   -->
@@ -66,29 +43,31 @@ that share the same [`amp-mustache`](https://www.ampproject.org/docs/reference/c
     {{/animal}}
   </template>
   <!--
-    The `amp-list` is displayed and loads the initial data from our server endpoint, while the
-    `amp-form` is initially hidden.
+    The `amp-list` loads the initial data from our server endpoint.
+    When the user makes a selection, the `amp-list` becomes hidden and the `amp-form` displays
+    the server response using the same template.
 
-    When the user makes a selection, the `amp-list` becomes hidden and the `amp-form` is displayed.
     Because both components use the same template, this action is seamless and appears to the user as if the `amp-list` is refreshed.
   -->
   <div>
-    <amp-list [hidden]="animal.selected != ''" items="." single-item template="animal-template" src="<%host%>/echo" layout="fixed-height" height="150">
+    <form on="submit:animal-list.hide" id="animal-form" method="get" action-xhr="https://ampbyexample.com/echo">
+      <div>
+        <p>Select an animal to update the server response.</p>
+        <select name="animal" on="change:animal-form.submit">
+          <option value="dog">Dog</option>
+          <option value="cat">Cat</option>
+          <option value="parrot">Parrot</option>
+        </select>
+      </div>
+      <div submitting>Loading ...</div>
+      <div submit-success template="animal-template"></div>
+    </form>
+    <amp-list id="animal-list" items="." single-item template="animal-template" src="https://ampbyexample.com/echo" layout="fixed-height" height="50">
       <!--~
-        Use a placeholder to control how the loading state looks like.
+        Use a placeholder to make the loading state look the same as the submitting state for the form.
       ~-->
       <div placeholder>Loading ...</div>
     </amp-list>
-    <div hidden [hidden]="animal.selected == ''">
-      <form id="animal-info" method="get" action-xhr="<%host%>/echo">
-        <!--~
-          Use a hidden input to transfer the value from amp-state to a form parameter.
-        ~-->
-        <input type="hidden" name="animal" [value]="animal.selected">
-        <div submitting>Loading ...</div>
-        <div submit-success template="animal-template"></div>
-      </form>
-    </div>
   </div>
 </body>
 </html>
