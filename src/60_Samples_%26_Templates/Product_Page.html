@@ -691,19 +691,23 @@ This sample showcases how to build a product page in AMP HTML.
         <span [text]="product[product.selectedColor].sizes[product.selectedSize]">$5.99</span>
     </p>
 
-    <!-- ## Product page -->
+    <!-- ## Add To Cart -->
     <!-- The add-to-cart action action is implemented using  [amp-form](/components/amp-form/). In our sample we use the [amp-selector](/components/amp-selector/) for selecting different product properties.
-    Pressing the `ADD TO CART` button adds the product to a shopping cart page using the properties you have selected. Notice that the button URL contains the query `clientId={{ClientId}}`.
-    If an item is successfully added to the shopping cart, we redirect the user to the shopping cart page.
-    The redirect target is configured via a header in the server's form response ([redirecting after submission](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md#redirecting-after-a-submission)):
 
-      access-control-expose-headers:AMP-Access-Control-Allow-Source-Origin,AMP-Redirect-To
-      amp-redirect-to:http://ampbyexample.com/shopping_cart/?clientid=amp-123456789 -->
+    Pressing the `ADD TO CART` button triggers an `XHR POST` request to `/add_to_cart`. Here, we need to distinguish two scenarios:
 
-    <!-- We use the `CLIENT_ID` variable to identify the user, this enables storing a shopping cart between repeated visits of an AMP page (either via the AMP Cache or the original host). This variable can be used inside an amp-form by declaring an hidden input value with `default-value="CLIENT_ID(cart)`. Read more about variable substitution [here](https://github.com/ampproject/amphtml/blob/master/spec/amp-var-substitutions.md). -->
+    - If the user is visiting the cached version of the page, the server receives the request on the `POST` handler and redirects again to `/add_to_cart`, but transforming the initial request, into `GET`, using the `AMP-Redirect-To` header (see [redirecting after submission](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md#redirecting-after-a-submission)). Next, the `GET` handler adds the item to the session, and redirects to the final destination: the `/shopping_cart` page.
+    - If the user is visiting the page from its origin, there's no need for a 'double redirect', since the server can access the session directly on the `POST` handler, then add the item to the cart, and, finally redirect to the `/shopping_cart` page.
+     -->
+
+     <!-- 
+      The first step of the previous list is necessary, in order to move the user outside the domain of the cache (where the session can't be accessed on browsers that block third party cookies), into an intermediate step in the origin (where the session cookie, is a first party cookie).
+
+      That way, we can maintain user state across origins, in a secure way, while being compatible with all the major browsers.
+     -->
 
       <form id="order" method="POST"
-            action-xhr="/samples_templates/product_page/add_to_cart"
+            action-xhr="https://abe-cart-service.glitch.me/add_to_cart"
             target="_top" class="order margin1">
         <div class="color-selector">
           <label for="color">Color:</label>
@@ -770,7 +774,6 @@ This sample showcases how to build a product page in AMP HTML.
         </div>
         <input type="hidden" name="name" value="Apple">
         <input type="hidden" name="price" value="$1.99">
-        <input name="clientId" type="hidden" value="CLIENT_ID(cart)" data-amp-replace="CLIENT_ID">
         <div submit-error>
           <template type="amp-mustache">
             Error! Looks like something went wrong with your shopping cart, please try to add an item again. {{error}}

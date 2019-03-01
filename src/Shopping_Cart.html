@@ -9,6 +9,10 @@ disablePlayground: true
 <head>
   <meta charset="utf-8">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
   <title>A sample shopping cart</title>
   <link rel="canonical" href="<%host%>/shopping_cart/">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
@@ -32,19 +36,73 @@ disablePlayground: true
   </style>
 </head>
 <body>
-  <!-- ## Shopping Cart -->
-  <!-- A sample shopping cart.
-  <div class="shopping-cart">
-      [[ range $item, $quantity := . ]]
-        <div class="p1">[[$item.Name]] [[$item.Price]]</div>
-        <div class="details pb1">
-          <div class="px1">Color: [[$item.Color]]</div>
-          <div class="px1">Size: [[$item.Size]]</div>
-          <div class="px1">Qty: [[$quantity]]</div>
-        </div>
-      [[ end ]]
+        <div class="shopping-cart">
+        <!-- ## Shopping Cart -->
+        <!-- We use [amp-list](https://www.ampproject.org/docs/reference/components/amp-list), to show a dynamic list of items in the cart.
+        
+        `amp-list` needs to send the session cookie on the header of the request, so that the server can retrieve the contents of the cart on the session. For this reason, we use  [credentails="include"](https://www.ampproject.org/docs/fundamentals/amp-cors-requests#utilizing-cookies-for-cors-requests), as an additional attribute.
+
+        Each row of this list, contains a button to remove items from the cart, that works in the following way:
+
+        2. Clicking on the "remove" button, updates an state object (`cartItem`), which, in turn, update two hidden fields on the form `form-cart-delete`, and also triggers a form submission. This form will call the server to update the cart, and update the `cartItemsList` object with the response.
+        2. The `amp-list` component contains the expression `[src]="cartItemsList.items"`, so that, when the `cartItemsList` object changes, as a result of the previous action, the list gets refreshed with the content of the updated cart.
+        -->
+        <amp-list credentials="include" layout="responsive" height="100px" width="500px" src="https://abe-cart-service.glitch.me/cart_items" [src]="cartItemsList.items">
+            <template type="amp-mustache" id="cart-items">
+                {{#isEmpty}}
+                <h3>Your Basket is Empty. </h3>
+                {{/isEmpty}}
+                {{^isEmpty}}
+                {{#cartItems}}
+                <div class="p1">{{name}} - {{price}}</div>
+                <div class="details pb1">
+                    <div class="px1">Color: {{color}}</div>
+                    <div class="px1">Size: {{size}}</div>
+                    <div class="px1">Qty: {{quantity}}</div>
+                    <button type="button" style="background: none;box-shadow: none;border-radius: 0px;width:30px" on="tap: AMP.setState({cartItem: 
+                                    { size: '{{size}}',
+                                      color: '{{color}}'
+                                    }}), form-cart-delete.submit">X</button>
+                </div>
+                <br />
+                {{/cartItems}}
+                {{/isEmpty}}
+            </template>
+        </amp-list>
     </div>
-    <p>Back to <a href="/samples_templates/product_page/preview/">product</a> sample.</p>
-  -->
+
+    <!-- ## Delete Items Form -->
+    <!-- 
+    As said, we use [amp-form](https://www.ampproject.org/docs/reference/components/amp-form) to send an `XHR POST` request to `/delete-cart-item`:
+
+    1. The form contains two hidden input fields, bound to the `cartItem` object's variables. When the remove button is clicked, this object gets updated with the details of the item to remove from cart, so the form can send them on the call to the server.
+    2. The form updates the `cartItemsList` with the response from the server, so that  `amp-list` can be refreshed with the contents of the updated cart.
+    -->
+    <form id="form-cart-delete" method="POST" target="_top" action-xhr="https://abe-cart-service.glitch.me/delete-cart-item" on="submit-success: AMP.setState({
+                cartItemsList: event.response
+            })" novalidate="">
+        <input type="hidden" name="color" value="" [value]="cartItem.color">
+        <input type="hidden" name="size" value="" [value]="cartItem.size">
+    </form>
+
+
+    <!-- ## Cart List Object -->
+    <!-- This object will be updated after the removal of an item, with the contents of the updated cart. -->  
+    <amp-state id="cartItemsList">
+        <script type="application/json">
+        {
+
+        }
+        </script>
+    </amp-state>
+    <!-- ## Cart Item Object -->
+    <!-- This object acts as a proxy between the action of removing items, and the form submission. -->  
+    <amp-state id="cartItem">
+        <script type="application/json">
+        {
+
+        }
+        </script>
+    </amp-state>
 </body>
 </html>
