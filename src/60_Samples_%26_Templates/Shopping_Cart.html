@@ -21,17 +21,31 @@ disablePlayground: true
     .shopping-cart {
       background: #f2f2f2;
     }
-    .details {
+    .item-headline{
+      padding:1rem
+    }
+    .item-details {
       display: flex;
       flex-wrap: wrap;
+      padding-bottom:1rem;
     }
     .shopping-cart > *:nth-child(2n+1) {
       font-weight: 600;
     }
-    .details > * {
+    .item-details > * {
       box-sizing: border-box;
       flex-grow: 1;
       overflow: hidden;
+    }
+    .item-attribute {
+      padding-left:1rem;
+      padding-right:1rem
+    }
+    .delete-button {
+      background: none;
+      box-shadow: none;
+      border-radius: 0px;
+      width:30px
     }
   </style>
 </head>
@@ -54,13 +68,14 @@ disablePlayground: true
                 {{/isEmpty}}
                 {{^isEmpty}}
                 {{#cartItems}}
-                <div class="p1">{{name}} - {{price}}</div>
-                <div class="details pb1">
-                    <div class="px1">Color: {{color}}</div>
-                    <div class="px1">Size: {{size}}</div>
-                    <div class="px1">Qty: {{quantity}}</div>
-                    <button type="button" style="background: none;box-shadow: none;border-radius: 0px;width:30px" on="tap: AMP.setState({cartItem: 
-                                    { size: '{{size}}',
+                <div class="item-headline">{{name}} - {{price}}</div>
+                <div class="item-details">
+                    <div class="item-attribute">Color: {{color}}</div>
+                    <div>Size: {{size}}</div>
+                    <div>Qty: {{quantity}}</div>
+                    <button type="button" class="delete-button" on="tap: AMP.setState({cartItem: 
+                                    { id: '{{id}}',
+                                      size: '{{size}}',
                                       color: '{{color}}'
                                     }}), form-cart-delete.submit">X</button>
                 </div>
@@ -81,6 +96,7 @@ disablePlayground: true
     <form id="form-cart-delete" method="POST" target="_top" action-xhr="https://abe-cart-service.glitch.me/delete-cart-item" on="submit-success: AMP.setState({
                 cartItemsList: event.response
             })" novalidate="">
+        <input type="hidden" name="id" value="" [value]="cartItem.id">
         <input type="hidden" name="color" value="" [value]="cartItem.color">
         <input type="hidden" name="size" value="" [value]="cartItem.size">
     </form>

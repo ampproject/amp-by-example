@@ -652,7 +652,8 @@ This sample showcases how to build a product page in AMP HTML.
           "M": "$5.99",
           "L": "unavailable"
         },
-        "defaultSize": "S"
+        "defaultSize": "S",
+        "id": 1
       },
       "golden": {
         "sizes": {
@@ -660,7 +661,8 @@ This sample showcases how to build a product page in AMP HTML.
           "M": "unavailable",
           "L": "$9.99"
         },
-        "defaultSize": "L"
+        "defaultSize": "L",
+        "id": 2
       },
       "red": {
         "sizes": {
@@ -668,7 +670,8 @@ This sample showcases how to build a product page in AMP HTML.
           "M": "$7.99",
           "L": "$7.99"
         },
-        "defaultSize": "M"
+        "defaultSize": "M",
+        "id": 3
       }
     }
     </script>
@@ -696,15 +699,15 @@ This sample showcases how to build a product page in AMP HTML.
 
     Pressing the `ADD TO CART` button triggers an `XHR POST` request to `/add_to_cart`. Here, we need to distinguish two scenarios:
 
-    - If the user is visiting the cached version of the page, the server receives the request on the `POST` handler and redirects again to `/add_to_cart`, but transforming the initial request, into `GET`, using the `AMP-Redirect-To` header (see [redirecting after submission](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md#redirecting-after-a-submission)). Next, the `GET` handler adds the item to the session, and redirects to the final destination: the `/shopping_cart` page.
+    - If the user is visiting the cached version of the page, the server receives the request on the `POST` handler and redirects again to `/add_to_cart` on the non-cache origin, but transforming the initial request, into `GET`, using the `AMP-Redirect-To` header (see [redirecting after submission](https://github.com/ampproject/amphtml/blob/master/extensions/amp-form/amp-form.md#redirecting-after-a-submission)). Next, the `GET` handler adds the item to the session, and redirects to the final destination: the `/shopping_cart` page.
     - If the user is visiting the page from its origin, there's no need for a 'double redirect', since the server can access the session directly on the `POST` handler, then add the item to the cart, and, finally redirect to the `/shopping_cart` page.
      -->
 
-     <!-- 
-      The first step of the previous list is necessary, in order to move the user outside the domain of the cache (where the session can't be accessed on browsers that block third party cookies), into an intermediate step in the origin (where the session cookie, is a first party cookie).
+    <!-- 
+    The first step of the previous list is necessary, in order to move the user outside the domain of the cache (where the session can't be accessed on browsers that block third party cookies), into an intermediate step in the origin (where the session cookie, is a first party cookie).
 
-      That way, we can maintain user state across origins, in a secure way, while being compatible with all the major browsers.
-     -->
+    That way, we can maintain user state across origins, in a secure way, while being compatible with all the major browsers.
+    -->
 
       <form id="order" method="POST"
             action-xhr="https://abe-cart-service.glitch.me/add_to_cart"
@@ -773,7 +776,8 @@ This sample showcases how to build a product page in AMP HTML.
           <input type="submit" name="add-to-cart" value="add to cart">
         </div>
         <input type="hidden" name="name" value="Apple">
-        <input type="hidden" name="price" value="$1.99">
+        <input type="hidden" name="price" value="$5.99" [value]="product[product.selectedColor].sizes[product.selectedSize]">
+        <input type="hidden" name="id" value="1" [value]="product[product.selectedColor].id">
         <div submit-error>
           <template type="amp-mustache">
             Error! Looks like something went wrong with your shopping cart, please try to add an item again. {{error}}
