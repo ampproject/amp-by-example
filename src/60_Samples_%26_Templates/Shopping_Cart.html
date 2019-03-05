@@ -75,8 +75,7 @@ disablePlayground: true
                     <div>Qty: {{quantity}}</div>
                     <button type="button" class="delete-button" on="tap: AMP.setState({cartItem: 
                                     { id: '{{id}}',
-                                      size: '{{size}}',
-                                      color: '{{color}}'
+                                      size: '{{size}}'
                                     }}), form-cart-delete.submit">X</button>
                 </div>
                 <br />
@@ -97,7 +96,6 @@ disablePlayground: true
                 cartItemsList: event.response
             })" novalidate="">
         <input type="hidden" name="id" value="" [value]="cartItem.id">
-        <input type="hidden" name="color" value="" [value]="cartItem.color">
         <input type="hidden" name="size" value="" [value]="cartItem.size">
     </form>
 
