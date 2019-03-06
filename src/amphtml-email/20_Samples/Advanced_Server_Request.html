@@ -1,0 +1,73 @@
+<!---
+
+preview: amp4email
+skipValidation: 'true'
+draft: 'true'
+
+--->
+
+<!--
+## Introduction
+
+This sample demonstrates how to display data from a server in an email and refresh it subsequently
+while taking the user's input into account.
+
+Because AMP for Email doesn't allow binding to `[src]` in `amp-list`, it uses a combination of
+[`amp-list`](https://www.ampproject.org/docs/reference/components/amp-list) and [`amp-form`](https://www.ampproject.org/docs/reference/components/amp-form)
+that share the same [`amp-mustache`](https://www.ampproject.org/docs/reference/components/amp-mustache) template.
+When the form is submitted for the first time, the `amp-list` is hidden and the form's response takes its place.
+-->
+
+<!-- -->
+<!doctype html>
+<html ⚡4email>
+<head>
+  <meta charset="utf-8">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+  <style amp4email-boilerplate>body{visibility:hidden}</style>
+  <title>Advanced Server Request</title>
+</head>
+<!-- ## Implementation -->
+<!-- -->
+<body>
+  <!--
+    Define a template and give it an `id` to allow it to be used from both `amp-list` and `amp-form`.
+  -->
+  <template id="animal-template" type="amp-mustache">
+    <p>This displays data sent from a server.</p>
+    {{#animal}}
+    <p>You have selected {{animal}}.</p>
+    {{/animal}}
+  </template>
+  <!--
+    When the user changes the selection, the change event triggers the form submission
+    and hides the `amp-list`: `on="change:animal-form.submit,animal-list.hide"`.
+
+    The `amp-form` renders the server response using the same template as `amp-list`,
+    making the switch from `amp-list` to `amp-form` appear seamless.
+  -->
+  <div>
+    <form id="animal-form" method="get" action-xhr="https://ampbyexample.com/echo">
+      <div>
+        <p>Select an animal to update the server response.</p>
+        <select name="animal" on="change:animal-form.submit,animal-list.hide">
+          <option value="dog">Dog</option>
+          <option value="cat">Cat</option>
+          <option value="parrot">Parrot</option>
+        </select>
+      </div>
+      <div submitting>Loading ...</div>
+      <div submit-success template="animal-template"></div>
+    </form>
+    <amp-list id="animal-list" items="." single-item template="animal-template" src="https://ampbyexample.com/echo" layout="fixed-height" height="50">
+      <!--~
+        Use a placeholder to make the loading state look the same as the submitting state for the form.
+      ~-->
+      <div placeholder>Loading ...</div>
+    </amp-list>
+  </div>
+</body>
+</html>
