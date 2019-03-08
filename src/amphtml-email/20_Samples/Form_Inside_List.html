@@ -1,0 +1,73 @@
+<!---
+
+preview: amp4email
+skipValidation: 'true'
+draft: 'true'
+
+--->
+
+<!--
+## Introduction
+
+This sample demonstrates how to update data inside an [`amp-list`](https://www.ampproject.org/docs/reference/components/amp-list)
+based on a user's subsequent input in an [`amp-form`](https://www.ampproject.org/docs/reference/components/amp-form).
+-->
+
+<!-- -->
+<!doctype html>
+<html ⚡4email>
+<head>
+  <meta charset="utf-8">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+  <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+  <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+  <style amp4email-boilerplate>body{visibility:hidden}</style>
+  <title>Form Inside List</title>
+</head>
+<!-- ## Implementation -->
+<!-- -->
+<body>
+  <!--
+    Because nested templates are not allowed, define the template
+    that `amp-form` will use and give it an `id`.
+  -->
+  <template id="nickname-template" type="amp-mustache">
+    {{#nickname}}
+    <p>The nickname you chose is {{nickname}}.</p>
+    {{/nickname}}
+    {{^nickname}}
+    <p>No nickname selected.</p>
+    {{/nickname}}
+  </template>
+
+  <!--
+    Then define the template that the list will use, which will contain an `amp-form`
+    and reference the template we created above.
+  -->
+  <template id="list-template" type="amp-mustache">
+    <p>Hello world!</p>
+    <form on="submit:form-placeholder.hide" method="post" action-xhr="https://ampbyexample.com/echo">
+      <input type="text" name="nickname">
+      <input type="submit" value="Confirm">
+      <!--~
+        We use the template attribute to refer to the other template above.
+      ~-->
+      <div submit-success template="nickname-template"></div>
+      <div submitting>Loading ...</div>
+    </form>
+    <!--~
+      This serves as a placeholder with initial information displayed before
+      the user has made a choice.
+    ~-->
+    <div id="form-placeholder">
+      <p>No nickname selected.</p>
+    </div>
+  </template>
+
+  <!--
+    Finally, use the `template` attribute in `amp-list` to refer to the template above.
+  -->
+  <amp-list template="list-template" items="." single-item src="https://ampbyexample.com/echo" layout="fixed-height" height="100"></amp-list>
+</body>
+</html>
