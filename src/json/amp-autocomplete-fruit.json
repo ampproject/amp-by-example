@@ -1,0 +1,39 @@
+{
+  "items": [{
+    "id": 1,
+    "img": "/img/product1_640x426.jpg",
+    "name": "Apple",
+    "price": "1.99",
+    "color": "green"
+  }, {
+    "id": 2,
+    "img": "/img/product2_640x426.jpg",
+    "name": "Orange",
+    "price": "0.99",
+    "color": "orange"
+  }, {
+    "id": 3,
+    "img": "/img/product3_640x426.jpg",
+    "name": "Pear",
+    "price": "1.50",
+    "color": "green"
+  }, {
+    "id": 4,
+    "img": "/img/product4_640x426.jpg",
+    "name": "Banana",
+    "price": "1.50",
+    "color": "yellow"
+  }, {
+    "id": 5,
+    "img": "/img/product5_640x408.jpg",
+    "name": "Watermelon",
+    "price": "4.50",
+    "color": "red"
+  }, {
+    "id": 6,
+    "img": "/img/product6_640x424.jpg",
+    "name": "Melon",
+    "price": "3.50",
+    "color": "yellow"
+  }]
+}

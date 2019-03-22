@@ -1,7 +1,10 @@
 <!--
   ## Introduction
 
-  An autocomplete-enabled input field suggests completed results corresponding to the user input as they type into the input field. This feature can help the user to carry out their task more quickly. 
+  An autocomplete-enabled input field suggests completed results corresponding to the user input as they type into the input field. 
+  This feature can help the user to carry out their task more quickly.
+  
+  Data can either be fetched from a JSON endpoint or locally from amp-state.
 -->
 <!-- -->
 <!doctype html>
@@ -22,7 +25,10 @@
   Import the `amp-form` component.
   -->
   <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
-
+  <!--
+  Optional: Import the `amp-bind` component for dynamically changing the content of an `amp-autocomplete`.
+  -->
+  <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
   <style amp-custom>
   /**
    * Please use these default styles if needed. For example:
@@ -49,18 +55,118 @@
 
     --box-shadow-1: 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 1px -1px rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
   }
+
+  .submit-button {
+    position: absolute; 
+    top: 0; 
+    left: 177px;
+  }
+
+  .input-field {
+    position: relative;
+  }
+
+  .suggest-data {
+    padding: 5px 0px;
+  }
   </style>
 
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 </head>
 <body>
-
   <!-- 
     ## Basic usage 
 
-    TODO: Describe your example here
+    An `amp-autocomplete` must always be nested in a form and have an **input field** and a datasource. 
+    When a user types into this input field, relevant suggestions will automatically appear below the input field.
+
+    A **datasource** must be a JSON object containing an array property `items`, and can be specified inline with a child `script type="application/json"` tag, or a server endpoint specified with a `src` attribute.
   -->
-  <amp-img src="/img/image1.jpg" width="200" height="100"></amp-img>
+  <form>
+    <amp-autocomplete>
+      <input type="text">
+      <script type="application/json">
+        {
+          "items": ["apple", "orange", "banana"]
+        }
+      </script>
+    </amp-autocomplete>
+  </form>
+
+  <!-- 
+    Alternatively, a datasource can also be provided as remote data through the `src` attribute.
+  -->
+  <amp-autocomplete src="<%host%>/json/amp-autocomplete-cities.example.json">
+    <input type="text">
+  </amp-autocomplete>
+
+  <!-- 
+    ## Suggesting rich content
+
+    More complicated data can be passed into autocompleted with an array of JsonObjects in "items".
+
+    ```json
+    {
+      "items": [{
+        "id": 1,
+        "img": "/img/product1_640x426.jpg",
+        "name": "Apple",
+        "price": "1.99",
+        "color": "green"
+      }, 
+      ...
+      }]
+    }
+    ```
+
+    By default, `amp-autocomplete` will suggest items by matching on the "value" property of each JsonObject, but for more specified data, an attribute `filter-value` can be provided to signify the appropriate property to search on. 
+    In the above example, we will want to search on the property `name`, because that is what the user will most likely search for.
+  -->
+  <amp-autocomplete src="<%host%>/json/amp-autocomplete-fruit.json" 
+    filter-value="name">
+    <input type="text">
+    <template type="amp-mustache">
+      <div class="fruit-autocomplete" value="name">
+        <amp-img width="150"
+          height="100"
+          alt="{{name}}"
+          src="{{img}}"></amp-img>
+        <div></div>
+          <div>{{name}}</div>
+          <div>${{price}}</div>
+        </div>
+      </div>
+    </template>
+  </amp-autocomplete>
+
+  <!-- 
+    ## Dynamic `src`
+
+    The content of an `amp-autocomplete` can be changed dynamically by modifying its `src` value using `amp-bind`.
+  -->
+  <div>
+    <div class="suggest-data">
+      <button on="tap:AMP.setState({ srcUrl: '<%host%>/json/amp-autocomplete-countries.example.json' })">Suggest countries</button>
+      <button on="tap:AMP.setState({ srcUrl: '<%host%>/json/amp-autocomplete-cities.example.json' })">Suggest US cities</button>
+    </div>
+    <form method="post"
+      action-xhr="/form/echo-json/post"
+      target="_blank">
+      <div class="input-field">
+        <amp-autocomplete filter="substring" min-characters="0"
+            src="<%host%>/json/amp-autocomplete-cities.example.json"
+            [src]="srcUrl">
+            <input type="text" name="location" required>
+        </amp-autocomplete>
+        <input class="submit-button" name="submit-button" type="submit" value="Submit"><br>      
+      </div>
+      <div submit-success>
+          <template type="amp-mustache">
+              Success! Mailing a postcard to {{location}}.
+          </template>
+      </div>
+    </form>
+  </div>
 
 </body>
 </html>
