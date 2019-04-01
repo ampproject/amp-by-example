@@ -22,7 +22,7 @@
     "highlight.js": "^9.7.0",
     "hoek": "^5.0.4",
     "hogan.js": "^3.0.2",
-    "html-minifier": "^3.5.20",
+    "html-minifier": "^4.0.0",
     "js-beautify": "1.7.5",
     "marked": "^0.6.0",
     "mkdirp": "^0.5.1",
