@@ -2,6 +2,15 @@ const URL = require('url').URL;
 const glob = require('glob').sync;
 const {join, resolve} = require('path');
 const {writeFileSync} = require('fs');
+const sm = require('sitemap');
+
+const STATIC_SAMPLES = ['hreflang', 'linker', 'internationalization'];
+const IGNORE = new Set(['/login.html', '/googlea533f0f54d9c716a.html', '/humans.txt']);
+const MANUAL = new Map([
+  ['/sw.js', 'https://amp.dev/serviceworker.js'],
+  ['/sw.html', 'https://amp.dev/serviceworker.html'],
+  ['/glTF/DamagedHelmet.glb', 'https://amp.dev/static/samples/glTF/DamagedHelmet.glb'],
+]);
 
 function calculateTarget(string) {
   if (string.startsWith('amp.dev')) {
@@ -19,10 +28,22 @@ function redirectStatic(rootDir, destDir, prefix='') {
   let staticFiles = glob('/**/*.*', {root: rootDir});
   staticFiles = staticFiles.map(f => f.substring(rootDir.length));
   for (let source of staticFiles) {
-    if (source.startsWith('google') || source.startsWith('login')) {
+    if (IGNORE.has(source)) {
+      console.log('ignoring', source);
       continue;
     }
-    const target = join(destDir, source);
+    let target;
+    const manualRule = MANUAL.get(source);
+    if (manualRule) {
+      target = manualRule;
+      console.log('manual', source, target);
+    } else {
+      if (STATIC_SAMPLES.find((s) => source.startsWith('/' + s))) {
+        destDir = 'https://amp.dev/static/samples';
+      }
+      target = destDir + source;
+    }
+
     source = join('/' + prefix, source);
     result.push({
       source,
@@ -37,6 +58,7 @@ const redirects = require('./source.json');
 const existing = require('../redirects.json');
 
 const result = [];
+const urls = [];
 
 for (let [key, value] of Object.entries(existing)) {
   if (existing.hasOwnProperty(key)) {
@@ -54,12 +76,27 @@ for (redirect of redirects) {
     !redirect.Source.startsWith('/http')) {
     const source = redirect.Source;
     const target = calculateTarget(redirect.Target);
+    urls.push(source);
     result.push({
       source,
       target,
     });
   }
 }
+
+
+urls.map(url => {
+  return {
+    url: url
+  };
+});
+
+
+const sitemap = sm.createSitemap({
+  hostname: 'https://ampbyexample.com',
+  cacheTime: 600000, // 600 sec (10 min) cache purge period
+  urls,
+});
 
 redirectStatic(
     resolve(join(__dirname, '../../static/')),
@@ -85,3 +122,4 @@ redirectStatic(
 );
 
 writeFileSync(__dirname + '/../redirects-amp.dev.json', JSON.stringify(result, null, 2), 'utf-8');
+writeFileSync(__dirname +  '/sitemap.xml', sitemap.toString(), 'utf-8');

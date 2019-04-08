@@ -4,13 +4,26 @@ const URL = require('url').URL;
 
 
 const HOST = 'http://localhost:8080';
+//const HOST = 'https://amp-by-example-staging.appspot.com';
 
 const sitemap = require(join(__dirname, '../../dist/sitemap.json'));
 
+runStaticTests().then(() => {
+  console.log('Failed redirects: ', errorCount);
+  console.log(errors.join('\n'));
+});
 runTests().then(() => {
   console.log('Failed redirects: ', errorCount);
   console.log(errors.join('\n'));
 });
+
+async function runStaticTests() {
+  const staticRedirects = require(__dirname + '/../redirects-amp.dev.json');
+  for (let redirect of staticRedirects) {
+    await test(redirect.source);
+  }
+  
+}
 
 async function runTests() {
   for (let format of sitemap) {

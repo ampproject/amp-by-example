@@ -80,22 +80,6 @@
     "target": "/introduction/hello_world/"
   },
   {
-    "source": "/amp_for_ads_a4a/a4a_banner_ad/",
-    "target": "/amp_ads/banner_ad/"
-  },
-  {
-    "source": "/amp_for_ads_a4a/a4a_banner_ad/preview/",
-    "target": "/amp_ads/banner_ad/preview/"
-  },
-  {
-    "source": "/amp_for_ads_a4a/a4a_carousel/",
-    "target": "/amp_ads/carousel_ad/"
-  },
-  {
-    "source": "/amp_for_ads_a4a/a4a_carousel/preview/",
-    "target": "/amp_ads/carousel_ad/preview/"
-  },
-  {
     "source": "/samples_templates/product_listing/",
     "target": "/samples_templates/product_browse_page/"
   },
@@ -913,1402 +897,1390 @@
   },
   {
     "source": "/amp-app-banner-manifest.json",
-    "target": "https:/amp.dev/static/samples/files/amp-app-banner-manifest.json"
+    "target": "https://amp.dev/static/samples/files/amp-app-banner-manifest.json"
   },
   {
     "source": "/amp-video-iframe-videojs.html",
-    "target": "https:/amp.dev/static/samples/files/amp-video-iframe-videojs.html"
+    "target": "https://amp.dev/static/samples/files/amp-video-iframe-videojs.html"
   },
   {
     "source": "/amp4mail/gallery.html",
-    "target": "https:/amp.dev/static/samples/files/amp4mail/gallery.html"
+    "target": "https://amp.dev/static/samples/files/amp4mail/gallery.html"
   },
   {
     "source": "/copier.html",
-    "target": "https:/amp.dev/static/samples/files/copier.html"
+    "target": "https://amp.dev/static/samples/files/copier.html"
   },
   {
     "source": "/glTF/DamagedHelmet.glb",
-    "target": "https:/amp.dev/static/samples/files/glTF/DamagedHelmet.glb"
-  },
-  {
-    "source": "/googlea533f0f54d9c716a.html",
-    "target": "https:/amp.dev/static/samples/files/googlea533f0f54d9c716a.html"
+    "target": "https://amp.dev/static/samples/glTF/DamagedHelmet.glb"
   },
   {
     "source": "/hreflang/fr/index.amp.html",
-    "target": "https:/amp.dev/static/samples/files/hreflang/fr/index.amp.html"
+    "target": "https://amp.dev/static/samples/hreflang/fr/index.amp.html"
   },
   {
     "source": "/hreflang/fr/index.html",
-    "target": "https:/amp.dev/static/samples/files/hreflang/fr/index.html"
+    "target": "https://amp.dev/static/samples/hreflang/fr/index.html"
   },
   {
     "source": "/hreflang/index.amp.html",
-    "target": "https:/amp.dev/static/samples/files/hreflang/index.amp.html"
+    "target": "https://amp.dev/static/samples/hreflang/index.amp.html"
   },
   {
     "source": "/hreflang/index.html",
-    "target": "https:/amp.dev/static/samples/files/hreflang/index.html"
-  },
-  {
-    "source": "/humans.txt",
-    "target": "https:/amp.dev/static/samples/files/humans.txt"
+    "target": "https://amp.dev/static/samples/hreflang/index.html"
   },
   {
     "source": "/internationalization/alternate/fr/index.amp.html",
-    "target": "https:/amp.dev/static/samples/files/internationalization/alternate/fr/index.amp.html"
+    "target": "https://amp.dev/static/samples/internationalization/alternate/fr/index.amp.html"
   },
   {
     "source": "/internationalization/alternate/fr/index.html",
-    "target": "https:/amp.dev/static/samples/files/internationalization/alternate/fr/index.html"
+    "target": "https://amp.dev/static/samples/internationalization/alternate/fr/index.html"
   },
   {
     "source": "/internationalization/alternate/fr/index.mobile.html",
-    "target": "https:/amp.dev/static/samples/files/internationalization/alternate/fr/index.mobile.html"
+    "target": "https://amp.dev/static/samples/internationalization/alternate/fr/index.mobile.html"
   },
   {
     "source": "/internationalization/alternate/index.amp.html",
-    "target": "https:/amp.dev/static/samples/files/internationalization/alternate/index.amp.html"
+    "target": "https://amp.dev/static/samples/internationalization/alternate/index.amp.html"
   },
   {
     "source": "/internationalization/alternate/index.html",
-    "target": "https:/amp.dev/static/samples/files/internationalization/alternate/index.html"
+    "target": "https://amp.dev/static/samples/internationalization/alternate/index.html"
   },
   {
     "source": "/internationalization/alternate/index.mobile.html",
-    "target": "https:/amp.dev/static/samples/files/internationalization/alternate/index.mobile.html"
+    "target": "https://amp.dev/static/samples/internationalization/alternate/index.mobile.html"
   },
   {
     "source": "/internationalization/alternate/ja/index.amp.html",
-    "target": "https:/amp.dev/static/samples/files/internationalization/alternate/ja/index.amp.html"
+    "target": "https://amp.dev/static/samples/internationalization/alternate/ja/index.amp.html"
   },
   {
     "source": "/internationalization/alternate/ja/index.html",
-    "target": "https:/amp.dev/static/samples/files/internationalization/alternate/ja/index.html"
+    "target": "https://amp.dev/static/samples/internationalization/alternate/ja/index.html"
   },
   {
     "source": "/internationalization/alternate/ja/index.mobile.html",
-    "target": "https:/amp.dev/static/samples/files/internationalization/alternate/ja/index.mobile.html"
+    "target": "https://amp.dev/static/samples/internationalization/alternate/ja/index.mobile.html"
   },
   {
     "source": "/internationalization/amp_hreflang_example_1.png",
-    "target": "https:/amp.dev/static/samples/files/internationalization/amp_hreflang_example_1.png"
+    "target": "https://amp.dev/static/samples/internationalization/amp_hreflang_example_1.png"
   },
   {
     "source": "/internationalization/amp_hreflang_example_2.png",
-    "target": "https:/amp.dev/static/samples/files/internationalization/amp_hreflang_example_2.png"
+    "target": "https://amp.dev/static/samples/internationalization/amp_hreflang_example_2.png"
   },
   {
     "source": "/internationalization/basic/fr/index.amp.html",
-    "target": "https:/amp.dev/static/samples/files/internationalization/basic/fr/index.amp.html"
+    "target": "https://amp.dev/static/samples/internationalization/basic/fr/index.amp.html"
   },
   {
     "source": "/internationalization/basic/fr/index.html",
-    "target": "https:/amp.dev/static/samples/files/internationalization/basic/fr/index.html"
+    "target": "https://amp.dev/static/samples/internationalization/basic/fr/index.html"
   },
   {
     "source": "/internationalization/basic/index.amp.html",
-    "target": "https:/amp.dev/static/samples/files/internationalization/basic/index.amp.html"
+    "target": "https://amp.dev/static/samples/internationalization/basic/index.amp.html"
   },
   {
     "source": "/internationalization/basic/index.html",
-    "target": "https:/amp.dev/static/samples/files/internationalization/basic/index.html"
+    "target": "https://amp.dev/static/samples/internationalization/basic/index.html"
   },
   {
     "source": "/internationalization/basic/ja/index.amp.html",
-    "target": "https:/amp.dev/static/samples/files/internationalization/basic/ja/index.amp.html"
+    "target": "https://amp.dev/static/samples/internationalization/basic/ja/index.amp.html"
   },
   {
     "source": "/internationalization/basic/ja/index.html",
-    "target": "https:/amp.dev/static/samples/files/internationalization/basic/ja/index.html"
+    "target": "https://amp.dev/static/samples/internationalization/basic/ja/index.html"
   },
   {
     "source": "/internationalization/rtl.html",
-    "target": "https:/amp.dev/static/samples/files/internationalization/rtl.html"
+    "target": "https://amp.dev/static/samples/internationalization/rtl.html"
   },
   {
     "source": "/invalid_amp.html",
-    "target": "https:/amp.dev/static/samples/files/invalid_amp.html"
+    "target": "https://amp.dev/static/samples/invalid_amp.html"
   },
   {
     "source": "/linker/demo-page.html",
-    "target": "https:/amp.dev/static/samples/files/linker/demo-page.html"
+    "target": "https://amp.dev/static/samples/linker/demo-page.html"
   },
   {
     "source": "/linker/destination-page.html",
-    "target": "https:/amp.dev/static/samples/files/linker/destination-page.html"
-  },
-  {
-    "source": "/login.html",
-    "target": "https:/amp.dev/static/samples/files/login.html"
+    "target": "https://amp.dev/static/samples/linker/destination-page.html"
   },
   {
     "source": "/manifest.json",
-    "target": "https:/amp.dev/static/samples/files/manifest.json"
+    "target": "https://amp.dev/static/samples/manifest.json"
   },
   {
     "source": "/sw.html",
-    "target": "https:/amp.dev/static/samples/files/sw.html"
+    "target": "https://amp.dev/serviceworker.html"
   },
   {
     "source": "/sw.js",
-    "target": "https:/amp.dev/static/samples/files/sw.js"
+    "target": "https://amp.dev/serviceworker.js"
   },
   {
     "source": "/webpush/amp-web-push-helper-frame.html",
-    "target": "https:/amp.dev/static/samples/files/webpush/amp-web-push-helper-frame.html"
+    "target": "https://amp.dev/static/samples/webpush/amp-web-push-helper-frame.html"
   },
   {
     "source": "/webpush/amp-web-push-permission-dialog.html",
-    "target": "https:/amp.dev/static/samples/files/webpush/amp-web-push-permission-dialog.html"
+    "target": "https://amp.dev/static/samples/webpush/amp-web-push-permission-dialog.html"
   },
   {
     "source": "/json/addresses.json",
-    "target": "https:/amp.dev/static/samples/json/addresses.json"
+    "target": "https://amp.dev/static/samples/json/addresses.json"
   },
   {
     "source": "/json/amp-bind-data-new-state.json",
-    "target": "https:/amp.dev/static/samples/json/amp-bind-data-new-state.json"
+    "target": "https://amp.dev/static/samples/json/amp-bind-data-new-state.json"
   },
   {
     "source": "/json/amp-date-picker.json",
-    "target": "https:/amp.dev/static/samples/json/amp-date-picker.json"
+    "target": "https://amp.dev/static/samples/json/amp-date-picker.json"
   },
   {
     "source": "/json/amp-story-auto-ads-0.json",
-    "target": "https:/amp.dev/static/samples/json/amp-story-auto-ads-0.json"
+    "target": "https://amp.dev/static/samples/json/amp-story-auto-ads-0.json"
   },
   {
     "source": "/json/amp-story-auto-ads-1.json",
-    "target": "https:/amp.dev/static/samples/json/amp-story-auto-ads-1.json"
+    "target": "https://amp.dev/static/samples/json/amp-story-auto-ads-1.json"
   },
   {
     "source": "/json/amp-story-auto-ads-2.json",
-    "target": "https:/amp.dev/static/samples/json/amp-story-auto-ads-2.json"
+    "target": "https://amp.dev/static/samples/json/amp-story-auto-ads-2.json"
   },
   {
     "source": "/json/amp-story-auto-ads-3.json",
-    "target": "https:/amp.dev/static/samples/json/amp-story-auto-ads-3.json"
+    "target": "https://amp.dev/static/samples/json/amp-story-auto-ads-3.json"
   },
   {
     "source": "/json/amp-story-auto-ads-4.json",
-    "target": "https:/amp.dev/static/samples/json/amp-story-auto-ads-4.json"
+    "target": "https://amp.dev/static/samples/json/amp-story-auto-ads-4.json"
   },
   {
     "source": "/json/bodymovin_happy_2016.json",
-    "target": "https:/amp.dev/static/samples/json/bodymovin_happy_2016.json"
+    "target": "https://amp.dev/static/samples/json/bodymovin_happy_2016.json"
   },
   {
     "source": "/json/bodymovin_red_circle.json",
-    "target": "https:/amp.dev/static/samples/json/bodymovin_red_circle.json"
+    "target": "https://amp.dev/static/samples/json/bodymovin_red_circle.json"
   },
   {
     "source": "/json/call-tracking-number.json",
-    "target": "https:/amp.dev/static/samples/json/call-tracking-number.json"
+    "target": "https://amp.dev/static/samples/json/call-tracking-number.json"
   },
   {
     "source": "/json/cart.json",
-    "target": "https:/amp.dev/static/samples/json/cart.json"
+    "target": "https://amp.dev/static/samples/json/cart.json"
   },
   {
     "source": "/json/comments.json",
-    "target": "https:/amp.dev/static/samples/json/comments.json"
+    "target": "https://amp.dev/static/samples/json/comments.json"
   },
   {
     "source": "/json/consent-items.json",
-    "target": "https:/amp.dev/static/samples/json/consent-items.json"
+    "target": "https://amp.dev/static/samples/json/consent-items.json"
   },
   {
     "source": "/json/credit-cards.json",
-    "target": "https:/amp.dev/static/samples/json/credit-cards.json"
+    "target": "https://amp.dev/static/samples/json/credit-cards.json"
   },
   {
     "source": "/json/examples-empty.json",
-    "target": "https:/amp.dev/static/samples/json/examples-empty.json"
+    "target": "https://amp.dev/static/samples/json/examples-empty.json"
   },
   {
     "source": "/json/examples.json",
-    "target": "https:/amp.dev/static/samples/json/examples.json"
+    "target": "https://amp.dev/static/samples/json/examples.json"
   },
   {
     "source": "/json/examples2.json",
-    "target": "https:/amp.dev/static/samples/json/examples2.json"
+    "target": "https://amp.dev/static/samples/json/examples2.json"
   },
   {
     "source": "/json/food-options.json",
-    "target": "https:/amp.dev/static/samples/json/food-options.json"
+    "target": "https://amp.dev/static/samples/json/food-options.json"
   },
   {
     "source": "/json/friend_requests.json",
-    "target": "https:/amp.dev/static/samples/json/friend_requests.json"
+    "target": "https://amp.dev/static/samples/json/friend_requests.json"
   },
   {
     "source": "/json/linked_dropdowns.json",
-    "target": "https:/amp.dev/static/samples/json/linked_dropdowns.json"
+    "target": "https://amp.dev/static/samples/json/linked_dropdowns.json"
   },
   {
     "source": "/json/more_related_products_page0.json",
-    "target": "https:/amp.dev/static/samples/json/more_related_products_page0.json"
+    "target": "https://amp.dev/static/samples/json/more_related_products_page0.json"
   },
   {
     "source": "/json/more_related_products_page1.json",
-    "target": "https:/amp.dev/static/samples/json/more_related_products_page1.json"
+    "target": "https://amp.dev/static/samples/json/more_related_products_page1.json"
   },
   {
     "source": "/json/nearby_attractions.json",
-    "target": "https:/amp.dev/static/samples/json/nearby_attractions.json"
+    "target": "https://amp.dev/static/samples/json/nearby_attractions.json"
   },
   {
     "source": "/json/other_properties.json",
-    "target": "https:/amp.dev/static/samples/json/other_properties.json"
+    "target": "https://amp.dev/static/samples/json/other_properties.json"
   },
   {
     "source": "/json/product-single-item.json",
-    "target": "https:/amp.dev/static/samples/json/product-single-item.json"
+    "target": "https://amp.dev/static/samples/json/product-single-item.json"
   },
   {
     "source": "/json/product.json",
-    "target": "https:/amp.dev/static/samples/json/product.json"
+    "target": "https://amp.dev/static/samples/json/product.json"
   },
   {
     "source": "/json/products.json",
-    "target": "https:/amp.dev/static/samples/json/products.json"
+    "target": "https://amp.dev/static/samples/json/products.json"
   },
   {
     "source": "/json/related_articles.json",
-    "target": "https:/amp.dev/static/samples/json/related_articles.json"
+    "target": "https://amp.dev/static/samples/json/related_articles.json"
   },
   {
     "source": "/json/related_products.json",
-    "target": "https:/amp.dev/static/samples/json/related_products.json"
+    "target": "https://amp.dev/static/samples/json/related_products.json"
   },
   {
     "source": "/json/seatmap-neighbours.json",
-    "target": "https:/amp.dev/static/samples/json/seatmap-neighbours.json"
+    "target": "https://amp.dev/static/samples/json/seatmap-neighbours.json"
   },
   {
     "source": "/json/seats.json",
-    "target": "https:/amp.dev/static/samples/json/seats.json"
+    "target": "https://amp.dev/static/samples/json/seats.json"
   },
   {
     "source": "/json/shopping-cart.json",
-    "target": "https:/amp.dev/static/samples/json/shopping-cart.json"
+    "target": "https://amp.dev/static/samples/json/shopping-cart.json"
   },
   {
     "source": "/json/todo.json",
-    "target": "https:/amp.dev/static/samples/json/todo.json"
+    "target": "https://amp.dev/static/samples/json/todo.json"
   },
   {
     "source": "/json/websites.json",
-    "target": "https:/amp.dev/static/samples/json/websites.json"
+    "target": "https://amp.dev/static/samples/json/websites.json"
   },
   {
     "source": "/video/ad-google-home.mp4",
-    "target": "https:/amp.dev/static/samples/video/ad-google-home.mp4"
+    "target": "https://amp.dev/static/samples/video/ad-google-home.mp4"
   },
   {
     "source": "/video/amp-app-banner-android-app-installed.mp4",
-    "target": "https:/amp.dev/static/samples/video/amp-app-banner-android-app-installed.mp4"
+    "target": "https://amp.dev/static/samples/video/amp-app-banner-android-app-installed.mp4"
   },
   {
     "source": "/video/amp-app-banner-android-app-not-installed.mp4",
-    "target": "https:/amp.dev/static/samples/video/amp-app-banner-android-app-not-installed.mp4"
+    "target": "https://amp.dev/static/samples/video/amp-app-banner-android-app-not-installed.mp4"
   },
   {
     "source": "/video/bird-video.mp4",
-    "target": "https:/amp.dev/static/samples/video/bird-video.mp4"
+    "target": "https://amp.dev/static/samples/video/bird-video.mp4"
   },
   {
     "source": "/video/bullfinch.mp4",
-    "target": "https:/amp.dev/static/samples/video/bullfinch.mp4"
+    "target": "https://amp.dev/static/samples/video/bullfinch.mp4"
   },
   {
     "source": "/video/car-video-360p.mp4",
-    "target": "https:/amp.dev/static/samples/video/car-video-360p.mp4"
+    "target": "https://amp.dev/static/samples/video/car-video-360p.mp4"
   },
   {
     "source": "/video/cat-video.mp4",
-    "target": "https:/amp.dev/static/samples/video/cat-video.mp4"
+    "target": "https://amp.dev/static/samples/video/cat-video.mp4"
   },
   {
     "source": "/video/dog-video.mp4",
-    "target": "https:/amp.dev/static/samples/video/dog-video.mp4"
+    "target": "https://amp.dev/static/samples/video/dog-video.mp4"
   },
   {
     "source": "/video/ecommerce.mp4",
-    "target": "https:/amp.dev/static/samples/video/ecommerce.mp4"
+    "target": "https://amp.dev/static/samples/video/ecommerce.mp4"
   },
   {
     "source": "/video/ecommerce.vtt",
-    "target": "https:/amp.dev/static/samples/video/ecommerce.vtt"
+    "target": "https://amp.dev/static/samples/video/ecommerce.vtt"
   },
   {
     "source": "/video/gmail-animation.mp4",
-    "target": "https:/amp.dev/static/samples/video/gmail-animation.mp4"
+    "target": "https://amp.dev/static/samples/video/gmail-animation.mp4"
   },
   {
     "source": "/video/gmail.mp4",
-    "target": "https:/amp.dev/static/samples/video/gmail.mp4"
+    "target": "https://amp.dev/static/samples/video/gmail.mp4"
   },
   {
     "source": "/video/gmail.vtt",
-    "target": "https:/amp.dev/static/samples/video/gmail.vtt"
+    "target": "https://amp.dev/static/samples/video/gmail.vtt"
   },
   {
     "source": "/video/p1.mp4",
-    "target": "https:/amp.dev/static/samples/video/p1.mp4"
+    "target": "https://amp.dev/static/samples/video/p1.mp4"
   },
   {
     "source": "/video/p1.vtt",
-    "target": "https:/amp.dev/static/samples/video/p1.vtt"
+    "target": "https://amp.dev/static/samples/video/p1.vtt"
   },
   {
     "source": "/video/stamp_video_dog.mp4",
-    "target": "https:/amp.dev/static/samples/video/stamp_video_dog.mp4"
+    "target": "https://amp.dev/static/samples/video/stamp_video_dog.mp4"
   },
   {
     "source": "/video/stamp-animation.mp4",
-    "target": "https:/amp.dev/static/samples/video/stamp-animation.mp4"
+    "target": "https://amp.dev/static/samples/video/stamp-animation.mp4"
   },
   {
     "source": "/video/stamp.mp4",
-    "target": "https:/amp.dev/static/samples/video/stamp.mp4"
+    "target": "https://amp.dev/static/samples/video/stamp.mp4"
   },
   {
     "source": "/video/stamp.vtt",
-    "target": "https:/amp.dev/static/samples/video/stamp.vtt"
+    "target": "https://amp.dev/static/samples/video/stamp.vtt"
   },
   {
     "source": "/video/story_video_dog.mp4",
-    "target": "https:/amp.dev/static/samples/video/story_video_dog.mp4"
+    "target": "https://amp.dev/static/samples/video/story_video_dog.mp4"
   },
   {
     "source": "/video/tokyo_240p_1.ts",
-    "target": "https:/amp.dev/static/samples/video/tokyo_240p_1.ts"
+    "target": "https://amp.dev/static/samples/video/tokyo_240p_1.ts"
   },
   {
     "source": "/video/tokyo_240p_2.ts",
-    "target": "https:/amp.dev/static/samples/video/tokyo_240p_2.ts"
+    "target": "https://amp.dev/static/samples/video/tokyo_240p_2.ts"
   },
   {
     "source": "/video/tokyo_240p_200.mp4",
-    "target": "https:/amp.dev/static/samples/video/tokyo_240p_200.mp4"
+    "target": "https://amp.dev/static/samples/video/tokyo_240p_200.mp4"
   },
   {
     "source": "/video/tokyo_240p.m3u8",
-    "target": "https:/amp.dev/static/samples/video/tokyo_240p.m3u8"
+    "target": "https://amp.dev/static/samples/video/tokyo_240p.m3u8"
   },
   {
     "source": "/video/tokyo_360p_1.ts",
-    "target": "https:/amp.dev/static/samples/video/tokyo_360p_1.ts"
+    "target": "https://amp.dev/static/samples/video/tokyo_360p_1.ts"
   },
   {
     "source": "/video/tokyo_360p_2.ts",
-    "target": "https:/amp.dev/static/samples/video/tokyo_360p_2.ts"
+    "target": "https://amp.dev/static/samples/video/tokyo_360p_2.ts"
   },
   {
     "source": "/video/tokyo_360p_600.mp4",
-    "target": "https:/amp.dev/static/samples/video/tokyo_360p_600.mp4"
+    "target": "https://amp.dev/static/samples/video/tokyo_360p_600.mp4"
   },
   {
     "source": "/video/tokyo_360p.m3u8",
-    "target": "https:/amp.dev/static/samples/video/tokyo_360p.m3u8"
+    "target": "https://amp.dev/static/samples/video/tokyo_360p.m3u8"
   },
   {
     "source": "/video/tokyo_480p_1.ts",
-    "target": "https:/amp.dev/static/samples/video/tokyo_480p_1.ts"
+    "target": "https://amp.dev/static/samples/video/tokyo_480p_1.ts"
   },
   {
     "source": "/video/tokyo_480p_1000.mp4",
-    "target": "https:/amp.dev/static/samples/video/tokyo_480p_1000.mp4"
+    "target": "https://amp.dev/static/samples/video/tokyo_480p_1000.mp4"
   },
   {
     "source": "/video/tokyo_480p_2.ts",
-    "target": "https:/amp.dev/static/samples/video/tokyo_480p_2.ts"
+    "target": "https://amp.dev/static/samples/video/tokyo_480p_2.ts"
   },
   {
     "source": "/video/tokyo_480p.m3u8",
-    "target": "https:/amp.dev/static/samples/video/tokyo_480p.m3u8"
+    "target": "https://amp.dev/static/samples/video/tokyo_480p.m3u8"
   },
   {
     "source": "/video/tokyo-no-hls.mp4",
-    "target": "https:/amp.dev/static/samples/video/tokyo-no-hls.mp4"
+    "target": "https://amp.dev/static/samples/video/tokyo-no-hls.mp4"
   },
   {
     "source": "/video/tokyo.m3u8",
-    "target": "https:/amp.dev/static/samples/video/tokyo.m3u8"
+    "target": "https://amp.dev/static/samples/video/tokyo.m3u8"
   },
   {
     "source": "/video/tokyo.mp4",
-    "target": "https:/amp.dev/static/samples/video/tokyo.mp4"
+    "target": "https://amp.dev/static/samples/video/tokyo.mp4"
   },
   {
     "source": "/video/tokyo.webm",
-    "target": "https:/amp.dev/static/samples/video/tokyo.webm"
+    "target": "https://amp.dev/static/samples/video/tokyo.webm"
   },
   {
     "source": "/img/abe_device_screenshot_1x.png",
-    "target": "https:/amp.dev/static/samples/img/abe_device_screenshot_1x.png"
+    "target": "https://amp.dev/static/samples/img/abe_device_screenshot_1x.png"
   },
   {
     "source": "/img/abe_device_screenshot_2x.png",
-    "target": "https:/amp.dev/static/samples/img/abe_device_screenshot_2x.png"
+    "target": "https://amp.dev/static/samples/img/abe_device_screenshot_2x.png"
   },
   {
     "source": "/img/ad-coffee.jpg",
-    "target": "https:/amp.dev/static/samples/img/ad-coffee.jpg"
+    "target": "https://amp.dev/static/samples/img/ad-coffee.jpg"
   },
   {
     "source": "/img/ad-google-home.jpg",
-    "target": "https:/amp.dev/static/samples/img/ad-google-home.jpg"
+    "target": "https://amp.dev/static/samples/img/ad-google-home.jpg"
   },
   {
     "source": "/img/ad-hangouts.jpg",
-    "target": "https:/amp.dev/static/samples/img/ad-hangouts.jpg"
+    "target": "https://amp.dev/static/samples/img/ad-hangouts.jpg"
   },
   {
     "source": "/img/ad-youtube-tv.jpg",
-    "target": "https:/amp.dev/static/samples/img/ad-youtube-tv.jpg"
+    "target": "https://amp.dev/static/samples/img/ad-youtube-tv.jpg"
   },
   {
     "source": "/img/american-flag.png",
-    "target": "https:/amp.dev/static/samples/img/american-flag.png"
+    "target": "https://amp.dev/static/samples/img/american-flag.png"
   },
   {
     "source": "/img/amp_by_example_logo.svg",
-    "target": "https:/amp.dev/static/samples/img/amp_by_example_logo.svg"
+    "target": "https://amp.dev/static/samples/img/amp_by_example_logo.svg"
   },
   {
     "source": "/img/amp_cache_validation_error.png",
-    "target": "https:/amp.dev/static/samples/img/amp_cache_validation_error.png"
+    "target": "https://amp.dev/static/samples/img/amp_cache_validation_error.png"
   },
   {
     "source": "/img/amp_logo_black.svg",
-    "target": "https:/amp.dev/static/samples/img/amp_logo_black.svg"
+    "target": "https://amp.dev/static/samples/img/amp_logo_black.svg"
   },
   {
     "source": "/img/amp_logo_pink.svg",
-    "target": "https:/amp.dev/static/samples/img/amp_logo_pink.svg"
+    "target": "https://amp.dev/static/samples/img/amp_logo_pink.svg"
   },
   {
     "source": "/img/amp_logo_white.svg",
-    "target": "https:/amp.dev/static/samples/img/amp_logo_white.svg"
+    "target": "https://amp.dev/static/samples/img/amp_logo_white.svg"
   },
   {
     "source": "/img/amp-100.jpg",
-    "target": "https:/amp.dev/static/samples/img/amp-100.jpg"
+    "target": "https://amp.dev/static/samples/img/amp-100.jpg"
   },
   {
     "source": "/img/amp-200.jpg",
-    "target": "https:/amp.dev/static/samples/img/amp-200.jpg"
+    "target": "https://amp.dev/static/samples/img/amp-200.jpg"
   },
   {
     "source": "/img/amp-300.jpg",
-    "target": "https:/amp.dev/static/samples/img/amp-300.jpg"
+    "target": "https://amp.dev/static/samples/img/amp-300.jpg"
   },
   {
     "source": "/img/amp-300x250.jpg",
-    "target": "https:/amp.dev/static/samples/img/amp-300x250.jpg"
+    "target": "https://amp.dev/static/samples/img/amp-300x250.jpg"
   },
   {
     "source": "/img/amp-400.jpg",
-    "target": "https:/amp.dev/static/samples/img/amp-400.jpg"
+    "target": "https://amp.dev/static/samples/img/amp-400.jpg"
   },
   {
     "source": "/img/amp-500.jpg",
-    "target": "https:/amp.dev/static/samples/img/amp-500.jpg"
+    "target": "https://amp.dev/static/samples/img/amp-500.jpg"
   },
   {
     "source": "/img/amp-600.jpg",
-    "target": "https:/amp.dev/static/samples/img/amp-600.jpg"
+    "target": "https://amp.dev/static/samples/img/amp-600.jpg"
   },
   {
     "source": "/img/amp-700.jpg",
-    "target": "https:/amp.dev/static/samples/img/amp-700.jpg"
+    "target": "https://amp.dev/static/samples/img/amp-700.jpg"
   },
   {
     "source": "/img/amp-800.jpg",
-    "target": "https:/amp.dev/static/samples/img/amp-800.jpg"
+    "target": "https://amp.dev/static/samples/img/amp-800.jpg"
   },
   {
     "source": "/img/amp-900.jpg",
-    "target": "https:/amp.dev/static/samples/img/amp-900.jpg"
+    "target": "https://amp.dev/static/samples/img/amp-900.jpg"
   },
   {
     "source": "/img/AMP-Brand-White-Icon.svg",
-    "target": "https:/amp.dev/static/samples/img/AMP-Brand-White-Icon.svg"
+    "target": "https://amp.dev/static/samples/img/AMP-Brand-White-Icon.svg"
   },
   {
     "source": "/img/amp-url-api-placeholder.png",
-    "target": "https:/amp.dev/static/samples/img/amp-url-api-placeholder.png"
+    "target": "https://amp.dev/static/samples/img/amp-url-api-placeholder.png"
   },
   {
     "source": "/img/amp-video-iframe-sample-placeholder.jpg",
-    "target": "https:/amp.dev/static/samples/img/amp-video-iframe-sample-placeholder.jpg"
+    "target": "https://amp.dev/static/samples/img/amp-video-iframe-sample-placeholder.jpg"
   },
   {
     "source": "/img/amp.jpg",
-    "target": "https:/amp.dev/static/samples/img/amp.jpg"
+    "target": "https://amp.dev/static/samples/img/amp.jpg"
   },
   {
     "source": "/img/arrow.svg",
-    "target": "https:/amp.dev/static/samples/img/arrow.svg"
+    "target": "https://amp.dev/static/samples/img/arrow.svg"
   },
   {
     "source": "/img/bird.jpg",
-    "target": "https:/amp.dev/static/samples/img/bird.jpg"
+    "target": "https://amp.dev/static/samples/img/bird.jpg"
   },
   {
     "source": "/img/blue-gmail.jpg",
-    "target": "https:/amp.dev/static/samples/img/blue-gmail.jpg"
+    "target": "https://amp.dev/static/samples/img/blue-gmail.jpg"
   },
   {
     "source": "/img/blue-stuff.jpg",
-    "target": "https:/amp.dev/static/samples/img/blue-stuff.jpg"
+    "target": "https://amp.dev/static/samples/img/blue-stuff.jpg"
   },
   {
     "source": "/img/Border_Collie.jpg",
-    "target": "https:/amp.dev/static/samples/img/Border_Collie.jpg"
+    "target": "https://amp.dev/static/samples/img/Border_Collie.jpg"
   },
   {
     "source": "/img/buckingham_palace_building_1280x960.jpg",
-    "target": "https:/amp.dev/static/samples/img/buckingham_palace_building_1280x960.jpg"
+    "target": "https://amp.dev/static/samples/img/buckingham_palace_building_1280x960.jpg"
   },
   {
     "source": "/img/buckingham_palace_entrance_1280x853.jpg",
-    "target": "https:/amp.dev/static/samples/img/buckingham_palace_entrance_1280x853.jpg"
+    "target": "https://amp.dev/static/samples/img/buckingham_palace_entrance_1280x853.jpg"
   },
   {
     "source": "/img/bullfinch_poster.jpg",
-    "target": "https:/amp.dev/static/samples/img/bullfinch_poster.jpg"
+    "target": "https://amp.dev/static/samples/img/bullfinch_poster.jpg"
   },
   {
     "source": "/img/canadian-flag.png",
-    "target": "https:/amp.dev/static/samples/img/canadian-flag.png"
+    "target": "https://amp.dev/static/samples/img/canadian-flag.png"
   },
   {
     "source": "/img/canoe_900x600_blur.jpg",
-    "target": "https:/amp.dev/static/samples/img/canoe_900x600_blur.jpg"
+    "target": "https://amp.dev/static/samples/img/canoe_900x600_blur.jpg"
   },
   {
     "source": "/img/canoe_900x600.jpg",
-    "target": "https:/amp.dev/static/samples/img/canoe_900x600.jpg"
+    "target": "https://amp.dev/static/samples/img/canoe_900x600.jpg"
   },
   {
     "source": "/img/car-bg.jpg",
-    "target": "https:/amp.dev/static/samples/img/car-bg.jpg"
+    "target": "https://amp.dev/static/samples/img/car-bg.jpg"
   },
   {
     "source": "/img/car-engine.jpg",
-    "target": "https:/amp.dev/static/samples/img/car-engine.jpg"
+    "target": "https://amp.dev/static/samples/img/car-engine.jpg"
   },
   {
     "source": "/img/car-front.jpg",
-    "target": "https:/amp.dev/static/samples/img/car-front.jpg"
+    "target": "https://amp.dev/static/samples/img/car-front.jpg"
   },
   {
     "source": "/img/car-gauges.jpg",
-    "target": "https:/amp.dev/static/samples/img/car-gauges.jpg"
+    "target": "https://amp.dev/static/samples/img/car-gauges.jpg"
   },
   {
     "source": "/img/car-logo.png",
-    "target": "https:/amp.dev/static/samples/img/car-logo.png"
+    "target": "https://amp.dev/static/samples/img/car-logo.png"
   },
   {
     "source": "/img/car-map.png",
-    "target": "https:/amp.dev/static/samples/img/car-map.png"
+    "target": "https://amp.dev/static/samples/img/car-map.png"
   },
   {
     "source": "/img/car-mesh.jpg",
-    "target": "https:/amp.dev/static/samples/img/car-mesh.jpg"
+    "target": "https://amp.dev/static/samples/img/car-mesh.jpg"
   },
   {
     "source": "/img/car-seats.jpg",
-    "target": "https:/amp.dev/static/samples/img/car-seats.jpg"
+    "target": "https://amp.dev/static/samples/img/car-seats.jpg"
   },
   {
     "source": "/img/car-side-bg.jpg",
-    "target": "https:/amp.dev/static/samples/img/car-side-bg.jpg"
+    "target": "https://amp.dev/static/samples/img/car-side-bg.jpg"
   },
   {
     "source": "/img/car-sideview.jpg",
-    "target": "https:/amp.dev/static/samples/img/car-sideview.jpg"
+    "target": "https://amp.dev/static/samples/img/car-sideview.jpg"
   },
   {
     "source": "/img/car-sideview1.jpg",
-    "target": "https:/amp.dev/static/samples/img/car-sideview1.jpg"
+    "target": "https://amp.dev/static/samples/img/car-sideview1.jpg"
   },
   {
     "source": "/img/car-sideview2.jpg",
-    "target": "https:/amp.dev/static/samples/img/car-sideview2.jpg"
+    "target": "https://amp.dev/static/samples/img/car-sideview2.jpg"
   },
   {
     "source": "/img/car-steeringwheel.jpg",
-    "target": "https:/amp.dev/static/samples/img/car-steeringwheel.jpg"
+    "target": "https://amp.dev/static/samples/img/car-steeringwheel.jpg"
   },
   {
     "source": "/img/car-store.jpg",
-    "target": "https:/amp.dev/static/samples/img/car-store.jpg"
+    "target": "https://amp.dev/static/samples/img/car-store.jpg"
   },
   {
     "source": "/img/car-tunnel.jpg",
-    "target": "https:/amp.dev/static/samples/img/car-tunnel.jpg"
+    "target": "https://amp.dev/static/samples/img/car-tunnel.jpg"
   },
   {
     "source": "/img/car-video-poster.png",
-    "target": "https:/amp.dev/static/samples/img/car-video-poster.png"
+    "target": "https://amp.dev/static/samples/img/car-video-poster.png"
   },
   {
     "source": "/img/car-vr-360.jpg",
-    "target": "https:/amp.dev/static/samples/img/car-vr-360.jpg"
+    "target": "https://amp.dev/static/samples/img/car-vr-360.jpg"
   },
   {
     "source": "/img/carousel_preview_card.png",
-    "target": "https:/amp.dev/static/samples/img/carousel_preview_card.png"
+    "target": "https://amp.dev/static/samples/img/carousel_preview_card.png"
   },
   {
     "source": "/img/cat-looking-up-300x200.jpg",
-    "target": "https:/amp.dev/static/samples/img/cat-looking-up-300x200.jpg"
+    "target": "https://amp.dev/static/samples/img/cat-looking-up-300x200.jpg"
   },
   {
     "source": "/img/clean-1.jpg",
-    "target": "https:/amp.dev/static/samples/img/clean-1.jpg"
+    "target": "https://amp.dev/static/samples/img/clean-1.jpg"
   },
   {
     "source": "/img/clean-2.jpg",
-    "target": "https:/amp.dev/static/samples/img/clean-2.jpg"
+    "target": "https://amp.dev/static/samples/img/clean-2.jpg"
   },
   {
     "source": "/img/clean-3.jpg",
-    "target": "https:/amp.dev/static/samples/img/clean-3.jpg"
+    "target": "https://amp.dev/static/samples/img/clean-3.jpg"
   },
   {
     "source": "/img/clock.jpg",
-    "target": "https:/amp.dev/static/samples/img/clock.jpg"
+    "target": "https://amp.dev/static/samples/img/clock.jpg"
   },
   {
     "source": "/img/console_showing_validation_errors.png",
-    "target": "https:/amp.dev/static/samples/img/console_showing_validation_errors.png"
+    "target": "https://amp.dev/static/samples/img/console_showing_validation_errors.png"
   },
   {
     "source": "/img/dark-overlay.png",
-    "target": "https:/amp.dev/static/samples/img/dark-overlay.png"
+    "target": "https://amp.dev/static/samples/img/dark-overlay.png"
   },
   {
     "source": "/img/elephant.jpg",
-    "target": "https:/amp.dev/static/samples/img/elephant.jpg"
+    "target": "https://amp.dev/static/samples/img/elephant.jpg"
   },
   {
     "source": "/img/england-flag.png",
-    "target": "https:/amp.dev/static/samples/img/england-flag.png"
+    "target": "https://amp.dev/static/samples/img/england-flag.png"
   },
   {
     "source": "/img/face.png",
-    "target": "https:/amp.dev/static/samples/img/face.png"
+    "target": "https://amp.dev/static/samples/img/face.png"
   },
   {
     "source": "/img/favicon.png",
-    "target": "https:/amp.dev/static/samples/img/favicon.png"
+    "target": "https://amp.dev/static/samples/img/favicon.png"
   },
   {
     "source": "/img/favicon.svg",
-    "target": "https:/amp.dev/static/samples/img/favicon.svg"
+    "target": "https://amp.dev/static/samples/img/favicon.svg"
   },
   {
     "source": "/img/fidget.png",
-    "target": "https:/amp.dev/static/samples/img/fidget.png"
+    "target": "https://amp.dev/static/samples/img/fidget.png"
   },
   {
     "source": "/img/floorplan_518x340.jpg",
-    "target": "https:/amp.dev/static/samples/img/floorplan_518x340.jpg"
+    "target": "https://amp.dev/static/samples/img/floorplan_518x340.jpg"
   },
   {
     "source": "/img/food.jpg",
-    "target": "https:/amp.dev/static/samples/img/food.jpg"
+    "target": "https://amp.dev/static/samples/img/food.jpg"
   },
   {
     "source": "/img/forest-1280x853.jpg",
-    "target": "https:/amp.dev/static/samples/img/forest-1280x853.jpg"
+    "target": "https://amp.dev/static/samples/img/forest-1280x853.jpg"
   },
   {
     "source": "/img/forest-1920x1280.jpg",
-    "target": "https:/amp.dev/static/samples/img/forest-1920x1280.jpg"
+    "target": "https://amp.dev/static/samples/img/forest-1920x1280.jpg"
   },
   {
     "source": "/img/forest-3800x2533.jpg",
-    "target": "https:/amp.dev/static/samples/img/forest-3800x2533.jpg"
+    "target": "https://amp.dev/static/samples/img/forest-3800x2533.jpg"
   },
   {
     "source": "/img/forest-640x227.jpg",
-    "target": "https:/amp.dev/static/samples/img/forest-640x227.jpg"
+    "target": "https://amp.dev/static/samples/img/forest-640x227.jpg"
   },
   {
     "source": "/img/garlic.jpg",
-    "target": "https:/amp.dev/static/samples/img/garlic.jpg"
+    "target": "https://amp.dev/static/samples/img/garlic.jpg"
   },
   {
     "source": "/img/geolocation_map_skeleton.png",
-    "target": "https:/amp.dev/static/samples/img/geolocation_map_skeleton.png"
+    "target": "https://amp.dev/static/samples/img/geolocation_map_skeleton.png"
   },
   {
     "source": "/img/gist.png",
-    "target": "https:/amp.dev/static/samples/img/gist.png"
+    "target": "https://amp.dev/static/samples/img/gist.png"
   },
   {
     "source": "/img/GitHub-Mark-Light-32px.png",
-    "target": "https:/amp.dev/static/samples/img/GitHub-Mark-Light-32px.png"
+    "target": "https://amp.dev/static/samples/img/GitHub-Mark-Light-32px.png"
   },
   {
     "source": "/img/GitHub-Mark-Light-64px.png",
-    "target": "https:/amp.dev/static/samples/img/GitHub-Mark-Light-64px.png"
+    "target": "https://amp.dev/static/samples/img/GitHub-Mark-Light-64px.png"
   },
   {
     "source": "/img/golden_apple1_1024x682.jpg",
-    "target": "https:/amp.dev/static/samples/img/golden_apple1_1024x682.jpg"
+    "target": "https://amp.dev/static/samples/img/golden_apple1_1024x682.jpg"
   },
   {
     "source": "/img/gopher.gif",
-    "target": "https:/amp.dev/static/samples/img/gopher.gif"
+    "target": "https://amp.dev/static/samples/img/gopher.gif"
   },
   {
     "source": "/img/gopher.png",
-    "target": "https:/amp.dev/static/samples/img/gopher.png"
+    "target": "https://amp.dev/static/samples/img/gopher.png"
   },
   {
     "source": "/img/green_apple_1_1024x682.jpg",
-    "target": "https:/amp.dev/static/samples/img/green_apple_1_1024x682.jpg"
+    "target": "https://amp.dev/static/samples/img/green_apple_1_1024x682.jpg"
   },
   {
     "source": "/img/green_apple_1_60x40.jpg",
-    "target": "https:/amp.dev/static/samples/img/green_apple_1_60x40.jpg"
+    "target": "https://amp.dev/static/samples/img/green_apple_1_60x40.jpg"
   },
   {
     "source": "/img/green_apple_2_1024x685.jpg",
-    "target": "https:/amp.dev/static/samples/img/green_apple_2_1024x685.jpg"
+    "target": "https://amp.dev/static/samples/img/green_apple_2_1024x685.jpg"
   },
   {
     "source": "/img/green_apple_2_60x40.jpg",
-    "target": "https:/amp.dev/static/samples/img/green_apple_2_60x40.jpg"
+    "target": "https://amp.dev/static/samples/img/green_apple_2_60x40.jpg"
   },
   {
     "source": "/img/green-phone.jpg",
-    "target": "https:/amp.dev/static/samples/img/green-phone.jpg"
+    "target": "https://amp.dev/static/samples/img/green-phone.jpg"
   },
   {
     "source": "/img/green-stuff.jpg",
-    "target": "https:/amp.dev/static/samples/img/green-stuff.jpg"
+    "target": "https://amp.dev/static/samples/img/green-stuff.jpg"
   },
   {
     "source": "/img/ham-house_960x720.jpg",
-    "target": "https:/amp.dev/static/samples/img/ham-house_960x720.jpg"
+    "target": "https://amp.dev/static/samples/img/ham-house_960x720.jpg"
   },
   {
     "source": "/img/hotel01_2benny_640x383.jpg",
-    "target": "https:/amp.dev/static/samples/img/hotel01_2benny_640x383.jpg"
+    "target": "https://amp.dev/static/samples/img/hotel01_2benny_640x383.jpg"
   },
   {
     "source": "/img/hotel02_joepitha_640x383.jpg",
-    "target": "https:/amp.dev/static/samples/img/hotel02_joepitha_640x383.jpg"
+    "target": "https://amp.dev/static/samples/img/hotel02_joepitha_640x383.jpg"
   },
   {
     "source": "/img/hotel03_muffinn_640x383.jpg",
-    "target": "https:/amp.dev/static/samples/img/hotel03_muffinn_640x383.jpg"
+    "target": "https://amp.dev/static/samples/img/hotel03_muffinn_640x383.jpg"
   },
   {
     "source": "/img/hotel04_robinhawkes_640x383.jpg",
-    "target": "https:/amp.dev/static/samples/img/hotel04_robinhawkes_640x383.jpg"
+    "target": "https://amp.dev/static/samples/img/hotel04_robinhawkes_640x383.jpg"
   },
   {
     "source": "/img/Hovawart.jpg",
-    "target": "https:/amp.dev/static/samples/img/Hovawart.jpg"
+    "target": "https://amp.dev/static/samples/img/Hovawart.jpg"
   },
   {
     "source": "/img/ic_account_box_black_48dp_1x.png",
-    "target": "https:/amp.dev/static/samples/img/ic_account_box_black_48dp_1x.png"
+    "target": "https://amp.dev/static/samples/img/ic_account_box_black_48dp_1x.png"
   },
   {
     "source": "/img/ic_add_box_black_24dp_1x.png",
-    "target": "https:/amp.dev/static/samples/img/ic_add_box_black_24dp_1x.png"
+    "target": "https://amp.dev/static/samples/img/ic_add_box_black_24dp_1x.png"
   },
   {
     "source": "/img/ic_add_box_black_24dp_2x.png",
-    "target": "https:/amp.dev/static/samples/img/ic_add_box_black_24dp_2x.png"
+    "target": "https://amp.dev/static/samples/img/ic_add_box_black_24dp_2x.png"
   },
   {
     "source": "/img/ic_chevron_left_black_24dp_1x.png",
-    "target": "https:/amp.dev/static/samples/img/ic_chevron_left_black_24dp_1x.png"
+    "target": "https://amp.dev/static/samples/img/ic_chevron_left_black_24dp_1x.png"
   },
   {
     "source": "/img/ic_chevron_left_black_24dp_2x.png",
-    "target": "https:/amp.dev/static/samples/img/ic_chevron_left_black_24dp_2x.png"
+    "target": "https://amp.dev/static/samples/img/ic_chevron_left_black_24dp_2x.png"
   },
   {
     "source": "/img/ic_close_black_18dp_1x.png",
-    "target": "https:/amp.dev/static/samples/img/ic_close_black_18dp_1x.png"
+    "target": "https://amp.dev/static/samples/img/ic_close_black_18dp_1x.png"
   },
   {
     "source": "/img/ic_close_black_18dp_2x.png",
-    "target": "https:/amp.dev/static/samples/img/ic_close_black_18dp_2x.png"
+    "target": "https://amp.dev/static/samples/img/ic_close_black_18dp_2x.png"
   },
   {
     "source": "/img/ic_close_black_1x_web_24dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_close_black_1x_web_24dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_close_black_1x_web_24dp.png"
   },
   {
     "source": "/img/ic_close_black_2x_web_24dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_close_black_2x_web_24dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_close_black_2x_web_24dp.png"
   },
   {
     "source": "/img/ic_code_black_1x_web_24dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_code_black_1x_web_24dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_code_black_1x_web_24dp.png"
   },
   {
     "source": "/img/ic_code_black_2x_web_24dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_code_black_2x_web_24dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_code_black_2x_web_24dp.png"
   },
   {
     "source": "/img/ic_code_white_1x_web_24dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_code_white_1x_web_24dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_code_white_1x_web_24dp.png"
   },
   {
     "source": "/img/ic_code_white_2x_web_24dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_code_white_2x_web_24dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_code_white_2x_web_24dp.png"
   },
   {
     "source": "/img/ic_experiment_black_1x_web_18dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_experiment_black_1x_web_18dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_experiment_black_1x_web_18dp.png"
   },
   {
     "source": "/img/ic_experiment_black_1x_web_24dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_experiment_black_1x_web_24dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_experiment_black_1x_web_24dp.png"
   },
   {
     "source": "/img/ic_experiment_black_1x_web_36dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_experiment_black_1x_web_36dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_experiment_black_1x_web_36dp.png"
   },
   {
     "source": "/img/ic_experiment_black_2x_web_18dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_experiment_black_2x_web_18dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_experiment_black_2x_web_18dp.png"
   },
   {
     "source": "/img/ic_experiment_black_2x_web_24dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_experiment_black_2x_web_24dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_experiment_black_2x_web_24dp.png"
   },
   {
     "source": "/img/ic_experiment_black_2x_web_36dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_experiment_black_2x_web_36dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_experiment_black_2x_web_36dp.png"
   },
   {
     "source": "/img/ic_indeterminate_check_box_black_24dp_1x.png",
-    "target": "https:/amp.dev/static/samples/img/ic_indeterminate_check_box_black_24dp_1x.png"
+    "target": "https://amp.dev/static/samples/img/ic_indeterminate_check_box_black_24dp_1x.png"
   },
   {
     "source": "/img/ic_indeterminate_check_box_black_24dp_2x.png",
-    "target": "https:/amp.dev/static/samples/img/ic_indeterminate_check_box_black_24dp_2x.png"
+    "target": "https://amp.dev/static/samples/img/ic_indeterminate_check_box_black_24dp_2x.png"
   },
   {
     "source": "/img/ic_info_outline_black_24dp_1x.png",
-    "target": "https:/amp.dev/static/samples/img/ic_info_outline_black_24dp_1x.png"
+    "target": "https://amp.dev/static/samples/img/ic_info_outline_black_24dp_1x.png"
   },
   {
     "source": "/img/ic_info_outline_black_24dp_2x.png",
-    "target": "https:/amp.dev/static/samples/img/ic_info_outline_black_24dp_2x.png"
+    "target": "https://amp.dev/static/samples/img/ic_info_outline_black_24dp_2x.png"
   },
   {
     "source": "/img/ic_link_black_1x_web_18dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_link_black_1x_web_18dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_link_black_1x_web_18dp.png"
   },
   {
     "source": "/img/ic_link_black_2x_web_18dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_link_black_2x_web_18dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_link_black_2x_web_18dp.png"
   },
   {
     "source": "/img/ic_menu_black_1x_web_24dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_menu_black_1x_web_24dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_menu_black_1x_web_24dp.png"
   },
   {
     "source": "/img/ic_menu_black_2x_web_24dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_menu_black_2x_web_24dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_menu_black_2x_web_24dp.png"
   },
   {
     "source": "/img/ic_menu_white_1x_web_24dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_menu_white_1x_web_24dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_menu_white_1x_web_24dp.png"
   },
   {
     "source": "/img/ic_menu_white_2x_web_24dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_menu_white_2x_web_24dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_menu_white_2x_web_24dp.png"
   },
   {
     "source": "/img/ic_mode_edit_white_24dp_1x.png",
-    "target": "https:/amp.dev/static/samples/img/ic_mode_edit_white_24dp_1x.png"
+    "target": "https://amp.dev/static/samples/img/ic_mode_edit_white_24dp_1x.png"
   },
   {
     "source": "/img/ic_mode_edit_white_24dp_2x.png",
-    "target": "https:/amp.dev/static/samples/img/ic_mode_edit_white_24dp_2x.png"
+    "target": "https://amp.dev/static/samples/img/ic_mode_edit_white_24dp_2x.png"
   },
   {
     "source": "/img/ic_play_arrow_white_1x_web_24dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_play_arrow_white_1x_web_24dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_play_arrow_white_1x_web_24dp.png"
   },
   {
     "source": "/img/ic_play_arrow_white_2x_web_24dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_play_arrow_white_2x_web_24dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_play_arrow_white_2x_web_24dp.png"
   },
   {
     "source": "/img/ic_play_circle_filled_black_1x_web_24dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_play_circle_filled_black_1x_web_24dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_play_circle_filled_black_1x_web_24dp.png"
   },
   {
     "source": "/img/ic_play_circle_filled_black_2x_web_24dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_play_circle_filled_black_2x_web_24dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_play_circle_filled_black_2x_web_24dp.png"
   },
   {
     "source": "/img/ic_play_circle_filled_white_24dp_1x.png",
-    "target": "https:/amp.dev/static/samples/img/ic_play_circle_filled_white_24dp_1x.png"
+    "target": "https://amp.dev/static/samples/img/ic_play_circle_filled_white_24dp_1x.png"
   },
   {
     "source": "/img/ic_play_circle_filled_white_24dp_2x.png",
-    "target": "https:/amp.dev/static/samples/img/ic_play_circle_filled_white_24dp_2x.png"
+    "target": "https://amp.dev/static/samples/img/ic_play_circle_filled_white_24dp_2x.png"
   },
   {
     "source": "/img/ic_search_white_1x_web_24dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_search_white_1x_web_24dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_search_white_1x_web_24dp.png"
   },
   {
     "source": "/img/ic_search_white_2x_web_24dp.png",
-    "target": "https:/amp.dev/static/samples/img/ic_search_white_2x_web_24dp.png"
+    "target": "https://amp.dev/static/samples/img/ic_search_white_2x_web_24dp.png"
   },
   {
     "source": "/img/ima-poster.jpg",
-    "target": "https:/amp.dev/static/samples/img/ima-poster.jpg"
+    "target": "https://amp.dev/static/samples/img/ima-poster.jpg"
   },
   {
     "source": "/img/image1.jpg",
-    "target": "https:/amp.dev/static/samples/img/image1.jpg"
+    "target": "https://amp.dev/static/samples/img/image1.jpg"
   },
   {
     "source": "/img/image2.jpg",
-    "target": "https:/amp.dev/static/samples/img/image2.jpg"
+    "target": "https://amp.dev/static/samples/img/image2.jpg"
   },
   {
     "source": "/img/image3.jpg",
-    "target": "https:/amp.dev/static/samples/img/image3.jpg"
+    "target": "https://amp.dev/static/samples/img/image3.jpg"
   },
   {
     "source": "/img/italy-flag.png",
-    "target": "https:/amp.dev/static/samples/img/italy-flag.png"
+    "target": "https://amp.dev/static/samples/img/italy-flag.png"
   },
   {
     "source": "/img/lamb-garlic-done.jpg",
-    "target": "https:/amp.dev/static/samples/img/lamb-garlic-done.jpg"
+    "target": "https://amp.dev/static/samples/img/lamb-garlic-done.jpg"
   },
   {
     "source": "/img/lamb-garlic-ready-for-oven.jpg",
-    "target": "https:/amp.dev/static/samples/img/lamb-garlic-ready-for-oven.jpg"
+    "target": "https://amp.dev/static/samples/img/lamb-garlic-ready-for-oven.jpg"
   },
   {
     "source": "/img/lamb-with-garlic-slivers.jpg",
-    "target": "https:/amp.dev/static/samples/img/lamb-with-garlic-slivers.jpg"
+    "target": "https://amp.dev/static/samples/img/lamb-with-garlic-slivers.jpg"
   },
   {
     "source": "/img/landscape_canyon_1280x1700.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_canyon_1280x1700.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_canyon_1280x1700.jpg"
   },
   {
     "source": "/img/landscape_canyon_300x400.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_canyon_300x400.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_canyon_300x400.jpg"
   },
   {
     "source": "/img/landscape_desert_1280x853.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_desert_1280x853.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_desert_1280x853.jpg"
   },
   {
     "source": "/img/landscape_desert_300x200.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_desert_300x200.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_desert_300x200.jpg"
   },
   {
     "source": "/img/landscape_desert_300x250.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_desert_300x250.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_desert_300x250.jpg"
   },
   {
     "source": "/img/landscape_green_1280x853.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_green_1280x853.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_green_1280x853.jpg"
   },
   {
     "source": "/img/landscape_green_300x200.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_green_300x200.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_green_300x200.jpg"
   },
   {
     "source": "/img/landscape_houses_1280x803.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_houses_1280x803.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_houses_1280x803.jpg"
   },
   {
     "source": "/img/landscape_houses_300x188.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_houses_300x188.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_houses_300x188.jpg"
   },
   {
     "source": "/img/landscape_lake_1280x857.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_lake_1280x857.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_lake_1280x857.jpg"
   },
   {
     "source": "/img/landscape_lake_300x201.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_lake_300x201.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_lake_300x201.jpg"
   },
   {
     "source": "/img/landscape_mountains_1280x657.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_mountains_1280x657.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_mountains_1280x657.jpg"
   },
   {
     "source": "/img/landscape_mountains_300x154.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_mountains_300x154.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_mountains_300x154.jpg"
   },
   {
     "source": "/img/landscape_sea_1280x848.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_sea_1280x848.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_sea_1280x848.jpg"
   },
   {
     "source": "/img/landscape_sea_300x199.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_sea_300x199.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_sea_300x199.jpg"
   },
   {
     "source": "/img/landscape_ship_1280x853.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_ship_1280x853.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_ship_1280x853.jpg"
   },
   {
     "source": "/img/landscape_ship_300x200.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_ship_300x200.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_ship_300x200.jpg"
   },
   {
     "source": "/img/landscape_ship_300x250.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_ship_300x250.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_ship_300x250.jpg"
   },
   {
     "source": "/img/landscape_trees_1280x960.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_trees_1280x960.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_trees_1280x960.jpg"
   },
   {
     "source": "/img/landscape_trees_300x225.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_trees_300x225.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_trees_300x225.jpg"
   },
   {
     "source": "/img/landscape_village_1280x853.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_village_1280x853.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_village_1280x853.jpg"
   },
   {
     "source": "/img/landscape_village_300x200.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_village_300x200.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_village_300x200.jpg"
   },
   {
     "source": "/img/landscape_village_300x250.jpg",
-    "target": "https:/amp.dev/static/samples/img/landscape_village_300x250.jpg"
+    "target": "https://amp.dev/static/samples/img/landscape_village_300x250.jpg"
   },
   {
     "source": "/img/logo.png",
-    "target": "https:/amp.dev/static/samples/img/logo.png"
+    "target": "https://amp.dev/static/samples/img/logo.png"
   },
   {
     "source": "/img/logo.svg",
-    "target": "https:/amp.dev/static/samples/img/logo.svg"
+    "target": "https://amp.dev/static/samples/img/logo.svg"
   },
   {
     "source": "/img/meat-silverskin-cutting.jpg",
-    "target": "https:/amp.dev/static/samples/img/meat-silverskin-cutting.jpg"
+    "target": "https://amp.dev/static/samples/img/meat-silverskin-cutting.jpg"
   },
   {
     "source": "/img/multi-page-flow.gif",
-    "target": "https:/amp.dev/static/samples/img/multi-page-flow.gif"
+    "target": "https://amp.dev/static/samples/img/multi-page-flow.gif"
   },
   {
     "source": "/img/news_thumb.jpg",
-    "target": "https:/amp.dev/static/samples/img/news_thumb.jpg"
+    "target": "https://amp.dev/static/samples/img/news_thumb.jpg"
   },
   {
     "source": "/img/offline.png",
-    "target": "https:/amp.dev/static/samples/img/offline.png"
+    "target": "https://amp.dev/static/samples/img/offline.png"
   },
   {
     "source": "/img/oscars_placeholder_1.png",
-    "target": "https:/amp.dev/static/samples/img/oscars_placeholder_1.png"
+    "target": "https://amp.dev/static/samples/img/oscars_placeholder_1.png"
   },
   {
     "source": "/img/oscars_placeholder_2.png",
-    "target": "https:/amp.dev/static/samples/img/oscars_placeholder_2.png"
+    "target": "https://amp.dev/static/samples/img/oscars_placeholder_2.png"
   },
   {
     "source": "/img/overview.jpg",
-    "target": "https:/amp.dev/static/samples/img/overview.jpg"
+    "target": "https://amp.dev/static/samples/img/overview.jpg"
   },
   {
     "source": "/img/pixel-f6f6f6.png",
-    "target": "https:/amp.dev/static/samples/img/pixel-f6f6f6.png"
+    "target": "https://amp.dev/static/samples/img/pixel-f6f6f6.png"
   },
   {
     "source": "/img/pixel-white.png",
-    "target": "https:/amp.dev/static/samples/img/pixel-white.png"
+    "target": "https://amp.dev/static/samples/img/pixel-white.png"
   },
   {
     "source": "/img/play-icon.png",
-    "target": "https:/amp.dev/static/samples/img/play-icon.png"
+    "target": "https://amp.dev/static/samples/img/play-icon.png"
   },
   {
     "source": "/img/poster.jpg",
-    "target": "https:/amp.dev/static/samples/img/poster.jpg"
+    "target": "https://amp.dev/static/samples/img/poster.jpg"
   },
   {
     "source": "/img/poster0.png",
-    "target": "https:/amp.dev/static/samples/img/poster0.png"
+    "target": "https://amp.dev/static/samples/img/poster0.png"
   },
   {
     "source": "/img/poster2.jpg",
-    "target": "https:/amp.dev/static/samples/img/poster2.jpg"
+    "target": "https://amp.dev/static/samples/img/poster2.jpg"
   },
   {
     "source": "/img/poster3.jpg",
-    "target": "https:/amp.dev/static/samples/img/poster3.jpg"
+    "target": "https://amp.dev/static/samples/img/poster3.jpg"
   },
   {
     "source": "/img/poster4.jpg",
-    "target": "https:/amp.dev/static/samples/img/poster4.jpg"
+    "target": "https://amp.dev/static/samples/img/poster4.jpg"
   },
   {
     "source": "/img/poster5.jpg",
-    "target": "https:/amp.dev/static/samples/img/poster5.jpg"
+    "target": "https://amp.dev/static/samples/img/poster5.jpg"
   },
   {
     "source": "/img/product_hero1_1024x683.jpg",
-    "target": "https:/amp.dev/static/samples/img/product_hero1_1024x683.jpg"
+    "target": "https://amp.dev/static/samples/img/product_hero1_1024x683.jpg"
   },
   {
     "source": "/img/product_hero2_1024x683.jpg",
-    "target": "https:/amp.dev/static/samples/img/product_hero2_1024x683.jpg"
+    "target": "https://amp.dev/static/samples/img/product_hero2_1024x683.jpg"
   },
   {
     "source": "/img/product_hero3_1024x683.jpg",
-    "target": "https:/amp.dev/static/samples/img/product_hero3_1024x683.jpg"
+    "target": "https://amp.dev/static/samples/img/product_hero3_1024x683.jpg"
   },
   {
     "source": "/img/product1_640x426.jpg",
-    "target": "https:/amp.dev/static/samples/img/product1_640x426.jpg"
+    "target": "https://amp.dev/static/samples/img/product1_640x426.jpg"
   },
   {
     "source": "/img/product1_alt1_60x40.jpg",
-    "target": "https:/amp.dev/static/samples/img/product1_alt1_60x40.jpg"
+    "target": "https://amp.dev/static/samples/img/product1_alt1_60x40.jpg"
   },
   {
     "source": "/img/product2_1024x682.jpg",
-    "target": "https:/amp.dev/static/samples/img/product2_1024x682.jpg"
+    "target": "https://amp.dev/static/samples/img/product2_1024x682.jpg"
   },
   {
     "source": "/img/product2_640x426.jpg",
-    "target": "https:/amp.dev/static/samples/img/product2_640x426.jpg"
+    "target": "https://amp.dev/static/samples/img/product2_640x426.jpg"
   },
   {
     "source": "/img/product3_1024x682.jpg",
-    "target": "https:/amp.dev/static/samples/img/product3_1024x682.jpg"
+    "target": "https://amp.dev/static/samples/img/product3_1024x682.jpg"
   },
   {
     "source": "/img/product3_640x426.jpg",
-    "target": "https:/amp.dev/static/samples/img/product3_640x426.jpg"
+    "target": "https://amp.dev/static/samples/img/product3_640x426.jpg"
   },
   {
     "source": "/img/product4_1024x682.jpg",
-    "target": "https:/amp.dev/static/samples/img/product4_1024x682.jpg"
+    "target": "https://amp.dev/static/samples/img/product4_1024x682.jpg"
   },
   {
     "source": "/img/product4_640x426.jpg",
-    "target": "https:/amp.dev/static/samples/img/product4_640x426.jpg"
+    "target": "https://amp.dev/static/samples/img/product4_640x426.jpg"
   },
   {
     "source": "/img/product5_1024x653.jpg",
-    "target": "https:/amp.dev/static/samples/img/product5_1024x653.jpg"
+    "target": "https://amp.dev/static/samples/img/product5_1024x653.jpg"
   },
   {
     "source": "/img/product5_640x408.jpg",
-    "target": "https:/amp.dev/static/samples/img/product5_640x408.jpg"
+    "target": "https://amp.dev/static/samples/img/product5_640x408.jpg"
   },
   {
     "source": "/img/product6_1024x668.jpg",
-    "target": "https:/amp.dev/static/samples/img/product6_1024x668.jpg"
+    "target": "https://amp.dev/static/samples/img/product6_1024x668.jpg"
   },
   {
     "source": "/img/product6_640x424.jpg",
-    "target": "https:/amp.dev/static/samples/img/product6_640x424.jpg"
+    "target": "https://amp.dev/static/samples/img/product6_640x424.jpg"
   },
   {
     "source": "/img/recipe_thumb.jpg",
-    "target": "https:/amp.dev/static/samples/img/recipe_thumb.jpg"
+    "target": "https://amp.dev/static/samples/img/recipe_thumb.jpg"
   },
   {
     "source": "/img/red_apple_1_1024x682.jpg",
-    "target": "https:/amp.dev/static/samples/img/red_apple_1_1024x682.jpg"
+    "target": "https://amp.dev/static/samples/img/red_apple_1_1024x682.jpg"
   },
   {
     "source": "/img/red_apple_1_60x40.jpg",
-    "target": "https:/amp.dev/static/samples/img/red_apple_1_60x40.jpg"
+    "target": "https://amp.dev/static/samples/img/red_apple_1_60x40.jpg"
   },
   {
     "source": "/img/red_apple_2_1024x793.jpg",
-    "target": "https:/amp.dev/static/samples/img/red_apple_2_1024x793.jpg"
+    "target": "https://amp.dev/static/samples/img/red_apple_2_1024x793.jpg"
   },
   {
     "source": "/img/red_apple_2_60x46.jpg",
-    "target": "https:/amp.dev/static/samples/img/red_apple_2_60x46.jpg"
+    "target": "https://amp.dev/static/samples/img/red_apple_2_60x46.jpg"
   },
   {
     "source": "/img/road-1.jpg",
-    "target": "https:/amp.dev/static/samples/img/road-1.jpg"
+    "target": "https://amp.dev/static/samples/img/road-1.jpg"
   },
   {
     "source": "/img/road-2.jpg",
-    "target": "https:/amp.dev/static/samples/img/road-2.jpg"
+    "target": "https://amp.dev/static/samples/img/road-2.jpg"
   },
   {
     "source": "/img/road-3.jpg",
-    "target": "https:/amp.dev/static/samples/img/road-3.jpg"
+    "target": "https://amp.dev/static/samples/img/road-3.jpg"
   },
   {
     "source": "/img/road-4.jpg",
-    "target": "https:/amp.dev/static/samples/img/road-4.jpg"
+    "target": "https://amp.dev/static/samples/img/road-4.jpg"
   },
   {
     "source": "/img/roadshow.jpg",
-    "target": "https:/amp.dev/static/samples/img/roadshow.jpg"
+    "target": "https://amp.dev/static/samples/img/roadshow.jpg"
   },
   {
     "source": "/img/room1.jpg",
-    "target": "https:/amp.dev/static/samples/img/room1.jpg"
+    "target": "https://amp.dev/static/samples/img/room1.jpg"
   },
   {
     "source": "/img/room10.jpg",
-    "target": "https:/amp.dev/static/samples/img/room10.jpg"
+    "target": "https://amp.dev/static/samples/img/room10.jpg"
   },
   {
     "source": "/img/room2.jpg",
-    "target": "https:/amp.dev/static/samples/img/room2.jpg"
+    "target": "https://amp.dev/static/samples/img/room2.jpg"
   },
   {
     "source": "/img/room3.jpg",
-    "target": "https:/amp.dev/static/samples/img/room3.jpg"
+    "target": "https://amp.dev/static/samples/img/room3.jpg"
   },
   {
     "source": "/img/room4.jpg",
-    "target": "https:/amp.dev/static/samples/img/room4.jpg"
+    "target": "https://amp.dev/static/samples/img/room4.jpg"
   },
   {
     "source": "/img/room5.jpg",
-    "target": "https:/amp.dev/static/samples/img/room5.jpg"
+    "target": "https://amp.dev/static/samples/img/room5.jpg"
   },
   {
     "source": "/img/room6.jpg",
-    "target": "https:/amp.dev/static/samples/img/room6.jpg"
+    "target": "https://amp.dev/static/samples/img/room6.jpg"
   },
   {
     "source": "/img/room7.jpg",
-    "target": "https:/amp.dev/static/samples/img/room7.jpg"
+    "target": "https://amp.dev/static/samples/img/room7.jpg"
   },
   {
     "source": "/img/room8.jpg",
-    "target": "https:/amp.dev/static/samples/img/room8.jpg"
+    "target": "https://amp.dev/static/samples/img/room8.jpg"
   },
   {
     "source": "/img/room9.jpg",
-    "target": "https:/amp.dev/static/samples/img/room9.jpg"
+    "target": "https://amp.dev/static/samples/img/room9.jpg"
   },
   {
     "source": "/img/screenshot-media-notification.jpg",
-    "target": "https:/amp.dev/static/samples/img/screenshot-media-notification.jpg"
+    "target": "https://amp.dev/static/samples/img/screenshot-media-notification.jpg"
   },
   {
     "source": "/img/Shetland_Sheepdog.jpg",
-    "target": "https:/amp.dev/static/samples/img/Shetland_Sheepdog.jpg"
+    "target": "https://amp.dev/static/samples/img/Shetland_Sheepdog.jpg"
   },
   {
     "source": "/img/shopping_thumb.jpg",
-    "target": "https:/amp.dev/static/samples/img/shopping_thumb.jpg"
+    "target": "https://amp.dev/static/samples/img/shopping_thumb.jpg"
   },
   {
     "source": "/img/social.png",
-    "target": "https:/amp.dev/static/samples/img/social.png"
+    "target": "https://amp.dev/static/samples/img/social.png"
   },
   {
     "source": "/img/st_james_palace_453x340.jpg",
-    "target": "https:/amp.dev/static/samples/img/st_james_palace_453x340.jpg"
+    "target": "https://amp.dev/static/samples/img/st_james_palace_453x340.jpg"
   },
   {
     "source": "/img/story_dog2_landscape.jpg",
-    "target": "https:/amp.dev/static/samples/img/story_dog2_landscape.jpg"
+    "target": "https://amp.dev/static/samples/img/story_dog2_landscape.jpg"
   },
   {
     "source": "/img/story_dog2_portrait.jpg",
-    "target": "https:/amp.dev/static/samples/img/story_dog2_portrait.jpg"
+    "target": "https://amp.dev/static/samples/img/story_dog2_portrait.jpg"
   },
   {
     "source": "/img/story_dog2_square.jpg",
-    "target": "https:/amp.dev/static/samples/img/story_dog2_square.jpg"
+    "target": "https://amp.dev/static/samples/img/story_dog2_square.jpg"
   },
   {
     "source": "/img/story_dog2.jpg",
-    "target": "https:/amp.dev/static/samples/img/story_dog2.jpg"
+    "target": "https://amp.dev/static/samples/img/story_dog2.jpg"
   },
   {
     "source": "/img/story_dog3.jpg",
-    "target": "https:/amp.dev/static/samples/img/story_dog3.jpg"
+    "target": "https://amp.dev/static/samples/img/story_dog3.jpg"
   },
   {
     "source": "/img/story_dog4.jpg",
-    "target": "https:/amp.dev/static/samples/img/story_dog4.jpg"
+    "target": "https://amp.dev/static/samples/img/story_dog4.jpg"
   },
   {
     "source": "/img/story_thirds_1.jpg",
-    "target": "https:/amp.dev/static/samples/img/story_thirds_1.jpg"
+    "target": "https://amp.dev/static/samples/img/story_thirds_1.jpg"
   },
   {
     "source": "/img/story_thirds_2.jpg",
-    "target": "https:/amp.dev/static/samples/img/story_thirds_2.jpg"
+    "target": "https://amp.dev/static/samples/img/story_thirds_2.jpg"
   },
   {
     "source": "/img/story_thirds_3.jpg",
-    "target": "https:/amp.dev/static/samples/img/story_thirds_3.jpg"
+    "target": "https://amp.dev/static/samples/img/story_thirds_3.jpg"
   },
   {
     "source": "/img/story_video_dog_cover.jpg",
-    "target": "https:/amp.dev/static/samples/img/story_video_dog_cover.jpg"
+    "target": "https://amp.dev/static/samples/img/story_video_dog_cover.jpg"
   },
   {
     "source": "/img/system-share.gif",
-    "target": "https:/amp.dev/static/samples/img/system-share.gif"
+    "target": "https://amp.dev/static/samples/img/system-share.gif"
   },
   {
     "source": "/img/system-share1.png",
-    "target": "https:/amp.dev/static/samples/img/system-share1.png"
+    "target": "https://amp.dev/static/samples/img/system-share1.png"
   },
   {
     "source": "/img/system-share2.png",
-    "target": "https:/amp.dev/static/samples/img/system-share2.png"
+    "target": "https://amp.dev/static/samples/img/system-share2.png"
   },
   {
     "source": "/img/tokyo.jpg",
-    "target": "https:/amp.dev/static/samples/img/tokyo.jpg"
+    "target": "https://amp.dev/static/samples/img/tokyo.jpg"
   },
   {
     "source": "/img/tomatoes-cut.jpg",
-    "target": "https:/amp.dev/static/samples/img/tomatoes-cut.jpg"
+    "target": "https://amp.dev/static/samples/img/tomatoes-cut.jpg"
   },
   {
     "source": "/img/tree-1920x1277.jpg",
-    "target": "https:/amp.dev/static/samples/img/tree-1920x1277.jpg"
+    "target": "https://amp.dev/static/samples/img/tree-1920x1277.jpg"
   },
   {
     "source": "/img/unknown-flag.png",
-    "target": "https:/amp.dev/static/samples/img/unknown-flag.png"
+    "target": "https://amp.dev/static/samples/img/unknown-flag.png"
   },
   {
     "source": "/img/video_thumb.jpg",
-    "target": "https:/amp.dev/static/samples/img/video_thumb.jpg"
+    "target": "https://amp.dev/static/samples/img/video_thumb.jpg"
   },
   {
     "source": "/img/windsor-castle_960x642.jpg",
-    "target": "https:/amp.dev/static/samples/img/windsor-castle_960x642.jpg"
+    "target": "https://amp.dev/static/samples/img/windsor-castle_960x642.jpg"
   }
 ]
