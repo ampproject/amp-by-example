@@ -5,7 +5,11 @@ const {writeFileSync} = require('fs');
 const sm = require('sitemap');
 
 const STATIC_SAMPLES = ['hreflang', 'linker', 'internationalization'];
-const IGNORE = new Set(['/login.html', '/googlea533f0f54d9c716a.html', '/humans.txt']);
+const IGNORE = new Set([
+'/login.html',
+'/googlea533f0f54d9c716a.html',
+'/amp4mail/gallery.html',
+'/humans.txt']);
 const MANUAL = new Map([
   ['/sw.js', 'https://amp.dev/serviceworker.js'],
   ['/sw.html', 'https://amp.dev/serviceworker.html'],
