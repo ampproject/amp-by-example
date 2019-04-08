@@ -21,7 +21,7 @@ import (
 )
 
 func InitAmpAnalytics() {
-	RegisterSample(CATEGORY_COMPONENTS+"/amp-analytics", renderAnalyticsSample)
+	//RegisterSample(CATEGORY_COMPONENTS+"/amp-analytics", renderAnalyticsSample)
 }
 
 func renderAnalyticsSample(w http.ResponseWriter, r *http.Request, page Page) {

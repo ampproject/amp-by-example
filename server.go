@@ -48,7 +48,7 @@ func init() {
 	backend.InitStateRefreshSection()
 	backend.InitEcho()
 	playground.InitPlayground()
-	backend.InitStatic()
+	// backend.InitStatic()
 	http.HandleFunc("/_ah/warmup", warmup)
 }
 
