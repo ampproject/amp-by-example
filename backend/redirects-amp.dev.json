@@ -116,7 +116,15 @@
     "target": "https://amp.dev/boilerplate?referrer=ampbyexample.com"
   },
   {
+    "source": "/boilerplate/",
+    "target": "https://amp.dev/boilerplate?referrer=ampbyexample.com"
+  },
+  {
     "source": "/playground",
+    "target": "https://playground.amp.dev/?referrer=ampbyexample.com"
+  },
+  {
+    "source": "/playground/",
     "target": "https://playground.amp.dev/?referrer=ampbyexample.com"
   },
   {
@@ -1025,11 +1033,11 @@
   },
   {
     "source": "/webpush/amp-web-push-helper-frame.html",
-    "target": "https://amp.dev/static/samples/webpush/amp-web-push-helper-frame.html"
+    "target": "https://amp.dev/documentation/examples/components/amp-web-push/amp-web-push-helper-frame.html"
   },
   {
     "source": "/webpush/amp-web-push-permission-dialog.html",
-    "target": "https://amp.dev/static/samples/webpush/amp-web-push-permission-dialog.html"
+    "target": "https://amp.dev/documentation/examples/components/amp-web-push/amp-web-push-permission-dialog.html"
   },
   {
     "source": "/json/addresses.json",

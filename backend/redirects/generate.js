@@ -12,8 +12,11 @@ const IGNORE = new Set([
 '/humans.txt']);
 const MANUAL = new Map([
   ['/sw.js', 'https://amp.dev/serviceworker.js'],
+  ['sitemap.json', 'https://amp.dev/documentation/examples/api/list'],
   ['/sw.html', 'https://amp.dev/serviceworker.html'],
   ['/glTF/DamagedHelmet.glb', 'https://amp.dev/static/samples/glTF/DamagedHelmet.glb'],
+ ['/webpush/amp-web-push-helper-frame.html', 'https://amp.dev/documentation/examples/components/amp-web-push/amp-web-push-helper-frame.html'],
+ ['/webpush/amp-web-push-permission-dialog.html',  'https://amp.dev/documentation/examples/components/amp-web-push/amp-web-push-permission-dialog.html'],
 ]);
 
 function calculateTarget(string) {

@@ -6,7 +6,19 @@
     "Comment": ""
   },
   {
+    "Source": "/boilerplate/",
+    "Target": "amp.dev/boilerplate",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
     "Source": "/playground",
+    "Target": "https://playground.amp.dev",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/playground/",
     "Target": "https://playground.amp.dev",
     "Status": "Migrated",
     "Comment": ""

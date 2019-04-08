@@ -29,20 +29,12 @@ handlers:
   script: _go_app
   login: admin
 
-- url: /(sw\.js)
+- url: /(sitemap\.json)
   mime_type: text/javascript
   static_files: dist/\1
-  upload: dist/(sw\.js)
+  upload: dist/(sitemap\.json)
   secure: always
-  expiration: "0s"
-  http_headers:
-    Access-Control-Allow-Origin: "*"
-
-- url: /playground/sw\.js$
-  secure: always
-  static_files: dist/playground/sw.js
-  upload: dist/playground/sw\.js$
-  expiration: 0
+  expiration: "500s"
   http_headers:
     Access-Control-Allow-Origin: "*"
 
@@ -64,32 +56,6 @@ handlers:
   secure: always
   http_headers:
     Access-Control-Allow-Origin: "*"
-
-- url: /polymer/detail/.*
-  static_files: dist/polymer/index.html
-  upload: index.html
-  secure: always
-
-- url: /polymer/src
-  static_dir: dist/polymer/src
-  secure: always
-
-- url: /polymer/list/.*
-  static_files: dist/polymer/index.html
-  upload: index.html
-  secure: always
-
-- url: /polymer/service-worker\.js
-  secure: always
-  static_files: dist/polymer/service-worker.js
-  upload: dist/polymer/service-worker\.js
-  expiration: 0
-  http_headers:
-    Access-Control-Allow-Origin: "*"
-
-- url: /polymer/
-  static_files: dist/polymer/index.html
-  upload: dist/polymer/index.html
 
 - url: /.*
   script: _go_app
