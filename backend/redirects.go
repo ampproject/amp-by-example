@@ -17,28 +17,43 @@ package backend
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"strings"
 )
 
 const HOST = "https://ampbyexample.com"
 
+type Redirect struct {
+	Source string `json:"source"`
+	Target string `json:"target"`
+}
+
 func InitRedirects() {
-	redirects, err := parseRedirects("backend/redirects.json")
+	redirects, err := parseRedirects("backend/redirects-amp.dev.json")
 	if err != nil {
 		panic(err)
 	}
 
-	for source, target := range redirects {
-		http.Handle(source, http.RedirectHandler(HOST+target, 301))
+	log.Printf("Setting up redirects")
+	for _, redirect := range redirects {
+		source := redirect.Source
+		target := redirect.Target
+		if !strings.HasPrefix(target, "http") {
+			target = HOST + target
+		}
+
+		//log.Printf("Redirect %s -> %s", source, target)
+		http.Handle(source, http.RedirectHandler(target, 301))
 	}
 }
 
-func parseRedirects(configPath string) (map[string]string, error) {
+func parseRedirects(configPath string) ([]Redirect, error) {
 	data, err := ioutil.ReadFile(configPath)
 	if err != nil {
 		return nil, err
 	}
-	var redirects map[string]string
+	var redirects []Redirect
 	err = json.Unmarshal(data, &redirects)
 	if err != nil {
 		return nil, err

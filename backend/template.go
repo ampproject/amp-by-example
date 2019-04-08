@@ -37,9 +37,11 @@ var MODES = [...]string{"", "/embed", "/source", "/preview", "/preview/embed"}
 // RegisterSample adds routes for different sample modes, e.g. (my_sample/embed, my_sample/preview,..).
 // Use it whenever a sample requires a custom backend logic.
 func RegisterSample(samplePath string, handler func(http.ResponseWriter, *http.Request, Page)) {
-	for _, mode := range MODES {
-		registerSampleHandler(samplePath, mode, handler)
-	}
+	/*
+		for _, mode := range MODES {
+			registerSampleHandler(samplePath, mode, handler)
+		}
+	*/
 }
 
 // RegisterSampleEndpoint adds routes for different sample modes ((my_sample/search/embed,

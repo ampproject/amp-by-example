@@ -1,0 +1,3332 @@
+[
+  {
+    "Source": "/video/**/*",
+    "Target": "/video/**/*",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/json/**/*",
+    "Target": "/json/**/*",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/img/**/*",
+    "Target": "/img/**/*",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/favicons/**/*",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/boilerplate",
+    "Target": "amp.dev/boilerplate",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/playground",
+    "Target": "playground.amp.dev",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/#advanced",
+    "Target": "amp.dev/documentation/examples.html",
+    "Status": "Migrated",
+    "Comment": "We need to implement SSR for the category filter, but fragments can't be redirected either"
+  },
+  {
+    "Source": "/#components",
+    "Target": "amp.dev/documentation/examples.html",
+    "Status": "Migrated",
+    "Comment": "We need to implement SSR for the category filter, but fragments can't be redirected either"
+  },
+  {
+    "Source": "/#dynamic_amp",
+    "Target": "amp.dev/documentation/examples.html",
+    "Status": "Migrated",
+    "Comment": "We need to implement SSR for the category filter, but fragments can't be redirected either"
+  },
+  {
+    "Source": "/#introduction",
+    "Target": "amp.dev/documentation/examples.html",
+    "Status": "Migrated",
+    "Comment": "We need to implement SSR for the category filter, but fragments can't be redirected either"
+  },
+  {
+    "Source": "/#samples_templates",
+    "Target": "amp.dev/documentation/examples.html",
+    "Status": "Migrated",
+    "Comment": "We need to implement SSR for the category filter, but fragments can't be redirected either"
+  },
+  {
+    "Source": "/#user_consent",
+    "Target": "amp.dev/documentation/examples.html",
+    "Status": "Migrated",
+    "Comment": "We need to implement SSR for the category filter, but fragments can't be redirected either"
+  },
+  {
+    "Source": "/#visual_effects",
+    "Target": "amp.dev/documentation/examples.html",
+    "Status": "Migrated",
+    "Comment": "We need to implement SSR for the category filter, but fragments can't be redirected either"
+  },
+  {
+    "Source": "/advanced/advanced_video_docking/",
+    "Target": "amp.dev/documentation/examples/multimedia-animations/advanced_video_docking/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/advanced_video_docking/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/advanced_video_docking/preview/",
+    "Target": "amp.dev/documentation/examples/multimedia-animations/advanced_video_docking/preview/index.html?format=websites",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/advanced_video_docking/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/autosuggest_form/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/autosuggest_form/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/autosuggest_form/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/autosuggest_form/preview/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/autosuggest_form/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/autosuggest_form/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/autosuggest/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/simple_autosuggest/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/autosuggest/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/autosuggest/preview/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/simple_autosuggest/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/autosuggest/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/click-to-play_overlay_for_amp-video/",
+    "Target": "amp.dev/documentation/examples/multimedia-animations/click-to-play_overlay_for_amp-video/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/click-to-play_overlay_for_amp-video/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/click-to-play_overlay_for_amp-video/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/combobox/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/combobox/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/combobox/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/combobox/preview/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/combobox/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/combobox/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/copy_button/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/copy_button/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/copy_button/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/copy_button/preview/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/copy_button/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/copy_button/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/custom_loading_indicators/",
+    "Target": "amp.dev/documentation/examples/multimedia-animations/custom_loading_indicators/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/custom_loading_indicators/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/custom_loading_indicators/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/favorite_button/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/favorite_button/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/favorite_button/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/favorite_button/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/geolocation_with_amp-list/",
+    "Target": "amp.dev/documentation/examples/personalization/geolocation_with_amp-list/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/geolocation_with_amp-list/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/geolocation_with_amp-list/preview/",
+    "Target": "amp.dev/documentation/examples/personalization/geolocation_with_amp-list/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/geolocation_with_amp-list/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/how_to_support_images_with_unknown_dimensions/",
+    "Target": "amp.dev/documentation/examples/style-layout/how_to_support_images_with_unknown_dimensions/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/how_to_support_images_with_unknown_dimensions/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/how_to_support_images_with_unknown_dimensions/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/image_galleries_with_amp-carousel/",
+    "Target": "amp.dev/documentation/examples/multimedia-animations/image_galleries_with_amp-carousel/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/image_galleries_with_amp-carousel/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/image_galleries_with_amp-carousel/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/integrating_videos_in_amp_an_overview/",
+    "Target": "amp.dev/documentation/examples/multimedia-animations/integrating_videos_in_amp_an_overview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/integrating_videos_in_amp_an_overview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/integrating_videos_in_amp_an_overview/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/joining_analytics_sessions/",
+    "Target": "amp.dev/documentation/examples/advertising-analytics/joining_analytics_sessions/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/joining_analytics_sessions/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/joining_analytics_sessions/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/linked_dropdowns/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/linked_dropdowns/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/linked_dropdowns/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/linked_dropdowns/preview/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/linked_dropdowns/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/linked_dropdowns/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/long_list_of_amp-instagram_embeds/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/long_list_of_amp-instagram_embeds/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/long_list_of_amp-instagram_embeds/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/oauth2_login/",
+    "Target": "amp.dev/documentation/examples/personalization/oauth2_login/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/oauth2_login/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/oauth2_login/preview/",
+    "Target": "amp.dev/documentation/examples/personalization/oauth2_login/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/oauth2_login/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/paged_list/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/paged_list/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/paged_list/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/paged_list/preview/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/paged_list/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/paged_list/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/payments_in_amp/",
+    "Target": "amp.dev/documentation/examples/e-commerce/payments_in_amp/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/payments_in_amp/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/payments_in_amp/preview/",
+    "Target": "amp.dev/documentation/examples/e-commerce/payments_in_amp/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/payments_in_amp/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/rich_media_notifications/",
+    "Target": "amp.dev/documentation/examples/multimedia-animations/rich_media_notifications/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/rich_media_notifications/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/rich_media_notifications/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/seatmap_multiple_selection/",
+    "Target": "/documentation/examples/interactivity-dynamic-content/seatmap_multiple_selection/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/seatmap_multiple_selection/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/seatmap_multiple_selection/preview/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/seatmap_multiple_selection/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/seatmap_multiple_selection/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/seatmap/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/seatmap/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/seatmap/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/seatmap/preview/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/seatmap/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/seatmap/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/show_more_button/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/show_more_button/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/show_more_button/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/show_more_button/preview/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/show_more_button/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/show_more_button/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/star_rating/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/star_rating/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/star_rating/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/star_rating/preview/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/star_rating/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/star_rating/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/tab_panels_with_amp-selector/",
+    "Target": "amp.dev/documentation/examples/style-layout/tab_panels_with_amp-selector/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/tab_panels_with_amp-selector/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/tab_panels_with_amp-selector/preview/",
+    "Target": "amp.dev/documentation/examples/style-layout/tab_panels_with_amp-selector/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/tab_panels_with_amp-selector/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/using_the_amp_url_api/",
+    "Target": "amp.dev/documentation/examples/guides/using_the_amp_url_api/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/using_the_amp_url_api/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/using_the_amp_url_api/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/using_the_google_amp_cache/",
+    "Target": "amp.dev/documentation/examples/guides/using_the_google_amp_cache/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/using_the_google_amp_cache/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/using_the_google_amp_cache/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/video_carousels_with_amp-carousel/",
+    "Target": "amp.dev/documentation/examples/multimedia-animations/video_carousels_with_amp-carousel/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/video_carousels_with_amp-carousel/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/video_carousels_with_amp-carousel/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/video_rotate_to_fullscreen_with_hint/",
+    "Target": "amp.dev/documentation/examples/multimedia-animations/video_rotate_to_fullscreen_with_hint/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/video_rotate_to_fullscreen_with_hint/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/video_rotate_to_fullscreen_with_hint/preview/",
+    "Target": "amp.dev/documentation/examples/multimedia-animations/video_rotate_to_fullscreen_with_hint/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/advanced/video_rotate_to_fullscreen_with_hint/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/carousel_ad/",
+    "Target": "amp.dev/documentation/examples/introduction/carousel_ad/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/carousel_ad/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/carousel_ad/preview/",
+    "Target": "amp.dev/documentation/examples/introduction/carousel_ad/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/carousel_ad/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/scrollbound_animation_ad/",
+    "Target": "amp.dev/documentation/examples/introduction/scrollbound_animation_ad/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/scrollbound_animation_ad/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/scrollbound_animation_ad/preview/",
+    "Target": "amp.dev/documentation/examples/introduction/scrollbound_animation_ad/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/scrollbound_animation_ad/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/scrollbound_video_ad/",
+    "Target": "amp.dev/documentation/examples/introduction/scrollbound_video_ad/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/scrollbound_video_ad/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/scrollbound_video_ad/preview/",
+    "Target": "amp.dev/documentation/examples/introduction/scrollbound_video_ad/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/scrollbound_video_ad/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/slides_ad/",
+    "Target": "amp.dev/documentation/examples/introduction/slides_ad/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/slides_ad/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/slides_ad/preview/",
+    "Target": "amp.dev/documentation/examples/introduction/slides_ad/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/slides_ad/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/video_ad/",
+    "Target": "amp.dev/documentation/examples/introduction/video_ad/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/video_ad/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/video_ad/preview/",
+    "Target": "amp.dev/documentation/examples/introduction/video_ad/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/advanced_ads/video_ad/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/basic_ads/banner_ad/",
+    "Target": "amp.dev/documentation/examples/introduction/banner_ad/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/basic_ads/banner_ad/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/basic_ads/banner_ad/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/experimental_ads/lightbox_ad/",
+    "Target": "amp.dev/documentation/examples/introduction/lightbox_ad/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/experimental_ads/lightbox_ad/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/experimental_ads/lightbox_ad/preview/",
+    "Target": "amp.dev/documentation/examples/introduction/lightbox_ad/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/experimental_ads/lightbox_ad/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/experimental_ads/stack_with_bind_ad/",
+    "Target": "amp.dev/documentation/examples/introduction/stack_with_bind_ad/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/experimental_ads/stack_with_bind_ad/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/experimental_ads/stack_with_bind_ad/preview/",
+    "Target": "amp.dev/documentation/examples/introduction/stack_with_bind_ad/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/experimental_ads/stack_with_bind_ad/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/introduction/amphtml_ads_vs_non-amp_ads/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/introduction/amphtml_ads_vs_non-amp_ads/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/introduction/amphtml_ads_vs_non-amp_ads/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/introduction/hello_world/",
+    "Target": "amp.dev/documentation/examples/introduction/amphtml_ads_hello_world/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/introduction/hello_world/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/introduction/hello_world/preview/",
+    "Target": "amp.dev/documentation/examples/introduction/amphtml_ads_hello_world/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads/introduction/hello_world/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads#amp-ads/advanced_ads",
+    "Target": "amp.dev/documentation/examples.html?format=ads",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads#amp-ads/basic_ads",
+    "Target": "amp.dev/documentation/examples.html?format=ads",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads#amp-ads/experimental_ads",
+    "Target": "amp.dev/documentation/examples.html?format=ads",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-ads#amp-ads/introduction",
+    "Target": "amp.dev/documentation/examples.html?format=ads",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amphtml-email/introduction/hello_world/",
+    "Target": "amp.dev/documentation/examples/introduction/amphtml_email_hello_world/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amphtml-email/introduction/hello_world/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amphtml-email/introduction/hello_world/preview/",
+    "Target": "amp.dev/documentation/examples/introduction/amphtml_email_hello_world/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/amphtml-email/introduction/hello_world/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amphtml-email#amphtml-email/introduction",
+    "Target": "amp.dev/documentation/examples.html?format=email",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-3d-gltf/",
+    "Target": "amp.dev/documentation/examples/components/amp-3d-gltf/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-3d-gltf/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-3d-gltf/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-access-laterpay/",
+    "Target": "amp.dev/documentation/components/reference/amp-access-laterpay.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-access-laterpay/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-access-laterpay/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-access/",
+    "Target": "amp.dev/documentation/examples/components/amp-access/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-access/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-access/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-accordion/",
+    "Target": "amp.dev/documentation/examples/components/amp-accordion/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-accordion/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-accordion/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-ad/",
+    "Target": "amp.dev/documentation/examples/components/amp-ad/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-ad/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-ad/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-addthis/",
+    "Target": "amp.dev/documentation/components/reference/amp-addthis.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-addthis/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-addthis/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-analytics/",
+    "Target": "amp.dev/documentation/examples/components/amp-analytics/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-analytics/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-analytics/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-anim/",
+    "Target": "amp.dev/documentation/examples/components/amp-anim/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-anim/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-anim/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-app-banner/",
+    "Target": "amp.dev/documentation/examples/components/amp-app-banner/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-app-banner/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-app-banner/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-audio/",
+    "Target": "amp.dev/documentation/examples/components/amp-audio/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-audio/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-audio/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-bind/",
+    "Target": "amp.dev/documentation/examples/components/amp-bind/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-bind/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-bind/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-bodymovin-animation/",
+    "Target": "amp.dev/documentation/examples/components/amp-bodymovin-animation/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-bodymovin-animation/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-bodymovin-animation/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-brid-player/",
+    "Target": "amp.dev/documentation/examples/components/amp-brid-player/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-brid-player/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-brid-player/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-brightcove/",
+    "Target": "amp.dev/documentation/examples/components/amp-brightcove/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-brightcove/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-brightcove/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-call-tracking/",
+    "Target": "amp.dev/documentation/examples/components/amp-call-tracking/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-call-tracking/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-call-tracking/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-carousel/",
+    "Target": "amp.dev/documentation/examples/components/amp-carousel/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-carousel/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-carousel/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-dailymotion/",
+    "Target": "amp.dev/documentation/examples/components/amp-dailymotion/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-dailymotion/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-dailymotion/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-date-countdown/",
+    "Target": "amp.dev/documentation/examples/components/amp-date-countdown/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-date-countdown/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-date-countdown/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-date-display/",
+    "Target": "amp.dev/documentation/examples/components/amp-date-display/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-date-display/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-date-display/preview/",
+    "Target": "amp.dev/documentation/examples/components/amp-date-display/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-date-display/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-date-picker/",
+    "Target": "amp.dev/documentation/examples/components/amp-date-picker/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-date-picker/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-date-picker/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-dynamic-css-classes/",
+    "Target": "amp.dev/documentation/examples/components/amp-dynamic-css-classes/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-dynamic-css-classes/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-dynamic-css-classes/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-experiment/",
+    "Target": "amp.dev/documentation/examples/components/amp-experiment/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-experiment/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-experiment/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-facebook-comments/",
+    "Target": "amp.dev/documentation/examples/components/amp-facebook-comments/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-facebook-comments/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-facebook-comments/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-facebook-like/",
+    "Target": "amp.dev/documentation/examples/components/amp-facebook-like/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-facebook-like/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-facebook-like/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-facebook-page/",
+    "Target": "amp.dev/documentation/examples/components/amp-facebook-page/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-facebook-page/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-facebook-page/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-facebook/",
+    "Target": "amp.dev/documentation/examples/components/amp-facebook/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-facebook/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-facebook/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-fit-text/",
+    "Target": "amp.dev/documentation/examples/components/amp-fit-text/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-fit-text/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-fit-text/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-font/",
+    "Target": "amp.dev/documentation/examples/components/amp-font/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-font/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-font/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-form/",
+    "Target": "amp.dev/documentation/examples/components/amp-form/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-form/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-form/preview/",
+    "Target": "amp.dev/documentation/examples/components/amp-form/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-form/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-fx-collection/",
+    "Target": "amp.dev/documentation/examples/components/amp-fx-collection/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-fx-collection/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-fx-collection/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-fx-flying-carpet/",
+    "Target": "amp.dev/documentation/examples/components/amp-fx-flying-carpet/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-fx-flying-carpet/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-fx-flying-carpet/preview/",
+    "Target": "amp.dev/documentation/examples/components/amp-fx-flying-carpet/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-fx-flying-carpet/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-geo/",
+    "Target": "amp.dev/documentation/examples/components/amp-geo/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-geo/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-geo/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-gfycat/",
+    "Target": "amp.dev/documentation/examples/components/amp-gfycat/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-gfycat/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-gfycat/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-gist/",
+    "Target": "amp.dev/documentation/examples/components/amp-gist/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-gist/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-gist/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-google-document-embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-google-document-embed/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-google-document-embed/preview/",
+    "Target": "amp.dev/documentation/examples/components/amp-google-document-embed/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-google-document-embed/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-google-vrview-image/",
+    "Target": "amp.dev/documentation/examples/components/amp-google-vrview-image/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-google-vrview-image/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-google-vrview-image/preview/",
+    "Target": "amp.dev/documentation/examples/components/amp-google-vrview-image/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-google-vrview-image/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-hulu/",
+    "Target": "amp.dev/documentation/examples/components/amp-hulu/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-hulu/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-hulu/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-iframe/",
+    "Target": "amp.dev/documentation/examples/components/amp-iframe/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-iframe/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-iframe/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-ima-video/",
+    "Target": "amp.dev/documentation/examples/components/amp-ima-video/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-ima-video/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-ima-video/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-image-lightbox/",
+    "Target": "amp.dev/documentation/examples/components/amp-image-lightbox/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-image-lightbox/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-image-lightbox/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-image-slider/",
+    "Target": "amp.dev/documentation/examples/components/amp-image-slider/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-image-slider/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-image-slider/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-img/",
+    "Target": "amp.dev/documentation/examples/components/amp-img/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-img/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-img/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-inputmask/",
+    "Target": "amp.dev/documentation/examples/components/amp-inputmask/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-inputmask/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-inputmask/preview/",
+    "Target": "amp.dev/documentation/examples/components/amp-inputmask/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-inputmask/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-instagram/",
+    "Target": "amp.dev/documentation/examples/components/amp-instagram/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-instagram/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-instagram/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-install-serviceworker/",
+    "Target": "amp.dev/documentation/examples/components/amp-install-serviceworker/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-install-serviceworker/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-install-serviceworker/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-jwplayer/",
+    "Target": "amp.dev/documentation/examples/components/amp-jwplayer/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-jwplayer/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-jwplayer/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-kaltura-player/",
+    "Target": "amp.dev/documentation/examples/components/amp-kaltura-player/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-kaltura-player/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-kaltura-player/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-lightbox-gallery/",
+    "Target": "amp.dev/documentation/examples/components/amp-lightbox/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-lightbox-gallery/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-lightbox-gallery/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-lightbox/",
+    "Target": "amp.dev/documentation/examples/components/amp-lightbox/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-lightbox/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-lightbox/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-list/",
+    "Target": "amp.dev/documentation/examples/components/amp-list/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-list/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-list/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-live-list/",
+    "Target": "amp.dev/documentation/examples/components/amp-live-list/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-live-list/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-live-list/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-mustache/",
+    "Target": "amp.dev/documentation/examples/components/amp-mustache/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-mustache/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-mustache/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-next-page/",
+    "Target": "amp.dev/documentation/examples/components/amp-next-page/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-next-page/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-next-page/preview/",
+    "Target": "amp.dev/documentation/examples/components/amp-next-page/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-next-page/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-o2-player/",
+    "Target": "amp.dev/documentation/examples/components/amp-o2-player/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-o2-player/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-o2-player/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-pinterest/",
+    "Target": "amp.dev/documentation/examples/components/amp-pinterest/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-pinterest/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-pinterest/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-pixel/",
+    "Target": "amp.dev/documentation/examples/components/amp-pixel/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-pixel/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-pixel/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-reach-player/",
+    "Target": "amp.dev/documentation/examples/components/amp-reach-player/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-reach-player/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-reach-player/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-reddit/",
+    "Target": "amp.dev/documentation/examples/components/amp-reddit/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-reddit/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-reddit/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-selector/",
+    "Target": "amp.dev/documentation/examples/components/amp-selector/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-selector/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-selector/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-sidebar/",
+    "Target": "amp.dev/documentation/examples/components/amp-sidebar/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-sidebar/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-sidebar/preview/",
+    "Target": "amp.dev/documentation/examples/components/amp-sidebar/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-sidebar/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-social-share/",
+    "Target": "amp.dev/documentation/examples/components/amp-social-share/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-social-share/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-social-share/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-soundcloud/",
+    "Target": "amp.dev/documentation/examples/components/amp-soundcloud/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-soundcloud/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-soundcloud/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-springboard-player/",
+    "Target": "amp.dev/documentation/examples/components/amp-springboard-player/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-springboard-player/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-springboard-player/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-sticky-ad/",
+    "Target": "amp.dev/documentation/examples/components/amp-sticky-ad/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-sticky-ad/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-sticky-ad/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-timeago/",
+    "Target": "amp.dev/documentation/examples/components/amp-timeago/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-timeago/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-timeago/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-twitter/",
+    "Target": "amp.dev/documentation/examples/components/amp-twitter/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-twitter/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-twitter/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-user-notification/",
+    "Target": "amp.dev/documentation/examples/components/amp-user-notification/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-user-notification/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-user-notification/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-video-iframe/",
+    "Target": "amp.dev/documentation/examples/components/amp-video-iframe/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-video-iframe/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-video-iframe/preview/",
+    "Target": "amp.dev/documentation/examples/components/amp-video-iframe/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-video-iframe/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-video/",
+    "Target": "amp.dev/documentation/examples/components/amp-video/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-video/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-video/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-vimeo/",
+    "Target": "amp.dev/documentation/examples/components/amp-vimeo/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-vimeo/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-vimeo/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-vine/",
+    "Target": "amp.dev/documentation/examples/components/amp-vine/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-vine/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-vine/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-web-push/",
+    "Target": "amp.dev/documentation/examples/components/amp-web-push/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-web-push/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-web-push/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-youtube/",
+    "Target": "amp.dev/documentation/examples/components/amp-youtube/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-youtube/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/components/amp-youtube/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/dynamic_amp/client-side_filtering/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/client-side_filtering/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/dynamic_amp/client-side_filtering/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/dynamic_amp/client-side_filtering/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/dynamic_amp/dynamic_content_after_user-interaction/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/dynamic_content_after_user-interaction/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/dynamic_amp/dynamic_content_after_user-interaction/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/dynamic_amp/dynamic_content_after_user-interaction/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/dynamic_amp/mixing_dynamic_and_cached_data/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/mixing_dynamic_and_cached_data/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/dynamic_amp/mixing_dynamic_and_cached_data/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/dynamic_amp/mixing_dynamic_and_cached_data/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/dynamic_amp/multi_page_flow/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/multi_page_flow/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/dynamic_amp/multi_page_flow/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/dynamic_amp/multi_page_flow/preview/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/multi_page_flow/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/dynamic_amp/multi_page_flow/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/https://ampbyexample-com.cdn.ampproject.org/c/s/ampbyexample.com/amp-ads/basic_ads/banner_ad/preview/?exp=a4a:-1",
+    "Target": "amp.dev/documentation/examples/introduction/banner_ad/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/https://ampbyexample-com.cdn.ampproject.org/c/s/ampbyexample.com/amp-ads/introduction/amphtml_ads_vs_non-amp_ads/preview/?exp=a4a:-1",
+    "Target": "amp.dev/documentation/examples/advertising-analytics/amphtml_ads_vs_non_amp_ads/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/introduction/amp_for_e-commerce_getting_started/",
+    "Target": "amp.dev/documentation/examples/e-commerce/amp_for_e-commerce_getting_started/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/introduction/amp_for_e-commerce_getting_started/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/introduction/amp_for_e-commerce_getting_started/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/introduction/hello_world/",
+    "Target": "amp.dev/documentation/examples/introduction/hello_world/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/introduction/hello_world/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/introduction/hello_world/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/introduction/how_to_publish_amps/",
+    "Target": "",
+    "Status": "Needs migration",
+    "Comment": "Can link to /content/amp-dev/documentation/guides-and-tutorials/optimize-measure/publishing_checklist.md (depends on #1712 being merged)"
+  },
+  {
+    "Source": "/introduction/how_to_publish_amps/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/introduction/how_to_publish_amps/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/introduction/internationalization/",
+    "Target": "amp.dev/documentation/examples/guides/internationalization/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/introduction/internationalization/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/introduction/internationalization/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/checkout_flow/",
+    "Target": "amp.dev/documentation/examples/e-commerce/checkout_flow/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/checkout_flow/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/checkout_flow/preview/",
+    "Target": "amp.dev/documentation/examples/e-commerce/checkout_flow/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/checkout_flow/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/comment_section/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/comment_section/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/comment_section/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/comment_section/preview/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/comment_section/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/comment_section/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/hotel/",
+    "Target": "amp.dev/documentation/examples/e-commerce/hotel/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/hotel/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/hotel/preview/",
+    "Target": "amp.dev/documentation/examples/e-commerce/hotel/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/hotel/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/housing/",
+    "Target": "amp.dev/documentation/examples/e-commerce/housing/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/housing/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/housing/preview/",
+    "Target": "amp.dev/documentation/examples/e-commerce/housing/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/housing/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/live_blog/",
+    "Target": "/documentation/examples/news-publishing/live_blog/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/live_blog/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/live_blog/preview/",
+    "Target": "/documentation/examples/news-publishing/live_blog/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/live_blog/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/news_article/",
+    "Target": "amp.dev/documentation/examples/news-publishing/news_article/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/news_article/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/news_article/preview/",
+    "Target": "amp.dev/documentation/examples/news-publishing/news_article/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/news_article/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/poll/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/poll/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/poll/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/poll/preview/",
+    "Target": "amp.dev/documentation/examples/interactivity-dynamic-content/poll/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/poll/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/product_browse_page/",
+    "Target": "amp.dev/documentation/examples/e-commerce/product_browse_page/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/product_browse_page/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/product_browse_page/preview/",
+    "Target": "amp.dev/documentation/examples/e-commerce/product_browse_page/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/product_browse_page/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/product_page/",
+    "Target": "amp.dev/documentation/examples/e-commerce/product_page/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/product_page/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/product_page/preview/",
+    "Target": "amp.dev/documentation/examples/e-commerce/product_page/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/product_page/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/recipe/",
+    "Target": "amp.dev/documentation/examples/news-publishing/recipe/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/recipe/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/recipe/preview/",
+    "Target": "amp.dev/documentation/examples/news-publishing/recipe/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/recipe/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/shopping_cart/",
+    "Target": "amp.dev/documentation/examples/e-commerce/shopping_cart/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/shopping_cart/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/samples_templates/shopping_cart/preview/embed/",
+    "Target": "amp.dev/documentation/examples/e-commerce/shopping_cart/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/features/animations/",
+    "Target": "amp.dev/documentation/examples/visual-effects/amp_story_animations/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/features/animations/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/features/animations/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/features/layouts/",
+    "Target": "amp.dev/documentation/examples/style-layout/amp_story_layouts/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/features/layouts/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/features/layouts/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/features/media/",
+    "Target": "amp.dev/documentation/examples/multimedia-animations/supported_media_types_in_amp_stories/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/features/media/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/features/media/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/features/supporting_desktop_and_landscape_mode/",
+    "Target": "amp.dev/documentation/examples/style-layout/desktop_and_landscape_mode_support/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/features/supporting_desktop_and_landscape_mode/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/features/supporting_desktop_and_landscape_mode/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/introduction/amp_story_hello_world/",
+    "Target": "amp.dev/documentation/examples/introduction/stories_in_amp/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/introduction/amp_story_hello_world/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/introduction/amp_story_hello_world/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/monetization/doubleclick/",
+    "Target": "amp.dev/documentation/examples/advertising-analytics/doubleclick_amp_story_ads/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/monetization/doubleclick/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/monetization/doubleclick/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/monetization/publisher_served/",
+    "Target": "amp.dev/documentation/examples/advertising-analytics/publisher_served_amp_story_ads/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/monetization/publisher_served/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/monetization/publisher_served/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/user_consent/story_user_consent/",
+    "Target": "amp.dev/documentation/examples/user-consent/story_user_consent/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/user_consent/story_user_consent/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/user_consent/story_user_consent/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/visual_effects/ken_burns/",
+    "Target": "amp.dev/documentation/examples/visual-effects/ken_burns/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/visual_effects/ken_burns/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories/visual_effects/ken_burns/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories#stories/features",
+    "Target": "amp.dev/documentation/examples.html?format=stories",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories#stories/introduction",
+    "Target": "amp.dev/documentation/examples.html?format=stories",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories#stories/monetization",
+    "Target": "amp.dev/documentation/examples.html?format=stories",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories#stories/user_consent",
+    "Target": "amp.dev/documentation/examples.html?format=stories",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/stories#stories/visual_effects",
+    "Target": "amp.dev/documentation/examples.html?format=stories",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/user_consent/advanced_user_consent_flow/",
+    "Target": "amp.dev/documentation/examples/user-consent/advanced_user_consent_flow/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/user_consent/advanced_user_consent_flow/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/user_consent/advanced_user_consent_flow/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/user_consent/basic_user_consent_flow/",
+    "Target": "amp.dev/documentation/examples/user-consent/basic_user_consent_flow/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/user_consent/basic_user_consent_flow/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/user_consent/basic_user_consent_flow/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/user_consent/external_user_consent_flow/",
+    "Target": "amp.dev/documentation/examples/user-consent/external_user_consent_flow/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/user_consent/external_user_consent_flow/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/user_consent/external_user_consent_flow/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/user_consent/geolocation-based_consent_flow/",
+    "Target": "amp.dev/documentation/examples/user-consent/geolocation-based_consent_flow/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/user_consent/geolocation-based_consent_flow/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/user_consent/geolocation-based_consent_flow/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/visual_effects/animated_snackbar/",
+    "Target": "amp.dev/documentation/examples/visual-effects/animated_snackbar/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/visual_effects/animated_snackbar/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/visual_effects/animated_snackbar/preview/",
+    "Target": "amp.dev/documentation/examples/visual-effects/animated_snackbar/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/visual_effects/animated_snackbar/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/visual_effects/basics_of_orientation_effects/",
+    "Target": "amp.dev/documentation/examples/visual-effects/basics_of_orientation_effects/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/visual_effects/basics_of_orientation_effects/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/visual_effects/basics_of_orientation_effects/preview/",
+    "Target": "amp.dev/documentation/examples/visual-effects/basics_of_orientation_effects/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/visual_effects/basics_of_orientation_effects/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/visual_effects/basics_of_scrollbound_effects/",
+    "Target": "amp.dev/documentation/examples/visual-effects/basics_of_scrollbound_effects/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/visual_effects/basics_of_scrollbound_effects/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/visual_effects/basics_of_scrollbound_effects/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/visual_effects/scroll_to_top/",
+    "Target": "amp.dev/documentation/examples/visual-effects/scroll_to_top/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/visual_effects/scroll_to_top/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/visual_effects/scroll_to_top/preview/",
+    "Target": "amp.dev/documentation/examples/visual-effects/scroll_to_top/preview/index.html",
+    "Status": "Migrated",
+    "Comment": ""
+  },
+  {
+    "Source": "/visual_effects/scroll_to_top/preview/embed/",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-app-banner-manifest.json",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp-video-iframe-videojs.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/amp4mail/gallery.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/copier.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/glTF/DamagedHelmet.glb",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/googlea533f0f54d9c716a.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/hreflang/fr/index.amp.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/hreflang/fr/index.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/hreflang/index.amp.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/hreflang/index.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/humans.txt",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/internationalization/alternate/fr/index.amp.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/internationalization/alternate/fr/index.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/internationalization/alternate/fr/index.mobile.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/internationalization/alternate/index.amp.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/internationalization/alternate/index.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/internationalization/alternate/index.mobile.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/internationalization/alternate/ja/index.amp.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/internationalization/alternate/ja/index.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/internationalization/alternate/ja/index.mobile.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/internationalization/amp_hreflang_example_1.png",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/internationalization/amp_hreflang_example_2.png",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/internationalization/basic/fr/index.amp.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/internationalization/basic/fr/index.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/internationalization/basic/index.amp.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/internationalization/basic/index.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/internationalization/basic/ja/index.amp.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/internationalization/basic/ja/index.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/internationalization/rtl.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/invalid_amp.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/linker/demo-page.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/linker/destination-page.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/login.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/manifest.json",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/sw.html",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/sw.js",
+    "Target": "",
+    "Status": "Gone",
+    "Comment": ""
+  },
+  {
+    "Source": "/webpush/amp-web-push-helper-frame.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  },
+  {
+    "Source": "/webpush/amp-web-push-permission-dialog.html",
+    "Target": "",
+    "Status": "",
+    "Comment": ""
+  }
+]

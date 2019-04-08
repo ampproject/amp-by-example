@@ -53,12 +53,6 @@ handlers:
   http_headers:
     Access-Control-Allow-Origin: "*"
 
-- url: /img
-  static_dir: dist/img
-  secure: always
-  http_headers:
-    Access-Control-Allow-Origin: "*"
-
 - url: /styles
   static_dir: dist/styles
   secure: always
@@ -70,11 +64,6 @@ handlers:
   secure: always
   http_headers:
     Access-Control-Allow-Origin: "*"
-
-- url: /video
-  static_dir: dist/video
-  secure: always
-  http_headers:
 
 - url: /polymer/detail/.*
   static_files: dist/polymer/index.html
