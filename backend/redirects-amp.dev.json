@@ -904,10 +904,6 @@
     "target": "https://amp.dev/static/samples/files/amp-video-iframe-videojs.html"
   },
   {
-    "source": "/amp4mail/gallery.html",
-    "target": "https://amp.dev/static/samples/files/amp4mail/gallery.html"
-  },
-  {
     "source": "/copier.html",
     "target": "https://amp.dev/static/samples/files/copier.html"
   },
