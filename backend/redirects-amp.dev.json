@@ -893,7 +893,7 @@
   },
   {
     "source": "/",
-    "target": "https://amp.dev/?referrer=ampbyexample.com"
+    "target": "https://amp.dev/documentation/examples/?referrer=ampbyexample.com"
   },
   {
     "source": "/amp-app-banner-manifest.json",

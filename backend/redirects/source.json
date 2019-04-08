@@ -3307,7 +3307,7 @@
   },
   {
     "Source": "/",
-    "Target": "amp.dev",
+    "Target": "https://amp.dev/documentation/examples/",
     "Status": "Migrated",
     "Comment": ""
   }
