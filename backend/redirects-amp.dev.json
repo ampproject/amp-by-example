@@ -301,63 +301,63 @@
   },
   {
     "source": "/amp-ads/advanced_ads/carousel_ad/",
-    "target": "https://amp.dev/documentation/examples/introduction/carousel_ad/?referrer=ampbyexample.com"
+    "target": "https://amp.dev/documentation/examples/style-layout/carousel_ad/?format=ads&referrer=ampbyexample.com"
   },
   {
     "source": "/amp-ads/advanced_ads/carousel_ad/preview/",
-    "target": "https://amp.dev/documentation/examples/introduction/carousel_ad/preview/?referrer=ampbyexample.com"
+    "target": "https://amp.dev/documentation/examples/style-layout/carousel_ad/preview/?format=ads&referrer=ampbyexample.com"
   },
   {
     "source": "/amp-ads/advanced_ads/scrollbound_animation_ad/",
-    "target": "https://amp.dev/documentation/examples/introduction/scrollbound_animation_ad/?referrer=ampbyexample.com"
+    "target": "https://amp.dev/documentation/examples/visual-effects/scrollbound_animation_ad/?format=ads&referrer=ampbyexample.com"
   },
   {
     "source": "/amp-ads/advanced_ads/scrollbound_animation_ad/preview/",
-    "target": "https://amp.dev/documentation/examples/introduction/scrollbound_animation_ad/preview/?referrer=ampbyexample.com"
+    "target": "https://amp.dev/documentation/examples/introduction/scrollbound_animation_ad/preview/?format=ads&referrer=ampbyexample.com"
   },
   {
     "source": "/amp-ads/advanced_ads/scrollbound_video_ad/",
-    "target": "https://amp.dev/documentation/examples/introduction/scrollbound_video_ad/?referrer=ampbyexample.com"
+    "target": "https://amp.dev/documentation/examples/multimedia-animations/scrollbound_video_ad/?format=ads&referrer=ampbyexample.com"
   },
   {
     "source": "/amp-ads/advanced_ads/scrollbound_video_ad/preview/",
-    "target": "https://amp.dev/documentation/examples/introduction/scrollbound_video_ad/preview/?referrer=ampbyexample.com"
+    "target": "https://amp.devdocumentation/examples/multimedia-animations/scrollbound_video_ad/preview/?format=ads&referrer=ampbyexample.com"
   },
   {
     "source": "/amp-ads/advanced_ads/slides_ad/",
-    "target": "https://amp.dev/documentation/examples/introduction/slides_ad/?referrer=ampbyexample.com"
+    "target": "https://amp.dev/documentation/examples/interactivity-dynamic-content/slides_ad/?format=ads&referrer=ampbyexample.com"
   },
   {
     "source": "/amp-ads/advanced_ads/slides_ad/preview/",
-    "target": "https://amp.dev/documentation/examples/introduction/slides_ad/preview/?referrer=ampbyexample.com"
+    "target": "https://amp.dev/documentation/examples/introduction/slides_ad/preview/?format=ads&referrer=ampbyexample.com"
   },
   {
     "source": "/amp-ads/advanced_ads/video_ad/",
-    "target": "https://amp.dev/documentation/examples/introduction/video_ad/?referrer=ampbyexample.com"
+    "target": "https://amp.dev/documentation/examples/multimedia-animations/video_ad/?format=ads&referrer=ampbyexample.com"
   },
   {
     "source": "/amp-ads/advanced_ads/video_ad/preview/",
-    "target": "https://amp.dev/documentation/examples/introduction/video_ad/preview/?referrer=ampbyexample.com"
+    "target": "https://amp.dev/documentation/examples/multimedia-animations/video_ad/preview/?format=ads&referrer=ampbyexample.com"
   },
   {
     "source": "/amp-ads/basic_ads/banner_ad/",
-    "target": "https://amp.dev/documentation/examples/introduction/banner_ad/?referrer=ampbyexample.com"
+    "target": "https://amp.dev/documentation/examples/style-layout/banner_ad/?format=ads&referrer=ampbyexample.com"
   },
   {
     "source": "/amp-ads/experimental_ads/lightbox_ad/",
-    "target": "https://amp.dev/documentation/examples/introduction/lightbox_ad/?referrer=ampbyexample.com"
+    "target": "https://amp.dev/documentation/examples/style-layout/lightbox_ad/?format=ads&referrer=ampbyexample.com"
   },
   {
     "source": "/amp-ads/experimental_ads/lightbox_ad/preview/",
-    "target": "https://amp.dev/documentation/examples/introduction/lightbox_ad/preview/?referrer=ampbyexample.com"
+    "target": "https://amp.dev/documentation/examples/style-layout/lightbox_ad/preview/?format=ads&referrer=ampbyexample.com"
   },
   {
     "source": "/amp-ads/experimental_ads/stack_with_bind_ad/",
-    "target": "https://amp.dev/documentation/examples/introduction/stack_with_bind_ad/?referrer=ampbyexample.com"
+    "target": "https://amp.dev/documentation/examples/interactivity-dynamic-content/stack_with_bind_ad/?format=ads&referrer=ampbyexample.com"
   },
   {
     "source": "/amp-ads/experimental_ads/stack_with_bind_ad/preview/",
-    "target": "https://amp.dev/documentation/examples/introduction/stack_with_bind_ad/preview/?referrer=ampbyexample.com"
+    "target": "https://amp.dev/documentation/examples/interactivity-dynamic-content/stack_with_bind_ad/preview/?format=ads&referrer=ampbyexample.com"
   },
   {
     "source": "/amp-ads/introduction/hello_world/",
