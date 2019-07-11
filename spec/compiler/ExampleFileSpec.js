@@ -23,6 +23,10 @@ describe("ExampleFile", function() {
     it('extracts title', function() {
       expect(file.title()).toBe("What's up 100%?");
     });
+    it('use parent directory name as title if filename is index', function() {
+      expect(ExampleFile.fromPath('src/Samples_%26_Templates/index.html')
+        .title()).toBe('Samples & Templates');
+    });
     it('strips leading _', function() {
       expect(ExampleFile.fromPath('src/10_Hello-world/_Hello.html')
         .targetPath()).toBe("hello-world/hello/index.html");
