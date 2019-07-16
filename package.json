@@ -1,6 +1,6 @@
 {
   "name": "amp-by-example",
-  "version": "0.2.15",
+  "version": "0.2.16",
   "description": "AMP by example",
   "repository": {
     "type": "git",
@@ -22,16 +22,12 @@
   ],
   "dependencies": {
     "clean-css": "^4.2.1",
-    "glob": "^7.1.4",
     "highlight.js": "^9.15.6",
     "hogan.js": "^3.0.2",
     "html-minifier": "^4.0.0",
     "js-beautify": "1.10.0",
     "marked": "^0.6.2",
     "mkdirp": "^0.5.1",
-    "phantom": "^6.2.0",
-    "pygmentize-bundled": "^2.3.0",
-    "slug": "^1.1.0",
     "striptags": "^3.1.1"
   },
   "devDependencies": {
