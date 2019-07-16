@@ -80,6 +80,18 @@ describe("Document", function() {
 
   });
 
+  describe("formats", function() {
+    it("is determined automatically ", function() {
+      doc.isAmpEmail = true;
+      expect(doc.formats()).toEqual(['email']);
+    });
+    it("is extracted from metadata", function() {
+      doc.isAmpEmail = true;
+      doc.metadata.formats = ['websites', 'email'];
+      expect(doc.formats()).toEqual(['websites', 'email']);
+    });
+  });
+
   describe("hasCanonical is", function() {
     it("true if head contains canonical link ", function() {
       doc.appendHead(CANONICAL);
