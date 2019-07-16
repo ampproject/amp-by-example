@@ -90,13 +90,6 @@ describe("Document", function() {
       doc.metadata.formats = ['websites', 'email'];
       expect(doc.formats()).toEqual(['websites', 'email']);
     });
-    it("throws when section filters are invalid", function() {
-      const section = new CodeSection();
-      section.filters = ['email'];
-      expect(() => {
-        doc.addSection(section);
-      }).toThrowError(/^Section uses filter that's not listed/);
-    });
   });
 
   describe("hasCanonical is", function() {
