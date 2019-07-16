@@ -80,6 +80,25 @@ describe("Document", function() {
 
   });
 
+  describe("formats", function() {
+    it("is determined automatically ", function() {
+      doc.isAmpEmail = true;
+      expect(doc.formats()).toEqual(['email']);
+    });
+    it("is extracted from metadata", function() {
+      doc.isAmpEmail = true;
+      doc.metadata.formats = ['websites', 'email'];
+      expect(doc.formats()).toEqual(['websites', 'email']);
+    });
+    it("throws when section filters are invalid", function() {
+      const section = new CodeSection();
+      section.filters = ['email'];
+      expect(() => {
+        doc.addSection(section);
+      }).toThrowError(/^Section uses filter that's not listed/);
+    });
+  });
+
   describe("hasCanonical is", function() {
     it("true if head contains canonical link ", function() {
       doc.appendHead(CANONICAL);
