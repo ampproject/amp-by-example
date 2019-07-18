@@ -52,7 +52,7 @@
     "gulp-htmlhint": "^2.2.1",
     "gulp-htmlmin": "5.0.1",
     "gulp-if": "2.0.2",
-    "gulp-ignore": "2.0.2",
+    "gulp-ignore": "3.0.0",
     "gulp-jasmine": "4.0.0",
     "gulp-rename": "1.4.0",
     "gulp-run": "1.7.1",
