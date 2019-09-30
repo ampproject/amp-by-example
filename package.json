@@ -67,7 +67,7 @@
     "parse-png": "1.1.2",
     "pixelmatch": "4.0.2",
     "pngjs": "3.4.0",
-    "resize-img": "1.1.2",
+    "resize-img": "2.0.0",
     "serve": "11.0.0",
     "sitemap": "2.2.0",
     "stream-to-buffer": "0.1.0",
