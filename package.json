@@ -64,7 +64,7 @@
     "js-yaml": "^3.13.1",
     "load-bmfont": "1.4.0",
     "node-fetch": "^2.5.0",
-    "parse-png": "1.1.2",
+    "parse-png": "2.1.0",
     "pixelmatch": "4.0.2",
     "pngjs": "3.4.0",
     "resize-img": "1.1.2",
